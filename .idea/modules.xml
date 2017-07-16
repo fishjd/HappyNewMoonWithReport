@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/happybluemoonwithreport.iml" filepath="$PROJECT_DIR$/.idea/modules/happybluemoonwithreport.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/happybluemoonwithreport_main.iml" filepath="$PROJECT_DIR$/.idea/modules/happybluemoonwithreport_main.iml" group="happybluemoonwithreport" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/happybluemoonwithreport_test.iml" filepath="$PROJECT_DIR$/.idea/modules/happybluemoonwithreport_test.iml" group="happybluemoonwithreport" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/HappyBlueMoonWithReport.iml" filepath="$PROJECT_DIR$/.idea/modules/HappyBlueMoonWithReport.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/HappyBlueMoonWithReport_main.iml" filepath="$PROJECT_DIR$/.idea/modules/HappyBlueMoonWithReport_main.iml" group="HappyBlueMoonWithReport" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/HappyBlueMoonWithReport_test.iml" filepath="$PROJECT_DIR$/.idea/modules/HappyBlueMoonWithReport_test.iml" group="HappyBlueMoonWithReport" />
     </modules>
   </component>
 </project>

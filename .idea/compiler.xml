@@ -12,8 +12,10 @@
       <entry name="!?*.clj" />
     </wildcardResourcePatterns>
     <bytecodeTargetLevel target="1.8">
-      <module name="happybluemoonwithreport_main" target="1.8" />
-      <module name="happybluemoonwithreport_test" target="1.8" />
+      <module name="HappyBlueMoonWithReport_main" target="1.8" />
+      <module name="happybluemoonwithreport_main" target="1.5" />
+      <module name="happybluemoonwithreport_test" target="1.5" />
+      <module name="HappyBlueMoonWithReport_test" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
