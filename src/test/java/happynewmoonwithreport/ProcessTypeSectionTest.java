@@ -33,7 +33,7 @@ public class ProcessTypeSectionTest {
         assertEquals(1,functionSignature.getFunctionSignitures().size());
         final ArrayList<FunctionType> functionSignatureAll = functionSignature.getFunctionSignitures();
         FunctionType functionType = functionSignatureAll.get(0);
-        assertEquals(ValueType.func,  functionType.getForm());
+        assertEquals("func",  functionType.getForm().getValue());
         assertEquals(new VarUInt32(2),  functionType.getParamCount());
         assertEquals(new VarUInt1(1),  functionType.getReturnCount());
 
@@ -43,9 +43,9 @@ public class ProcessTypeSectionTest {
         assertEquals(2, functionType.getParamTypeAll().size());
         assertEquals(1, functionType.getReturnTypeAll().size());
 
-        assertEquals( ValueType.int32  , functionType.getParamTypeAll().get(0));
-        assertEquals( ValueType.int32  , functionType.getParamTypeAll().get(1));
-        assertEquals( ValueType.int32  , functionType.getReturnTypeAll().get(0));
+        assertEquals( "int32"  , functionType.getParamTypeAll().get(0).getValue());
+        assertEquals( "int32"  , functionType.getParamTypeAll().get(1).getValue());
+        assertEquals( "int32"  , functionType.getReturnTypeAll().get(0).getValue());
 
 
     }

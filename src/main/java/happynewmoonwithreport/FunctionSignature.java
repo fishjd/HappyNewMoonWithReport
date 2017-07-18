@@ -3,7 +3,6 @@ package happynewmoonwithreport;
 import happynewmoonwithreport.type.VarInt7;
 import happynewmoonwithreport.type.VarUInt1;
 import happynewmoonwithreport.type.VarUInt32;
-import happynewmoonwithreport.type.VarUInt7;
 
 import java.util.ArrayList;
 
@@ -25,7 +24,7 @@ public class FunctionSignature implements Module {
     public void instantiate(byte[] payload) {
         Integer index = 0;
 
-        VarInt7 form;
+        ValueType form;
         VarUInt32 paramCount;
         VarUInt1 varReturnCount;
 
@@ -38,11 +37,9 @@ public class FunctionSignature implements Module {
         FunctionType functionType;
         for (Integer countFT = 0; countFT < typeCount.IntegerValue(); countFT++) {
             //* form
-            form = new VarInt7(payload, index);
-            index += form.size();
-            assert (form.equals(ValueType.func.getTypeVarInt7()));
-
-            ValueType vtForm = ValueType.valueOf(form);
+            form = new ValueType(payload, index);
+            index += form.getSize();
+            assert (form.getValue().equals("func"));
 
             //* Parameter Count
             paramCount = new VarUInt32(payload, index);
@@ -51,11 +48,9 @@ public class FunctionSignature implements Module {
             //* Parameters Types
             ArrayList<ValueType> paramAll = new ArrayList<>(paramCount.IntegerValue());
             for (Integer count = 0; count < paramCount.IntegerValue(); count++) {
-                VarInt7 paramType = new VarInt7(payload, index);
-                index += paramType.size();
-
-                ValueType valueType = ValueType.valueOf(paramType);
-                paramAll.add(count, valueType);
+                ValueType paramType = new ValueType(payload, index);
+                index += paramType.getSize();
+                paramAll.add(count, paramType);
             }
 
             //* Return Count
@@ -67,14 +62,12 @@ public class FunctionSignature implements Module {
             //* Return Types.
             ArrayList<ValueType> returnAll = new ArrayList<>(returnCount.value());
             for (Integer count = 0; count < returnCount.value(); count++) {
-                VarInt7 returnType = new VarInt7(payload, index);
-                index += returnType.size();
-
-                ValueType valueType = ValueType.valueOf(returnType);
-                returnAll.add(count, valueType);
+                ValueType returnType = new ValueType(payload, index);
+                index += returnType.getSize();
+                returnAll.add(count, returnType);
             }
 
-            functionType = new FunctionType(vtForm, paramCount, paramAll, returnCount, returnAll);
+            functionType = new FunctionType(form, paramCount, paramAll, returnCount, returnAll);
             functionSignitures.add(countFT, functionType);
         }
     }

@@ -1,115 +1,102 @@
 package happynewmoonwithreport;
 
-import happynewmoonwithreport.type.VarInt;
 import happynewmoonwithreport.type.VarInt7;
 
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * The data types in Web Assembly. int32, int64, f32, f64 <br>
- * Source : <a href=
- * "http://webassembly.org/docs/semantics/#types">http://webassembly.org/docs/semantics/#types</a>
+ * The data types in Web Assembly. int32, int64, f32, f64 <p>
+ * <p>
+ * Source : <a href= "http://webassembly.org/docs/semantics/#types">http://webassembly.org/docs/semantics/#types</a>
+ * <p>
+ * Source : <a href="http://webassembly.org/docs/binary-encoding/#language-types">
+ * http://webassembly.org/docs/binary-encoding/#language-types</a>
  */
-public enum ValueType {
-    /**
-     * 32 bit integer. In java stored as "Integer" @see Integer<br>
-     * <p>
-     * Source :
-     * <a href="http://webassembly.org/docs/binary-encoding/#language-types">
-     * http://webassembly.org/docs/binary-encoding/#language-types</a>
-     */
-    int32(-0x01), // byte value  0x7F
-
-    /**
-     * 64 bit integer. In java stored as "Long" @see Long <br>
-     * <p>
-     * Source :
-     * <a href="http://webassembly.org/docs/binary-encoding/#language-types">
-     * http://webassembly.org/docs/binary-encoding/#language-types</a>
-     */
-    int64(-0x02), // byte value  0x7e
-
-    /**
-     * 32 bit float. In java stored as "Float" @see Float<br>
-     * <p>
-     * Source :
-     * <a href="http://webassembly.org/docs/binary-encoding/#language-types">
-     * http://webassembly.org/docs/binary-encoding/#language-types</a>
-     */
-    f32(-0x03), // byte value  0x7d
-
-    /**
-     * 64 bit float. In java stored as "Double" @see Double <br>
-     * <p>
-     * Source :
-     * <a href="http://webassembly.org/docs/binary-encoding/#language-types">
-     * http://webassembly.org/docs/binary-encoding/#language-types</a>
-     */
-    f64(-0x04), // byte value  0x7C
-
-    /**
-     * Any Function<br>
-     * <p>
-     * Source :
-     * <a href="http://webassembly.org/docs/binary-encoding/#language-types">
-     * http://webassembly.org/docs/binary-encoding/#language-types</a>
-     */
-    anyFunc(-0x10), //  byte value  0x70
-
-    /**
-     * Function<br>
-     * <p>
-     * Source :
-     * <a href="http://webassembly.org/docs/binary-encoding/#language-types">
-     * http://webassembly.org/docs/binary-encoding/#language-types</a>
-     */
-    func(-0x20),  //  byte value  0x60
-
-    /**
-     * Pseudo type for representing an empty block_type<br>
-     * <p>
-     * Source :
-     * <a href="http://webassembly.org/docs/binary-encoding/#language-types">
-     * http://webassembly.org/docs/binary-encoding/#language-types</a>
-     */
-    emptyBlock(-0x40) // byte value  +0x40
-    ; // <-- the terminating semicolon.
+public class ValueType {
 
     private Integer type;
+    private String value;
+    private Integer size = 1;
 
-    private ValueType(Integer type) {
-        this.type = type;
+    private ValueType() {
+
     }
 
-    ValueType(byte[] byteAll, Integer index) {
-        VarInt7 vt = new VarInt7(byteAll, index);
-        this.type = vt.IntegerValue();
 
+    public ValueType(Integer type) {
+        this();
+        this.type = type;
+        calcValue(type);
+    }
+
+    public ValueType(VarInt7 input) {
+        this();
+        this.type = input.IntegerValue();
+        calcValue(type);
+    }
+
+    public ValueType(byte[] byteAll, Integer index) {
+        this();
+        VarInt7 vt = new VarInt7(byteAll, index);
+        size = vt.size();
+        index = index + vt.size();
+        this.type = vt.IntegerValue();
+        calcValue(type);
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public Integer getSize() {
+        return size;
     }
 
     public Integer getType() {
         return type;
     }
 
+
     public VarInt7 getTypeVarInt7() {
         return new VarInt7(type);
     }
 
-    private static Map<Integer, ValueType> map = new HashMap<Integer, ValueType>();
+    private static Map<Integer, String> mapNew;
 
     static {
-        for (ValueType legEnum : ValueType.values()) {
-            map.put(legEnum.type, legEnum);
+        mapNew = new HashMap<>();
+
+        // int32(-0x01)      byte value  0x7F
+        mapNew.put(-0x01, "int32");
+        // int64(-0x02)      byte value  0x7e
+        mapNew.put(-0x02, "int64");
+        // f32(-0x03)        byte value  0x7d
+        mapNew.put(-0x03, "f32");
+        // f64(-0x04)        byte value  0x7C
+        mapNew.put(-0x04, "f64");
+        // anyFunc(-0x10)    byte value  0x70
+        mapNew.put(-0x10, "anyFunc");
+        // func(-0x20)       byte value  0x60
+        mapNew.put(-0x20, "func");
+        // emptyBlock(-0x40) byte value  0x40
+        mapNew.put(-0x40, "emptyBlock");
+
+    }
+
+    private void calcValue(Integer input) {
+        value = mapNew.get(input);
+        if (value == null) {
+            throw new RuntimeException("type in ValueType is not valid type = " + type);
         }
+
     }
 
-    public static ValueType valueOf(int input) {
-        return map.get(input);
+    @Override
+    public String toString() {
+        return "ValueType{" +
+                "type = " + type +
+                ", value = " + mapNew.get(type) +
+                '}';
     }
-
-    public static ValueType valueOf(VarInt7 input) {
-        return map.get(input.IntegerValue());
-    }
-
 }
