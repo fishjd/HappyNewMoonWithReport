@@ -92,6 +92,12 @@ public final class VarUInt32 extends VarUInt<Long> {
         return (Integer.MIN_VALUE <= value && value <= Integer.MAX_VALUE);
     }
 
+    public void checkIfTooLarge() {
+        if (isBoundByInteger() == false) {
+            throw new RuntimeException("Value is too large!");
+        }
+    }
+
     public Integer getMaxBits() {
         return 32;
     }
@@ -113,6 +119,7 @@ public final class VarUInt32 extends VarUInt<Long> {
     }
 
     public Integer IntegerValue() {
+        checkIfTooLarge();
         return value.intValue();
     }
 

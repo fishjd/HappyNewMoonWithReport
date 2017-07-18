@@ -55,13 +55,11 @@ public class Wasm {
             u32PayloadLength = new VarUInt32(bytesAll, index);
             index += u32PayloadLength.size();
 
-            checkIfTooLarge(u32PayloadLength);
             payloadLength = u32PayloadLength.IntegerValue();
             // ¿ Named Section ?
             if (sectionCode.value() == 0) {
                 // name Length
                 nameLength = new VarUInt32(bytesAll, index);
-                checkIfTooLarge(nameLength);
                 index += nameLength.size();
                 // name
                 String name = new String(bytesAll, index, nameLength.IntegerValue());
@@ -79,11 +77,7 @@ public class Wasm {
         assert index == bytesAll.length : "File length is not correct";
     }
 
-    private void checkIfTooLarge(VarUInt32 input) {
-        if (input.isBoundByInteger() == false) {
-            throw new RuntimeException("Value is too large!");
-        }
-    }
+
 
     private VarUInt7 readSectionCode() {
         VarUInt7 result = new VarUInt7(bytesAll[index]);
