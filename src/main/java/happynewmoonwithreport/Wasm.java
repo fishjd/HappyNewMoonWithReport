@@ -18,74 +18,98 @@ public class Wasm {
     }
 
     private byte[] bytesAll;
+    private UInt32 magicNumber;
     private UInt32 version;
     Integer index = 0;
 
-    FunctionSigniture functionSigniture = null;
+    FunctionSignature functionSignature = null;
 
     public Wasm(String fileName) {
-        bytesAll = readBytesFromFile(fileName);
+        try {
+            bytesAll = readBytesFromFile(fileName);
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
     }
 
     public void instantiate() throws Exception {
 
-        VarUInt32 leb32NameLength = new VarUInt32(0L);
-        Integer sizeOFNameLenth = 0;
+        VarUInt7 sectionCode;
+        VarUInt32 u32PayloadLength;
+        /**
+         * payloadLength needs to be a java type as it is used in math (+).  Should be Long but copyOfRange only handles int.
+         */
+        Integer payloadLength;
+        VarUInt32 nameLength = new VarUInt32(0L);
+        Integer sizeOFNameLength = 0;
+
+        magicNumber = readMagicNumber();
         checkMagicNumber();
-        readVersion();
+        version = readVersion();
 
         while (index < bytesAll.length) {
-            Integer sectionCode = getSectionCode();
-            VarUInt32 leb32PayloadLength = new VarUInt32(bytesAll, index);
-            Integer payloadLength = leb32PayloadLength.IntegerValue();
-            index += leb32PayloadLength.size();
-            if (sectionCode == 0) {
+            // Section Code
+            sectionCode = readSectionCode();
+
+            // Payload Length
+            u32PayloadLength = new VarUInt32(bytesAll, index);
+            index += u32PayloadLength.size();
+
+            checkIfTooLarge(u32PayloadLength);
+            payloadLength = u32PayloadLength.IntegerValue();
+            // ¿ Named Section ?
+            if (sectionCode.value() == 0) {
                 // name Length
-                leb32NameLength = new VarUInt32(bytesAll, index);
-                index += leb32NameLength.size();
+                nameLength = new VarUInt32(bytesAll, index);
+                checkIfTooLarge(nameLength);
+                index += nameLength.size();
                 // name
-                String name = new String(bytesAll, index, leb32NameLength.IntegerValue());
-                index += leb32NameLength.value().intValue();
+                String name = new String(bytesAll, index, nameLength.IntegerValue());
+                index += nameLength.IntegerValue();
             }
-            payloadLength = payloadLength - leb32NameLength.value().intValue() - sizeOFNameLenth;
+            payloadLength = payloadLength - nameLength.IntegerValue() - sizeOFNameLength;
             byte[] payload = Arrays.copyOfRange(bytesAll, index, index + payloadLength);
             index += payloadLength;
-            if (sectionCode == SectionType.type.getValue()) {
-                functionSigniture = new FunctionSigniture();
-                functionSigniture.instantiate(payload);
+            // Type
+            if (sectionCode.equals(SectionType.type.getUInt7())) {
+                functionSignature = new FunctionSignature();
+                functionSignature.instantiate(payload);
             }
         }
         assert index == bytesAll.length : "File length is not correct";
     }
 
-    /**
-     * Source:
-     * https://github.com/WebAssembly/design/blob/master/BinaryEncoding.md#user-content-module-structure
-     *
-     * @return
-     */
-    private Integer getSectionCode() {
-        VarUInt7 leb7Result = new VarUInt7(bytesAll[index]);
-        Integer result = leb7Result.value();
-        index += leb7Result.size();
+    private void checkIfTooLarge(VarUInt32 input) {
+        if (input.isBoundByInteger() == false) {
+            throw new RuntimeException("Value is too large!");
+        }
+    }
+
+    private VarUInt7 readSectionCode() {
+        VarUInt7 result = new VarUInt7(bytesAll[index]);
+        index += result.size();
         return result;
     }
 
-    private void readVersion() {
-        version = new UInt32(bytesAll, index);
+    private UInt32 readVersion() {
+        UInt32 version = new UInt32(bytesAll, index);
         index += version.size();
+        return version;
     }
 
-    private void checkMagicNumber() throws Exception {
-        Boolean result = true;
-        result &= bytesAll[0] == 0x00; // 0x00
-        result &= bytesAll[1] == 0x61; // a
-        result &= bytesAll[2] == 0x73; // s
-        result &= bytesAll[3] == 0x6d; // m
+    private UInt32 readMagicNumber() {
+        UInt32 magicNumber = new UInt32(bytesAll, index);
+        index += magicNumber.size();
+        return magicNumber;
+    }
+
+    private void checkMagicNumber() {
+        // magicNumberExpected ‘\0asm’ = 1836278016
+        UInt32 magicNumberExpected = new UInt32((byte) 0x00, (byte) 0x61, (byte) 0x73, (byte) 0x6D);
+        Boolean result = magicNumber.equals(magicNumberExpected);
         if (result == false) {
-            throw new Exception("Magic Number does not match.  May not be a *.wasm file");
+            throw new RuntimeException("Magic Number does not match.  May not be a *.wasm file");
         }
-        index += 4;
     }
 
     /**
@@ -95,26 +119,19 @@ public class Wasm {
      * @param filePath
      * @return
      */
-    private static byte[] readBytesFromFile(String filePath) {
+    private static byte[] readBytesFromFile(String filePath) throws IOException {
         FileInputStream fileInputStream = null;
         byte[] bytesArray = null;
         try {
-
             File file = new File(filePath);
             bytesArray = new byte[(int) file.length()];
 
             // read file into bytes[]
             fileInputStream = new FileInputStream(file);
             fileInputStream.read(bytesArray);
-        } catch (IOException e) {
-            e.printStackTrace();
         } finally {
             if (fileInputStream != null) {
-                try {
-                    fileInputStream.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                fileInputStream.close();
             }
         }
         return bytesArray;
@@ -124,8 +141,12 @@ public class Wasm {
         return version;
     }
 
-    public FunctionSigniture getFunctionSignitures() {
+    public UInt32 getMagicNumber() {
+        return magicNumber;
+    }
 
-        return functionSigniture;
+    public FunctionSignature getFunctionSignatures() {
+
+        return functionSignature;
     }
 }

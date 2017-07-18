@@ -84,6 +84,14 @@ public final class VarUInt32 extends VarUInt<Long> {
         return result;
     }
 
+    /**
+     * Does the <code>value</code> lay between Integer.minValue and Integer.maxValue.  i.e Integer.minValue <= value <=
+     * Integer.maxValue;
+     **/
+    public Boolean isBoundByInteger() {
+        return (Integer.MIN_VALUE <= value && value <= Integer.MAX_VALUE);
+    }
+
     public Integer getMaxBits() {
         return 32;
     }

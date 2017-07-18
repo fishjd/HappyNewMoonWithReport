@@ -16,6 +16,8 @@ Code 		10 	Function bodies (code)
 Data 		11
  */
 
+import happynewmoonwithreport.type.VarUInt7;
+
 /**
  * Enum for the defined section names.
  */
@@ -41,6 +43,10 @@ public enum SectionType {
 
     public Integer getValue() {
         return value;
+    }
+
+    public VarUInt7 getUInt7() {
+        return new VarUInt7(value);
     }
 
 }

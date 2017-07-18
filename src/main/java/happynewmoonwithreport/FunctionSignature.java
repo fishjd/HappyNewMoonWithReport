@@ -6,7 +6,7 @@ import happynewmoonwithreport.type.VarUInt7;
 
 import java.util.ArrayList;
 
-public class FunctionSigniture implements Module {
+public class FunctionSignature implements Module {
 
     // all the Function Types.
     ArrayList<FunctionType> functionSignitures;

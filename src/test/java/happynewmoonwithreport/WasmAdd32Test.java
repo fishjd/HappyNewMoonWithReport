@@ -31,7 +31,7 @@ public class WasmAdd32Test {
     @Test
     public void testFunctionSignitures() {
 
-        assertEquals(new Integer(1), wasm.getFunctionSignitures().getSize());
+        assertEquals(new Integer(1), wasm.getFunctionSignatures().getSize());
 
     }
 
