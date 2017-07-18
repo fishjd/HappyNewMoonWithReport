@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class VarInt7Test {
+public class VarUInt7Test {
 
     @Before
     public void setUp() throws Exception {
@@ -42,26 +42,27 @@ public class VarInt7Test {
      * <p>
      * source : https://webassembly.github.io/spec/binary/values.html#integers
      */
+  
+
     @Test
-    public void testReadSignedPaddedNeg2() {
-        byte[] bytesAll = new byte[]{(byte) 0x7E};
-        NumberHelper.assertEqualHex(new VarInt7(-2).LongValue(), new VarInt7(bytesAll).LongValue());
-        assertEquals(new Integer(1), new VarInt7(bytesAll).size());
+    public void testReadSignedPositive2() {
+        byte[] bytesAll = new byte[]{(byte) 0x02};
+        NumberHelper.assertEqualHex(new VarUInt7(2).LongValue(), new VarUInt7(bytesAll).LongValue());
+        assertEquals(new Integer(1), new VarUInt7(bytesAll).size());
 
     }
-
     @Test
     public void testReadSignedPaddedPositive2() {
-        byte[] bytesAll = new byte[]{(byte) 0x02};
-        NumberHelper.assertEqualHex(new VarInt7(2).LongValue(), new VarInt7(bytesAll).LongValue());
-        assertEquals(new Integer(1), new VarInt7(bytesAll).size());
+        byte[] bytesAll = new byte[]{(byte) 0x02, (byte) 0x80};
+        NumberHelper.assertEqualHex(new VarUInt7(2).LongValue(), new VarUInt7(bytesAll).LongValue());
+        assertEquals(new Integer(1), new VarUInt7(bytesAll).size());
 
     }
 
     @Test
     public void testSize() {
         byte[] bytesAll = new byte[]{(byte) 0x03};
-        assertEquals(new Integer(1), new VarInt7(bytesAll).size());
+        assertEquals(new Integer(1), new VarUInt7(bytesAll).size());
     }
 
 	/* @formatter:off	

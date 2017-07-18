@@ -1,5 +1,8 @@
 package happynewmoonwithreport;
 
+import happynewmoonwithreport.type.VarInt;
+import happynewmoonwithreport.type.VarInt7;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,7 +19,7 @@ public enum ValueType {
      * <a href="http://webassembly.org/docs/binary-encoding/#language-types">
      * http://webassembly.org/docs/binary-encoding/#language-types</a>
      */
-    int32(0x7F), //
+    int32(-0x01), // byte value  0x7F
 
     /**
      * 64 bit integer. In java stored as "Long" @see Long <br>
@@ -25,7 +28,7 @@ public enum ValueType {
      * <a href="http://webassembly.org/docs/binary-encoding/#language-types">
      * http://webassembly.org/docs/binary-encoding/#language-types</a>
      */
-    int64(0x7E), //
+    int64(-0x02), // byte value  0x7e
 
     /**
      * 32 bit float. In java stored as "Float" @see Float<br>
@@ -34,7 +37,7 @@ public enum ValueType {
      * <a href="http://webassembly.org/docs/binary-encoding/#language-types">
      * http://webassembly.org/docs/binary-encoding/#language-types</a>
      */
-    f32(0x7D), //
+    f32(-0x03), // byte value  0x7d
 
     /**
      * 64 bit float. In java stored as "Double" @see Double <br>
@@ -43,7 +46,7 @@ public enum ValueType {
      * <a href="http://webassembly.org/docs/binary-encoding/#language-types">
      * http://webassembly.org/docs/binary-encoding/#language-types</a>
      */
-    f64(0x7C), //
+    f64(-0x04), // byte value  0x7C
 
     /**
      * Any Function<br>
@@ -52,7 +55,7 @@ public enum ValueType {
      * <a href="http://webassembly.org/docs/binary-encoding/#language-types">
      * http://webassembly.org/docs/binary-encoding/#language-types</a>
      */
-    anyFunc(0x70),
+    anyFunc(-0x10), //  byte value  0x70
 
     /**
      * Function<br>
@@ -61,7 +64,7 @@ public enum ValueType {
      * <a href="http://webassembly.org/docs/binary-encoding/#language-types">
      * http://webassembly.org/docs/binary-encoding/#language-types</a>
      */
-    func(0x60),
+    func(-0x20),  //  byte value  0x60
 
     /**
      * Pseudo type for representing an empty block_type<br>
@@ -70,7 +73,8 @@ public enum ValueType {
      * <a href="http://webassembly.org/docs/binary-encoding/#language-types">
      * http://webassembly.org/docs/binary-encoding/#language-types</a>
      */
-    emptyBlock(0x40); // <-- the terminating semicolon.
+    emptyBlock(-0x40) // byte value  +0x40
+    ; // <-- the terminating semicolon.
 
     private Integer type;
 
@@ -78,8 +82,18 @@ public enum ValueType {
         this.type = type;
     }
 
+    ValueType(byte[] byteAll, Integer index) {
+        VarInt7 vt = new VarInt7(byteAll, index);
+        this.type = vt.IntegerValue();
+
+    }
+
     public Integer getType() {
         return type;
+    }
+
+    public VarInt7 getTypeVarInt7() {
+        return new VarInt7(type);
     }
 
     private static Map<Integer, ValueType> map = new HashMap<Integer, ValueType>();
@@ -90,8 +104,12 @@ public enum ValueType {
         }
     }
 
-    public static ValueType valueOf(int ValueType) {
-        return map.get(ValueType);
+    public static ValueType valueOf(int input) {
+        return map.get(input);
+    }
+
+    public static ValueType valueOf(VarInt7 input) {
+        return map.get(input.IntegerValue());
     }
 
 }

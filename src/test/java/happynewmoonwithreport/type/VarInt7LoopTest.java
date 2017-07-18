@@ -29,6 +29,7 @@ public class VarInt7LoopTest {
         problemChildren.put(1, new byte[]{0x01});
         problemChildren.put(2, new byte[]{0x02});
         problemChildren.put(-1, new byte[]{0x7F});
+        problemChildren.put(-0x20, new byte[]{0x60});
 
     }
 

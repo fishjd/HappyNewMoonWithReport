@@ -29,7 +29,7 @@ public class WasmAdd32Test {
     }
 
     @Test
-    public void testFunctionSignitures() {
+    public void testFunctionSignatures() {
 
         assertEquals(new Integer(1), wasm.getFunctionSignatures().getSize());
 

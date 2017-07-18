@@ -1,5 +1,6 @@
 package happynewmoonwithreport;
 
+import happynewmoonwithreport.type.VarInt7;
 import happynewmoonwithreport.type.VarUInt1;
 import happynewmoonwithreport.type.VarUInt32;
 import happynewmoonwithreport.type.VarUInt7;
@@ -12,84 +13,68 @@ public class FunctionSignature implements Module {
     ArrayList<FunctionType> functionSignitures;
 
     /**
-     * The type section declares all function signatures that will be used in
-     * the module.
+     * The type section declares all function signatures that will be used in the module.
      * <p>
-     * <table>
-     * <tr>
-     * <td>Field</td>
-     * <td>Type</td>
-     * <td>Description</td>
-     * </tr>
-     * <tr>
-     * <td>count</td>
-     * <td>varuint32</td>
-     * <td>count of type entries to follow</td>
-     * <tr>
-     * <tr>
-     * <td>entries</td>
-     * <td>func_type</td>
-     * <td>repeated type entries as described above</td>
-     * <tr>
-     * </table>
-     * Source: <a href =
-     * "http://webassembly.org/docs/binary-encoding/#type-section">http://webassembly.org/docs/binary-encoding/#type-section</a>
+     * <table> <tr> <td>Field</td> <td>Type</td> <td>Description</td> </tr> <tr> <td>count</td> <td>varuint32</td>
+     * <td>count of type entries to follow</td> <tr> <tr> <td>entries</td> <td>func_type</td> <td>repeated type entries
+     * as described above</td> <tr> </table> Source: <a href = "http://webassembly.org/docs/binary-encoding/#type-section">http://webassembly.org/docs/binary-encoding/#type-section</a>
      *
      * @param payload
      */
     @Override
     public void instantiate(byte[] payload) {
-        Integer payloadIndex = 0;
+        Integer index = 0;
+
+        VarInt7 form;
+        VarUInt32 paramCount;
+        VarUInt1 varReturnCount;
 
         // Type Count
-        VarUInt32 leb32TypeCount = new VarUInt32(payload, payloadIndex);
-        payloadIndex += leb32TypeCount.size();
+        VarUInt32 typeCount = new VarUInt32(payload, index);
+        index += typeCount.size();
 
-        functionSignitures = new ArrayList<>(leb32TypeCount.IntegerValue());
+        functionSignitures = new ArrayList<>(typeCount.IntegerValue());
 
         FunctionType functionType;
-        for (Integer countFT = 0; countFT < leb32TypeCount.IntegerValue(); countFT++) {
-            // form
-            VarUInt7 varForm = new VarUInt7(payload, payloadIndex);
-            Integer form = varForm.value();
-            payloadIndex += varForm.size();
+        for (Integer countFT = 0; countFT < typeCount.IntegerValue(); countFT++) {
+            //* form
+            form = new VarInt7(payload, index);
+            index += form.size();
+            assert (form.equals(ValueType.func.getTypeVarInt7()));
 
-            assert (form.equals(ValueType.func.getType()));
+            ValueType vtForm = ValueType.valueOf(form);
 
-            // Parameter Count
-            VarUInt32 varParamCount = new VarUInt32(payload, payloadIndex);
-            payloadIndex += varParamCount.size();
+            //* Parameter Count
+            paramCount = new VarUInt32(payload, index);
+            index += paramCount.size();
 
-            // Parameters Types
-            ArrayList<ValueType> paramAll = new ArrayList<>(varParamCount.IntegerValue());
-            for (Integer count = 0; count < varParamCount.IntegerValue(); count++) {
-                VarUInt7 varParmType = new VarUInt7(payload, payloadIndex);
-                payloadIndex += varParmType.size();
+            //* Parameters Types
+            ArrayList<ValueType> paramAll = new ArrayList<>(paramCount.IntegerValue());
+            for (Integer count = 0; count < paramCount.IntegerValue(); count++) {
+                VarInt7 paramType = new VarInt7(payload, index);
+                index += paramType.size();
 
-                Integer paramType = varParmType.value();
                 ValueType valueType = ValueType.valueOf(paramType);
                 paramAll.add(count, valueType);
             }
 
-            // Return Count
-            VarUInt1 varReturnCount = new VarUInt1(payload, payloadIndex);
-            Integer returnCount = varReturnCount.value();
-            payloadIndex += varReturnCount.size();
+            //* Return Count
+            VarUInt1 returnCount = new VarUInt1(payload, index);
+            index += returnCount.size();
             // current version only allows 0 or 1
-            assert (returnCount <= 1);
+            assert (returnCount.value() <= 1);
 
-            // Return Types.
-            ArrayList<ValueType> returnAll = new ArrayList<>(returnCount);
-            for (Integer count = 0; count < returnCount; count++) {
-                VarUInt7 varParmType = new VarUInt7(payload, payloadIndex);
-                payloadIndex += varParmType.size();
+            //* Return Types.
+            ArrayList<ValueType> returnAll = new ArrayList<>(returnCount.value());
+            for (Integer count = 0; count < returnCount.value(); count++) {
+                VarInt7 returnType = new VarInt7(payload, index);
+                index += returnType.size();
 
-                Integer paramType = varParmType.value();
-                ValueType valueType = ValueType.valueOf(paramType);
+                ValueType valueType = ValueType.valueOf(returnType);
                 returnAll.add(count, valueType);
             }
 
-            functionType = new FunctionType(form, varParamCount.IntegerValue(), paramAll, returnCount, returnAll);
+            functionType = new FunctionType(vtForm, paramCount, paramAll, returnCount, returnAll);
             functionSignitures.add(countFT, functionType);
         }
     }
