@@ -1,6 +1,5 @@
 package happynewmoonwithreport;
 
-import happynewmoonwithreport.type.VarInt7;
 import happynewmoonwithreport.type.VarUInt1;
 import happynewmoonwithreport.type.VarUInt32;
 import org.junit.After;
@@ -12,14 +11,14 @@ import java.util.ArrayList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-public class ProcessTypeSectionTest {
+public class SectionTypeTest {
 
-    FunctionSignature functionSignature;
+    SectionType sectionType;
 
     @Before
     public void setUp() throws Exception {
-        functionSignature = new FunctionSignature();
-        assertNotNull(functionSignature);
+        sectionType = new SectionType();
+        assertNotNull(sectionType);
     }
 
     @After
@@ -27,12 +26,12 @@ public class ProcessTypeSectionTest {
     }
 
     @Test
-    public void testCount() {
+    public void testInstantiate() {
         byte[] byteAll = {(byte) 0x01, (byte) 0x60, (byte) 0x02, (byte) 0x7F, (byte) 0x7F, (byte) 0x01, (byte) 0x7F};
         BytesFile payload = new BytesFile(byteAll);
-        functionSignature.instantiate(payload);
-        assertEquals(1,functionSignature.getFunctionSignitures().size());
-        final ArrayList<FunctionType> functionSignatureAll = functionSignature.getFunctionSignitures();
+        sectionType.instantiate(payload);
+        assertEquals(1, sectionType.getFunctionSignitures().size());
+        final ArrayList<FunctionType> functionSignatureAll = sectionType.getFunctionSignitures();
         FunctionType functionType = functionSignatureAll.get(0);
         assertEquals("func",  functionType.getForm().getValue());
         assertEquals(new VarUInt32(2),  functionType.getParamCount());

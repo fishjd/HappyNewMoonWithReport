@@ -2,8 +2,6 @@ package happynewmoonwithreport.type;
 
 import happynewmoonwithreport.BytesFile;
 
-import java.util.Arrays;
-
 public final class VarUInt32 extends VarUInt<Long> {
 
     @SuppressWarnings("unused")
@@ -93,11 +91,11 @@ public final class VarUInt32 extends VarUInt<Long> {
         return 2L ^ maxBits();
     }
 
-    public Long LongValue() {
+    public Long longValue() {
         return value;
     }
 
-    public Integer IntegerValue() {
+    public Integer integerValue() {
         checkIfTooLarge();
         return value.intValue();
     }

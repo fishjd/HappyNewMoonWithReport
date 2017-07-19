@@ -1,52 +1,75 @@
 package happynewmoonwithreport;
 
-/*
- * 
- Source 20170709 http://webassembly.org/docs/binary-encoding/#high-level-structure 
-Type 		1 	Function signature declarations
-Import 		2 	Import declarations
-Function 	3 	Function declarations
-Table 		4 	Indirect function table and other tables
-Memory 		5 	Memory attributes
-Global 		6 	Global declarations
-Export 		7 	Exports
-Start 		8 	Start function declaration
-Element 	9 	Elements section
-Code 		10 	Function bodies (code)
-Data 		11
- */
+import happynewmoonwithreport.type.VarUInt1;
+import happynewmoonwithreport.type.VarUInt32;
 
-import happynewmoonwithreport.type.VarUInt7;
+import java.util.ArrayList;
 
-/**
- * Enum for the defined section names.
- */
-public enum SectionType {
-    type(1), //
-    importSection(2), // import is a reserved word in Java
-    function(3), //
-    table(4), //
-    memeory(5), //
-    global(6), //
-    export(7), //
-    start(8), //
-    element(9), //
-    code(10), //
-    data(11) //
-    ; // <-- the terminating semicolon.
+public class SectionType implements Module {
 
-    private Integer value;
+    // all the Function Types.
+    ArrayList<FunctionType> functionSignitures;
 
-    private SectionType(Integer value) {
-        this.value = value;
+    /**
+     * The type section declares all function signatures that will be used in the module.
+     * <p>
+     * <table> <tr> <td>Field</td> <td>Type</td> <td>Description</td> </tr> <tr> <td>count</td> <td>varuint32</td>
+     * <td>count of type entries to follow</td> <tr> <tr> <td>entries</td> <td>func_type</td> <td>repeated type entries
+     * as described above</td> <tr> </table> Source: <a href = "http://webassembly.org/docs/binary-encoding/#type-section">http://webassembly.org/docs/binary-encoding/#type-section</a>
+     *
+     * @param payload
+     */
+    @Override
+    public void instantiate(BytesFile payload) {
+
+        ValueType form;
+        VarUInt32 paramCount;
+        VarUInt1 varReturnCount;
+
+        // Type Count
+        VarUInt32 typeCount = new VarUInt32(payload);
+
+        functionSignitures = new ArrayList<>(typeCount.integerValue());
+
+        FunctionType functionType;
+        for (Integer countFT = 0; countFT < typeCount.integerValue(); countFT++) {
+            //* form
+            form = new ValueType(payload);
+            assert (form.getValue().equals("func"));
+
+            //* Parameter Count
+            paramCount = new VarUInt32(payload);
+
+            //* Parameters Types
+            ArrayList<ValueType> paramAll = new ArrayList<>(paramCount.integerValue());
+            for (Integer count = 0; count < paramCount.integerValue(); count++) {
+                ValueType paramType = new ValueType(payload);
+                paramAll.add(count, paramType);
+            }
+
+            //* Return Count
+            VarUInt1 returnCount = new VarUInt1(payload);
+            // current version only allows 0 or 1
+            assert (returnCount.value() <= 1);
+
+            //* Return Types.
+            ArrayList<ValueType> returnAll = new ArrayList<>(returnCount.value());
+            for (Integer count = 0; count < returnCount.value(); count++) {
+                ValueType returnType = new ValueType(payload);
+                returnAll.add(count, returnType);
+            }
+
+            functionType = new FunctionType(form, paramCount, paramAll, returnCount, returnAll);
+            functionSignitures.add(countFT, functionType);
+        }
     }
 
-    public Integer getValue() {
-        return value;
+    public ArrayList<FunctionType> getFunctionSignitures() {
+        return functionSignitures;
     }
 
-    public VarUInt7 getUInt7() {
-        return new VarUInt7(value);
+    public Integer getSize() {
+        return functionSignitures.size();
     }
 
 }

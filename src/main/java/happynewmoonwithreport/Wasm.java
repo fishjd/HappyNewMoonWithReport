@@ -7,7 +7,6 @@ import happynewmoonwithreport.type.VarUInt7;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.Arrays;
 
 /**
  * @author James
@@ -22,7 +21,8 @@ public class Wasm {
     private UInt32 version;
     Integer index = 0;
 
-    FunctionSignature functionSignature = null;
+    SectionType sectionType = null;
+    SectionFunction sectionFunction = null;
 
     public Wasm(String fileName) {
         try {
@@ -55,21 +55,26 @@ public class Wasm {
             // Payload Length
             u32PayloadLength = new VarUInt32(bytesFile);
 
-            payloadLength = u32PayloadLength.IntegerValue();
+            payloadLength = u32PayloadLength.integerValue();
             // ¿ Named Section ?
             if (sectionCode.value() == 0) {
                 // name Length
                 nameLength = new VarUInt32(bytesFile);
                 // name
-//                String name = new String(bytesAll, index, nameLength.IntegerValue());
-//                index += nameLength.IntegerValue();
+                // TODO
+                // String name = new String(bytesAll, index, nameLength.IntegerValue());
+                // index += nameLength.IntegerValue();
             }
-            payloadLength = payloadLength - nameLength.IntegerValue() - sizeOFNameLength;
+            payloadLength = payloadLength - nameLength.integerValue() - sizeOFNameLength;
             BytesFile payload =  bytesFile.copy(payloadLength) ;
             // Type
-            if (sectionCode.equals(SectionType.type.getUInt7())) {
-                functionSignature = new FunctionSignature();
-                functionSignature.instantiate(payload);
+            if (sectionCode.equals(SectionCode.type.getUInt7())) {
+                sectionType = new SectionType();
+                sectionType.instantiate(payload);
+            }
+            if (sectionCode.equals(SectionCode.function.getUInt7())) {
+                sectionFunction = new SectionFunction();
+                sectionFunction.instantiate(payload);
             }
         }
         assert bytesFile.atEndOfFile() : "File length is not correct";
@@ -133,8 +138,8 @@ public class Wasm {
         return magicNumber;
     }
 
-    public FunctionSignature getFunctionSignatures() {
+    public SectionType getFunctionSignatures() {
 
-        return functionSignature;
+        return sectionType;
     }
 }
