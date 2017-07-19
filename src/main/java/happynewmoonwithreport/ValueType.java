@@ -17,12 +17,10 @@ public class ValueType {
 
     private Integer type;
     private String value;
-    private Integer size = 1;
 
     private ValueType() {
 
     }
-
 
     public ValueType(Integer type) {
         this();
@@ -36,11 +34,9 @@ public class ValueType {
         calcValue(type);
     }
 
-    public ValueType(byte[] byteAll, Integer index) {
+    public ValueType(BytesFile payload) {
         this();
-        VarInt7 vt = new VarInt7(byteAll, index);
-        size = vt.size();
-        index = index + vt.size();
+        VarInt7 vt = new VarInt7(payload);
         this.type = vt.IntegerValue();
         calcValue(type);
     }
@@ -49,14 +45,9 @@ public class ValueType {
         return value;
     }
 
-    public Integer getSize() {
-        return size;
-    }
-
     public Integer getType() {
         return type;
     }
-
 
     public VarInt7 getTypeVarInt7() {
         return new VarInt7(type);

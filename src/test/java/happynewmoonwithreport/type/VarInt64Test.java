@@ -1,5 +1,6 @@
 package happynewmoonwithreport.type;
 
+import happynewmoonwithreport.BytesFile;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,7 +21,9 @@ public class VarInt64Test {
     public void testReadSigned() {
         // -624485 (0xFFF6789B) is encoded as 0x9B 0xF1 0x59.
         byte[] bytesAll = new byte[]{(byte) 0x9B, (byte) 0xF1, (byte) 0x59};
-        NumberHelper.assertEqualHex(new VarUInt32(-624485L).LongValue(), new VarInt64(bytesAll).LongValue());
+        BytesFile bytesFile = new BytesFile(bytesAll);
+
+        NumberHelper.assertEqualHex(new VarInt64(-624485L).LongValue(), new VarInt64(bytesFile).LongValue());
     }
 
     @Test
@@ -54,63 +57,60 @@ public class VarInt64Test {
     public void testReadSignedPadded() {
         // -624485 (0xFFF6789B) is encoded as 0x9B 0xF1 0x59.
         byte[] bytesAll = new byte[]{(byte) 0x9B, (byte) 0xF1, (byte) 0xD9, (byte) 0x7F};
-        NumberHelper.assertEqualHex(new VarUInt32(-624485L).LongValue(), new VarInt64(bytesAll).LongValue());
-        assertEquals(new Integer(4), new VarInt64(bytesAll).size());
+        BytesFile bytesFile = new BytesFile(bytesAll);
+
+        NumberHelper.assertEqualHex(new VarInt64(-624485L).LongValue(), new VarInt64(bytesFile).LongValue());
     }
 
     /**
-     * Similarly, either of<br>
-     * 0x7e<br>
-     * 0xFE 0x7F <br>
-     * 0xFE 0xFF 0x7F <br>
-     * are well-formed encodings of the value -2.
+     * Similarly, either of<br> 0x7e<br> 0xFE 0x7F <br> 0xFE 0xFF 0x7F <br> are well-formed encodings of the value -2.
      * <p>
      * source : https://webassembly.github.io/spec/binary/values.html#integers
      */
     @Test
     public void testReadSignedPaddedNeg2() {
         byte[] bytesAll = new byte[]{(byte) 0x7E};
-        NumberHelper.assertEqualHex(new VarUInt32(-2).LongValue(), new VarInt64(bytesAll).LongValue());
-        assertEquals(new Integer(1), new VarInt64(bytesAll).size());
+        BytesFile bytesFile = new BytesFile(bytesAll);
+        NumberHelper.assertEqualHex(new VarInt64(-2).LongValue(), new VarInt64(bytesFile).LongValue());
 
         bytesAll = new byte[]{(byte) 0xFE, (byte) 0x7F};
-        NumberHelper.assertEqualHex(new VarUInt32(-2).LongValue(), new VarInt64(bytesAll).LongValue());
-        assertEquals(new Integer(2), new VarInt64(bytesAll).size());
+        bytesFile = new BytesFile(bytesAll);
 
         bytesAll = new byte[]{(byte) 0xFE, (byte) 0xFF, (byte) 0x7F};
-        NumberHelper.assertEqualHex(new VarUInt32(-2).LongValue(), new VarInt64(bytesAll).LongValue());
-        assertEquals(new Integer(3), new VarInt64(bytesAll).size());
+        bytesFile = new BytesFile(bytesAll);
+        NumberHelper.assertEqualHex(new VarInt64(-2).LongValue(), new VarInt64(bytesFile).LongValue());
 
         bytesAll = new byte[]{(byte) 0xFE, (byte) 0xFF, (byte) 0x7F, (byte) 0x00};
-        NumberHelper.assertEqualHex(new VarUInt32(-2).LongValue(), new VarInt64(bytesAll).LongValue());
-        assertEquals(new Integer(3), new VarInt64(bytesAll).size());
+        bytesFile = new BytesFile(bytesAll);
+        NumberHelper.assertEqualHex(new VarInt64(-2).LongValue(), new VarInt64(bytesFile).LongValue());
 
         bytesAll = new byte[]{(byte) 0xFE, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0x7F, (byte) 0x00};
-        NumberHelper.assertEqualHex(new VarUInt32(-2).LongValue(), new VarInt64(bytesAll).LongValue());
-        assertEquals(new Integer(5), new VarInt64(bytesAll).size());
+        bytesFile = new BytesFile(bytesAll);
+        NumberHelper.assertEqualHex(new VarInt64(-2).LongValue(), new VarInt64(bytesFile).LongValue());
     }
 
     @Test
     public void testReadSignedPaddedPositive2() {
         byte[] bytesAll = new byte[]{(byte) 0x02};
-        NumberHelper.assertEqualHex(new VarUInt32(2).LongValue(), new VarInt64(bytesAll).LongValue());
-        assertEquals(new Integer(1), new VarInt64(bytesAll).size());
+        BytesFile bytesFile = new BytesFile(bytesAll);
+
+        NumberHelper.assertEqualHex(new VarInt64(2).LongValue(), new VarInt64(bytesFile).LongValue());
 
         bytesAll = new byte[]{(byte) 0x82, (byte) 0x00};
-        NumberHelper.assertEqualHex(new VarUInt32(2).LongValue(), new VarInt64(bytesAll).LongValue());
-        assertEquals(new Integer(2), new VarInt64(bytesAll).size());
+        bytesFile = new BytesFile(bytesAll);
+        NumberHelper.assertEqualHex(new VarInt64(2).LongValue(), new VarInt64(bytesFile).LongValue());
 
         bytesAll = new byte[]{(byte) 0x82, (byte) 0x80, (byte) 0x00};
-        NumberHelper.assertEqualHex(new VarUInt32(2).LongValue(), new VarInt64(bytesAll).LongValue());
-        assertEquals(new Integer(3), new VarInt64(bytesAll).size());
+        bytesFile = new BytesFile(bytesAll);
+        NumberHelper.assertEqualHex(new VarInt64(2).LongValue(), new VarInt64(bytesFile).LongValue());
 
         bytesAll = new byte[]{(byte) 0x82, (byte) 0x80, (byte) 0x00, (byte) 0x00};
-        NumberHelper.assertEqualHex(new VarUInt32(2).LongValue(), new VarInt64(bytesAll).LongValue());
-        assertEquals(new Integer(3), new VarInt64(bytesAll).size());
+        bytesFile = new BytesFile(bytesAll);
+        NumberHelper.assertEqualHex(new VarInt64(2).LongValue(), new VarInt64(bytesFile).LongValue());
 
         bytesAll = new byte[]{(byte) 0x82, (byte) 0x80, (byte) 0x80, (byte) 0x80, (byte) 0x00};
-        NumberHelper.assertEqualHex(new VarUInt32(2).LongValue(), new VarInt64(bytesAll).LongValue());
-        assertEquals(new Integer(5), new VarInt64(bytesAll).size());
+        bytesFile = new BytesFile(bytesAll);
+        NumberHelper.assertEqualHex(new VarInt64(2).LongValue(), new VarInt64(bytesFile).LongValue());
 
     }
 
@@ -118,7 +118,8 @@ public class VarInt64Test {
     public void testSize() {
         // -624485 (0xFFF6789B) is encoded as 0x9B 0xF1 0x59.
         byte[] bytesAll = new byte[]{(byte) 0x9B, (byte) 0xF1, (byte) 0x59};
-        assertEquals(new Integer(3), new VarInt64(bytesAll).size());
+        BytesFile bytesFile = new BytesFile(bytesAll);
+
     }
 
 	/* @formatter:off	

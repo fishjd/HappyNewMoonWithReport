@@ -1,5 +1,7 @@
 package happynewmoonwithreport.type;
 
+import happynewmoonwithreport.BytesFile;
+
 import java.util.Arrays;
 
 public final class VarUInt1 extends VarUInt<Integer> {
@@ -9,26 +11,25 @@ public final class VarUInt1 extends VarUInt<Integer> {
         super();
     }
 
-    public VarUInt1(ByteInput in) {
-        value = convert(in);
-        size = setSize(in);
+    public VarUInt1(BytesFile bytesFile) {
+        value = convert(bytesFile);
     }
 
-    public VarUInt1(byte[] byteAll, Integer offset) {
-        // copyOfRange will add zero to end if not long enough. This is
-        // convenient at this works and is exactly what we want. It does mean
-        // size() will be incorrect.
-        assert (offset + maxBytes() <= byteAll.length);
-
-        byte[] temp = Arrays.copyOfRange(byteAll, offset, offset + maxBytes());
-        ByteInput in = new ByteArrayByteInput(temp);
-        value = convert(in);
-        size = setSize(in);
-    }
-
-    public VarUInt1(byte[] byteAll) {
-        this(new ByteArrayByteInput(byteAll));
-    }
+//    public VarUInt1(byte[] byteAll, Integer offset) {
+//        // copyOfRange will add zero to end if not long enough. This is
+//        // convenient at this works and is exactly what we want. It does mean
+//        // size() will be incorrect.
+//        assert (offset + maxBytes() <= byteAll.length);
+//
+//        byte[] temp = Arrays.copyOfRange(byteAll, offset, offset + maxBytes());
+//        ByteInput in = new ByteArrayByteInput(temp);
+//        value = convert(in);
+//        size = setSize(in);
+//    }
+//
+//    public VarUInt1(byte[] byteAll) {
+//        this(new ByteArrayByteInput(byteAll));
+//    }
 
     /**
      * Create using a Integer. Size is hard coded to 1. Used mainly in testing.
@@ -38,7 +39,6 @@ public final class VarUInt1 extends VarUInt<Integer> {
     public VarUInt1(Integer value) {
         this.value = value;
         // set to default value.
-        this.size = 1;
     }
 
     /**
@@ -48,17 +48,15 @@ public final class VarUInt1 extends VarUInt<Integer> {
      */
     public VarUInt1(Byte value) {
         this.value = value.intValue();
-        this.size = 1;
     }
 
-    public Integer convert(ByteInput in) {
+    public Integer convert(BytesFile bytesFile) {
         Integer cur;
         Integer count = 0;
         Integer result = 0;
 
-        in.reset();
         do {
-            cur = in.readByte() & 0xff;
+            cur = bytesFile.readByte() & 0xff;
             result |= (cur & 0x7f) << (count * 7);
             count++;
         } while (((cur & 0x80) != 0) && count < maxBytes());

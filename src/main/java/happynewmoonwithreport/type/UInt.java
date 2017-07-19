@@ -5,11 +5,6 @@ public abstract class UInt<ValueType extends Number> implements DataTypeNumber<V
     protected ValueType value;
 
     @Override
-    public Integer size() {
-        return maxBits() / 8;
-    }
-
-    @Override
     public Integer maxBytes() {
         Integer maxBytes = maxBits() / 8;
         return maxBytes;

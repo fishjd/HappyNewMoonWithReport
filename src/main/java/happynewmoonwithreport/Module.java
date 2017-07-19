@@ -8,5 +8,5 @@ package happynewmoonwithreport;
  */
 public interface Module {
 
-    void instantiate(byte[] payload);
+    void instantiate(BytesFile payload);
 }

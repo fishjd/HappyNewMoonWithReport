@@ -1,5 +1,7 @@
 package happynewmoonwithreport.type;
 
+import happynewmoonwithreport.BytesFile;
+
 import java.util.Arrays;
 
 public final class VarInt32 extends VarInt<Integer> {
@@ -9,26 +11,32 @@ public final class VarInt32 extends VarInt<Integer> {
         super();
     }
 
-    public VarInt32(ByteInput in) {
-        value = convert(in);
-        size = setSize(in);
+    public VarInt32(BytesFile bytesFile) {
+        assert (bytesFile.longEnough( minBytes()));
+        value = convert(bytesFile);
     }
 
-    public VarInt32(byte[] byteAll, Integer offset) {
-        // copyOfRange will add zero to end if not long enough. This is
-        // convenient at this works and is exactly what we want. It does mean
-        // size() will be incorrect.
-        // assert (offset + maxBytes() <= byteAll.length);
 
-        byte[] temp = Arrays.copyOfRange(byteAll, offset, offset + maxBytes());
-        ByteInput in = new ByteArrayByteInput(temp);
-        value = convert(in);
-        size = setSize(in);
-    }
-
-    public VarInt32(byte[] byteAll) {
-        this(new ByteArrayByteInput(byteAll));
-    }
+//    public VarInt32(ByteInput in) {
+//        value = convert(in);
+//        size = setSize(in);
+//    }
+//
+//    public VarInt32(byte[] byteAll, Integer offset) {
+//        // copyOfRange will add zero to end if not long enough. This is
+//        // convenient at this works and is exactly what we want. It does mean
+//        // size() will be incorrect.
+//        // assert (offset + maxBytes() <= byteAll.length);
+//
+//        byte[] temp = Arrays.copyOfRange(byteAll, offset, offset + maxBytes());
+//        ByteInput in = new ByteArrayByteInput(temp);
+//        value = convert(in);
+//        size = setSize(in);
+//    }
+//
+//    public VarInt32(byte[] byteAll) {
+//        this(new ByteArrayByteInput(byteAll));
+//    }
 
     /**
      * Create using a Long. Used mainly in testing.
@@ -38,7 +46,6 @@ public final class VarInt32 extends VarInt<Integer> {
     public VarInt32(Long value) {
         this.value = value.intValue();
         // set to default value.
-        this.size = maxBytes();
     }
 
     /**
@@ -49,7 +56,6 @@ public final class VarInt32 extends VarInt<Integer> {
     public VarInt32(Integer value) {
         this.value = value.intValue();
         // set to default value.
-        this.size = 1;
     }
 
     /**
@@ -59,18 +65,16 @@ public final class VarInt32 extends VarInt<Integer> {
      */
     public VarInt32(Byte value) {
         this.value = value.intValue();
-        this.size = 1;
     }
 
-    public Integer convert(ByteInput in) {
+    public Integer convert(BytesFile bytesFile) {
         Integer cur;
         Integer count = 0;
         Integer result = 0;
         Integer signBits = -1;
 
-        in.reset();
         do {
-            cur = in.readByte() & 0xff;
+            cur = bytesFile.readByte() & 0xff;
             result |= ((int) (cur & 0x7f)) << (count * 7);
             signBits <<= 7;
             count++;

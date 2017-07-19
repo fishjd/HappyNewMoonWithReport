@@ -1,5 +1,6 @@
 package happynewmoonwithreport.type;
 
+import happynewmoonwithreport.BytesFile;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -40,8 +41,8 @@ public class VarInt7LoopTest {
     @Test
     public void testProblemChildren() throws Exception {
         for (Entry<Integer, byte[]> child : problemChildren.entrySet()) {
-
-            VarInt32 varInt32 = new VarInt32(child.getValue(), 0);
+            BytesFile bytesFile = new BytesFile(child.getValue());
+            VarInt32 varInt32 = new VarInt32(bytesFile);
             Integer result = varInt32.value();
 
             assertEqualHex( child.getKey(), result);
@@ -89,8 +90,8 @@ public class VarInt7LoopTest {
             VarInt32 expected = new VarInt32(i);
             ByteArrayByteOutput out = (ByteArrayByteOutput) expected.convert();
 
-            ByteInput in = new ByteArrayByteInput(out.bytes());
-            VarInt32 varInt32_b = new VarInt32(in);
+            BytesFile bytesFile = new BytesFile(out.bytes());
+            VarInt32 varInt32_b = new VarInt32(bytesFile);
             Integer result_b = varInt32_b.value();
 
             assertEqualHex (i, result_b);

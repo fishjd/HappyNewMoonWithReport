@@ -19,17 +19,6 @@ public interface DataTypeNumber<ValueType extends Number> {
     ValueType value();
 
     /**
-     * The number of bytes this occupied in the *.wasm file. For most types this
-     * is a fixed number. for Variable Integer and such this is not fixed
-     * (variable).
-     * <p>
-     * <code>minBytes <= size() <= maxBytes()</code>
-     *
-     * @return
-     */
-    Integer size();
-
-    /**
      * The minimum number of bytes this number may be represented by. For UIint
      * this is fixed and is the same as maxBytes(). For VarUInt it is fixed.
      *

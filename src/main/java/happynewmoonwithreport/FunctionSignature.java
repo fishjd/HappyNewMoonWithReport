@@ -21,49 +21,42 @@ public class FunctionSignature implements Module {
      * @param payload
      */
     @Override
-    public void instantiate(byte[] payload) {
-        Integer index = 0;
+    public void instantiate(BytesFile payload) {
 
         ValueType form;
         VarUInt32 paramCount;
         VarUInt1 varReturnCount;
 
         // Type Count
-        VarUInt32 typeCount = new VarUInt32(payload, index);
-        index += typeCount.size();
+        VarUInt32 typeCount = new VarUInt32(payload);
 
         functionSignitures = new ArrayList<>(typeCount.IntegerValue());
 
         FunctionType functionType;
         for (Integer countFT = 0; countFT < typeCount.IntegerValue(); countFT++) {
             //* form
-            form = new ValueType(payload, index);
-            index += form.getSize();
+            form = new ValueType(payload);
             assert (form.getValue().equals("func"));
 
             //* Parameter Count
-            paramCount = new VarUInt32(payload, index);
-            index += paramCount.size();
+            paramCount = new VarUInt32(payload);
 
             //* Parameters Types
             ArrayList<ValueType> paramAll = new ArrayList<>(paramCount.IntegerValue());
             for (Integer count = 0; count < paramCount.IntegerValue(); count++) {
-                ValueType paramType = new ValueType(payload, index);
-                index += paramType.getSize();
+                ValueType paramType = new ValueType(payload);
                 paramAll.add(count, paramType);
             }
 
             //* Return Count
-            VarUInt1 returnCount = new VarUInt1(payload, index);
-            index += returnCount.size();
+            VarUInt1 returnCount = new VarUInt1(payload);
             // current version only allows 0 or 1
             assert (returnCount.value() <= 1);
 
             //* Return Types.
             ArrayList<ValueType> returnAll = new ArrayList<>(returnCount.value());
             for (Integer count = 0; count < returnCount.value(); count++) {
-                ValueType returnType = new ValueType(payload, index);
-                index += returnType.getSize();
+                ValueType returnType = new ValueType(payload);
                 returnAll.add(count, returnType);
             }
 

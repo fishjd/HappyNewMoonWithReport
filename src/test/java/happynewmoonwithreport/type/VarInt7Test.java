@@ -1,5 +1,6 @@
 package happynewmoonwithreport.type;
 
+import happynewmoonwithreport.BytesFile;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -44,24 +45,20 @@ public class VarInt7Test {
      */
     @Test
     public void testReadSignedPaddedNeg2() {
-        byte[] bytesAll = new byte[]{(byte) 0x7E};
-        NumberHelper.assertEqualHex(new VarInt7(-2).LongValue(), new VarInt7(bytesAll).LongValue());
-        assertEquals(new Integer(1), new VarInt7(bytesAll).size());
-
+        BytesFile payload = new BytesFile(new byte[]{(byte) 0x7E});
+        NumberHelper.assertEqualHex(new VarInt7(-2).LongValue(), new VarInt7(payload).LongValue());
     }
 
     @Test
     public void testReadSignedPaddedPositive2() {
-        byte[] bytesAll = new byte[]{(byte) 0x02};
-        NumberHelper.assertEqualHex(new VarInt7(2).LongValue(), new VarInt7(bytesAll).LongValue());
-        assertEquals(new Integer(1), new VarInt7(bytesAll).size());
+        BytesFile payload = new BytesFile(new byte[]{(byte) 0x02});
+        NumberHelper.assertEqualHex(new VarInt7(2).LongValue(), new VarInt7(payload).LongValue());
 
     }
 
     @Test
     public void testSize() {
-        byte[] bytesAll = new byte[]{(byte) 0x03};
-        assertEquals(new Integer(1), new VarInt7(bytesAll).size());
+        BytesFile payload = new BytesFile(new byte[]{(byte) 0x03});
     }
 
 	/* @formatter:off	

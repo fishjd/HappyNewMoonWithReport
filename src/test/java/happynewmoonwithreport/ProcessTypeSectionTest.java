@@ -28,7 +28,8 @@ public class ProcessTypeSectionTest {
 
     @Test
     public void testCount() {
-        byte[] payload = {(byte) 0x01, (byte) 0x60, (byte) 0x02, (byte) 0x7F, (byte) 0x7F, (byte) 0x01, (byte) 0x7F};
+        byte[] byteAll = {(byte) 0x01, (byte) 0x60, (byte) 0x02, (byte) 0x7F, (byte) 0x7F, (byte) 0x01, (byte) 0x7F};
+        BytesFile payload = new BytesFile(byteAll);
         functionSignature.instantiate(payload);
         assertEquals(1,functionSignature.getFunctionSignitures().size());
         final ArrayList<FunctionType> functionSignatureAll = functionSignature.getFunctionSignitures();

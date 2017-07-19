@@ -1,6 +1,6 @@
 package happynewmoonwithreport.type;
 
-import java.util.Arrays;
+import happynewmoonwithreport.BytesFile;
 
 public final class VarInt64 extends VarInt<Long> {
 
@@ -9,25 +9,9 @@ public final class VarInt64 extends VarInt<Long> {
         super();
     }
 
-    public VarInt64(ByteInput in) {
-        value = convert(in);
-        size = setSize(in);
-    }
-
-    public VarInt64(byte[] byteAll, Integer offset) {
-        // copyOfRange will add zero to end if not long enough. This is
-        // convenient at this works and is exactly what we want. It does mean
-        // size() will be incorrect.
-        // assert (offset + maxBytes() <= byteAll.length);
-
-        byte[] temp = Arrays.copyOfRange(byteAll, offset, offset + maxBytes());
-        ByteInput in = new ByteArrayByteInput(temp);
-        value = convert(in);
-        size = setSize(in);
-    }
-
-    public VarInt64(byte[] byteAll) {
-        this(new ByteArrayByteInput(byteAll));
+    public VarInt64(BytesFile bytesFile) {
+        assert (bytesFile.longEnough(minBytes()));
+        value = convert(bytesFile);
     }
 
     /**
@@ -38,7 +22,6 @@ public final class VarInt64 extends VarInt<Long> {
     public VarInt64(Long value) {
         this.value = value;
         // set to default value.
-        this.size = maxBytes();
     }
 
     /**
@@ -49,7 +32,6 @@ public final class VarInt64 extends VarInt<Long> {
     public VarInt64(Integer value) {
         this.value = value.longValue();
         // set to default value.
-        this.size = 1;
     }
 
     /**
@@ -59,18 +41,16 @@ public final class VarInt64 extends VarInt<Long> {
      */
     public VarInt64(Byte value) {
         this.value = value.longValue();
-        this.size = 1;
     }
 
-    public Long convert(ByteInput in) {
+    public Long convert(BytesFile bytesFile) {
         Integer cur;
         Integer count = 0;
         Long result = 0L;
         Long signBits = -1L;
 
-        in.reset();
         do {
-            cur = in.readByte() & 0xff;
+            cur = bytesFile.readByte() & 0xff;
             result |= ((long) (cur & 0x7f)) << (count * 7);
             signBits <<= 7;
             count++;
@@ -85,8 +65,8 @@ public final class VarInt64 extends VarInt<Long> {
     }
 
     /**
-     * Writes {@code value} as a signed integer to {@code out}, starting at
-     * {@code offset}. Returns the number of bytes written.
+     * Writes {@code value} as a signed integer to {@code out}, starting at {@code offset}. Returns the number of bytes
+     * written.
      */
     public ByteOutput convert() {
         ByteOutput out = new ByteArrayByteOutput(maxBytes());

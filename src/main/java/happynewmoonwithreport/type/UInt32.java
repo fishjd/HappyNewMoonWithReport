@@ -1,5 +1,7 @@
 package happynewmoonwithreport.type;
 
+import happynewmoonwithreport.BytesFile;
+
 import java.util.Arrays;
 
 /**
@@ -13,37 +15,34 @@ public class UInt32 extends UInt<Long> {
         super();
     }
 
+    public UInt32(BytesFile bytesFile) {
+        assert (bytesFile.longEnough( minBytes()));
+        value = convert(bytesFile);
+    }
+
     public UInt32(byte in1, byte in2, byte in3, byte in4) {
-        this(new byte[]{in1, in2, in3, in4});
+        byte[] byteAll =new byte[]{in1, in2, in3, in4};
+        BytesFile bytesFile = new BytesFile(byteAll);
+        value = convert(bytesFile);
     }
 
     public UInt32(byte[] in) {
         if (minBytes() < in.length) {
             throw new IllegalArgumentException("Must be length of 4");
         }
-        value = convert(new ByteArrayByteInput(in));
-    }
-
-    public UInt32(byte[] byteAll, Integer offset) {
-        // copyOfRange will add zero to end if not long enough. This is
-        // convenient at this works and is exactly what we want. It does mean
-        // size() will be incorrect.
-        assert (offset + minBytes() <= byteAll.length);
-
-        byte[] temp = Arrays.copyOfRange(byteAll, offset, offset + maxBytes());
-        value = convert(new ByteArrayByteInput(temp));
+        BytesFile bytesFile = new BytesFile(in);
+        value = convert(bytesFile);
     }
 
     public UInt32(Long value) {
         this.value = value;
     }
 
-    public Long convert(ByteInput in) {
+    public Long convert(BytesFile bytesFile) {
         Long result = 0L;
-        in.reset();
         // little Endian!
         for (Integer i = 0; i < maxBits(); i = i + 8) {
-            result += Byte.toUnsignedLong(in.readByte()) << i;
+            result += Byte.toUnsignedLong(bytesFile.readByte()) << i;
         }
         return result;
     }

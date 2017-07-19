@@ -1,5 +1,7 @@
 package happynewmoonwithreport.type;
 
+import happynewmoonwithreport.BytesFile;
+
 import java.util.Arrays;
 
 /**
@@ -8,41 +10,24 @@ import java.util.Arrays;
  */
 public class UInt16 extends UInt<Integer> {
 
-    public UInt16(byte in1, byte in2) {
-        this(new byte[]{in1, in2});
-    }
-
-    public UInt16(byte[] in) {
-        if (minBytes() < in.length) {
-            throw new IllegalArgumentException("Must be length of 2");
-        }
-        value = convert(new ByteArrayByteInput(in));
-    }
-
-    public UInt16(byte[] byteAll, Integer offset) {
-        // copyOfRange will add zero to end if not long enough. This is
-        // convenient at this works and is exactly what we want. It does mean
-        // size() will be incorrect.
-        assert (offset + minBytes() <= byteAll.length);
-
-        byte[] temp = Arrays.copyOfRange(byteAll, offset, offset + maxBytes());
-        value = convert(new ByteArrayByteInput(temp));
-
+    public UInt16(BytesFile bytesFile) {
+        assert (bytesFile.longEnough( minBytes()));
+        value = convert(bytesFile);
     }
 
     public UInt16(Integer value) {
         this.value = value;
     }
 
-    public Integer convert(ByteInput in) {
+    public Integer convert(BytesFile bytesFile) {
         Integer result = 0;
-        in.reset();
         // little Endian!
         for (Integer i = 0; i < maxBits(); i = i + 8) {
-            result += Byte.toUnsignedInt(in.readByte()) << i;
+            result += Byte.toUnsignedInt(bytesFile.readByte()) << i;
         }
         return result;
     }
+
 
 	/* private functions **/
 

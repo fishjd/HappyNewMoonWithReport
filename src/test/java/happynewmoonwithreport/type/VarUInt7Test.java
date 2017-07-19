@@ -1,5 +1,6 @@
 package happynewmoonwithreport.type;
 
+import happynewmoonwithreport.BytesFile;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -31,38 +32,32 @@ public class VarUInt7Test {
     }
 
 
-
-
     /**
-     * Similarly, either of<br>
-     * 0x7e<br>
-     * 0xFE 0x7F <br>
-     * 0xFE 0xFF 0x7F <br>
-     * are well-formed encodings of the value -2.
+     * Similarly, either of<br> 0x7e<br> 0xFE 0x7F <br> 0xFE 0xFF 0x7F <br> are well-formed encodings of the value -2.
      * <p>
      * source : https://webassembly.github.io/spec/binary/values.html#integers
      */
-  
+
 
     @Test
     public void testReadSignedPositive2() {
         byte[] bytesAll = new byte[]{(byte) 0x02};
-        NumberHelper.assertEqualHex(new VarUInt7(2).LongValue(), new VarUInt7(bytesAll).LongValue());
-        assertEquals(new Integer(1), new VarUInt7(bytesAll).size());
+        BytesFile bytesFile = new BytesFile(bytesAll);
+        NumberHelper.assertEqualHex(new VarUInt7(2).LongValue(), new VarUInt7(bytesFile).LongValue());
 
     }
+
     @Test
     public void testReadSignedPaddedPositive2() {
         byte[] bytesAll = new byte[]{(byte) 0x02, (byte) 0x80};
-        NumberHelper.assertEqualHex(new VarUInt7(2).LongValue(), new VarUInt7(bytesAll).LongValue());
-        assertEquals(new Integer(1), new VarUInt7(bytesAll).size());
-
+        BytesFile bytesFile = new BytesFile(bytesAll);
+        NumberHelper.assertEqualHex(new VarUInt7(2).LongValue(), new VarUInt7(bytesFile).LongValue());
     }
 
     @Test
     public void testSize() {
         byte[] bytesAll = new byte[]{(byte) 0x03};
-        assertEquals(new Integer(1), new VarUInt7(bytesAll).size());
+        BytesFile bytesFile = new BytesFile(bytesAll);
     }
 
 	/* @formatter:off	

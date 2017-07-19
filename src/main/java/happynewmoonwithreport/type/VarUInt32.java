@@ -1,5 +1,7 @@
 package happynewmoonwithreport.type;
 
+import happynewmoonwithreport.BytesFile;
+
 import java.util.Arrays;
 
 public final class VarUInt32 extends VarUInt<Long> {
@@ -9,27 +11,8 @@ public final class VarUInt32 extends VarUInt<Long> {
         super();
     }
 
-    public VarUInt32(ByteInput in) {
-        value = convert(in);
-        size = setSize(in);
-    }
-
-    public VarUInt32(byte[] byteAll, Integer offset) {
-        // copyOfRange will add zero to end if not long enough. This is
-        // convenient at this works and is exactly what we want. It does mean
-        // size() will be incorrect.
-        //assert (offset + maxBytes() <= byteAll.length);
-
-        @SuppressWarnings("Since15") byte[] temp = Arrays.copyOfRange(byteAll,
-                offset,
-                offset + maxBytes());
-        ByteInput in = new ByteArrayByteInput(temp);
-        value = convert(in);
-        size = setSize(in);
-    }
-
-    public VarUInt32(byte[] byteAll) {
-        this(new ByteArrayByteInput(byteAll));
+    public VarUInt32(BytesFile bytesFile) {
+        value = convert(bytesFile);
     }
 
     /**
@@ -40,7 +23,6 @@ public final class VarUInt32 extends VarUInt<Long> {
     public VarUInt32(Long value) {
         this.value = value;
         // set to default value.
-        this.size = 5;
     }
 
     /**
@@ -51,7 +33,6 @@ public final class VarUInt32 extends VarUInt<Long> {
     public VarUInt32(Integer value) {
         this.value = value.longValue();
         // set to default value.
-        this.size = 1;
     }
 
     /**
@@ -61,7 +42,6 @@ public final class VarUInt32 extends VarUInt<Long> {
      */
     public VarUInt32(Byte value) {
         this.value = value.longValue();
-        this.size = 1;
     }
 
     // public VarUInt32(Byte b1, Byte b2, Byte b3, Byte b4, Byte b5) {
@@ -69,14 +49,13 @@ public final class VarUInt32 extends VarUInt<Long> {
     // in = new ByteArrayByteInput(b1, b2, b3, b4, b5);
     // }
 
-    public Long convert(ByteInput in) {
+    public Long convert(BytesFile bytesFile) {
         Integer cur;
         Integer count = 0;
         Long result = 0L;
 
-        in.reset();
         do {
-            cur = in.readByte() & 0xff;
+            cur = bytesFile.readByte() & 0xff;
             result |= (cur & 0x7f) << (count * 7);
             count++;
         } while (((cur & 0x80) != 0) && count < maxBytes());

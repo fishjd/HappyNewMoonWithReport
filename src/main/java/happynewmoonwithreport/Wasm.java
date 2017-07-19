@@ -17,7 +17,7 @@ public class Wasm {
         super();
     }
 
-    private byte[] bytesAll;
+    private BytesFile bytesFile;
     private UInt32 magicNumber;
     private UInt32 version;
     Integer index = 0;
@@ -26,7 +26,8 @@ public class Wasm {
 
     public Wasm(String fileName) {
         try {
-            bytesAll = readBytesFromFile(fileName);
+            byte[] bytesAll = readBytesFromFile(fileName);
+            bytesFile = new BytesFile(bytesAll);
         } catch (IOException exception) {
             exception.printStackTrace();
         }
@@ -47,58 +48,52 @@ public class Wasm {
         checkMagicNumber();
         version = readVersion();
 
-        while (index < bytesAll.length) {
+        while (bytesFile.atEndOfFile() == false ) {
             // Section Code
             sectionCode = readSectionCode();
 
             // Payload Length
-            u32PayloadLength = new VarUInt32(bytesAll, index);
-            index += u32PayloadLength.size();
+            u32PayloadLength = new VarUInt32(bytesFile);
 
             payloadLength = u32PayloadLength.IntegerValue();
             // ¿ Named Section ?
             if (sectionCode.value() == 0) {
                 // name Length
-                nameLength = new VarUInt32(bytesAll, index);
-                index += nameLength.size();
+                nameLength = new VarUInt32(bytesFile);
                 // name
-                String name = new String(bytesAll, index, nameLength.IntegerValue());
-                index += nameLength.IntegerValue();
+//                String name = new String(bytesAll, index, nameLength.IntegerValue());
+//                index += nameLength.IntegerValue();
             }
             payloadLength = payloadLength - nameLength.IntegerValue() - sizeOFNameLength;
-            byte[] payload = Arrays.copyOfRange(bytesAll, index, index + payloadLength);
-            index += payloadLength;
+            BytesFile payload =  bytesFile.copy(payloadLength) ;
             // Type
             if (sectionCode.equals(SectionType.type.getUInt7())) {
                 functionSignature = new FunctionSignature();
                 functionSignature.instantiate(payload);
             }
         }
-        assert index == bytesAll.length : "File length is not correct";
+        assert bytesFile.atEndOfFile() : "File length is not correct";
     }
 
 
-
     private VarUInt7 readSectionCode() {
-        VarUInt7 result = new VarUInt7(bytesAll[index]);
-        index += result.size();
+        VarUInt7 result = new VarUInt7(bytesFile);
         return result;
     }
 
     private UInt32 readVersion() {
-        UInt32 version = new UInt32(bytesAll, index);
-        index += version.size();
+        UInt32 version = new UInt32(bytesFile);
         return version;
     }
 
     private UInt32 readMagicNumber() {
-        UInt32 magicNumber = new UInt32(bytesAll, index);
-        index += magicNumber.size();
+        UInt32 magicNumber = new UInt32(bytesFile);
         return magicNumber;
     }
 
     private void checkMagicNumber() {
         // magicNumberExpected ‘\0asm’ = 1836278016
+
         UInt32 magicNumberExpected = new UInt32((byte) 0x00, (byte) 0x61, (byte) 0x73, (byte) 0x6D);
         Boolean result = magicNumber.equals(magicNumberExpected);
         if (result == false) {
@@ -107,8 +102,7 @@ public class Wasm {
     }
 
     /**
-     * copied from :
-     * https://www.mkyong.com/java/how-to-convert-file-into-an-array-of-bytes/
+     * copied from : https://www.mkyong.com/java/how-to-convert-file-into-an-array-of-bytes/
      *
      * @param filePath
      * @return

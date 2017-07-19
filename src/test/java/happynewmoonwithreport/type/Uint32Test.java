@@ -1,5 +1,6 @@
 package happynewmoonwithreport.type;
 
+import happynewmoonwithreport.BytesFile;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -38,8 +39,8 @@ public class Uint32Test {
     @Test
     public void testProblemChildren() throws Exception {
         for (Entry<Long, byte[]> child : problemChildren.entrySet()) {
-
-            UInt32 uint32 = new UInt32(child.getValue(), 0);
+            BytesFile bytesFile = new BytesFile(child.getValue());
+            UInt32 uint32 = new UInt32(bytesFile);
             Long result = uint32.value();
 
             assertEqualHex(child.getKey(), result);
@@ -82,7 +83,8 @@ public class Uint32Test {
             byte b4 = (byte) ((i >> 24) & 0xFF);
 
             byte[] bArray = new byte[]{b1, b2, b3, b4};
-            UInt32 uint32_b = new UInt32(bArray, 0);
+            BytesFile bytesFile = new BytesFile( bArray);
+            UInt32 uint32_b = new UInt32(bytesFile);
             Long result_b = uint32_b.value();
 
             assertEquals("i = " + i.toString() + " hex = " + Long.toHexString(i), new Long(i), result_b);

@@ -12,7 +12,6 @@ package happynewmoonwithreport.type;
 
 public abstract class VarUInt<ValueType extends Number> implements DataTypeNumber<ValueType> {
     protected ValueType value;
-    protected Integer size;
 
     public VarUInt() {
         super();
@@ -20,11 +19,6 @@ public abstract class VarUInt<ValueType extends Number> implements DataTypeNumbe
 
     public VarUInt(ByteInput in) {
         setSize(in);
-    }
-
-    @Override
-    public Integer size() {
-        return size;
     }
 
     @Override

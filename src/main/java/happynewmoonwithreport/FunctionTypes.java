@@ -22,7 +22,7 @@ public class FunctionTypes implements Module {
      * @param payload
      */
     @Override
-    public void instantiate(byte[] payload) {
+    public void instantiate(BytesFile payload) {
     }
 
 

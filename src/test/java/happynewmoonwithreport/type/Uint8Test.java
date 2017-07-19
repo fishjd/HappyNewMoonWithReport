@@ -1,5 +1,6 @@
 package happynewmoonwithreport.type;
 
+import happynewmoonwithreport.BytesFile;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,12 +18,16 @@ public class Uint8Test {
     }
 
     @Test
-    public void testReadUnsigned() throws Exception {
+    public void testReadUnsigned2() throws Exception {
         for (Integer i = 0; i < 256; i++) {
-            UInt8 leb7 = new UInt8(new Integer(i).byteValue());
-            Integer result = leb7.value();
+            byte [] bytesAll = new byte[] {new Integer(i).byteValue()};
+            BytesFile bytesFile = new BytesFile(bytesAll);
+            UInt8 uInt8 = new UInt8(bytesFile);
+            Integer result = uInt8.value();
             assertEquals("i = " + i.toString(), i, result);
         }
     }
+
+
 
 }
