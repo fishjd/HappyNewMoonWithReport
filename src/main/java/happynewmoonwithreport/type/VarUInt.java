@@ -17,10 +17,6 @@ public abstract class VarUInt<ValueType extends Number> implements DataTypeNumbe
         super();
     }
 
-    public VarUInt(ByteInput in) {
-        setSize(in);
-    }
-
     @Override
     public Integer maxBytes() {
         Integer maxBytes = new Double(Math.ceil((double) maxBits() / 7.0D)).intValue();
@@ -35,18 +31,6 @@ public abstract class VarUInt<ValueType extends Number> implements DataTypeNumbe
     @Override
     public ValueType value() {
         return value;
-    }
-
-    public Integer setSize(ByteInput in) {
-        int cur;
-        int count = 0;
-        in.reset();
-        do {
-            cur = in.readByte() & 0xff;
-            count++;
-        } while (((cur & 0x80) != 0) && count < maxBytes());
-
-        return count;
     }
 
     @Override

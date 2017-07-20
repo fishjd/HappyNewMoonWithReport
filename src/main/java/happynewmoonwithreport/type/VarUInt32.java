@@ -42,11 +42,6 @@ public final class VarUInt32 extends VarUInt<Long> {
         this.value = value.longValue();
     }
 
-    // public VarUInt32(Byte b1, Byte b2, Byte b3, Byte b4, Byte b5) {
-    // this();
-    // in = new ByteArrayByteInput(b1, b2, b3, b4, b5);
-    // }
-
     public Long convert(BytesFile bytesFile) {
         Integer cur;
         Integer count = 0;
