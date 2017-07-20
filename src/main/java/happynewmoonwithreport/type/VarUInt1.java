@@ -83,4 +83,10 @@ public final class VarUInt1 extends VarUInt<Integer> {
         return value != 0;
     }
 
+    @Override
+    public String toString() {
+        return "VarUInt1{" +
+                "value=" + value +
+                "} ";
+    }
 }

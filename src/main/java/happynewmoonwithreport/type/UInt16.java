@@ -52,7 +52,9 @@ public class UInt16 extends UInt<Integer> {
 
     @Override
     public String toString() {
-        return "Uint16 [value=" + value + "]";
+        return "UInt16{" +
+                "value=" + value +
+                "} ";
     }
 
 }

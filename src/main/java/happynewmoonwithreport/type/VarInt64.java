@@ -107,4 +107,10 @@ public final class VarInt64 extends VarInt<Long> {
         return value.intValue();
     }
 
+    @Override
+    public String toString() {
+        return "VarInt64{" +
+                "value=" + value +
+                "} ";
+    }
 }

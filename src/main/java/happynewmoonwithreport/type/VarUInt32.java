@@ -100,4 +100,10 @@ public final class VarUInt32 extends VarUInt<Long> {
         return value.intValue();
     }
 
+    @Override
+    public String toString() {
+        return "VarUInt32{" +
+                "value=" + value +
+                "} " ;
+    }
 }

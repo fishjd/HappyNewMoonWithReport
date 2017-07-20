@@ -49,10 +49,10 @@ public class UInt8 extends UInt<Integer> {
     }
 
 	/* override of Object **/
-
     @Override
     public String toString() {
-        return "Uint8 [value=" + value + "]";
+        return "UInt8{" +
+                "value=" + value +
+                "} ";
     }
-
 }

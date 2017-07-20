@@ -16,28 +16,6 @@ public final class VarInt32 extends VarInt<Integer> {
         value = convert(bytesFile);
     }
 
-
-//    public VarInt32(ByteInput in) {
-//        value = convert(in);
-//        size = setSize(in);
-//    }
-//
-//    public VarInt32(byte[] byteAll, Integer offset) {
-//        // copyOfRange will add zero to end if not long enough. This is
-//        // convenient at this works and is exactly what we want. It does mean
-//        // size() will be incorrect.
-//        // assert (offset + maxBytes() <= byteAll.length);
-//
-//        byte[] temp = Arrays.copyOfRange(byteAll, offset, offset + maxBytes());
-//        ByteInput in = new ByteArrayByteInput(temp);
-//        value = convert(in);
-//        size = setSize(in);
-//    }
-//
-//    public VarInt32(byte[] byteAll) {
-//        this(new ByteArrayByteInput(byteAll));
-//    }
-
     /**
      * Create using a Long. Used mainly in testing.
      *
@@ -127,5 +105,10 @@ public final class VarInt32 extends VarInt<Integer> {
     public Integer IntegerValue() {
         return value.intValue();
     }
-
+    @Override
+    public String toString() {
+        return "VarInt32{" +
+                "value=" + value +
+                "} ";
+    }
 }

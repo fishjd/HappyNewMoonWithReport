@@ -68,7 +68,8 @@ public class UInt32 extends UInt<Long> {
 
     @Override
     public String toString() {
-        return "Uint32 [value=" + value + "]";
+        return "UInt32{" +
+                "value=" + value +
+                "} ";
     }
-
 }

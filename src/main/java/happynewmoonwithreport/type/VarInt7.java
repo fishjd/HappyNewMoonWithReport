@@ -105,5 +105,10 @@ public final class VarInt7 extends VarInt<Integer> {
     public Integer IntegerValue() {
         return value.intValue();
     }
-
+    @Override
+    public String toString() {
+        return "VarInt7{" +
+                "value=" + value +
+                "} ";
+    }
 }
