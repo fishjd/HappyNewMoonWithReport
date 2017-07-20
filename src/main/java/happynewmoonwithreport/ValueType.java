@@ -19,7 +19,6 @@ public class ValueType {
     private String value;
 
     private ValueType() {
-
     }
 
     public ValueType(Integer type) {
@@ -81,6 +80,21 @@ public class ValueType {
             throw new RuntimeException("type in ValueType is not valid type = " + type);
         }
 
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ValueType valueType = (ValueType) o;
+
+        return type.equals(valueType.type);
+    }
+
+    @Override
+    public int hashCode() {
+        return type.hashCode();
     }
 
     @Override
