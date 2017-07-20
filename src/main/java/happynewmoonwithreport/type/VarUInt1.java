@@ -15,22 +15,6 @@ public final class VarUInt1 extends VarUInt<Integer> {
         value = convert(bytesFile);
     }
 
-//    public VarUInt1(byte[] byteAll, Integer offset) {
-//        // copyOfRange will add zero to end if not long enough. This is
-//        // convenient at this works and is exactly what we want. It does mean
-//        // size() will be incorrect.
-//        assert (offset + maxBytes() <= byteAll.length);
-//
-//        byte[] temp = Arrays.copyOfRange(byteAll, offset, offset + maxBytes());
-//        ByteInput in = new ByteArrayByteInput(temp);
-//        value = convert(in);
-//        size = setSize(in);
-//    }
-//
-//    public VarUInt1(byte[] byteAll) {
-//        this(new ByteArrayByteInput(byteAll));
-//    }
-
     /**
      * Create using a Integer. Size is hard coded to 1. Used mainly in testing.
      *
@@ -62,6 +46,14 @@ public final class VarUInt1 extends VarUInt<Integer> {
         } while (((cur & 0x80) != 0) && count < maxBytes());
 
         return result;
+    }
+
+    public Boolean isTrue() {
+        return value != 0;
+    }
+
+    public Boolean isFalse() {
+        return value == 0;
     }
 
     @Override

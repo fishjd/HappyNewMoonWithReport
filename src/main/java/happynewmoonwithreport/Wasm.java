@@ -23,6 +23,7 @@ public class Wasm {
 
     SectionType sectionType = null;
     SectionFunction sectionFunction = null;
+    SectionTable sectionTable = null;
 
     public Wasm(String fileName) {
         try {
@@ -76,6 +77,11 @@ public class Wasm {
                 sectionFunction = new SectionFunction();
                 sectionFunction.instantiate(payload);
             }
+            if (sectionCode.equals(SectionCode.table.getUInt7())) {
+                sectionTable = new SectionTable();
+                sectionTable.instantiate(payload);
+            }
+
         }
         assert bytesFile.atEndOfFile() : "File length is not correct";
     }
