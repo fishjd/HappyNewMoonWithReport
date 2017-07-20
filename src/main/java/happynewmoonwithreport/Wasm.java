@@ -2,7 +2,6 @@ package happynewmoonwithreport;
 
 import happynewmoonwithreport.type.UInt32;
 import happynewmoonwithreport.type.VarUInt32;
-import happynewmoonwithreport.type.VarUInt7;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -25,6 +24,7 @@ public class Wasm {
     SectionFunction sectionFunction = null;
     SectionTable sectionTable = null;
     SectionMemory sectionMemory = null;
+    SectionGlobal sectionGlobal = null;
 
     public Wasm(String fileName) {
         try {
@@ -37,7 +37,7 @@ public class Wasm {
 
     public void instantiate() throws Exception {
 
-        VarUInt7 sectionCode;
+        SectionCode sectionCode;
         VarUInt32 u32PayloadLength;
         /**
          * payloadLength needs to be a java type as it is used in math (+).  Should be Long but copyOfRange only handles int.
@@ -59,40 +59,41 @@ public class Wasm {
 
             payloadLength = u32PayloadLength.integerValue();
             // ¿ Named Section ?
-            if (sectionCode.value() == 0) {
-                // name Length
-                nameLength = new VarUInt32(bytesFile);
-                // name
+            if (sectionCode.getType() == 0) {
                 // TODO
-                // String name = new String(bytesAll, index, nameLength.IntegerValue());
-                // index += nameLength.IntegerValue();
             }
             payloadLength = payloadLength - nameLength.integerValue() - sizeOFNameLength;
             BytesFile payload = bytesFile.copy(payloadLength);
-            // Type
-            if (sectionCode.equals(SectionCode.type.getUInt7())) {
-                sectionType = new SectionType();
-                sectionType.instantiate(payload);
-            }
-            if (sectionCode.equals(SectionCode.function.getUInt7())) {
-                sectionFunction = new SectionFunction();
-                sectionFunction.instantiate(payload);
-            }
-            if (sectionCode.equals(SectionCode.table.getUInt7())) {
-                sectionTable = new SectionTable();
-                sectionTable.instantiate(payload);
-            }
-            if (sectionCode.equals(SectionCode.memory.getUInt7())) {
-                sectionMemory = new SectionMemory();
-                sectionMemory.instantiate(payload);
+            switch (sectionCode.getValue()) {
+                case SectionCode.TYPE:
+                    sectionType = new SectionType();
+                    sectionType.instantiate(payload);
+                    break;
+                case SectionCode.FUNCTION:
+                    sectionFunction = new SectionFunction();
+                    sectionFunction.instantiate(payload);
+                    break;
+                case SectionCode.TABLE:
+                    sectionTable = new SectionTable();
+                    sectionTable.instantiate(payload);
+                    break;
+                case SectionCode.MEMORY:
+                    sectionMemory = new SectionMemory();
+                    sectionMemory.instantiate(payload);
+                    break;
+                case SectionCode.GLOBAL:
+                    sectionGlobal = new SectionGlobal();
+                    sectionGlobal.instantiate(payload);
+                    break;
             }
         }
         assert bytesFile.atEndOfFile() : "File length is not correct";
     }
 
 
-    private VarUInt7 readSectionCode() {
-        VarUInt7 result = new VarUInt7(bytesFile);
+    private SectionCode readSectionCode() {
+        SectionCode result = new SectionCode(bytesFile);
+
         return result;
     }
 
