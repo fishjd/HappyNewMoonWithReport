@@ -24,6 +24,7 @@ public class Wasm {
     SectionType sectionType = null;
     SectionFunction sectionFunction = null;
     SectionTable sectionTable = null;
+    SectionMemory sectionMemory = null;
 
     public Wasm(String fileName) {
         try {
@@ -49,7 +50,7 @@ public class Wasm {
         checkMagicNumber();
         version = readVersion();
 
-        while (bytesFile.atEndOfFile() == false ) {
+        while (bytesFile.atEndOfFile() == false) {
             // Section Code
             sectionCode = readSectionCode();
 
@@ -67,7 +68,7 @@ public class Wasm {
                 // index += nameLength.IntegerValue();
             }
             payloadLength = payloadLength - nameLength.integerValue() - sizeOFNameLength;
-            BytesFile payload =  bytesFile.copy(payloadLength) ;
+            BytesFile payload = bytesFile.copy(payloadLength);
             // Type
             if (sectionCode.equals(SectionCode.type.getUInt7())) {
                 sectionType = new SectionType();
@@ -81,7 +82,10 @@ public class Wasm {
                 sectionTable = new SectionTable();
                 sectionTable.instantiate(payload);
             }
-
+            if (sectionCode.equals(SectionCode.memory.getUInt7())) {
+                sectionMemory = new SectionMemory();
+                sectionMemory.instantiate(payload);
+            }
         }
         assert bytesFile.atEndOfFile() : "File length is not correct";
     }

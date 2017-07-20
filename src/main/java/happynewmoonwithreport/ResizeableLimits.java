@@ -25,7 +25,13 @@ import happynewmoonwithreport.type.VarUInt32;
 public class ResizeableLimits {
 
     private VarUInt1 flags;
+    /**
+     * length in wasm pages (64k)
+     */
     private VarUInt32 initialLength;
+    /**
+     * length in wasm pages (64k)
+     */
     private VarUInt32 maximumLength;
 
     public ResizeableLimits() {

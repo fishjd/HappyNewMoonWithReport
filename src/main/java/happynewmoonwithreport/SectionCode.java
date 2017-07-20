@@ -49,4 +49,11 @@ public enum SectionCode {
         return new VarUInt7(value);
     }
 
+    @Override
+    public String toString() {
+        return "SectionCode{" +
+                "value=" + value +
+                ", name='" + name() + '\'' +
+                "} ";
+    }
 }
