@@ -25,6 +25,7 @@ public class Wasm {
     SectionTable sectionTable = null;
     SectionMemory sectionMemory = null;
     SectionGlobal sectionGlobal = null;
+    SectionExport sectionExport = null;
 
     public Wasm(String fileName) {
         try {
@@ -85,6 +86,9 @@ public class Wasm {
                     sectionGlobal = new SectionGlobal();
                     sectionGlobal.instantiate(payload);
                     break;
+                case SectionCode.EXPORT:
+                    sectionExport = new SectionExport();
+                    sectionExport.instantiate(payload);
             }
         }
         assert bytesFile.atEndOfFile() : "File length is not correct";
