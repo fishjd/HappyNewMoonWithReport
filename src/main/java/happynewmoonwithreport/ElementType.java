@@ -35,14 +35,14 @@ public class ElementType {
 
     public ElementType(VarInt7 input) {
         this();
-        this.type = input.IntegerValue();
+        this.type = input.integerValue();
         calcValue(type);
     }
 
     public ElementType(BytesFile payload) {
         this();
         VarInt7 vt = new VarInt7(payload);
-        this.type = vt.IntegerValue();
+        this.type = vt.integerValue();
         calcValue(type);
     }
 
@@ -110,7 +110,7 @@ public class ElementType {
     public String toString() {
         return "ElementType{" +
                 "type = " + type +
-                ", value = " + mapAll.get(type) +
+                ", value = " + value +
                 '}';
     }
 }

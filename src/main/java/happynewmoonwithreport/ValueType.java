@@ -29,14 +29,14 @@ public class ValueType {
 
     public ValueType(VarInt7 input) {
         this();
-        this.type = input.IntegerValue();
+        this.type = input.integerValue();
         calcValue(type);
     }
 
     public ValueType(BytesFile payload) {
         this();
         VarInt7 vt = new VarInt7(payload);
-        this.type = vt.IntegerValue();
+        this.type = vt.integerValue();
         calcValue(type);
     }
 

@@ -71,14 +71,6 @@ public final class VarUInt1 extends VarUInt<Integer> {
         return 2 ^ maxBits();
     }
 
-    public Long LongValue() {
-        return new Long(value);
-    }
-
-    public Integer IntegerValue() {
-        return value;
-    }
-
     public Boolean BooleanValue() {
         return value != 0;
     }

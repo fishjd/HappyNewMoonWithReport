@@ -46,13 +46,13 @@ public class VarInt7Test {
     @Test
     public void testReadSignedPaddedNeg2() {
         BytesFile payload = new BytesFile(new byte[]{(byte) 0x7E});
-        NumberHelper.assertEqualHex(new VarInt7(-2).LongValue(), new VarInt7(payload).LongValue());
+        NumberHelper.assertEqualHex(new VarInt7(-2).longValue(), new VarInt7(payload).longValue());
     }
 
     @Test
     public void testReadSignedPaddedPositive2() {
         BytesFile payload = new BytesFile(new byte[]{(byte) 0x02});
-        NumberHelper.assertEqualHex(new VarInt7(2).LongValue(), new VarInt7(payload).LongValue());
+        NumberHelper.assertEqualHex(new VarInt7(2).longValue(), new VarInt7(payload).longValue());
 
     }
 

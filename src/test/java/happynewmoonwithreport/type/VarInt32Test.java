@@ -22,7 +22,7 @@ public class VarInt32Test {
         // -624485 (0xFFF6789B) is encoded as 0x9B 0xF1 0x59.
         byte[] bytesAll = new byte[]{(byte) 0x9B, (byte) 0xF1, (byte) 0x59};
         BytesFile bytesFile = new BytesFile(bytesAll);
-        NumberHelper.assertEqualHex(new VarInt32(-624485L).LongValue(), new VarInt32(bytesFile).LongValue());
+        NumberHelper.assertEqualHex(new VarInt32(-624485L).longValue(), new VarInt32(bytesFile).longValue());
     }
 
     @Test
@@ -57,7 +57,7 @@ public class VarInt32Test {
         // -624485 (0xFFF6789B) is encoded as 0x9B 0xF1 0x59.
         byte[] bytesAll = new byte[]{(byte) 0x9B, (byte) 0xF1, (byte) 0xD9, (byte) 0x7F};
         BytesFile bytesFile = new BytesFile(bytesAll);
-        NumberHelper.assertEqualHex(new VarInt32(-624485L).LongValue(), new VarInt32(bytesFile).LongValue());
+        NumberHelper.assertEqualHex(new VarInt32(-624485L).longValue(), new VarInt32(bytesFile).longValue());
     }
 
     /**
@@ -70,46 +70,46 @@ public class VarInt32Test {
         byte[] bytesAll = new byte[]{(byte) 0x7E};
         BytesFile bytesFile = new BytesFile(bytesAll);
 
-        NumberHelper.assertEqualHex(new VarInt32(-2).LongValue(), new VarInt32(bytesFile).LongValue());
+        NumberHelper.assertEqualHex(new VarInt32(-2).longValue(), new VarInt32(bytesFile).longValue());
 
         bytesAll = new byte[]{(byte) 0xFE, (byte) 0x7F};
         bytesFile = new BytesFile(bytesAll);
-        NumberHelper.assertEqualHex(new VarInt32(-2).LongValue(), new VarInt32(bytesFile).LongValue());
+        NumberHelper.assertEqualHex(new VarInt32(-2).longValue(), new VarInt32(bytesFile).longValue());
 
         bytesAll = new byte[]{(byte) 0xFE, (byte) 0xFF, (byte) 0x7F};
         bytesFile = new BytesFile(bytesAll);
-        NumberHelper.assertEqualHex(new VarInt32(-2).LongValue(), new VarInt32(bytesFile).LongValue());
+        NumberHelper.assertEqualHex(new VarInt32(-2).longValue(), new VarInt32(bytesFile).longValue());
 
         bytesAll = new byte[]{(byte) 0xFE, (byte) 0xFF, (byte) 0x7F, (byte) 0x00};
         bytesFile = new BytesFile(bytesAll);
-        NumberHelper.assertEqualHex(new VarInt32(-2).LongValue(), new VarInt32(bytesFile).LongValue());
+        NumberHelper.assertEqualHex(new VarInt32(-2).longValue(), new VarInt32(bytesFile).longValue());
 
         bytesAll = new byte[]{(byte) 0xFE, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0x7F, (byte) 0x00};
         bytesFile = new BytesFile(bytesAll);
-        NumberHelper.assertEqualHex(new VarInt32(-2).LongValue(), new VarInt32(bytesFile).LongValue());
+        NumberHelper.assertEqualHex(new VarInt32(-2).longValue(), new VarInt32(bytesFile).longValue());
     }
 
     @Test
     public void testReadSignedPaddedPositive2() {
         byte[] bytesAll = new byte[]{(byte) 0x02};
         BytesFile bytesFile = new BytesFile(bytesAll);
-        NumberHelper.assertEqualHex(new VarInt32(2).LongValue(), new VarInt32(bytesFile).LongValue());
+        NumberHelper.assertEqualHex(new VarInt32(2).longValue(), new VarInt32(bytesFile).longValue());
 
         bytesAll = new byte[]{(byte) 0x82, (byte) 0x00};
         bytesFile = new BytesFile(bytesAll);
-        NumberHelper.assertEqualHex(new VarInt32(2).LongValue(), new VarInt32(bytesFile).LongValue());
+        NumberHelper.assertEqualHex(new VarInt32(2).longValue(), new VarInt32(bytesFile).longValue());
 
         bytesAll = new byte[]{(byte) 0x82, (byte) 0x80, (byte) 0x00};
         bytesFile = new BytesFile(bytesAll);
-        NumberHelper.assertEqualHex(new VarInt32(2).LongValue(), new VarInt32(bytesFile).LongValue());
+        NumberHelper.assertEqualHex(new VarInt32(2).longValue(), new VarInt32(bytesFile).longValue());
 
         bytesAll = new byte[]{(byte) 0x82, (byte) 0x80, (byte) 0x00, (byte) 0x00};
         bytesFile = new BytesFile(bytesAll);
-        NumberHelper.assertEqualHex(new VarInt32(2).LongValue(), new VarInt32(bytesFile).LongValue());
+        NumberHelper.assertEqualHex(new VarInt32(2).longValue(), new VarInt32(bytesFile).longValue());
 
         bytesAll = new byte[]{(byte) 0x82, (byte) 0x80, (byte) 0x80, (byte) 0x80, (byte) 0x00};
         bytesFile = new BytesFile(bytesAll);
-        NumberHelper.assertEqualHex(new VarInt32(2).LongValue(), new VarInt32(bytesFile).LongValue());
+        NumberHelper.assertEqualHex(new VarInt32(2).longValue(), new VarInt32(bytesFile).longValue());
 
     }
 

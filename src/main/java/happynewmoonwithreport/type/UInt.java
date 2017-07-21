@@ -31,6 +31,17 @@ public abstract class UInt<ValueType extends Number> implements DataTypeNumber<V
     // }
     //
 
+    public byte byteValue() {
+        return value.byteValue();
+    }
+    public Integer integerValue() {
+        return value.intValue();
+    }
+    public Long longValue(){
+        return value.longValue();
+    }
+
+
     @Override
     public int hashCode() {
         final int prime = 31;

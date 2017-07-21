@@ -98,13 +98,7 @@ public final class VarInt32 extends VarInt<Integer> {
         return +2 ^ (maxBits() - 1) - 1;
     }
 
-    public Long LongValue() {
-        return value.longValue();
-    }
 
-    public Integer IntegerValue() {
-        return value.intValue();
-    }
     @Override
     public String toString() {
         return "VarInt32{" +

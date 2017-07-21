@@ -99,13 +99,7 @@ public final class VarInt64 extends VarInt<Long> {
         return +2L ^ (maxBits() - 1) - 1;
     }
 
-    public Long LongValue() {
-        return value;
-    }
 
-    public Integer IntegerValue() {
-        return value.intValue();
-    }
 
     @Override
     public String toString() {

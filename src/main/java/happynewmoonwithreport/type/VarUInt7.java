@@ -63,13 +63,7 @@ public final class VarUInt7 extends VarUInt<Integer> {
         return 2 ^ maxBits();
     }
 
-    public Long LongValue() {
-        return new Long(value);
-    }
 
-    public Integer IntegerValue() {
-        return value;
-    }
 
     @Override
     public String toString() {

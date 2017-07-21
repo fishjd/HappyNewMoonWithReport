@@ -86,10 +86,7 @@ public final class VarUInt32 extends VarUInt<Long> {
         return 2L ^ maxBits();
     }
 
-    public Long longValue() {
-        return value;
-    }
-
+    @Override
     public Integer integerValue() {
         checkIfTooLarge();
         return value.intValue();
@@ -99,6 +96,6 @@ public final class VarUInt32 extends VarUInt<Long> {
     public String toString() {
         return "VarUInt32{" +
                 "value=" + value +
-                "} " ;
+                "} ";
     }
 }

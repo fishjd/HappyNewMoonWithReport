@@ -50,14 +50,14 @@ public class SectionCode {
 
     public SectionCode(VarUInt7 input) {
         this();
-        this.type = input.IntegerValue();
+        this.type = input.integerValue();
         calcValue(type);
     }
 
     public SectionCode(BytesFile payload) {
         this();
         VarUInt7 vt = new VarUInt7(payload);
-        this.type = vt.IntegerValue();
+        this.type = vt.integerValue();
         calcValue(type);
     }
 
