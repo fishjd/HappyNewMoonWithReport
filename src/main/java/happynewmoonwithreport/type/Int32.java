@@ -9,6 +9,10 @@ public class Int32 extends Int<Integer> {
         this.value = value;
     }
 
+    public Int32 (DataTypeNumber number) {
+        this.value = number.integerValue();
+    }
+
 	/* private functions **/
 
 	/* Override DataTypeNumber */
