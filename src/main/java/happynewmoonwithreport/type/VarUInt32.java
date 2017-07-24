@@ -2,7 +2,7 @@ package happynewmoonwithreport.type;
 
 import happynewmoonwithreport.BytesFile;
 
-public final class VarUInt32 extends VarUInt<Long> {
+public final class VarUInt32 extends UInt32 {
 
     @SuppressWarnings("unused")
     private VarUInt32() {
@@ -11,35 +11,6 @@ public final class VarUInt32 extends VarUInt<Long> {
 
     public VarUInt32(BytesFile bytesFile) {
         value = convert(bytesFile);
-    }
-
-    /**
-     * Create using a Long. Size is hard coded to 5. Used mainly in testing.
-     *
-     * @param value
-     */
-    public VarUInt32(Long value) {
-        this.value = value;
-        // set to default value.
-    }
-
-    /**
-     * Create using a Integer. Size is hard coded to 1. Used mainly in testing.
-     *
-     * @param value
-     */
-    public VarUInt32(Integer value) {
-        this.value = value.longValue();
-        // set to default value.
-    }
-
-    /**
-     * Create using a Byte. Size is hard coded to 1. Used mainly in testing.
-     *
-     * @param value
-     */
-    public VarUInt32(Byte value) {
-        this.value = value.longValue();
     }
 
     public Long convert(BytesFile bytesFile) {
@@ -56,40 +27,10 @@ public final class VarUInt32 extends VarUInt<Long> {
         return result;
     }
 
-    /**
-     * Does the <code>value</code> lay between Integer.minValue and Integer.maxValue.  i.e Integer.minValue <= value <=
-     * Integer.maxValue;
-     **/
-    public Boolean isBoundByInteger() {
-        return (Integer.MIN_VALUE <= value && value <= Integer.MAX_VALUE);
-    }
-
-    public void checkIfTooLarge() {
-        if (isBoundByInteger() == false) {
-            throw new RuntimeException("Value is too large!");
-        }
-    }
-
-    public Integer getMaxBits() {
-        return 32;
-    }
-
-    public Integer maxBits() {
-        return 32;
-    }
-
-    public Long minValue() {
-        return 0L;
-    }
-
-    public Long maxValue() {
-        return 2L ^ maxBits();
-    }
-
     @Override
-    public Integer integerValue() {
-        checkIfTooLarge();
-        return value.intValue();
+    public Integer maxBytes() {
+        Integer maxBytes = new Double(Math.ceil((double) maxBits() / 7.0D)).intValue();
+        return maxBytes;
     }
 
     @Override

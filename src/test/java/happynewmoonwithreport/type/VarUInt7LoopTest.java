@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class Leb7Test {
+public class VarUInt7LoopTest {
 
     @Before
     public void setUp() throws Exception {

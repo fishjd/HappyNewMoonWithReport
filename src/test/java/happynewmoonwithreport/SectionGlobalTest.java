@@ -1,5 +1,6 @@
 package happynewmoonwithreport;
 
+import happynewmoonwithreport.type.UInt32;
 import happynewmoonwithreport.type.VarUInt1;
 import happynewmoonwithreport.type.VarUInt32;
 import org.junit.After;
@@ -44,7 +45,7 @@ public class SectionGlobalTest {
 
         // verify
         // the count is 1
-        assertEquals(new VarUInt32(1L), sectionGlobal.getCount());
+        assertEquals(new UInt32(1L), sectionGlobal.getCount());
 
         ArrayList<GlobalVariableType> globals = sectionGlobal.getGlobals();
         assertEquals(1, globals.size());

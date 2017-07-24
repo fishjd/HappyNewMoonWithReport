@@ -10,8 +10,7 @@ import java.util.Arrays;
  */
 public class UInt32 extends UInt<Long> {
 
-    @SuppressWarnings("unused")
-    private UInt32() {
+    public UInt32() {
         super();
     }
 
@@ -38,6 +37,10 @@ public class UInt32 extends UInt<Long> {
         this.value = value;
     }
 
+    public UInt32(Integer value) {
+        this.value = value.longValue();
+    }
+
     public Long convert(BytesFile bytesFile) {
         Long result = 0L;
         // little Endian!
@@ -46,6 +49,27 @@ public class UInt32 extends UInt<Long> {
         }
         return result;
     }
+
+    @Override
+    public Integer integerValue() {
+        checkIfTooLarge();
+        return value.intValue();
+    }
+
+    /**
+     * Does the <code>value</code> lay between Integer.minValue and Integer.maxValue.  i.e Integer.minValue <= value <=
+     * Integer.maxValue;
+     **/
+    public Boolean isBoundByInteger() {
+        return (Integer.MIN_VALUE <= value && value <= Integer.MAX_VALUE);
+    }
+
+    public void checkIfTooLarge() {
+        if (isBoundByInteger() == false) {
+            throw new RuntimeException("Value is too large!");
+        }
+    }
+
 
 	/* Override DataTypeNumber */
 

@@ -1,5 +1,6 @@
 package happynewmoonwithreport;
 
+import happynewmoonwithreport.type.UInt32;
 import happynewmoonwithreport.type.VarUInt1;
 import happynewmoonwithreport.type.VarUInt32;
 import org.junit.After;
@@ -38,14 +39,14 @@ public class SectionMemoryTest {
 
         // verify
         // the count is 1
-        assertEquals(new VarUInt32(1L), sectionMemory.getCount());
+        assertEquals(new UInt32(1), sectionMemory.getCount());
 
         ArrayList<ResizeableLimits> limitAll = sectionMemory.getLimits();
         assertEquals(1, limitAll.size());
 
         ResizeableLimits limits = limitAll.get(0);
         assertEquals (new VarUInt1(0), limits.getFlags()) ;
-        assertEquals (new VarUInt32(1), limits.getInitialLength()) ;
+        assertEquals (new UInt32(1), limits.getInitialLength()) ;
         assertNull(limits.getMaximumLength());
 
     }

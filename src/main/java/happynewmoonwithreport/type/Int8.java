@@ -2,25 +2,19 @@ package happynewmoonwithreport.type;
 
 import happynewmoonwithreport.BytesFile;
 
-import java.util.Arrays;
-
 /**
- * An unsigned integer of N bits, represented in N/8 bytes in little endian
+ * An signed integer of N bits, represented in N/8 bytes in little endian
  * order. N is either 8, 16, or 32.
  */
-public class UInt16 extends UInt<Integer> {
+public class Int8 extends UInt<Integer> {
 
-    public UInt16(BytesFile bytesFile) {
+    public Int8(BytesFile bytesFile) {
         assert (bytesFile.longEnough( minBytes()));
         value = convert(bytesFile);
     }
 
-    public UInt16(Integer value) {
+    public Int8(Integer value) {
         this.value = value;
-    }
-
-    public UInt16(DataTypeNumber number) {
-        this.value = number.integerValue();
     }
 
     public Integer convert(BytesFile bytesFile) {
@@ -39,26 +33,21 @@ public class UInt16 extends UInt<Integer> {
 
     @Override
     public Integer maxBits() {
-        return 16;
+        return 8;
     }
 
-    @Override
     public Integer minValue() {
-        return 0;
+        return -2 ^ (maxBits() - 1);
     }
 
-    @Override
     public Integer maxValue() {
-        return 2 ^ maxBits();
+        return +2 ^ (maxBits() - 1) - 1;
     }
-
 	/* override of Object **/
-
     @Override
     public String toString() {
-        return "UInt16{" +
+        return "Int8{" +
                 "value=" + value +
                 "} ";
     }
-
 }

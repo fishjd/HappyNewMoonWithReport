@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class Leb32Test {
+public class VarUInt32Test {
 
     @Before
     public void setUp() throws Exception {
@@ -29,7 +29,7 @@ public class Leb32Test {
         // Byte byte1 = Integer.parseInt("0x01", 16).;
         byte[] bytesAll = new byte[]{(byte) 0x87, (byte) 0x80, (byte) 0x80, (byte) 0x80, (byte) 0x00};
         BytesFile payload = new BytesFile(bytesAll);
-        assertEquals(new VarUInt32(7L), new VarUInt32(payload));
+        assertEquals(new UInt32(7L), new VarUInt32(payload));
     }
 
 

@@ -1,5 +1,6 @@
 package happynewmoonwithreport;
 
+import happynewmoonwithreport.type.UInt32;
 import happynewmoonwithreport.type.VarUInt1;
 import happynewmoonwithreport.type.VarUInt32;
 import org.junit.After;
@@ -40,7 +41,7 @@ public class SectionTableTest {
 
         // verify
         // the count is 1
-        assertEquals(new VarUInt32(1L), sectionTable.getCount());
+        assertEquals(new UInt32(1L), sectionTable.getCount());
 
         ArrayList<TableType> typeAll = sectionTable.getTables();
         assertEquals(1, typeAll.size());
@@ -52,7 +53,7 @@ public class SectionTableTest {
 
         ResizeableLimits limits = table.getLimits();
         assertEquals (new VarUInt1(0), limits.getFlags()) ;
-        assertEquals (new VarUInt32(0), limits.getInitialLength()) ;
+        assertEquals (new UInt32(0L), limits.getInitialLength()) ;
         assertNull(limits.getMaximumLength());
 
     }

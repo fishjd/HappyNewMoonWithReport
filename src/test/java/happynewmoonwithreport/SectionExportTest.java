@@ -1,5 +1,6 @@
 package happynewmoonwithreport;
 
+import happynewmoonwithreport.type.UInt32;
 import happynewmoonwithreport.type.VarUInt1;
 import happynewmoonwithreport.type.VarUInt32;
 import happynewmoonwithreport.type.WasmString;
@@ -45,22 +46,22 @@ public class SectionExportTest {
 
         // verify
         // the count is 2
-        assertEquals(new VarUInt32(2L), sectionExport.getCount());
+        assertEquals(new UInt32(2L), sectionExport.getCount());
 
         ArrayList<ExportEntry> exports = sectionExport.getExports();
         assertEquals(2, exports.size());
 
         ExportEntry exportEntry0 = exports.get(0);
-        assertEquals(new VarUInt32(6L), exportEntry0.getFieldLength());
+        assertEquals(new UInt32(6L), exportEntry0.getFieldLength());
         assertEquals( new WasmString("memory"), exportEntry0.getFieldName());
         assertEquals(new ExternalKind(2), exportEntry0.getExternalKind());
-        assertEquals(new VarUInt32(0L), exportEntry0.getIndex());
+        assertEquals(new UInt32(0L), exportEntry0.getIndex());
 
         ExportEntry exportEntry1 = exports.get(1);
-        assertEquals(new VarUInt32(5L), exportEntry1.getFieldLength());
+        assertEquals(new UInt32(5L), exportEntry1.getFieldLength());
         assertEquals( new WasmString("add32"), exportEntry1.getFieldName());
         assertEquals(new ExternalKind (0), exportEntry1.getExternalKind());
-        assertEquals(new VarUInt32(0L), exportEntry1.getIndex());
+        assertEquals(new UInt32(0L), exportEntry1.getIndex());
 
 
 

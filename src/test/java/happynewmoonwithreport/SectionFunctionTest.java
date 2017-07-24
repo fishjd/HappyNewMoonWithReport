@@ -1,5 +1,6 @@
 package happynewmoonwithreport;
 
+import happynewmoonwithreport.type.UInt32;
 import happynewmoonwithreport.type.VarUInt32;
 import org.junit.After;
 import org.junit.Before;
@@ -35,13 +36,13 @@ public class SectionFunctionTest {
 
         // verify
         // the count is 1
-        assertEquals(new VarUInt32(1L), sectionFunction.getCount());
+        assertEquals(new UInt32(1L), sectionFunction.getCount());
 
         ArrayList<VarUInt32> typeAll = sectionFunction.getTypes();
         assertEquals(1, typeAll.size());
 
         VarUInt32 type = typeAll.get(0);
-        assertEquals(new VarUInt32(0), type);
+        assertEquals(new UInt32(0L), type);
 
 
 

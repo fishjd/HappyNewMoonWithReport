@@ -45,7 +45,7 @@ public class Wasm {
          * payloadLength needs to be a java type as it is used in math (+).  Should be Long but copyOfRange only handles int.
          */
         Integer payloadLength;
-        VarUInt32 nameLength = new VarUInt32(0L);
+        UInt32 nameLength = new UInt32(0L);
         Integer sizeOFNameLength = 0;
 
         magicNumber = readMagicNumber();

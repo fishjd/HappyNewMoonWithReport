@@ -1,6 +1,6 @@
 package happynewmoonwithreport.type;
 
-public abstract class UInt<ValueType extends Number> implements DataTypeNumber<ValueType> {
+public abstract class Int<ValueType extends Number> implements DataTypeNumber<ValueType> {
 
     protected ValueType value;
 
@@ -51,12 +51,25 @@ public abstract class UInt<ValueType extends Number> implements DataTypeNumber<V
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof UInt)) return false;
-
-        UInt<?> uInt = (UInt<?>) o;
-
-        return value.equals(uInt.value);
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        Int<ValueType> other = (Int<ValueType>) obj;
+        if (value == null) {
+            if (other.value != null) {
+                return false;
+            }
+        } else if (!value.equals(other.value)) {
+            return false;
+        }
+        return true;
     }
+
 }

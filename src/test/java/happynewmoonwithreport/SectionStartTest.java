@@ -1,12 +1,9 @@
 package happynewmoonwithreport;
 
-import happynewmoonwithreport.type.VarUInt32;
-import happynewmoonwithreport.type.WasmString;
+import happynewmoonwithreport.type.UInt32;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -40,7 +37,7 @@ public class SectionStartTest {
 
         // verify
         // the count is 2
-        assertEquals(new VarUInt32(2L), sectionStart.getIndex());
+        assertEquals(new UInt32(2L), sectionStart.getIndex());
 
 
     }
