@@ -91,12 +91,12 @@ public final class VarInt64 extends VarInt<Long> {
 
     @Override
     public Long minValue() {
-        return -2L ^ (maxBits() - 1);
+        return -1L *  ( 1L << (maxBits() - 1)) ;
     }
 
     @Override
     public Long maxValue() {
-        return +2L ^ (maxBits() - 1) - 1;
+        return (1L << (maxBits() - 1)) - 1;
     }
 
 

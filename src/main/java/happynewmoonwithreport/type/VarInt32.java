@@ -2,8 +2,6 @@ package happynewmoonwithreport.type;
 
 import happynewmoonwithreport.BytesFile;
 
-import java.util.Arrays;
-
 public final class VarInt32 extends VarInt<Integer> {
 
     @SuppressWarnings("unused")
@@ -12,8 +10,12 @@ public final class VarInt32 extends VarInt<Integer> {
     }
 
     public VarInt32(BytesFile bytesFile) {
-        assert (bytesFile.longEnough( minBytes()));
+        assert (bytesFile.longEnough(minBytes()));
         value = convert(bytesFile);
+    }
+
+    public VarInt32(DataTypeNumber value) {
+        this.value = value.integerValue();
     }
 
     /**
@@ -67,8 +69,8 @@ public final class VarInt32 extends VarInt<Integer> {
     }
 
     /**
-     * Writes {@code value} as a signed integer to {@code out}, starting at
-     * {@code offset}. Returns the number of bytes written.
+     * Writes {@code value} as a signed integer to {@code out}, starting at {@code offset}. Returns the number of bytes
+     * written.
      */
     public ByteOutput convert() {
         ByteOutput out = new ByteArrayByteOutput(maxBytes());
@@ -91,11 +93,14 @@ public final class VarInt32 extends VarInt<Integer> {
     }
 
     public Integer minValue() {
-        return -2 ^ (maxBits() - 1);
+        Integer minValue = -1 * (1 << (maxBits() - 1));
+        return minValue;
+
     }
 
     public Integer maxValue() {
-        return +2 ^ (maxBits() - 1) - 1;
+        Integer maxValue = (1 << (maxBits() - 1)) - 1;
+        return maxValue;
     }
 
 

@@ -8,6 +8,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 public class Uint8Test {
+    UInt8 uInt8;
 
     @Before
     public void setUp() throws Exception {
@@ -16,6 +17,25 @@ public class Uint8Test {
     @After
     public void tearDown() throws Exception {
     }
+
+    @Test
+    public void maxBits() throws Exception {
+        uInt8 = new UInt8( 0);
+        assertEquals(new Integer(8), uInt8.maxBits());
+    }
+
+    @Test
+    public void minValue() throws Exception {
+        uInt8 = new UInt8( 0);
+        assertEquals(new Integer ( 0), uInt8.minValue());
+    }
+
+    @Test
+    public void maxValue() throws Exception {
+        uInt8 = new UInt8( 0);
+        assertEquals(new Integer( 256), uInt8.maxValue());
+    }
+
 
     @Test
     public void testReadUnsigned2() throws Exception {

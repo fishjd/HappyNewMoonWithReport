@@ -17,6 +17,25 @@ public class VarInt7Test {
     public void tearDown() throws Exception {
     }
 
+    VarInt7 varInt7;
+    @Test
+    public void maxBits() throws Exception {
+        varInt7 = new VarInt7( 0);
+        assertEquals(new Integer(7), varInt7.maxBits());
+    }
+
+    @Test
+    public void minValue() throws Exception {
+        varInt7 = new VarInt7( 0);
+        assertEquals(new Integer ( -64), varInt7.minValue());
+    }
+
+    @Test
+    public void maxValue() throws Exception {
+        varInt7 = new VarInt7( 0);
+        assertEquals(new Integer( 63), varInt7.maxValue());
+    }
+
     public void assertArrayEqualsJDH(byte[] expected, byte[] actual) {
         Integer length = Math.min(expected.length, actual.length);
         Boolean equal = true;

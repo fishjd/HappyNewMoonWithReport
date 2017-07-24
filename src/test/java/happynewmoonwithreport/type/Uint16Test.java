@@ -8,6 +8,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 public class Uint16Test {
+    UInt16 uInt16;
 
     @Before
     public void setUp() throws Exception {
@@ -15,6 +16,24 @@ public class Uint16Test {
 
     @After
     public void tearDown() throws Exception {
+    }
+
+    @Test
+    public void maxBits() throws Exception {
+        uInt16 = new UInt16( 0);
+        assertEquals(new Integer(16), uInt16.maxBits());
+    }
+
+    @Test
+    public void minValue() throws Exception {
+        uInt16 = new UInt16( 0);
+        assertEquals(new Integer ( 0), uInt16.minValue());
+    }
+
+    @Test
+    public void maxValue() throws Exception {
+        uInt16 = new UInt16( 0);
+        assertEquals(new Integer( 65_536), uInt16.maxValue());
     }
 
     @Test

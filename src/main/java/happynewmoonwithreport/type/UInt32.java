@@ -85,7 +85,7 @@ public class UInt32 extends UInt<Long> {
 
     @Override
     public Long maxValue() {
-        return 2L ^ maxBits();
+        return 1L << maxBits();
     }
 
 	/* override of Object **/

@@ -60,7 +60,7 @@ public final class VarUInt7 extends VarUInt<Integer> {
 
     @Override
     public Integer maxValue() {
-        return 2 ^ maxBits();
+        return (1 <<  maxBits()) -1 ;
     }
 
 

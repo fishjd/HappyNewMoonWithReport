@@ -2,8 +2,6 @@ package happynewmoonwithreport.type;
 
 import happynewmoonwithreport.BytesFile;
 
-import java.util.Arrays;
-
 public final class VarUInt1 extends VarUInt<Integer> {
 
     @SuppressWarnings("unused")
@@ -68,7 +66,7 @@ public final class VarUInt1 extends VarUInt<Integer> {
 
     @Override
     public Integer maxValue() {
-        return 2 ^ maxBits();
+        return (1 << maxBits()) - 1;
     }
 
     public Boolean BooleanValue() {

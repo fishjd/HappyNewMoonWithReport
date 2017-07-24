@@ -16,6 +16,25 @@ public class VarUInt1Test {
     public void tearDown() throws Exception {
     }
 
+    VarUInt1 varUInt1;
+    @Test
+    public void maxBits() throws Exception {
+        varUInt1 = new VarUInt1( 0);
+        assertEquals(new Integer(1), varUInt1.maxBits());
+    }
+
+    @Test
+    public void minValue() throws Exception {
+        varUInt1 = new VarUInt1( 0);
+        assertEquals(new Integer ( 0), varUInt1.minValue());
+    }
+
+    @Test
+    public void maxValue() throws Exception {
+        varUInt1 = new VarUInt1( 0);
+        assertEquals(new Integer( 1), varUInt1.maxValue());
+    }
+
     @Test
     public void testReadUnsigned() throws Exception {
         for (Integer i = 0; i < 1; i++) {

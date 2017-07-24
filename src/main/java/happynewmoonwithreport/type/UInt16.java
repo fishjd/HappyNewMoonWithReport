@@ -49,7 +49,7 @@ public class UInt16 extends UInt<Integer> {
 
     @Override
     public Integer maxValue() {
-        return 2 ^ maxBits();
+        return 1 << maxBits();
     }
 
 	/* override of Object **/

@@ -17,6 +17,25 @@ public class VarInt64Test {
     public void tearDown() throws Exception {
     }
 
+    VarInt64 varInt64;
+    @Test
+    public void maxBits() throws Exception {
+        varInt64 = new VarInt64( 0);
+        assertEquals(new Integer(64), varInt64.maxBits());
+    }
+
+    @Test
+    public void minValue() throws Exception {
+        varInt64 = new VarInt64( 0);
+        assertEquals(new Long(-9_223_372_036_854_775_808L), varInt64.minValue());
+    }
+
+    @Test
+    public void maxValue() throws Exception {
+        varInt64 = new VarInt64( 0);
+        assertEquals(new Long( 9_223_372_036_854_775_807L), varInt64.maxValue());
+    }
+
     @Test
     public void testReadSigned() {
         // -624485 (0xFFF6789B) is encoded as 0x9B 0xF1 0x59.

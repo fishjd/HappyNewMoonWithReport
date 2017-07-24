@@ -36,6 +36,25 @@ public class Uint32Test {
     public void tearDown() throws Exception {
     }
 
+    UInt32 uInt32;
+    @Test
+    public void maxBits() throws Exception {
+        uInt32 = new UInt32( 0);
+        assertEquals(new Integer(32), uInt32.maxBits());
+    }
+
+    @Test
+    public void minValue() throws Exception {
+        uInt32 = new UInt32( 0);
+        assertEquals(new Long ( 0), uInt32.minValue());
+    }
+
+    @Test
+    public void maxValue() throws Exception {
+        uInt32 = new UInt32( 0);
+        assertEquals(new Long( 4_294_967_296L), uInt32.maxValue());
+    }
+
     @Test
     public void testProblemChildren() throws Exception {
         for (Entry<Long, byte[]> child : problemChildren.entrySet()) {

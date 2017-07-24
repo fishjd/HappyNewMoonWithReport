@@ -21,16 +21,6 @@ public abstract class Int<ValueType extends Number> implements DataTypeNumber<Va
         return value;
     }
 
-    // I don't think it is worth adding minValue() and maxValue() if the price
-    // is you are required to add the Class<ValueType> as a parameter. It is
-    // easier to add in the sub classes.
-    //
-    // public <ValueType extends Number> ValueType minValue(Class<ValueType>
-    // valueType) {
-    // return valueType.cast(0);
-    // }
-    //
-
     public byte byteValue() {
         return value.byteValue();
     }
@@ -51,25 +41,12 @@ public abstract class Int<ValueType extends Number> implements DataTypeNumber<Va
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        Int<ValueType> other = (Int<ValueType>) obj;
-        if (value == null) {
-            if (other.value != null) {
-                return false;
-            }
-        } else if (!value.equals(other.value)) {
-            return false;
-        }
-        return true;
-    }
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        if (!(other instanceof Int)) return false;
 
+        Int<?> anInt = (Int<?>) other;
+
+        return value.equals(anInt.value);
+    }
 }

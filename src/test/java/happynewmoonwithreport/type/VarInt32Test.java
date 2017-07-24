@@ -17,6 +17,27 @@ public class VarInt32Test {
     public void tearDown() throws Exception {
     }
 
+    VarInt32 varInt32;
+    @Test
+    public void maxBits() throws Exception {
+        varInt32 = new VarInt32( 0);
+        assertEquals(new Integer(32), varInt32.maxBits());
+    }
+
+    @Test
+    public void minValue() throws Exception {
+        varInt32 = new VarInt32( 0);
+        assertEquals(new Integer(-2_147_483_648), varInt32.minValue());
+    }
+
+    @Test
+    public void maxValue() throws Exception {
+        varInt32 = new VarInt32( 0);
+        assertEquals(new Integer (2_147_483_647), varInt32.maxValue());
+
+        assertEquals((1 << 31) -1 , new Double( Math.pow(2, 31 )).intValue());
+    }
+
     @Test
     public void testReadSigned() {
         // -624485 (0xFFF6789B) is encoded as 0x9B 0xF1 0x59.

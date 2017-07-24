@@ -91,11 +91,11 @@ public final class VarInt7 extends VarInt<Integer> {
     }
 
     public Integer minValue() {
-        return -2 ^ (maxBits() - 1);
+        return -1 * (1 << (maxBits() - 1));
     }
 
     public Integer maxValue() {
-        return +2 ^ (maxBits() - 1) - 1;
+        return  (1<< (maxBits() - 1)) - 1;
     }
 
 
