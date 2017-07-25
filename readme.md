@@ -16,7 +16,7 @@ System.out.println(wasm.exports().HelloWorld());
 @Test
 public void testHelloWorld throws Exception {
 	Wasm wasm = new Wasm("HelloWorld.wasm");
-    assertEquals("Hello World", wasm.exports().HelloWorld());
+	assertEquals("Hello World", wasm.exports().HelloWorld());
 }	
 ```
 
