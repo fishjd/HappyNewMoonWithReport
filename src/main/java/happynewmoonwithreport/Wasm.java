@@ -39,7 +39,7 @@ public class Wasm {
 
     public void instantiate() throws Exception {
 
-        SectionCode sectionCode;
+        SectionName sectionName;
         VarUInt32 u32PayloadLength;
         /**
          * payloadLength needs to be a java type as it is used in math (+).  Should be Long but copyOfRange only handles int.
@@ -54,44 +54,44 @@ public class Wasm {
 
         while (bytesFile.atEndOfFile() == false) {
             // Section Code
-            sectionCode = readSectionCode();
+            sectionName = readSectionName();
 
             // Payload Length
             u32PayloadLength = new VarUInt32(bytesFile);
 
             payloadLength = u32PayloadLength.integerValue();
             // ¿ Named Section ?
-            if (sectionCode.getType() == 0) {
+            if (sectionName.getType() == 0) {
                 // TODO
             }
             payloadLength = payloadLength - nameLength.integerValue() - sizeOFNameLength;
             BytesFile payload = bytesFile.copy(payloadLength);
-            switch (sectionCode.getValue()) {
-                case SectionCode.TYPE:
+            switch (sectionName.getValue()) {
+                case SectionName.TYPE:
                     sectionType = new SectionType();
                     sectionType.instantiate(payload);
                     break;
-                case SectionCode.FUNCTION:
+                case SectionName.FUNCTION:
                     sectionFunction = new SectionFunction();
                     sectionFunction.instantiate(payload);
                     break;
-                case SectionCode.TABLE:
+                case SectionName.TABLE:
                     sectionTable = new SectionTable();
                     sectionTable.instantiate(payload);
                     break;
-                case SectionCode.MEMORY:
+                case SectionName.MEMORY:
                     sectionMemory = new SectionMemory();
                     sectionMemory.instantiate(payload);
                     break;
-                case SectionCode.GLOBAL:
+                case SectionName.GLOBAL:
                     sectionGlobal = new SectionGlobal();
                     sectionGlobal.instantiate(payload);
                     break;
-                case SectionCode.EXPORT:
+                case SectionName.EXPORT:
                     sectionExport = new SectionExport();
                     sectionExport.instantiate(payload);
                     break;
-                case SectionCode.START:
+                case SectionName.START:
                     sectionStart = new SectionStart();
                     sectionStart.instantiate(payload);
                     break;
@@ -101,9 +101,8 @@ public class Wasm {
     }
 
 
-    private SectionCode readSectionCode() {
-        SectionCode result = new SectionCode(bytesFile);
-
+    private SectionName readSectionName() {
+        SectionName result = new SectionName(bytesFile);
         return result;
     }
 

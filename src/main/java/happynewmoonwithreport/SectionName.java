@@ -23,7 +23,7 @@ import java.util.Map;
  * Code 		10 	Function bodies (code)
  * Data 		11
  *//* @formatter:on */
-public class SectionCode {
+public class SectionName {
     private Integer type;
     private String value;
 
@@ -39,29 +39,29 @@ public class SectionCode {
     public static final String CODE = "code";
     public static final String DATA = "data";
 
-    private SectionCode() {
+    private SectionName() {
     }
 
-    private SectionCode(Integer type) {
+    private SectionName(Integer type) {
         this();
         this.type = type;
         calcValue(type);
     }
 
-    public SectionCode(VarUInt7 input) {
+    public SectionName(VarUInt7 input) {
         this();
         this.type = input.integerValue();
         calcValue(type);
     }
 
-    public SectionCode(BytesFile payload) {
+    public SectionName(BytesFile payload) {
         this();
         VarUInt7 vt = new VarUInt7(payload);
         this.type = vt.integerValue();
         calcValue(type);
     }
 
-    public SectionCode(String value) {
+    public SectionName(String value) {
         this();
         Boolean found = false;
         for (Map.Entry<Integer, String> entry : mapAll.entrySet()) {
@@ -93,16 +93,16 @@ public class SectionCode {
     static {
         mapAll = new HashMap<>();
         mapAll.put(1, TYPE);
-        mapAll.put(2, "import");
-        mapAll.put(3, "function");
-        mapAll.put(4, "table");
-        mapAll.put(5, "memory");
-        mapAll.put(6, "global");
-        mapAll.put(7, "export");
-        mapAll.put(8, "start");
-        mapAll.put(9, "element");
-        mapAll.put(10, "code");
-        mapAll.put(11, "data");
+        mapAll.put(2, IMPORT);
+        mapAll.put(3, FUNCTION);
+        mapAll.put(4, TABLE);
+        mapAll.put(5, MEMORY);
+        mapAll.put(6, GLOBAL);
+        mapAll.put(7, EXPORT);
+        mapAll.put(8, START);
+        mapAll.put(9, ELEMENT);
+        mapAll.put(10, CODE);
+        mapAll.put(11, DATA);
     }
 
 
@@ -116,7 +116,7 @@ public class SectionCode {
 
     @Override
     public String toString() {
-        return "SectionCode{" +
+        return "SectionName{" +
                 "type=" + type +
                 ", value='" + value + '\'' +
                 '}';
