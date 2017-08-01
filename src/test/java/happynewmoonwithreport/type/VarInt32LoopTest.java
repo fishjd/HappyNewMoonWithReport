@@ -42,6 +42,7 @@ public class VarInt32LoopTest {
     @Test
     public void testProblemChildren() throws Exception {
         for (Entry<Integer, byte[]> child : problemChildren.entrySet()) {
+            // System.out.println( "Child = " + child.getKey() +" " + child.getValue());
             BytesFile bytesFile = new BytesFile(child.getValue());
             VarInt32 varInt32 = new VarInt32(bytesFile);
             Integer result = varInt32.value();
@@ -83,7 +84,7 @@ public class VarInt32LoopTest {
     Integer maxCount = 1_000_000;
 
     @Test
-    public void testReadUnsignedConstrutor2() throws Exception {
+    public void testReadUnsignedConstructor2() throws Exception {
         for (Integer j = 0; j < maxCount; j++) {
             Integer i = random.nextInt();
 

@@ -4,12 +4,16 @@ package happynewmoonwithreport.type;
  * An signed integer of N bits,
  */
 public class Int32 extends Int<Integer> {
+    public Int32() {
+        super();
+    }
 
     public Int32(Integer value) {
+        this();
         this.value = value;
     }
 
-    public Int32 (DataTypeNumber number) {
+    public Int32(DataTypeNumber number) {
         this.value = number.integerValue();
     }
 

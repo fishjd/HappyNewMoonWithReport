@@ -2,7 +2,7 @@ package happynewmoonwithreport.type;
 
 import happynewmoonwithreport.BytesFile;
 
-public final class VarInt32 extends VarInt<Integer> {
+public final class VarInt32 extends Int32 {
 
     @SuppressWarnings("unused")
     private VarInt32() {
@@ -25,7 +25,6 @@ public final class VarInt32 extends VarInt<Integer> {
      */
     public VarInt32(Long value) {
         this.value = value.intValue();
-        // set to default value.
     }
 
     /**
@@ -35,7 +34,6 @@ public final class VarInt32 extends VarInt<Integer> {
      */
     public VarInt32(Integer value) {
         this.value = value.intValue();
-        // set to default value.
     }
 
     /**
@@ -45,6 +43,17 @@ public final class VarInt32 extends VarInt<Integer> {
      */
     public VarInt32(Byte value) {
         this.value = value.intValue();
+    }
+
+    @Override
+    public Integer maxBytes() {
+        Integer maxBytes = new Double(Math.ceil((double) maxBits() / 7.0D)).intValue();
+        return maxBytes;
+    }
+
+    @Override
+    public Integer minBytes() {
+        return 1;
     }
 
     public Integer convert(BytesFile bytesFile) {
@@ -69,8 +78,7 @@ public final class VarInt32 extends VarInt<Integer> {
     }
 
     /**
-     * Writes {@code value} as a signed integer to {@code out}, starting at {@code offset}. Returns the number of bytes
-     * written.
+     *.
      */
     public ByteOutput convert() {
         ByteOutput out = new ByteArrayByteOutput(maxBytes());
@@ -87,22 +95,6 @@ public final class VarInt32 extends VarInt<Integer> {
         }
         return out;
     }
-
-    public Integer maxBits() {
-        return 32;
-    }
-
-    public Integer minValue() {
-        Integer minValue = -1 * (1 << (maxBits() - 1));
-        return minValue;
-
-    }
-
-    public Integer maxValue() {
-        Integer maxValue = (1 << (maxBits() - 1)) - 1;
-        return maxValue;
-    }
-
 
     @Override
     public String toString() {
