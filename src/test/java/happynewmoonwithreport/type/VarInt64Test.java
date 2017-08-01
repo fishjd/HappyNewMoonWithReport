@@ -17,7 +17,7 @@ public class VarInt64Test {
     public void tearDown() throws Exception {
     }
 
-    VarInt64 varInt64;
+    Int64 varInt64;
     @Test
     public void maxBits() throws Exception {
         varInt64 = new VarInt64( 0);

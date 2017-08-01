@@ -49,9 +49,9 @@ public class VarInt64LoopTest {
         for (Entry<Long, byte[]> child : problemChildren.entrySet()) {
             VarInt64 expected = new VarInt64( child.getKey());
             ByteOutput convert = expected.convert();
-            System.out.print("expected = " + child.getKey() + " " );
-            String byteString = Hex.bytesToHex(convert.bytes());
-            System.out.println( byteString);
+//            System.out.print("expected = " + child.getKey() + " " );
+//            String byteString = Hex.bytesToHex(convert.bytes());
+//            System.out.println( byteString);
 
 
             BytesFile bytesFile = new BytesFile(child.getValue());

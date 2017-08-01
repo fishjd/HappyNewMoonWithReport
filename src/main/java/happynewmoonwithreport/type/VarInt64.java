@@ -2,7 +2,7 @@ package happynewmoonwithreport.type;
 
 import happynewmoonwithreport.BytesFile;
 
-public final class VarInt64 extends VarInt<Long> {
+public final class VarInt64 extends Int64 {
 
     @SuppressWarnings("unused")
     private VarInt64() {
@@ -41,6 +41,17 @@ public final class VarInt64 extends VarInt<Long> {
      */
     public VarInt64(Byte value) {
         this.value = value.longValue();
+    }
+
+    @Override
+    public Integer maxBytes() {
+        Integer maxBytes = new Double(Math.ceil((double) maxBits() / 7.0D)).intValue();
+        return maxBytes;
+    }
+
+    @Override
+    public Integer minBytes() {
+        return 1;
     }
 
     public Long convert(BytesFile bytesFile) {
@@ -91,14 +102,13 @@ public final class VarInt64 extends VarInt<Long> {
 
     @Override
     public Long minValue() {
-        return -1L *  ( 1L << (maxBits() - 1)) ;
+        return -1L * (1L << (maxBits() - 1));
     }
 
     @Override
     public Long maxValue() {
         return (1L << (maxBits() - 1)) - 1;
     }
-
 
 
     @Override
