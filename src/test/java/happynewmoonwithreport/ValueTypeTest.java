@@ -24,12 +24,28 @@ public class ValueTypeTest {
         assertEquals(new Integer(1), payload.getIndex());
     }
 
+    /**
+     * Test constructor(Integer);
+     * @throws Exception
+     */
     @Test
-    public void constructorPayloadIndexModified() throws Exception {
-        byte[] bytesAll = new byte[]{0x7F};
-        BytesFile bytesFile = new BytesFile(bytesAll);
-        ValueType vtc = new ValueType(bytesFile);
+    public void constructorInteger() throws Exception {
+        ValueType vtc = new ValueType(-0x01);
         assertContains(vtc.toString(), "int32");
+    }
+
+    /**
+     * Test constructor(String);
+     * @throws Exception
+     */
+    @Test
+    public void constructorString () throws Exception {
+        // run
+        ValueType vtc = new ValueType("int32");
+
+        // test
+        assertContains(vtc.toString(), "int32");
+        assertEquals(new ValueType(-0x01), vtc);
     }
 
     @Test
@@ -38,6 +54,7 @@ public class ValueTypeTest {
         BytesFile bytesFile = new BytesFile(bytesAll);
         ValueType vtc = new ValueType(bytesFile);
         assertContains(vtc.toString(), "int32");
+        assertEquals(new ValueType(-0x01), vtc);
     }
 
 

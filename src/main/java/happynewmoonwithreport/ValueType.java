@@ -27,6 +27,12 @@ public class ValueType {
         calcValue(type);
     }
 
+    public ValueType(String value) {
+        this();
+        this.value = value;
+        calcType(value);
+    }
+
     public ValueType(VarInt7 input) {
         this();
         this.type = input.integerValue();
@@ -80,6 +86,20 @@ public class ValueType {
             throw new RuntimeException("type in ValueType is not valid type = " + type);
         }
 
+    }
+
+    private void calcType(String value) {
+        type = null;
+
+        for (Map.Entry<Integer, String> entry : mapNew.entrySet()) {
+            if (value.equals(entry.getValue())) {
+                type = entry.getKey();
+                break;
+            }
+        }
+        if (type == null) {
+            throw new RuntimeException("Invalid 'value' in ValueType.  Value = " + value);
+        }
     }
 
     @Override

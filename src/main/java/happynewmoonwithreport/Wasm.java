@@ -27,6 +27,7 @@ public class Wasm {
     SectionGlobal sectionGlobal = null;
     SectionExport sectionExport = null;
     SectionStart sectionStart = null;
+    SectionCode sectionCode = null;
 
     public Wasm(String fileName) {
         try {
@@ -94,6 +95,10 @@ public class Wasm {
                 case SectionName.START:
                     sectionStart = new SectionStart();
                     sectionStart.instantiate(payload);
+                    break;
+                case SectionName.CODE:
+                    sectionCode = new SectionCode();
+                    sectionCode.instantiate(payload);
                     break;
             }
         }
