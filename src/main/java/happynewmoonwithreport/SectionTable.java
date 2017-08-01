@@ -3,13 +3,14 @@ package happynewmoonwithreport;
 import happynewmoonwithreport.type.VarUInt32;
 
 import java.util.ArrayList;
+import happynewmoonwithreport.type.UInt32;
 
 /**
  * Source <a href="http://webassembly.org/docs/binary-encoding/#table-section"> http://webassembly.org/docs/binary-encoding/#table-section</a>
  */
 public class SectionTable implements Module {
 
-    private VarUInt32 count;
+    private UInt32 count;
     private ArrayList<TableType> tables;
 
 
@@ -32,7 +33,7 @@ public class SectionTable implements Module {
         }
     }
 
-    public VarUInt32 getCount() {
+    public UInt32 getCount() {
         return count;
     }
 

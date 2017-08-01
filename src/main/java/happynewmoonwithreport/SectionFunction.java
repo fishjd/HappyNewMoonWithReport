@@ -2,13 +2,15 @@ package happynewmoonwithreport;
 
 import happynewmoonwithreport.type.VarUInt;
 import happynewmoonwithreport.type.VarUInt32;
+import happynewmoonwithreport.type.UInt32;
+
 
 import java.util.ArrayList;
 
 public class SectionFunction implements Module {
 
-    private VarUInt32 count;
-    private ArrayList<VarUInt32> types;
+    private UInt32 count;
+    private ArrayList<UInt32> types;
 
     /**
      * Function section
@@ -30,16 +32,16 @@ public class SectionFunction implements Module {
         //* Parameters Types
         types = new ArrayList<>(count.integerValue());
         for (Integer index = 0; index < count.integerValue(); index++) {
-            VarUInt32 type = new VarUInt32(payload);
+            UInt32 type = new VarUInt32(payload);
             types.add(index, type);
         }
     }
 
-    public VarUInt32 getCount() {
+    public UInt32 getCount() {
         return count;
     }
 
-    public ArrayList<VarUInt32> getTypes() {
+    public ArrayList<UInt32> getTypes() {
         return types;
     }
 }

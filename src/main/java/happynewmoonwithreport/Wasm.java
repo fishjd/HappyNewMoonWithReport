@@ -41,7 +41,7 @@ public class Wasm {
     public void instantiate() throws Exception {
 
         SectionName sectionName;
-        VarUInt32 u32PayloadLength;
+        UInt32 u32PayloadLength;
         /**
          * payloadLength needs to be a java type as it is used in math (+).  Should be Long but copyOfRange only handles int.
          */

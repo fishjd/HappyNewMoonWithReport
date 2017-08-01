@@ -1,8 +1,7 @@
 package happynewmoonwithreport;
 
-import happynewmoonwithreport.type.VarInt7;
+import happynewmoonwithreport.type.UInt32;
 import happynewmoonwithreport.type.VarUInt1;
-import happynewmoonwithreport.type.VarUInt32;
 
 import java.util.ArrayList;
 
@@ -19,7 +18,7 @@ public class FunctionType {
     /**
      * The number of parameters
      */
-    private VarUInt32 paramCount;
+    private UInt32 paramCount;
 
     /**
      * Array of the types of parameters
@@ -36,7 +35,7 @@ public class FunctionType {
      */
     private ArrayList<ValueType> returnTypeAll;
 
-    public FunctionType(ValueType form, VarUInt32 paramCount, ArrayList<ValueType> paramTypeAll,
+    public FunctionType(ValueType form, UInt32 paramCount, ArrayList<ValueType> paramTypeAll,
                         VarUInt1 returnCount, ArrayList<ValueType> returnTypeAll) {
         super();
         this.form = form;
@@ -51,7 +50,7 @@ public class FunctionType {
     }
 
 
-    public VarUInt32 getParamCount() {
+    public UInt32 getParamCount() {
         return paramCount;
     }
 

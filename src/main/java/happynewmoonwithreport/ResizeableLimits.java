@@ -1,5 +1,6 @@
 package happynewmoonwithreport;
 
+import happynewmoonwithreport.type.UInt32;
 import happynewmoonwithreport.type.VarUInt1;
 import happynewmoonwithreport.type.VarUInt32;
 
@@ -28,17 +29,17 @@ public class ResizeableLimits {
     /**
      * length in wasm pages (64k)
      */
-    private VarUInt32 initialLength;
+    private UInt32 initialLength;
     /**
      * length in wasm pages (64k)
      */
-    private VarUInt32 maximumLength;
+    private UInt32 maximumLength;
 
     public ResizeableLimits() {
 
     }
 
-    public ResizeableLimits(VarUInt1 flags, VarUInt32 initialLength, VarUInt32 maximumLength) {
+    public ResizeableLimits(VarUInt1 flags, UInt32 initialLength, UInt32 maximumLength) {
         this.flags = flags;
         this.initialLength = initialLength;
         this.maximumLength = maximumLength;
@@ -56,7 +57,7 @@ public class ResizeableLimits {
         return flags;
     }
 
-    public VarUInt32 getInitialLength() {
+    public UInt32 getInitialLength() {
         return initialLength;
     }
 
@@ -65,7 +66,7 @@ public class ResizeableLimits {
      *
      * @return
      */
-    public VarUInt32 getMaximumLength() {
+    public UInt32 getMaximumLength() {
         return maximumLength;
     }
 }

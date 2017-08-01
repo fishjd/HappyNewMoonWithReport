@@ -1,5 +1,6 @@
 package happynewmoonwithreport;
 
+import happynewmoonwithreport.type.UInt32;
 import happynewmoonwithreport.type.VarUInt32;
 import happynewmoonwithreport.type.WasmString;
 
@@ -18,10 +19,10 @@ import happynewmoonwithreport.type.WasmString;
  *//* @formatter:on */
 public class ExportEntry {
 
-    private VarUInt32 fieldLength;
+    private UInt32 fieldLength;
     private WasmString fieldName;
     private ExternalKind externalKind;
-    private VarUInt32 index;
+    private UInt32 index;
 
     public ExportEntry (BytesFile payload) {
         fieldLength = new VarUInt32(payload);
@@ -30,7 +31,7 @@ public class ExportEntry {
         index = new VarUInt32(payload);
     }
 
-    public VarUInt32 getFieldLength() {
+    public UInt32 getFieldLength() {
         return fieldLength;
     }
 
@@ -42,7 +43,7 @@ public class ExportEntry {
         return externalKind;
     }
 
-    public VarUInt32 getIndex() {
+    public UInt32 getIndex() {
         return index;
     }
 }

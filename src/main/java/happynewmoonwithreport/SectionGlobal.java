@@ -3,13 +3,15 @@ package happynewmoonwithreport;
 import happynewmoonwithreport.type.VarUInt32;
 
 import java.util.ArrayList;
+import happynewmoonwithreport.type.UInt32;
+
 
 /**
  * Source <a href="http://webassembly.org/docs/binary-encoding/#memory-section"> http://webassembly.org/docs/binary-encoding/#memory-section</a>
  */
 public class SectionGlobal implements Module {
 
-    private VarUInt32 count;
+    private UInt32 count;
     private ArrayList<GlobalVariableType> globals;
 
     /**
@@ -29,7 +31,7 @@ public class SectionGlobal implements Module {
         }
     }
 
-    public VarUInt32 getCount() {
+    public UInt32 getCount() {
         return count;
     }
 

@@ -1,5 +1,6 @@
 package happynewmoonwithreport;
 
+import happynewmoonwithreport.type.UInt32;
 import happynewmoonwithreport.type.VarUInt32;
 
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ import java.util.ArrayList;
  */
 public class SectionCode implements Module {
 
-    private VarUInt32 count;
+    private UInt32 count;
     private ArrayList<FunctionBody> functionAll;
 
 
@@ -46,7 +47,7 @@ public class SectionCode implements Module {
         }
     }
 
-    public VarUInt32 getCount() {
+    public UInt32 getCount() {
         return count;
     }
 

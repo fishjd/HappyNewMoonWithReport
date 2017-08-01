@@ -38,10 +38,10 @@ public class SectionFunctionTest {
         // the count is 1
         assertEquals(new UInt32(1L), sectionFunction.getCount());
 
-        ArrayList<VarUInt32> typeAll = sectionFunction.getTypes();
+        ArrayList<UInt32> typeAll = sectionFunction.getTypes();
         assertEquals(1, typeAll.size());
 
-        VarUInt32 type = typeAll.get(0);
+        UInt32 type = typeAll.get(0);
         assertEquals(new UInt32(0L), type);
 
 

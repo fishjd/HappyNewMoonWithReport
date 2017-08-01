@@ -1,6 +1,7 @@
 package happynewmoonwithreport;
 
 import happynewmoonwithreport.type.VarUInt32;
+import happynewmoonwithreport.type.UInt32;
 
 import java.util.ArrayList;
 
@@ -9,7 +10,7 @@ import java.util.ArrayList;
  */
 public class SectionStart implements Module {
 
-    private VarUInt32 index;
+    private UInt32 index;
 
     /**
      * @param payload
@@ -22,7 +23,7 @@ public class SectionStart implements Module {
 
     }
 
-    public VarUInt32 getIndex() {
+    public UInt32 getIndex() {
         return index;
     }
 }

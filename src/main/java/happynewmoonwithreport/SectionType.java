@@ -2,6 +2,7 @@ package happynewmoonwithreport;
 
 import happynewmoonwithreport.type.VarUInt1;
 import happynewmoonwithreport.type.VarUInt32;
+import happynewmoonwithreport.type.UInt32;
 
 import java.util.ArrayList;
 
@@ -23,11 +24,11 @@ public class SectionType implements Module {
     public void instantiate(BytesFile payload) {
 
         ValueType form;
-        VarUInt32 paramCount;
+        UInt32 paramCount;
         VarUInt1 varReturnCount;
 
         // Type Count
-        VarUInt32 typeCount = new VarUInt32(payload);
+        UInt32 typeCount = new VarUInt32(payload);
 
         functionSignitures = new ArrayList<>(typeCount.integerValue());
 
