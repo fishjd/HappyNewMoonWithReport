@@ -1,5 +1,6 @@
 package happynewmoonwithreport;
 
+import happynewmoonwithreport.type.Int32;
 import happynewmoonwithreport.type.VarInt7;
 
 import java.util.HashMap;
@@ -41,7 +42,7 @@ public class ValueType {
 
     public ValueType(BytesFile payload) {
         this();
-        VarInt7 vt = new VarInt7(payload);
+        Int32 vt = new VarInt7(payload);
         this.type = vt.integerValue();
         calcValue(type);
     }

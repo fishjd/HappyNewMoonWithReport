@@ -4,7 +4,7 @@ import happynewmoonwithreport.BytesFile;
 
 import java.util.Arrays;
 
-public final class VarInt7 extends VarInt<Integer> {
+public final class VarInt7 extends Int32 {
 
     @SuppressWarnings("unused")
     private VarInt7() {
@@ -43,6 +43,17 @@ public final class VarInt7 extends VarInt<Integer> {
      */
     public VarInt7(Byte value) {
         this.value = value.intValue();
+    }
+
+    @Override
+    public Integer maxBytes() {
+        Integer maxBytes = new Double(Math.ceil((double) maxBits() / 7.0D)).intValue();
+        return maxBytes;
+    }
+
+    @Override
+    public Integer minBytes() {
+        return 1;
     }
 
     public Integer convert(BytesFile bytesFile) {
