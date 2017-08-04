@@ -31,8 +31,8 @@ public class SectionTypeTest {
         byte[] byteAll = {(byte) 0x01, (byte) 0x60, (byte) 0x02, (byte) 0x7F, (byte) 0x7F, (byte) 0x01, (byte) 0x7F};
         BytesFile payload = new BytesFile(byteAll);
         sectionType.instantiate(payload);
-        assertEquals(1, sectionType.getFunctionSignitures().size());
-        final ArrayList<FunctionType> functionSignatureAll = sectionType.getFunctionSignitures();
+        assertEquals(1, sectionType.getFunctionSignatures().size());
+        final ArrayList<FunctionType> functionSignatureAll = sectionType.getFunctionSignatures();
         FunctionType functionType = functionSignatureAll.get(0);
         assertEquals("func",  functionType.getForm().getValue());
         assertEquals(new UInt32(2L),  functionType.getParamCount());

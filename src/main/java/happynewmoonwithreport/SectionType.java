@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class SectionType implements Module {
 
     // all the Function Types.
-    ArrayList<FunctionType> functionSignitures;
+    ArrayList<FunctionType> functionSignatures;
 
     /**
      * The type section declares all function signatures that will be used in the module.
@@ -30,7 +30,7 @@ public class SectionType implements Module {
         // Type Count
         UInt32 typeCount = new VarUInt32(payload);
 
-        functionSignitures = new ArrayList<>(typeCount.integerValue());
+        functionSignatures = new ArrayList<>(typeCount.integerValue());
 
         FunctionType functionType;
         for (Integer countFT = 0; countFT < typeCount.integerValue(); countFT++) {
@@ -61,16 +61,16 @@ public class SectionType implements Module {
             }
 
             functionType = new FunctionType(form, paramCount, paramAll, returnCount, returnAll);
-            functionSignitures.add(countFT, functionType);
+            functionSignatures.add(countFT, functionType);
         }
     }
 
-    public ArrayList<FunctionType> getFunctionSignitures() {
-        return functionSignitures;
+    public ArrayList<FunctionType> getFunctionSignatures() {
+        return functionSignatures;
     }
 
     public Integer getSize() {
-        return functionSignitures.size();
+        return functionSignatures.size();
     }
 
 }
