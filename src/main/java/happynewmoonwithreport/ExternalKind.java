@@ -25,13 +25,19 @@ public class ExternalKind {
     private Integer type;
     private String value;
 
+    public static final String function = "function";
+    public static final String table = "table";
+    public static final String memory = "memory";
+    public static final String global = "global ";
+
     private static Map<Integer, String> mapAll;
+
     static {
         mapAll = new HashMap<>();
-        mapAll.put(0, "Function");
-        mapAll.put(1, "Table");
-        mapAll.put(2, "Memory");
-        mapAll.put(3, "Global");
+        mapAll.put(0, function);
+        mapAll.put(1, table);
+        mapAll.put(2, memory);
+        mapAll.put(3, global);
     }
 
     private ExternalKind() {

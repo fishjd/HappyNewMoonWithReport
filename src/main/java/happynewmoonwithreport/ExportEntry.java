@@ -21,12 +21,18 @@ public class ExportEntry {
 
     private UInt32 fieldLength;
     private WasmString fieldName;
+    /**
+     * The 'kind' of export.  Function, Memory,
+     */
     private ExternalKind externalKind;
+    /**
+     * The index to the table. For example if externalKind is 'function' then this is the index to the function table
+     */
     private UInt32 index;
 
-    public ExportEntry (BytesFile payload) {
+    public ExportEntry(BytesFile payload) {
         fieldLength = new VarUInt32(payload);
-        fieldName = new WasmString(payload,fieldLength);
+        fieldName = new WasmString(payload, fieldLength);
         externalKind = new ExternalKind(payload);
         index = new VarUInt32(payload);
     }
@@ -45,5 +51,10 @@ public class ExportEntry {
 
     public UInt32 getIndex() {
         return index;
+    }
+
+    public Export export() {
+        Export result = new Export(fieldName.getValue(), externalKind);
+        return result;
     }
 }

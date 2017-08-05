@@ -1,4 +1,4 @@
-package happynewmoonwithreport.type.util;
+package happynewmoonwithreport.type.utility;
 
 /**
  * Created by James Haring on 2017-07-19. Copyright 2017 Whole Bean Software Limited
@@ -18,5 +18,10 @@ public class Hex {
             sb.append(" ");
         }
         return  sb.toString();
+    }
+
+    public static String byteToHex(byte input) {
+        String result = Integer.toHexString(input);
+        return result;
     }
 }

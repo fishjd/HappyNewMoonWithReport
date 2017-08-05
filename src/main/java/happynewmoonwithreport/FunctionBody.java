@@ -96,4 +96,12 @@ public class FunctionBody {
     public byte getEnd() {
         return end;
     }
+
+    @Override
+    public String toString() {
+        return "FunctionBody{" +
+                "bodySize=" + bodySize +
+                ", localCount=" + localCount +
+                '}';
+    }
 }

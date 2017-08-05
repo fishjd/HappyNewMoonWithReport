@@ -30,7 +30,10 @@ public class SectionTypeTest {
     public void testInstantiate() {
         byte[] byteAll = {(byte) 0x01, (byte) 0x60, (byte) 0x02, (byte) 0x7F, (byte) 0x7F, (byte) 0x01, (byte) 0x7F};
         BytesFile payload = new BytesFile(byteAll);
+        // run
         sectionType.instantiate(payload);
+
+        // verify
         assertEquals(1, sectionType.getFunctionSignatures().size());
         final ArrayList<FunctionType> functionSignatureAll = sectionType.getFunctionSignatures();
         FunctionType functionType = functionSignatureAll.get(0);

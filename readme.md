@@ -4,8 +4,8 @@ Run and Test Web Assembly modules (*.wasm) in Java.
 ## The basic use case is:
 
 ```java
-Wasm wasm = new Wasm("your Web Asssembly Module.wasm");
-wasm.exports().yourFuncion(); 
+Wasm wasm = new Wasm("your Web Assembly Module.wasm");
+wasm.exports().yourFunction();
 
 Wasm wasm = new Wasm("HelloWorld.wasm");
 System.out.println(wasm.exports().HelloWorld()); 

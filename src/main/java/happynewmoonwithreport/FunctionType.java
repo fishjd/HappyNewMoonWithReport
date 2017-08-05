@@ -68,4 +68,14 @@ public class FunctionType {
         return returnTypeAll;
     }
 
+    @Override
+    public String toString() {
+        return "FunctionType{" +
+                "form=" + form +
+                ", paramCount=" + paramCount +
+                ", paramTypeAll=" + paramTypeAll +
+                ", returnCount=" + returnCount +
+                ", returnTypeAll=" + returnTypeAll +
+                '}';
+    }
 }

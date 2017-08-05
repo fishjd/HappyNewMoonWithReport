@@ -1,5 +1,7 @@
 package happynewmoonwithreport;
 
+import happynewmoonwithreport.type.utility.Hex;
+
 import java.util.Arrays;
 
 /**
@@ -25,7 +27,7 @@ public class BytesFile {
 
     public byte readByte() {
         byte result = bytesAll[index];
-        index++ ;
+        index++;
         return result;
     }
 
@@ -58,11 +60,22 @@ public class BytesFile {
     public Boolean isNotEmpty() {
         return (index < bytesAll.length);
     }
+
     public Boolean atEndOfFile() {
         return (index == bytesAll.length);
     }
 
     public Boolean longEnough(Integer size) {
         return (index + size <= bytesAll.length);
+    }
+
+    @Override
+    public String toString() {
+        return "BytesFile{" +
+                "current byte = " +  Hex.byteToHex(bytesAll[index]) +
+                ", index = " + index +
+                ", bytesAll = " + Arrays.toString(bytesAll) +
+                ", bytesAll in Hex = " + Hex.bytesToHex(bytesAll) +
+                '}';
     }
 }

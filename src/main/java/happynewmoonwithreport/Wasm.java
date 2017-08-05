@@ -3,9 +3,8 @@ package happynewmoonwithreport;
 import happynewmoonwithreport.type.UInt32;
 import happynewmoonwithreport.type.VarUInt32;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * @author James
@@ -18,24 +17,54 @@ public class Wasm {
     private BytesFile bytesFile;
     private UInt32 magicNumber;
     private UInt32 version;
-    Integer index = 0;
+    private ArrayList<ExportEntry> exportAll;
 
-    SectionType sectionType = null;
-    SectionFunction sectionFunction = null;
-    SectionTable sectionTable = null;
-    SectionMemory sectionMemory = null;
-    SectionGlobal sectionGlobal = null;
-    SectionExport sectionExport = null;
-    SectionStart sectionStart = null;
-    SectionCode sectionCode = null;
 
-    public Wasm(String fileName) {
-        try {
-            byte[] bytesAll = readBytesFromFile(fileName);
-            bytesFile = new BytesFile(bytesAll);
-        } catch (IOException exception) {
-            exception.printStackTrace();
-        }
+    private SectionType sectionType = null;
+    private SectionFunction sectionFunction = null;
+    private SectionTable sectionTable = null;
+    private SectionMemory sectionMemory = null;
+    private SectionGlobal sectionGlobal = null;
+    private SectionExport sectionExport = null;
+    private SectionStart sectionStart = null;
+    private SectionCode sectionCode = null;
+
+    /**
+     * Construct a Wasm module with a file.
+     * <p>
+     * This is a convenience constructor.  Constructors that throw exceptions are
+     * to be used cautiously. Consider using the constructor <code>Wasm(byte[])</code>
+     * </p>
+     * <h2>Use instead</h2>
+     * <p>
+     * <code>
+     * try {
+     * WasmFile wasmFile = new WasmFile(fileName);
+     * byte[] bytesAll = wasmFile.bytes();
+     * Wasm wasm = new Wasm(bytesAll);
+     * } catch (IOException ioException)
+     * {
+     * <p>
+     * }
+     * </code>
+     *
+     * @param fileName The fileName.  This parameter will be used in <code>new File(fileName)</code>
+     *
+     * @throws IOException Thrown if the file does not exist and other reasons.
+     */
+    public Wasm(String fileName) throws IOException {
+        WasmFile wasmFile = new WasmFile(fileName);
+        byte[] bytesAll = wasmFile.bytes();
+        bytesFile = new BytesFile(bytesAll);
+    }
+
+    /**
+     * Construct a Wasm module with an array of bytes.
+     *
+     * @param bytesAll An array of bytes that contain the wasm module.
+     */
+    public Wasm(byte[] bytesAll) {
+        bytesFile = new BytesFile(bytesAll);
     }
 
     public void instantiate() throws Exception {
@@ -46,13 +75,23 @@ public class Wasm {
          * payloadLength needs to be a java type as it is used in math (+).  Should be Long but copyOfRange only handles int.
          */
         Integer payloadLength;
-        UInt32 nameLength = new UInt32(0L);
-        Integer sizeOFNameLength = 0;
 
         magicNumber = readMagicNumber();
         checkMagicNumber();
         version = readVersion();
 
+        instantiateSections();
+
+        fillExport(sectionExport);
+
+        fillFunction(sectionType, sectionCode);
+    }
+
+    private void instantiateSections() {
+        UInt32 nameLength = new UInt32(0L);
+        SectionName sectionName;
+        UInt32 u32PayloadLength;
+        Integer payloadLength;
         while (bytesFile.atEndOfFile() == false) {
             // Section Code
             sectionName = readSectionName();
@@ -65,7 +104,7 @@ public class Wasm {
             if (sectionName.getType() == 0) {
                 // TODO
             }
-            payloadLength = payloadLength - nameLength.integerValue() - sizeOFNameLength;
+            payloadLength = payloadLength - nameLength.integerValue();
             BytesFile payload = bytesFile.copy(payloadLength);
             switch (sectionName.getValue()) {
                 case SectionName.TYPE:
@@ -131,28 +170,26 @@ public class Wasm {
         }
     }
 
-    /**
-     * copied from : https://www.mkyong.com/java/how-to-convert-file-into-an-array-of-bytes/
-     *
-     * @param filePath
-     * @return
-     */
-    private static byte[] readBytesFromFile(String filePath) throws IOException {
-        FileInputStream fileInputStream = null;
-        byte[] bytesArray = null;
-        try {
-            File file = new File(filePath);
-            bytesArray = new byte[(int) file.length()];
+    private void fillExport(SectionExport sectionExport) {
+        exportAll = new ArrayList<>(sectionExport.getCount().integerValue());
+        final ArrayList<ExportEntry> exportEntryAll = sectionExport.getExports();
 
-            // read file into bytes[]
-            fileInputStream = new FileInputStream(file);
-            fileInputStream.read(bytesArray);
-        } finally {
-            if (fileInputStream != null) {
-                fileInputStream.close();
-            }
+        Integer count = 0;
+        for (ExportEntry exportEntry : exportEntryAll) {
+            exportAll.add(count, exportEntry);
+            count++;
         }
-        return bytesArray;
+
+    }
+
+    private ArrayList<WasmFunction> functionAll;
+
+    private void fillFunction(SectionType type, SectionCode code) {
+        functionAll = new ArrayList<>(type.getSize());
+        for (Integer index = 0; index < type.getSize(); index++) {
+            WasmFunction function = new WasmFunction(type.getFunctionSignatures().get(index), code.getFunctionAll().get(index));
+            functionAll.add(function);
+        }
     }
 
     public UInt32 getVersion() {
@@ -166,5 +203,23 @@ public class Wasm {
     public SectionType getFunctionSignatures() {
 
         return sectionType;
+    }
+
+    public ArrayList<ExportEntry> exports() {
+        return exportAll;
+    }
+
+    public WasmFunction exportFunction(String name) {
+        WasmFunction result = null;
+        for (ExportEntry exportEntry : this.exportAll) {
+            Boolean found = exportEntry.getExternalKind().equals(new ExternalKind(ExternalKind.function));
+            found &= exportEntry.getFieldName().getValue().equals(name);
+            if (found) {
+                result = functionAll.get(exportEntry.getIndex().integerValue());
+                break;
+            }
+        }
+        return result;
+
     }
 }
