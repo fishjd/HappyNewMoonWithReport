@@ -26,14 +26,6 @@ public class UInt64 extends UInt<Long> {
         return value.intValue();
     }
 
-    /**
-     * Does the <code>value</code> lay between Integer.minValue and Integer.maxValue.  i.e Integer.minValue <= value <=
-     * Integer.maxValue;
-     **/
-    public Boolean isBoundByInteger() {
-        return (Integer.MIN_VALUE <= value && value <= Integer.MAX_VALUE);
-    }
-
     public void checkIfTooLarge() {
         if (isBoundByInteger() == false) {
             throw new RuntimeException("Value is too large!");
@@ -45,7 +37,7 @@ public class UInt64 extends UInt<Long> {
 
     @Override
     public Integer maxBits() {
-        return 63;  // should be 64 but that is not possible using type Long.
+        return 63;  // should be 64 but that is not possible using Java type Long.
     }
 
     @Override

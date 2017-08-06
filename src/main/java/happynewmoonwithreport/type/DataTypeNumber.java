@@ -23,6 +23,8 @@ public interface DataTypeNumber<ValueType extends Number> {
 
     Long longValue();
 
+    Boolean isBoundByInteger();
+
     /**
      * The minimum number of bytes this number may be represented by. For UIint this is fixed and is the same as
      * maxBytes(). For VarUInt it is fixed.

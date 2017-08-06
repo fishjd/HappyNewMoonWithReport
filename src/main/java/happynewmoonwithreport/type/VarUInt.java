@@ -36,11 +36,22 @@ public abstract class VarUInt<ValueType extends Number> implements DataTypeNumbe
     public byte byteValue() {
         return value.byteValue();
     }
+
     public Integer integerValue() {
         return value.intValue();
     }
-    public Long longValue(){
+
+    public Long longValue() {
         return value.longValue();
+    }
+
+    /**
+     * Does the <code>value</code> lay between Integer.minValue and Integer.maxValue.  i.e Integer.minValue <= value <=
+     * Integer.maxValue;
+     **/
+    @Override
+    public Boolean isBoundByInteger() {
+        return (Integer.MIN_VALUE <= value.longValue() && value.longValue() <= Integer.MAX_VALUE);
     }
 
     @Override

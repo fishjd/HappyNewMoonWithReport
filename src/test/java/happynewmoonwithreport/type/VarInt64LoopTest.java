@@ -1,7 +1,7 @@
 package happynewmoonwithreport.type;
 
 import happynewmoonwithreport.BytesFile;
-import happynewmoonwithreport.type.util.Hex;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
