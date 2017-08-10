@@ -12,7 +12,7 @@ import static org.junit.Assert.assertEquals;
  * Created by James Haring on 2017-07-24. Copyright 2017 Whole Bean Software Limited
  */
 public class Int32Test {
-    Int32 int32;
+    private Int32 int32;
 
     @Before
     public void setUp() throws Exception {
