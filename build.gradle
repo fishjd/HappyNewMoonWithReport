@@ -11,4 +11,15 @@ repositories {
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.11'
+
+
+    /*
+     *   Groovy and Spock
+     */
+    // https://mvnrepository.com/artifact/org.codehaus.groovy/groovy-all
+    testCompile group: 'org.codehaus.groovy', name: 'groovy-all', version: '2.4.12'
+
+    // https://mvnrepository.com/artifact/org.spockframework/spock-core
+    testCompile group: 'org.spockframework', name: 'spock-core', version: '1.1-groovy-2.4'
+
 }
