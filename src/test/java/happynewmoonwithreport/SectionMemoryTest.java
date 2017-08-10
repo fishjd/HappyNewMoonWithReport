@@ -1,19 +1,18 @@
 package happynewmoonwithreport;
 
+import happynewmoonwithreport.type.MemoryType;
 import happynewmoonwithreport.type.UInt32;
 import happynewmoonwithreport.type.VarUInt1;
-import happynewmoonwithreport.type.VarUInt32;
+import happynewmoonwithreport.type.WasmVector;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
 
 public class SectionMemoryTest {
-    SectionMemory sectionMemory;
+    private SectionMemory sectionMemory;
 
     @Before
     public void setUp() throws Exception {
@@ -27,11 +26,15 @@ public class SectionMemoryTest {
 
 
     /**
-     *  Run instantiate on the add32.wasm bytes.
+     * Run instantiate on the add32.wasm bytes.
      */
     @Test
-    public void instantiateAdd32()  {
-        byte[] byteAll = {(byte) 0x01, (byte) 0x00, (byte) 0x01};
+    public void instantiateAdd32() {
+        byte[] byteAll = {
+                (byte) 0x01,    // count
+                (byte) 0x00,    // has Maximum
+                (byte) 0x01     // minimum
+        };
         BytesFile payload = new BytesFile(byteAll);
 
         // run
@@ -41,13 +44,43 @@ public class SectionMemoryTest {
         // the count is 1
         assertEquals(new UInt32(1), sectionMemory.getCount());
 
-        ArrayList<ResizeableLimits> limitAll = sectionMemory.getLimits();
+        WasmVector<MemoryType> limitAll = sectionMemory.getMemoryTypeAll();
         assertEquals(1, limitAll.size());
 
-        ResizeableLimits limits = limitAll.get(0);
-        assertEquals (new VarUInt1(0), limits.getFlags()) ;
-        assertEquals (new UInt32(1), limits.getInitialLength()) ;
-        assertNull(limits.getMaximumLength());
+        MemoryType limits = limitAll.get(0);
+        assertEquals(new VarUInt1(0), limits.hasMaximum());
+        assertEquals(new UInt32(1), limits.minimum());
+        assertNull(limits.maximum());
+
+    }
+
+    /**
+     * Run instantiate on the add32.wasm bytes.
+     */
+    @Test
+    public void instantiateHasMax() {
+        byte[] byteAll = {
+                (byte) 0x01,    // count
+                (byte) 0x01,    // has Maximum
+                (byte) 0x03,    // minimum
+                (byte) 0x06     // maximum
+        };
+        BytesFile payload = new BytesFile(byteAll);
+
+        // run
+        sectionMemory.instantiate(payload);
+
+        // verify
+        // the count is 1
+        assertEquals(new UInt32(1), sectionMemory.getCount());
+
+        WasmVector<MemoryType> limitAll = sectionMemory.getMemoryTypeAll();
+        assertEquals(1, limitAll.size());
+
+        MemoryType limits = limitAll.get(0);
+        assertEquals(new VarUInt1(1), limits.hasMaximum());
+        assertEquals(new UInt32(3), limits.minimum());
+        assertEquals(new UInt32(6), limits.maximum());
 
     }
 

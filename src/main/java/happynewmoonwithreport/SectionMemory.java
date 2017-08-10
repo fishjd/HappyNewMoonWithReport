@@ -1,8 +1,9 @@
 package happynewmoonwithreport;
 
+import happynewmoonwithreport.type.MemoryType;
+import happynewmoonwithreport.type.UInt32;
 import happynewmoonwithreport.type.VarUInt32;
-
-import java.util.ArrayList;import happynewmoonwithreport.type.UInt32;
+import happynewmoonwithreport.type.WasmVector;
 
 
 /**
@@ -11,10 +12,9 @@ import java.util.ArrayList;import happynewmoonwithreport.type.UInt32;
 public class SectionMemory implements Module {
 
     private UInt32 count;
-    private ArrayList<ResizeableLimits> limits;
+    private WasmVector<MemoryType> memoryTypeAll;
 
     /**
-     *
      * @param payload
      */
     @Override
@@ -24,10 +24,10 @@ public class SectionMemory implements Module {
         count = new VarUInt32(payload);
 
         //* Entries of Resizeable Limits
-        limits = new ArrayList<>(count.integerValue());
+        memoryTypeAll = new WasmVector<>(count.integerValue());
         for (Integer index = 0; index < count.integerValue(); index++) {
-            ResizeableLimits limit = new ResizeableLimits(payload);
-            limits.add(index, limit);
+            MemoryType limit = new MemoryType(payload);
+            memoryTypeAll.add(index, limit);
         }
     }
 
@@ -35,7 +35,7 @@ public class SectionMemory implements Module {
         return count;
     }
 
-    public ArrayList<ResizeableLimits> getLimits() {
-        return limits;
+    public WasmVector<MemoryType> getMemoryTypeAll() {
+        return memoryTypeAll;
     }
 }

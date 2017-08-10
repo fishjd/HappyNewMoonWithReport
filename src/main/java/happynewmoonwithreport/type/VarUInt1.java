@@ -69,7 +69,7 @@ public final class VarUInt1 extends VarUInt<Integer> {
         return (1 << maxBits()) - 1;
     }
 
-    public Boolean BooleanValue() {
+    public Boolean booleanValue() {
         return value != 0;
     }
 
