@@ -3,13 +3,14 @@ package happynewmoonwithreport;
 import happynewmoonwithreport.type.VarUInt1;
 import happynewmoonwithreport.type.VarUInt32;
 import happynewmoonwithreport.type.UInt32;
+import happynewmoonwithreport.type.WasmVector;
 
 import java.util.ArrayList;
 
 public class SectionType implements Module {
 
     // all the Function Types.
-    ArrayList<FunctionType> functionSignatures;
+    private WasmVector<FunctionType> functionSignatures;
 
     /**
      * The type section declares all function signatures that will be used in the module.
@@ -30,7 +31,7 @@ public class SectionType implements Module {
         // Type Count
         UInt32 typeCount = new VarUInt32(payload);
 
-        functionSignatures = new ArrayList<>(typeCount.integerValue());
+        functionSignatures = new WasmVector<>(typeCount.integerValue());
 
         FunctionType functionType;
         for (Integer countFT = 0; countFT < typeCount.integerValue(); countFT++) {
@@ -65,7 +66,7 @@ public class SectionType implements Module {
         }
     }
 
-    public ArrayList<FunctionType> getFunctionSignatures() {
+    public WasmVector<FunctionType> getFunctionSignatures() {
         return functionSignatures;
     }
 

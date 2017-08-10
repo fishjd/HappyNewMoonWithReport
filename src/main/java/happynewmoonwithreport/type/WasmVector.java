@@ -20,6 +20,10 @@ public class WasmVector<Type> extends ArrayList<Type> {
     public WasmVector() {
     }
 
+    public WasmVector(Integer size) {
+        super(size);
+    }
+
     public Type get(DataTypeNumber index) {
         checkIfTooLarge(index);
 

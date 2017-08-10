@@ -4,6 +4,7 @@ import happynewmoonwithreport.type.VarUInt32;
 
 import java.util.ArrayList;
 import happynewmoonwithreport.type.UInt32;
+import happynewmoonwithreport.type.WasmVector;
 
 /**
  * Source <a href="http://webassembly.org/docs/binary-encoding/#table-section"> http://webassembly.org/docs/binary-encoding/#table-section</a>
@@ -11,7 +12,7 @@ import happynewmoonwithreport.type.UInt32;
 public class SectionTable implements Module {
 
     private UInt32 count;
-    private ArrayList<TableType> tables;
+    private WasmVector<TableType> tables;
 
 
 
@@ -26,7 +27,7 @@ public class SectionTable implements Module {
         count = new VarUInt32(payload);
 
         //* Entries of TableType
-        tables = new ArrayList<>(count.integerValue());
+        tables = new WasmVector<>(count.integerValue());
         for (Integer index = 0; index < count.integerValue(); index++) {
             TableType table = new TableType(payload);
             tables.add(index, table);
@@ -37,7 +38,7 @@ public class SectionTable implements Module {
         return count;
     }
 
-    public ArrayList<TableType> getTables() {
+    public WasmVector<TableType> getTables() {
         return tables;
     }
 }

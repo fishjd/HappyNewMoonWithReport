@@ -2,6 +2,7 @@ package happynewmoonwithreport;
 
 import happynewmoonwithreport.type.UInt32;
 import happynewmoonwithreport.type.VarUInt32;
+import happynewmoonwithreport.type.WasmVector;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -85,6 +86,16 @@ public class Wasm {
         fillExport(sectionExport);
 
         fillFunction(sectionType, sectionCode);
+
+        WasmModule module = new WasmModule(
+                sectionType.getFunctionSignatures(), //
+                functionAll, //
+                sectionTable.getTables(),//
+                sectionMemory.getMemoryTypeAll(),//
+                sectionGlobal.getGlobals()
+
+
+                );
     }
 
     private void instantiateSections() {
@@ -182,12 +193,12 @@ public class Wasm {
 
     }
 
-    private ArrayList<WasmFunction> functionAll;
+    private WasmVector<WasmFunction> functionAll;
 
     private void fillFunction(SectionType type, SectionCode code) {
-        functionAll = new ArrayList<>(type.getSize());
+        functionAll = new WasmVector<>(type.getSize());
         for (Integer index = 0; index < type.getSize(); index++) {
-            WasmFunction function = new WasmFunction(type.getFunctionSignatures().get(index), code.getFunctionAll().get(index));
+            WasmFunction function = new WasmFunction(new UInt32(index), code.getFunctionAll().get(index));
             functionAll.add(function);
         }
     }
