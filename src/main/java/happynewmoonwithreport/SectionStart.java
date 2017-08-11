@@ -10,7 +10,7 @@ import java.util.ArrayList;
  */
 public class SectionStart implements Module {
 
-    private UInt32 index;
+    protected UInt32 index;
 
     /**
      * @param payload

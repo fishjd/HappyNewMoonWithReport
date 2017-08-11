@@ -13,6 +13,7 @@ import java.util.ArrayList;
 public class Wasm {
     public Wasm() {
         super();
+        sectionStart = new SectionStartEmpty();
     }
 
     private BytesFile bytesFile;
@@ -54,6 +55,7 @@ public class Wasm {
      * @throws IOException Thrown if the file does not exist and other reasons.
      */
     public Wasm(String fileName) throws IOException {
+        this();
         WasmFile wasmFile = new WasmFile(fileName);
         byte[] bytesAll = wasmFile.bytes();
         bytesFile = new BytesFile(bytesAll);
@@ -92,9 +94,12 @@ public class Wasm {
                 functionAll, //
                 sectionTable.getTables(),//
                 sectionMemory.getMemoryTypeAll(),//
-                sectionGlobal.getGlobals()
-
-
+                sectionGlobal.getGlobals(),
+                // to do element
+                // to do data
+                sectionStart.getIndex(),
+                sectionExport.getExports()
+                // to do import
                 );
     }
 

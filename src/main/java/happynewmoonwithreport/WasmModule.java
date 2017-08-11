@@ -30,6 +30,12 @@ public class WasmModule {
     private WasmVector<TableType> tables;
     private WasmVector<MemoryType> memoryAll;  // aka mems
     private WasmVector<GlobalVariableType> globals;
+    // private WasmVector<> elementAll;  // todo
+    // private WasmVector<> dataAll // todo
+    /** index to start function. Optional **/
+    private UInt32 start;
+    private WasmVector<ExportEntry> exportAll;
+
 
     public WasmModule() {
 
@@ -40,20 +46,31 @@ public class WasmModule {
         tables = new WasmVector<>();
         memoryAll = new WasmVector<>();
         globals = new WasmVector<>();
+        start = new UInt32(0); // todo ?
+        exportAll = new WasmVector<>();
 
     }
 
-    public WasmModule(WasmVector<FunctionType> types,
-                      WasmVector<WasmFunction> functions,
-                      WasmVector<TableType> tables,
-                      WasmVector<MemoryType> memoryAll,
-                      WasmVector<GlobalVariableType> globals) {
+    public WasmModule(
+            WasmVector<FunctionType> types,
+            WasmVector<WasmFunction> functions,
+            WasmVector<TableType> tables,
+            WasmVector<MemoryType> memoryAll,
+            WasmVector<GlobalVariableType> globals,
+            // to do element
+            // to do data
+            UInt32 start,
+            WasmVector<ExportEntry> exportAll
+
+    ) {
         constructIndexAll();
         this.types = types;
         this.functions = functions;
         this.tables = tables;
         this.memoryAll = memoryAll;
         this.globals = globals;
+        this.start = start;
+        this.exportAll = exportAll;
     }
 
     private void constructIndexAll() {
@@ -105,5 +122,13 @@ public class WasmModule {
 
     public WasmVector<FunctionType> getTypes() {
         return types;
+    }
+
+    public UInt32 getStart() {
+        return start;
+    }
+
+    public void setStart(UInt32 start) {
+        this.start = start;
     }
 }

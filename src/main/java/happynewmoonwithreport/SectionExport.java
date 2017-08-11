@@ -2,6 +2,7 @@ package happynewmoonwithreport;
 
 import happynewmoonwithreport.type.UInt32;
 import happynewmoonwithreport.type.VarUInt32;
+import happynewmoonwithreport.type.WasmVector;
 
 import java.util.ArrayList;
 
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 public class SectionExport implements Module {
 
     private UInt32 count;
-    private ArrayList<ExportEntry> exports;
+    private WasmVector<ExportEntry> exports;
 
     /**
      * @param payload
@@ -23,7 +24,7 @@ public class SectionExport implements Module {
         count = new VarUInt32(payload);
 
         //* Entries of Global Variables.
-        exports = new ArrayList<>(count.integerValue());
+        exports = new WasmVector<>(count.integerValue());
         for (Integer index = 0; index < count.integerValue(); index++) {
             ExportEntry export = new ExportEntry(payload);
             exports.add(index, export);
@@ -34,7 +35,7 @@ public class SectionExport implements Module {
         return count;
     }
 
-    public ArrayList<ExportEntry> getExports() {
+    public WasmVector<ExportEntry> getExports() {
         return exports;
     }
 }
