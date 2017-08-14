@@ -1,7 +1,9 @@
 /**
  *
  */
-package happynewmoonwithreport;
+package happynewmoonwithreport.section;
+
+import happynewmoonwithreport.BytesFile;
 
 /**
  * @author James

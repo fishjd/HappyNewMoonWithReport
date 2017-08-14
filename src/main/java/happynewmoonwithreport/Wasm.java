@@ -1,5 +1,6 @@
 package happynewmoonwithreport;
 
+import happynewmoonwithreport.section.*;
 import happynewmoonwithreport.type.UInt32;
 import happynewmoonwithreport.type.VarUInt32;
 import happynewmoonwithreport.type.WasmVector;

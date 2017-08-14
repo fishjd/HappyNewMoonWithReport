@@ -1,7 +1,6 @@
-package happynewmoonwithreport;
+package happynewmoonwithreport.section;
 
 import happynewmoonwithreport.type.UInt32;
-import happynewmoonwithreport.type.VarUInt32;
 
 /**
  * The start section is optional.  This is the class to use when it has not been specified.

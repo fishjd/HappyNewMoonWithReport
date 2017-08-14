@@ -1,10 +1,13 @@
-package happynewmoonwithreport;
+package happynewmoonwithreport.section;
 
+import happynewmoonwithreport.BytesFile;
+import happynewmoonwithreport.ExportEntry;
+import happynewmoonwithreport.ExternalKind;
+import happynewmoonwithreport.section.SectionExport;
 import happynewmoonwithreport.type.UInt32;
-import happynewmoonwithreport.type.VarUInt1;
-import happynewmoonwithreport.type.VarUInt32;
 import happynewmoonwithreport.type.WasmString;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 

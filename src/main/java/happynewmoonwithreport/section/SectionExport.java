@@ -1,18 +1,18 @@
-package happynewmoonwithreport;
+package happynewmoonwithreport.section;
 
-import happynewmoonwithreport.type.MemoryType;
+import happynewmoonwithreport.BytesFile;
+import happynewmoonwithreport.ExportEntry;
 import happynewmoonwithreport.type.UInt32;
 import happynewmoonwithreport.type.VarUInt32;
 import happynewmoonwithreport.type.WasmVector;
 
-
 /**
  * Source <a href="http://webassembly.org/docs/binary-encoding/#memory-section"> http://webassembly.org/docs/binary-encoding/#memory-section</a>
  */
-public class SectionMemory implements Section {
+public class SectionExport implements Section {
 
     private UInt32 count;
-    private WasmVector<MemoryType> memoryTypeAll;
+    private WasmVector<ExportEntry> exports;
 
     /**
      * @param payload
@@ -23,11 +23,11 @@ public class SectionMemory implements Section {
         //* Count
         count = new VarUInt32(payload);
 
-        //* Entries of Resizeable Limits
-        memoryTypeAll = new WasmVector<>(count.integerValue());
+        //* Entries of Global Variables.
+        exports = new WasmVector<>(count.integerValue());
         for (Integer index = 0; index < count.integerValue(); index++) {
-            MemoryType limit = new MemoryType(payload);
-            memoryTypeAll.add(index, limit);
+            ExportEntry export = new ExportEntry(payload);
+            exports.add(index, export);
         }
     }
 
@@ -35,7 +35,7 @@ public class SectionMemory implements Section {
         return count;
     }
 
-    public WasmVector<MemoryType> getMemoryTypeAll() {
-        return memoryTypeAll;
+    public WasmVector<ExportEntry> getExports() {
+        return exports;
     }
 }

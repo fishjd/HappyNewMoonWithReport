@@ -1,9 +1,14 @@
-package happynewmoonwithreport;
+package happynewmoonwithreport.section;
 
+import happynewmoonwithreport.BytesFile;
+import happynewmoonwithreport.ElementType;
+import happynewmoonwithreport.ResizeableLimits;
+import happynewmoonwithreport.TableType;
+import happynewmoonwithreport.section.SectionTable;
 import happynewmoonwithreport.type.UInt32;
 import happynewmoonwithreport.type.VarUInt1;
-import happynewmoonwithreport.type.VarUInt32;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 

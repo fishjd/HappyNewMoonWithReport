@@ -1,12 +1,12 @@
-package happynewmoonwithreport;
+package happynewmoonwithreport.section;
 
+import happynewmoonwithreport.BytesFile;
+import happynewmoonwithreport.FunctionBody;
+import happynewmoonwithreport.section.SectionCode;
 import happynewmoonwithreport.type.UInt32;
-import happynewmoonwithreport.type.VarUInt1;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 

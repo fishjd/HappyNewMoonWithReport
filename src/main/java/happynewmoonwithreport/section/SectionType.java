@@ -1,5 +1,8 @@
-package happynewmoonwithreport;
+package happynewmoonwithreport.section;
 
+import happynewmoonwithreport.BytesFile;
+import happynewmoonwithreport.FunctionType;
+import happynewmoonwithreport.ValueType;
 import happynewmoonwithreport.type.VarUInt1;
 import happynewmoonwithreport.type.VarUInt32;
 import happynewmoonwithreport.type.UInt32;
