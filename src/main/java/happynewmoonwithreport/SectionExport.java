@@ -9,7 +9,7 @@ import java.util.ArrayList;
 /**
  * Source <a href="http://webassembly.org/docs/binary-encoding/#memory-section"> http://webassembly.org/docs/binary-encoding/#memory-section</a>
  */
-public class SectionExport implements Module {
+public class SectionExport implements Section {
 
     private UInt32 count;
     private WasmVector<ExportEntry> exports;

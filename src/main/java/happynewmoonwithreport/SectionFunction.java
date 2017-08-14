@@ -7,7 +7,7 @@ import happynewmoonwithreport.type.UInt32;
 
 import java.util.ArrayList;
 
-public class SectionFunction implements Module {
+public class SectionFunction implements Section {
 
     private UInt32 count;
     private ArrayList<UInt32> types;

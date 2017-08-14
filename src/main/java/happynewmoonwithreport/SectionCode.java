@@ -10,7 +10,7 @@ import java.util.ArrayList;
 /**
  * <h1>Code section</h1>
  * <p>
- * The code section contains a body for every function in the module. The count of function declared in the function
+ * The code section contains a body for every function in the Section. The count of function declared in the function
  * section and function bodies defined in this section must be the same and the ith declaration corresponds to the ith
  * function body.
  * <p>
@@ -24,7 +24,7 @@ import java.util.ArrayList;
  * <p>
  * </table>
  */
-public class SectionCode implements Module {
+public class SectionCode implements Section {
 
     private UInt32 count;
     private ArrayList<FunctionBody> functionAll;

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 /**
  * Source <a href="http://webassembly.org/docs/binary-encoding/#memory-section"> http://webassembly.org/docs/binary-encoding/#memory-section</a>
  */
-public class SectionStart implements Module {
+public class SectionStart implements Section {
 
     protected UInt32 index;
 

@@ -6,7 +6,7 @@ package happynewmoonwithreport;
 /**
  * @author James
  */
-public interface Module {
+public interface Section {
 
     void instantiate(BytesFile payload);
 }

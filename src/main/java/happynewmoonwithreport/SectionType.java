@@ -7,7 +7,7 @@ import happynewmoonwithreport.type.WasmVector;
 
 import java.util.ArrayList;
 
-public class SectionType implements Module {
+public class SectionType implements Section {
 
     // all the Function Types.
     private WasmVector<FunctionType> functionSignatures;

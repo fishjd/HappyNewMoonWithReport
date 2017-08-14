@@ -9,7 +9,7 @@ import happynewmoonwithreport.type.WasmVector;
 /**
  * Source <a href="http://webassembly.org/docs/binary-encoding/#table-section"> http://webassembly.org/docs/binary-encoding/#table-section</a>
  */
-public class SectionTable implements Module {
+public class SectionTable implements Section {
 
     private UInt32 count;
     private WasmVector<TableType> tables;

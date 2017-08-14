@@ -10,7 +10,7 @@ import happynewmoonwithreport.type.WasmVector;
 /**
  * Source <a href="http://webassembly.org/docs/binary-encoding/#memory-section"> http://webassembly.org/docs/binary-encoding/#memory-section</a>
  */
-public class SectionGlobal implements Module {
+public class SectionGlobal implements Section {
 
     private UInt32 count;
     private WasmVector<GlobalVariableType> globals;
