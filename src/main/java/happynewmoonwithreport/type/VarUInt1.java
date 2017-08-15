@@ -2,7 +2,7 @@ package happynewmoonwithreport.type;
 
 import happynewmoonwithreport.BytesFile;
 
-public final class VarUInt1 extends VarUInt<Integer> {
+public final class VarUInt1 extends UInt32 {
 
     @SuppressWarnings("unused")
     private VarUInt1() {
@@ -14,28 +14,36 @@ public final class VarUInt1 extends VarUInt<Integer> {
     }
 
     /**
-     * Create using a Integer. Size is hard coded to 1. Used mainly in testing.
+     * Create using a Integer.  Used mainly in testing.
      *
      * @param value
      */
     public VarUInt1(Integer value) {
-        this.value = value;
-        // set to default value.
+        this.value = value.longValue();
     }
 
     /**
-     * Create using a Byte. Size is hard coded to 1. Used mainly in testing.
+     * Create using a Long.  Used mainly in testing.
+     *
+     * @param value
+     */
+    public VarUInt1(Long value) {
+        this.value = value;
+    }
+
+    /**
+     * Create using a Byte.  Used mainly in testing.
      *
      * @param value
      */
     public VarUInt1(Byte value) {
-        this.value = value.intValue();
+        this.value = value.longValue();
     }
 
-    public Integer convert(BytesFile bytesFile) {
+    public Long convert(BytesFile bytesFile) {
         Integer cur;
         Integer count = 0;
-        Integer result = 0;
+        Long result = 0L;
 
         do {
             cur = bytesFile.readByte() & 0xff;
@@ -60,13 +68,13 @@ public final class VarUInt1 extends VarUInt<Integer> {
     }
 
     @Override
-    public Integer minValue() {
-        return 0;
+    public Long minValue() {
+        return 0L;
     }
 
     @Override
-    public Integer maxValue() {
-        return (1 << maxBits()) - 1;
+    public Long maxValue() {
+        return (1 << maxBits()) - 1L;
     }
 
     public Boolean booleanValue() {

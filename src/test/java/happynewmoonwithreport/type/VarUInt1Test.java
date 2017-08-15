@@ -26,20 +26,20 @@ public class VarUInt1Test {
     @Test
     public void minValue() throws Exception {
         varUInt1 = new VarUInt1( 0);
-        assertEquals(new Integer ( 0), varUInt1.minValue());
+        assertEquals(new Long ( 0), varUInt1.minValue());
     }
 
     @Test
     public void maxValue() throws Exception {
         varUInt1 = new VarUInt1( 0);
-        assertEquals(new Integer( 1), varUInt1.maxValue());
+        assertEquals(new Long( 1), varUInt1.maxValue());
     }
 
     @Test
     public void testReadUnsigned() throws Exception {
-        for (Integer i = 0; i < 1; i++) {
-            VarUInt1 uin1 = new VarUInt1(new Integer(i).byteValue());
-            Integer result = uin1.value();
+        for (Long i = 0L; i < 1; i++) {
+            VarUInt1 uin1 = new VarUInt1(new Long(i));
+            Long result = uin1.value();
             assertEquals("i = " + i.toString(), i, result);
         }
     }

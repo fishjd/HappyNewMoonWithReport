@@ -2,9 +2,7 @@ package happynewmoonwithreport.section;
 
 import happynewmoonwithreport.BytesFile;
 import happynewmoonwithreport.FunctionType;
-import happynewmoonwithreport.section.SectionType;
 import happynewmoonwithreport.type.UInt32;
-import happynewmoonwithreport.type.VarUInt1;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -41,10 +39,10 @@ public class SectionTypeTest {
         FunctionType functionType = functionSignatureAll.get(0);
         assertEquals("func",  functionType.getForm().getValue());
         assertEquals(new UInt32(2L),  functionType.getParamCount());
-        assertEquals(new VarUInt1(1),  functionType.getReturnCount());
+        assertEquals(new UInt32(1),  functionType.getReturnCount());
 
         assertEquals( new UInt32(2L), functionType.getParamCount());
-        assertEquals( new VarUInt1(1), functionType.getReturnCount());
+        assertEquals( new UInt32(1), functionType.getReturnCount());
 
         assertEquals(2, functionType.getParamTypeAll().size());
         assertEquals(1, functionType.getReturnTypeAll().size());
