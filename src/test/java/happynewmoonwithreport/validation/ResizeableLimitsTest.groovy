@@ -1,13 +1,13 @@
 package happynewmoonwithreport.validation
 
-import happynewmoonwithreport.ResizeableLimits
+import happynewmoonwithreport.LimitType
 import happynewmoonwithreport.type.UInt32
 import happynewmoonwithreport.type.VarUInt1
 import spock.lang.Specification
 
 class ResizeableLimitsTest extends Specification {
 
-    ResizeableLimits limits;
+    LimitType limits;
 
     void setup() {
 
@@ -20,7 +20,7 @@ class ResizeableLimitsTest extends Specification {
     def "Valid "() {
 
         given: "Valid limit with min of 1 and max of 20"
-        def limit = new ResizeableLimits(new VarUInt1(1), new UInt32(1), new UInt32(20));
+        def limit = new LimitType(new VarUInt1(1), new UInt32(1), new UInt32(20));
 
 
         when: " assert limit is valid. "
@@ -34,7 +34,7 @@ class ResizeableLimitsTest extends Specification {
     def "Valid no Max "() {
 
         given: "Valid limit with min of 1, no max set"
-        def limit = new ResizeableLimits(new VarUInt1(0), new UInt32(1));
+        def limit = new LimitType(new VarUInt1(0), new UInt32(1));
 
 
         when: " assert limit is valid. "
@@ -48,7 +48,7 @@ class ResizeableLimitsTest extends Specification {
     def "InValid  with min larger than max"() {
 
         given: "invalid limit with min larger than max"
-        def limit = new ResizeableLimits(new VarUInt1(1), new UInt32(400), new UInt32(20));
+        def limit = new LimitType(new VarUInt1(1), new UInt32(400), new UInt32(20));
 
 
         when: " assert limit is valid. "

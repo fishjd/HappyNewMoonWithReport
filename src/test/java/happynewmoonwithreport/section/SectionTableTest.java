@@ -2,7 +2,7 @@ package happynewmoonwithreport.section;
 
 import happynewmoonwithreport.BytesFile;
 import happynewmoonwithreport.ElementType;
-import happynewmoonwithreport.ResizeableLimits;
+import happynewmoonwithreport.LimitType;
 import happynewmoonwithreport.TableType;
 import happynewmoonwithreport.type.UInt32;
 import happynewmoonwithreport.type.VarUInt1;
@@ -54,7 +54,7 @@ public class SectionTableTest {
 
         assertEquals(new ElementType("anyFunc"), table.getElementType());
 
-        ResizeableLimits limits = table.getLimits();
+        LimitType limits = table.getLimits();
         assertEquals (new VarUInt1(0), limits.getHasMax()) ;
         assertEquals (new UInt32(0L), limits.getInitialLength()) ;
         assertNull(limits.getMaximumLength());

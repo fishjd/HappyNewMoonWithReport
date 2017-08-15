@@ -16,14 +16,14 @@ public class TableType implements Validation {
      * may only be "anyFunc" in MVP.
      */
     private ElementType elementType;
-    private ResizeableLimits limits;
+    private LimitType limits;
 
     public TableType(BytesFile payload) {
         elementType = new ElementType(payload);
-        limits = new ResizeableLimits(payload);
+        limits = new LimitType(payload);
     }
 
-    public TableType(ElementType elementType, ResizeableLimits limits) {
+    public TableType(ElementType elementType, LimitType limits) {
         this.elementType = elementType;
         this.limits = limits;
     }
@@ -48,7 +48,7 @@ public class TableType implements Validation {
         return elementType;
     }
 
-    public ResizeableLimits getLimits() {
+    public LimitType getLimits() {
         return limits;
     }
 

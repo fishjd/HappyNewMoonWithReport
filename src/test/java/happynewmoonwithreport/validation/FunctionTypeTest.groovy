@@ -1,7 +1,7 @@
 package happynewmoonwithreport.validation
 
 import happynewmoonwithreport.FunctionType
-import happynewmoonwithreport.ResizeableLimits
+import happynewmoonwithreport.LimitType
 import happynewmoonwithreport.ValueType
 import happynewmoonwithreport.type.UInt32
 import happynewmoonwithreport.type.WasmVector
@@ -9,7 +9,7 @@ import spock.lang.Specification
 
 class FunctionTypeTest extends Specification {
 
-    ResizeableLimits limits;
+    LimitType limits;
 
     void setup() {
 

@@ -24,7 +24,7 @@ import happynewmoonwithreport.type.VarUInt32;
  */
 
 
-public class ResizeableLimits implements Validation {
+public class LimitType implements Validation {
 
     /**
      * does the limit have max?
@@ -49,17 +49,17 @@ public class ResizeableLimits implements Validation {
      */
     private UInt32 maximumLength;
 
-    public ResizeableLimits() {
+    public LimitType() {
 
     }
 
-    public ResizeableLimits(VarUInt1 hasMax, UInt32 initialLength, UInt32 maximumLength) {
+    public LimitType(VarUInt1 hasMax, UInt32 initialLength, UInt32 maximumLength) {
         this.hasMax = hasMax;
         this.initialLength = initialLength;
         this.maximumLength = maximumLength;
     }
 
-    public ResizeableLimits(VarUInt1 hasMax, UInt32 initialLength) {
+    public LimitType(VarUInt1 hasMax, UInt32 initialLength) {
         assert hasMax.integerValue() == 0;
         this.hasMax = hasMax;  // must be zero.
         this.initialLength = initialLength;
@@ -67,7 +67,7 @@ public class ResizeableLimits implements Validation {
     }
 
 
-    public ResizeableLimits(BytesFile payload) {
+    public LimitType(BytesFile payload) {
         hasMax = new VarUInt1(payload);
         initialLength = new VarUInt32(payload);
         if (hasMax.isTrue()) {
