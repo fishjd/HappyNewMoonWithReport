@@ -4,7 +4,8 @@ import happynewmoonwithreport.type.MemoryType;
 import happynewmoonwithreport.type.UInt32;
 import happynewmoonwithreport.type.WasmVector;
 
-import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * A Web Assembly Module
@@ -97,19 +98,25 @@ public class WasmModule {
      * @return true if all validity checks pass.
      */
     public Boolean validation() {
-        ArrayList<Validation> toBeValidation = new ArrayList<>();
-
-        for (FunctionType functionType : getTypes()) {
-            toBeValidation.add(functionType);
-        }
-
-        // does not return a value
-        // toBeValidation.forEach(checkValid -> checkValid.valid());
-
         Boolean isValid = true;
-        for (Validation validation : toBeValidation) {
-            isValid &= validation.valid();
+
+        for (FunctionType functionType : types) {
+            Boolean valid = functionType.valid();
+            if (valid == false) {
+                Logger.getLogger(WasmModule.class.getName()).log(Level.SEVERE, "Function Type not valid! Function Type = " + functionType.toString());
+            }
+            isValid &= valid;
         }
+
+        for (TableType tableType : tables) {
+            Boolean valid = tableType.valid();
+            if (valid == false) {
+                Logger.getLogger(WasmModule.class.getName()).log(Level.SEVERE, "Table Type not valid! Table Type = " + tableType.toString());
+            }
+            isValid &= valid;
+        }
+
+
         return isValid;
     }
 

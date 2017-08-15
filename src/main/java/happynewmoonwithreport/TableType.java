@@ -10,7 +10,7 @@ import happynewmoonwithreport.type.Int32;
  * <p>
  */
 
-public class TableType {
+public class TableType implements Validation {
 
     /**
      * may only be "anyFunc" in MVP.
@@ -27,7 +27,23 @@ public class TableType {
         this.elementType = elementType;
         this.limits = limits;
     }
+    // end constructors
 
+    /**
+     * The limits must be valid.
+     * <p>
+     * source:  <a href="https://webassembly.github.io/spec/valid/types.html#table-types">
+     * https://webassembly.github.io/spec/valid/types.html#table-types
+     * </a>
+     *
+     * @return true if valid.
+     */
+    @Override
+    public Boolean valid() {
+        return limits.valid();
+    }
+
+    // boring getters and setters
     public ElementType getElementType() {
         return elementType;
     }
