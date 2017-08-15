@@ -23,13 +23,13 @@ import happynewmoonwithreport.type.VarUInt32;
  * <p>
  */
 
-@Deprecated
-public class ResizeableLimits {
+
+public class ResizeableLimits implements Validation {
 
     /**
      * does the limit have max?
      */
-    private VarUInt1 flags;
+    private VarUInt1 hasMax;
     /**
      * length in wasm pages (64k)
      */
@@ -53,22 +53,30 @@ public class ResizeableLimits {
 
     }
 
-    public ResizeableLimits(VarUInt1 flags, UInt32 initialLength, UInt32 maximumLength) {
-        this.flags = flags;
+    public ResizeableLimits(VarUInt1 hasMax, UInt32 initialLength, UInt32 maximumLength) {
+        this.hasMax = hasMax;
         this.initialLength = initialLength;
         this.maximumLength = maximumLength;
     }
 
+    public ResizeableLimits(VarUInt1 hasMax, UInt32 initialLength) {
+        assert hasMax.integerValue() == 0;
+        this.hasMax = hasMax;  // must be zero.
+        this.initialLength = initialLength;
+        this.maximumLength = maximumLength;
+    }
+
+
     public ResizeableLimits(BytesFile payload) {
-        flags = new VarUInt1(payload);
+        hasMax = new VarUInt1(payload);
         initialLength = new VarUInt32(payload);
-        if (flags.isTrue()) {
+        if (hasMax.isTrue()) {
             maximumLength = new VarUInt32(payload);
         }
     }
 
-    public VarUInt1 getFlags() {
-        return flags;
+    public VarUInt1 getHasMax() {
+        return hasMax;
     }
 
     public UInt32 getInitialLength() {
@@ -82,5 +90,30 @@ public class ResizeableLimits {
      */
     public UInt32 getMaximumLength() {
         return maximumLength;
+    }
+
+    /**
+     * Limits must have meaningful bounds.
+     *<ul>
+     * <li>If the maximum m? is not empty, then its value must not be smaller than n</li>
+     * <li>Then the limit is valid.</li>
+     *</ul>
+     * source:  <a href="https://webassembly.github.io/spec/valid/types.html#limits">
+     *     https://webassembly.github.io/spec/valid/types.html#limits</a>
+     *
+     * @return true if limit is valid.
+     */
+    @Override
+    public Boolean valid() {
+        Boolean result = false;
+
+        if (hasMax.booleanValue() == true) {
+            result = initialLength.integerValue() <= maximumLength.integerValue();
+        } else {
+            return true;
+        }
+
+
+        return result;
     }
 }

@@ -8,8 +8,6 @@ import happynewmoonwithreport.type.VarUInt32;
 import happynewmoonwithreport.type.UInt32;
 import happynewmoonwithreport.type.WasmVector;
 
-import java.util.ArrayList;
-
 public class SectionType implements Section {
 
     // all the Function Types.
@@ -38,33 +36,7 @@ public class SectionType implements Section {
 
         FunctionType functionType;
         for (Integer countFT = 0; countFT < typeCount.integerValue(); countFT++) {
-            //* form
-            form = new ValueType(payload);
-            assert (form.getValue().equals("func"));
-
-            //* Parameter Count
-            paramCount = new VarUInt32(payload);
-
-            //* Parameters Types
-            ArrayList<ValueType> paramAll = new ArrayList<>(paramCount.integerValue());
-            for (Integer count = 0; count < paramCount.integerValue(); count++) {
-                ValueType paramType = new ValueType(payload);
-                paramAll.add(count, paramType);
-            }
-
-            //* Return Count
-            VarUInt1 returnCount = new VarUInt1(payload);
-            // current version only allows 0 or 1
-            assert (returnCount.value() <= 1);
-
-            //* Return Types.
-            ArrayList<ValueType> returnAll = new ArrayList<>(returnCount.value());
-            for (Integer count = 0; count < returnCount.value(); count++) {
-                ValueType returnType = new ValueType(payload);
-                returnAll.add(count, returnType);
-            }
-
-            functionType = new FunctionType(form, paramCount, paramAll, returnCount, returnAll);
+            functionType = new FunctionType(payload);
             functionSignatures.add(countFT, functionType);
         }
     }

@@ -1,17 +1,24 @@
-package happynewmoonwithreport;
-
-import happynewmoonwithreport.type.UInt32;
+package happynewmoonwithreport;import happynewmoonwithreport.type.UInt32;
 import happynewmoonwithreport.type.VarUInt1;
+import happynewmoonwithreport.type.VarUInt32;
+import happynewmoonwithreport.type.WasmVector;
 
 import java.util.ArrayList;
 
+;
+
 /**
- * Source: http://webassembly.org/docs/binary-encoding/#func_type
+ * Source: <a href = "http://webassembly.org/docs/binary-encoding/#func_type">
+ * http://webassembly.org/docs/binary-encoding/#func_type
+ * </a>
+ * <p>
+ * <a href = "https://webassembly.github.io/spec/binary/types.html#function-types">
+ * https://webassembly.github.io/spec/binary/types.html#function-types</a>
  */
-public class FunctionType {
+public class FunctionType implements Validation {
 
     /**
-     * No Clue?
+     * Always 0x60  ValueType("func")
      */
     private ValueType form;
 
@@ -23,20 +30,73 @@ public class FunctionType {
     /**
      * Array of the types of parameters
      */
-    private ArrayList<ValueType> paramTypeAll;
+    private WasmVector<ValueType> paramTypeAll;
 
     /**
      * The number of return values Currently only zero or one value
      */
-    private VarUInt1 returnCount;
+    private UInt32 returnCount;
 
     /**
      * Array of the types of of the return values.
      */
-    private ArrayList<ValueType> returnTypeAll;
+    private WasmVector<ValueType> returnTypeAll;
 
-    public FunctionType(ValueType form, UInt32 paramCount, ArrayList<ValueType> paramTypeAll,
-                        VarUInt1 returnCount, ArrayList<ValueType> returnTypeAll) {
+    /**
+     * Create a FunctionType from a BytesFile.
+     *
+     * @param payload
+     */
+    public FunctionType(BytesFile payload) {
+        //* form
+        form = new ValueType(payload);
+        assert (form.getValue().equals("func"));
+
+        //* Parameter Count
+        paramCount = new VarUInt32(payload);
+
+        //* Parameters Types
+        paramTypeAll = new WasmVector<>(paramCount.integerValue());
+        for (Integer count = 0; count < paramCount.integerValue(); count++) {
+            ValueType paramType = new ValueType(payload);
+            paramTypeAll.add(count, paramType);
+        }
+
+        //* Return Count
+        returnCount = new VarUInt1(payload);
+        // current version only allows 0 or 1
+        assert (returnCount.value() <= 1);
+
+        //* Return Types.
+        returnTypeAll = new WasmVector<>(returnCount.integerValue());
+        for (Integer count = 0; count < returnCount.integerValue(); count++) {
+            ValueType returnType = new ValueType(payload);
+            returnTypeAll.add(count, returnType);
+        }
+
+    }
+
+
+    /**
+     * @param paramCount
+     * @param paramTypeAll
+     * @param returnCount only zero or one.
+     * @param returnTypeAll
+     */
+    public FunctionType(UInt32 paramCount, WasmVector<ValueType> paramTypeAll,
+                        UInt32 returnCount, WasmVector<ValueType> returnTypeAll) {
+        this(new ValueType("func"), paramCount, paramTypeAll, returnCount, returnTypeAll);
+    }
+
+    /**
+     * @param form
+     * @param paramCount
+     * @param paramTypeAll
+     * @param returnCount only zero or one.
+     * @param returnTypeAll
+     */
+    public FunctionType(ValueType form, UInt32 paramCount, WasmVector<ValueType> paramTypeAll,
+                        UInt32 returnCount, WasmVector<ValueType> returnTypeAll) {
         super();
         this.form = form;
         this.paramCount = paramCount;
@@ -44,6 +104,28 @@ public class FunctionType {
         this.returnCount = returnCount;
         this.returnTypeAll = returnTypeAll;
     }
+
+    /**
+     * Function types may not specify more than one result.
+     * <p>
+     * source:  <a href="https://webassembly.github.io/spec/valid/types.html#function-types">
+     * https://webassembly.github.io/spec/valid/types.html#function-types</a>
+     * <p>
+     * Note:
+     * This restriction may be removed in future versions of WebAssembly.
+     *
+     * @return true if valid.
+     */
+    @Override
+    public Boolean valid() {
+        Boolean isValid;
+
+        isValid = returnCount.integerValue() <= 1;
+        isValid &= 0 <= returnCount.integerValue();
+
+        return isValid;
+    }
+
 
     public ValueType getForm() {
         return form;
@@ -60,7 +142,7 @@ public class FunctionType {
     }
 
 
-    public VarUInt1 getReturnCount() {
+    public UInt32 getReturnCount() {
         return returnCount;
     }
 

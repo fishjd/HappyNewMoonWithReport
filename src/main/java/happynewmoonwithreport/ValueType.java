@@ -59,25 +59,33 @@ public class ValueType {
         return new VarInt7(type);
     }
 
+    public static final String int32 = "int32";
+    public static final String int64 = "int64";
+    public static final String f32 = "f32";
+    public static final String f64 = "f64";
+    public static final String anyFunc = "anyFunc";
+    public static final String func = "func";
+    public static final String emptyBlock = "emptyBlock";
+
     private static Map<Integer, String> mapNew;
 
     static {
         mapNew = new HashMap<>();
 
         // int32(-0x01)      byte value  0x7F
-        mapNew.put(-0x01, "int32");
+        mapNew.put(-0x01, int32);
         // int64(-0x02)      byte value  0x7e
-        mapNew.put(-0x02, "int64");
+        mapNew.put(-0x02, int64);
         // f32(-0x03)        byte value  0x7d
-        mapNew.put(-0x03, "f32");
+        mapNew.put(-0x03, f32);
         // f64(-0x04)        byte value  0x7C
-        mapNew.put(-0x04, "f64");
+        mapNew.put(-0x04, f64);
         // anyFunc(-0x10)    byte value  0x70
-        mapNew.put(-0x10, "anyFunc");
+        mapNew.put(-0x10, anyFunc);
         // func(-0x20)       byte value  0x60
-        mapNew.put(-0x20, "func");
+        mapNew.put(-0x20, func);
         // emptyBlock(-0x40) byte value  0x40
-        mapNew.put(-0x40, "emptyBlock");
+        mapNew.put(-0x40, emptyBlock);
 
     }
 
