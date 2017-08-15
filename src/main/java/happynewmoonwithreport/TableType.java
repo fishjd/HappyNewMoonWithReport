@@ -4,9 +4,9 @@ import happynewmoonwithreport.type.LimitType;
 import happynewmoonwithreport.type.UInt32;
 
 /**
- * * <p> Source : <a href= "http://webassembly.org/docs/binary-encoding/#table_type">http://webassembly.org/docs/binary-encoding/#table_type</a>
+ * * <p> Source : <a href= "http://webassembly.org/docs/binary-encoding/#table_type" target="_top">http://webassembly.org/docs/binary-encoding/#table_type</a>
  * <p>
- * Source:  <a href = "https://webassembly.github.io/spec/syntax/types.html#syntax-tabletype> Table Type</a>
+ * Source:  <a href = "https://webassembly.github.io/spec/syntax/types.html#syntax-tabletype target="_top"> Table Type</a>
  * <p>
  * <p>
  */
@@ -33,7 +33,7 @@ public class TableType implements Validation {
     /**
      * The limits must be valid.
      * <p>
-     * source:  <a href="https://webassembly.github.io/spec/valid/types.html#table-types">
+     * source:  <a href="https://webassembly.github.io/spec/valid/types.html#table-types" target="_top">
      * https://webassembly.github.io/spec/valid/types.html#table-types
      * </a>
      *

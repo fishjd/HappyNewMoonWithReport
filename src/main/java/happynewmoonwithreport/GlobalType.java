@@ -3,7 +3,7 @@ package happynewmoonwithreport;
 import happynewmoonwithreport.type.VarUInt1;
 
 /**
- * * <p> Source : <a href= "http://webassembly.org/docs/binary-encoding/#table_type">http://webassembly.org/docs/binary-encoding/#table_type</a>
+ * * <p> Source : <a href= "http://webassembly.org/docs/binary-encoding/#table_type" target="_top">http://webassembly.org/docs/binary-encoding/#table_type</a>
  * <p>
  */
 

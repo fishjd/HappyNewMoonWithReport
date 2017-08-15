@@ -17,7 +17,7 @@ import java.util.Map;
  *  3 indicating a Global import or definition
  *
  * <p>
- * Source : <a href= "http://webassembly.org/docs/binary-encoding/#external_kind">http://webassembly.org/docs/binary-encoding/#external_kind</a>
+ * Source : <a href= "http://webassembly.org/docs/binary-encoding/#external_kind" target="_top">http://webassembly.org/docs/binary-encoding/#external_kind</a>
  * <p>
  *//* @formatter:on */
 public class ExternalKind {

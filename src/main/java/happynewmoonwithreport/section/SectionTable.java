@@ -8,7 +8,7 @@ import happynewmoonwithreport.type.UInt32;
 import happynewmoonwithreport.type.WasmVector;
 
 /**
- * Source <a href="http://webassembly.org/docs/binary-encoding/#table-section"> http://webassembly.org/docs/binary-encoding/#table-section</a>
+ * Source <a href="http://webassembly.org/docs/binary-encoding/#table-section" target="_top"> http://webassembly.org/docs/binary-encoding/#table-section</a>
  */
 public class SectionTable implements Section {
 

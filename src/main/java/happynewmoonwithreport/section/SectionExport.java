@@ -7,7 +7,7 @@ import happynewmoonwithreport.type.VarUInt32;
 import happynewmoonwithreport.type.WasmVector;
 
 /**
- * Source <a href="http://webassembly.org/docs/binary-encoding/#memory-section"> http://webassembly.org/docs/binary-encoding/#memory-section</a>
+ * Source <a href="http://webassembly.org/docs/binary-encoding/#memory-section" target="_top"> http://webassembly.org/docs/binary-encoding/#memory-section</a>
  */
 public class SectionExport implements Section {
 

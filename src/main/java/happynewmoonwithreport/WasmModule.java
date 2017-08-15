@@ -15,7 +15,7 @@ import java.util.logging.Logger;
  * exports and provide initialization logic in the form of data and element segments or a start function.
  * <p>
  * <p>
- * Source: <a href="https://webassembly.github.io/spec/syntax/modules.html#">Modules</a>
+ * Source: <a href="https://webassembly.github.io/spec/syntax/modules.html#" target="_top">Modules</a>
  */
 
 public class WasmModule {
@@ -91,7 +91,7 @@ public class WasmModule {
     /**
      * Execute all the validity checks
      * <p>
-     * Source:  <a href="https://webassembly.github.io/spec/valid/index.html">
+     * Source:  <a href="https://webassembly.github.io/spec/valid/index.html" target="_top">
      * https://webassembly.github.io/spec/valid/index.html
      * </a>
      *

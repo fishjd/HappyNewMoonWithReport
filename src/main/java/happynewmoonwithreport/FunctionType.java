@@ -8,11 +8,11 @@ import java.util.ArrayList;
 ;
 
 /**
- * Source: <a href = "http://webassembly.org/docs/binary-encoding/#func_type">
+ * Source: <a href = "http://webassembly.org/docs/binary-encoding/#func_type" target="_top">
  * http://webassembly.org/docs/binary-encoding/#func_type
  * </a>
  * <p>
- * <a href = "https://webassembly.github.io/spec/binary/types.html#function-types">
+ * <a href = "https://webassembly.github.io/spec/binary/types.html#function-types" target="_top">
  * https://webassembly.github.io/spec/binary/types.html#function-types</a>
  */
 public class FunctionType implements Validation {
@@ -108,7 +108,7 @@ public class FunctionType implements Validation {
     /**
      * Function types may not specify more than one result.
      * <p>
-     * source:  <a href="https://webassembly.github.io/spec/valid/types.html#function-types">
+     * source:  <a href="https://webassembly.github.io/spec/valid/types.html#function-types" target="_top">
      * https://webassembly.github.io/spec/valid/types.html#function-types</a>
      * <p>
      * Note:

@@ -227,7 +227,7 @@ public class Wasm {
     /**
      * Did the module pass all validation checks?
      * <p>
-     * Source:  <a href="https://webassembly.github.io/spec/valid/index.html">
+     * Source:  <a href="https://webassembly.github.io/spec/valid/index.html" target="_top">
      * https://webassembly.github.io/spec/valid/index.html
      * </a>
      *
