@@ -1,7 +1,7 @@
 package happynewmoonwithreport.validation
 
 import happynewmoonwithreport.FunctionType
-import happynewmoonwithreport.LimitType
+import happynewmoonwithreport.type.LimitType
 import happynewmoonwithreport.ValueType
 import happynewmoonwithreport.type.UInt32
 import happynewmoonwithreport.type.WasmVector

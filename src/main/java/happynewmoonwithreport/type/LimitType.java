@@ -1,5 +1,7 @@
-package happynewmoonwithreport;
+package happynewmoonwithreport.type;
 
+import happynewmoonwithreport.BytesFile;
+import happynewmoonwithreport.Validation;
 import happynewmoonwithreport.type.UInt32;
 import happynewmoonwithreport.type.VarUInt1;
 import happynewmoonwithreport.type.VarUInt32;

@@ -1,6 +1,7 @@
 package happynewmoonwithreport;
 
 import happynewmoonwithreport.type.Int32;
+import happynewmoonwithreport.type.LimitType;
 
 /**
  * * <p> Source : <a href= "http://webassembly.org/docs/binary-encoding/#table_type">http://webassembly.org/docs/binary-encoding/#table_type</a>

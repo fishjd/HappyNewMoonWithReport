@@ -2,7 +2,7 @@ package happynewmoonwithreport.section;
 
 import happynewmoonwithreport.BytesFile;
 import happynewmoonwithreport.ElementType;
-import happynewmoonwithreport.LimitType;
+import happynewmoonwithreport.type.LimitType;
 import happynewmoonwithreport.TableType;
 import happynewmoonwithreport.type.UInt32;
 import happynewmoonwithreport.type.VarUInt1;

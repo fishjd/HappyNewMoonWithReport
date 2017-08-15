@@ -1,6 +1,6 @@
 package happynewmoonwithreport.validation
 
-import happynewmoonwithreport.LimitType
+import happynewmoonwithreport.type.LimitType
 import happynewmoonwithreport.type.UInt32
 import happynewmoonwithreport.type.VarUInt1
 import spock.lang.Specification
