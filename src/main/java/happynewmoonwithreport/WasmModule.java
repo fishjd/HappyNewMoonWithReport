@@ -4,6 +4,8 @@ import happynewmoonwithreport.type.MemoryType;
 import happynewmoonwithreport.type.UInt32;
 import happynewmoonwithreport.type.WasmVector;
 
+import java.util.ArrayList;
+
 /**
  * A Web Assembly Module
  * <p>
@@ -32,7 +34,9 @@ public class WasmModule {
     private WasmVector<GlobalVariableType> globals;
     // private WasmVector<> elementAll;  // todo
     // private WasmVector<> dataAll // todo
-    /** index to start function. Optional **/
+    /**
+     * index to start function. Optional
+     **/
     private UInt32 start;
     private WasmVector<ExportEntry> exportAll;
 
@@ -83,6 +87,34 @@ public class WasmModule {
         labelIndex = new UInt32(0);
     }
 
+    /**
+     * Execute all the validity checks
+     * <p>
+     * Source:  <a href="https://webassembly.github.io/spec/valid/index.html">
+     * https://webassembly.github.io/spec/valid/index.html
+     * </a>
+     *
+     * @return true if all validity checks pass.
+     */
+    public Boolean validation() {
+        ArrayList<Validation> toBeValidation = new ArrayList<>();
+
+        for (FunctionType functionType : getTypes()) {
+            toBeValidation.add(functionType);
+        }
+
+        // does not return a value
+        // toBeValidation.forEach(checkValid -> checkValid.valid());
+
+        Boolean isValid = true;
+        for (Validation validation : toBeValidation) {
+            isValid &= validation.valid();
+        }
+        return isValid;
+    }
+
+
+    // boring getters and setters
 
     public void setTypeIndex(UInt32 typeIndex) {
         this.typeIndex = typeIndex;

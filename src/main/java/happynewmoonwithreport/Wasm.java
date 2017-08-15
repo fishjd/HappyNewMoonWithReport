@@ -107,7 +107,7 @@ public class Wasm {
                 // to do import
         );
 
-        valid = validation();
+        valid = module.validation();
     }
 
     private void instantiateSections() {
@@ -167,31 +167,7 @@ public class Wasm {
         assert bytesFile.atEndOfFile() : "File length is not correct";
     }
 
-    /**
-     * Execute all the validity checks
-     * <p>
-     * Source:  <a href="https://webassembly.github.io/spec/valid/index.html">
-     * https://webassembly.github.io/spec/valid/index.html
-     * </a>
-     *
-     * @return true if all validity checks pass.
-     */
-    private Boolean validation() {
-        ArrayList<Validation> toBeValidation = new ArrayList<>();
 
-        for (FunctionType functionType : module.getTypes()) {
-            toBeValidation.add(functionType);
-        }
-
-        // does not return a value
-        // toBeValidation.forEach(checkValid -> checkValid.valid());
-
-        Boolean isValid = true;
-        for (Validation validation : toBeValidation) {
-            isValid &= validation.valid();
-        }
-        return isValid;
-    }
 
     private SectionName readSectionName() {
         SectionName result = new SectionName(bytesFile);
