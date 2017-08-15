@@ -2,10 +2,11 @@ package happynewmoonwithreport.type;
 
 
 import happynewmoonwithreport.BytesFile;
+import happynewmoonwithreport.Validation;
 
 /**
  * Memory Type,  also refereed to as resizable_limits
- *
+ * <p>
  * <h3 id="resizable_limits"><code class="highlighter-rouge">resizable_limits</code></h3> <p>A packed tuple that
  * describes the limits of a <a href="../semantics/#table">table</a> or <a href="../semantics/#resizing">memory</a>:</p>
  * <p> <table> <thead> <tr> <th>Field</th> <th>Type</th> <th>Description</th> </tr> </thead> <tbody> <tr>
@@ -25,71 +26,77 @@ import happynewmoonwithreport.BytesFile;
  * <p>
  * Source : <a href= "http://webassembly.org/docs/binary-encoding/#resizable_limits">http://webassembly.org/docs/binary-encoding/#resizable_limits</a>
  * <p>
- *
+ * <p>
  * <a href="https://webassembly.github.io/spec/syntax/types.html#syntax-memtype">Memory Types</a>
  */
-public class MemoryType implements Limit {
+public class MemoryType implements Validation {
 
+    private LimitType limit;
 
-    /**
-     * does the limit have max?
-     */
-    private VarUInt1 hasMaximum;
-    /**
-     * length in wasm pages (64k)
-     */
-    private UInt32 minimum;
-    /**
-     * length in wasm pages (64k)
-     * <p>
-     * usage:
-     * <code>
-     * if (flag == true) {
-     * max = getMaximumLength(); {
-     * else {
-     * // There is no Maximum  (infinity)
-     * <p>
-     * }
-     * }</code>
-     */
-    private UInt32 maximum;
-
-    public MemoryType(VarUInt1 hasMaximum, UInt32 minimum, UInt32 maximum) {
-        this.hasMaximum = hasMaximum;
-        this.minimum = minimum;
-        this.maximum = maximum;
+    public MemoryType(UInt32 hasMaximum, UInt32 minimum, UInt32 maximum) {
+        limit = new LimitType(hasMaximum, minimum, maximum);
     }
 
     public MemoryType(BytesFile payload) {
-        hasMaximum = new VarUInt1(payload);
-        minimum = new VarUInt32(payload);
-        if (hasMaximum.isTrue()) {
-            maximum = new VarUInt32(payload);
-        }
+        limit = new LimitType(payload);
     }
+
+    /**
+     * The limits must be valid.
+     * <p>
+     * source:  <a href="https://webassembly.github.io/spec/valid/types.html#memory-types">
+     * https://webassembly.github.io/spec/valid/types.html#memory-types
+     * </a>
+     *
+     * @return true if valid.
+     */
+    @Override
+    public Boolean valid() {
+        return limit.valid();
+    }
+
 
     /**
      * minimum  of the memory in Page Size
      *
      * @return min
      */
-    @Override
     public UInt32 minimum() {
-        return minimum;
+        return limit.minimum();
     }
 
     /**
      * maximum of the memory in Page Size
+     * <p>
+     * Usage :
+     * <code>
+     * if (hasMaximum()) {
+     * max = maximum();
+     * }
+     * </code>
+     * <p>
+     * Throws RuntimeException is maximum is not set.
      *
-     * @return max
+     * @return maximum
      */
-    @Override
     public UInt32 maximum() {
-        return maximum;
+        return limit.maximum();
     }
 
+    public UInt32 hasMaximum() {
+        return limit.hasMaximum();
+    }
+
+
     @Override
-    public VarUInt1 hasMaximum() {
-        return hasMaximum;
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("MemoryType{");
+        sb.append("678 hasMaximum=").append(hasMaximum());
+        sb.append(", minimum=").append(minimum());
+        if (limit.hasMaximum().booleanValue()) {
+            sb.append(", maximum=").append(maximum());
+        }
+        sb.append('}');
+        return sb.toString();
     }
 }

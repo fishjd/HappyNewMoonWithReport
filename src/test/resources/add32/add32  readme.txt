@@ -1,7 +1,7 @@
 Add32.wasm
 
 Section 1
-Location in file = 0xE0 to 0x14
+Location in file = 0x0E to 0x14
 Payload Length = 7
 Pay Load =
 01 60 02 7F 7F 01 7F
@@ -31,6 +31,6 @@ Section 10 'Code' the 0x0A at 0x  0x4F
 //** function Body
 87 80 80 80 00            // Body Size 7
 00                        // Local Count 0
-// *** Code 
+// *** Code
 20 01 20 00 6A
 0B                        // End Byte 0x0B

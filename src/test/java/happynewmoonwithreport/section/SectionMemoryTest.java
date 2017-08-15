@@ -1,7 +1,6 @@
 package happynewmoonwithreport.section;
 
 import happynewmoonwithreport.BytesFile;
-import happynewmoonwithreport.section.SectionMemory;
 import happynewmoonwithreport.type.MemoryType;
 import happynewmoonwithreport.type.UInt32;
 import happynewmoonwithreport.type.VarUInt1;
@@ -52,7 +51,12 @@ public class SectionMemoryTest {
         MemoryType limits = limitAll.get(0);
         assertEquals(new VarUInt1(0), limits.hasMaximum());
         assertEquals(new UInt32(1), limits.minimum());
-        assertNull(limits.maximum());
+        try {
+            limits.maximum();
+            fail("maximum Failure");
+        } catch (RuntimeException rte) {
+            // ok ;
+        }
 
     }
 
@@ -76,13 +80,13 @@ public class SectionMemoryTest {
         // the count is 1
         assertEquals(new UInt32(1), sectionMemory.getCount());
 
-        WasmVector<MemoryType> limitAll = sectionMemory.getMemoryTypeAll();
-        assertEquals(1, limitAll.size());
+        WasmVector<MemoryType> memoryTypeAll = sectionMemory.getMemoryTypeAll();
+        assertEquals(1, memoryTypeAll.size());
 
-        MemoryType limits = limitAll.get(0);
-        assertEquals(new VarUInt1(1), limits.hasMaximum());
-        assertEquals(new UInt32(3), limits.minimum());
-        assertEquals(new UInt32(6), limits.maximum());
+        MemoryType memoryType = memoryTypeAll.get(0);
+        assertEquals(new UInt32(1), memoryType.hasMaximum());
+        assertEquals(new UInt32(3), memoryType.minimum());
+        assertEquals(new UInt32(6), memoryType.maximum());
 
     }
 

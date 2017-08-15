@@ -1,7 +1,7 @@
 package happynewmoonwithreport;
 
-import happynewmoonwithreport.type.Int32;
 import happynewmoonwithreport.type.LimitType;
+import happynewmoonwithreport.type.UInt32;
 
 /**
  * * <p> Source : <a href= "http://webassembly.org/docs/binary-encoding/#table_type">http://webassembly.org/docs/binary-encoding/#table_type</a>
@@ -17,16 +17,16 @@ public class TableType implements Validation {
      * may only be "anyFunc" in MVP.
      */
     private ElementType elementType;
-    private LimitType limits;
+    private LimitType limit;
 
     public TableType(BytesFile payload) {
         elementType = new ElementType(payload);
-        limits = new LimitType(payload);
+        limit = new LimitType(payload);
     }
 
-    public TableType(ElementType elementType, LimitType limits) {
+    public TableType(ElementType elementType, LimitType limit) {
         this.elementType = elementType;
-        this.limits = limits;
+        this.limit = limit;
     }
     // end constructors
 
@@ -41,7 +41,7 @@ public class TableType implements Validation {
      */
     @Override
     public Boolean valid() {
-        return limits.valid();
+        return limit.valid();
     }
 
     // boring getters and setters
@@ -49,26 +49,46 @@ public class TableType implements Validation {
         return elementType;
     }
 
-    public LimitType getLimits() {
-        return limits;
-    }
-
     /**
-     * min and max are to satisfy the minimum requirements of Table Type.
+     * minimum  of the memory in Page Size
      *
      * @return min
      */
-    Int32 min() {
-        return new Int32(0);
+    public UInt32 minimum() {
+        return limit.minimum();
     }
 
     /**
-     * min and max are to satisfy the minimum requirements of Table Type.
-     *
-     * @return max
+     * maximum of the memory in Page Size
+     * <p>
+     * Usage :
+     * <code>
+     * if (hasMaximum()) {
+     * max = maximum();
+     * }
+     * </code>
+     * <p>
+     * Throws RuntimeException is maximum is not set.
+     * @return maximum
      */
-    Int32 max() {
-        return new Int32(Integer.MAX_VALUE);
+    public UInt32 maximum() {
+        return limit.maximum();
+    }
+
+    public UInt32 hasMaximum() {
+        return limit.hasMaximum();
+    }
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("TableType{");
+        sb.append("hasMaximum=").append(hasMaximum());
+        sb.append(",minimum=").append(minimum());
+        if (limit.hasMaximum().booleanValue()) {
+            sb.append(", maximum=").append(maximum());
+        }
+        sb.append('}');
+        return sb.toString();
     }
 
 }

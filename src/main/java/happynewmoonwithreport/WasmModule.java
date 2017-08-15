@@ -116,6 +116,14 @@ public class WasmModule {
             isValid &= valid;
         }
 
+        for (MemoryType memoryType : memoryAll) {
+            Boolean valid = memoryType.valid();
+            if (valid == false) {
+                Logger.getLogger(WasmModule.class.getName()).log(Level.SEVERE, "Memory Type not valid! Memory Type = " + memoryType.toString());
+            }
+            isValid &= valid;
+        }
+
 
         return isValid;
     }

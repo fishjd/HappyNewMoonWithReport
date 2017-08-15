@@ -31,6 +31,14 @@ public abstract class UInt<ValueType extends Number> implements DataTypeNumber<V
     // }
     //
 
+    public Boolean isTrue() {
+        return value.intValue()!= 0;
+    }
+
+    public Boolean booleanValue() {
+        return value.intValue() != 0;
+    }
+
     public byte byteValue() {
         return value.byteValue();
     }

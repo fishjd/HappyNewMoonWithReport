@@ -27,8 +27,8 @@ public class SectionMemory implements Section {
         //* Entries of Resizeable Limits
         memoryTypeAll = new WasmVector<>(count.integerValue());
         for (Integer index = 0; index < count.integerValue(); index++) {
-            MemoryType limit = new MemoryType(payload);
-            memoryTypeAll.add(index, limit);
+            MemoryType memoryType = new MemoryType(payload);
+            memoryTypeAll.add(index, memoryType);
         }
     }
 
