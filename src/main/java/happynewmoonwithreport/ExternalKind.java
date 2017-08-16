@@ -7,8 +7,6 @@ import java.util.Map;
 
 /* @formatter:off */
 /**
- * external_kind
- *
  *  A single-byte unsigned integer indicating the kind of definition being imported or defined:
  * <pre>
  *  0 indicating a Function import or definition

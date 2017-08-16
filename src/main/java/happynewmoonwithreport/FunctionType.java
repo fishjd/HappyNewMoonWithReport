@@ -10,12 +10,16 @@ import java.util.ArrayList;
 ;
 
 /**
+ * The description of a function signature
+ * <p>
  * Source: <a href = "http://webassembly.org/docs/binary-encoding/#func_type" target="_top">
  * http://webassembly.org/docs/binary-encoding/#func_type
  * </a>
+ * </p>
  * <p>
  * <a href = "https://webassembly.github.io/spec/binary/types.html#function-types" target="_top">
  * https://webassembly.github.io/spec/binary/types.html#function-types</a>
+ * </p>
  */
 public class FunctionType implements Validation {
 
@@ -83,7 +87,6 @@ public class FunctionType implements Validation {
                         UInt32 returnCount, WasmVector<ValueType> returnTypeAll) {
         this(new ValueType("func"), paramCount, paramTypeAll, returnCount, returnTypeAll);
     }
-
 
 
     public FunctionType(ValueType form, UInt32 paramCount, WasmVector<ValueType> paramTypeAll,

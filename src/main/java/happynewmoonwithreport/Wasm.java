@@ -9,9 +9,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * @author James
+ * Start Here, The class to loads a WebAssembly file
  */
-public class Wasm {
+ public class Wasm {
     public Wasm() {
         super();
         sectionStart = new SectionStartEmpty();
@@ -37,9 +37,8 @@ public class Wasm {
     private SectionCode sectionCode = null;
 
     /**
-     * Construct a Wasm module with a file.
      * <p>
-     * This is a convenience constructor.  Constructors that throw exceptions are
+     * This is a convenience constructor.  Constructors which throw exceptions are
      * to be used cautiously. Consider using the constructor <code>Wasm(byte[])</code>
      * </p>
      * <h2>Use instead</h2>

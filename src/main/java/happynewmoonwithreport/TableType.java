@@ -4,6 +4,7 @@ import happynewmoonwithreport.type.LimitType;
 import happynewmoonwithreport.type.UInt32;
 
 /**
+ * Table Type
  * <p>
  * Source : <a href= "http://webassembly.org/docs/binary-encoding/#table_type" target="_top">
  * http://webassembly.org/docs/binary-encoding/#table_type
@@ -15,7 +16,6 @@ import happynewmoonwithreport.type.UInt32;
  * </a>
  *
  */
-
 public class TableType implements Validation {
 
     /**
