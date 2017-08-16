@@ -46,8 +46,8 @@ public abstract class VarUInt<ValueType extends Number> implements DataTypeNumbe
     }
 
     /**
-     * Does the <code>value</code> lay between Integer.minValue and Integer.maxValue.  i.e Integer.minValue <= value <=
-     * Integer.maxValue;
+     * Does the <code>value</code> lay between Integer.minValue and Integer.maxValue.  i.e
+     * <code>Integer.minValue &lt;= value &lt;= Integer.maxValue;</code>
      **/
     @Override
     public Boolean isBoundByInteger() {

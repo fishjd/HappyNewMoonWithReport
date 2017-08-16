@@ -15,8 +15,8 @@ public class WasmString {
     /**
      * Construct using a BytesFile and the length in bytes.
      *
-     * @param payload
-     * @param sizeInBytes
+     * @param payload the input BytesFile.
+     * @param sizeInBytes size in bytes.
      */
     public WasmString(BytesFile payload, DataTypeNumber sizeInBytes) {
         Integer size = sizeInBytes.integerValue();
@@ -31,7 +31,7 @@ public class WasmString {
     /**
      * Used in unit testing.
      *
-     * @param value
+     * @param value value
      */
     public WasmString(String value) {
         this.value = value;

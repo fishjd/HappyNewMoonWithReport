@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * the A can either be values or complex constructions. A vector can have at most (2^32)-1
  * elements.
  * <p>
- * vec(A)::=An(if n &lt (2^32))
+ * vec(A)::=An(if n &lt; (2^32))
  * <p>
  * Source: <a href="https://webassembly.github.io/spec/syntax/conventions.html#vectors" target="_top" > Vectors</a>
  * <p>

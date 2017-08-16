@@ -16,7 +16,7 @@ public final class VarUInt1 extends UInt32 {
     /**
      * Create using a Integer.  Used mainly in testing.
      *
-     * @param value
+     * @param value value
      */
     public VarUInt1(Integer value) {
         this.value = value.longValue();
@@ -25,7 +25,7 @@ public final class VarUInt1 extends UInt32 {
     /**
      * Create using a Long.  Used mainly in testing.
      *
-     * @param value
+     * @param value value
      */
     public VarUInt1(Long value) {
         this.value = value;
@@ -34,7 +34,7 @@ public final class VarUInt1 extends UInt32 {
     /**
      * Create using a Byte.  Used mainly in testing.
      *
-     * @param value
+     * @param value value
      */
     public VarUInt1(Byte value) {
         this.value = value.longValue();

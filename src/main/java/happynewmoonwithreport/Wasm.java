@@ -43,17 +43,17 @@ public class Wasm {
      * to be used cautiously. Consider using the constructor <code>Wasm(byte[])</code>
      * </p>
      * <h2>Use instead</h2>
-     * <p>
-     * <code>
+     * <pre>
+     * {@code
      * try {
-     * WasmFile wasmFile = new WasmFile(fileName);
-     * byte[] bytesAll = wasmFile.bytes();
-     * Wasm wasm = new Wasm(bytesAll);
-     * } catch (IOException ioException)
-     * {
-     * <p>
+     *         WasmFile wasmFile = new WasmFile(fileName);
+     *         byte[] bytesAll = wasmFile.bytes();
+     *         Wasm wasm = new Wasm(bytesAll);
+     * } catch (IOException ioException) {
+     *
      * }
-     * </code>
+     * }
+     * </pre>
      *
      * @param fileName The fileName.  This parameter will be used in <code>new File(fileName)</code>
      *
@@ -166,7 +166,6 @@ public class Wasm {
         }
         assert bytesFile.atEndOfFile() : "File length is not correct";
     }
-
 
 
     private SectionName readSectionName() {

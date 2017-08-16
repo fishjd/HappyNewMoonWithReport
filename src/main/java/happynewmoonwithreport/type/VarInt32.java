@@ -21,7 +21,7 @@ public final class VarInt32 extends Int32 {
     /**
      * Create using a Long. Used mainly in testing.
      *
-     * @param value
+     * @param value value
      */
     public VarInt32(Long value) {
         this.value = value.intValue();
@@ -30,7 +30,7 @@ public final class VarInt32 extends Int32 {
     /**
      * Create using a Integer. Size is hard coded to 1. Used mainly in testing.
      *
-     * @param value
+     * @param value value
      */
     public VarInt32(Integer value) {
         this.value = value.intValue();
@@ -39,7 +39,7 @@ public final class VarInt32 extends Int32 {
     /**
      * Create using a Byte. Size is hard coded to 1. Used mainly in testing.
      *
-     * @param value
+     * @param value value
      */
     public VarInt32(Byte value) {
         this.value = value.intValue();
@@ -78,7 +78,9 @@ public final class VarInt32 extends Int32 {
     }
 
     /**
-     *.
+     * Writes the value as a byte stream.
+     *
+     * @return byte stream.
      */
     public ByteOutput convert() {
         ByteOutput out = new ByteArrayByteOutput(maxBytes());

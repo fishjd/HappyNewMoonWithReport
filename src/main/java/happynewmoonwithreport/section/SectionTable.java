@@ -19,7 +19,7 @@ public class SectionTable implements Section {
 
     /**
      *
-     * @param payload
+     * @param payload the input BytesFile.
      */
     @Override
     public void instantiate(BytesFile payload) {

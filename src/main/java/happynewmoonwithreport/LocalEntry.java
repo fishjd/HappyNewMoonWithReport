@@ -1,28 +1,21 @@
 package happynewmoonwithreport;
 
-import happynewmoonwithreport.BytesFile;
-import happynewmoonwithreport.ValueType;
 import happynewmoonwithreport.type.UInt32;
 import happynewmoonwithreport.type.VarUInt32;
-
-import java.util.ArrayList;
 
 /**
  * <h1>Local Entry</h1>
  * <p>
  * Each local entry declares a number of local variables of a given type. It is legal to have several entries with the
  * same type.
- * <p>
- * <p>
- * <table>
- * <p>
+ * </p>
+ *
+ * <table  summary="Local Entry Table ">
  * <tr> <th>Field</th> 	<th>Type</th> 	<th>Description</th> </tr>
- * <p>
  * <tr><td>count</td><td>	varuint32 </td><td>	number of local variables of the following type </td></tr>
- * <p>
  * <tr><td>type</td><td>value_type </td><td>	type of the variables</td></tr>
- * <p>
  * </table>
+ *
  */
 public class LocalEntry {
 
@@ -31,7 +24,7 @@ public class LocalEntry {
 
 
     /**
-     * @param payload
+     * @param payload the input BytesFile.
      */
     public LocalEntry(BytesFile payload) {
 

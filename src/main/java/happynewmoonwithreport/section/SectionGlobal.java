@@ -2,14 +2,15 @@ package happynewmoonwithreport.section;
 
 import happynewmoonwithreport.BytesFile;
 import happynewmoonwithreport.GlobalVariableType;
-import happynewmoonwithreport.type.VarUInt32;
-
 import happynewmoonwithreport.type.UInt32;
+import happynewmoonwithreport.type.VarUInt32;
 import happynewmoonwithreport.type.WasmVector;
 
 
 /**
- * Source <a href="http://webassembly.org/docs/binary-encoding/#memory-section" target="_top"> http://webassembly.org/docs/binary-encoding/#memory-section</a>
+ * Source <a href="http://webassembly.org/docs/binary-encoding/#memory-section" target="_top">
+ * http://webassembly.org/docs/binary-encoding/#memory-section
+ * </a>
  */
 public class SectionGlobal implements Section {
 
@@ -17,7 +18,7 @@ public class SectionGlobal implements Section {
     private WasmVector<GlobalVariableType> globals;
 
     /**
-     * @param payload
+     * @param payload the input BytesFile.
      */
     @Override
     public void instantiate(BytesFile payload) {

@@ -2,8 +2,6 @@ package happynewmoonwithreport.type;
 
 import happynewmoonwithreport.BytesFile;
 
-import java.util.Arrays;
-
 /**
  * An unsigned integer of N bits, represented in N/8 bytes in little endian
  * order. N is either 8, 16, or 32.
@@ -57,8 +55,8 @@ public class UInt32 extends UInt<Long> {
     }
 
     /**
-     * Does the <code>value</code> lay between Integer.minValue and Integer.maxValue.  i.e Integer.minValue <= value <=
-     * Integer.maxValue;
+     * Does the <code>value</code> lay between Integer.minValue and Integer.maxValue.  i.e
+     * <code>Integer.minValue &lt;= value &lt;= Integer.maxValue;</code>
      **/
     public Boolean isBoundByInteger() {
         return (Integer.MIN_VALUE <= value && value <= Integer.MAX_VALUE);

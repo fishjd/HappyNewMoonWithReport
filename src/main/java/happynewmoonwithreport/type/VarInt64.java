@@ -17,7 +17,7 @@ public final class VarInt64 extends Int64 {
     /**
      * Create using a Long. Size is hard coded to 5. Used mainly in testing.
      *
-     * @param value
+     * @param value value
      */
     public VarInt64(Long value) {
         this.value = value;
@@ -27,7 +27,7 @@ public final class VarInt64 extends Int64 {
     /**
      * Create using a Integer. Size is hard coded to 1. Used mainly in testing.
      *
-     * @param value
+     * @param value value
      */
     public VarInt64(Integer value) {
         this.value = value.longValue();
@@ -37,7 +37,7 @@ public final class VarInt64 extends Int64 {
     /**
      * Create using a Byte. Size is hard coded to 1. Used mainly in testing.
      *
-     * @param value
+     * @param value value
      */
     public VarInt64(Byte value) {
         this.value = value.longValue();
@@ -76,8 +76,9 @@ public final class VarInt64 extends Int64 {
     }
 
     /**
-     * Writes {@code value} as a signed integer to {@code out}, starting at {@code offset}. Returns the number of bytes
-     * written.
+     * Writes the value as a byte stream.
+     *
+     * @return byte stream.
      */
     public ByteOutput convert() {
         ByteOutput out = new ByteArrayByteOutput(maxBytes());

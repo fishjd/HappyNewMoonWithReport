@@ -110,7 +110,7 @@ public class LimitType implements Validation {
      * <li>If the maximum m? is not empty, then its value must not be smaller than n</li>
      * <li>Then the limit is valid.</li>
      * </ul>
-     * source:  <a target="_top" href="https://webassembly.github.io/spec/valid/types.html#limits" target="_top">
+     * source:  <a href="https://webassembly.github.io/spec/valid/types.html#limits" target="_top">
      * https://webassembly.github.io/spec/valid/types.html#limits</a>
      *
      * @return true if limit is valid.

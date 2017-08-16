@@ -15,7 +15,7 @@ public class SectionExport implements Section {
     private WasmVector<ExportEntry> exports;
 
     /**
-     * @param payload
+     * @param payload the input BytesFile.
      */
     @Override
     public void instantiate(BytesFile payload) {

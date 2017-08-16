@@ -12,7 +12,7 @@ public class SectionStart implements Section {
     protected UInt32 index;
 
     /**
-     * @param payload
+     * @param payload the input BytesFile.
      */
     @Override
     public void instantiate(BytesFile payload) {

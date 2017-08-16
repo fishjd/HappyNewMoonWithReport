@@ -1,4 +1,6 @@
-package happynewmoonwithreport;import happynewmoonwithreport.type.UInt32;
+package happynewmoonwithreport;
+
+import happynewmoonwithreport.type.UInt32;
 import happynewmoonwithreport.type.VarUInt1;
 import happynewmoonwithreport.type.VarUInt32;
 import happynewmoonwithreport.type.WasmVector;
@@ -45,7 +47,7 @@ public class FunctionType implements Validation {
     /**
      * Create a FunctionType from a BytesFile.
      *
-     * @param payload
+     * @param payload the input BytesFile.
      */
     public FunctionType(BytesFile payload) {
         //* form
@@ -77,24 +79,13 @@ public class FunctionType implements Validation {
     }
 
 
-    /**
-     * @param paramCount
-     * @param paramTypeAll
-     * @param returnCount only zero or one.
-     * @param returnTypeAll
-     */
     public FunctionType(UInt32 paramCount, WasmVector<ValueType> paramTypeAll,
                         UInt32 returnCount, WasmVector<ValueType> returnTypeAll) {
         this(new ValueType("func"), paramCount, paramTypeAll, returnCount, returnTypeAll);
     }
 
-    /**
-     * @param form
-     * @param paramCount
-     * @param paramTypeAll
-     * @param returnCount only zero or one.
-     * @param returnTypeAll
-     */
+
+
     public FunctionType(ValueType form, UInt32 paramCount, WasmVector<ValueType> paramTypeAll,
                         UInt32 returnCount, WasmVector<ValueType> returnTypeAll) {
         super();

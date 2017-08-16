@@ -25,6 +25,7 @@ public class WasmFile {
      * copied from : https://www.mkyong.com/java/how-to-convert-file-into-an-array-of-bytes/
      *
      * @return The file as an array of bytes.
+     * @throws  IOException on Error.
      */
     public byte[] bytes() throws IOException {
         FileInputStream fileInputStream = null;

@@ -2,8 +2,6 @@ package happynewmoonwithreport.type;
 
 import happynewmoonwithreport.BytesFile;
 
-import java.util.Arrays;
-
 public final class VarInt7 extends Int32 {
 
     @SuppressWarnings("unused")
@@ -12,14 +10,14 @@ public final class VarInt7 extends Int32 {
     }
 
     public VarInt7(BytesFile bytesFile) {
-        assert (bytesFile.longEnough( minBytes()));
+        assert (bytesFile.longEnough(minBytes()));
         value = convert(bytesFile);
     }
 
     /**
      * Create using a Long. Used mainly in testing.
      *
-     * @param value
+     * @param value value
      */
     public VarInt7(Long value) {
         this.value = value.intValue();
@@ -29,7 +27,7 @@ public final class VarInt7 extends Int32 {
     /**
      * Create using a Integer. Size is hard coded to 1. Used mainly in testing.
      *
-     * @param value
+     * @param value value
      */
     public VarInt7(Integer value) {
         this.value = value.intValue();
@@ -39,7 +37,7 @@ public final class VarInt7 extends Int32 {
     /**
      * Create using a Byte. Size is hard coded to 1. Used mainly in testing.
      *
-     * @param value
+     * @param value value
      */
     public VarInt7(Byte value) {
         this.value = value.intValue();
@@ -78,8 +76,9 @@ public final class VarInt7 extends Int32 {
     }
 
     /**
-     * Writes {@code value} as a signed integer to {@code out}, starting at
-     * {@code offset}. Returns the number of bytes written.
+     * Writes the value as a byte stream.
+     *
+     * @return byte stream.
      */
     public ByteOutput convert() {
         ByteOutput out = new ByteArrayByteOutput(maxBytes());
@@ -106,7 +105,7 @@ public final class VarInt7 extends Int32 {
     }
 
     public Integer maxValue() {
-        return  (1<< (maxBits() - 1)) - 1;
+        return (1 << (maxBits() - 1)) - 1;
     }
 
 

@@ -11,21 +11,8 @@ import java.util.ArrayList;
  * FunctionBody bodies consist of a sequence of local variable declarations followed by bytecode instructions.
  * Instructions are encoded as an opcode followed by zero or more immediates as defined by the tables below. Each
  * function body must end with the end opcode.
- * <p>
- * <p>
- * <table> <tr> </tr><th>Field</th><th>Type</th> <th>Description</th></tr>
- * <p>
- * <tr><td>body_size </td><td>	varuint32 	</td><td>size of function body to follow, in bytes</td></tr>
- * <p>
- * <tr><td>local_count </td><td>	varuint32 	</td><td>number of local entries</td></tr>
- * <p>
- * <tr><td>locals </td><td>	local_entry* </td><td>	local variables</td></tr>
- * <p>
- * <tr><td>code </td><td>	byte* </td><td>	byte code of the function</td></tr>
- * <p>
- * <tr><td>end </td><td>	byte 	</td><td>0x0b, indicating the end of the body</td></tr>
- * <p>
- * </table>
+ * </p>
+ *
  */
 
 public class FunctionBody {

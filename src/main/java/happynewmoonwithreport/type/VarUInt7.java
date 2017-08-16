@@ -2,8 +2,6 @@ package happynewmoonwithreport.type;
 
 import happynewmoonwithreport.BytesFile;
 
-import java.util.Arrays;
-
 public final class VarUInt7 extends VarUInt<Integer> {
 
     @SuppressWarnings("unused")
@@ -18,17 +16,16 @@ public final class VarUInt7 extends VarUInt<Integer> {
     /**
      * Create using a Integer. Size is hard coded to 1. Used mainly in testing.
      *
-     * @param value
+     * @param value value
      */
     public VarUInt7(Integer value) {
         this.value = value;
-        // set to default value.
     }
 
     /**
      * Create using a Byte. Size is hard coded to 1. Used mainly in testing.
      *
-     * @param value
+     * @param value value
      */
     public VarUInt7(Byte value) {
         this.value = value.intValue();

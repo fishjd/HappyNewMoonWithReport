@@ -8,9 +8,10 @@ import happynewmoonwithreport.Validation;
  * Memory Type,  also refereed to as resizable_limits
  * <p>
  * Source : <a href= "http://webassembly.org/docs/binary-encoding/#resizable_limits" target="_top">http://webassembly.org/docs/binary-encoding/#resizable_limits</a>
- * <p>
+ * </p>
  * <p>
  * <a href="https://webassembly.github.io/spec/syntax/types.html#syntax-memtype" target="_top">Memory Types</a>
+ * </p>
  */
 public class MemoryType implements Validation {
 

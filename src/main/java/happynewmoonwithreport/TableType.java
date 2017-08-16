@@ -4,11 +4,16 @@ import happynewmoonwithreport.type.LimitType;
 import happynewmoonwithreport.type.UInt32;
 
 /**
- * * <p> Source : <a href= "http://webassembly.org/docs/binary-encoding/#table_type" target="_top">http://webassembly.org/docs/binary-encoding/#table_type</a>
  * <p>
- * Source:  <a href = "https://webassembly.github.io/spec/syntax/types.html#syntax-tabletype target="_top"> Table Type</a>
- * <p>
- * <p>
+ * Source : <a href= "http://webassembly.org/docs/binary-encoding/#table_type" target="_top">
+ * http://webassembly.org/docs/binary-encoding/#table_type
+ * </a>
+ * </p>
+ *
+ * Source:  <a href = "https://webassembly.github.io/spec/syntax/types.html#syntax-tabletype" target="_top">
+ * Table Type
+ * </a>
+ *
  */
 
 public class TableType implements Validation {
@@ -69,6 +74,7 @@ public class TableType implements Validation {
      * </code>
      * <p>
      * Throws RuntimeException is maximum is not set.
+     *
      * @return maximum
      */
     public UInt32 maximum() {

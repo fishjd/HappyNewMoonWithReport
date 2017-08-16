@@ -16,7 +16,7 @@ public class SectionMemory implements Section {
     private WasmVector<MemoryType> memoryTypeAll;
 
     /**
-     * @param payload
+     * @param payload the input BytesFile.
      */
     @Override
     public void instantiate(BytesFile payload) {
