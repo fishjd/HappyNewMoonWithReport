@@ -11,11 +11,18 @@ import java.util.ArrayList;
  * <p>
  * The function section declares the signatures of all functions in the module (their definitions appear in the code
  * section).
- * <pre>
- * Field     Type          Description
- * count     varuint32     count of signature indices to follow
- * types     varuint32*    sequence of indices into the type section
- * </pre>
+ * <p>
+ * Source:  <a href="http://webassembly.org/docs/binary-encoding/#function-section" target="_top">
+ * http://webassembly.org/docs/binary-encoding/#function-section
+ * </a>
+ * <p>
+ * Source:  <a href="http://webassembly.org/docs/modules/#function-and-code-sections" target="_top">
+ * http://webassembly.org/docs/modules/#function-and-code-sections
+ * </a>
+ * <p>
+ * Source:  <a href="https://webassembly.github.io/spec/binary/modules.html#function-section" target="_top"> 
+ * https://webassembly.github.io/spec/binary/modules.html#function-section 
+ * </a> 
  */
 public class SectionFunction implements Section {
 

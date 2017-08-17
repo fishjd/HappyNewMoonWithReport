@@ -2,13 +2,24 @@ package happynewmoonwithreport.section;
 
 import happynewmoonwithreport.BytesFile;
 import happynewmoonwithreport.TableType;
-import happynewmoonwithreport.type.VarUInt32;
-
 import happynewmoonwithreport.type.UInt32;
+import happynewmoonwithreport.type.VarUInt32;
 import happynewmoonwithreport.type.WasmVector;
 
 /**
- * Source <a href="http://webassembly.org/docs/binary-encoding/#table-section" target="_top"> http://webassembly.org/docs/binary-encoding/#table-section</a>
+ * The encoding of a Table section.
+ * <p>
+ * Source <a href="http://webassembly.org/docs/binary-encoding/#table-section" target="_top">
+ * http://webassembly.org/docs/binary-encoding/#table-section
+ * </a>
+ * <p>
+ * Source:  <a href="http://webassembly.org/docs/modules/#table-section" target="_top"> 
+ * http://webassembly.org/docs/modules/#table-section 
+ * </a>
+ * <p>
+ * Source:  <a href="https://webassembly.github.io/spec/binary/modules.html#table-section" target="_top"> 
+ * https://webassembly.github.io/spec/binary/modules.html#table-section 
+ * </a> 
  */
 public class SectionTable implements Section {
 
@@ -16,9 +27,7 @@ public class SectionTable implements Section {
     private WasmVector<TableType> tables;
 
 
-
     /**
-     *
      * @param payload the input BytesFile.
      */
     @Override

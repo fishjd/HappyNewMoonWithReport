@@ -9,10 +9,7 @@ import java.util.Map;
 /**
  * Enum for the defined section names.
  * <p>
- * source:  <a href="http://webassembly.org/docs/binary-encoding/#high-level-structure" target="_top">
- * http://webassembly.org/docs/binary-encoding/#high-level-structure
- * </a>
- *
+ * This is not a wasm section. It is an Enum of all the names of the sections.
  * <pre>
  * Type             1     Function signature declarations
  * Import           2     Import declarations
@@ -26,8 +23,13 @@ import java.util.Map;
  * Code             10    Function bodies (code)
  * Data             11    Data
  * </pre>
+ * <p>
+ * Source:  <a href="http://webassembly.org/docs/binary-encoding/#high-level-structure" target="_top">
+ * http://webassembly.org/docs/binary-encoding/#high-level-structure
+ * </a>
  */
 public class SectionName {
+    /* TODO rename to "Name" or "NameEnum" to avoid confusion with the Custom Sections aka "Name Section" **/
     private Integer type;
     private String value;
 

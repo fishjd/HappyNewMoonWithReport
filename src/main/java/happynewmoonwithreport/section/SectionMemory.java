@@ -8,7 +8,19 @@ import happynewmoonwithreport.type.WasmVector;
 
 
 /**
- * Source <a href="http://webassembly.org/docs/binary-encoding/#memory-section" target="_top"> http://webassembly.org/docs/binary-encoding/#memory-section</a>
+ * The encoding of the memory section.
+ * <p>
+ * Source <a href="http://webassembly.org/docs/binary-encoding/#memory-section" target="_top">
+ * http://webassembly.org/docs/binary-encoding/#memory-section
+ * </a>
+ * <p>
+ * Source:  <a href="http://webassembly.org/docs/modules/#linear-memory-section" target="_top">
+ * http://webassembly.org/docs/modules/#linear-memory-section
+ * </a>
+ * <p>
+ * Source:  <a href="https://webassembly.github.io/spec/binary/modules.html#memory-section" target="_top"> 
+ * https://webassembly.github.io/spec/binary/modules.html#memory-section 
+ * </a> 
  */
 public class SectionMemory implements Section {
 

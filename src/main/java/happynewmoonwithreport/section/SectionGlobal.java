@@ -8,9 +8,19 @@ import happynewmoonwithreport.type.WasmVector;
 
 
 /**
+ * The encoding of the Global section:
+ * <p>
  * Source <a href="http://webassembly.org/docs/binary-encoding/#memory-section" target="_top">
  * http://webassembly.org/docs/binary-encoding/#memory-section
  * </a>
+ * <p>
+ * Source:  <a href="http://webassembly.org/docs/modules/#global-section" target="_top">
+ * http://webassembly.org/docs/modules/#global-section
+ * </a>
+ * <p>
+ * Source:  <a href="https://webassembly.github.io/spec/binary/modules.html#global-section" target="_top"> 
+ * https://webassembly.github.io/spec/binary/modules.html#global-section 
+ * </a> 
  */
 public class SectionGlobal implements Section {
 

@@ -12,15 +12,18 @@ import java.util.ArrayList;
 /**
  * <h1>Code section</h1>
  * <p>
- * The code section contains a body for every function in the Section. The count of function declared in the function
+ * The code section contains a body for every function in the Module. The count of function declared in the function
  * section and function bodies defined in this section must be the same and the ith declaration corresponds to the ith
  * function body.
  * </p>
- * <table  summary="Code Section Table">
- * <tr><th>Field</th><th> 	Type</th><th> 	Description</th></tr>
- * <tr><td>count </td><td>	varuint32 </td><td>	count of function bodies to follow</td></tr>
- * <tr><td>bodies 	</td><td>function_body* </td><td>sequence of FunctionBody Bodies</td></tr>
- * </table>
+ * <p>
+ * Source:  <a href="http://webassembly.org/docs/binary-encoding/#code-section" target="_top">
+ * http://webassembly.org/docs/binary-encoding/#code-section
+ * </a>
+ * <p>
+ * Source:  <a href="http://webassembly.org/docs/modules/#function-and-code-sections" target="_top">
+ * http://webassembly.org/docs/modules/#function-and-code-sections
+ * </a>
  */
 public class SectionCode implements Section {
 
