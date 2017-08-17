@@ -5,12 +5,13 @@ import happynewmoonwithreport.type.VarUInt32;
 import happynewmoonwithreport.type.WasmString;
 
 /**
- *
- *
- * source:  <a href="http://webassembly.org/docs/binary-encoding/#export-entry" target="_top"> 
-         http://webassembly.org/docs/binary-encoding/#export-entry 
-         </a> 
- */public class ExportEntry {
+ * Export Entry - The details of an export.
+ * <p>
+ * source:  <a href="http://webassembly.org/docs/binary-encoding/#export-entry" target="_top">
+ * http://webassembly.org/docs/binary-encoding/#export-entry
+ * </a>
+ */
+public class ExportEntry {
 
     private UInt32 fieldLength;
     private WasmString fieldName;
@@ -46,8 +47,4 @@ import happynewmoonwithreport.type.WasmString;
         return index;
     }
 
-    public Export export() {
-        Export result = new Export(fieldName.getValue(), externalKind);
-        return result;
-    }
 }
