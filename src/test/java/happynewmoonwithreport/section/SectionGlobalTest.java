@@ -4,11 +4,8 @@ import happynewmoonwithreport.BytesFile;
 import happynewmoonwithreport.GlobalType;
 import happynewmoonwithreport.GlobalVariableType;
 import happynewmoonwithreport.ValueType;
-import happynewmoonwithreport.section.SectionGlobal;
 import happynewmoonwithreport.type.UInt32;
-import happynewmoonwithreport.type.VarUInt1;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -58,7 +55,7 @@ public class SectionGlobalTest {
         GlobalVariableType globalVariable = globals.get(0);
         GlobalType type = globalVariable.getType();
         assertEquals(new ValueType(-0x01), type.getContentType());
-        assertEquals(new VarUInt1(0), type.getMutability());
+        assertEquals(0, type.getMutability().getType().intValue());
 
 
     }

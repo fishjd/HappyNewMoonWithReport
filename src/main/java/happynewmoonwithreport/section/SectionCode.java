@@ -7,8 +7,6 @@ import happynewmoonwithreport.type.VarUInt32;
 
 import java.util.ArrayList;
 
-    /* TODO find way to get formatter to work in java doc **/
-
 /**
  * <h1>Code section</h1>
  * <p>

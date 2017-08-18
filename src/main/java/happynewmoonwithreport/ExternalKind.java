@@ -3,7 +3,6 @@ package happynewmoonwithreport;
 import happynewmoonwithreport.type.UInt8;
 
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * A single-byte unsigned integer indicating the kind of definition being imported or defined:
@@ -19,19 +18,14 @@ import java.util.Map;
  * </a>
  * </p>
  */
-public class ExternalKind {
-
-    private Integer type;
-    private String value;
+public class ExternalKind extends ValueBase {
 
     public static final String function = "function";
     public static final String table = "table";
     public static final String memory = "memory";
     public static final String global = "global ";
 
-    private static Map<Integer, String> mapAll;
-
-    static {
+    private  void setup() {
         mapAll = new HashMap<>();
         mapAll.put(0, function);
         mapAll.put(1, table);
@@ -40,83 +34,37 @@ public class ExternalKind {
     }
 
     private ExternalKind() {
-
+        className = ExternalKind.class.getName();
+        setup();
     }
 
     public ExternalKind(Integer type) {
         this();
         this.type = type;
-        calcValue(type);
+        this.value = calcValue(type);
     }
 
     public ExternalKind(UInt8 type) {
         this();
         this.type = type.integerValue();
-        calcValue(this.type);
+        this.value = calcValue(this.type);
     }
 
     public ExternalKind(BytesFile payload) {
         this();
         UInt8 vt = new UInt8(payload);
         this.type = vt.integerValue();
-        calcValue(type);
+        this.value = calcValue(type);
     }
 
     public ExternalKind(String value) {
         this();
-        Boolean found = false;
-        for (Map.Entry<Integer, String> entry : mapAll.entrySet()) {
-            if (value.equals(entry.getValue())) {
-                this.type = entry.getKey();
-                this.value = value;
-                found = true;
-            }
-        }
-        if (found == false) {
-            throw new RuntimeException("Element Type " + value + " not valid/found");
-        }
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public Integer getType() {
-        return type;
+        this.value = value;
+        this.type = calcType(value);
     }
 
     public UInt8 getTypeUInt8() {
         return new UInt8(type);
     }
 
-    private void calcValue(Integer input) {
-        value = mapAll.get(input);
-        if (value == null) {
-            throw new RuntimeException("type in ElementType is not valid type = " + type + " hex = 0x" + Integer.toHexString(input));
-        }
-
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        ExternalKind that = (ExternalKind) o;
-
-        return type.equals(that.type);
-    }
-
-    @Override
-    public int hashCode() {
-        return type.hashCode();
-    }
-
-    @Override
-    public String toString() {
-        return "ElementType{" +
-                "type = " + type +
-                ", value = " + value +
-                '}';
-    }
 }

@@ -16,11 +16,11 @@ public class GlobalType {
      * may only be "anyFunc" in MVP.
      */
     private ValueType contentType;
-    private VarUInt1 mutability;
+    private Mutability mutability;
 
     public GlobalType(BytesFile payload) {
         contentType = new ValueType(payload);
-        mutability = new VarUInt1(payload);
+        mutability = new Mutability(new VarUInt1(payload));
     }
 
     public ValueType getContentType() {
@@ -31,11 +31,13 @@ public class GlobalType {
         this.contentType = contentType;
     }
 
-    public VarUInt1 getMutability() {
+    public Mutability getMutability() {
         return mutability;
     }
 
-    public void setMutability(VarUInt1 mutability) {
+    public void setMutability(Mutability mutability) {
         this.mutability = mutability;
     }
+
+
 }
