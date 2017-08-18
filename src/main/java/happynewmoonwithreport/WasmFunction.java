@@ -8,7 +8,11 @@ import happynewmoonwithreport.type.WasmVector;
 import java.util.ArrayList;
 
 /**
- * Source:   <a href="https://webassembly.github.io/spec/syntax/modules.html#syntax-func">Functions</a>
+ * Web Assembly Function
+ * <p>
+ * Source:<a href="https://webassembly.github.io/spec/syntax/modules.html#syntax-func" target="_top">
+ * https://webassembly.github.io/spec/syntax/modules.html#syntax-func
+ * </a>
  */
 public class WasmFunction {
 

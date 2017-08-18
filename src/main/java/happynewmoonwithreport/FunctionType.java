@@ -1,4 +1,6 @@
-package happynewmoonwithreport;import happynewmoonwithreport.type.UInt32;
+package happynewmoonwithreport;
+
+import happynewmoonwithreport.type.UInt32;
 import happynewmoonwithreport.type.VarUInt1;
 import happynewmoonwithreport.type.VarUInt32;
 import happynewmoonwithreport.type.WasmVector;
@@ -8,12 +10,16 @@ import java.util.ArrayList;
 ;
 
 /**
- * Source: <a href = "http://webassembly.org/docs/binary-encoding/#func_type">
+ * The description of a function signature
+ * <p>
+ * Source: <a href = "http://webassembly.org/docs/binary-encoding/#func_type" target="_top">
  * http://webassembly.org/docs/binary-encoding/#func_type
  * </a>
+ * </p>
  * <p>
- * <a href = "https://webassembly.github.io/spec/binary/types.html#function-types">
+ * <a href = "https://webassembly.github.io/spec/binary/types.html#function-types" target="_top">
  * https://webassembly.github.io/spec/binary/types.html#function-types</a>
+ * </p>
  */
 public class FunctionType implements Validation {
 
@@ -45,7 +51,7 @@ public class FunctionType implements Validation {
     /**
      * Create a FunctionType from a BytesFile.
      *
-     * @param payload
+     * @param payload the input BytesFile.
      */
     public FunctionType(BytesFile payload) {
         //* form
@@ -77,24 +83,12 @@ public class FunctionType implements Validation {
     }
 
 
-    /**
-     * @param paramCount
-     * @param paramTypeAll
-     * @param returnCount only zero or one.
-     * @param returnTypeAll
-     */
     public FunctionType(UInt32 paramCount, WasmVector<ValueType> paramTypeAll,
                         UInt32 returnCount, WasmVector<ValueType> returnTypeAll) {
         this(new ValueType("func"), paramCount, paramTypeAll, returnCount, returnTypeAll);
     }
 
-    /**
-     * @param form
-     * @param paramCount
-     * @param paramTypeAll
-     * @param returnCount only zero or one.
-     * @param returnTypeAll
-     */
+
     public FunctionType(ValueType form, UInt32 paramCount, WasmVector<ValueType> paramTypeAll,
                         UInt32 returnCount, WasmVector<ValueType> returnTypeAll) {
         super();
@@ -108,7 +102,7 @@ public class FunctionType implements Validation {
     /**
      * Function types may not specify more than one result.
      * <p>
-     * source:  <a href="https://webassembly.github.io/spec/valid/types.html#function-types">
+     * source:  <a href="https://webassembly.github.io/spec/valid/types.html#function-types" target="_top">
      * https://webassembly.github.io/spec/valid/types.html#function-types</a>
      * <p>
      * Note:

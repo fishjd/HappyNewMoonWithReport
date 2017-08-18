@@ -8,10 +8,6 @@ import java.util.Random;
 import static junit.framework.TestCase.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-/**
- * Created by James Haring on 2017-08-06.
- * Copyright 2017 Whole Bean Software Limited
- */
 public class isBoundByIntegerTest {
     Integer maxCount = 1_000_000;
 

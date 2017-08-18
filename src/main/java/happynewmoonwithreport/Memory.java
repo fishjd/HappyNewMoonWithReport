@@ -1,14 +1,20 @@
 package happynewmoonwithreport;
 
-import happynewmoonwithreport.type.*;
+import happynewmoonwithreport.type.Int32;
+import happynewmoonwithreport.type.UInt16;
+import happynewmoonwithreport.type.UInt32;
 
 import java.util.Arrays;
 
+/**
+ * The web assembly memory.
+ * A big array of bytes.
+ */
 public class Memory {
 
     public UInt16 kib_64 = new UInt16(64 * 1024);
     public UInt16 page_size = new UInt16(kib_64);
-    public UInt16 maxPage = new UInt16(1<< 16);
+    public UInt16 maxPage = new UInt16(1 << 16);
     /**
      * The current size of memory in page size.   1 = 64 KiBytes;
      */
@@ -31,11 +37,12 @@ public class Memory {
     }
 
     /**
-     * Source: The grow_memory instruction grows memory by a given delta and returns the previous size, or −1 if enough
-     * memory cannot be allocated. Both instructions operate in units of page size.
+     * The grow_memory instruction grows memory by a given delta and returns the previous size, or
+     * <code>-1</code> if enough memory cannot be allocated.
      *
      * @param additionalSize in page_size.
-     * @return "previous size" on success;   -1 on failure;
+     *
+     * @return "previous size" in page size on success;   -1 on failure;
      */
     public Int32 grow(UInt32 additionalSize) {
         assert (memory != null);

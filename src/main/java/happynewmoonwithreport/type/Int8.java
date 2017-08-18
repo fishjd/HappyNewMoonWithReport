@@ -1,7 +1,7 @@
 package happynewmoonwithreport.type;
 
 /**
- * An signed integer of N bits
+ * An signed integer of 8 bits
  */
 public class Int8 extends Int<Byte> {
 
@@ -19,12 +19,14 @@ public class Int8 extends Int<Byte> {
         return 8;
     }
 
+    @Override
     public Byte minValue() {
         Integer minValue = (int) Math.pow(-2 , maxBits() - 1);
         return minValue.byteValue();
 
     }
 
+    @Override
     public Byte maxValue() {
         Integer maxValue = (int) Math.pow(2 , maxBits() - 1) -1;
         return maxValue.byteValue();

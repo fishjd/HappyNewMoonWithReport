@@ -6,9 +6,6 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-/**
- * Created by James Haring on 2017-07-20. Copyright 2017 Whole Bean Software Limited
- */
 public class ElementTypeTest {
     @Before
     public void setUp() throws Exception {

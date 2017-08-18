@@ -3,8 +3,11 @@ package happynewmoonwithreport;
 import happynewmoonwithreport.type.VarUInt1;
 
 /**
- * * <p> Source : <a href= "http://webassembly.org/docs/binary-encoding/#table_type">http://webassembly.org/docs/binary-encoding/#table_type</a>
+ * The description of a global variable.
  * <p>
+ * Source : <a href= "http://webassembly.org/docs/binary-encoding/#global_type" target="_top">
+ * http://webassembly.org/docs/binary-encoding/#global_type
+ * </a>
  */
 
 public class GlobalType {

@@ -1,7 +1,7 @@
 package happynewmoonwithreport.type;
 
 /**
- * An signed integer of N bits,
+ * An signed integer of 32 bits,
  */
 public class Int32 extends Int<Integer> {
     public Int32() {
@@ -26,12 +26,14 @@ public class Int32 extends Int<Integer> {
         return 32;
     }
 
+    @Override
     public Integer minValue() {
         Integer minValue = -1 * (1 << (maxBits() - 1));
         return minValue;
 
     }
 
+    @Override
     public Integer maxValue() {
         Integer maxValue = (1 << (maxBits() - 1)) - 1;
         return maxValue;

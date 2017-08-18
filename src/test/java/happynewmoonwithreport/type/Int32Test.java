@@ -1,16 +1,11 @@
 package happynewmoonwithreport.type;
 
-import happynewmoonwithreport.type.Int32;
-import happynewmoonwithreport.type.Int32;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-/**
- * Created by James Haring on 2017-07-24. Copyright 2017 Whole Bean Software Limited
- */
 public class Int32Test {
     private Int32 int32;
 

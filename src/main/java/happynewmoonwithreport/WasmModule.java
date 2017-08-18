@@ -14,8 +14,13 @@ import java.util.logging.Logger;
  * collects definitions for types, functions, tables, memories, and globals. In addition, it can declare imports and
  * exports and provide initialization logic in the form of data and element segments or a start function.
  * <p>
+ * Source: <a href="https://webassembly.github.io/spec/syntax/modules.html#" target="_top">
+ * Modules
+ * </a>
  * <p>
- * Source: <a href="https://webassembly.github.io/spec/syntax/modules.html#">Modules</a>
+ * Source:  <a href="https://webassembly.github.io/spec/binary/modules.html#" target="_top">
+ * https://webassembly.github.io/spec/binary/modules.html#
+ * </a>
  */
 
 public class WasmModule {
@@ -91,7 +96,7 @@ public class WasmModule {
     /**
      * Execute all the validity checks
      * <p>
-     * Source:  <a href="https://webassembly.github.io/spec/valid/index.html">
+     * Source:  <a href="https://webassembly.github.io/spec/valid/index.html" target="_top">
      * https://webassembly.github.io/spec/valid/index.html
      * </a>
      *

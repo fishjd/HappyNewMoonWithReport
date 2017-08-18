@@ -9,9 +9,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * @author James
+ * Start Here, The class to loads a WebAssembly file
  */
-public class Wasm {
+ public class Wasm {
     public Wasm() {
         super();
         sectionStart = new SectionStartEmpty();
@@ -37,23 +37,22 @@ public class Wasm {
     private SectionCode sectionCode = null;
 
     /**
-     * Construct a Wasm module with a file.
      * <p>
-     * This is a convenience constructor.  Constructors that throw exceptions are
+     * This is a convenience constructor.  Constructors which throw exceptions are
      * to be used cautiously. Consider using the constructor <code>Wasm(byte[])</code>
      * </p>
      * <h2>Use instead</h2>
-     * <p>
-     * <code>
+     * <pre>
+     * {@code
      * try {
-     * WasmFile wasmFile = new WasmFile(fileName);
-     * byte[] bytesAll = wasmFile.bytes();
-     * Wasm wasm = new Wasm(bytesAll);
-     * } catch (IOException ioException)
-     * {
-     * <p>
+     *         WasmFile wasmFile = new WasmFile(fileName);
+     *         byte[] bytesAll = wasmFile.bytes();
+     *         Wasm wasm = new Wasm(bytesAll);
+     * } catch (IOException ioException) {
+     *
      * }
-     * </code>
+     * }
+     * </pre>
      *
      * @param fileName The fileName.  This parameter will be used in <code>new File(fileName)</code>
      *
@@ -168,7 +167,6 @@ public class Wasm {
     }
 
 
-
     private SectionName readSectionName() {
         SectionName result = new SectionName(bytesFile);
         return result;
@@ -227,7 +225,7 @@ public class Wasm {
     /**
      * Did the module pass all validation checks?
      * <p>
-     * Source:  <a href="https://webassembly.github.io/spec/valid/index.html">
+     * Source:  <a href="https://webassembly.github.io/spec/valid/index.html" target="_top">
      * https://webassembly.github.io/spec/valid/index.html
      * </a>
      *

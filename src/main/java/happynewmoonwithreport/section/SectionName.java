@@ -6,25 +6,30 @@ import happynewmoonwithreport.type.VarUInt7;
 import java.util.HashMap;
 import java.util.Map;
 
-/* @formatter:off */
 /**
  * Enum for the defined section names.
  * <p>
- *
- * Source http://webassembly.org/docs/binary-encoding/#high-level-structure<p>
- * Type 		1 	Function signature declarations<
- * Import 		2 	Import declarations
- * Function 	3 	Function declarations
- * Table 		4 	Indirect function table and other tables
- * Memory 		5 	Memory attributes
- * Global 		6 	Global declarations
- * Export 		7 	Exports
- * Start 		8 	Start function declaration
- * Element 	    9 	Elements section
- * Code 		10 	Function bodies (code)
- * Data 		11
- *//* @formatter:on */
+ * This is not a wasm section. It is an Enum of all the names of the sections.
+ * <pre>
+ * Type             1     Function signature declarations
+ * Import           2     Import declarations
+ * Function         3     Function declarations
+ * Table            4     Indirect function table and other tables
+ * Memory           5     Memory attributes
+ * Global           6     Global declarations
+ * Export           7     Exports
+ * Start            8     Start function declaration
+ * Element          9     Elements section
+ * Code             10    Function bodies (code)
+ * Data             11    Data
+ * </pre>
+ * <p>
+ * Source:  <a href="http://webassembly.org/docs/binary-encoding/#high-level-structure" target="_top">
+ * http://webassembly.org/docs/binary-encoding/#high-level-structure
+ * </a>
+ */
 public class SectionName {
+    /* TODO rename to "Name" or "NameEnum" to avoid confusion with the Custom Sections aka "Name Section" **/
     private Integer type;
     private String value;
 

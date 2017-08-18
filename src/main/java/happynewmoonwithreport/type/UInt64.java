@@ -1,10 +1,7 @@
 package happynewmoonwithreport.type;
 
-import happynewmoonwithreport.BytesFile;
-
 /**
- * An unsigned integer of N bits, represented in N/8 bytes in little endian
- * order. N is either 8, 16, or 32, 64
+ * An unsigned integer of 64 bits.
  */
 public class UInt64 extends UInt<Long> {
 

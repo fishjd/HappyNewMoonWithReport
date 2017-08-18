@@ -1,9 +1,8 @@
 package happynewmoonwithreport.type.utility;
 
 /**
- * Created by James Haring on 2017-07-19. Copyright 2017 Whole Bean Software Limited
+ * Utility Class to display Hexadecimal.
  */
-
 public class Hex {
 
     private final static char[] hexArray = "0123456789ABCDEF".toCharArray();

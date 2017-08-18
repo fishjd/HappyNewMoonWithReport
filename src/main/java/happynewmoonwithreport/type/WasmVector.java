@@ -4,16 +4,17 @@ package happynewmoonwithreport.type;
 import java.util.ArrayList;
 
 /**
- * Vectors are bounded sequences of the form A^n  (or A^*), where
- * the A can either be values or complex constructions. A vector can have at most (2^32)-1
- * elements.
+ * Vectors are bounded sequences of the form A^n  (or A^*), where the A can either be values or complex constructions. A
+ * vector can have at most (2^32)-1 elements.
  * <p>
- * vec(A)::=An(if n &lt (2^32))
+ * vec(A)::=An(if n &lt; (2^32))
  * <p>
- * Source: <a href="https://webassembly.github.io/spec/syntax/conventions.html#vectors" > Vectors</a>
+ * Source: <a href="https://webassembly.github.io/spec/syntax/conventions.html#vectors" target="_top" > Vectors</a>
  * <p>
- * Note this implementation can only have 2^31 (Integer.MAX_VALUE) elements. Any attempt to store a larger value will
- * throw an Exception.
+ * Note this implementation can only have 2^31 (Integer.MAX_VALUE) elements.
+ * Any attempt to store a larger index will throw an Exception.  The wasm documents specify (2^32)-1  values.
+ *
+ * @param <Type> may be any Object.   Known to be used with FunctionType, WasmFunction, TableType, ....
  */
 public class WasmVector<Type> extends ArrayList<Type> {
 

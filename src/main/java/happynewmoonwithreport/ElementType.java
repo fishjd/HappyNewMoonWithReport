@@ -10,8 +10,10 @@ import java.util.Map;
  * The Element Type  in Web Assembly. <p> A varint7 indicating the types of elements in a table. In the MVP, only one
  * type is available: <p> anyfunc <p> Note: In the future :unicorn:, other element types may be allowed. </p>
  * <p>
- * Source : <a href= "http://webassembly.org/docs/binary-encoding/#elem_type">http://webassembly.org/docs/binary-encoding/#elem_type</a>
- * <p>
+ * Source : <a href= "http://webassembly.org/docs/binary-encoding/#elem_type" target="_top">
+ * http://webassembly.org/docs/binary-encoding/#elem_type
+ * </a>
+ * </p>
  */
 public class ElementType {
 
@@ -23,21 +25,28 @@ public class ElementType {
     }
 
     /**
-     * note use the integer value <code>new ElementType(-0x10)</code> <b>not</code> the byte in the *.wasm file
+     * Note use the integer value <code>new ElementType(-0x10)</code> <b>not</b> the byte in the *.wasm file
      * <code>new ElementType(0x70)</code>.
      *
-     * @param type
+     * @param type type
      */
+
     public ElementType(Integer type) {
         this();
         this.type = type;
         calcValue(type);
     }
 
-    public ElementType(VarInt7 input) {
+    /**
+     * Note use the integer value <code>new ElementType(-0x10)</code> <b>not</b> the byte in the *.wasm file
+     * <code>new ElementType(0x70)</code>.
+     *
+     * @param type type
+     */
+    public ElementType(VarInt7 type) {
         this();
-        this.type = input.integerValue();
-        calcValue(type);
+        this.type = type.integerValue();
+        calcValue(this.type);
     }
 
     public ElementType(BytesFile payload) {

@@ -7,7 +7,20 @@ import happynewmoonwithreport.type.VarUInt32;
 import happynewmoonwithreport.type.WasmVector;
 
 /**
- * Source <a href="http://webassembly.org/docs/binary-encoding/#memory-section"> http://webassembly.org/docs/binary-encoding/#memory-section</a>
+ * Export Section.
+ *
+ *
+ * Source <a href="http://webassembly.org/docs/binary-encoding/#export-section" target="_top">
+ * http://webassembly.org/docs/binary-encoding/#export-section
+ * </a>
+ * <p>
+ * Source:  <a href="http://webassembly.org/docs/modules/#exports" target="_top">
+ * http://webassembly.org/docs/modules/#exports
+ * </a>
+ * <p>
+ * Source:  <a href="https://webassembly.github.io/spec/binary/modules.html#export-section" target="_top">
+ * https://webassembly.github.io/spec/binary/modules.html#export-section
+ * </a>
  */
 public class SectionExport implements Section {
 
@@ -15,7 +28,7 @@ public class SectionExport implements Section {
     private WasmVector<ExportEntry> exports;
 
     /**
-     * @param payload
+     * @param payload the input BytesFile.
      */
     @Override
     public void instantiate(BytesFile payload) {

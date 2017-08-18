@@ -2,7 +2,28 @@ package happynewmoonwithreport.type;
 
 import happynewmoonwithreport.BytesFile;
 
-public final class VarUInt32 extends UInt32 {
+/**
+ * A unsigned Integer of N bits.
+ * <p>
+ * Stored in the wasm file as a LEB128 variable-length integer, limited to N bits (i.e., the values [0,
+ * 2^N-1]), represented by at most ceil(N/7) bytes that may contain padding 0x80
+ * bytes.
+ * <p>
+ * <p>
+ * Used to read and write to the wasm file. This project tends to use the 'main' integer types Int32, Int64, UInt32,
+ * UInt64.  The recommend use is to convert to a 'main' type as soon as possible.
+ * <p>
+ * Usage:
+ * <pre>
+ *      {@code
+ *          UInt32 number = new VarUInt32(bytesFile);
+ *      }
+ * </pre>
+ * <p>
+ * Source:  <a href="http://webassembly.org/docs/binary-encoding/#varuintn" target="_top">
+ * http://webassembly.org/docs/binary-encoding/#varuintn
+ * </a>
+ */public final class VarUInt32 extends UInt32 {
 
     @SuppressWarnings("unused")
     private VarUInt32() {
@@ -13,6 +34,7 @@ public final class VarUInt32 extends UInt32 {
         value = convert(bytesFile);
     }
 
+    @Override
     public Long convert(BytesFile bytesFile) {
         Integer cur;
         Integer count = 0;

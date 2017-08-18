@@ -2,16 +2,13 @@ package happynewmoonwithreport.type;
 
 import happynewmoonwithreport.BytesFile;
 
-import java.util.Arrays;
-
 /**
- * An unsigned integer of N bits, represented in N/8 bytes in little endian
- * order. N is either 8, 16, or 32.
+ * An unsigned integer of 16 bits. .
  */
 public class UInt16 extends UInt<Integer> {
 
     public UInt16(BytesFile bytesFile) {
-        assert (bytesFile.longEnough( minBytes()));
+        assert (bytesFile.longEnough(minBytes()));
         value = convert(bytesFile);
     }
 

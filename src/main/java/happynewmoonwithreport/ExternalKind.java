@@ -5,21 +5,20 @@ import happynewmoonwithreport.type.UInt8;
 import java.util.HashMap;
 import java.util.Map;
 
-/* @formatter:off */
 /**
- * external_kind
- *
- *  A single-byte unsigned integer indicating the kind of definition being imported or defined:
- *
+ * A single-byte unsigned integer indicating the kind of definition being imported or defined:
+ * <pre>
  *  0 indicating a Function import or definition
  *  1 indicating a Table import or definition
  *  2 indicating a Memory import or definition
  *  3 indicating a Global import or definition
- *
+ * </pre>
  * <p>
- * Source : <a href= "http://webassembly.org/docs/binary-encoding/#external_kind">http://webassembly.org/docs/binary-encoding/#external_kind</a>
- * <p>
- *//* @formatter:on */
+ * Source : <a href= "http://webassembly.org/docs/binary-encoding/#external_kind" target="_top">
+ * http://webassembly.org/docs/binary-encoding/#external_kind
+ * </a>
+ * </p>
+ */
 public class ExternalKind {
 
     private Integer type;
@@ -44,22 +43,16 @@ public class ExternalKind {
 
     }
 
-    /**
-     * note use the integer value <code>new ElementType(-0x10)</code> <b>not</code> the byte in the *.wasm file
-     * <code>new ElementType(0x70)</code>.
-     *
-     * @param type
-     */
     public ExternalKind(Integer type) {
         this();
         this.type = type;
         calcValue(type);
     }
 
-    public ExternalKind(UInt8 input) {
+    public ExternalKind(UInt8 type) {
         this();
-        this.type = input.integerValue();
-        calcValue(type);
+        this.type = type.integerValue();
+        calcValue(this.type);
     }
 
     public ExternalKind(BytesFile payload) {

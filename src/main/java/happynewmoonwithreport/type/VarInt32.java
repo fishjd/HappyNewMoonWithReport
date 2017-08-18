@@ -2,6 +2,26 @@ package happynewmoonwithreport.type;
 
 import happynewmoonwithreport.BytesFile;
 
+/**
+ * A variable integer of 32 bits.
+ * <p>
+ * Used to read and write to the wasm file. This project tends to use the 'main' integer types Int32, Int64, UInt32,
+ * UInt64.  The recommend use is to convert to a 'main' type as soon as possible.
+ * <p>
+ * A Signed LEB128 variable-length integer, limited to N bits (i.e., the values [-2^(N-1), +2^(N-1)-1]), represented by
+ * at most ceil(N/7) bytes that may contain padding for positive number 0x80 bytes or for negative numbers 0xFF bytes.
+ * <p>
+ * Usage:
+ * <pre>
+ *      {@code
+ *          Int32 number = new VarInt32(bytesFile);
+ *      }
+ * </pre>
+ * <p>
+ * Source:  <a href="http://webassembly.org/docs/binary-encoding/#varintn" target="_top">
+ * http://webassembly.org/docs/binary-encoding/#varintn
+ * </a>
+ */
 public final class VarInt32 extends Int32 {
 
     @SuppressWarnings("unused")
@@ -21,7 +41,7 @@ public final class VarInt32 extends Int32 {
     /**
      * Create using a Long. Used mainly in testing.
      *
-     * @param value
+     * @param value value
      */
     public VarInt32(Long value) {
         this.value = value.intValue();
@@ -30,7 +50,7 @@ public final class VarInt32 extends Int32 {
     /**
      * Create using a Integer. Size is hard coded to 1. Used mainly in testing.
      *
-     * @param value
+     * @param value value
      */
     public VarInt32(Integer value) {
         this.value = value.intValue();
@@ -39,7 +59,7 @@ public final class VarInt32 extends Int32 {
     /**
      * Create using a Byte. Size is hard coded to 1. Used mainly in testing.
      *
-     * @param value
+     * @param value value
      */
     public VarInt32(Byte value) {
         this.value = value.intValue();
@@ -78,7 +98,9 @@ public final class VarInt32 extends Int32 {
     }
 
     /**
-     *.
+     * Writes the value as a byte stream.
+     *
+     * @return byte stream.
      */
     public ByteOutput convert() {
         ByteOutput out = new ByteArrayByteOutput(maxBytes());

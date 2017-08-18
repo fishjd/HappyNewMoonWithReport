@@ -7,12 +7,17 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * The data types in Web Assembly. int32, int64, f32, f64 <p>
+ * The data types in Web Assembly. int32, int64, f32, f64
  * <p>
- * Source : <a href= "http://webassembly.org/docs/semantics/#types">http://webassembly.org/docs/semantics/#types</a>
+ * Source : <a href= "http://webassembly.org/docs/semantics/#types" target="_top">
+ * http://webassembly.org/docs/semantics/#types
+ * </a>
+ * </p>
  * <p>
- * Source : <a href="http://webassembly.org/docs/binary-encoding/#language-types">
- * http://webassembly.org/docs/binary-encoding/#language-types</a>
+ * Source : <a href="http://webassembly.org/docs/binary-encoding/#language-types" target="_top">
+ * http://webassembly.org/docs/binary-encoding/#language-types
+ * </a>
+ * </p>
  */
 public class ValueType {
 

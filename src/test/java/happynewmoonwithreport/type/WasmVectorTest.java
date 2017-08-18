@@ -6,10 +6,6 @@ import org.junit.Test;
 
 import static junit.framework.TestCase.assertEquals;
 
-/**
- * Created by James Haring on 2017-08-06.
- * Copyright 2017 Whole Bean Software Limited
- */
 public class WasmVectorTest {
     WasmVector<String> vector;
 
