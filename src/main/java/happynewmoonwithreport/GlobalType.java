@@ -10,7 +10,7 @@ import happynewmoonwithreport.type.VarUInt1;
  * </a>
  */
 
-public class GlobalType {
+public class GlobalType implements Validation {
 
     /**
      * may only be "anyFunc" in MVP.
@@ -21,6 +21,20 @@ public class GlobalType {
     public GlobalType(BytesFile payload) {
         contentType = new ValueType(payload);
         mutability = new Mutability(new VarUInt1(payload));
+    }
+
+    public GlobalType(ValueType contentType, Mutability mutability) {
+        this.contentType = contentType;
+        this.mutability = mutability;
+    }
+
+    @Override
+    public Boolean valid() {
+        Boolean result = true;
+        result &= mutability.valid();
+        result &= contentType.valid();
+
+        return result;
     }
 
     public ValueType getContentType() {

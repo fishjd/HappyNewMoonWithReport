@@ -15,6 +15,13 @@ class MutabilityTest extends Specification {
         mutableExpect = new Mutability(1);
     }
 
+    def "Valid passes "() {
+        when: "an immutable object"
+        Mutability immutable = new Mutability(Mutability.immutable);
+        then:
+        immutable.valid();
+    }
+
     def "GetType immutable"() {
 
         when: "an immutable object"

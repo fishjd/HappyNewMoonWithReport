@@ -13,7 +13,7 @@ import java.util.HashMap;
  * http://webassembly.org/docs/binary-encoding/#global_type
  * </a>
  */
-public class Mutability extends ValueBase {
+public class Mutability extends ValueBase implements Validation {
 
     public static final String immutable = "immutable";
     public static final String mutable = "mutable";
@@ -53,6 +53,5 @@ public class Mutability extends ValueBase {
         this.value = value;
         this.type = calcType(value);
     }
-
 
 }

@@ -6,7 +6,7 @@ import java.util.Map;
 /**
  * An extension of java.Enum all entries contain a Key and Value.   Constructors provided for both key and value.
  */
-public class ValueBase {
+public class ValueBase implements Validation {
 
     protected String className;
     protected Integer type;
@@ -57,6 +57,13 @@ public class ValueBase {
         if (result  == null) {
             throw new RuntimeException("Type in " + className + " is not valid type = " + type + " hex = 0x" + Integer.toHexString(input));
         }
+        return result;
+    }
+
+    @Override
+    public Boolean valid() {
+        Boolean result = false;
+        result = mapAll.containsKey(type);
         return result;
     }
 
