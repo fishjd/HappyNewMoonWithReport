@@ -19,9 +19,9 @@ import happynewmoonwithreport.type.VarUInt32;
  * http://webassembly.org/docs/modules/#module-start-function
  * </a>
  * <p>
- * Source:  <a href="https://webassembly.github.io/spec/binary/modules.html#start-section" target="_top"> 
- * https://webassembly.github.io/spec/binary/modules.html#start-section 
- * </a> 
+ * Source:  <a href="https://webassembly.github.io/spec/binary/modules.html#start-section" target="_top">
+ * https://webassembly.github.io/spec/binary/modules.html#start-section
+ * </a>
  */
 public class SectionStart implements Section {
 

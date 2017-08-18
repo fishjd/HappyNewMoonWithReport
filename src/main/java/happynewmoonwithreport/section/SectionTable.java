@@ -13,13 +13,13 @@ import happynewmoonwithreport.type.WasmVector;
  * http://webassembly.org/docs/binary-encoding/#table-section
  * </a>
  * <p>
- * Source:  <a href="http://webassembly.org/docs/modules/#table-section" target="_top"> 
- * http://webassembly.org/docs/modules/#table-section 
+ * Source:  <a href="http://webassembly.org/docs/modules/#table-section" target="_top">
+ * http://webassembly.org/docs/modules/#table-section
  * </a>
  * <p>
- * Source:  <a href="https://webassembly.github.io/spec/binary/modules.html#table-section" target="_top"> 
- * https://webassembly.github.io/spec/binary/modules.html#table-section 
- * </a> 
+ * Source:  <a href="https://webassembly.github.io/spec/binary/modules.html#table-section" target="_top">
+ * https://webassembly.github.io/spec/binary/modules.html#table-section
+ * </a>
  */
 public class SectionTable implements Section {
 

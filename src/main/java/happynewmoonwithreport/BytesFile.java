@@ -7,7 +7,6 @@ import java.util.Arrays;
 /**
  * An byte array with an index. Created by James Haring on 2017-07-18.
  */
-
 public class BytesFile {
     private byte[] bytesAll;
     private Integer index = 0;

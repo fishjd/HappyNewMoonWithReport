@@ -5,9 +5,8 @@ import happynewmoonwithreport.type.UInt8;
 import java.util.HashMap;
 import java.util.Map;
 
-/* @formatter:off */
 /**
- *  A single-byte unsigned integer indicating the kind of definition being imported or defined:
+ * A single-byte unsigned integer indicating the kind of definition being imported or defined:
  * <pre>
  *  0 indicating a Function import or definition
  *  1 indicating a Table import or definition
@@ -16,10 +15,10 @@ import java.util.Map;
  * </pre>
  * <p>
  * Source : <a href= "http://webassembly.org/docs/binary-encoding/#external_kind" target="_top">
- *     http://webassembly.org/docs/binary-encoding/#external_kind
- *     </a>
+ * http://webassembly.org/docs/binary-encoding/#external_kind
+ * </a>
  * </p>
- *//* @formatter:on */
+ */
 public class ExternalKind {
 
     private Integer type;

@@ -18,9 +18,9 @@ import happynewmoonwithreport.type.WasmVector;
  * http://webassembly.org/docs/modules/#global-section
  * </a>
  * <p>
- * Source:  <a href="https://webassembly.github.io/spec/binary/modules.html#global-section" target="_top"> 
- * https://webassembly.github.io/spec/binary/modules.html#global-section 
- * </a> 
+ * Source:  <a href="https://webassembly.github.io/spec/binary/modules.html#global-section" target="_top">
+ * https://webassembly.github.io/spec/binary/modules.html#global-section
+ * </a>
  */
 public class SectionGlobal implements Section {
 

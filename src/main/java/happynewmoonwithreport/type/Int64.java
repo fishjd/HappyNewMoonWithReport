@@ -1,7 +1,7 @@
 package happynewmoonwithreport.type;
 
 /**
- * An signed integer of N bits,
+ * An signed integer of 64 bits,
  */
 public class Int64 extends Int<Long> {
     public Int64() {
@@ -21,21 +21,19 @@ public class Int64 extends Int<Long> {
         this.value = value;
     }
 
-	/* private functions **/
-
-	/* Override DataTypeNumber */
-
     @Override
     public Integer maxBits() {
-        return 32;
+        return 32;  // TODO change to 64.
     }
 
+    @Override
     public Long minValue() {
         Long minValue = -1L * (1L << (maxBits() - 1L));
         return minValue;
 
     }
 
+    @Override
     public Long maxValue() {
         Long maxValue = (1L << (maxBits() - 1L)) - 1L;
         return maxValue;

@@ -1,15 +1,27 @@
 package happynewmoonwithreport.type;
 
 /**
- * varuintN
+ * A unsigned Integer of N bits.
  * <p>
- * A LEB128 variable-length integer, limited to N bits (i.e., the values [0,
+ * Stored in the wasm file as a LEB128 variable-length integer, limited to N bits (i.e., the values [0,
  * 2^N-1]), represented by at most ceil(N/7) bytes that may contain padding 0x80
  * bytes.
- *
- * @author James
+ * <p>
+ * <p>
+ * Used to read and write to the wasm file. This project tends to use the 'main' integer types Int32, Int64, UInt32,
+ * UInt64.  The recommend use is to convert to a 'main' type as soon as possible.
+ * <p>
+ * Usage:
+ * <pre>
+ *      {@code
+ *          Int32 number = new VarUInt7(bytesFile);
+ *      }
+ *  </pre>
+ * <p>
+ * Source:  <a href="http://webassembly.org/docs/binary-encoding/#varuintn" target="_top">
+ * http://webassembly.org/docs/binary-encoding/#varuintn
+ * </a>
  */
-
 public abstract class VarUInt<ValueType extends Number> implements DataTypeNumber<ValueType> {
     protected ValueType value;
 
@@ -33,14 +45,17 @@ public abstract class VarUInt<ValueType extends Number> implements DataTypeNumbe
         return value;
     }
 
+    @Override
     public byte byteValue() {
         return value.byteValue();
     }
 
+    @Override
     public Integer integerValue() {
         return value.intValue();
     }
 
+    @Override
     public Long longValue() {
         return value.longValue();
     }

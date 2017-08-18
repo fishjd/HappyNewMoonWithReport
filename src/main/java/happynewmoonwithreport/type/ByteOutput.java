@@ -6,7 +6,7 @@ package happynewmoonwithreport.type;
 public interface ByteOutput {
 
     /**
-     * Writes a byte.
+     * Write bytes to this one at a time to create an byte array.
      *
      * @param i  byte to write.
      * @throws IndexOutOfBoundsException if all bytes have been written.

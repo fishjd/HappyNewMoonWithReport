@@ -3,8 +3,7 @@ package happynewmoonwithreport.type;
 import happynewmoonwithreport.BytesFile;
 
 /**
- * An unsigned integer of N bits, represented in N/8 bytes in little endian
- * order. N is either 8, 16, or 32.
+ * An unsigned integer of 32 bits.
  */
 public class UInt32 extends UInt<Long> {
 
@@ -54,10 +53,7 @@ public class UInt32 extends UInt<Long> {
         return value.intValue();
     }
 
-    /**
-     * Does the <code>value</code> lay between Integer.minValue and Integer.maxValue.  i.e
-     * <code>Integer.minValue &lt;= value &lt;= Integer.maxValue;</code>
-     **/
+    @Override
     public Boolean isBoundByInteger() {
         return (Integer.MIN_VALUE <= value && value <= Integer.MAX_VALUE);
     }

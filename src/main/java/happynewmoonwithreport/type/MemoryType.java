@@ -5,13 +5,17 @@ import happynewmoonwithreport.BytesFile;
 import happynewmoonwithreport.Validation;
 
 /**
- * Memory Type,  also refereed to as resizable_limits
+ * Memory Type,
+ *
  * <p>
- * Source : <a href= "http://webassembly.org/docs/binary-encoding/#resizable_limits" target="_top">http://webassembly.org/docs/binary-encoding/#resizable_limits</a>
- * </p>
+ * Source:  <a href="http://webassembly.org/docs/binary-encoding/#memory_type" target="_top">
+ * http://webassembly.org/docs/binary-encoding/#memory_type
+ * </a>
+ *
  * <p>
- * <a href="https://webassembly.github.io/spec/syntax/types.html#syntax-memtype" target="_top">Memory Types</a>
- * </p>
+ * Source:  <a href="https://webassembly.github.io/spec/syntax/types.html#memory-types" target="_top">
+ * https://webassembly.github.io/spec/syntax/types.html#memory-types
+ * </a>
  */
 public class MemoryType implements Validation {
 

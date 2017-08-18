@@ -1,7 +1,15 @@
 package happynewmoonwithreport.type;
 
+/**
+ * Signed Integer
+ *
+ * @param <ValueType> a type that extends Number. An Integer type ex:  Long, Integer, Short, Byte.
+ */
 public abstract class Int<ValueType extends Number> implements DataTypeNumber<ValueType> {
 
+    /**
+     * The value of the number
+     */
     protected ValueType value;
 
     @Override
@@ -21,22 +29,21 @@ public abstract class Int<ValueType extends Number> implements DataTypeNumber<Va
         return value;
     }
 
+    @Override
     public byte byteValue() {
         return value.byteValue();
     }
 
+    @Override
     public Integer integerValue() {
         return value.intValue();
     }
 
+    @Override
     public Long longValue() {
         return value.longValue();
     }
 
-    /**
-     * Does the <code>value</code> lay between Integer.minValue and Integer.maxValue.  i.e
-     * <code>Integer.minValue &lt;= value &lt;= Integer.maxValue;</code>
-     **/
     @Override
     public Boolean isBoundByInteger() {
         return (Integer.MIN_VALUE <= value.longValue() && value.longValue() <= Integer.MAX_VALUE);

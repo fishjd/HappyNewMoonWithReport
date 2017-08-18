@@ -1,7 +1,20 @@
 package happynewmoonwithreport.type;
 
+/**
+ * An unsigned integer of N bits, represented in the *.wasm file as N/8 bytes in little endian
+ * order. N is either 8, 16, or 32.  In the Java code represented by one of the integer types Byte, Integer, Long.
+ * <p>
+ * Source:  <a href="http://webassembly.org/docs/binary-encoding/#uintn" target="_top">
+ * http://webassembly.org/docs/binary-encoding/#uintn
+ * </a>
+ *
+ * @param <ValueType> a type that extends Number. An Integer type ex:  Long, Integer, Short, Byte.
+ */
 public abstract class UInt<ValueType extends Number> implements DataTypeNumber<ValueType> {
 
+    /**
+     * The value of the number
+     */
     protected ValueType value;
 
     @Override
@@ -32,21 +45,24 @@ public abstract class UInt<ValueType extends Number> implements DataTypeNumber<V
     //
 
     public Boolean isTrue() {
-        return value.intValue()!= 0;
+        return value.intValue() != 0;
     }
 
     public Boolean booleanValue() {
         return value.intValue() != 0;
     }
 
+    @Override
     public byte byteValue() {
         return value.byteValue();
     }
 
+    @Override
     public Integer integerValue() {
         return value.intValue();
     }
 
+    @Override
     public Long longValue() {
         return value.longValue();
     }

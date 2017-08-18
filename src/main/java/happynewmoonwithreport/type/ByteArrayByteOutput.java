@@ -2,6 +2,11 @@ package happynewmoonwithreport.type;
 
 import java.util.Arrays;
 
+/**
+ * Write bytes to this one at a time to create an byte array.
+ * <p>
+ * Similar to a output stream of bytes.  Used mainly for unit testing.
+ */
 public final class ByteArrayByteOutput implements ByteOutput {
 
     private byte[] bytes;
