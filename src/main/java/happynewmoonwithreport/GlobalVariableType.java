@@ -8,7 +8,7 @@ package happynewmoonwithreport;
  * http://webassembly.org/docs/binary-encoding/#global-entry
  * </a>
  */
-public class GlobalVariableType {
+public class GlobalVariableType implements Validation {
 
     /**
      * may only be "anyFunc" in MVP.
@@ -24,5 +24,12 @@ public class GlobalVariableType {
 
     public GlobalType getType() {
         return type;
+    }
+
+    @Override
+    public Boolean valid() {
+        Boolean result = true;
+        result &= type.valid();
+        return result;
     }
 }

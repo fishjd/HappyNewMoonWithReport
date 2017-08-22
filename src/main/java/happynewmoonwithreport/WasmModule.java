@@ -129,7 +129,21 @@ public class WasmModule {
             isValid &= valid;
         }
 
+        isValid &= validateGlobals();
 
+
+        return isValid;
+    }
+
+    public Boolean validateGlobals() {
+        Boolean isValid = true;
+        for (GlobalVariableType globalVariable : globals) {
+            Boolean valid = globalVariable.valid();
+            if (valid == false) {
+                Logger.getLogger(WasmModule.class.getName()).log(Level.SEVERE, "Global Variable not valid! Global Variable  = " + globalVariable.toString());
+            }
+            isValid &= valid;
+        }
         return isValid;
     }
 
