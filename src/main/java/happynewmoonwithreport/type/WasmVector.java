@@ -21,8 +21,8 @@ public class WasmVector<Type> extends ArrayList<Type> {
     public WasmVector() {
     }
 
-    public WasmVector(Integer size) {
-        super(size);
+    public WasmVector(Integer initialCapacity) {
+        super(initialCapacity);
     }
 
     public Type get(DataTypeNumber index) {

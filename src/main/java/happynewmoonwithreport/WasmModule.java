@@ -34,7 +34,7 @@ public class WasmModule {
     private UInt32 labelIndex;
 
     private WasmVector<FunctionType> types;
-    private WasmVector<WasmFunction> functions;
+    private WasmVector<WasmFunction> functionAll;
     private WasmVector<TableType> tables;
     private WasmVector<MemoryType> memoryAll;  // aka mems
     private WasmVector<GlobalVariableType> globals;
@@ -52,7 +52,7 @@ public class WasmModule {
         constructIndexAll();
 
         types = new WasmVector<>();
-        functions = new WasmVector<>();
+        functionAll = new WasmVector<>();
         tables = new WasmVector<>();
         memoryAll = new WasmVector<>();
         globals = new WasmVector<>();
@@ -75,7 +75,7 @@ public class WasmModule {
     ) {
         constructIndexAll();
         this.types = types;
-        this.functions = functions;
+        this.functionAll = functions;
         this.tables = tables;
         this.memoryAll = memoryAll;
         this.globals = globals;
@@ -147,7 +147,6 @@ public class WasmModule {
         return isValid;
     }
 
-
     // boring getters and setters
 
     public void setTypeIndex(UInt32 typeIndex) {
@@ -196,5 +195,13 @@ public class WasmModule {
 
     public void setStart(UInt32 start) {
         this.start = start;
+    }
+
+    public WasmVector<WasmFunction> getFunctionAll() {
+        return functionAll;
+    }
+
+    public WasmVector<ExportEntry> getExportAll() {
+        return exportAll;
     }
 }

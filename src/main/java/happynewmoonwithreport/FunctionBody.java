@@ -2,8 +2,7 @@ package happynewmoonwithreport;
 
 import happynewmoonwithreport.type.UInt32;
 import happynewmoonwithreport.type.VarUInt32;
-
-import java.util.ArrayList;
+import happynewmoonwithreport.type.WasmVector;
 
 /**
  * FunctionBody Bodies
@@ -12,15 +11,39 @@ import java.util.ArrayList;
  * Instructions are encoded as an opcode followed by zero or more immediates as defined by the tables below. Each
  * function body must end with the end opcode.
  * </p>
- *
+ * <p>
+ * Source:  <a href="http://webassembly.org/docs/binary-encoding/#function-bodies" target="_top">
+ * http://webassembly.org/docs/binary-encoding/#function-bodies
+ * </a>
  */
 
 public class FunctionBody {
 
     private UInt32 bodySize;
+    /**
+     * Number of local entries.
+     * <p>
+     * Number of objects in localEntryAll.
+     */
     private UInt32 localCount;
-    private ArrayList<ValueType> localAll;
+    /**
+     * Each local entry declares a number of local variables of a given type. It is legal to have several entries with
+     * the same type.
+     * <p>
+     * This is the types of the local variables not the values of the local variables which is in WasmFunction.
+     */
+    private WasmVector<ValueType> localEntryAll;
+
+    /**
+     * This is the actual code of the function.
+     */
     private byte[] code;
+
+    /**
+     * One byte tha is always <code>0x0b</code>, indicating the end of the body.
+     * <p>
+     * Pretty much useless.  Used mainly for reading the wasm file.
+     */
     private byte end;
 
     public FunctionBody() {
@@ -38,11 +61,11 @@ public class FunctionBody {
 
 
         //* LocalAll
-        localAll = new ArrayList<>(localCount.integerValue());
+        localEntryAll = new WasmVector<>(localCount.integerValue());
         for (Integer index = 0; index < localCount.integerValue(); ) {
             LocalEntry localEntry = new LocalEntry(payload);
             for (Integer localIndex = 0; localIndex < localEntry.getCount().integerValue(); localIndex++) {
-                localAll.add(index, localEntry.getValueType());
+                localEntryAll.add(index, localEntry.getValueType());
                 index++;
             }
         }
@@ -51,7 +74,7 @@ public class FunctionBody {
 
         final Integer consumedByLocals = after - start;
 
-        final Integer codeLength = bodySize.integerValue() - consumedByLocals  - 1;  // minus 1 for end byte.
+        final Integer codeLength = bodySize.integerValue() - consumedByLocals - 1;  // minus 1 for end byte.
 
         //* Code
         code = new byte[codeLength];
@@ -72,8 +95,12 @@ public class FunctionBody {
         return localCount;
     }
 
-    public ArrayList<ValueType> getLocalAll() {
-        return localAll;
+    public WasmVector<ValueType> getLocalEntryAll() {
+        return localEntryAll;
+    }
+
+    public void setLocalEntryAll(WasmVector<ValueType> localEntryAll) {
+        this.localEntryAll = localEntryAll;
     }
 
     public byte[] getCode() {

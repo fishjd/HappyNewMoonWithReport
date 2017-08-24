@@ -2,18 +2,20 @@ package happynewmoonwithreport;
 
 import happynewmoonwithreport.type.DataTypeNumber;
 import happynewmoonwithreport.type.Int32;
+import happynewmoonwithreport.type.WasmVector;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
-import java.util.ArrayList;
 
+import static junit.framework.TestCase.assertNotNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class WasmAdd32Test {
-    Wasm wasm;
+    private Wasm wasm;
+    private WasmModule module;
 
     @Before
     public void setUp() throws Exception {
@@ -22,20 +24,23 @@ public class WasmAdd32Test {
         File wasmFile = new File(path);
         assertTrue(wasmFile.exists());
 
-        // C:\Users\James\Documents\Programming 2017\HappyNewMoonWithReport\src\test\resources\add32
         wasm = new Wasm(path);
-        wasm.instantiate();
+        module = wasm.instantiate();
     }
 
     @After
     public void tearDown() throws Exception {
     }
 
+    /**
+     * This an end to end test
+     */
     @Test
     public void wasmTest() {
 
-        assertEquals(new Integer(1), wasm.getFunctionSignatures().getSize());
+        assertTrue(wasm.validate());
 
+        assertEquals(new Integer(1), wasm.getFunctionSignatures().getSize());
 
         assertEquals(2, wasm.exports().size());
         assertEquals(new ExternalKind(ExternalKind.memory), wasm.exports().get(0).getExternalKind());
@@ -44,17 +49,18 @@ public class WasmAdd32Test {
         assertEquals(new ExternalKind(ExternalKind.function), wasm.exports().get(1).getExternalKind());
         assertEquals("add32", wasm.exports().get(1).getFieldName().getValue());
 
-//        WasmFunction wf =wasm.exports().function("add32");
-//        Int32 result = wf.call(new Int32(3), new Int32(4));
-//        assertEquals(new Int32(7), result);
+        WasmInstance instance = new WasmInstance(module);
+        WasmFunction functionAdd32 = instance.exportFunction("add32");
 
-        WasmFunction wf = wasm.exportFunction("add32");
-        ArrayList<DataTypeNumber> returnAll = new ArrayList<>(1);
-        ArrayList<DataTypeNumber> paramAll = new ArrayList<>(2);
+        WasmVector<DataTypeNumber> returnAll = new WasmVector<>(1);
+        WasmVector<DataTypeNumber> paramAll = new WasmVector<>(2);
         paramAll.add(new Int32(3));
         paramAll.add(new Int32(4));
-        wf.call(returnAll, paramAll);
 
+        instance.call(functionAdd32, returnAll, paramAll);
+
+        assertNotNull(returnAll);
+        assertEquals(1, returnAll.size());
         assertEquals(new Int32(7), returnAll.get(0));
 
 

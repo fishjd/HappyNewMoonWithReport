@@ -48,6 +48,7 @@ import java.util.ArrayList;
      *         WasmFile wasmFile = new WasmFile(fileName);
      *         byte[] bytesAll = wasmFile.bytes();
      *         Wasm wasm = new Wasm(bytesAll);
+     *         Boolean valid = wasm.validate();
      * } catch (IOException ioException) {
      *
      * }
@@ -74,11 +75,18 @@ import java.util.ArrayList;
         bytesFile = new BytesFile(bytesAll);
     }
 
-    public void instantiate() throws Exception {
+    /**
+     * <p>
+     * Source:  <a href="https://github.com/WebAssembly/design/blob/master/JS.md#user-content-webassemblyinstantiate" target="_top">
+     * https://github.com/WebAssembly/design/blob/master/JS.md#user-content-webassemblyinstantiate
+     * </a>
+     * @throws Exception
+     */
+    public WasmModule instantiate() throws Exception {
 
         SectionName sectionName;
         UInt32 u32PayloadLength;
-        /**
+        /*
          * payloadLength needs to be a java type as it is used in math (+).  Should be Long but copyOfRange only handles int.
          */
         Integer payloadLength;
@@ -105,8 +113,7 @@ import java.util.ArrayList;
                 sectionExport.getExports()
                 // to do import
         );
-
-        valid = module.validation();
+        return module;
     }
 
     private void instantiateSections() {
@@ -166,6 +173,23 @@ import java.util.ArrayList;
         assert bytesFile.atEndOfFile() : "File length is not correct";
     }
 
+    /**
+     * Returns true if module is valid.   Called after <code>instantiate();</code>
+     *
+     * <p>
+     * Source:  <a href="https://github.com/WebAssembly/design/blob/master/JS.md#user-content-webassemblyvalidate" target="_top">
+     * https://github.com/WebAssembly/design/blob/master/JS.md#user-content-webassemblyvalidate
+     * </a>
+     * <p>
+     * Source:  <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly/validate" target="_top">
+     * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly/validate
+     * </a>
+     * @return true if valid.
+     */
+    public Boolean validate() {
+        valid = module.validation();
+        return valid;
+    }
 
     private SectionName readSectionName() {
         SectionName result = new SectionName(bytesFile);
@@ -244,17 +268,5 @@ import java.util.ArrayList;
         return exportAll;
     }
 
-    public WasmFunction exportFunction(String name) {
-        WasmFunction result = null;
-        for (ExportEntry exportEntry : this.exportAll) {
-            Boolean found = exportEntry.getExternalKind().equals(new ExternalKind(ExternalKind.function));
-            found &= exportEntry.getFieldName().getValue().equals(name);
-            if (found) {
-                result = functionAll.get(exportEntry.getIndex().integerValue());
-                break;
-            }
-        }
-        return result;
 
-    }
 }

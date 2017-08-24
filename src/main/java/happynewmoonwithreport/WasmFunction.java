@@ -1,11 +1,8 @@
 package happynewmoonwithreport;
 
 import happynewmoonwithreport.type.DataTypeNumber;
-import happynewmoonwithreport.type.Int32;
 import happynewmoonwithreport.type.UInt32;
 import happynewmoonwithreport.type.WasmVector;
-
-import java.util.ArrayList;
 
 /**
  * Web Assembly Function
@@ -22,6 +19,7 @@ public class WasmFunction {
     private UInt32 typeIndex;
     private WasmVector<DataTypeNumber> locals;
     private FunctionBody body;
+
 
     public WasmFunction() {
         super();
@@ -40,8 +38,27 @@ public class WasmFunction {
         this.body = body;
     }
 
-    void call(ArrayList<DataTypeNumber> returnAll, ArrayList<DataTypeNumber> resultAll) {
-        returnAll.add(new Int32(7));
+    public WasmVector<DataTypeNumber> getLocals() {
+        return locals;
     }
 
+    public void setLocals(WasmVector<DataTypeNumber> locals) {
+        this.locals = locals;
+    }
+
+    public UInt32 getTypeIndex() {
+        return typeIndex;
+    }
+
+    public byte[] getCode() {
+        return body.getCode();
+    }
+
+    public UInt32 getBodySize() {
+        return body.getBodySize();
+    }
+
+    public WasmVector<ValueType> getLocalEntryAll() {
+        return body.getLocalEntryAll();
+    }
 }

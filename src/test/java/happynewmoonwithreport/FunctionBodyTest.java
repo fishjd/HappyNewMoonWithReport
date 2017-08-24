@@ -5,8 +5,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
-
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
@@ -60,9 +58,9 @@ public class FunctionBodyTest {
         assertEquals(new UInt32(2L), functionBody.getLocalCount());
 
         //** Local Variables
-        assertEquals(2, functionBody.getLocalAll().size());
-        assertEquals(new ValueType("int32"), functionBody.getLocalAll().get(0));
-        assertEquals(new ValueType("int32"), functionBody.getLocalAll().get(1));
+        assertEquals(2, functionBody.getLocalEntryAll().size());
+        assertEquals(new ValueType("int32"), functionBody.getLocalEntryAll().get(0));
+        assertEquals(new ValueType("int32"), functionBody.getLocalEntryAll().get(1));
 
         //** Code
         byte[] expectedCode = {(byte) 0x20, (byte) 0x01, (byte) 0x20, (byte) 0x00, (byte) 0x6A};
