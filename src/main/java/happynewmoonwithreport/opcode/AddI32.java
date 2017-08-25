@@ -28,7 +28,6 @@ import java.util.UUID;
 /**
  * Sign-agnostic addition
  * <p>
- * <p>
  * <b>Note this is the same for all Binary Operations</b>
  * d<p>
  * t.binop
@@ -59,7 +58,6 @@ import java.util.UUID;
  */
 public class AddI32 {
     private WasmInstanceInterface instance;
-    private WasmStack<DataTypeNumber> stack;
 
     private AddI32() {
         super();
@@ -68,13 +66,13 @@ public class AddI32 {
     public AddI32(WasmInstanceInterface instance) {
         this();
         this.instance = instance;
-        this.stack = instance.stack();
     }
 
     /**
      * Execute the opcode.
      */
     public void execute() {
+        WasmStack<DataTypeNumber> stack = instance.stack();
         if ((instance.stack().peek() instanceof Int32) == false) {
             throw new WasmRuntimeException(UUID.fromString("22500212-e077-4507-a27a-3a08039da2b7"),
                     "addI32: Value1 type is incorrect");

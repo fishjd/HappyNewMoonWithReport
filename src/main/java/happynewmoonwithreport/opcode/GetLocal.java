@@ -26,7 +26,6 @@ import java.util.UUID;
 
 /**
  * Get Local Opcode
- * <p>
  * <ol>
  * <li>
  * Let F be the current frame.
@@ -52,7 +51,6 @@ import java.util.UUID;
 public class GetLocal {
 
     private WasmInstanceInterface instance;
-    private WasmStack<DataTypeNumber> stack;
 
     private GetLocal() {
         super();
@@ -61,7 +59,6 @@ public class GetLocal {
     public GetLocal(WasmInstanceInterface instance) {
         this();
         this.instance = instance;
-        this.stack = instance.stack();
     }
 
     /**
@@ -74,6 +71,7 @@ public class GetLocal {
             throw new WasmRuntimeException(UUID.fromString("dcbf3c1d-334a-451d-9010-e32bdc876e9d"),
                     "getLocal: Local variable " + index.integerValue() + " does not exist");
         }
+        WasmStack<DataTypeNumber> stack = instance.stack();
         DataTypeNumber value = instance.localAll().get(index.integerValue());
         stack.push(value);
     }
