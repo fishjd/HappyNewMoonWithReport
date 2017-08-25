@@ -16,7 +16,11 @@
  */
 package happynewmoonwithreport;
 
-import happynewmoonwithreport.type.*;
+import happynewmoonwithreport.opcode.AddI32;
+import happynewmoonwithreport.opcode.GetLocal;
+import happynewmoonwithreport.type.DataTypeNumber;
+import happynewmoonwithreport.type.VarUInt32;
+import happynewmoonwithreport.type.WasmVector;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.UUID;
@@ -29,8 +33,13 @@ import java.util.UUID;
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly/Instance
  * </a>
  */
-public class WasmInstance {
+public class WasmInstance implements WasmInstanceInterface {
     private WasmModule module;
+    private WasmFunction wasmFunction;
+    /**
+     * the local variables
+     **/
+    private WasmVector<DataTypeNumber> localAll;
 
     /* TODO Change DataTypeNumber to Object or create a new "Stackable" type. */
     private WasmStack<DataTypeNumber> stack;
@@ -82,16 +91,17 @@ public class WasmInstance {
 
     }
 
-    WasmFunction wasmFunction;
 
     /**
-     * @param wasmFunction
-     * @param returnAll
-     * @param paramAll
+     * Execute an function.  The function must be and export.   This is the entry point from Java.
+     *
+     * @param wasmFunction The function to execute/run.
+     * @param returnAll The output parameters.  May be zero on one.  Future versions of Wasm may return more tha one.
+     * @param paramAll The input parameters.
      */
     public void call(WasmFunction wasmFunction, WasmVector<DataTypeNumber> returnAll, WasmVector<DataTypeNumber> paramAll) {
         this.wasmFunction = wasmFunction;
-        wasmFunction.setLocals(paramAll);
+        localAll = paramAll;
         // TODO verify paramAll with LocalEntryAll
 
         BytesFile code = new BytesFile(wasmFunction.getCode());
@@ -104,16 +114,21 @@ public class WasmInstance {
         }
     }
 
+    private AddI32 addI32 = new AddI32(this);
+
+    private GetLocal getLocal = new GetLocal(this);
+
 
     private void execute(BytesFile code) {
+
         byte opcode = code.readByte();
         switch (opcode) {
             case (byte) 0x20: {
-                getLocal(new VarUInt32(code));
+                getLocal.execute(new VarUInt32(code));
                 break;
             }
             case (byte) 0x6a: {
-                addI32();
+                addI32.execute();
                 break;
             }
             default:
@@ -128,63 +143,14 @@ public class WasmInstance {
         throw new WasmRuntimeException(UUID.fromString("6b5700ee-9642-4544-8850-22794071e848"), message, possibleSolutions);
     }
 
-    /**
-     * Get Local Opcode
-     * <p>
-     * <ol>
-     * <li>
-     * Let F be the current frame.
-     * </li>
-     * <li>
-     * Assert: due to validation, F.locals[x] exists.
-     * </li>
-     * <li>
-     * Let val be the value F.locals[x]
-     * </li>
-     * <li>
-     * Push the value val to the stack.
-     * </ol>
-     * <p>
-     * Source:  <a href="https://webassembly.github.io/spec/exec/instructions.html#variable-instructions" target="_top">
-     * https://webassembly.github.io/spec/exec/instructions.html#variable-instructions
-     * </a>
-     * <p>
-     * Source:  <a href="http://webassembly.org/docs/binary-encoding/#variable-access-described-here" target="_top">
-     * http://webassembly.org/docs/binary-encoding/#variable-access-described-here
-     * </a>
-     *
-     * @param index
-     */
-    private void getLocal(UInt32 index) {
-        if ((index.integerValue() <= wasmFunction.getLocals().size()) == false) {
-            throw new WasmRuntimeException(UUID.fromString("dcbf3c1d-334a-451d-9010-e32bdc876e9d"),
-                    "getLocal: Local variable " + index.integerValue() + " does not exist");
-        }
-        DataTypeNumber value = wasmFunction.getLocals().get(index.integerValue());
-        stack.push(value);
+
+    @Override
+    public WasmStack<DataTypeNumber> stack() {
+        return stack;
     }
 
-    /**
-     * Sign-agnostic addition
-     * <p>
-     * Source:  <a href="https://webassembly.github.io/spec/exec/instructions.html#numeric-instructions" target="_top">
-     * https://webassembly.github.io/spec/exec/instructions.html#numeric-instructions  t.binop
-     * </a>
-     */
-    private void addI32() {
-        if ((stack.peek() instanceof Int32) == false) {
-            throw new WasmRuntimeException(UUID.fromString("22500212-e077-4507-a27a-3a08039da2b7"),
-                    "addI32: Value1 type is incorrect");
-        }
-        Int32 value1 = (Int32) stack.pop();
-        if ((stack.peek() instanceof Int32) == false) {
-            throw new WasmRuntimeException(UUID.fromString("59c20edb-690b-4260-b5cf-704cd509ac07"),
-                    "addI32: Value2 type is incorrect");
-        }
-        Int32 value2 = (Int32) stack.pop();
-
-        Int32 result = new Int32(value1.integerValue() + value2.integerValue());
-
-        stack.push(result);
+    @Override
+    public WasmVector<DataTypeNumber> localAll() {
+        return localAll;
     }
 }

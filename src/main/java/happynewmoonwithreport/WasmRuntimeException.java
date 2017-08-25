@@ -21,7 +21,7 @@ import java.util.UUID;
 /**
  * Thrown when the Wasm crashes.
  */
-class WasmRuntimeException extends RuntimeException {
+public class WasmRuntimeException extends RuntimeException {
 
     /**
      * a uuid to help when searching the internet

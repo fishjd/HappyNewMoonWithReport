@@ -16,12 +16,15 @@
  */
 package happynewmoonwithreport;
 
-import java.util.Stack;
+import happynewmoonwithreport.type.DataTypeNumber;
+import happynewmoonwithreport.type.WasmVector;
 
 /**
- * This is the web assembly runtime stack
+ * Created on 2017-08-25.
  */
-public class WasmStack<StackType> extends Stack<StackType> {
 
+public interface WasmInstanceInterface {
+    WasmStack<DataTypeNumber> stack();
 
+    WasmVector<DataTypeNumber> localAll();
 }
