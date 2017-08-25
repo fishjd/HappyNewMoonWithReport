@@ -63,7 +63,7 @@ public class VarInt32LoopTest {
             VarInt32 varInt32 = new VarInt32(bytesFile);
             Integer result = varInt32.value();
 
-            assertEqualHex( child.getKey(), result);
+            assertEqualHex(child.getKey(), result);
         }
     }
 
@@ -111,7 +111,7 @@ public class VarInt32LoopTest {
             VarInt32 varInt32_b = new VarInt32(bytesFile);
             Integer result_b = varInt32_b.value();
 
-            assertEqualHex (i, result_b);
+            assertEqualHex(i, result_b);
         }
     }
 

@@ -25,7 +25,7 @@ import happynewmoonwithreport.BytesFile;
 public class UInt8 extends UInt<Integer> {  // TODO change to Short
 
     public UInt8(BytesFile bytesFile) {
-        assert (bytesFile.longEnough( minBytes()));
+        assert (bytesFile.longEnough(minBytes()));
         value = convert(bytesFile);
     }
 
@@ -62,7 +62,7 @@ public class UInt8 extends UInt<Integer> {  // TODO change to Short
         return 1 << maxBits();
     }
 
-	/* override of Object **/
+    /* override of Object **/
     @Override
     public String toString() {
         return "UInt8{" +

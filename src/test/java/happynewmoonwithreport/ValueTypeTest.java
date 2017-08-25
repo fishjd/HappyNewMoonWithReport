@@ -31,7 +31,7 @@ public class ValueTypeTest {
     public void constructorPayloadIndexModifiedConstrutorBytesFile() throws Exception {
         byte[] bytesAll = new byte[]{0x7F};
         Integer index = 0;
-        BytesFile payload = new BytesFile(bytesAll,0);
+        BytesFile payload = new BytesFile(bytesAll, 0);
         // run
         ValueType vtc = new ValueType(payload);
 
@@ -42,6 +42,7 @@ public class ValueTypeTest {
 
     /**
      * Test constructor(Integer);
+     *
      * @throws Exception
      */
     @Test
@@ -52,10 +53,11 @@ public class ValueTypeTest {
 
     /**
      * Test constructor(String);
+     *
      * @throws Exception
      */
     @Test
-    public void constructorString () throws Exception {
+    public void constructorString() throws Exception {
         // run
         ValueType vtc = new ValueType("int32");
 

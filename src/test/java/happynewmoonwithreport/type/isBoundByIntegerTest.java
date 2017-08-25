@@ -53,13 +53,13 @@ public class isBoundByIntegerTest {
     @Test
     public void inIntegerRangeFails() throws Exception {
 
-        UInt64 uInt64 = new UInt64( 1L + Integer.MAX_VALUE );
+        UInt64 uInt64 = new UInt64(1L + Integer.MAX_VALUE);
 
         // run
         Boolean boundByInteger = uInt64.isBoundByInteger();
 
         // test
-        assertFalse( boundByInteger);
+        assertFalse(boundByInteger);
     }
 
 }

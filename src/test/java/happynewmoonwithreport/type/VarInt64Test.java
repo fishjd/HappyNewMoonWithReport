@@ -34,22 +34,23 @@ public class VarInt64Test {
     }
 
     Int64 varInt64;
+
     @Test
     public void maxBits() throws Exception {
-        varInt64 = new VarInt64( 0);
+        varInt64 = new VarInt64(0);
         assertEquals(new Integer(64), varInt64.maxBits());
     }
 
     @Test
     public void minValue() throws Exception {
-        varInt64 = new VarInt64( 0);
+        varInt64 = new VarInt64(0);
         assertEquals(new Long(-9_223_372_036_854_775_808L), varInt64.minValue());
     }
 
     @Test
     public void maxValue() throws Exception {
-        varInt64 = new VarInt64( 0);
-        assertEquals(new Long( 9_223_372_036_854_775_807L), varInt64.maxValue());
+        varInt64 = new VarInt64(0);
+        assertEquals(new Long(9_223_372_036_854_775_807L), varInt64.maxValue());
     }
 
     @Test
@@ -157,16 +158,16 @@ public class VarInt64Test {
 
     }
 
-	/* @formatter:off	
+	/* @formatter:off
                         -624485 Decimal
 	     1001_10000111_01100101 624485 In raw binary
 	     0110_01111000_10011010 Ones Complement (NOT)
 	     0110_01111000_10011011 Twos Complement +1
-	   011001__1110001__0011011 Split into 7 bit groups 
-	  1011001__1110001__0011011 Sign extend to 21 bits.   
+	   011001__1110001__0011011 Split into 7 bit groups
+	  1011001__1110001__0011011 Sign extend to 21 bits.
 	 01011001_11110001_10011011 Add high 1 bits on all but most significant  group to form bytes
 	     0x59     0xF1     0x9B Hexidecimal
-	     0x9B     0xF1     0x59 Convert to little Endian.   
+	     0x9B     0xF1     0x59 Convert to little Endian.
 	 @formatter:on
 	**/
 }

@@ -68,9 +68,9 @@ public class ValueBase implements Validation {
      *
      * @param input input
      */
-    protected String  calcValue(Integer input) {
+    protected String calcValue(Integer input) {
         String result = mapAll.get(input);
-        if (result  == null) {
+        if (result == null) {
             throw new RuntimeException("Type in " + className + " is not valid type = " + type + " hex = 0x" + Integer.toHexString(input));
         }
         return result;

@@ -80,7 +80,7 @@ public class FunctionBodyTest {
 
         //** Code
         byte[] expectedCode = {(byte) 0x20, (byte) 0x01, (byte) 0x20, (byte) 0x00, (byte) 0x6A};
-        assertArrayEquals(expectedCode , functionBody.getCode());
+        assertArrayEquals(expectedCode, functionBody.getCode());
 
         //** End Byte
         assertEquals(0x0B, functionBody.getEnd());

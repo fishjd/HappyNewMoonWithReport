@@ -22,12 +22,12 @@ import happynewmoonwithreport.Validation;
 
 /**
  * Memory Type,
- *
+ * <p>
  * <p>
  * Source:  <a href="http://webassembly.org/docs/binary-encoding/#memory_type" target="_top">
  * http://webassembly.org/docs/binary-encoding/#memory_type
  * </a>
- *
+ * <p>
  * <p>
  * Source:  <a href="https://webassembly.github.io/spec/syntax/types.html#memory-types" target="_top">
  * https://webassembly.github.io/spec/syntax/types.html#memory-types

@@ -28,12 +28,12 @@ public class UInt32 extends UInt<Long> {
     }
 
     public UInt32(BytesFile bytesFile) {
-        assert (bytesFile.longEnough( minBytes()));
+        assert (bytesFile.longEnough(minBytes()));
         value = convert(bytesFile);
     }
 
     public UInt32(byte in1, byte in2, byte in3, byte in4) {
-        byte[] byteAll =new byte[]{in1, in2, in3, in4};
+        byte[] byteAll = new byte[]{in1, in2, in3, in4};
         BytesFile bytesFile = new BytesFile(byteAll);
         value = convert(bytesFile);
     }

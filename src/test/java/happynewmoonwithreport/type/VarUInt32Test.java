@@ -49,5 +49,4 @@ public class VarUInt32Test {
     }
 
 
-
 }

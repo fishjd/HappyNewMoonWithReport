@@ -1,4 +1,3 @@
-
 /*
  *  Copyright 2017 Whole Bean Software, LTD.
  *

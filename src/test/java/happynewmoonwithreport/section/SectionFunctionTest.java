@@ -17,7 +17,6 @@
 package happynewmoonwithreport.section;
 
 import happynewmoonwithreport.BytesFile;
-import happynewmoonwithreport.section.SectionFunction;
 import happynewmoonwithreport.type.UInt32;
 import org.junit.After;
 import org.junit.Before;
@@ -25,7 +24,8 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 
 public class SectionFunctionTest {
@@ -40,7 +40,6 @@ public class SectionFunctionTest {
     @After
     public void tearDown() throws Exception {
     }
-
 
 
     @Test
@@ -60,7 +59,6 @@ public class SectionFunctionTest {
 
         UInt32 type = typeAll.get(0);
         assertEquals(new UInt32(0L), type);
-
 
 
     }

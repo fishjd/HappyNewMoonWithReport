@@ -19,11 +19,9 @@ package happynewmoonwithreport.section;
 import happynewmoonwithreport.BytesFile;
 import happynewmoonwithreport.ExportEntry;
 import happynewmoonwithreport.ExternalKind;
-import happynewmoonwithreport.section.SectionExport;
 import happynewmoonwithreport.type.UInt32;
 import happynewmoonwithreport.type.WasmString;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -72,16 +70,15 @@ public class SectionExportTest {
 
         ExportEntry exportEntry0 = exports.get(0);
         assertEquals(new UInt32(6L), exportEntry0.getFieldLength());
-        assertEquals( new WasmString("memory"), exportEntry0.getFieldName());
+        assertEquals(new WasmString("memory"), exportEntry0.getFieldName());
         assertEquals(new ExternalKind(ExternalKind.memory), exportEntry0.getExternalKind());
         assertEquals(new UInt32(0L), exportEntry0.getIndex());
 
         ExportEntry exportEntry1 = exports.get(1);
         assertEquals(new UInt32(5L), exportEntry1.getFieldLength());
-        assertEquals( new WasmString("add32"), exportEntry1.getFieldName());
-        assertEquals(new ExternalKind (ExternalKind.function), exportEntry1.getExternalKind());
+        assertEquals(new WasmString("add32"), exportEntry1.getFieldName());
+        assertEquals(new ExternalKind(ExternalKind.function), exportEntry1.getExternalKind());
         assertEquals(new UInt32(0L), exportEntry1.getIndex());
-
 
 
     }

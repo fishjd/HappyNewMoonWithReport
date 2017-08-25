@@ -60,7 +60,7 @@ public class UInt64 extends UInt<Long> {
 
     @Override
     public Long maxValue() {
-        return (1L << (maxBits())) -1;
+        return (1L << (maxBits())) - 1;
     }
 
 	/* override of Object **/

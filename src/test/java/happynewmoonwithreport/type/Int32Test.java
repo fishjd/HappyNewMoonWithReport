@@ -36,22 +36,22 @@ public class Int32Test {
 
     @Test
     public void maxBits() throws Exception {
-        int32 = new Int32( 0);
+        int32 = new Int32(0);
         assertEquals(new Integer(32), int32.maxBits());
     }
 
     @Test
     public void minValue() throws Exception {
-        int32 = new Int32( 0);
+        int32 = new Int32(0);
         assertEquals(new Integer(-2_147_483_648), int32.minValue());
     }
 
     @Test
     public void maxValue() throws Exception {
-        int32 = new Int32( 0);
-        assertEquals(new Integer (2_147_483_647), int32.maxValue());
+        int32 = new Int32(0);
+        assertEquals(new Integer(2_147_483_647), int32.maxValue());
 
-        assertEquals((1 << 31) -1 , new Double( Math.pow(2, 31 )).intValue());
+        assertEquals((1 << 31) - 1, new Double(Math.pow(2, 31)).intValue());
     }
 
 }

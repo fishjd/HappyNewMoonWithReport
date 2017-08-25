@@ -17,8 +17,8 @@
 package happynewmoonwithreport.validation
 
 import happynewmoonwithreport.FunctionType
-import happynewmoonwithreport.type.LimitType
 import happynewmoonwithreport.ValueType
+import happynewmoonwithreport.type.LimitType
 import happynewmoonwithreport.type.UInt32
 import happynewmoonwithreport.type.WasmVector
 import spock.lang.Specification
@@ -44,7 +44,7 @@ class FunctionTypeTest extends Specification {
         WasmVector<ValueType> returnTypeAll = new WasmVector<>(1);
         returnTypeAll.add(new ValueType(ValueType.int64));
 
-        FunctionType functionType = new FunctionType(new UInt32(1), paramTypeAll,new UInt32(1), returnTypeAll );
+        FunctionType functionType = new FunctionType(new UInt32(1), paramTypeAll, new UInt32(1), returnTypeAll);
 
 
         when: " assert limit is valid. "
@@ -63,7 +63,7 @@ class FunctionTypeTest extends Specification {
 
         WasmVector<ValueType> returnTypeAll = new WasmVector<>(0);
 
-        FunctionType functionType = new FunctionType(new UInt32(1), paramTypeAll,new UInt32(0), returnTypeAll );
+        FunctionType functionType = new FunctionType(new UInt32(1), paramTypeAll, new UInt32(0), returnTypeAll);
 
 
         when: " assert is valid. "
@@ -82,8 +82,8 @@ class FunctionTypeTest extends Specification {
         WasmVector<ValueType> returnTypeAll = new WasmVector<>(2);
         returnTypeAll.add(new ValueType(ValueType.int64));
         returnTypeAll.add(new ValueType(ValueType.int64));
-        
-        FunctionType functionType = new FunctionType(new UInt32(1), paramTypeAll,new UInt32(2), returnTypeAll );
+
+        FunctionType functionType = new FunctionType(new UInt32(1), paramTypeAll, new UInt32(2), returnTypeAll);
 
 
         when: " assert is Invalid. "
@@ -92,7 +92,6 @@ class FunctionTypeTest extends Specification {
         then:
         false == isValid;
     }
-
 
 
 }

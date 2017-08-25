@@ -27,7 +27,7 @@ import java.util.ArrayList;
 /**
  * Start Here, The class to loads a WebAssembly file
  */
- public class Wasm {
+public class Wasm {
     public Wasm() {
         super();
         sectionStart = new SectionStartEmpty();
@@ -93,9 +93,11 @@ import java.util.ArrayList;
 
     /**
      * <p>
-     * Source:  <a href="https://github.com/WebAssembly/design/blob/master/JS.md#user-content-webassemblyinstantiate" target="_top">
+     * Source:  <a href="https://github.com/WebAssembly/design/blob/master/JS.md#user-content-webassemblyinstantiate"
+     * target="_top">
      * https://github.com/WebAssembly/design/blob/master/JS.md#user-content-webassemblyinstantiate
      * </a>
+     *
      * @throws Exception
      */
     public WasmModule instantiate() throws Exception {
@@ -191,15 +193,18 @@ import java.util.ArrayList;
 
     /**
      * Returns true if module is valid.   Called after <code>instantiate();</code>
-     *
      * <p>
-     * Source:  <a href="https://github.com/WebAssembly/design/blob/master/JS.md#user-content-webassemblyvalidate" target="_top">
+     * <p>
+     * Source:  <a href="https://github.com/WebAssembly/design/blob/master/JS.md#user-content-webassemblyvalidate"
+     * target="_top">
      * https://github.com/WebAssembly/design/blob/master/JS.md#user-content-webassemblyvalidate
      * </a>
      * <p>
-     * Source:  <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly/validate" target="_top">
+     * Source:  <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly/validate"
+     * target="_top">
      * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly/validate
      * </a>
+     *
      * @return true if valid.
      */
     public Boolean validate() {

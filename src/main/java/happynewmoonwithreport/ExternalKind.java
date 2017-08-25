@@ -41,7 +41,7 @@ public class ExternalKind extends ValueBase {
     public static final String memory = "memory";
     public static final String global = "global ";
 
-    private  void setup() {
+    private void setup() {
         mapAll = new HashMap<>();
         mapAll.put(0, function);
         mapAll.put(1, table);

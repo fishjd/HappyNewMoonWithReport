@@ -17,7 +17,6 @@
 package happynewmoonwithreport.type;
 
 import happynewmoonwithreport.BytesFile;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -48,11 +47,11 @@ public class VarInt64LoopTest {
         problemChildren.put(new Long(1), new byte[]{0x01});
         problemChildren.put(new Long(2), new byte[]{0x02});
         problemChildren.put(new Long(-1), new byte[]{0x7F});
-        problemChildren.put(134217728L, new byte[]{(byte) 0x80, (byte) 0x80, (byte) 0x80, (byte) 0xC0, (byte) 0x00 });
+        problemChildren.put(134217728L, new byte[]{(byte) 0x80, (byte) 0x80, (byte) 0x80, (byte) 0xC0, (byte) 0x00});
         problemChildren.put(-1066294073546240435L, new byte[]{(byte) 0xCD, (byte) 0x9C, (byte) 0xB0, (byte) 0xC1,
                 (byte) 0x88, (byte) 0xE6, (byte) 0xF0, (byte) 0x99, (byte) 0x71});
-         problemChildren.put(new Long(4294967295L), new byte[] { (byte) 0xFF,(byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0x0F  });
-         //problemChildren.put(2368947463459826787L, new byte[] { (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF });
+        problemChildren.put(new Long(4294967295L), new byte[]{(byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0x0F});
+        //problemChildren.put(2368947463459826787L, new byte[] { (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF });
 
     }
 
@@ -63,7 +62,7 @@ public class VarInt64LoopTest {
     @Test
     public void testProblemChildren() throws Exception {
         for (Entry<Long, byte[]> child : problemChildren.entrySet()) {
-            VarInt64 expected = new VarInt64( child.getKey());
+            VarInt64 expected = new VarInt64(child.getKey());
             ByteOutput convert = expected.convert();
 //            System.out.print("expected = " + child.getKey() + " " );
 //            String byteString = Hex.bytesToHex(convert.bytes());

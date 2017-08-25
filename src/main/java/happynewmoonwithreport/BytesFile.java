@@ -87,7 +87,7 @@ public class BytesFile {
     @Override
     public String toString() {
         return "BytesFile{" +
-                "current byte = " +  Hex.byteToHex(bytesAll[index]) +
+                "current byte = " + Hex.byteToHex(bytesAll[index]) +
                 ", index = " + index +
                 ", bytesAll = " + Arrays.toString(bytesAll) +
                 ", bytesAll in Hex = " + Hex.bytesToHex(bytesAll) +

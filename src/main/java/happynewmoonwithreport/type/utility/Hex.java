@@ -32,7 +32,7 @@ public class Hex {
             sb.append(hexArray[v & 0x0F]);
             sb.append(" ");
         }
-        return  sb.toString();
+        return sb.toString();
     }
 
     public static String byteToHex(byte input) {

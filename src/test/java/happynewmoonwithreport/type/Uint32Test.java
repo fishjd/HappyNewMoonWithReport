@@ -53,22 +53,23 @@ public class Uint32Test {
     }
 
     UInt32 uInt32;
+
     @Test
     public void maxBits() throws Exception {
-        uInt32 = new UInt32( 0);
+        uInt32 = new UInt32(0);
         assertEquals(new Integer(32), uInt32.maxBits());
     }
 
     @Test
     public void minValue() throws Exception {
-        uInt32 = new UInt32( 0);
-        assertEquals(new Long ( 0), uInt32.minValue());
+        uInt32 = new UInt32(0);
+        assertEquals(new Long(0), uInt32.minValue());
     }
 
     @Test
     public void maxValue() throws Exception {
-        uInt32 = new UInt32( 0);
-        assertEquals(new Long( 4_294_967_296L), uInt32.maxValue());
+        uInt32 = new UInt32(0);
+        assertEquals(new Long(4_294_967_296L), uInt32.maxValue());
     }
 
     @Test
@@ -118,7 +119,7 @@ public class Uint32Test {
             byte b4 = (byte) ((i >> 24) & 0xFF);
 
             byte[] bArray = new byte[]{b1, b2, b3, b4};
-            BytesFile bytesFile = new BytesFile( bArray);
+            BytesFile bytesFile = new BytesFile(bArray);
             UInt32 uint32_b = new UInt32(bytesFile);
             Long result_b = uint32_b.value();
 

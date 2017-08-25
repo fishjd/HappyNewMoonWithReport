@@ -37,14 +37,14 @@ public class Int8 extends Int<Byte> {
 
     @Override
     public Byte minValue() {
-        Integer minValue = (int) Math.pow(-2 , maxBits() - 1);
+        Integer minValue = (int) Math.pow(-2, maxBits() - 1);
         return minValue.byteValue();
 
     }
 
     @Override
     public Byte maxValue() {
-        Integer maxValue = (int) Math.pow(2 , maxBits() - 1) -1;
+        Integer maxValue = (int) Math.pow(2, maxBits() - 1) - 1;
         return maxValue.byteValue();
     }
 

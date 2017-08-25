@@ -24,8 +24,8 @@ import happynewmoonwithreport.type.WasmVector;
 
 /**
  * Export Section.
- *
- *
+ * <p>
+ * <p>
  * Source <a href="http://webassembly.org/docs/binary-encoding/#export-section" target="_top">
  * http://webassembly.org/docs/binary-encoding/#export-section
  * </a>

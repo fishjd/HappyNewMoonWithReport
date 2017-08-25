@@ -33,22 +33,23 @@ public class VarUInt1Test {
     }
 
     VarUInt1 varUInt1;
+
     @Test
     public void maxBits() throws Exception {
-        varUInt1 = new VarUInt1( 0);
+        varUInt1 = new VarUInt1(0);
         assertEquals(new Integer(1), varUInt1.maxBits());
     }
 
     @Test
     public void minValue() throws Exception {
-        varUInt1 = new VarUInt1( 0);
-        assertEquals(new Long ( 0), varUInt1.minValue());
+        varUInt1 = new VarUInt1(0);
+        assertEquals(new Long(0), varUInt1.minValue());
     }
 
     @Test
     public void maxValue() throws Exception {
-        varUInt1 = new VarUInt1( 0);
-        assertEquals(new Long( 1), varUInt1.maxValue());
+        varUInt1 = new VarUInt1(0);
+        assertEquals(new Long(1), varUInt1.maxValue());
     }
 
     @Test

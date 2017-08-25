@@ -33,7 +33,7 @@ public class Int64 extends Int<Long> {
         this.value = number.longValue();
     }
 
-    public Int64 (Long value){
+    public Int64(Long value) {
         this.value = value;
     }
 

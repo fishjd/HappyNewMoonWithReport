@@ -26,11 +26,10 @@ import happynewmoonwithreport.type.UInt32;
  * http://webassembly.org/docs/binary-encoding/#table_type
  * </a>
  * </p>
- *
+ * <p>
  * Source:  <a href = "https://webassembly.github.io/spec/syntax/types.html#syntax-tabletype" target="_top">
  * Table Type
  * </a>
- *
  */
 public class TableType implements Validation {
 
