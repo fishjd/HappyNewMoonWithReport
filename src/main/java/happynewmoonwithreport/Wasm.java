@@ -192,7 +192,7 @@ public class Wasm {
     }
 
     /**
-     * Returns true if module is valid.   Called after <code>instantiate();</code>
+     * Returns true if module is valid.   Call only after <code>instantiate();</code>
      * <p>
      * <p>
      * Source:  <a href="https://github.com/WebAssembly/design/blob/master/JS.md#user-content-webassemblyvalidate"
@@ -265,19 +265,6 @@ public class Wasm {
 
     public UInt32 getMagicNumber() {
         return magicNumber;
-    }
-
-    /**
-     * Did the module pass all validation checks?
-     * <p>
-     * Source:  <a href="https://webassembly.github.io/spec/valid/index.html" target="_top">
-     * https://webassembly.github.io/spec/valid/index.html
-     * </a>
-     *
-     * @return true if all validity checks pass.
-     */
-    public Boolean getValid() {
-        return valid;
     }
 
     public SectionType getFunctionSignatures() {

@@ -47,7 +47,11 @@ public class WasmAdd32ValidationTest {
     @Test
     public void isValidTest() {
 
-        assertTrue(wasm.getValid());
+        // run
+        Boolean valid = wasm.validate();
+
+        // validate
+        assertTrue(valid);
 
     }
 
