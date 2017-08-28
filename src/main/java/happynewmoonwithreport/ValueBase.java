@@ -64,9 +64,11 @@ public class ValueBase implements Validation {
     }
 
     /**
-     * Find the value and set the value.
+     * Find the value.
      *
-     * @param input input
+     * @param input what value to find.
+     *
+     * @return Value.
      */
     protected String calcValue(Integer input) {
         String result = mapAll.get(input);

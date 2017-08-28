@@ -25,7 +25,6 @@ import happynewmoonwithreport.type.VarUInt32;
  * Each local entry declares a number of local variables of a given type. It is legal to have several entries with the
  * same type.
  * </p>
- * <p>
  * <table  summary="Local Entry Table ">
  * <tr> <th>Field</th> 	<th>Type</th> 	<th>Description</th> </tr>
  * <tr><td>count</td><td>	varuint32 </td><td>	number of local variables of the following type </td></tr>

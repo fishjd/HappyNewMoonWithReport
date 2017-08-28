@@ -98,9 +98,10 @@ public class Wasm {
      * https://github.com/WebAssembly/design/blob/master/JS.md#user-content-webassemblyinstantiate
      * </a>
      *
-     * @throws Exception
+     * @return Web Assembly Module.
+     *
      */
-    public WasmModule instantiate() throws Exception {
+    public WasmModule instantiate()  {
 
         SectionName sectionName;
         UInt32 u32PayloadLength;
@@ -193,7 +194,6 @@ public class Wasm {
 
     /**
      * Returns true if module is valid.   Call only after <code>instantiate();</code>
-     * <p>
      * <p>
      * Source:  <a href="https://github.com/WebAssembly/design/blob/master/JS.md#user-content-webassemblyvalidate"
      * target="_top">
