@@ -18,6 +18,8 @@ package happynewmoonwithreport;
 
 import happynewmoonwithreport.opcode.AddI32;
 import happynewmoonwithreport.opcode.GetLocal;
+import happynewmoonwithreport.opcode.Nop;
+import happynewmoonwithreport.opcode.Unreachable;
 import happynewmoonwithreport.type.DataTypeNumber;
 import happynewmoonwithreport.type.VarUInt32;
 import happynewmoonwithreport.type.WasmVector;
@@ -49,6 +51,9 @@ public class WasmInstance implements WasmInstanceInterface {
 
     }
 
+    /**
+     * @param module Web Assembly Module
+     */
     public WasmInstance(WasmModule module) {
         this();
         this.module = module;
@@ -57,8 +62,8 @@ public class WasmInstance implements WasmInstanceInterface {
     /**
      * Not Implemented.
      *
-     * @param module
-     * @param wasmImport
+     * @param module Web Assembly Module
+     * @param wasmImport Web Assembly Import
      */
     public WasmInstance(WasmModule module, WasmImport wasmImport) {
         this();
@@ -114,15 +119,29 @@ public class WasmInstance implements WasmInstanceInterface {
         }
     }
 
+    private Unreachable unreachable = new Unreachable(this);
+    private Nop nop = new Nop(this);
     private AddI32 addI32 = new AddI32(this);
-
     private GetLocal getLocal = new GetLocal(this);
 
 
+    /**
+     * Source:  <a href="https://webassembly.github.io/spec/appendix/index-instructions.html" target="_top">
+     * https://webassembly.github.io/spec/appendix/index-instructions.html
+     * </a>
+     */
     private void execute(BytesFile code) {
 
         byte opcode = code.readByte();
         switch (opcode) {
+            case (byte) 0x00: {
+                unreachable.execute();
+                break;
+            }
+            case (byte) 0x01: {
+                nop.execute();
+                break;
+            }
             case (byte) 0x20: {
                 getLocal.execute(new VarUInt32(code));
                 break;
