@@ -73,7 +73,7 @@ public class AddI32 {
      */
     public void execute() {
         WasmStack<DataTypeNumber> stack = instance.stack();
-        if ((instance.stack().peek() instanceof Int32) == false) {
+        if ((stack.peek() instanceof Int32) == false) {
             throw new WasmRuntimeException(UUID.fromString("22500212-e077-4507-a27a-3a08039da2b7"),
                     "addI32: Value1 type is incorrect");
         }

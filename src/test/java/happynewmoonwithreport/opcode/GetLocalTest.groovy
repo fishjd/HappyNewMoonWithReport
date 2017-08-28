@@ -17,6 +17,7 @@
 package happynewmoonwithreport.opcode
 
 import happynewmoonwithreport.WasmInstanceInterface
+import happynewmoonwithreport.WasmRuntimeException
 import happynewmoonwithreport.type.Int32
 import happynewmoonwithreport.type.UInt32
 import spock.lang.Specification
@@ -43,5 +44,19 @@ class GetLocalTest extends Specification {
 
         then: " the local value should be on the stack"
         new Int32(3) == instance.stack().pop();
+    }
+
+    def "Execute with exception thrown"() {
+        setup: " an instance with zero local variable "
+        WasmInstanceInterface instance = new WasmInstanceStub();
+        // instance.localAll().add(new Int32(3));
+
+        GetLocal function = new GetLocal(instance);
+
+        when: "run the opcode"
+        function.execute(new UInt32(0));
+
+        then: " the local value should be on the stack"
+        thrown WasmRuntimeException;
     }
 }

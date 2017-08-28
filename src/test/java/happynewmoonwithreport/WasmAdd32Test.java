@@ -66,6 +66,7 @@ public class WasmAdd32Test {
         assertEquals("add32", wasm.exports().get(1).getFieldName().getValue());
 
         WasmInstance instance = new WasmInstance(module);
+        assertNotNull (instance.stack());
         WasmFunction functionAdd32 = instance.exportFunction("add32");
 
         WasmVector<DataTypeNumber> returnAll = new WasmVector<>(1);

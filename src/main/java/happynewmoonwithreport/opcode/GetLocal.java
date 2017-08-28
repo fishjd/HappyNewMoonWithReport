@@ -67,7 +67,7 @@ public class GetLocal {
      * @param index index in to the vector that contains the local variable.
      */
     public void execute(UInt32 index) {
-        if ((index.integerValue() <= instance.localAll().size()) == false) {
+        if ((index.integerValue() < instance.localAll().size()) == false) {
             throw new WasmRuntimeException(UUID.fromString("dcbf3c1d-334a-451d-9010-e32bdc876e9d"),
                     "getLocal: Local variable " + index.integerValue() + " does not exist");
         }
