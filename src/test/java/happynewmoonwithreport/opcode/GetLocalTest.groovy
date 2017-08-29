@@ -16,6 +16,7 @@
  */
 package happynewmoonwithreport.opcode
 
+import happynewmoonwithreport.WasmFrame
 import happynewmoonwithreport.WasmInstanceInterface
 import happynewmoonwithreport.WasmRuntimeException
 import happynewmoonwithreport.type.Int32
@@ -35,9 +36,11 @@ class GetLocalTest extends Specification {
     def "Execute"() {
         setup: " an instance with one local variable "
         WasmInstanceInterface instance = new WasmInstanceStub();
-        instance.localAll().add(new Int32(3));
 
-        GetLocal function = new GetLocal(instance);
+        WasmFrame frame = new WasmFrame(instance);
+        frame.localAll().add(new Int32(3));
+
+        GetLocal function = new GetLocal(frame);
 
         when: "run the opcode"
         function.execute(new UInt32(0));
@@ -49,9 +52,11 @@ class GetLocalTest extends Specification {
     def "Execute with exception thrown"() {
         setup: " an instance with zero local variable "
         WasmInstanceInterface instance = new WasmInstanceStub();
-        // instance.localAll().add(new Int32(3));
 
-        GetLocal function = new GetLocal(instance);
+        WasmFrame frame = new WasmFrame(instance);
+        // frame.localAll().add(new Int32(3));
+
+        GetLocal function = new GetLocal(frame);
 
         when: "run the opcode"
         function.execute(new UInt32(0));

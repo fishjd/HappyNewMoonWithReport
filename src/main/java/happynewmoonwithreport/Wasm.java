@@ -23,6 +23,7 @@ import happynewmoonwithreport.type.WasmVector;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.UUID;
 
 /**
  * Start Here, The class to loads a WebAssembly file
@@ -187,6 +188,10 @@ public class Wasm {
                     sectionCode = new SectionCode();
                     sectionCode.instantiate(payload);
                     break;
+                default:
+                    throw new WasmRuntimeException(UUID.fromString("e737f67f-5935-4c61-a14f-eeb97e393178")
+                    , "Unknown Section in Module. Section = " + sectionName.getValue());
+
             }
         }
         assert bytesFile.atEndOfFile() : "File length is not correct";

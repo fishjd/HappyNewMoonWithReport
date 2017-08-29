@@ -23,20 +23,20 @@ import happynewmoonwithreport.type.WasmVector;
 
 public class WasmInstanceStub implements WasmInstanceInterface {
 
-    private WasmStack<DataTypeNumber> stack;
+    private WasmStack<Object> stack;
     private WasmVector<DataTypeNumber> localAll;
 
     public WasmInstanceStub() {
-        stack = new WasmStack<DataTypeNumber>();
+        stack = new WasmStack<Object>();
         localAll = new WasmVector<DataTypeNumber>();
     }
 
     @Override
-    public WasmStack<DataTypeNumber> stack() {
+    public WasmStack<Object> stack() {
         return stack;
     }
 
-    public void setStack(WasmStack<DataTypeNumber> stack) {
+    public void setStack(WasmStack<Object> stack) {
         this.stack = stack;
     }
 

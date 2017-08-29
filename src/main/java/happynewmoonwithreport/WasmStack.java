@@ -16,12 +16,42 @@
  */
 package happynewmoonwithreport;
 
+import happynewmoonwithreport.type.DataTypeNumber;
+
 import java.util.Stack;
+import java.util.UUID;
 
 /**
- * This is the web assembly runtime stack
+ * This is the web assembly runtime stack.
+ * <p>
+ * May contain {@link happynewmoonwithreport.type.DataTypeNumber} Int32,Int64,UInt32,UInt64,F32, F64... or {@link
+ * WasmLabel}
  */
 public class WasmStack<StackType> extends Stack<StackType> {
 
+    @Override
+    public StackType push(StackType item) {
+        if (typeOK(item) == false) {
+            throw new WasmRuntimeException(UUID.fromString("12f47ca5-6313-4610-9616-ef10ef3861ee"),
+                    "Item is not of correct type for Stack.  Item = " + item.toString() );
+        }
+        return super.push(item);
+    }
 
+//    @Override
+//    public synchronized StackType pop() {
+//        return super.pop();
+//    }
+//
+//    @Override
+//    public synchronized StackType peek() {
+//        return super.peek();
+//    }
+
+    public Boolean typeOK(Object item) {
+        Boolean result = false;
+        result |= item instanceof DataTypeNumber;
+        result |= item instanceof WasmLabel;
+        return result;
+    }
 }

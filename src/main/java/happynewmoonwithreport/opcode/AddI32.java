@@ -20,7 +20,6 @@ package happynewmoonwithreport.opcode;
 import happynewmoonwithreport.WasmInstanceInterface;
 import happynewmoonwithreport.WasmRuntimeException;
 import happynewmoonwithreport.WasmStack;
-import happynewmoonwithreport.type.DataTypeNumber;
 import happynewmoonwithreport.type.Int32;
 
 import java.util.UUID;
@@ -72,7 +71,7 @@ public class AddI32 {
      * Execute the opcode.
      */
     public void execute() {
-        WasmStack<DataTypeNumber> stack = instance.stack();
+        WasmStack<Object> stack = instance.stack();
         if ((stack.peek() instanceof Int32) == false) {
             throw new WasmRuntimeException(UUID.fromString("22500212-e077-4507-a27a-3a08039da2b7"),
                     "addI32: Value1 type is incorrect");

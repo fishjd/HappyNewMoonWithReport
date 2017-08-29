@@ -20,11 +20,17 @@ import happynewmoonwithreport.type.DataTypeNumber;
 import happynewmoonwithreport.type.WasmVector;
 
 /**
- * Created on 2017-08-25.
+ * Labels carry an argument arity n and their associated branch target, which is expressed syntactically as an
+ * instruction sequence:
+ * <p>
+ * Source:  <a href="https://webassembly.github.io/spec/exec/runtime.html#syntax-label" target="_top">
+ * https://webassembly.github.io/spec/exec/runtime.html#syntax-label
+ * </a>
  */
+public class WasmLabel {
+    /**
+     * The arity,  The types of the return values
+     */
+    private WasmVector<DataTypeNumber> returnTypeAll;
 
-public interface WasmInstanceInterface {
-    WasmStack<Object> stack();
-
-    WasmVector<DataTypeNumber> localAll();
 }

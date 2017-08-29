@@ -16,45 +16,47 @@
  */
 package happynewmoonwithreport.opcode;
 
-import happynewmoonwithreport.*;
+import happynewmoonwithreport.WasmFrame;
+import happynewmoonwithreport.WasmInstanceInterface;
+import happynewmoonwithreport.WasmRuntimeException;
 import happynewmoonwithreport.type.DataTypeNumber;
 import happynewmoonwithreport.type.UInt32;
 
 import java.util.UUID;
 
 /**
- * Get Local Opcode
+ * Set Local - write a local variable or parameter
  * <ol>
  * <li>
  * Let F be the current frame.
- * </li>
- * <li>
+ * </li> <li>
  * Assert: due to validation, F.locals[x] exists.
+ * </li> <li>
+ * Assert: due to validation, a value is on the top of the stack.
+ * </li> <li>
+ * Pop the value val from the stack.
+ * </li> <li>
+ * Replace F.locals[x] with the value val.
  * </li>
- * <li>
- * Let val be the value F.locals[x]
- * </li>
- * <li>
- * Push the value val to the stack.
  * </ol>
- * <p>
- * Source:  <a href="https://webassembly.github.io/spec/exec/instructions.html#variable-instructions" target="_top">
- * https://webassembly.github.io/spec/exec/instructions.html#variable-instructions
- * </a>
  * <p>
  * Source:  <a href="http://webassembly.org/docs/binary-encoding/#variable-access-described-here" target="_top">
  * http://webassembly.org/docs/binary-encoding/#variable-access-described-here
  * </a>
+ * <p>
+ * Source:  <a href="https://webassembly.github.io/spec/exec/instructions.html#exec-set-local" target="_top">
+ * https://webassembly.github.io/spec/exec/instructions.html#exec-set-local
+ * </a>
  */
-public class GetLocal {
+public class SetLocal {
 
     private WasmFrame frame;
 
-    private GetLocal() {
+    private SetLocal() {
         super();
     }
 
-    public GetLocal(WasmFrame frame) {
+    public SetLocal(WasmFrame frame) {
         this();
         this.frame = frame;
     }
@@ -65,21 +67,25 @@ public class GetLocal {
      * @param index index in to the vector that contains the local variable.
      */
     public void execute(UInt32 index) {
+        WasmInstanceInterface instance = frame.instance();
         // 1 Frame set in constructor.
 
         // 2 validate.
-        if ((index.integerValue() < frame.localAll().size()) == false) {
-            throw new WasmRuntimeException(UUID.fromString("dcbf3c1d-334a-451d-9010-e32bdc876e9d"),
-                    "getLocal: Local variable " + index.integerValue() + " does not exist");
+        if (frame.localAll().exists(index) == false) {
+            throw new WasmRuntimeException(UUID.fromString("87eaa036-eaba-4740-93b6-590230b4ba49"),
+                    "SetLocal: Local variable " + index.integerValue() + " does not exist");
         }
 
-        // 3. value
-        DataTypeNumber value = frame.localAll().get(index);
+        // 3 validate
+        if (instance.stack().empty()) {
+            throw new WasmRuntimeException(UUID.fromString("5f1559de-055f-495f-b793-c210fd049e52"),
+                    "SetLocal: No value on the stack");
+        }
+        // 4. value
+        DataTypeNumber value = (DataTypeNumber) instance.stack().pop();
 
-        // 4. Push
-        WasmInstanceInterface instance = frame.instance();
-        WasmStack<Object> stack = instance.stack();
-        stack.push(value);
+        // 5. replace
+        frame.localAll().set(index, value);
     }
 
 

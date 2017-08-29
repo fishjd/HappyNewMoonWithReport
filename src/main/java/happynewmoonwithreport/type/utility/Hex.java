@@ -35,8 +35,8 @@ public class Hex {
         return sb.toString();
     }
 
-    public static String byteToHex(byte input) {
-        String result = Integer.toHexString(input);
+    public static String byteToHex(Byte input) {
+        String result = "0x" +Integer.toHexString(input);
         return result;
     }
 }

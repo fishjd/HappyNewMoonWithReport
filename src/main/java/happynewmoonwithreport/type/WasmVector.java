@@ -35,6 +35,7 @@ import java.util.ArrayList;
 public class WasmVector<Type> extends ArrayList<Type> {
 
     public WasmVector() {
+        super();
     }
 
     public WasmVector(Integer initialCapacity) {
@@ -45,6 +46,11 @@ public class WasmVector<Type> extends ArrayList<Type> {
         checkIfTooLarge(index);
 
         return super.get(index.integerValue());
+    }
+
+    public Boolean exists(DataTypeNumber index) {
+        checkIfTooLarge(index);
+        return ( index.integerValue() < size() );
     }
 
     public Type set(DataTypeNumber index, Type element) {

@@ -14,12 +14,14 @@
  *  limitations under the License.
  *
  */
-package happynewmoonwithreport;
+package happynewmoonwithreport.intergration;
 
+import happynewmoonwithreport.*;
 import happynewmoonwithreport.type.DataTypeNumber;
 import happynewmoonwithreport.type.Int32;
 import happynewmoonwithreport.type.WasmVector;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -29,14 +31,14 @@ import static junit.framework.TestCase.assertNotNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class WasmAdd32Test {
+public class WasmFactorialLongTest {
     private Wasm wasm;
     private WasmModule module;
 
     @Before
     public void setUp() throws Exception {
 
-        String path = "./src/test/resources/add32/add32.wasm";
+        String path = "./src/test/resources/factorialLong/factorialLong.wasm";
         File wasmFile = new File(path);
         assertTrue(wasmFile.exists());
 
@@ -59,26 +61,25 @@ public class WasmAdd32Test {
         assertEquals(new Integer(1), wasm.getFunctionSignatures().getSize());
 
         assertEquals(2, wasm.exports().size());
-        assertEquals(new ExternalKind(ExternalKind.memory), wasm.exports().get(0).getExternalKind());
+        Assert.assertEquals(new ExternalKind(ExternalKind.memory), wasm.exports().get(0).getExternalKind());
         assertEquals("memory", wasm.exports().get(0).getFieldName().getValue());
 
         assertEquals(new ExternalKind(ExternalKind.function), wasm.exports().get(1).getExternalKind());
-        assertEquals("add32", wasm.exports().get(1).getFieldName().getValue());
+        assertEquals("factorialLong", wasm.exports().get(1).getFieldName().getValue());
 
         WasmInstance instance = new WasmInstance(module);
         assertNotNull (instance.stack());
-        WasmFunction functionAdd32 = instance.exportFunction("add32");
+        WasmFunction functionFactorial = instance.exportFunction("factorialLong");
 
         WasmVector<DataTypeNumber> returnAll = new WasmVector<>(1);
         WasmVector<DataTypeNumber> paramAll = new WasmVector<>(2);
-        paramAll.add(new Int32(3));
-        paramAll.add(new Int32(4));
+        paramAll.add(new Int32(5));
 
-        instance.call(functionAdd32, returnAll, paramAll);
+        instance.call(functionFactorial, returnAll, paramAll);
 
         assertNotNull(returnAll);
         assertEquals(1, returnAll.size());
-        assertEquals(new Int32(7), returnAll.get(0));
+        assertEquals(new Int32(120), returnAll.get(0));
 
 
     }

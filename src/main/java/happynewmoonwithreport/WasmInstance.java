@@ -16,13 +16,9 @@
  */
 package happynewmoonwithreport;
 
-import happynewmoonwithreport.opcode.AddI32;
-import happynewmoonwithreport.opcode.GetLocal;
-import happynewmoonwithreport.opcode.Nop;
-import happynewmoonwithreport.opcode.Unreachable;
-import happynewmoonwithreport.type.DataTypeNumber;
-import happynewmoonwithreport.type.VarUInt32;
-import happynewmoonwithreport.type.WasmVector;
+import happynewmoonwithreport.opcode.*;
+import happynewmoonwithreport.type.*;
+import happynewmoonwithreport.type.utility.Hex;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.UUID;
@@ -38,16 +34,18 @@ import java.util.UUID;
 public class WasmInstance implements WasmInstanceInterface {
     private WasmModule module;
     private WasmFunction wasmFunction;
+    private WasmFrame currentFrame;
+
     /**
      * the local variables
      **/
     private WasmVector<DataTypeNumber> localAll;
 
-    /* TODO Change DataTypeNumber to Object or create a new "Stackable" type. */
-    private WasmStack<DataTypeNumber> stack;
+    private WasmStack<Object> stack;
 
     private WasmInstance() {
         stack = new WasmStack();
+        currentFrame = new WasmFrame(this);
 
     }
 
@@ -106,8 +104,12 @@ public class WasmInstance implements WasmInstanceInterface {
      */
     public void call(WasmFunction wasmFunction, WasmVector<DataTypeNumber> returnAll, WasmVector<DataTypeNumber> paramAll) {
         this.wasmFunction = wasmFunction;
-        localAll = paramAll;
+        currentFrame.setLocalAll(paramAll);
         // TODO verify paramAll with LocalEntryAll
+
+        for ( Integer i = 0 ; i < wasmFunction.getLocalEntryAll().size() ;  i++) {
+            currentFrame.localAll().add(new Int32(0));
+        }
 
         BytesFile code = new BytesFile(wasmFunction.getCode());
         while (code.atEndOfFile() == false) {
@@ -115,15 +117,9 @@ public class WasmInstance implements WasmInstanceInterface {
         }
 
         while (stack.isEmpty() == false) {  // ??? ¿¿¿
-            returnAll.add(stack.pop());
+            returnAll.add((DataTypeNumber) stack.pop());
         }
     }
-
-    private Unreachable unreachable = new Unreachable(this);
-    private Nop nop = new Nop(this);
-    private AddI32 addI32 = new AddI32(this);
-    private GetLocal getLocal = new GetLocal(this);
-
 
     /**
      * Source:  <a href="https://webassembly.github.io/spec/appendix/index-instructions.html" target="_top">
@@ -135,18 +131,32 @@ public class WasmInstance implements WasmInstanceInterface {
         byte opcode = code.readByte();
         switch (opcode) {
             case (byte) 0x00: {
+                Unreachable unreachable = new Unreachable(this);
                 unreachable.execute();
                 break;
             }
             case (byte) 0x01: {
+                Nop nop = new Nop(this);
                 nop.execute();
                 break;
             }
             case (byte) 0x20: {
+                GetLocal getLocal = new GetLocal(currentFrame);
                 getLocal.execute(new VarUInt32(code));
                 break;
             }
+            case (byte) 0x21: {
+                SetLocal setLocal = new SetLocal(currentFrame);
+                setLocal.execute(new VarUInt32(code));
+                break;
+            }
+            case (byte) 0x41: {
+                ConstantInt32 constantInt32 = new ConstantInt32(this);
+                constantInt32.execute(new VarInt32(code));
+                break;
+            }
             case (byte) 0x6a: {
+                AddI32 addI32 = new AddI32(this);
                 addI32.execute();
                 break;
             }
@@ -157,14 +167,14 @@ public class WasmInstance implements WasmInstanceInterface {
     }
 
     private void throwUnknownOpcodeException(byte opcode) {
-        String message = "Wasm tried to run an opcode that was not defined. Unknown Opcode = " + opcode;
+        String message = "Wasm tried to run an opcode that was not defined. Unknown Opcode = " + Hex.byteToHex(opcode) +" (0d" + opcode +")";
         String possibleSolutions = "Verify the wasm file is valid.  Recompile Wasm File.  Contact support.";
         throw new WasmRuntimeException(UUID.fromString("6b5700ee-9642-4544-8850-22794071e848"), message, possibleSolutions);
     }
 
 
     @Override
-    public WasmStack<DataTypeNumber> stack() {
+    public WasmStack<Object> stack() {
         return stack;
     }
 
