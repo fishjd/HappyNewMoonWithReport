@@ -1,4 +1,6 @@
 # Happy New Moon with Report
+
+[![Join the chat at https://gitter.im/HappyNewMoonWithReport/Lobby](https://badges.gitter.im/HappyNewMoonWithReport/Lobby.svg)](https://gitter.im/HappyNewMoonWithReport/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 Run and Test Web Assembly modules (*.wasm) in Java.
 
 ## The basic use case is:
