@@ -27,4 +27,6 @@ public interface WasmInstanceInterface {
     WasmStack<Object> stack();
 
     WasmVector<DataTypeNumber> localAll();
+
+    BytesFile getCode();
 }

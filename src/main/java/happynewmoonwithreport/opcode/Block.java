@@ -17,6 +17,7 @@
 package happynewmoonwithreport.opcode;
 
 
+import happynewmoonwithreport.BytesFile;
 import happynewmoonwithreport.WasmInstanceInterface;
 import happynewmoonwithreport.WasmLabel;
 
@@ -54,7 +55,9 @@ public class Block {
      * Execute the opcode.
      */
     public void execute() {
-        WasmLabel label = new WasmLabel();
+        BytesFile code = instance.getCode();
+
+        WasmLabel label = new WasmLabel(code);
         instance.stack().push(label);
     }
 }

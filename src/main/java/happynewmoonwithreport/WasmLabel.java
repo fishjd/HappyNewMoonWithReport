@@ -16,21 +16,37 @@
  */
 package happynewmoonwithreport;
 
-import happynewmoonwithreport.type.DataTypeNumber;
 import happynewmoonwithreport.type.WasmVector;
 
 /**
  * Labels carry an argument arity n and their associated branch target, which is expressed syntactically as an
  * instruction sequence:
  * <p>
+ * Intuitively, instr∗ is the continuation to execute when the branch is taken, in place of the original control
+ * construct.
+ * <p>
  * Source:  <a href="https://webassembly.github.io/spec/exec/runtime.html#syntax-label" target="_top">
  * https://webassembly.github.io/spec/exec/runtime.html#syntax-label
  * </a>
  */
 public class WasmLabel {
+
+    public WasmLabel (BytesFile code) {
+        returnTypeAll = new WasmVector<>(1);
+        ValueType resultType = new ValueType(code);
+        returnTypeAll.add(resultType);
+    }
     /**
      * The arity,  The types of the return values
      */
-    private WasmVector<DataTypeNumber> returnTypeAll;
+    private WasmVector<ValueType> returnTypeAll;
 
+
+    public WasmVector<ValueType> getReturnTypeAll() {
+        return returnTypeAll;
+    }
+
+    public void setReturnTypeAll(WasmVector<ValueType> returnTypeAll) {
+        this.returnTypeAll = returnTypeAll;
+    }
 }

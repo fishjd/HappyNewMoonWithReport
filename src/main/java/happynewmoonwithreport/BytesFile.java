@@ -86,11 +86,16 @@ public class BytesFile {
 
     @Override
     public String toString() {
-        return "BytesFile{" +
+        String result = "BytesFile{" +
                 "current byte = " + Hex.byteToHex(bytesAll[index]) +
-                ", index = " + index +
+                ", index = " + index + " (0x" + Integer.toHexString(index) + ") " +
                 ", bytesAll = " + Arrays.toString(bytesAll) +
-                ", bytesAll in Hex = " + Hex.bytesToHex(bytesAll) +
-                '}';
+                ", bytesAll in Hex = " + Hex.bytesToHex(bytesAll);
+        result += ", bytesAll = ";
+        for (Byte myByte : bytesAll) {
+            result += myByte.toString() + "(" + Hex.byteToHex(myByte) + ") ";
+        }
+        result += '}';
+        return result;
     }
 }

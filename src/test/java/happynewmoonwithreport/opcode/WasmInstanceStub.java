@@ -16,6 +16,7 @@
  */
 package happynewmoonwithreport.opcode;
 
+import happynewmoonwithreport.BytesFile;
 import happynewmoonwithreport.WasmInstanceInterface;
 import happynewmoonwithreport.WasmStack;
 import happynewmoonwithreport.type.DataTypeNumber;
@@ -25,6 +26,7 @@ public class WasmInstanceStub implements WasmInstanceInterface {
 
     private WasmStack<Object> stack;
     private WasmVector<DataTypeNumber> localAll;
+    private BytesFile code;
 
     public WasmInstanceStub() {
         stack = new WasmStack<Object>();
@@ -48,5 +50,14 @@ public class WasmInstanceStub implements WasmInstanceInterface {
 
     public WasmVector<DataTypeNumber> getLocalAll() {
         return localAll;
+    }
+
+    @Override
+    public BytesFile getCode() {
+        return code;
+    }
+
+    public void setCode(BytesFile code) {
+        this.code = code;
     }
 }

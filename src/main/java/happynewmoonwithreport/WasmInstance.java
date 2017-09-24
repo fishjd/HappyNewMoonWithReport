@@ -42,6 +42,7 @@ public class WasmInstance implements WasmInstanceInterface {
     private WasmVector<DataTypeNumber> localAll;
 
     private WasmStack<Object> stack;
+    private BytesFile code;
 
     private WasmInstance() {
         stack = new WasmStack();
@@ -127,7 +128,7 @@ public class WasmInstance implements WasmInstanceInterface {
      * </a>
      */
     private void execute(BytesFile code) {
-
+        this.code = code;
         byte opcode = code.readByte();
         switch (opcode) {
             case (byte) 0x00: {
@@ -140,6 +141,11 @@ public class WasmInstance implements WasmInstanceInterface {
                 nop.execute();
                 break;
             }
+            case (byte) 0x02: {
+                Block block = new Block(this);
+                block.execute();
+                break;
+            }
             case (byte) 0x20: {
                 GetLocal getLocal = new GetLocal(currentFrame);
                 getLocal.execute(new VarUInt32(code));
@@ -150,7 +156,10 @@ public class WasmInstance implements WasmInstanceInterface {
                 setLocal.execute(new VarUInt32(code));
                 break;
             }
-            case (byte) 0x41: {
+            case (byte) 0x40: {
+                break;
+            }
+            case (byte) 0x41: {  // i32.const i32
                 ConstantInt32 constantInt32 = new ConstantInt32(this);
                 constantInt32.execute(new VarInt32(code));
                 break;
@@ -161,13 +170,14 @@ public class WasmInstance implements WasmInstanceInterface {
                 break;
             }
             default:
-                throwUnknownOpcodeException(opcode);
+                throwUnknownOpcodeException(opcode, code.getIndex());
                 return;
         }
     }
 
-    private void throwUnknownOpcodeException(byte opcode) {
-        String message = "Wasm tried to run an opcode that was not defined. Unknown Opcode = " + Hex.byteToHex(opcode) +" (0d" + opcode +")";
+    private void throwUnknownOpcodeException(byte opcode, Integer index) {
+        String message = "Wasm tried to run an opcode that was not defined. Unknown Opcode = " + Hex.byteToHex(opcode) +" (0d" + opcode +")" ;
+        message += " at byte number = " + index + ". ";
         String possibleSolutions = "Verify the wasm file is valid.  Recompile Wasm File.  Contact support.";
         throw new WasmRuntimeException(UUID.fromString("6b5700ee-9642-4544-8850-22794071e848"), message, possibleSolutions);
     }
@@ -181,5 +191,9 @@ public class WasmInstance implements WasmInstanceInterface {
     @Override
     public WasmVector<DataTypeNumber> localAll() {
         return localAll;
+    }
+
+    public BytesFile getCode() {
+        return code;
     }
 }
