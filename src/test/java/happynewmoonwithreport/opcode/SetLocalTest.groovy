@@ -19,10 +19,9 @@ package happynewmoonwithreport.opcode
 import happynewmoonwithreport.WasmFrame
 import happynewmoonwithreport.WasmInstanceInterface
 import happynewmoonwithreport.WasmRuntimeException
-import happynewmoonwithreport.type.Int32
+import happynewmoonwithreport.type.I32
 import happynewmoonwithreport.type.UInt32
 import spock.lang.Specification
-
 /**
  * Created on 2017-08-25.
  */
@@ -41,22 +40,22 @@ class SetLocalTest extends Specification {
         // locals must be initialized.
         frame.localAll().add(0);
         frame.localAll().add(0);
-        instance.stack().push(new Int32(3));
+        instance.stack().push(new I32(3));
 
         SetLocal function = new SetLocal(frame);
 
         when: "run the opcode"
-        UInt32 index = new UInt32(0);
+        UInt32 index = new I32(0);
         function.execute(index);
 
         then: " the local value should be set"
-        new Int32(3) == frame.localAll().get(index);
+        new I32(3) == frame.localAll().get(index);
     }
 
     def "Execute with exception thrown when there are zero local variables "() {
         setup: " an instance with zero local variables "
         WasmInstanceInterface instance = new WasmInstanceStub();
-        instance.stack().push(new Int32(3));
+        instance.stack().push(new I32(3));
         WasmFrame frame = new WasmFrame(instance);
         // frame.localAll().add(0);
 
@@ -67,7 +66,7 @@ class SetLocalTest extends Specification {
 
 
         when: "run the opcode"
-        function.execute(new UInt32(0));
+        function.execute(new I32(0));
 
         then: "Exception Thrown"
         WasmRuntimeException exception = thrown();
@@ -88,7 +87,7 @@ class SetLocalTest extends Specification {
         0 == instance.stack().size();
 
         when: "run the opcode"
-        function.execute(new UInt32(0));
+        function.execute(new I32(0));
 
         then: "Exception Thrown "
         WasmRuntimeException exception = thrown();

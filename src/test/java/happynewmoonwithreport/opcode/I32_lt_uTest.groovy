@@ -45,7 +45,6 @@ class I32_lt_uTest extends Specification {
 
         then: " a value of expected"
         new I32(expected) == instance.stack().pop();
-        System.out.println("Result = " + expected + " Value 1 = " + val1 + " Value 2 = " + val2);
 
 
         where: ""

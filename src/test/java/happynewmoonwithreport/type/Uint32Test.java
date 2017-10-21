@@ -70,7 +70,7 @@ public class Uint32Test {
     @Test
     public void maxValue() throws Exception {
         uInt32 = new UInt32(0);
-        assertEquals(new Long(4_294_967_296L), uInt32.maxValue());
+        assertEquals(new Long(4_294_967_295L), uInt32.maxValue());
     }
 
     @Test

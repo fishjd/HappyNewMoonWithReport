@@ -17,6 +17,7 @@
 package happynewmoonwithreport.opcode
 
 import happynewmoonwithreport.WasmInstanceInterface
+import happynewmoonwithreport.type.I32
 import happynewmoonwithreport.type.Int32
 import spock.lang.Specification
 
@@ -33,7 +34,7 @@ class ConstantInt32Test extends Specification {
     def "Execute Constant Int32"() {
         setup: " a value of ex : 3 "
         WasmInstanceInterface instance = new WasmInstanceStub();
-        Int32 value = new Int32(val1);
+        I32 value = new I32(val1);
 
         ConstantInt32 function = new ConstantInt32(instance);
 
@@ -42,7 +43,7 @@ class ConstantInt32Test extends Specification {
 
         then: " value is placed on the stack "
 
-        new Int32(expected) == instance.stack().pop();
+        new I32(expected) == instance.stack().pop();
 
         where: ""
         val1                    || expected

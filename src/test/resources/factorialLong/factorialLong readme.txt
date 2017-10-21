@@ -21,7 +21,7 @@ Code 0x08: 7F  // valueType "int32"
 // End of File
 
 Function 1
-0x00: 41 01     // i32 constant 0x01
+0x00: 41 01     // i32 const 0x01
 0x02: 21 02     // set local variable 0x02;
 0x04: 02 40     // Block result type "empty block"
 0x06  20 00     // get_local 0x00

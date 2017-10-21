@@ -56,11 +56,11 @@ class AddI32Test extends Specification {
     }
 
 
-    def "Execute AddI32 throw exception on incorrect Type on second param "() {
+    def "Execute opcode AddI32 throw exception on incorrect Type on second param "() {
         setup: " a value of int64  of 3  and a value of int32 of 4"
         WasmInstanceInterface instance = new WasmInstanceStub();
-        instance.stack().push(new Int64(3));
         instance.stack().push(new Int32(4));
+        instance.stack().push(new Int64(3));
 
         AddI32 function = new AddI32(instance);
 
@@ -75,8 +75,8 @@ class AddI32Test extends Specification {
     def "Execute AddI32 throw exception on incorrect Type on first param "() {
         setup: " a value of int32  of 3  and a value of int64 of 4"
         WasmInstanceInterface instance = new WasmInstanceStub();
-        instance.stack().push(new Int32(3));
         instance.stack().push(new Int64(4));
+        instance.stack().push(new Int32(3));
 
         AddI32 function = new AddI32(instance);
 

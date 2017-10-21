@@ -18,6 +18,7 @@ package happynewmoonwithreport.intergration;
 
 import happynewmoonwithreport.*;
 import happynewmoonwithreport.type.DataTypeNumber;
+import happynewmoonwithreport.type.I32;
 import happynewmoonwithreport.type.Int32;
 import happynewmoonwithreport.type.WasmVector;
 import org.junit.After;
@@ -68,12 +69,12 @@ public class WasmFactorialLongTest {
         assertEquals("factorialLong", wasm.exports().get(1).getFieldName().getValue());
 
         WasmInstance instance = new WasmInstance(module);
-        assertNotNull (instance.stack());
+        assertNotNull(instance.stack());
         WasmFunction functionFactorial = instance.exportFunction("factorialLong");
 
         WasmVector<DataTypeNumber> returnAll = new WasmVector<>(1);
         WasmVector<DataTypeNumber> paramAll = new WasmVector<>(2);
-        paramAll.add(new Int32(5));
+        paramAll.add(new I32(5));
 
         instance.call(functionFactorial, returnAll, paramAll);
 
