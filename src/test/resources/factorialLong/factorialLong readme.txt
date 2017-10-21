@@ -26,7 +26,7 @@ Function 1
 0x04: 02 40     // Block result type "empty block"
 0x06  20 00     // get_local 0x00
 0x08  41 01     // i32 const 0x01
-0x0A: 48        // i32_lts
+0x0A: 48        // i32_lt_s
 0x0B: 0D 00     // branch to label 0
 0x0C: 41 01     // i32 const 0x01
 0x0E: 21 02     // set_local 0x02
