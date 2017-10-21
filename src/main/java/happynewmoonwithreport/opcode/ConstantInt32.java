@@ -17,7 +17,7 @@
 package happynewmoonwithreport.opcode;
 
 import happynewmoonwithreport.WasmInstanceInterface;
-import happynewmoonwithreport.type.Int32;
+import happynewmoonwithreport.type.I32;
 /**
  * Constant Int32
  * <p>
@@ -49,7 +49,7 @@ public class ConstantInt32 {
     /**
      * Execute the opcode.
      */
-    public void execute(Int32 value) {
+    public void execute(I32 value) {
         instance.stack().push(value);
 
     }

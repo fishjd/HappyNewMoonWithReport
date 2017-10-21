@@ -27,11 +27,12 @@ import java.util.Map.Entry;
 import java.util.Random;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class Uint32Test {
 
-    Map<Long, byte[]> problemChildren;
-    Random random;
+    private Map<Long, byte[]> problemChildren;
+    private Random random;
 
     @Before
     public void setUp() throws Exception {
@@ -41,18 +42,18 @@ public class Uint32Test {
 
     }
 
-    public void setupProblemChildren() {
-        problemChildren.put(new Long(0), new byte[]{0x00, 0x00, 0x00, 0x00});
-        problemChildren.put(new Long(1), new byte[]{0x01, 0x00, 0x00, 0x00});
-        problemChildren.put(new Long(134217728L), new byte[]{(byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x08});
-        problemChildren.put(new Long(4294967295L), new byte[]{(byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF});
+    private void setupProblemChildren() {
+        problemChildren.put(0L, new byte[]{0x00, 0x00, 0x00, 0x00});
+        problemChildren.put(1L, new byte[]{0x01, 0x00, 0x00, 0x00});
+        problemChildren.put(134217728L, new byte[]{(byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x08});
+        problemChildren.put(4294967295L, new byte[]{(byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF});
     }
 
     @After
     public void tearDown() throws Exception {
     }
 
-    UInt32 uInt32;
+    private UInt32 uInt32;
 
     @Test
     public void maxBits() throws Exception {
@@ -84,7 +85,7 @@ public class Uint32Test {
     }
 
     private void assertEqualHex(Long expected, Long result) {
-        assertEquals("i = " + expected.toString() + " hex = " + Long.toHexString(expected), new Long(expected), result);
+        assertEquals("i = " + expected.toString() + " hex = " + Long.toHexString(expected), expected, result);
     }
 
     @Test
@@ -105,7 +106,7 @@ public class Uint32Test {
         }
     }
 
-    Integer maxCount = 1_000_000;
+    private Integer maxCount = 1_000_000;
 
     @Test
     public void testReadUnsignedConstrutor2() throws Exception {
@@ -125,6 +126,53 @@ public class Uint32Test {
 
             assertEquals("i = " + i.toString() + " hex = " + Long.toHexString(i), new Long(i), result_b);
         }
+    }
+
+    @Test
+    public void testMaxValue() {
+        UInt32 uInt32 = new UInt32(0x01);
+        assertEquals(new Long(0L), uInt32.minValue());
+        assertEquals(new Long(4_294_967_295L), uInt32.maxValue());
+    }
+
+    @Test
+    public void testLongConstructorThrowsExceptionWithNegativeNumber() {
+        try {
+            UInt32 neg_two = new UInt32(-2L);
+        } catch (IllegalArgumentException exception) {
+            assertTrue(exception.getMessage().contains("87765c72-a4b0-437f-ae27-9b57e702dc50"));
+
+        }
+    }
+
+    @Test
+    public void testLongConstructorThrowsExceptionWithTooLargeNumber() {
+        try {
+            UInt32 uInt32 = new UInt32(Long.MAX_VALUE);
+        } catch (IllegalArgumentException exception) {
+            assertTrue(exception.getMessage().contains("f4ac4150-12c7-40c1-bd25-47f5dc4a28ba"));
+        }
+    }
+
+    @Test
+    public void testSigned() {
+        UInt32 zero = new UInt32(0x00);
+        assertEquals(new Int32(0x00), zero.signed());
+
+        UInt32 one = new UInt32(0x01);
+        assertEquals(new Int32(0x01), one.signed());
+
+        UInt32 neg_one = new UInt32(0xFFFF_FFFFL);
+        assertEquals(new Long(4_294_967_295L), neg_one.longValue());
+        assertEquals(new Int32(-1), neg_one.signed());
+
+        UInt32 neg_two = new UInt32(0xFFFF_FFFEL);
+        assertEquals(new Long(4_294_967_294L), neg_two.longValue());
+        assertEquals(new Int32(-2), neg_two.signed());
+
+        UInt32 neg_three = new UInt32(0xFFFF_FFFDL);
+        assertEquals(new Long(4_294_967_293L), neg_three.longValue());
+        assertEquals(new Int32(-3), neg_three.signed());
     }
 
 }

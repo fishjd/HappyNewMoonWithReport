@@ -20,7 +20,7 @@ import happynewmoonwithreport.WasmFrame;
 import happynewmoonwithreport.WasmInstanceInterface;
 import happynewmoonwithreport.WasmRuntimeException;
 import happynewmoonwithreport.type.DataTypeNumber;
-import happynewmoonwithreport.type.UInt32;
+import happynewmoonwithreport.type.I32;
 
 import java.util.UUID;
 
@@ -66,7 +66,7 @@ public class SetLocal {
      *
      * @param index index in to the vector that contains the local variable.
      */
-    public void execute(UInt32 index) {
+    public void execute(I32 index) {
         WasmInstanceInterface instance = frame.instance();
         // 1 Frame set in constructor.
 

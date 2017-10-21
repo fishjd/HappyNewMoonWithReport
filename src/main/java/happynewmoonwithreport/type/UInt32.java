@@ -19,7 +19,8 @@ package happynewmoonwithreport.type;
 import happynewmoonwithreport.BytesFile;
 
 /**
- * An unsigned integer of 32 bits.
+ * An unsigned integer of 32 bits.  In what ever order (big endian or little endian) Java uses.
+ * Usually it is Big Endian.
  */
 public class UInt32 extends UInt<Long> {
 
@@ -47,6 +48,7 @@ public class UInt32 extends UInt<Long> {
     }
 
     public UInt32(Long value) {
+        assertInRange(value);
         this.value = value;
     }
 
@@ -74,12 +76,30 @@ public class UInt32 extends UInt<Long> {
         return (Integer.MIN_VALUE <= value && value <= Integer.MAX_VALUE);
     }
 
+    private void assertInRange(Long value) {
+        if ((minValue() <= value) == false) {
+            throw new IllegalArgumentException("87765c72-a4b0-437f-ae27-9b57e702dc50 " + "Value " + value + " must be greater or equal to " + minValue());
+        }
+        if ((value <= maxValue()) == false) {
+            throw new IllegalArgumentException("f4ac4150-12c7-40c1-bd25-47f5dc4a28ba " + "Value " + value + " must be less than or equal to " + maxValue());
+        }
+    }
+
+
     public void checkIfTooLarge() {
         if (isBoundByInteger() == false) {
             throw new RuntimeException("Value is too large!");
         }
     }
 
+    /**
+     * Return a signed Int32.
+     *
+     * @return
+     */
+    public Int32 signed() {
+        return new Int32(value.intValue());
+    }
 
 	/* Override DataTypeNumber */
 
@@ -95,7 +115,7 @@ public class UInt32 extends UInt<Long> {
 
     @Override
     public Long maxValue() {
-        return 1L << maxBits();
+        return (1L << maxBits()) - 1;
     }
 
 	/* override of Object **/

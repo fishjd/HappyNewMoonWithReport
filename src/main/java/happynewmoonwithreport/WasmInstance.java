@@ -108,7 +108,7 @@ public class WasmInstance implements WasmInstanceInterface {
         currentFrame.setLocalAll(paramAll);
         // TODO verify paramAll with LocalEntryAll
 
-        for ( Integer i = 0 ; i < wasmFunction.getLocalEntryAll().size() ;  i++) {
+        for (Integer i = 0; i < wasmFunction.getLocalEntryAll().size(); i++) {
             currentFrame.localAll().add(new Int32(0));
         }
 
@@ -148,12 +148,12 @@ public class WasmInstance implements WasmInstanceInterface {
             }
             case (byte) 0x20: {
                 GetLocal getLocal = new GetLocal(currentFrame);
-                getLocal.execute(new VarUInt32(code));
+                getLocal.execute(new I32(new VarUInt32(code)));
                 break;
             }
             case (byte) 0x21: {
                 SetLocal setLocal = new SetLocal(currentFrame);
-                setLocal.execute(new VarUInt32(code));
+                setLocal.execute(new I32( new VarUInt32(code)));
                 break;
             }
             case (byte) 0x40: {
@@ -161,7 +161,12 @@ public class WasmInstance implements WasmInstanceInterface {
             }
             case (byte) 0x41: {  // i32.const i32
                 ConstantInt32 constantInt32 = new ConstantInt32(this);
-                constantInt32.execute(new VarInt32(code));
+                constantInt32.execute(new I32(new VarUInt32(code)));
+                break;
+            }
+            case (byte) 0x48: { // i32 less than signed
+                I32_lt_s i32_lt_s = new I32_lt_s(this);
+                i32_lt_s.execute();
                 break;
             }
             case (byte) 0x6a: {
@@ -176,7 +181,7 @@ public class WasmInstance implements WasmInstanceInterface {
     }
 
     private void throwUnknownOpcodeException(byte opcode, Integer index) {
-        String message = "Wasm tried to run an opcode that was not defined. Unknown Opcode = " + Hex.byteToHex(opcode) +" (0d" + opcode +")" ;
+        String message = "Wasm tried to run an opcode that was not defined. Unknown Opcode = " + Hex.byteToHex(opcode) + " (0d" + opcode + ")";
         message += " at byte number = " + index + ". ";
         String possibleSolutions = "Verify the wasm file is valid.  Recompile Wasm File.  Contact support.";
         throw new WasmRuntimeException(UUID.fromString("6b5700ee-9642-4544-8850-22794071e848"), message, possibleSolutions);

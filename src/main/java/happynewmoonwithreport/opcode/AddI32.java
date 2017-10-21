@@ -28,7 +28,7 @@ import java.util.UUID;
  * Sign-agnostic addition
  * <p>
  * <b>Note this is the same for all Binary Operations</b>
- * d<p>
+ * <p>
  * t.binop
  * <ol>
  * <li>
@@ -55,7 +55,7 @@ import java.util.UUID;
  * https://webassembly.github.io/spec/exec/instructions.html#numeric-instructions  t.binop
  * </a>
  */
-public class AddI32 {
+public class AddI32<ParameterType, ReturnType> {
     private WasmInstanceInterface instance;
 
     private AddI32() {
@@ -73,15 +73,16 @@ public class AddI32 {
     public void execute() {
         WasmStack<Object> stack = instance.stack();
         if ((stack.peek() instanceof Int32) == false) {
-            throw new WasmRuntimeException(UUID.fromString("22500212-e077-4507-a27a-3a08039da2b7"),
-                    "addI32: Value1 type is incorrect");
-        }
-        Int32 value1 = (Int32) stack.pop();
-        if ((stack.peek() instanceof Int32) == false) {
             throw new WasmRuntimeException(UUID.fromString("59c20edb-690b-4260-b5cf-704cd509ac07"),
                     "addI32: Value2 type is incorrect");
         }
         Int32 value2 = (Int32) stack.pop();
+
+        if ((stack.peek() instanceof Int32) == false) {
+            throw new WasmRuntimeException(UUID.fromString("22500212-e077-4507-a27a-3a08039da2b7"),
+                    "addI32: Value1 type is incorrect");
+        }
+        Int32 value1 = (Int32) stack.pop();
 
         Int32 result = new Int32(value1.integerValue() + value2.integerValue());
 
