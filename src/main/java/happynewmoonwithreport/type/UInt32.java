@@ -95,11 +95,22 @@ public class UInt32 extends UInt<Long> {
     /**
      * Return a signed Int32.
      *
-     * @return
+     * @return a signed Int32.
      */
     public Int32 signed() {
         return new Int32(value.intValue());
     }
+
+    /**
+     * Return a unsigned UInt32.
+     *
+     * @return a unsigned UInt32 value.
+     */
+    public UInt32 unsigned() {
+        // UInt32 is unsigned so return self/this.
+        return this;
+    }
+
 
 	/* Override DataTypeNumber */
 

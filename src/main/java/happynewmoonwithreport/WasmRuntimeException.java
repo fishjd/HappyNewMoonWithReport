@@ -60,6 +60,10 @@ public class WasmRuntimeException extends RuntimeException {
         return result;
     }
 
+    public UUID getUuid() {
+        return uuid;
+    }
+
     @Override
     public String toString() {
         final StringBuffer sb = new StringBuffer("WasmRuntimeException{");
