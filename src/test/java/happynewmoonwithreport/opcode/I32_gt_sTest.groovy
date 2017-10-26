@@ -48,13 +48,13 @@ class I32_gt_sTest extends Specification {
 
 
         where: ""
-        val2        | val1        || expected
-        3           | 4           || 1
-        4           | 3           || 0
+        val1        | val2        || expected
+        4           | 3           || 1
+        3           | 4           || 0
         4           | 4           || 0
         0           | 0           || 0
         0xFFFF_FFFF | 0xFFFF_FFFF || 0
-        0xFFFF_FFFE | 0xFFFF_FFFF || 1
+        0xFFFF_FFFF | 0xFFFF_FFFE || 1
     }
 
     def "Execute AddI32 throw exception on incorrect Type on second param "() {
