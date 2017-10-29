@@ -179,6 +179,31 @@ public class WasmInstance implements WasmInstanceInterface {
 				i32_gt_s.execute();
 				break;
 			}
+			case (byte) 0x4B: { // i32 greater than unsigned
+				I32_gt_u i32_gt_u = new I32_gt_u(this);
+				i32_gt_u.execute();
+				break;
+			}
+			case (byte) 0x4C: { // i32 less than or equal to signed
+				I32_le_s i32_le_s = new I32_le_s(this);
+				i32_le_s.execute();
+				break;
+			}
+			case (byte) 0x4D: { // i32 less than or equal to unsigned
+				I32_le_u i32_le_u = new I32_le_u(this);
+				i32_le_u.execute();
+				break;
+			}
+			case (byte) 0x4E: { // i32 greater than or equal to signed
+				I32_ge_s i32_ge_s = new I32_ge_s(this);
+				i32_ge_s.execute();
+				break;
+			}
+			case (byte) 0x4F: { // i32 greater than or equal to unsigned
+				I32_ge_u i32_ge_u = new I32_ge_u(this);
+				i32_ge_u.execute();
+				break;
+			}
             case (byte) 0x6A: {
                 AddI32 addI32 = new AddI32(this);
                 addI32.execute();
