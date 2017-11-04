@@ -19,7 +19,7 @@ package happynewmoonwithreport.type;
 /**
  * An unsigned integer of 64 bits.
  */
-public class UInt64 extends U32<Long> {
+public class UInt64<Long> extends U64<Long> {
 
     public UInt64() {
         super();

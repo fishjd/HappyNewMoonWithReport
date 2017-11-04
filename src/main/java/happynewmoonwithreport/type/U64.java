@@ -16,47 +16,42 @@
  */
 package happynewmoonwithreport.type;
 
-import happynewmoonwithreport.ValueType;
-
 /**
- * An signed integer of 32 bits,
+ * An signed integer of 64 bits,
  */
-public class S32<ValueType extends Number> extends I32<ValueType> {
-
-    protected ValueType value;
-
-    public S32() {
+public class U64<ValueType extends Number> extends I64<ValueType> {
+    public U64() {
         super();
     }
 
-    public S32(Integer value) {
+    public U64(Integer value) {
         this();
+        this.value = value.longValue();
+    }
+
+    public U64(DataTypeNumber number) {
+        this.value = number.longValue();
+    }
+
+    public U64(Long value) {
         this.value = value;
     }
 
-    public S32(DataTypeNumber number) {
-        this.value = number.integerValue();
-    }
-
-	/* private functions **/
-
-	/* Override DataTypeNumber */
-
     @Override
     public Integer maxBits() {
-        return 32;
+        return 32;  // TODO change to 64.
     }
 
     @Override
-    public Integer minValue() {
-        Integer minValue = -1 * (1 << (maxBits() - 1));
+    public Long minValue() {
+        Long minValue = -1L * (1L << (maxBits() - 1L));
         return minValue;
 
     }
 
     @Override
-    public Integer maxValue() {
-        Integer maxValue = (1 << (maxBits() - 1)) - 1;
+    public Long maxValue() {
+        Long maxValue = (1L << (maxBits() - 1L)) - 1L;
         return maxValue;
     }
 
@@ -64,7 +59,7 @@ public class S32<ValueType extends Number> extends I32<ValueType> {
     /* override of Object **/
     @Override
     public String toString() {
-        return "Int32{" +
+        return "Int64{" +
                 "value=" + value +
                 "} ";
     }

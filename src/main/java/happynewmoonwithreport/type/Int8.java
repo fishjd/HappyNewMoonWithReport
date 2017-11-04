@@ -24,7 +24,7 @@ package happynewmoonwithreport.type;
  * http://webassembly.org/docs/binary-encoding/#uintn
  * </a>
  */
-public class Int8 extends Int<Byte> {
+public class Int8 extends S32<Byte> {
 
 
     public Int8(Byte value) {

@@ -33,24 +33,24 @@ public class VarInt64Test {
     public void tearDown() throws Exception {
     }
 
-    Int64 varInt64;
+    S64 varS64;
 
     @Test
     public void maxBits() throws Exception {
-        varInt64 = new VarInt64(0);
-        assertEquals(new Integer(64), varInt64.maxBits());
+        varS64 = new VarInt64(0);
+        assertEquals(new Integer(64), varS64.maxBits());
     }
 
     @Test
     public void minValue() throws Exception {
-        varInt64 = new VarInt64(0);
-        assertEquals(new Long(-9_223_372_036_854_775_808L), varInt64.minValue());
+        varS64 = new VarInt64(0);
+        assertEquals(new Long(-9_223_372_036_854_775_808L), varS64.minValue());
     }
 
     @Test
     public void maxValue() throws Exception {
-        varInt64 = new VarInt64(0);
-        assertEquals(new Long(9_223_372_036_854_775_807L), varInt64.maxValue());
+        varS64 = new VarInt64(0);
+        assertEquals(new Long(9_223_372_036_854_775_807L), varS64.maxValue());
     }
 
     @Test

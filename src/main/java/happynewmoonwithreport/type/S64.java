@@ -19,21 +19,21 @@ package happynewmoonwithreport.type;
 /**
  * An signed integer of 64 bits,
  */
-public class Int64 extends Int<Long> {
-    public Int64() {
+public class S64 <ValueType extends Number> extends I64<ValueType> {
+    public S64() {
         super();
     }
 
-    public Int64(Integer value) {
+    public S64(Integer value) {
         this();
         this.value = value.longValue();
     }
 
-    public Int64(DataTypeNumber number) {
+    public S64(DataTypeNumber number) {
         this.value = number.longValue();
     }
 
-    public Int64(Long value) {
+    public S64(Long value) {
         this.value = value;
     }
 

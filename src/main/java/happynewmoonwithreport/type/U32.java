@@ -26,7 +26,7 @@ package happynewmoonwithreport.type;
  *
  * @param <ValueType> a type that extends Number. An Integer type ex:  Long, Integer, Short, Byte.
  */
-public abstract class U32<Long> extends I32<Number> {
+public abstract class U32<ValueType extends Number> extends I32<ValueType> {
     //
 //    /**
 //     * The value of the number

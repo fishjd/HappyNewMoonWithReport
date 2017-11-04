@@ -19,7 +19,7 @@ package happynewmoonwithreport.opcode
 import happynewmoonwithreport.WasmInstanceInterface
 import happynewmoonwithreport.WasmRuntimeException
 import happynewmoonwithreport.type.S32
-import happynewmoonwithreport.type.Int64
+import happynewmoonwithreport.type.S64
 import spock.lang.Specification
 
 /**
@@ -60,7 +60,7 @@ class AddI32Test extends Specification {
         setup: " a value of int64  of 3  and a value of int32 of 4"
         WasmInstanceInterface instance = new WasmInstanceStub();
         instance.stack().push(new S32(4));
-        instance.stack().push(new Int64(3));
+        instance.stack().push(new S64(3));
 
         AddI32 function = new AddI32(instance);
 
@@ -75,7 +75,7 @@ class AddI32Test extends Specification {
     def "Execute AddI32 throw exception on incorrect Type on first param "() {
         setup: " a value of int32  of 3  and a value of int64 of 4"
         WasmInstanceInterface instance = new WasmInstanceStub();
-        instance.stack().push(new Int64(4));
+        instance.stack().push(new S64(4));
         instance.stack().push(new S32(3));
 
         AddI32 function = new AddI32(instance);
