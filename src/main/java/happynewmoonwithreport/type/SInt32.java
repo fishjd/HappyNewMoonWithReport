@@ -18,16 +18,18 @@ package happynewmoonwithreport.type;
 
 /**
  * An signed integer of 8 bits
- *
+ * <p>
  * <p>
  * Source:  <a href="http://webassembly.org/docs/binary-encoding/#uintn" target="_top">
  * http://webassembly.org/docs/binary-encoding/#uintn
  * </a>
  */
-public class Int8 extends S32<Byte> {
+public class SInt32 extends S32<Integer> {
 
+    protected SInt32() {
+    }
 
-    public Int8(Byte value) {
+    public SInt32(Integer value) {
         this.value = value;
     }
 
@@ -37,21 +39,23 @@ public class Int8 extends S32<Byte> {
 
     @Override
     public Integer maxBits() {
-        return 8;
+        return 3;
     }
 
     @Override
-    public Byte minValue() {
-        Integer minValue = (int) Math.pow(-2, maxBits() - 1);
-        return minValue.byteValue();
-
+    public Long minValue() {
+        return -1L * pow2(maxBits() - 1);
     }
 
     @Override
-    public Byte maxValue() {
-        Integer maxValue = (int) Math.pow(2, maxBits() - 1) - 1;
-        return maxValue.byteValue();
+    public Long maxValue() {
+        return pow2(maxBits() - 1) - 1;
     }
+
+    public Long pow2(Integer exponent) {
+        return (1L << exponent);
+    }
+
 
     /* override of Object **/
     @Override

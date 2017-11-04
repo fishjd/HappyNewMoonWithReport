@@ -59,53 +59,53 @@ public abstract class U32<ValueType extends Number> extends I32<ValueType> {
     // }
     //
 
-    public Boolean isTrue() {
-        return value.intValue() != 0;
-    }
+//    public Boolean isTrue() {
+//        return value.intValue() != 0;
+//    }
+//
+//    public Boolean booleanValue() {
+//        return value.intValue() != 0;
+//    }
+//
+//    @Override
+//    public byte byteValue() {
+//        return value.byteValue();
+//    }
+//
+//    @Override
+//    public Integer integerValue() {
+//        return value.intValue();
+//    }
+//
+//    @Override
+//    public Long longValue() {
+//        return value.longValue();
+//    }
 
-    public Boolean booleanValue() {
-        return value.intValue() != 0;
-    }
-
-    @Override
-    public byte byteValue() {
-        return value.byteValue();
-    }
-
-    @Override
-    public Integer integerValue() {
-        return value.intValue();
-    }
-
-    @Override
-    public Long longValue() {
-        return value.longValue();
-    }
-
-    /**
-     * Does the <code>value</code> lay between Integer.minValue and Integer.maxValue.  i.e
-     * <code>Integer.minValue &lt;= value &lt;= Integer.maxValue;</code>
-     **/
-    @Override
-    public Boolean isBoundByInteger() {
-        return (Integer.MIN_VALUE <= value.longValue() && value.longValue() <= Integer.MAX_VALUE);
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((value == null) ? 0 : value.hashCode());
-        return result;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof U32)) return false;
-
-        U32<?> uInt = (U32<?>) o;
-
-        return value.equals(uInt.value);
-    }
+//    /**
+//     * Does the <code>value</code> lay between Integer.minValue and Integer.maxValue.  i.e
+//     * <code>Integer.minValue &lt;= value &lt;= Integer.maxValue;</code>
+//     **/
+//    @Override
+//    public Boolean isBoundByInteger() {
+//        return (Integer.MIN_VALUE <= value.longValue() && value.longValue() <= Integer.MAX_VALUE);
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        final int prime = 31;
+//        int result = 1;
+//        result = prime * result + ((value == null) ? 0 : value.hashCode());
+//        return result;
+//    }
+//
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (!(o instanceof U32)) return false;
+//
+//        U32<?> uInt = (U32<?>) o;
+//
+//        return value.equals(uInt.value);
+//    }
 }

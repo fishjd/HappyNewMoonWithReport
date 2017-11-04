@@ -16,37 +16,28 @@
  */
 package happynewmoonwithreport.type;
 
-import happynewmoonwithreport.BytesFile;
-
 import static happynewmoonwithreport.type.utility.MathWBS.pow2;
 
 /**
- * An unsigned integer of 8 bits, represented in N/8 bytes in little endian
- * order. N is either 8, 16, or 32.
+ * An signed integer of 8 bits
+ * <p>
+ * <p>
+ * Source:  <a href="http://webassembly.org/docs/binary-encoding/#uintn" target="_top">
+ * http://webassembly.org/docs/binary-encoding/#uintn
+ * </a>
  */
-public class UInt8 extends U32<Byte> {  // TODO change to Short
-    public UInt8() {
+public class SInt8 extends S32<Byte> {
 
+    protected SInt8() {
     }
 
-    public UInt8(BytesFile bytesFile) {
-        assert (bytesFile.longEnough(minBytes()));
-        value = convert(bytesFile).byteValue();
+    public SInt8(Byte value) {
+        this.value = value;
     }
 
-    public UInt8(Integer value) {
+    public SInt8(Integer value) {
         this.value = value.byteValue();
     }
-
-    public Integer convert(BytesFile bytesFile) {
-        Integer result = 0;
-        // little Endian!
-        for (Integer i = 0; i < maxBits(); i = i + 8) {
-            result += Byte.toUnsignedInt(bytesFile.readByte()) << i;
-        }
-        return result;
-    }
-
 
 	/* private functions **/
 
@@ -57,20 +48,22 @@ public class UInt8 extends U32<Byte> {  // TODO change to Short
         return 8;
     }
 
+
     @Override
     public Long minValue() {
-        return 0L;
+        return -1L * pow2(maxBits() - 1);
     }
 
     @Override
     public Long maxValue() {
-        return pow2(maxBits());
+        return pow2(maxBits() - 1) - 1;
     }
+
 
     /* override of Object **/
     @Override
     public String toString() {
-        return "UInt8{" +
+        return "Int8{" +
                 "value=" + value +
                 "} ";
     }

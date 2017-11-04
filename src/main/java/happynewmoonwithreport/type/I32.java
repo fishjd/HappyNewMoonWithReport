@@ -23,6 +23,8 @@ package happynewmoonwithreport.type;
  */
 public abstract class I32<ValueType extends Number> extends Int<ValueType> {
 
+
+
 //    /**
 //     * The value of the number
 //     */

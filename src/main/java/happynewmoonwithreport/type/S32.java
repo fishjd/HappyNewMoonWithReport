@@ -16,56 +16,44 @@
  */
 package happynewmoonwithreport.type;
 
-import happynewmoonwithreport.ValueType;
-
 /**
  * An signed integer of 32 bits,
  */
-public class S32<ValueType extends Number> extends I32<ValueType> {
+public abstract  class S32<ValueType extends Number> extends I32<ValueType> {
 
     protected ValueType value;
 
     public S32() {
         super();
     }
-
-    public S32(Integer value) {
-        this();
-        this.value = value;
-    }
-
-    public S32(DataTypeNumber number) {
-        this.value = number.integerValue();
-    }
-
-	/* private functions **/
+  	/* private functions **/
 
 	/* Override DataTypeNumber */
 
-    @Override
-    public Integer maxBits() {
-        return 32;
-    }
-
-    @Override
-    public Integer minValue() {
-        Integer minValue = -1 * (1 << (maxBits() - 1));
-        return minValue;
-
-    }
-
-    @Override
-    public Integer maxValue() {
-        Integer maxValue = (1 << (maxBits() - 1)) - 1;
-        return maxValue;
-    }
-
-
-    /* override of Object **/
-    @Override
-    public String toString() {
-        return "Int32{" +
-                "value=" + value +
-                "} ";
-    }
+//    @Override
+//    public Integer maxBits() {
+//        return 32;
+//    }
+//
+//    @Override
+//    public Long minValue() {
+//        Long minValue = -1L * (1L << (maxBits() - 1L));
+//        return minValue;
+//
+//    }
+//
+//    @Override
+//    public Long maxValue() {
+//        Long maxValue = (1L << (maxBits() - 1L)) - 1L;
+//        return maxValue;
+//    }
+//
+//
+//    /* override of Object **/
+//    @Override
+//    public String toString() {
+//        return "Int32{" +
+//                "value=" + value +
+//                "} ";
+//    }
 }

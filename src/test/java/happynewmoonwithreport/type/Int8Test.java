@@ -23,7 +23,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 public class Int8Test {
-    Int8 int8;
+    private SInt8 SInt8;
 
     @Before
     public void setUp() throws Exception {
@@ -36,20 +36,20 @@ public class Int8Test {
 
     @Test
     public void maxBits() throws Exception {
-        int8 = new Int8((byte) 0);
-        assertEquals(new Integer(8), int8.maxBits());
+        SInt8 = new SInt8((byte) 0);
+        assertEquals(new Integer(8), SInt8.maxBits());
     }
 
     @Test
     public void minValue() throws Exception {
-        int8 = new Int8((byte) 0);
-        assertEquals(new Byte((byte) -128), int8.minValue());
+        SInt8 = new SInt8((byte) 0);
+        assertEquals(new Byte((byte) -128), SInt8.minValue());
     }
 
     @Test
     public void maxValue() throws Exception {
-        int8 = new Int8((byte) 0);
-        assertEquals(new Byte((byte) 127), int8.maxValue());
+        SInt8 = new SInt8((byte) 0);
+        assertEquals(new Byte((byte) 127), SInt8.maxValue());
     }
 
 }

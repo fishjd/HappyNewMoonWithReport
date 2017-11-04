@@ -18,6 +18,8 @@ package happynewmoonwithreport.type;
 
 import happynewmoonwithreport.BytesFile;
 
+import static happynewmoonwithreport.type.utility.MathWBS.pow2;
+
 /**
  * An unsigned integer of 16 bits. .
  */
@@ -56,14 +58,15 @@ public class UInt16 extends U32<Integer> {
     }
 
     @Override
-    public Integer minValue() {
-        return 0;
+    public Long minValue() {
+        return 0L;
     }
 
     @Override
-    public Integer maxValue() {
-        return 1 << maxBits();
+    public Long maxValue() {
+        return pow2(maxBits());
     }
+
 
 	/* override of Object **/
 

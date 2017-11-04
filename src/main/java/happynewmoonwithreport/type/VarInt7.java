@@ -38,7 +38,7 @@ import happynewmoonwithreport.BytesFile;
  * http://webassembly.org/docs/binary-encoding/#varintn
  * </a>
  */
-public final class VarInt7 extends S32<Integer> {
+public final class VarInt7 extends SInt8 {
 
     @SuppressWarnings("unused")
     private VarInt7() {
@@ -47,7 +47,7 @@ public final class VarInt7 extends S32<Integer> {
 
     public VarInt7(BytesFile bytesFile) {
         assert (bytesFile.longEnough(minBytes()));
-        value = convert(bytesFile);
+        value = convert(bytesFile).byteValue();
     }
 
     /**
@@ -56,7 +56,7 @@ public final class VarInt7 extends S32<Integer> {
      * @param value value
      */
     public VarInt7(Long value) {
-        this.value = value.intValue();
+        this.value = value.byteValue();
         // set to default value.
     }
 
@@ -66,8 +66,7 @@ public final class VarInt7 extends S32<Integer> {
      * @param value value
      */
     public VarInt7(Integer value) {
-        this.value = value.intValue();
-        // set to default value.
+        this.value = value.byteValue();
     }
 
     /**
@@ -76,7 +75,7 @@ public final class VarInt7 extends S32<Integer> {
      * @param value value
      */
     public VarInt7(Byte value) {
-        this.value = value.intValue();
+        this.value = value;
     }
 
     @Override
@@ -98,7 +97,7 @@ public final class VarInt7 extends S32<Integer> {
 
         do {
             cur = bytesFile.readByte() & 0xff;
-            result |= ((int) (cur & 0x7f)) << (count * 7);
+            result |= ((cur & 0x7f)) << (count * 7);
             signBits <<= 7;
             count++;
         } while (((cur & 0x80) != 0) && count < maxBytes());
@@ -118,7 +117,7 @@ public final class VarInt7 extends S32<Integer> {
      */
     public ByteOutput convert() {
         ByteOutput out = new ByteArrayByteOutput(maxBytes());
-        Integer remaining = value >> 7;
+        Byte remaining = value >> 7;
         boolean hasMore = true;
         int end = ((value & Long.MIN_VALUE) == 0) ? 0 : -1;
 
@@ -132,17 +131,18 @@ public final class VarInt7 extends S32<Integer> {
         return out;
     }
 
+    @Override
     public Integer maxBits() {
         return 7;
     }
 
-    public Integer minValue() {
-        return -1 * (1 << (maxBits() - 1));
-    }
-
-    public Integer maxValue() {
-        return (1 << (maxBits() - 1)) - 1;
-    }
+//    public Integer minValue() {
+//        return -1 * (1 << (maxBits() - 1));
+//    }
+//
+//    public Integer maxValue() {
+//        return (1 << (maxBits() - 1)) - 1;
+//    }
 
 
     @Override

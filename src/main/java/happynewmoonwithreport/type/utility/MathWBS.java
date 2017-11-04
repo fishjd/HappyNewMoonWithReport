@@ -14,14 +14,16 @@
  *  limitations under the License.
  *
  */
-package happynewmoonwithreport.type;
+package happynewmoonwithreport.type.utility;
 
 /**
- * An signed integer of 64 bits,
+ * Created on 2017-11-04.
  */
-public abstract class S64 <ValueType extends Number> extends I64<ValueType> {
-    public S64() {
-        super();
+
+public class MathWBS {
+
+    public static Long pow2(Integer exponent) {
+        return (1L << exponent);
     }
 
 }
