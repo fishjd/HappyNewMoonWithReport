@@ -5,3 +5,9 @@
 /out
 /javadoc
 
+# Excel Temp Files
+~*.*
+
+# intellij Code Coverage Reports.
+report/
+
