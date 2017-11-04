@@ -16,44 +16,72 @@
  */
 package happynewmoonwithreport.type;
 
-import happynewmoonwithreport.BytesFile;
-
 /**
- * I32 is the WebAssembly runtime 32 bit Integer.  It can be interpreted as either signed or unsigned.
- * <p>
- * Source:  <a href="https://webassembly.github.io/spec/text/values.html#integers" target="_top">
- * https://webassembly.github.io/spec/text/values.html#integers
- * </a>
+ * Signed Integer
+ *
+ * @param
  */
-public class I32 extends UInt32 {
+public abstract class I32<ValueType extends Number> extends Int<ValueType> {
 
-    public I32() {
-        super();
-    }
+//    /**
+//     * The value of the number
+//     */
+//    protected ValueType value;
+//
+//    @Override
+//    public Integer maxBytes() {
+//        Integer maxBytes = maxBits() / 8;
+//        return maxBytes;
+//    }
+//
+//    @Override
+//    public Integer minBytes() {
+//        Integer maxBytes = maxBits() / 8;
+//        return maxBytes;
+//    }
 
-    public I32(BytesFile bytesFile) {
-        super(bytesFile);
-    }
+//    @Override
+//    public ValueType value() {
+//        return value;
+//    }
+//
+//    @Override
+//    public byte byteValue() {
+//        return value.byteValue();
+//    }
+//
+//    @Override
+//    public Integer integerValue() {
+//        return value.intValue();
+//    }
+//
+//    @Override
+//    public Long longValue() {
+//        return value.longValue();
+//    }
+//
+//    @Override
+//    public Boolean isBoundByInteger() {
+//        return (Integer.MIN_VALUE <= value.longValue() && value.longValue() <= Integer.MAX_VALUE);
+//    }
+//
 
-    public I32(byte in1, byte in2, byte in3, byte in4) {
-        super(in1, in2, in3, in4);
-    }
-
-    public I32(byte[] in) {
-        super(in);
-    }
-
-    public I32(Long value) {
-        super(value);
-    }
-
-    public I32(Integer value) {
-        super(value);
-    }
-
-    public I32(UInt uInt) {
-        this.value = uInt.value.longValue();
-    }
-
-
+//    @Override
+//    public int hashCode() {
+//        final int prime = 31;
+//        int result = 1;
+//        result = prime * result + ((value == null) ? 0 : value.hashCode());
+//        return result;
+//    }
+//
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (!(o instanceof I32)) return false;
+//        if (!super.equals(o)) return false;
+//
+//        I32 i32 = (I32) o;
+//
+//        return value.equals(i32.value);
+//    }
 }

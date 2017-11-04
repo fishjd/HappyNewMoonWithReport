@@ -41,7 +41,7 @@ import happynewmoonwithreport.BytesFile;
  * </a>
  */
 
-public final class VarUInt1 extends UInt32 {
+public final class VarUInt1 extends UInt32<Integer>  {
 
     @SuppressWarnings("unused")
     private VarUInt1() {

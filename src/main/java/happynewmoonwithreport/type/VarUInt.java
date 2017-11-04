@@ -38,7 +38,7 @@ package happynewmoonwithreport.type;
  * http://webassembly.org/docs/binary-encoding/#varuintn
  * </a>
  */
-public abstract class VarUInt<ValueType extends Number> implements DataTypeNumber<ValueType> {
+public abstract class VarUInt<ValueType extends Number> extends UInt32 {
     protected ValueType value;
 
     public VarUInt() {

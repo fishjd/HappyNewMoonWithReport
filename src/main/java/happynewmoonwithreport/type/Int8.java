@@ -18,6 +18,11 @@ package happynewmoonwithreport.type;
 
 /**
  * An signed integer of 8 bits
+ *
+ * <p>
+ * Source:  <a href="http://webassembly.org/docs/binary-encoding/#uintn" target="_top">
+ * http://webassembly.org/docs/binary-encoding/#uintn
+ * </a>
  */
 public class Int8 extends Int<Byte> {
 

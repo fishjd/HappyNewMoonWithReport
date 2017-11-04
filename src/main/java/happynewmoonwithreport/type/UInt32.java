@@ -22,7 +22,9 @@ import happynewmoonwithreport.BytesFile;
  * An unsigned integer of 32 bits.  In what ever order (big endian or little endian) Java uses.
  * Usually it is Big Endian.
  */
-public class UInt32 extends UInt<Long> {
+public abstract class UInt32 extends UInt<Long> implements DataTypeNumber<Long> {
+
+    public Long value;
 
     public UInt32() {
         super();

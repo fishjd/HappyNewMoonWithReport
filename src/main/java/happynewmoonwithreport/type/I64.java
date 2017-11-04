@@ -21,19 +21,19 @@ package happynewmoonwithreport.type;
  * <p>
  * source https://webassembly.github.io/spec/text/values.html#integers
  */
-public class I64 extends UInt64 {
+public abstract  class I64 extends Int<Long> {
 
     public I64() {
         super();
     }
 
-    public I64(Integer value) {
-        super(value);
-    }
-
-    public I64(Long value) {
-        super(value);
-    }
+//    public I64(Integer value) {
+//        super(value);
+//    }
+//
+//    public I64(Long value) {
+//        super(value);
+//    }
 
 
 }

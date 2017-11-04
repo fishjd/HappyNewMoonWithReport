@@ -16,6 +16,8 @@
  */
 package happynewmoonwithreport.type;
 
+import happynewmoonwithreport.ValueType;
+
 /**
  * An unsigned integer of N bits, represented in the *.wasm file as N/8 bytes in little endian
  * order. N is either 8, 16, or 32.  In the Java code represented by one of the integer types Byte, Integer, Long.
@@ -26,29 +28,28 @@ package happynewmoonwithreport.type;
  *
  * @param <ValueType> a type that extends Number. An Integer type ex:  Long, Integer, Short, Byte.
  */
-public abstract class UInt<ValueType extends Number> implements DataTypeNumber<ValueType> {
-
-    /**
-     * The value of the number
-     */
-    protected ValueType value;
-
-    @Override
-    public Integer maxBytes() {
-        Integer maxBytes = maxBits() / 8;
-        return maxBytes;
-    }
-
-    @Override
-    public Integer minBytes() {
-        Integer maxBytes = maxBits() / 8;
-        return maxBytes;
-    }
-
-    @Override
-    public ValueType value() {
-        return value;
-    }
+public abstract class UInt<Long> extends I32<Number> {
+    //
+//    /**
+//     * The value of the number
+//     */
+//
+//    @Override
+//    public Integer maxBytes() {
+//        Integer maxBytes = maxBits() / 8;
+//        return maxBytes;
+//    }
+//
+//    @Override
+//    public Integer minBytes() {
+//        Integer maxBytes = maxBits() / 8;
+//        return maxBytes;
+//    }
+//
+//    @Override
+//    public ValueType value() {
+//        return value;
+//    }
 
     // I don't think it is worth adding minValue() and maxValue() if the price
     // is you are required to add the Class<ValueType> as a parameter. It is

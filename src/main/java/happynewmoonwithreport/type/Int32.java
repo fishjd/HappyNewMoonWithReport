@@ -16,10 +16,15 @@
  */
 package happynewmoonwithreport.type;
 
+import happynewmoonwithreport.ValueType;
+
 /**
  * An signed integer of 32 bits,
  */
-public class Int32 extends Int<Integer> {
+public class Int32<Integer> extends I32 {
+
+    protected ValueType value;
+
     public Int32() {
         super();
     }
