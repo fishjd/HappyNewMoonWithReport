@@ -19,7 +19,7 @@ package happynewmoonwithreport.intergration;
 import happynewmoonwithreport.*;
 import happynewmoonwithreport.type.DataTypeNumber;
 import happynewmoonwithreport.type.I32;
-import happynewmoonwithreport.type.Int32;
+import happynewmoonwithreport.type.S32;
 import happynewmoonwithreport.type.WasmVector;
 import org.junit.After;
 import org.junit.Assert;
@@ -80,7 +80,7 @@ public class WasmFactorialLongTest {
 
         assertNotNull(returnAll);
         assertEquals(1, returnAll.size());
-        assertEquals(new Int32(120), returnAll.get(0));
+        assertEquals(new S32(120), returnAll.get(0));
 
 
     }

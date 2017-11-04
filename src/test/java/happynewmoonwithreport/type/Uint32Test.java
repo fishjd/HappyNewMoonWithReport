@@ -157,22 +157,22 @@ public class Uint32Test {
     @Test
     public void testSigned() {
         UInt32 zero = new UInt32(0x00);
-        assertEquals(new Int32(0x00), zero.signed());
+        assertEquals(new S32(0x00), zero.signed());
 
         UInt32 one = new UInt32(0x01);
-        assertEquals(new Int32(0x01), one.signed());
+        assertEquals(new S32(0x01), one.signed());
 
         UInt32 neg_one = new UInt32(0xFFFF_FFFFL);
         assertEquals(new Long(4_294_967_295L), neg_one.longValue());
-        assertEquals(new Int32(-1), neg_one.signed());
+        assertEquals(new S32(-1), neg_one.signed());
 
         UInt32 neg_two = new UInt32(0xFFFF_FFFEL);
         assertEquals(new Long(4_294_967_294L), neg_two.longValue());
-        assertEquals(new Int32(-2), neg_two.signed());
+        assertEquals(new S32(-2), neg_two.signed());
 
         UInt32 neg_three = new UInt32(0xFFFF_FFFDL);
         assertEquals(new Long(4_294_967_293L), neg_three.longValue());
-        assertEquals(new Int32(-3), neg_three.signed());
+        assertEquals(new S32(-3), neg_three.signed());
     }
 
 }

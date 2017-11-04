@@ -16,7 +16,7 @@
  */
 package happynewmoonwithreport;
 
-import happynewmoonwithreport.type.Int32;
+import happynewmoonwithreport.type.S32;
 import happynewmoonwithreport.type.UInt32;
 import org.junit.After;
 import org.junit.Before;
@@ -69,14 +69,14 @@ public class MemoryTest {
         memory.set(index, expectedValue);
 
         // run
-        final Int32 previousSize = memory.grow(new UInt32(3));
+        final S32 previousSize = memory.grow(new UInt32(3));
 
         // get
         byte actual = memory.get(index);
 
 
         //verify
-        assertEquals(new Int32(1), previousSize);
+        assertEquals(new S32(1), previousSize);
         assertEquals(expectedValue, actual);
 
     }

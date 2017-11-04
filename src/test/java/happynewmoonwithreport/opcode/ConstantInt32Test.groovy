@@ -18,7 +18,7 @@ package happynewmoonwithreport.opcode
 
 import happynewmoonwithreport.WasmInstanceInterface
 import happynewmoonwithreport.type.I32
-import happynewmoonwithreport.type.Int32
+import happynewmoonwithreport.type.S32
 import spock.lang.Specification
 
 /**
@@ -46,12 +46,12 @@ class ConstantInt32Test extends Specification {
         new I32(expected) == instance.stack().pop();
 
         where: ""
-        val1                    || expected
-        3                       || 3
-        4                       || 4
-        0x7FFF_FFFE             || 0x7FFF_FFFE
-        0x7FFF_FFFF             || new Int32(0).maxValue()
-        new Int32(0).minValue() || new Int32(0).minValue()
+        val1                  || expected
+        3                     || 3
+        4                     || 4
+        0x7FFF_FFFE           || 0x7FFF_FFFE
+        0x7FFF_FFFF           || new S32(0).maxValue()
+        new S32(0).minValue() || new S32(0).minValue()
     }
 
 }

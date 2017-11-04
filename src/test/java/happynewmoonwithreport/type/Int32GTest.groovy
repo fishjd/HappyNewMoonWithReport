@@ -17,10 +17,10 @@
 package happynewmoonwithreport.type
 
 class Int32GTest extends spock.lang.Specification {
-    Int32 int32
+    S32 int32
 
     void setup() {
-        int32 = new Int32(0)
+        int32 = new S32(0)
     }
 
     void cleanup() {

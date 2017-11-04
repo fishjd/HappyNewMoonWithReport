@@ -21,7 +21,7 @@ import happynewmoonwithreport.BytesFile;
 /**
  * An unsigned integer of 16 bits. .
  */
-public class UInt16 extends UInt<Integer> {
+public class UInt16 extends U32<Integer> {
 
     public UInt16(BytesFile bytesFile) {
         assert (bytesFile.longEnough(minBytes()));

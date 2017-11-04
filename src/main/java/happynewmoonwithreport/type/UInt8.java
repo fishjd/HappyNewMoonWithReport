@@ -22,7 +22,7 @@ import happynewmoonwithreport.BytesFile;
  * An unsigned integer of 8 bits, represented in N/8 bytes in little endian
  * order. N is either 8, 16, or 32.
  */
-public class UInt8 extends UInt<Integer> {  // TODO change to Short
+public class UInt8 extends U32<Integer> {  // TODO change to Short
 
     public UInt8(BytesFile bytesFile) {
         assert (bytesFile.longEnough(minBytes()));

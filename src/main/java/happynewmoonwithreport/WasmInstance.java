@@ -109,7 +109,7 @@ public class WasmInstance implements WasmInstanceInterface {
         // TODO verify paramAll with LocalEntryAll
 
         for (Integer i = 0; i < wasmFunction.getLocalEntryAll().size(); i++) {
-            currentFrame.localAll().add(new Int32(0));
+            currentFrame.localAll().add(new S32(0));
         }
 
         BytesFile code = new BytesFile(wasmFunction.getCode());

@@ -16,8 +16,6 @@
  */
 package happynewmoonwithreport.type;
 
-import happynewmoonwithreport.ValueType;
-
 /**
  * An unsigned integer of N bits, represented in the *.wasm file as N/8 bytes in little endian
  * order. N is either 8, 16, or 32.  In the Java code represented by one of the integer types Byte, Integer, Long.
@@ -28,7 +26,7 @@ import happynewmoonwithreport.ValueType;
  *
  * @param <ValueType> a type that extends Number. An Integer type ex:  Long, Integer, Short, Byte.
  */
-public abstract class UInt<Long> extends I32<Number> {
+public abstract class U32<Long> extends I32<Number> {
     //
 //    /**
 //     * The value of the number
@@ -104,9 +102,9 @@ public abstract class UInt<Long> extends I32<Number> {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof UInt)) return false;
+        if (!(o instanceof U32)) return false;
 
-        UInt<?> uInt = (UInt<?>) o;
+        U32<?> uInt = (U32<?>) o;
 
         return value.equals(uInt.value);
     }

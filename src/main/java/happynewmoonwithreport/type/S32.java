@@ -21,20 +21,20 @@ import happynewmoonwithreport.ValueType;
 /**
  * An signed integer of 32 bits,
  */
-public class Int32<Integer> extends I32 {
+public class S32<Integer> extends I32 {
 
     protected ValueType value;
 
-    public Int32() {
+    public S32() {
         super();
     }
 
-    public Int32(Integer value) {
+    public S32(Integer value) {
         this();
         this.value = value;
     }
 
-    public Int32(DataTypeNumber number) {
+    public S32(DataTypeNumber number) {
         this.value = number.integerValue();
     }
 

@@ -23,7 +23,7 @@ import happynewmoonwithreport.WasmInstanceInterface;
 import happynewmoonwithreport.WasmRuntimeException;
 import happynewmoonwithreport.WasmStack;
 import happynewmoonwithreport.type.I32;
-import happynewmoonwithreport.type.Int32;
+import happynewmoonwithreport.type.S32;
 
 /**
  * I32 Greater than or equal to Signed  (i32_ge_s)
@@ -86,8 +86,8 @@ public class I32_ge_s {
         I32 value1 = (I32) stack.pop();
 
         // these values are signed (positive/negative) values and thus we use Int32
-        Int32 value2Signed = value2.signed();
-        Int32 value1Signed = value1.signed();
+        S32 value2Signed = value2.signed();
+        S32 value1Signed = value1.signed();
         Integer iResult;
         if (value1Signed.value() >= value2Signed.value()) {
             iResult = 1;
