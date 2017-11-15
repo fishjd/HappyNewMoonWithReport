@@ -54,11 +54,6 @@ import java.util.UUID;
  * Source:  <a href="https://webassembly.github.io/spec/exec/instructions.html#exec-relop" target="_top">
  * https://webassembly.github.io/spec/exec/instructions.html#exec-relop
  * </a>
- * <p>
- * Source:  <a href="https://webassembly.github.io/spec/exec/numerics.html#op-ilt-u" target="_top">
- * https://webassembly.github.io/spec/exec/numerics.html#op-ilt-u
- * </a>
- * </p>
  */
 public class I32_lt_u {
     private WasmInstanceInterface instance;

@@ -54,7 +54,6 @@ import happynewmoonwithreport.type.UInt32;
  * Source:  <a href="https://webassembly.github.io/spec/exec/instructions.html#exec-relop" target="_top">
  * https://webassembly.github.io/spec/exec/instructions.html#exec-relop
  * </a>
- * </p>
  */
 public class I32_ge_u {
     private WasmInstanceInterface instance;
