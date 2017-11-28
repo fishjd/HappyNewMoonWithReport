@@ -18,19 +18,27 @@ package happynewmoonwithreport.type;
 
 import happynewmoonwithreport.BytesFile;
 
+import static happynewmoonwithreport.type.utility.MathWBS.pow2;
+
 /**
  * An unsigned integer of 8 bits, represented in N/8 bytes in little endian
  * order. N is either 8, 16, or 32.
  */
-public class UInt8 extends UInt<Integer> {  // TODO change to Short
+public class UInt8 extends U32 {  // TODO change to Short
+
+    // protected Byte value;
+
+    public UInt8() {
+
+    }
 
     public UInt8(BytesFile bytesFile) {
         assert (bytesFile.longEnough(minBytes()));
-        value = convert(bytesFile);
+        value = convert(bytesFile).longValue();
     }
 
     public UInt8(Integer value) {
-        this.value = value;
+        this.value = value.longValue();
     }
 
     public Integer convert(BytesFile bytesFile) {
@@ -53,13 +61,13 @@ public class UInt8 extends UInt<Integer> {  // TODO change to Short
     }
 
     @Override
-    public Integer minValue() {
-        return 0;
+    public Long minValue() {
+        return 0L;
     }
 
     @Override
-    public Integer maxValue() {
-        return 1 << maxBits();
+    public Long maxValue() {
+        return pow2(maxBits());
     }
 
     /* override of Object **/

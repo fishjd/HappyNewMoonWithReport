@@ -109,7 +109,7 @@ public class WasmInstance implements WasmInstanceInterface {
         // TODO verify paramAll with LocalEntryAll
 
         for (Integer i = 0; i < wasmFunction.getLocalEntryAll().size(); i++) {
-            currentFrame.localAll().add(new Int32(0));
+            currentFrame.localAll().add(new S32(0));
         }
 
         BytesFile code = new BytesFile(wasmFunction.getCode());
@@ -148,12 +148,12 @@ public class WasmInstance implements WasmInstanceInterface {
             }
             case (byte) 0x20: {
                 GetLocal getLocal = new GetLocal(currentFrame);
-                getLocal.execute(new I32(new VarUInt32(code)));
+                getLocal.execute(new VarUInt32(code));
                 break;
             }
             case (byte) 0x21: {
                 SetLocal setLocal = new SetLocal(currentFrame);
-                setLocal.execute(new I32( new VarUInt32(code)));
+                setLocal.execute( new VarUInt32(code));
                 break;
             }
             case (byte) 0x40: {
@@ -161,7 +161,7 @@ public class WasmInstance implements WasmInstanceInterface {
             }
             case (byte) 0x41: {  // i32.const i32
                 ConstantInt32 constantInt32 = new ConstantInt32(this);
-                constantInt32.execute(new I32(new VarUInt32(code)));
+                constantInt32.execute(new VarUInt32(code));
                 break;
             }
             case (byte) 0x48: { // i32 less than signed
@@ -233,6 +233,7 @@ public class WasmInstance implements WasmInstanceInterface {
         return localAll;
     }
 
+    @Override
     public BytesFile getCode() {
         return code;
     }

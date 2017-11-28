@@ -14,31 +14,16 @@
  *  limitations under the License.
  *
  */
-package happynewmoonwithreport.type;
+package happynewmoonwithreport.type.utility;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+/**
+ * Created on 2017-11-04.
+ */
 
-import static org.junit.Assert.assertEquals;
+public class MathWBS {
 
-public class VarUInt7LoopTest {
-
-    @Before
-    public void setUp() throws Exception {
-    }
-
-    @After
-    public void tearDown() throws Exception {
-    }
-
-    @Test
-    public void testReadUnsigned() throws Exception {
-        for (Integer i = 0; i < 128; i++) {
-            VarUInt7 leb7 = new VarUInt7(new Integer(i).byteValue());
-            Integer result = leb7.integerValue();
-            assertEquals("i = " + i.toString(), i, result);
-        }
+    public static Long pow2(Integer exponent) {
+        return (1L << exponent);
     }
 
 }

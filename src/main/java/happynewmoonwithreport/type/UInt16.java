@@ -18,22 +18,29 @@ package happynewmoonwithreport.type;
 
 import happynewmoonwithreport.BytesFile;
 
+import static happynewmoonwithreport.type.utility.MathWBS.pow2;
+
 /**
  * An unsigned integer of 16 bits. .
  */
-public class UInt16 extends UInt<Integer> {
+public class UInt16 extends U32 {
+    // protected Integer value;
 
     public UInt16(BytesFile bytesFile) {
         assert (bytesFile.longEnough(minBytes()));
-        value = convert(bytesFile);
+        value = convert(bytesFile).longValue();
     }
 
     public UInt16(Integer value) {
-        this.value = value;
+        this.value = value.longValue();
     }
 
     public UInt16(DataTypeNumber number) {
-        this.value = number.integerValue();
+        this.value = number.longValue();
+    }
+
+    public UInt16(U32 input) {
+        value = input.longValue();
     }
 
     public Integer convert(BytesFile bytesFile) {
@@ -56,14 +63,15 @@ public class UInt16 extends UInt<Integer> {
     }
 
     @Override
-    public Integer minValue() {
-        return 0;
+    public Long minValue() {
+        return 0L;
     }
 
     @Override
-    public Integer maxValue() {
-        return 1 << maxBits();
+    public Long maxValue() {
+        return pow2(maxBits());
     }
+
 
 	/* override of Object **/
 

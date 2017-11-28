@@ -30,8 +30,8 @@ import static org.junit.Assert.assertEquals;
 
 public class VarInt7LoopTest {
 
-    Map<Integer, byte[]> problemChildren;
-    Random random;
+    private Map<Integer, byte[]> problemChildren;
+    private Random random;
 
     @Before
     public void setUp() throws Exception {
@@ -59,7 +59,7 @@ public class VarInt7LoopTest {
         for (Entry<Integer, byte[]> child : problemChildren.entrySet()) {
             BytesFile bytesFile = new BytesFile(child.getValue());
             VarInt32 varInt32 = new VarInt32(bytesFile);
-            Integer result = varInt32.value();
+            Integer result = varInt32.integerValue();
 
             assertEqualHex(child.getKey(), result);
         }
@@ -95,22 +95,22 @@ public class VarInt7LoopTest {
         assertEquals("expected = " + expected.toString() + " hex = " + Integer.toHexString(expected), expected, result);
     }
 
-    Integer maxCount = 1_000_000;
+    private Integer maxCount = 1_000_000;
 
     @Test
     public void testReadUnsignedConstructor2() throws Exception {
         VarInt7 dummy = new VarInt7(0);
-        for (Integer j = dummy.maxValue(); j < dummy.maxValue(); j++) {
-            Integer i = j;
+        for (Long j = dummy.maxValue(); j < dummy.maxValue(); j++) {
+            Long i = j;
 
             VarInt32 expected = new VarInt32(i);
             ByteArrayByteOutput out = (ByteArrayByteOutput) expected.convert();
 
             BytesFile bytesFile = new BytesFile(out.bytes());
             VarInt32 varInt32_b = new VarInt32(bytesFile);
-            Integer result_b = varInt32_b.value();
+            Integer result_b = varInt32_b.integerValue();
 
-            assertEqualHex(i, result_b);
+            assertEqualHex(i.intValue(), result_b);
         }
     }
 

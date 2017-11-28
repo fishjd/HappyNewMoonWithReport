@@ -16,48 +16,54 @@
  */
 package happynewmoonwithreport.type;
 
-/**
- * An unsigned integer of 64 bits.
- */
-public class UInt64 extends U64 {
+import static happynewmoonwithreport.type.utility.MathWBS.pow2;
 
-    public UInt64() {
-        super();
+/**
+ * An signed integer of 8 bits
+ * <p>
+ * <p>
+ * Source:  <a href="http://webassembly.org/docs/binary-encoding/#uintn" target="_top">
+ * http://webassembly.org/docs/binary-encoding/#uintn
+ * </a>
+ */
+public class SInt8 extends S32 {
+    //protected Byte value;
+
+    protected SInt8() {
     }
 
-    public UInt64(Long value) {
+    public SInt8(Byte value) {
+        this.value = value.intValue();
+    }
+
+    public SInt8(Integer value) {
         this.value = value;
     }
 
-    public UInt64(Integer value) {
-        this.value = value.longValue();
-    }
-
-    public Integer integerValue() {
-        checkIfTooLarge();
-        return value.intValue();
-    }
-
-    public void checkIfTooLarge() {
-        if (isBoundByInteger() == false) {
-            throw new RuntimeException("Value is too large!");
-        }
-    }
-
+	/* private functions **/
 
 	/* Override DataTypeNumber */
 
     @Override
     public Integer maxBits() {
-        return 63;  // should be 64 but that is not possible using Java type Long.
+        return 8;
     }
 
 
-	/* override of Object **/
+    @Override
+    public Long minValue() {
+        return -1L * pow2(maxBits() - 1);
+    }
 
     @Override
+    public Long maxValue() {
+        return pow2(maxBits() - 1) - 1;
+    }
+
+    /* override of Object **/
+    @Override
     public String toString() {
-        return "UInt64{" +
+        return "Int8{" +
                 "value=" + value +
                 "} ";
     }

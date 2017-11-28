@@ -18,7 +18,7 @@ package happynewmoonwithreport.intergration;
 
 import happynewmoonwithreport.*;
 import happynewmoonwithreport.type.DataTypeNumber;
-import happynewmoonwithreport.type.Int32;
+import happynewmoonwithreport.type.S32;
 import happynewmoonwithreport.type.WasmVector;
 import org.junit.After;
 import org.junit.Before;
@@ -72,14 +72,14 @@ public class WasmAdd32Test {
 
         WasmVector<DataTypeNumber> returnAll = new WasmVector<>(1);
         WasmVector<DataTypeNumber> paramAll = new WasmVector<>(2);
-        paramAll.add(new Int32(3));
-        paramAll.add(new Int32(4));
+        paramAll.add(new S32(3));
+        paramAll.add(new S32(4));
 
         instance.call(functionAdd32, returnAll, paramAll);
 
         assertNotNull(returnAll);
         assertEquals(1, returnAll.size());
-        assertEquals(new Int32(7), returnAll.get(0));
+        assertEquals(new S32(7), returnAll.get(0));
 
 
     }

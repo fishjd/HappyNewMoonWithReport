@@ -16,21 +16,27 @@
  */
 package happynewmoonwithreport.type;
 
+import static happynewmoonwithreport.type.utility.MathWBS.pow2;
+
 /**
- * An signed integer of 32 bits,
+ * An signed integer of 8 bits
+ * <p>
+ * <p>
+ * Source:  <a href="http://webassembly.org/docs/binary-encoding/#uintn" target="_top">
+ * http://webassembly.org/docs/binary-encoding/#uintn
+ * </a>
  */
-public class Int32 extends Int<Integer> {
-    public Int32() {
-        super();
+public class SInt32 extends S32 {
+
+    protected SInt32() {
     }
 
-    public Int32(Integer value) {
-        this();
+    public SInt32(Integer value) {
         this.value = value;
     }
 
-    public Int32(DataTypeNumber number) {
-        this.value = number.integerValue();
+    public SInt32 (S32 s32) {
+
     }
 
 	/* private functions **/
@@ -43,23 +49,19 @@ public class Int32 extends Int<Integer> {
     }
 
     @Override
-    public Integer minValue() {
-        Integer minValue = -1 * (1 << (maxBits() - 1));
-        return minValue;
-
+    public Long minValue() {
+        return -1L * pow2(maxBits() - 1);
     }
 
     @Override
-    public Integer maxValue() {
-        Integer maxValue = (1 << (maxBits() - 1)) - 1;
-        return maxValue;
+    public Long maxValue() {
+        return pow2(maxBits() - 1) - 1;
     }
-
 
     /* override of Object **/
     @Override
     public String toString() {
-        return "Int32{" +
+        return "Int8{" +
                 "value=" + value +
                 "} ";
     }

@@ -17,42 +17,21 @@
 package happynewmoonwithreport.type;
 
 /**
- * An signed integer of 8 bits
+ * An signed integer of 64 bits,
  */
-public class Int8 extends Int<Byte> {
+public class S64 extends I64 {
 
-
-    public Int8(Byte value) {
-        this.value = value;
+    public S64() {
+        super();
     }
 
-	/* private functions **/
-
-	/* Override DataTypeNumber */
+    public S64 (Integer value) {
+        this.value = value.longValue();
+    }
 
     @Override
     public Integer maxBits() {
-        return 8;
+        return 64;
     }
 
-    @Override
-    public Byte minValue() {
-        Integer minValue = (int) Math.pow(-2, maxBits() - 1);
-        return minValue.byteValue();
-
-    }
-
-    @Override
-    public Byte maxValue() {
-        Integer maxValue = (int) Math.pow(2, maxBits() - 1) - 1;
-        return maxValue.byteValue();
-    }
-
-    /* override of Object **/
-    @Override
-    public String toString() {
-        return "Int8{" +
-                "value=" + value +
-                "} ";
-    }
 }

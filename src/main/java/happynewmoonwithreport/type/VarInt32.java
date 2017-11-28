@@ -38,11 +38,10 @@ import happynewmoonwithreport.BytesFile;
  * http://webassembly.org/docs/binary-encoding/#varintn
  * </a>
  */
-public final class VarInt32 extends Int32 {
+public final class VarInt32 extends SInt32 {
 
     @SuppressWarnings("unused")
     private VarInt32() {
-        super();
     }
 
     public VarInt32(BytesFile bytesFile) {

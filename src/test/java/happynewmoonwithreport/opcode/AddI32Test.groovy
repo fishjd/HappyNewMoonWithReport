@@ -18,8 +18,8 @@ package happynewmoonwithreport.opcode
 
 import happynewmoonwithreport.WasmInstanceInterface
 import happynewmoonwithreport.WasmRuntimeException
-import happynewmoonwithreport.type.Int32
-import happynewmoonwithreport.type.Int64
+import happynewmoonwithreport.type.S32
+import happynewmoonwithreport.type.S64
 import spock.lang.Specification
 
 /**
@@ -35,8 +35,8 @@ class AddI32Test extends Specification {
     def "Execute AddI32"() {
         setup: " a value of 3 and a value of 4"
         WasmInstanceInterface instance = new WasmInstanceStub();
-        instance.stack().push(new Int32(val1));
-        instance.stack().push(new Int32(val2));
+        instance.stack().push(new S32(val1));
+        instance.stack().push(new S32(val2));
 
         AddI32 function = new AddI32(instance);
 
@@ -45,22 +45,22 @@ class AddI32Test extends Specification {
 
         then: " a value of expected"
 
-        new Int32(expected) == instance.stack().pop();
+        new S32(expected) == instance.stack().pop();
 
         where: ""
         val1        | val2 || expected
         3           | 4    || 7
         4           | 3    || 7
         0x7FFF_FFFE | 0x1  || 0x7FFF_FFFF
-        0x7FFF_FFFE | 0x1  || new Int32(0).maxValue();
+        0x7FFF_FFFE | 0x1  || new S32(0).maxValue();
     }
 
 
     def "Execute opcode AddI32 throw exception on incorrect Type on second param "() {
         setup: " a value of int64  of 3  and a value of int32 of 4"
         WasmInstanceInterface instance = new WasmInstanceStub();
-        instance.stack().push(new Int32(4));
-        instance.stack().push(new Int64(3));
+        instance.stack().push(new S32(4));
+        instance.stack().push(new S64(3));
 
         AddI32 function = new AddI32(instance);
 
@@ -75,8 +75,8 @@ class AddI32Test extends Specification {
     def "Execute AddI32 throw exception on incorrect Type on first param "() {
         setup: " a value of int32  of 3  and a value of int64 of 4"
         WasmInstanceInterface instance = new WasmInstanceStub();
-        instance.stack().push(new Int64(4));
-        instance.stack().push(new Int32(3));
+        instance.stack().push(new S64(4));
+        instance.stack().push(new S32(3));
 
         AddI32 function = new AddI32(instance);
 

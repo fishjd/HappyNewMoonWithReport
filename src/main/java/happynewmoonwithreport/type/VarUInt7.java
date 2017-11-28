@@ -25,9 +25,8 @@ import happynewmoonwithreport.BytesFile;
  * 2^N-1]), represented by at most ceil(N/7) bytes that may contain padding 0x80
  * bytes.
  * <p>
- * <p>
- * Used to read and write to the wasm file. This project tends to use the 'main' integer types Int32, Int64, UInt32,
- * UInt64.  The recommend use is to convert to a 'main' type as soon as possible.
+ * Used to read and write to the wasm file. This project tends to use the 'main' integer types I32, I64, U32,
+ * U64.  The recommend use is to convert to a 'main' type as soon as possible.
  * <p>
  * Usage:
  * <pre>
@@ -40,7 +39,7 @@ import happynewmoonwithreport.BytesFile;
  * http://webassembly.org/docs/binary-encoding/#varuintn
  * </a>
  */
-public final class VarUInt7 extends VarUInt<Integer> {
+public final class VarUInt7 extends UInt8 {
     // TODO change to extend UInt32
 
     @SuppressWarnings("unused")
@@ -49,7 +48,7 @@ public final class VarUInt7 extends VarUInt<Integer> {
     }
 
     public VarUInt7(BytesFile bytesFile) {
-        value = convert(bytesFile);
+        value = convert(bytesFile).longValue();
     }
 
     /**
@@ -58,7 +57,7 @@ public final class VarUInt7 extends VarUInt<Integer> {
      * @param value value
      */
     public VarUInt7(Integer value) {
-        this.value = value;
+        this.value = value.longValue();
     }
 
     /**
@@ -67,43 +66,39 @@ public final class VarUInt7 extends VarUInt<Integer> {
      * @param value value
      */
     public VarUInt7(Byte value) {
-        this.value = value.intValue();
+        this.value = value.longValue();
     }
 
-    public Integer convert(BytesFile bytesFile) {
-        Integer cur;
-        Integer count = 0;
-        Integer result = 0;
-
-        do {
-            cur = bytesFile.readByte() & 0xff;
-            result |= (cur & 0x7f) << (count * 7);
-            count++;
-        } while (((cur & 0x80) != 0) && count < maxBytes());
-
-        return result;
-    }
+//    public Integer convert(BytesFile bytesFile) {
+//        Integer cur;
+//        Integer count = 0;
+//        Integer result = 0;
+//
+//        do {
+//            cur = bytesFile.readByte() & 0xff;
+//            result |= (cur & 0x7f) << (count * 7);
+//            count++;
+//        } while (((cur & 0x80) != 0) && count < maxBytes());
+//
+//        return result;
+//    }
 
     @Override
     public Integer maxBits() {
         return 7;
     }
 
-    @Override
-    public Integer minValue() {
-        return 0;
-    }
 
     @Override
-    public Integer maxValue() {
-        return (1 << maxBits()) - 1;
+    public Long maxValue() {
+        return (1L << maxBits()) - 1;
     }
 
 
     @Override
     public String toString() {
         return "VarUInt7{" +
-                "value=" + value() +
+                "value=" + value +
                 "} ";
     }
 }

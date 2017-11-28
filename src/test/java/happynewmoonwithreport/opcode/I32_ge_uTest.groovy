@@ -53,10 +53,10 @@ class I32_ge_uTest extends Specification {
         3           | 4           || 0
         4           | 4           || 1
         0           | 0           || 1
-        0xFFFF_FFFF | 0xFFFF_FFFF || 1
-        0xFFFF_FFFF | 0xFFFF_FFFE || 1
-        0xFFFF_FFFF | 0x0FFF_FFFF || 1
-        0x0FFF_FFFF | 0xFFFF_FFFF || 0
+        0x7FFF_FFFF | 0x7FFF_FFFF || 1
+        0x7FFF_FFFF | 0x7FFF_FFFE || 1
+        0x7FFF_FFFF | 0x0FFF_FFFF || 1
+        0x0FFF_FFFF | 0x7FFF_FFFF || 0
     }
 
     def "Execute I32_ge_u throw exception on incorrect Type on second param "() {

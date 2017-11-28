@@ -16,7 +16,7 @@
  */
 package happynewmoonwithreport;
 
-import happynewmoonwithreport.type.Int32;
+import happynewmoonwithreport.type.S32;
 import happynewmoonwithreport.type.VarInt7;
 
 import java.util.HashMap;
@@ -67,7 +67,7 @@ public class ElementType {
 
     public ElementType(BytesFile payload) {
         this();
-        Int32 vt = new VarInt7(payload);
+        S32 vt = new VarInt7(payload);
         this.type = vt.integerValue();
         calcValue(type);
     }

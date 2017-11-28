@@ -16,7 +16,7 @@
  */
 package happynewmoonwithreport;
 
-import happynewmoonwithreport.type.Int32;
+import happynewmoonwithreport.type.S32;
 import happynewmoonwithreport.type.UInt16;
 import happynewmoonwithreport.type.UInt32;
 
@@ -39,7 +39,7 @@ public class Memory {
     private byte[] memory;
 
     public Memory(UInt32 initialSize) {
-        assert (0 < initialSize.value());
+        assert (0 < initialSize.integerValue());
         size = initialSize;
         memory = new byte[initialSize.integerValue() * page_size.integerValue()];
     }
@@ -60,10 +60,10 @@ public class Memory {
      *
      * @return "previous size" in page size on success;   -1 on failure;
      */
-    public Int32 grow(UInt32 additionalSize) {
+    public S32 grow(UInt32 additionalSize) {
         assert (memory != null);
-        Int32 failure = new Int32(-1);
-        Int32 previousSizeInPages = new Int32(size);
+        S32 failure = new S32(-1);
+        S32 previousSizeInPages = new S32(size);
 
         Integer sizeNewInPages = size.integerValue() + additionalSize.integerValue();
 

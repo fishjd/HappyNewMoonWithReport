@@ -17,7 +17,7 @@
 package happynewmoonwithreport.opcode
 
 import happynewmoonwithreport.WasmInstanceInterface
-import happynewmoonwithreport.type.Int32
+import happynewmoonwithreport.type.S32
 import spock.lang.Specification
 /**
  * Created on 2017-08-25.
@@ -32,7 +32,7 @@ class NopTest extends Specification {
     def "Execute"() {
         setup: " an instance with one local variable "
         WasmInstanceInterface instance = new WasmInstanceStub();
-        instance.localAll().add(new Int32(3));
+        instance.localAll().add(new S32(3));
 
         Nop function = new Nop(instance);
 

@@ -17,70 +17,45 @@
 package happynewmoonwithreport.type;
 
 /**
- * Signed Integer
- *
- * @param <ValueType> a type that extends Number. An Integer type ex:  Long, Integer, Short, Byte.
+ * Web Assembly Integer
  */
-public abstract class Int<ValueType extends Number> implements DataTypeNumber<ValueType> {
+public abstract class Int implements DataTypeNumber{
 
-    /**
-     * The value of the number
-     */
-    protected ValueType value;
 
     @Override
     public Integer maxBytes() {
-        Integer maxBytes = maxBits() / 8;
-        return maxBytes;
+        return maxBits() / 8;
     }
 
     @Override
     public Integer minBytes() {
-        Integer maxBytes = maxBits() / 8;
-        return maxBytes;
-    }
-
-    @Override
-    public ValueType value() {
-        return value;
-    }
-
-    @Override
-    public byte byteValue() {
-        return value.byteValue();
-    }
-
-    @Override
-    public Integer integerValue() {
-        return value.intValue();
-    }
-
-    @Override
-    public Long longValue() {
-        return value.longValue();
-    }
-
-    @Override
-    public Boolean isBoundByInteger() {
-        return (Integer.MIN_VALUE <= value.longValue() && value.longValue() <= Integer.MAX_VALUE);
+        return maxBits() / 8;
     }
 
 
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((value == null) ? 0 : value.hashCode());
-        return result;
-    }
 
-    @Override
-    public boolean equals(Object other) {
-        if (this == other) return true;
-        if (!(other instanceof Int)) return false;
+    public abstract Boolean booleanValue();
 
-        Int<?> anInt = (Int<?>) other;
+    //    public abstract Byte byteValue();
+//    public abstract Short shortValue();
 
-        return value.equals(anInt.value);
-    }
+
+
+///**
+//     * Return a signed
+//     *
+//     * @return a signed
+//     */
+//    public abstract Int signedValue();
+//
+//    /**
+//     * Return a unsigned
+//     *
+//     * @return a s
+//     */
+//    public abstract Int unsignedValue();
+
+
+    // public abstract Boolean equals(Int other) ;
+
 }

@@ -16,10 +16,7 @@
  */
 package happynewmoonwithreport;
 
-import happynewmoonwithreport.type.UInt32;
-import happynewmoonwithreport.type.VarUInt1;
-import happynewmoonwithreport.type.VarUInt32;
-import happynewmoonwithreport.type.WasmVector;
+import happynewmoonwithreport.type.*;
 
 import java.util.ArrayList;
 
@@ -57,7 +54,7 @@ public class FunctionType implements Validation {
     /**
      * The number of return values Currently only zero or one value
      */
-    private UInt32 returnCount;
+    private UInt8 returnCount;
 
     /**
      * Array of the types of of the return values.
@@ -87,7 +84,7 @@ public class FunctionType implements Validation {
         //* Return Count
         returnCount = new VarUInt1(payload);
         // current version only allows 0 or 1
-        assert (returnCount.value() <= 1);
+        assert (returnCount.integerValue() <= 1);
 
         //* Return Types.
         returnTypeAll = new WasmVector<>(returnCount.integerValue());
@@ -100,13 +97,13 @@ public class FunctionType implements Validation {
 
 
     public FunctionType(UInt32 paramCount, WasmVector<ValueType> paramTypeAll,
-                        UInt32 returnCount, WasmVector<ValueType> returnTypeAll) {
+                        UInt8 returnCount, WasmVector<ValueType> returnTypeAll) {
         this(new ValueType("func"), paramCount, paramTypeAll, returnCount, returnTypeAll);
     }
 
 
     public FunctionType(ValueType form, UInt32 paramCount, WasmVector<ValueType> paramTypeAll,
-                        UInt32 returnCount, WasmVector<ValueType> returnTypeAll) {
+                        UInt8 returnCount, WasmVector<ValueType> returnTypeAll) {
         super();
         this.form = form;
         this.paramCount = paramCount;
@@ -152,7 +149,7 @@ public class FunctionType implements Validation {
     }
 
 
-    public UInt32 getReturnCount() {
+    public UInt8 getReturnCount() {
         return returnCount;
     }
 

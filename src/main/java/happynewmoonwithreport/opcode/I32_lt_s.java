@@ -21,7 +21,7 @@ import happynewmoonwithreport.WasmInstanceInterface;
 import happynewmoonwithreport.WasmRuntimeException;
 import happynewmoonwithreport.WasmStack;
 import happynewmoonwithreport.type.I32;
-import happynewmoonwithreport.type.Int32;
+import happynewmoonwithreport.type.S32;
 
 import java.util.UUID;
 
@@ -85,16 +85,12 @@ public class I32_lt_s {
         }
         I32 value1 = (I32) stack.pop();
 
-        // these values are signed (positive/negative) values and thus we use Int32
-        Int32 value2Signed = value2.signed();
-        Int32 value1Signed = value1.signed();
-        Integer iResult;
-        if (value1Signed.value() < value2Signed.value()) {
-            iResult = 1;
-        } else {
-            iResult = 0;
-        }
-        I32 result = new I32(iResult);
+        // these values are signed (positive/negative) values
+        S32 value2Signed = value2.signedValue();
+        S32 value1Signed = value1.signedValue();
+
+        // Do the comparison.
+        I32 result = value1Signed.lessThan(value2Signed);
 
         stack.push(result);
     }

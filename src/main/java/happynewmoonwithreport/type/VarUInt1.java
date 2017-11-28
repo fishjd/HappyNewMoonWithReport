@@ -41,7 +41,7 @@ import happynewmoonwithreport.BytesFile;
  * </a>
  */
 
-public final class VarUInt1 extends UInt32 {
+public final class VarUInt1 extends UInt8  {
 
     @SuppressWarnings("unused")
     private VarUInt1() {
@@ -49,7 +49,7 @@ public final class VarUInt1 extends UInt32 {
     }
 
     public VarUInt1(BytesFile bytesFile) {
-        value = convert(bytesFile);
+        value = convert(bytesFile).longValue();
     }
 
     /**
@@ -67,7 +67,7 @@ public final class VarUInt1 extends UInt32 {
      * @param value value
      */
     public VarUInt1(Long value) {
-        this.value = value;
+        this.value = value.longValue();
     }
 
     /**
@@ -79,20 +79,20 @@ public final class VarUInt1 extends UInt32 {
         this.value = value.longValue();
     }
 
-    @Override
-    public Long convert(BytesFile bytesFile) {
-        Integer cur;
-        Integer count = 0;
-        Long result = 0L;
-
-        do {
-            cur = bytesFile.readByte() & 0xff;
-            result |= (cur & 0x7f) << (count * 7);
-            count++;
-        } while (((cur & 0x80) != 0) && count < maxBytes());
-
-        return result;
-    }
+//    @Override
+//    public Long convert(BytesFile bytesFile) {
+//        Integer cur;
+//        Integer count = 0;
+//        Long result = 0L;
+//
+//        do {
+//            cur = bytesFile.readByte() & 0xff;
+//            result |= (cur & 0x7f) << (count * 7);
+//            count++;
+//        } while (((cur & 0x80) != 0) && count < maxBytes());
+//
+//        return result;
+//    }
 
     public Boolean isFalse() {
         return value == 0;
@@ -113,10 +113,6 @@ public final class VarUInt1 extends UInt32 {
         return (1 << maxBits()) - 1L;
     }
 
-    @Override
-    public Boolean booleanValue() {
-        return value != 0;
-    }
 
     @Override
     public String toString() {

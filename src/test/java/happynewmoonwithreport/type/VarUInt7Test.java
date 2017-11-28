@@ -44,13 +44,13 @@ public class VarUInt7Test {
     @Test
     public void minValue() throws Exception {
         varUInt7 = new VarUInt7(0);
-        assertEquals(new Integer(0), varUInt7.minValue());
+        assertEquals(new Long(0), varUInt7.minValue());
     }
 
     @Test
     public void maxValue() throws Exception {
         varUInt7 = new VarUInt7(0);
-        assertEquals(new Integer(127), varUInt7.maxValue());
+        assertEquals(new Long(127), varUInt7.maxValue());
     }
 
     public void assertArrayEqualsJDH(byte[] expected, byte[] actual) {
