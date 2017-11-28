@@ -32,7 +32,7 @@ public class VarUInt1Test {
     public void tearDown() throws Exception {
     }
 
-    VarUInt1 varUInt1;
+    private VarUInt1 varUInt1;
 
     @Test
     public void maxBits() throws Exception {
@@ -56,7 +56,7 @@ public class VarUInt1Test {
     public void testReadUnsigned() throws Exception {
         for (Long i = 0L; i < 1; i++) {
             VarUInt1 uin1 = new VarUInt1(new Long(i));
-            Long result = uin1.value();
+            Long result = uin1.longValue();
             assertEquals("i = " + i.toString(), i, result);
         }
     }

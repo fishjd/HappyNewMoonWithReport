@@ -20,7 +20,6 @@ import happynewmoonwithreport.WasmFrame
 import happynewmoonwithreport.WasmInstanceInterface
 import happynewmoonwithreport.WasmRuntimeException
 import happynewmoonwithreport.type.I32
-import happynewmoonwithreport.type.UInt32
 import spock.lang.Specification
 /**
  * Created on 2017-08-25.
@@ -45,7 +44,7 @@ class SetLocalTest extends Specification {
         SetLocal function = new SetLocal(frame);
 
         when: "run the opcode"
-        UInt32 index = new I32(0);
+        I32 index = new I32(0);
         function.execute(index);
 
         then: " the local value should be set"

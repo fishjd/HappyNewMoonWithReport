@@ -39,7 +39,7 @@ public class Memory {
     private byte[] memory;
 
     public Memory(UInt32 initialSize) {
-        assert (0 < initialSize.value());
+        assert (0 < initialSize.integerValue());
         size = initialSize;
         memory = new byte[initialSize.integerValue() * page_size.integerValue()];
     }

@@ -37,7 +37,7 @@ public class MemoryType implements Validation {
 
     private LimitType limit;
 
-    public MemoryType(UInt32 hasMaximum, UInt32 minimum, UInt32 maximum) {
+    public MemoryType(UInt8 hasMaximum, UInt32 minimum, UInt32 maximum) {
         limit = new LimitType(hasMaximum, minimum, maximum);
     }
 
@@ -87,7 +87,7 @@ public class MemoryType implements Validation {
         return limit.maximum();
     }
 
-    public UInt32 hasMaximum() {
+    public UInt8 hasMaximum() {
         return limit.hasMaximum();
     }
 

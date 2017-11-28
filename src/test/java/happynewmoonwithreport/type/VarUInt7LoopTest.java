@@ -36,7 +36,7 @@ public class VarUInt7LoopTest {
     public void testReadUnsigned() throws Exception {
         for (Integer i = 0; i < 128; i++) {
             VarUInt7 leb7 = new VarUInt7(new Integer(i).byteValue());
-            Integer result = leb7.value();
+            Integer result = leb7.integerValue();
             assertEquals("i = " + i.toString(), i, result);
         }
     }

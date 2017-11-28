@@ -43,13 +43,13 @@ public class Int8Test {
     @Test
     public void minValue() throws Exception {
         SInt8 = new SInt8((byte) 0);
-        assertEquals(new Byte((byte) -128), SInt8.minValue());
+        assertEquals(new Long((byte) -128), SInt8.minValue());
     }
 
     @Test
     public void maxValue() throws Exception {
         SInt8 = new SInt8((byte) 0);
-        assertEquals(new Byte((byte) 127), SInt8.maxValue());
+        assertEquals(new Long((byte) 127), SInt8.maxValue());
     }
 
 }

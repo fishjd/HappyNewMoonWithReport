@@ -43,13 +43,13 @@ public class Uint8Test {
     @Test
     public void minValue() throws Exception {
         uInt8 = new UInt8(0);
-        assertEquals(new Integer(0), uInt8.minValue());
+        assertEquals(new Long(0), uInt8.minValue());
     }
 
     @Test
     public void maxValue() throws Exception {
         uInt8 = new UInt8(0);
-        assertEquals(new Integer(256), uInt8.maxValue());
+        assertEquals(new Long(256), uInt8.maxValue());
     }
 
 
@@ -59,7 +59,7 @@ public class Uint8Test {
             byte[] bytesAll = new byte[]{new Integer(i).byteValue()};
             BytesFile bytesFile = new BytesFile(bytesAll);
             UInt8 uInt8 = new UInt8(bytesFile);
-            Integer result = uInt8.value();
+            Integer result = uInt8.integerValue();
             assertEquals("i = " + i.toString(), i, result);
         }
     }

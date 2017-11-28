@@ -16,74 +16,130 @@
  */
 package happynewmoonwithreport.type;
 
+import happynewmoonwithreport.WasmRuntimeException;
+
+import java.util.UUID;
+
 /**
  * Signed Integer
  *
  * @param
  */
-public abstract class I32<ValueType extends Number> extends Int<ValueType> {
+public class I32 extends Int {
 
+    protected Integer value;
 
+    public I32() {
+        value = 0;
+    }
 
-//    /**
-//     * The value of the number
-//     */
-//    protected ValueType value;
-//
-//    @Override
-//    public Integer maxBytes() {
-//        Integer maxBytes = maxBits() / 8;
-//        return maxBytes;
-//    }
-//
-//    @Override
-//    public Integer minBytes() {
-//        Integer maxBytes = maxBits() / 8;
-//        return maxBytes;
-//    }
+    public I32(Integer value) {
+        this.value = value;
+    }
 
-//    @Override
-//    public ValueType value() {
-//        return value;
-//    }
-//
-//    @Override
-//    public byte byteValue() {
-//        return value.byteValue();
-//    }
-//
-//    @Override
-//    public Integer integerValue() {
-//        return value.intValue();
-//    }
-//
-//    @Override
-//    public Long longValue() {
-//        return value.longValue();
-//    }
-//
-//    @Override
-//    public Boolean isBoundByInteger() {
-//        return (Integer.MIN_VALUE <= value.longValue() && value.longValue() <= Integer.MAX_VALUE);
-//    }
-//
+    public I32(Long value) {
+        this();
+        if (isBoundByInteger(value) == false) {
+            throw new WasmRuntimeException(UUID.fromString("62298944-804a-430e-b645-7bda0ecab265"),
+                    "Value not bound by integer. Value = " + value );
+        }
+        this.value = value.intValue();
+    }
 
-//    @Override
-//    public int hashCode() {
-//        final int prime = 31;
-//        int result = 1;
-//        result = prime * result + ((value == null) ? 0 : value.hashCode());
-//        return result;
-//    }
-//
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (!(o instanceof I32)) return false;
-//        if (!super.equals(o)) return false;
-//
-//        I32 i32 = (I32) o;
-//
-//        return value.equals(i32.value);
-//    }
+    @Override
+    public Integer maxBits() {
+        return 32;
+    }
+
+    @Override
+    public Integer maxBytes() {
+        Integer maxBytes = maxBits() / 8;
+        return maxBytes;
+    }
+
+    @Override
+    public Integer minBytes() {
+        Integer maxBytes = maxBits() / 8;
+        return maxBytes;
+    }
+
+    @Override
+    public Long minValue() {
+        Long minValue = -1L * (1L << (maxBits() - 1L));
+        return minValue;
+
+    }
+
+    @Override
+    public Long maxValue() {
+        Long maxValue = (1L << (maxBits() - 1L)) - 1L;
+        return maxValue;
+    }
+
+    /**
+     * use IntegerValue();
+     *
+     * @return
+     */
+    @Deprecated
+    public Integer getValue() {
+        return value;
+    }
+
+    @Override
+    public Byte byteValue() {
+        return value.byteValue();
+    }
+
+    public S32 signedValue() {
+        return new S32(value);
+    }
+
+    public U32 unsignedValue() {
+        // java 8 and above.
+        return new U32(Integer.toUnsignedLong(value));
+    }
+
+    @Override
+    public Boolean booleanValue() {
+        return value != 0;
+    }
+
+    @Override
+    public Integer integerValue() {
+        return value;
+    }
+
+    @Override
+    public Long longValue() {
+        return value.longValue();
+    }
+
+    @Override
+    public Boolean isBoundByInteger() {
+        return  isBoundByInteger(value.longValue());
+    }
+
+    protected Boolean isBoundByInteger(Long input) {
+        return (Integer.MIN_VALUE <= input.longValue() && input.longValue() <= Integer.MAX_VALUE);
+    }
+
+    public Boolean equals(I32 other) {
+        return value.equals(other.getValue());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof I32)) return false;
+
+        I32 i32 = (I32) o;
+
+        return value.equals(i32.value);
+    }
+
+    @Override
+    public int hashCode() {
+        return value.hashCode();
+    }
 }

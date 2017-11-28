@@ -19,8 +19,19 @@ package happynewmoonwithreport.type;
 /**
  * An signed integer of 64 bits,
  */
-public abstract class U64<ValueType extends Number> extends I64<ValueType> {
+public class U64 extends I64 {
     public U64() {
         super();
     }
+
+    @Override
+    public Long minValue() {
+        return 0L;
+    }
+
+    @Override
+    public Long maxValue() {
+        return (1L << (maxBits())) - 1;
+    }
+
 }

@@ -78,7 +78,7 @@ public class Uint32Test {
         for (Entry<Long, byte[]> child : problemChildren.entrySet()) {
             BytesFile bytesFile = new BytesFile(child.getValue());
             UInt32 uint32 = new UInt32(bytesFile);
-            Long result = uint32.value();
+            Long result = uint32.longValue();
 
             assertEqualHex(child.getKey(), result);
         }
@@ -100,7 +100,7 @@ public class Uint32Test {
             byte b4 = (byte) ((i >> 24) & 0xFF);
 
             UInt32 uint32 = new UInt32(b1, b2, b3, b4);
-            Long result = uint32.value();
+            Long result = uint32.longValue();
             assertEquals("i = " + i.toString() + " hex = " + Long.toHexString(i), new Long(i), result);
 
         }
@@ -122,7 +122,7 @@ public class Uint32Test {
             byte[] bArray = new byte[]{b1, b2, b3, b4};
             BytesFile bytesFile = new BytesFile(bArray);
             UInt32 uint32_b = new UInt32(bytesFile);
-            Long result_b = uint32_b.value();
+            Long result_b = uint32_b.longValue();
 
             assertEquals("i = " + i.toString() + " hex = " + Long.toHexString(i), new Long(i), result_b);
         }
@@ -156,23 +156,32 @@ public class Uint32Test {
 
     @Test
     public void testSigned() {
-        UInt32 zero = new UInt32(0x00);
-        assertEquals(new S32(0x00), zero.signed());
+        I32 zero = new I32(0x00);
+        assertEquals(new S32(0x00), zero.signedValue());
+        assertEquals(new U32(0x00L), zero.unsignedValue());
 
-        UInt32 one = new UInt32(0x01);
-        assertEquals(new S32(0x01), one.signed());
+        I32 one = new I32(0x01);
+        assertEquals(new S32(0x01), one.signedValue());
+        assertEquals(new U32(0x01L), one.unsignedValue());
 
-        UInt32 neg_one = new UInt32(0xFFFF_FFFFL);
-        assertEquals(new Long(4_294_967_295L), neg_one.longValue());
-        assertEquals(new S32(-1), neg_one.signed());
+        I32 neg_one = new I32(-1L);
+        assertEquals(new S32(-1), neg_one.signedValue());
+        assertEquals(new U32(4_294_967_295L), neg_one.unsignedValue());
 
-        UInt32 neg_two = new UInt32(0xFFFF_FFFEL);
-        assertEquals(new Long(4_294_967_294L), neg_two.longValue());
-        assertEquals(new S32(-2), neg_two.signed());
-
-        UInt32 neg_three = new UInt32(0xFFFF_FFFDL);
-        assertEquals(new Long(4_294_967_293L), neg_three.longValue());
-        assertEquals(new S32(-3), neg_three.signed());
     }
 
+    @Test
+    public void testSignedNegativeTwo() {
+        I32 neg_two = new I32(-2L);
+        assertEquals(new S32(-2), neg_two.signedValue());
+        assertEquals(new U32(4_294_967_294L), neg_two.unsignedValue());
+    }
+
+
+    @Test
+    public void testSignedNegativeThree() {
+        I32 neg_three = new I32(-3L);
+        assertEquals(new S32(-3), neg_three.signedValue());
+        assertEquals(new U32(4_294_967_293L), neg_three.unsignedValue());
+    }
 }

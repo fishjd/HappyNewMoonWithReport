@@ -25,8 +25,8 @@ import happynewmoonwithreport.BytesFile;
  * 2^N-1]), represented by at most ceil(N/7) bytes that may contain padding 0x80
  * bytes.
  * <p>
- * Used to read and write to the wasm file. This project tends to use the 'main' integer types Int32, Int64, UInt32,
- * UInt64.  The recommend use is to convert to a 'main' type as soon as possible.
+ * Used to read and write to the wasm file. This project tends to use the 'main' integer types I32, I64, U32,
+ * U64.  The recommend use is to convert to a 'main' type as soon as possible.
  * <p>
  * Usage:
  * <pre>
@@ -48,7 +48,7 @@ public final class VarUInt7 extends UInt8 {
     }
 
     public VarUInt7(BytesFile bytesFile) {
-        value = convert(bytesFile).byteValue();
+        value = convert(bytesFile).longValue();
     }
 
     /**
@@ -57,7 +57,7 @@ public final class VarUInt7 extends UInt8 {
      * @param value value
      */
     public VarUInt7(Integer value) {
-        this.value = value.byteValue();
+        this.value = value.longValue();
     }
 
     /**
@@ -66,7 +66,7 @@ public final class VarUInt7 extends UInt8 {
      * @param value value
      */
     public VarUInt7(Byte value) {
-        this.value = value;
+        this.value = value.longValue();
     }
 
 //    public Integer convert(BytesFile bytesFile) {
@@ -89,16 +89,16 @@ public final class VarUInt7 extends UInt8 {
     }
 
 
-//    @Override
-//    public Long maxValue() {
-//        return (1L << maxBits()) - 1;
-//    }
-//
+    @Override
+    public Long maxValue() {
+        return (1L << maxBits()) - 1;
+    }
+
 
     @Override
     public String toString() {
         return "VarUInt7{" +
-                "value=" + value() +
+                "value=" + value +
                 "} ";
     }
 }

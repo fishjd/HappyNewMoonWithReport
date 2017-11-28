@@ -26,17 +26,18 @@ import static happynewmoonwithreport.type.utility.MathWBS.pow2;
  * http://webassembly.org/docs/binary-encoding/#uintn
  * </a>
  */
-public class SInt8 extends S32<Byte> {
+public class SInt8 extends S32 {
+    //protected Byte value;
 
     protected SInt8() {
     }
 
     public SInt8(Byte value) {
-        this.value = value;
+        this.value = value.intValue();
     }
 
     public SInt8(Integer value) {
-        this.value = value.byteValue();
+        this.value = value;
     }
 
 	/* private functions **/
@@ -58,7 +59,6 @@ public class SInt8 extends S32<Byte> {
     public Long maxValue() {
         return pow2(maxBits() - 1) - 1;
     }
-
 
     /* override of Object **/
     @Override

@@ -30,8 +30,8 @@ import static org.junit.Assert.assertEquals;
 
 public class VarInt32LoopTest {
 
-    Map<Integer, byte[]> problemChildren;
-    Random random;
+    private Map<Integer, byte[]> problemChildren;
+    private Random random;
 
     @Before
     public void setUp() throws Exception {
@@ -61,7 +61,7 @@ public class VarInt32LoopTest {
             // System.out.println( "Child = " + child.getKey() +" " + child.getValue());
             BytesFile bytesFile = new BytesFile(child.getValue());
             VarInt32 varInt32 = new VarInt32(bytesFile);
-            Integer result = varInt32.value();
+            Integer result = varInt32.integerValue();
 
             assertEqualHex(child.getKey(), result);
         }
@@ -97,7 +97,7 @@ public class VarInt32LoopTest {
         assertEquals("expected = " + expected.toString() + " hex = " + Integer.toHexString(expected), expected, result);
     }
 
-    Integer maxCount = 1_000_000;
+    private Integer maxCount = 1_000_000;
 
     @Test
     public void testReadUnsignedConstructor2() throws Exception {
@@ -109,7 +109,7 @@ public class VarInt32LoopTest {
 
             BytesFile bytesFile = new BytesFile(out.bytes());
             VarInt32 varInt32_b = new VarInt32(bytesFile);
-            Integer result_b = varInt32_b.value();
+            Integer result_b = varInt32_b.integerValue();
 
             assertEqualHex(i, result_b);
         }

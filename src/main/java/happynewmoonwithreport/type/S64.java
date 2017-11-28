@@ -19,9 +19,19 @@ package happynewmoonwithreport.type;
 /**
  * An signed integer of 64 bits,
  */
-public abstract class S64 <ValueType extends Number> extends I64<ValueType> {
+public class S64 extends I64 {
+
     public S64() {
         super();
+    }
+
+    public S64 (Integer value) {
+        this.value = value.longValue();
+    }
+
+    @Override
+    public Integer maxBits() {
+        return 64;
     }
 
 }

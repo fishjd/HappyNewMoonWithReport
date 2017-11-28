@@ -19,7 +19,7 @@ package happynewmoonwithreport.type;
 /**
  * An unsigned integer of 64 bits.
  */
-public class UInt64 extends U64<Long> {
+public class UInt64 extends U64 {
 
     public UInt64() {
         super();
@@ -33,7 +33,6 @@ public class UInt64 extends U64<Long> {
         this.value = value.longValue();
     }
 
-    @Override
     public Integer integerValue() {
         checkIfTooLarge();
         return value.intValue();
@@ -53,15 +52,6 @@ public class UInt64 extends U64<Long> {
         return 63;  // should be 64 but that is not possible using Java type Long.
     }
 
-    @Override
-    public Long minValue() {
-        return 0L;
-    }
-
-    @Override
-    public Long maxValue() {
-        return (1L << (maxBits())) - 1;
-    }
 
 	/* override of Object **/
 

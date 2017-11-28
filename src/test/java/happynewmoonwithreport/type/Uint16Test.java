@@ -43,13 +43,13 @@ public class Uint16Test {
     @Test
     public void minValue() throws Exception {
         uInt16 = new UInt16(0);
-        assertEquals(new Integer(0), uInt16.minValue());
+        assertEquals(new Long(0), uInt16.minValue());
     }
 
     @Test
     public void maxValue() throws Exception {
         uInt16 = new UInt16(0);
-        assertEquals(new Integer(65_536), uInt16.maxValue());
+        assertEquals(new Long(65_536), uInt16.maxValue());
     }
 
     @Test
@@ -59,7 +59,7 @@ public class Uint16Test {
             byte b2 = (byte) ((i >> 8) & 0xFF);
             BytesFile bytesFile = new BytesFile(new byte[]{b1, b2});
             UInt16 uint16 = new UInt16(bytesFile);
-            Integer result = uint16.value();
+            Integer result = uint16.integerValue();
             assertEquals("i = " + i.toString(), i, result);
         }
     }

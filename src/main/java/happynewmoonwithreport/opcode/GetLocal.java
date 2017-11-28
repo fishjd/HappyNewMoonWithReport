@@ -77,7 +77,7 @@ public class GetLocal {
         }
 
         // 3. value
-        DataTypeNumber value = frame.localAll().get(index);
+        DataTypeNumber value = frame.localAll().get(index.integerValue());
 
         // 4. Push
         WasmInstanceInterface instance = frame.instance();

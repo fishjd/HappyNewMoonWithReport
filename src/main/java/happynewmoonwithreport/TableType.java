@@ -18,6 +18,7 @@ package happynewmoonwithreport;
 
 import happynewmoonwithreport.type.LimitType;
 import happynewmoonwithreport.type.UInt32;
+import happynewmoonwithreport.type.UInt8;
 
 /**
  * Table Type
@@ -96,7 +97,7 @@ public class TableType implements Validation {
         return limit.maximum();
     }
 
-    public UInt32 hasMaximum() {
+    public UInt8 hasMaximum() {
         return limit.hasMaximum();
     }
 

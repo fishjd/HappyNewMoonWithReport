@@ -30,8 +30,8 @@ import static org.junit.Assert.assertEquals;
 
 public class VarInt64LoopTest {
 
-    Map<Long, byte[]> problemChildren;
-    Random random;
+    protected Map<Long, byte[]> problemChildren;
+    protected Random random;
 
     @Before
     public void setUp() throws Exception {
@@ -71,7 +71,7 @@ public class VarInt64LoopTest {
 
             BytesFile bytesFile = new BytesFile(child.getValue());
             VarInt64 varInt64 = new VarInt64(bytesFile);
-            Long result = varInt64.value();
+            Long result = varInt64.longValue();
 
             assertEqualHex(child.getKey(), result);
         }
@@ -107,7 +107,7 @@ public class VarInt64LoopTest {
         assertEquals("i = " + expected.toString() + " hex = " + Long.toHexString(expected), new Long(expected), result);
     }
 
-    Integer maxCount = 1_000_000;
+    protected Integer maxCount = 1_000_000;
 
     @Test
     public void testReadUnsigned() throws Exception {
@@ -119,7 +119,7 @@ public class VarInt64LoopTest {
 
             BytesFile bytesFile = new BytesFile(out.bytes());
             VarInt64 varInt64_b = new VarInt64(bytesFile);
-            Long result_b = varInt64_b.value();
+            Long result_b = varInt64_b.longValue();
 
             assertEquals("i = " + i.toString() + " hex = " + Long.toHexString(i), new Long(i), result_b);
         }

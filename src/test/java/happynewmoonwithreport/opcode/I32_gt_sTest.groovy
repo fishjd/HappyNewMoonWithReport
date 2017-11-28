@@ -53,8 +53,8 @@ class I32_gt_sTest extends Specification {
         3           | 4           || 0
         4           | 4           || 0
         0           | 0           || 0
-        0xFFFF_FFFF | 0xFFFF_FFFF || 0
-        0xFFFF_FFFF | 0xFFFF_FFFE || 1
+        0x7FFF_FFFF | 0x7FFF_FFFF || 0
+        0x7FFF_FFFF | 0x7FFF_FFFE || 1
     }
 
     def "Execute AddI32 throw exception on incorrect Type on second param "() {

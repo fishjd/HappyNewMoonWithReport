@@ -47,7 +47,7 @@ public final class VarInt7 extends SInt8 {
 
     public VarInt7(BytesFile bytesFile) {
         assert (bytesFile.longEnough(minBytes()));
-        value = convert(bytesFile).byteValue();
+        value = convert(bytesFile).intValue();
     }
 
     /**
@@ -56,7 +56,7 @@ public final class VarInt7 extends SInt8 {
      * @param value value
      */
     public VarInt7(Long value) {
-        this.value = value.byteValue();
+        this.value = value.intValue();
         // set to default value.
     }
 
@@ -66,7 +66,7 @@ public final class VarInt7 extends SInt8 {
      * @param value value
      */
     public VarInt7(Integer value) {
-        this.value = value.byteValue();
+        this.value = value.intValue();
     }
 
     /**
@@ -75,7 +75,7 @@ public final class VarInt7 extends SInt8 {
      * @param value value
      */
     public VarInt7(Byte value) {
-        this.value = value;
+        this.value = value.intValue();
     }
 
     @Override
@@ -117,7 +117,7 @@ public final class VarInt7 extends SInt8 {
      */
     public ByteOutput convert() {
         ByteOutput out = new ByteArrayByteOutput(maxBytes());
-        Byte remaining = value >> 7;
+        byte remaining = (byte) (value >> 7);
         boolean hasMore = true;
         int end = ((value & Long.MIN_VALUE) == 0) ? 0 : -1;
 
@@ -125,8 +125,8 @@ public final class VarInt7 extends SInt8 {
             hasMore = (remaining != end) || ((remaining & 1) != ((value >> 6) & 1));
 
             out.writeByte((byte) ((value & 0x7f) | (hasMore ? 0x80 : 0)));
-            value = remaining;
-            remaining >>= 7;
+            value = ((int) remaining);
+            remaining = (byte) (remaining >> 7);
         }
         return out;
     }

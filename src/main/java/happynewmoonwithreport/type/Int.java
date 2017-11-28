@@ -18,66 +18,44 @@ package happynewmoonwithreport.type;
 
 /**
  * Web Assembly Integer
- *
- * @param <ValueType> a type that extends Number. An Integer type ex:  Long, Integer, Short, Byte.
  */
-public abstract class Int<ValueType extends Number> {
+public abstract class Int implements DataTypeNumber{
 
-    /**
-     * The value of the number
-     */
-    protected ValueType value;
 
-    public abstract Integer maxBits();
-
+    @Override
     public Integer maxBytes() {
         return maxBits() / 8;
     }
 
+    @Override
     public Integer minBytes() {
         return maxBits() / 8;
     }
 
-    public abstract Long minValue();
-
-    public abstract Long maxValue();
-
-    public ValueType value() {
-        return value;
-    }
-
-    public byte byteValue() {
-        return value.byteValue();
-    }
-
-    public Integer integerValue() {
-        return value.intValue();
-    }
-
-    public Long longValue() {
-        return value.longValue();
-    }
-
-    public Boolean isBoundByInteger() {
-        return (Integer.MIN_VALUE <= value.longValue() && value.longValue() <= Integer.MAX_VALUE);
-    }
 
 
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((value == null) ? 0 : value.hashCode());
-        return result;
-    }
+    public abstract Boolean booleanValue();
 
-    @Override
-    public boolean equals(Object other) {
-        if (this == other) return true;
-        if (!(other instanceof Int)) return false;
+    //    public abstract Byte byteValue();
+//    public abstract Short shortValue();
 
-        Int<?> anInt = (Int<?>) other;
 
-        return value.equals(anInt.value);
-    }
+
+///**
+//     * Return a signed
+//     *
+//     * @return a signed
+//     */
+//    public abstract Int signedValue();
+//
+//    /**
+//     * Return a unsigned
+//     *
+//     * @return a s
+//     */
+//    public abstract Int unsignedValue();
+
+
+    // public abstract Boolean equals(Int other) ;
+
 }

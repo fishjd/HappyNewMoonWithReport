@@ -40,7 +40,9 @@ import happynewmoonwithreport.BytesFile;
  * http://webassembly.org/docs/binary-encoding/#varuintn
  * </a>
  */
-public final class VarUInt32 extends UInt32  implements DataTypeNumber<Long> {
+public final class VarUInt32 extends UInt32
+        // implements DataTypeNumber<Long>
+{
 
     @SuppressWarnings("unused")
     private VarUInt32() {

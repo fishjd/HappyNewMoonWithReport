@@ -20,24 +20,16 @@ package happynewmoonwithreport.type;
 /**
  * A number read from the *.wasm file. It is usually create with a collection of bytes.
  *
- * @param <ValueType> The backing type. The Type returned by the value() function.
+ *
  */
-public interface DataTypeNumber<ValueType extends Number> {
-
-    /**
-     * The value of the class
-     *
-     * @return value.
-     */
-    ValueType value();
-
+public interface DataTypeNumber {
 
     /**
      * The value converted to a byte type.
      *
      * @return value as a byte
      */
-    byte byteValue();  // TODO convert byte to Byte.
+    Byte byteValue();
 
 
     /**
@@ -95,13 +87,13 @@ public interface DataTypeNumber<ValueType extends Number> {
      *
      * @return minimum number of bits
      */
-    ValueType minValue();
+    Long minValue();
 
     /**
      * The maximum value that may be held. For Unsigned it is zero.
      *
      * @return maximum value
      */
-    ValueType maxValue();
+    Long maxValue();
 
 }

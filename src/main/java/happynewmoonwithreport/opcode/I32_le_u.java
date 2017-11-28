@@ -17,13 +17,13 @@
 package happynewmoonwithreport.opcode;
 
 
-import java.util.UUID;
-
 import happynewmoonwithreport.WasmInstanceInterface;
 import happynewmoonwithreport.WasmRuntimeException;
 import happynewmoonwithreport.WasmStack;
 import happynewmoonwithreport.type.I32;
-import happynewmoonwithreport.type.UInt32;
+import happynewmoonwithreport.type.U32;
+
+import java.util.UUID;
 
 /**
  * I32 Less than or equal to Unsigned  (i32_le_u)
@@ -91,15 +91,11 @@ public class I32_le_u {
         I32 value1 = (I32) stack.pop();
 
         // these values are unsigned values and thus we use UInt32
-        UInt32 value2Unsigned = value2.unsigned();
-        UInt32 value1Unsigned = value1.unsigned();
-        Integer iResult;
-        if (value1Unsigned.value() <= value2Unsigned.value()) {
-            iResult = 1;
-        } else {
-            iResult = 0;
-        }
-        I32 result = new I32(iResult);
+        U32 value2Unsigned = value2.unsignedValue();
+        U32 value1Unsigned = value1.unsignedValue();
+
+        // Do the comparison.
+        I32 result = value1Unsigned.lessThanEqual(value2Unsigned);
 
         stack.push(result);
     }

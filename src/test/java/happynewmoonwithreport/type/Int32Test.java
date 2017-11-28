@@ -43,13 +43,13 @@ public class Int32Test {
     @Test
     public void minValue() throws Exception {
         s32 = new S32(0);
-        assertEquals(new Integer(-2_147_483_648), s32.minValue());
+        assertEquals(new Long(-2_147_483_648), s32.minValue());
     }
 
     @Test
     public void maxValue() throws Exception {
         s32 = new S32(0);
-        assertEquals(new Integer(2_147_483_647), s32.maxValue());
+        assertEquals(new Long(2_147_483_647), s32.maxValue());
 
         assertEquals((1 << 31) - 1, new Double(Math.pow(2, 31)).intValue());
     }

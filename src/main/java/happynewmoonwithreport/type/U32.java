@@ -16,6 +16,10 @@
  */
 package happynewmoonwithreport.type;
 
+import happynewmoonwithreport.WasmRuntimeException;
+
+import java.util.UUID;
+
 /**
  * An unsigned integer of N bits, represented in the *.wasm file as N/8 bytes in little endian
  * order. N is either 8, 16, or 32.  In the Java code represented by one of the integer types Byte, Integer, Long.
@@ -23,10 +27,121 @@ package happynewmoonwithreport.type;
  * Source:  <a href="http://webassembly.org/docs/binary-encoding/#uintn" target="_top">
  * http://webassembly.org/docs/binary-encoding/#uintn
  * </a>
- *
- * @param <ValueType> a type that extends Number. An Integer type ex:  Long, Integer, Short, Byte.
  */
-public abstract class U32<ValueType extends Number> extends I32<ValueType> {
+public class U32 extends I32 {
+
+    protected Long value;
+
+    public U32() {
+
+    }
+
+
+    public U32(Long value) {
+        this();
+        if (value < 0) {
+            throw new WasmRuntimeException(UUID.fromString("6e4ec5d0-9778-462a-a705-1cb21809f687"),
+                    "Value may not be less than zero. value = " + value +  " hex = 0x" + Long.toHexString(value));
+        }
+        this.value = value;
+    }
+
+    public U32(U32 input) {
+        value = input.longValue();
+    }
+
+    @Override
+    public Integer maxBits() {
+        return 32;
+    }
+
+
+    @Override
+    public Long minValue() {
+        Long minValue = -1L * (1L << (maxBits() - 1L));
+        return minValue;
+
+    }
+
+    @Override
+    public Long maxValue() {
+        Long maxValue = (1L << (maxBits() - 1L)) - 1L;
+        return maxValue;
+    }
+
+    @Override
+    public Boolean booleanValue() {
+        return value != 0;
+    }
+
+    @Override
+    public Byte byteValue() {
+        return value.byteValue();
+    }
+
+    @Override
+    public Integer integerValue() {
+        return value.intValue();
+    }
+
+    @Override
+    public Long longValue() {
+        return value.longValue();
+    }
+
+    @Override
+    public Boolean isBoundByInteger() {
+        return (Integer.MIN_VALUE <= value.longValue() && value.longValue() <= Integer.MAX_VALUE);
+    }
+
+    public I32 lessThan(U32 other) {
+        I32 result;
+        Integer iResult;
+        if (value < other.value) {
+            iResult = 1;
+        } else {
+            iResult = 0;
+        }
+        result = new I32(iResult);
+        return result;
+    }
+
+    public I32 lessThanEqual(U32 other) {
+        I32 result;
+        Integer iResult;
+        if (value <= other.value) {
+            iResult = 1;
+        } else {
+            iResult = 0;
+        }
+        result = new I32(iResult);
+        return result;
+    }
+
+    public I32 greaterThan(U32 other) {
+        I32 result;
+        Integer iResult;
+        if (value > other.value) {
+            iResult = 1;
+        } else {
+            iResult = 0;
+        }
+        result = new I32(iResult);
+        return result;
+    }
+
+    public I32 greaterThanEqual(U32 other) {
+        I32 result;
+        Integer iResult;
+        if (value >= other.value) {
+            iResult = 1;
+        } else {
+            iResult = 0;
+        }
+        result = new I32(iResult);
+        return result;
+    }
+
     //
 //    /**
 //     * The value of the number
@@ -72,24 +187,9 @@ public abstract class U32<ValueType extends Number> extends I32<ValueType> {
 //        return value.byteValue();
 //    }
 //
-//    @Override
-//    public Integer integerValue() {
-//        return value.intValue();
-//    }
 //
-//    @Override
-//    public Long longValue() {
-//        return value.longValue();
-//    }
+//
 
-//    /**
-//     * Does the <code>value</code> lay between Integer.minValue and Integer.maxValue.  i.e
-//     * <code>Integer.minValue &lt;= value &lt;= Integer.maxValue;</code>
-//     **/
-//    @Override
-//    public Boolean isBoundByInteger() {
-//        return (Integer.MIN_VALUE <= value.longValue() && value.longValue() <= Integer.MAX_VALUE);
-//    }
 //
 //    @Override
 //    public int hashCode() {

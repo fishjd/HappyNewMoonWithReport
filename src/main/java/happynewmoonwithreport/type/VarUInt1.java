@@ -49,7 +49,7 @@ public final class VarUInt1 extends UInt8  {
     }
 
     public VarUInt1(BytesFile bytesFile) {
-        value = convert(bytesFile).byteValue();
+        value = convert(bytesFile).longValue();
     }
 
     /**
@@ -58,7 +58,7 @@ public final class VarUInt1 extends UInt8  {
      * @param value value
      */
     public VarUInt1(Integer value) {
-        this.value = value.byteValue();
+        this.value = value.longValue();
     }
 
     /**
@@ -67,7 +67,7 @@ public final class VarUInt1 extends UInt8  {
      * @param value value
      */
     public VarUInt1(Long value) {
-        this.value = value.byteValue();
+        this.value = value.longValue();
     }
 
     /**
@@ -76,7 +76,7 @@ public final class VarUInt1 extends UInt8  {
      * @param value value
      */
     public VarUInt1(Byte value) {
-        this.value = value;
+        this.value = value.longValue();
     }
 
 //    @Override
@@ -113,9 +113,6 @@ public final class VarUInt1 extends UInt8  {
         return (1 << maxBits()) - 1L;
     }
 
-    public Boolean booleanValue() {
-        return value != 0;
-    }
 
     @Override
     public String toString() {

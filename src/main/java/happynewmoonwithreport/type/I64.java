@@ -21,19 +21,59 @@ package happynewmoonwithreport.type;
  * <p>
  * source https://webassembly.github.io/spec/text/values.html#integers
  */
-public abstract  class I64<ValueType extends Number> extends Int<ValueType> {
+public class I64 extends Int {
+    protected Long value;
 
     public I64() {
         super();
     }
 
-//    public I64(Integer value) {
-//        super(value);
-//    }
-//
-//    public I64(Long value) {
-//        super(value);
-//    }
+    public I64 (Integer value) {
+        this.value = value.longValue();
+    }
+
+    @Override
+    public Integer maxBits() {
+        return 64;
+    }
+
+    @Override
+    public Long minValue() {
+        Long minValue = -1L * (1L << (maxBits() - 1L));
+        return minValue;
+
+    }
+
+    @Override
+    public Long maxValue() {
+        Long maxValue = (1L << (maxBits() - 1L)) - 1L;
+        return maxValue;
+    }
+
+    @Override
+    public Boolean isBoundByInteger() {
+        return (Integer.MIN_VALUE <= value.longValue() && value.longValue() <= Integer.MAX_VALUE);
+    }
+
+    @Override
+    public Boolean booleanValue() {
+        return value != 0;
+    }
+
+    @Override
+    public Byte byteValue() {
+        return value.byteValue();
+    }
+
+    @Override
+    public Integer integerValue() {
+        return value.intValue();
+    }
+
+    @Override
+    public Long longValue() {
+        return value.longValue();
+    }
 
 
 }

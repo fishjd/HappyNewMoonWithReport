@@ -34,7 +34,7 @@ public class WasmString {
      * @param payload the input BytesFile.
      * @param sizeInBytes size in bytes.
      */
-    public WasmString(BytesFile payload, DataTypeNumber sizeInBytes) {
+    public WasmString(BytesFile payload, UInt32 sizeInBytes) {
         Integer size = sizeInBytes.integerValue();
         byte[] byteAll = new byte[size];
         for (Integer i = 0; i < size; i++) {

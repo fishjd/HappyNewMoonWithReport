@@ -18,6 +18,9 @@ package happynewmoonwithreport.type;
 
 import happynewmoonwithreport.BytesFile;
 import happynewmoonwithreport.Validation;
+import happynewmoonwithreport.WasmRuntimeException;
+
+import java.util.UUID;
 
 /**
  * Limit also known as resizable limit.
@@ -36,7 +39,7 @@ public class LimitType implements Validation {
     /**
      * does the limit have max?
      */
-    private UInt32 hasMaximum;
+    private UInt8 hasMaximum;
     private UInt32 minimum;
     private UInt32 maximum;
 
@@ -46,19 +49,29 @@ public class LimitType implements Validation {
 
     public LimitType(UInt32 minimum) {
         this();
-        this.hasMaximum = new UInt32(0);  // must be zero.
+        this.hasMaximum = new UInt8(0);  // must be zero.
         this.minimum = minimum;
         this.maximum = null;  // not set!
     }
 
     public LimitType(UInt32 minimum, UInt32 maximum) {
         this();
-        this.hasMaximum = new UInt32(1);
+        this.hasMaximum = new UInt8(1);
         this.minimum = minimum;
         this.maximum = maximum;
     }
 
-    public LimitType(UInt32 hasMaximum, UInt32 minimum, UInt32 maximum) {
+    public LimitType(UInt8 hasMaximum, UInt32 minimum) {
+        this();
+        if ( hasMaximum.integerValue() != 0 ) {
+            throw new WasmRuntimeException(UUID.fromString("123ceab2-9d6f-44b6-83ca-49eee187726b"), "Has Maximum must be zero.");
+        }
+        this.hasMaximum = hasMaximum;
+        this.minimum = minimum;
+        this.maximum = null;
+    }
+
+    public LimitType(UInt8 hasMaximum, UInt32 minimum, UInt32 maximum) {
         this();
         this.hasMaximum = hasMaximum;
         this.minimum = minimum;
@@ -70,7 +83,7 @@ public class LimitType implements Validation {
         this();
         hasMaximum = new VarUInt1(payload);
         minimum = new VarUInt32(payload);
-        if (hasMaximum.isTrue()) {
+        if (hasMaximum.booleanValue() == true) {
             maximum = new VarUInt32(payload);
         }
     }
@@ -80,7 +93,7 @@ public class LimitType implements Validation {
      *
      * @return hasMaximum   nonZero indicates true.
      */
-    public UInt32 hasMaximum() {
+    public UInt8 hasMaximum() {
         return hasMaximum;
     }
 
