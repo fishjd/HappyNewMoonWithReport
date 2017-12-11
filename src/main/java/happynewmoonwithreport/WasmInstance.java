@@ -17,7 +17,10 @@
 package happynewmoonwithreport;
 
 import happynewmoonwithreport.opcode.*;
-import happynewmoonwithreport.type.*;
+import happynewmoonwithreport.type.DataTypeNumber;
+import happynewmoonwithreport.type.S32;
+import happynewmoonwithreport.type.VarUInt32;
+import happynewmoonwithreport.type.WasmVector;
 import happynewmoonwithreport.type.utility.Hex;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
@@ -131,14 +134,19 @@ public class WasmInstance implements WasmInstanceInterface {
         this.code = code;
         byte opcode = code.readByte();
         switch (opcode) {
-            case (byte) 0x00: {
+            case (byte) 0x00: {  // Unreachable
                 Unreachable unreachable = new Unreachable(this);
                 unreachable.execute();
                 break;
             }
-            case (byte) 0x01: {
+            case (byte) 0x01: {  // nop,  no operation.
                 Nop nop = new Nop(this);
                 nop.execute();
+                break;
+            }
+            case (byte) 0x1a: { // drop
+                Drop drop = new Drop(this);
+                drop.execute();
                 break;
             }
             case (byte) 0x02: {
