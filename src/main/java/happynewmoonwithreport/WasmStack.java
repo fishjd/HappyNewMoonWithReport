@@ -33,7 +33,7 @@ public class WasmStack<StackType> extends Stack<StackType> {
     public StackType push(StackType item) {
         if (typeOK(item) == false) {
             throw new WasmRuntimeException(UUID.fromString("12f47ca5-6313-4610-9616-ef10ef3861ee"),
-                    "Item is not of correct type for Stack.  Item = " + item.toString() );
+                    "Item is not of correct type for Stack.  Item = " + item.toString());
         }
         return super.push(item);
     }
@@ -47,6 +47,24 @@ public class WasmStack<StackType> extends Stack<StackType> {
 //    public synchronized StackType peek() {
 //        return super.peek();
 //    }
+
+    /**
+     * Peek at the element at index
+     *
+     * @param index <p>
+     * <code>Index  = 0 </code> top of the stack, ie the most recent value pushed on the stack. .
+     * <p>
+     * <code>index =  1</code> is the second item on the stack.
+     * <p>
+     * note: <code> peek(0) </code>  is the same as <code>peek()</code>
+     * </p>
+     *
+     * @return the element at index.
+     */
+    public StackType peek(Integer index) {
+        Integer stackIndex = size() - index - 1;
+        return get(stackIndex);
+    }
 
     public Boolean typeOK(Object item) {
         Boolean result = false;

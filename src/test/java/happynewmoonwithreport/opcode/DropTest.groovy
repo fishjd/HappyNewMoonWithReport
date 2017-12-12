@@ -59,7 +59,8 @@ class DropTest extends Specification {
     }
 
     def "Drop Throw Exception when empty"() {
-        setup: " push two values on stack."
+        setup: "stack with zero elements on it."
+
         WasmInstanceInterface instance = new WasmInstanceStub();
 
         Drop function = new Drop(instance);

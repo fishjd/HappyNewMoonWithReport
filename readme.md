@@ -68,9 +68,9 @@ Data Section:  To Do
 - [ ] Br_table 0x0E
 - [ ] Return 0x0F
 - [ ] Call 0x10
-- [ ] Call _indirect 0x11
+- [ ] Call_indirect 0x11
 - [x] Drop 0x1A
-- [ ] Select  0x1B
+- [x] Select  0x1B
 - [x] Get_local 0x20
 - [x] Set_local 0x21
 - [ ] Tee_local 0x22
@@ -148,7 +148,7 @@ Data Section:  To Do
 - [ ] i32.div_u 0x6E
 - [ ] i32.rem_s 0x6F
 - [ ] i32.rem_u 0x70
-- [ ] i32.and 0x71 
+- [ ] i32.and 0x71
 - [ ] i32.or 0x72
 - [ ] i32.xor 0x73
 - [ ] i32.shl 0x74
@@ -188,21 +188,21 @@ Data Section:  To Do
 - [ ] f32.min 0x96
 - [ ] f32.max 0x97
 - [ ] f32.copysign 0x98
-- [ ] f64.abs 0x99 
+- [ ] f64.abs 0x99
 - [ ] f64.neg 0x 9A
 - [ ] f64.ceil 0x9B
 - [ ] f64.floor 0x9C
 - [ ] f64.trunk 0x9D
 - [ ] f64.nearest 0x9E
 - [ ] f64.sqrt 0x9F
-- [ ] f64.add 0xA0 
-- [ ] f64.sub 0xA1 
-- [ ] f64.mul 0xA2 
-- [ ] f64.div 0xA3 
-- [ ] f64.min 0xA4 
-- [ ] f64.max 0xA5 
+- [ ] f64.add 0xA0
+- [ ] f64.sub 0xA1
+- [ ] f64.mul 0xA2
+- [ ] f64.div 0xA3
+- [ ] f64.min 0xA4
+- [ ] f64.max 0xA5
 - [ ] f64.copysign 0xA6
-- [ ] f32.warp/i64 0xA7 
+- [ ] f32.warp/i64 0xA7
 - [ ] f32.trunc_s/f3s  0xA8
 - [ ] f32.trunc_u/f32 0xA9
 - [ ] f32.trunc_s/f64 0xAA

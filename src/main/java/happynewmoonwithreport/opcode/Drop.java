@@ -24,7 +24,7 @@ import happynewmoonwithreport.WasmStack;
 import java.util.UUID;
 
 /**
- * Drop (Drop) - pop a value off the stack.   The value is discarded.  
+ * Drop (Drop) - pop a value off the stack.   The value is discarded.
  * <p>
  * <ol>
  * <li>Assert: due to validation, a value is on the top of the stack.</li

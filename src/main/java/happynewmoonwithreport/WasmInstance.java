@@ -144,14 +144,19 @@ public class WasmInstance implements WasmInstanceInterface {
                 nop.execute();
                 break;
             }
-            case (byte) 0x1a: { // drop
+            case (byte) 0x02: {
+                Block block = new Block(this);
+                block.execute();
+                break;
+            }
+            case (byte) 0x1A: { // drop
                 Drop drop = new Drop(this);
                 drop.execute();
                 break;
             }
-            case (byte) 0x02: {
-                Block block = new Block(this);
-                block.execute();
+            case (byte) 0x1B: { // select
+                Select select = new Select(this);
+                select.execute();
                 break;
             }
             case (byte) 0x20: {
