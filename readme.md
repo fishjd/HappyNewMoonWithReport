@@ -1,7 +1,13 @@
 # Happy New Moon with Report
 
 [![Join the chat at https://gitter.im/HappyNewMoonWithReport/Lobby](https://badges.gitter.im/HappyNewMoonWithReport/Lobby.svg)](https://gitter.im/HappyNewMoonWithReport/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-Run and Test Web Assembly modules (*.wasm) in Java.
+
+Run and Test `Web Assembly` modules (*.wasm) in Java.
+Written in Java for Java programs. 
+
+`Happy New Moon with Report`  doesn't concern itself with the production of the wasm binary files; these files should be produced with another tool (such as wabt or binaryen.)
+
+The primary goal of `Happy New Moon with Report` is to be able to load and run a binary `Web Assembly` module in your Java program. 
 
 ## The basic use case is:
 
@@ -24,6 +30,9 @@ public void testHelloWorld throws Exception {
 
 This project has nothing to do with reporting or fireworks.
 
+##Similar Projects
+
+For the 'Go' language: Wagon (https://github.com/go-interpreter/wagon)
 
 
 ## Progress
