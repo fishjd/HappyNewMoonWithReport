@@ -5,7 +5,9 @@
   (export "factorialLong" (func $factorialLong))
   (func $factorialLong (param $0 i32) (result i32)
     (local $1 i32)
+    // declare 'n'  thus $2 is 'n'
     (local $2 i32)
+    //  Line 11: long n = 1;
     (set_local $2
       (i32.const 1)
     )
