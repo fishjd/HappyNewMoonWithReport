@@ -220,4 +220,26 @@ public class WasmModule {
     public WasmVector<ExportEntry> getExportAll() {
         return exportAll;
     }
+
+    public WasmVector<MemoryType> getMemoryAll() {
+        return memoryAll;
+    }
+
+    /**
+     * <i>Assert: due to validation, F.module.memaddrs[index] exists.</i>
+     *
+     * @param index only zero is valid in version 1.0
+     *
+     * @return true if memory[index] exists.
+     */
+    public Boolean memoryExists(UInt32 index) {
+        Boolean result;
+        result = memoryAll.exists(index);
+        return result;
+    }
+
+    public MemoryType getMemory(UInt32 index) {
+        return memoryAll.get(index);
+    }
+
 }

@@ -17,7 +17,6 @@
 package happynewmoonwithreport.opcode;
 
 
-import happynewmoonwithreport.WasmInstanceInterface;
 import happynewmoonwithreport.WasmRuntimeException;
 import happynewmoonwithreport.WasmStack;
 import happynewmoonwithreport.type.I32;
@@ -57,15 +56,16 @@ import java.util.UUID;
  * </p>
  */
 public class I32_gt_u {
-    private WasmInstanceInterface instance;
+
+    private WasmStack<Object> stack;
 
     private I32_gt_u() {
         super();
     }
 
-    public I32_gt_u(WasmInstanceInterface instance) {
+    public I32_gt_u(WasmStack<Object> stack) {
         this();
-        this.instance = instance;
+        this.stack = stack;
     }
 
 
@@ -73,7 +73,6 @@ public class I32_gt_u {
      * Execute the opcode.
      */
     public void execute() {
-        WasmStack<Object> stack = instance.stack();
         if ((stack.peek() instanceof I32) == false) {
             throw new WasmRuntimeException(UUID.fromString("b422e802-6418-4b81-9eba-cff76bcdefb2"),
                     "i32_gt_u: Value2 type is incorrect");

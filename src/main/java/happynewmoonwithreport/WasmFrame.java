@@ -27,33 +27,38 @@ import happynewmoonwithreport.type.WasmVector;
  * Source:  <a href="https://webassembly.github.io/spec/exec/runtime.html#syntax-frame" target="_top">
  * https://webassembly.github.io/spec/exec/runtime.html#syntax-frame
  * </a>
+ * <p>
+ * <p>
+ * Source:  <a href="https://webassembly.github.io/spec/core/exec/runtime.html#frames" target="_top">
+ * https://webassembly.github.io/spec/core/exec/runtime.html#frames
+ * </a>
  */
 public class WasmFrame {
-    private WasmInstanceInterface instance;
+    private WasmModule module;
 
     /**
      * The arity,  The types of the return values
      */
     private WasmVector<DataTypeNumber> returnTypeAll;
+
     /**
-     * Local Variables.
+     * Local Variables including arguments
      */
     private WasmVector<DataTypeNumber> localAll;
 
     private WasmFrame() {
         super();
-        localAll = new WasmVector<>(100);
-        returnTypeAll = new WasmVector<>(100);
+        localAll = new WasmVector<>();
+        returnTypeAll = new WasmVector<>();
     }
 
-    public WasmFrame(WasmInstanceInterface instance) {
+    public WasmFrame(WasmModule module) {
         this();
-        this.instance = instance;
-
+        this.module = module;
     }
 
-    public WasmInstanceInterface instance() {
-        return instance;
+    public WasmModule getModule() {
+        return module;
     }
 
     public WasmVector<DataTypeNumber> returnTypeAll() {

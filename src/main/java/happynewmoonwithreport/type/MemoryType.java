@@ -32,6 +32,11 @@ import happynewmoonwithreport.Validation;
  * Source:  <a href="https://webassembly.github.io/spec/syntax/types.html#memory-types" target="_top">
  * https://webassembly.github.io/spec/syntax/types.html#memory-types
  * </a>
+ *
+ * <p>
+ * Source:  <a href="https://webassembly.github.io/spec/core/exec/runtime.html#memory-instances" target="_top">
+ * https://webassembly.github.io/spec/core/exec/runtime.html#memory-instances
+ * </a>
  */
 public class MemoryType implements Validation {
 
@@ -39,6 +44,10 @@ public class MemoryType implements Validation {
 
     public MemoryType(UInt8 hasMaximum, UInt32 minimum, UInt32 maximum) {
         limit = new LimitType(hasMaximum, minimum, maximum);
+    }
+
+    public MemoryType(UInt8 hasMaximum, UInt32 minimum) {
+        limit = new LimitType(hasMaximum, minimum);
     }
 
     public MemoryType(BytesFile payload) {
