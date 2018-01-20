@@ -232,6 +232,11 @@ public class WasmInstance implements WasmInstanceInterface {
 				i32_ge_u.execute();
 				break;
 			}
+			case (byte) 0x50: { // i64 equals zero
+				I64_eqz i64_eqz = new I64_eqz(this);
+				i64_eqz.execute();
+				break;
+			}
             case (byte) 0x6A: {
                 AddI32 addI32 = new AddI32(this);
                 addI32.execute();

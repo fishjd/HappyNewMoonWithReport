@@ -54,10 +54,8 @@ class I32_neTest extends Specification {
         3           | 4           || 1
         4           | 4           || 0
         0           | 0           || 0
-        0xFFFF_FFFF | 0xFFFF_FFFE || 1
-        0xFFFF_FFFF | 0x0FFF_FFFF || 1
-        0x0FFF_FFFF | 0xFFFF_FFFF || 1
-        0xFFFF_FFFF | 0xFFFF_FFFF || 0
+        0x0FFF_FFFF | 0x0FFF_FFFE || 1
+        0x0FFF_FFFF | 0x0FFF_FFFF || 0
     }
 
     def "Execute I32_ne throw exception on incorrect Type on second param "() {
