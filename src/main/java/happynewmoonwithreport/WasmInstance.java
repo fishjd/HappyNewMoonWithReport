@@ -177,6 +177,21 @@ public class WasmInstance implements WasmInstanceInterface {
                 constantInt32.execute(new VarUInt32(code));
                 break;
             }
+			case (byte) 0x45: { // i32 equals zero
+				I32_eqz i32_eqz = new I32_eqz(this);
+				i32_eqz.execute();
+				break;
+			}
+			case (byte) 0x46: { // i32 equals
+				I32_eq i32_eq = new I32_eq(this);
+				i32_eq.execute();
+				break;
+			}
+			case (byte) 0x47: { // i32 not equals
+				I32_ne i32_ne = new I32_ne(this);
+				i32_ne.execute();
+				break;
+			}
             case (byte) 0x48: { // i32 less than signed
                 I32_lt_s i32_lt_s = new I32_lt_s(this);
                 i32_lt_s.execute();

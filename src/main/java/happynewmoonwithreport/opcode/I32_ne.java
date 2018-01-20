@@ -17,16 +17,16 @@
 package happynewmoonwithreport.opcode;
 
 
+import java.util.UUID;
+
 import happynewmoonwithreport.WasmInstanceInterface;
 import happynewmoonwithreport.WasmRuntimeException;
 import happynewmoonwithreport.WasmStack;
 import happynewmoonwithreport.type.I32;
-import happynewmoonwithreport.type.U32;
-
-import java.util.UUID;
+import happynewmoonwithreport.type.UInt32;
 
 /**
- * I32 Less than Unsigned  (i32_lt_u)
+ * I32 equal to (i32_eq)
  * <p>
  * <b>Note this is the same for all Relative Operations</b>
  * <p>
@@ -55,14 +55,14 @@ import java.util.UUID;
  * https://webassembly.github.io/spec/exec/instructions.html#exec-relop
  * </a>
  */
-public class I32_lt_u {
+public class I32_ne {
     private WasmInstanceInterface instance;
 
-    private I32_lt_u() {
+    private I32_ne() {
         super();
     }
 
-    public I32_lt_u(WasmInstanceInterface instance) {
+    public I32_ne(WasmInstanceInterface instance) {
         this();
         this.instance = instance;
     }
@@ -74,23 +74,24 @@ public class I32_lt_u {
     public void execute() {
         WasmStack<Object> stack = instance.stack();
         if ((stack.peek() instanceof I32) == false) {
-            throw new WasmRuntimeException(UUID.fromString("cb177362-ff56-4f17-800d-023c699a510e"),
-                    "I32_lt_u: Value2 type is incorrect");
+            throw new WasmRuntimeException(UUID.fromString("c0567b29-8821-4db4-82f0-58780682c917"),
+                    "I32_ne: Value2 type is incorrect");
         }
         I32 value2 = (I32) stack.pop();
 
         if ((stack.peek() instanceof I32) == false) {
-            throw new WasmRuntimeException(UUID.fromString("d05dde28-6aaa-4de5-b140-2343c02204db"),
-                    "I32_lt_u: Value1 type is incorrect");
+            throw new WasmRuntimeException(UUID.fromString("5878a528-f6b1-48c4-a6e5-0c6e955874cb"),
+                    "I32_ne: Value1 type is incorrect");
         }
         I32 value1 = (I32) stack.pop();
 
-        // these values are unsigned values and thus we use UInt32
-        U32 value2Unsigned = value2.unsignedValue();
-        U32 value1Unsigned = value1.unsignedValue();
-
-        // Do the comparison.
-        I32 result = value1Unsigned.lessThan(value2Unsigned);
+        Integer iResult;
+        if (value1.equals(value2) == false) {
+            iResult = 1;
+        } else {
+            iResult = 0;
+        }
+        I32 result = new I32(iResult);
 
         stack.push(result);
     }
