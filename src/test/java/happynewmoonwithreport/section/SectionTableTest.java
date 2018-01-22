@@ -20,25 +20,27 @@ import happynewmoonwithreport.BytesFile;
 import happynewmoonwithreport.ElementType;
 import happynewmoonwithreport.TableType;
 import happynewmoonwithreport.type.UInt32;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.fail;
 
 
 public class SectionTableTest {
-    SectionTable sectionTable;
+    private SectionTable sectionTable;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         sectionTable = new SectionTable();
         assertNotNull(sectionTable);
     }
 
-    @After
+    @AfterEach
     public void tearDown() throws Exception {
     }
 

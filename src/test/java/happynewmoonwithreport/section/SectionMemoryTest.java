@@ -21,23 +21,23 @@ import happynewmoonwithreport.type.MemoryType;
 import happynewmoonwithreport.type.UInt32;
 import happynewmoonwithreport.type.VarUInt1;
 import happynewmoonwithreport.type.WasmVector;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 public class SectionMemoryTest {
     private SectionMemory sectionMemory;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         sectionMemory = new SectionMemory();
         assertNotNull(sectionMemory);
     }
 
-    @After
+    @AfterEach
     public void tearDown() throws Exception {
     }
 

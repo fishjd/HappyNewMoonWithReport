@@ -16,20 +16,21 @@
  */
 package happynewmoonwithreport.type;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.Random;
 
-import static junit.framework.TestCase.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+
 
 public class isBoundByIntegerTest {
-    Integer maxCount = 1_000_000;
+    private Integer maxCount = 1_000_000;
 
-    Random random;
+    private Random random;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         random = new Random(System.currentTimeMillis());
 
@@ -46,7 +47,7 @@ public class isBoundByIntegerTest {
             Boolean boundByInteger = uInt64.isBoundByInteger();
 
             // test
-            assertTrue("i = " + i.toString(), boundByInteger);
+            assertThat(boundByInteger).as("i = " + i.toString()).isTrue();
         }
     }
 

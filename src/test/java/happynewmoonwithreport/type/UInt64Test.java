@@ -16,23 +16,24 @@
  */
 package happynewmoonwithreport.type;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class UInt64Test {
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
     }
 
-    @After
+    @AfterEach
     public void tearDown() throws Exception {
     }
 
-    UInt64 uInt64;
+    private UInt64 uInt64;
 
     @Test
     public void maxBits() throws Exception {
@@ -56,7 +57,7 @@ public class UInt64Test {
 
 
     private void assertEqualHex(Long expected, Long result) {
-        assertEquals("i = " + expected.toString() + " hex = " + Long.toHexString(expected), new Long(expected), result);
+        assertEquals( new Long(expected), result ,"i = " + expected.toString() + " hex = " + Long.toHexString(expected));
     }
 
 

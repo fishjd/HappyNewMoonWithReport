@@ -16,19 +16,20 @@
  */
 package happynewmoonwithreport.type;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class VarUInt1Test {
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
     }
 
-    @After
+    @AfterEach
     public void tearDown() throws Exception {
     }
 
@@ -57,7 +58,7 @@ public class VarUInt1Test {
         for (Long i = 0L; i < 1; i++) {
             VarUInt1 uin1 = new VarUInt1(new Long(i));
             Long result = uin1.longValue();
-            assertEquals("i = " + i.toString(), i, result);
+            assertEquals(i, result, "i = " + i.toString());
         }
     }
 

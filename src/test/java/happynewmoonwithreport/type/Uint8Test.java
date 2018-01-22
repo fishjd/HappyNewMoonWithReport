@@ -17,20 +17,20 @@
 package happynewmoonwithreport.type;
 
 import happynewmoonwithreport.BytesFile;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class Uint8Test {
-    UInt8 uInt8;
+    private UInt8 uInt8;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
     }
 
-    @After
+    @AfterEach
     public void tearDown() throws Exception {
     }
 
@@ -60,7 +60,7 @@ public class Uint8Test {
             BytesFile bytesFile = new BytesFile(bytesAll);
             UInt8 uInt8 = new UInt8(bytesFile);
             Integer result = uInt8.integerValue();
-            assertEquals("i = " + i.toString(), i, result);
+            assertEquals(i, result, "i = " + i.toString());
         }
     }
 

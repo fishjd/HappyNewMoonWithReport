@@ -16,21 +16,22 @@
  */
 package happynewmoonwithreport.type;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
 
-import static junit.framework.TestCase.assertEquals;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class WasmVectorTest {
-    WasmVector<String> vector;
+    private WasmVector<String> vector;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         vector = new WasmVector<>();
     }
 
-    @After
+    @AfterEach
     public void tearDown() throws Exception {
     }
 

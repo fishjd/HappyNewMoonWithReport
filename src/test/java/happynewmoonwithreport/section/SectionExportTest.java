@@ -21,26 +21,26 @@ import happynewmoonwithreport.ExportEntry;
 import happynewmoonwithreport.ExternalKind;
 import happynewmoonwithreport.type.UInt32;
 import happynewmoonwithreport.type.WasmString;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 
 public class SectionExportTest {
-    SectionExport sectionExport;
+    private SectionExport sectionExport;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         sectionExport = new SectionExport();
         assertNotNull(sectionExport);
     }
 
-    @After
+    @AfterEach
     public void tearDown() throws Exception {
     }
 
