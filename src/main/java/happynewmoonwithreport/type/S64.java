@@ -21,17 +21,71 @@ package happynewmoonwithreport.type;
  */
 public class S64 extends I64 {
 
-    public S64() {
-        super();
-    }
+	public S64() {
+		super();
+	}
 
-    public S64 (Integer value) {
-        this.value = value.longValue();
-    }
+	public S64(Integer value) {
+		this.value = value.longValue();
+	}
 
-    @Override
-    public Integer maxBits() {
-        return 64;
-    }
+	public S64(Long value) {
+		this.value = value;
+	}
+
+
+	public I32 lessThan(S64 other) {
+		I32 result;
+		Integer iResult;
+		if (value < other.value) {
+			iResult = 1;
+		} else {
+			iResult = 0;
+		}
+		result = new I32(iResult);
+		return result;
+	}
+
+	public I32 lessThanEqual(S64 other) {
+		I32 result;
+		Integer iResult;
+		if (value <= other.value) {
+			iResult = 1;
+		} else {
+			iResult = 0;
+		}
+		result = new I32(iResult);
+		return result;
+	}
+
+	public I32 greaterThan(S64 other) {
+		I32 result;
+		Integer iResult;
+		if (value > other.value) {
+			iResult = 1;
+		} else {
+			iResult = 0;
+		}
+		result = new I32(iResult);
+		return result;
+	}
+
+	public I32 greaterThanEqual(S64 other) {
+		I32 result;
+		Integer iResult;
+		if (value >= other.value) {
+			iResult = 1;
+		} else {
+			iResult = 0;
+		}
+		result = new I32(iResult);
+		return result;
+	}
+
+
+	@Override
+	public Integer maxBits() {
+		return 64;
+	}
 
 }
