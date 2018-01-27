@@ -31,6 +31,10 @@ public class U64 extends I64 {
 		super();
 	}
 
+	@Override
+	public Integer maxBits() {
+		return 63;  // should be 64 but that is not possible using Java type Long.
+	}
 
 	public U64(Long value) {
 		if (isBoundByLong(value) == false) {
@@ -105,6 +109,7 @@ public class U64 extends I64 {
 
 	@Override
 	public Long minValue() {
+		// @TODO change return type to U64.
 		return 0L;
 	}
 
