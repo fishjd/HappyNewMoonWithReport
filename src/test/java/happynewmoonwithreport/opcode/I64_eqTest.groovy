@@ -23,47 +23,46 @@ import happynewmoonwithreport.type.I64
 import spock.lang.Specification
 
 /**
- * Created on 2017-11-14.
+ * Created on 2018-01-23.
  */
-class I32_eqTest extends Specification {
+class I64_eqTest extends Specification {
     void setup() {
     }
 
     void cleanup() {
     }
 
-    def "Execute I32 Equal to "() {
+    def "Execute I64 Equals to "() {
         setup: " push two values on stack."
         WasmInstanceInterface instance = new WasmInstanceStub();
-        instance.stack().push(new I32(val1));
-        instance.stack().push(new I32(val2));
+        instance.stack().push(new I64(val1));
+        instance.stack().push(new I64(val2));
 
-        I32_eq function = new I32_eq(instance);
+        I64_eq function = new I64_eq(instance);
 
         when: "run the opcode"
         function.execute();
 
         then: " a value of expected"
-        new I32(expected).equals(instance.stack().pop());
-
+        instance.stack().pop() == new I32(expected)  ;
 
         where: ""
-        val1        | val2        || expected
-        4           | 3           || 0
-        3           | 4           || 0
-        4           | 4           || 1
-        0           | 0           || 1
-        0x0FFF_FFFF | 0x0FFF_FFFE || 0
-        0x0FFF_FFFF | 0x0FFF_FFFF || 1
+        val1                  | val2                  || expected
+        4                     | 3                     || 0
+        3                     | 4                     || 0
+        4                     | 4                     || 1
+        0                     | 0                     || 1
+        0xFFFF_FFFF_FFFF_FFFF | 0xFFFF_FFFF_FFFF_FFFF || 1
+        0xFFFF_FFFF_FFFF_FFFE | 0xFFFF_FFFF_FFFF_FFFF || 0
     }
 
-    def "Execute I32_eq throw exception on incorrect Type on second param "() {
-        setup: " a value of I32  value 1  and a value of I64 of value 2"
+    def "Execute I64_eq throw exception on incorrect Type on second param "() {
+        setup: " a value of I64 value 1 and a value of I32 of value 2"
         WasmInstanceInterface instance = new WasmInstanceStub();
-        instance.stack().push(new I32(3));  // value 1
-        instance.stack().push(new I64(4));  // value 2
+        instance.stack().push(new I64(3));  // value 1
+        instance.stack().push(new I32(4));  // value 2 is an incorrect type
 
-        I32_eq function = new I32_eq(instance);
+        I64_eq function = new I64_eq(instance);
 
         when: "run the opcode"
         function.execute();
@@ -71,16 +70,16 @@ class I32_eqTest extends Specification {
         then: " Thrown Exception"
         WasmRuntimeException exception = thrown();
         exception.message.contains("Value2");
-        exception.getUuid().toString().contains("03da0147-6ed0-4039-8f54-a7cab2477b6f");
+        exception.getUuid().toString().contains("e9b2cccf-1977-4a6b-9cb2-00d101c1203c");
     }
 
-    def "Execute I32_eq throw exception on incorrect Type on first param "() {
-        setup: " a value of I64  value 1  and a value of I32 of value 2"
+    def "Execute I64_eq throw exception on incorrect Type on first param "() {
+        setup: " a value of I32 value 1 and a value of I64 of value 2"
         WasmInstanceInterface instance = new WasmInstanceStub();
-        instance.stack().push(new I64(3));  // value 1
-        instance.stack().push(new I32(4));  // value 2
+        instance.stack().push(new I32(3));  // value 1 is an incorrect type
+        instance.stack().push(new I64(4));  // value 2
 
-        I32_eq function = new I32_eq(instance);
+        I64_eq function = new I64_eq(instance);
 
         when: "run the opcode"
         function.execute();
@@ -88,7 +87,6 @@ class I32_eqTest extends Specification {
         then: " Thrown Exception"
         WasmRuntimeException exception = thrown();
         exception.message.contains("Value1");
-        exception.getUuid().toString().contains("3d0a4b3c-bf4b-42b0-b594-c57a4cb23143");
+        exception.getUuid().toString().contains("b7d4d9bd-742c-4a78-9d90-2d4e1f3292b0");
     }
-
 }

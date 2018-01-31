@@ -18,7 +18,10 @@ package happynewmoonwithreport.type;
 
 /**
  * An unsigned integer of 64 bits.
+ *
+ * Use U64 instead.
  */
+@Deprecated
 public class UInt64 extends U64 {
 
     public UInt64() {

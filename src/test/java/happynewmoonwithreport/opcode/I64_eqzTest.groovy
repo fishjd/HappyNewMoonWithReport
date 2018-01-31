@@ -25,42 +25,47 @@ import spock.lang.Specification
 /**
  * Created on 2017-11-14.
  */
-class I32_eqzTest extends Specification {
+class I64_eqzTest extends Specification {
     void setup() {
     }
 
     void cleanup() {
     }
 
-    def "Execute I32 Equals zero "() {
+    def "Execute I64 Equals zero "() {
         setup: " push one value on stack."
         WasmInstanceInterface instance = new WasmInstanceStub();
-        instance.stack().push(new I32(val1));
+        instance.stack().push(new I64(val1));
 
-        I32_eqz function = new I32_eqz(instance);
+        I64_eqz function = new I64_eqz(instance);
 
         when: "run the opcode"
         function.execute();
 
         then: " a value of expected"
-        new I32(expected) == instance.stack().pop();
+        instance.stack().pop() == new I32(expected)  ;
 
 
         where: ""
         val1        || expected
         4           || 0
         0           || 1
-        0x0FFF_FFFF || 0
-        0x0FFF_FFFE || 0
+        0xFFFF_FFFF || 0
+        0xFFFF_FFFE || 0
         0x0000_0000 || 1
+        0x0FFF_FFFF || 0
+        0xFFFF_FFFF_FFFF_FFFF || 0
+        0xFFFF_FFFF_FFFF_FFFE || 0
+        0x0000_0000_0000_0000 || 1
+
     }
 
-    def "Execute I32_eqz throw exception on incorrect Type on first param "() {
-        setup: " a value of I64  value 1  and a value of I32 of value 2"
+    def "Execute I64_eqz throw exception on incorrect Type on first param "() {
+        setup: " a value of I32  value 1"
         WasmInstanceInterface instance = new WasmInstanceStub();
-        instance.stack().push(new I64(3));  // value 1
+        instance.stack().push(new I32(3));  // value 1 is an incorrect type
 
-        I32_eqz function = new I32_eqz(instance);
+        I64_eqz function = new I64_eqz(instance);
 
         when: "run the opcode"
         function.execute();
@@ -68,7 +73,7 @@ class I32_eqzTest extends Specification {
         then: " Thrown Exception"
         WasmRuntimeException exception = thrown();
         exception.message.contains("Value1");
-        exception.getUuid().toString().contains("2278f5a2-debe-4e0d-a1ff-9a040297359c");
+        exception.getUuid().toString().contains("d33cbf32-66c8-4b8c-9fa5-81e8e195d1bc");
     }
 
 }
