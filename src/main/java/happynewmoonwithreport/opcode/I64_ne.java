@@ -39,14 +39,14 @@ import happynewmoonwithreport.type.I64;
  * Source:  <a href="https://webassembly.github.io/spec/core/appendix/index-instructions.html"
  * target="_top"> https://webassembly.github.io/spec/core/appendix/index-instructions.html </a>
  */
-public class I64_eq {
+public class I64_ne {
 	private WasmInstanceInterface instance;
 
-	private I64_eq() {
+	private I64_ne() {
 		super();
 	}
 
-	public I64_eq(WasmInstanceInterface instance) {
+	public I64_ne(WasmInstanceInterface instance) {
 		this();
 		this.instance = instance;
 	}
@@ -59,19 +59,19 @@ public class I64_eq {
 	public void execute() {
 		WasmStack<Object> stack = instance.stack();
 		if ((stack.peek() instanceof I64) == false) {
-			throw new WasmRuntimeException(UUID.fromString("e9b2cccf-1977-4a6b-9cb2-00d101c1203c"),
-										   "I64_eq: Value2 type is incorrect");
+			throw new WasmRuntimeException(UUID.fromString("35101325-10e5-41c3-86e1-b79dd7eac7c6"),
+										   "I64_ne: Value2 type is incorrect");
 		}
 		I64 value2 = (I64) stack.pop();
 
 		if ((stack.peek() instanceof I64) == false) {
-			throw new WasmRuntimeException(UUID.fromString("b7d4d9bd-742c-4a78-9d90-2d4e1f3292b0"),
-										   "I64_eq: Value1 type is incorrect");
+			throw new WasmRuntimeException(UUID.fromString("1f3ea0f6-6b0d-4aa0-9065-8f35e3218af2"),
+										   "I64_ne: Value1 type is incorrect");
 		}
 		I64 value1 = (I64) stack.pop();
 
 		Integer iResult;
-		if (value2.equals(value1)) {
+		if (value1.equals(value2) == false) {
 			iResult = 1;
 		} else {
 			iResult = 0;

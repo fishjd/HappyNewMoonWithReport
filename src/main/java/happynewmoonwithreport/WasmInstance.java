@@ -242,6 +242,16 @@ public class WasmInstance implements WasmInstanceInterface {
 				i64_eq.execute();
 				break;
 			}
+			case (byte) 0x52: { // i64 not equals
+				I64_ne i64_ne = new I64_ne(this);
+				i64_ne.execute();
+				break;
+			}
+			case (byte) 0x53: { // i64 less than signed
+				I64_lt_s i64_lt_s = new I64_lt_s(this);
+				i64_lt_s.execute();
+				break;
+			}
             case (byte) 0x6A: {
                 AddI32 addI32 = new AddI32(this);
                 addI32.execute();
