@@ -52,8 +52,8 @@ import happynewmoonwithreport.type.S64;
  * </ol>
  * <p>
  * <p>
- * Source:  <a href="https://webassembly.github.io/spec/exec/instructions.html#exec-relop" target="_top">
- * https://webassembly.github.io/spec/exec/instructions.html#exec-relop
+ * Source:  <a href="https://webassembly.github.io/spec/core/appendix/index-instructions.html"
+ * target="_top"> https://webassembly.github.io/spec/core/appendix/index-instructions.html </a>
  * </a>
  */
 public class I64_lt_s {
