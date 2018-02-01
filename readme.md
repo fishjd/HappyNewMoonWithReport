@@ -126,8 +126,8 @@ Data Section:  To Do
 - [x] i32_gt_u 0x4F
 - [x] i64_eqz  0x50
 - [x] i64_eq 0x51
-- [ ] i64_ne 0x52
-- [ ] i64_lt_s 0x53
+- [x] i64_ne 0x52
+- [x] i64_lt_s 0x53
 - [ ] i64_lt_u 0x54
 - [ ] i64_gt_s 0x55
 - [ ] i64_gt_u 0x56
