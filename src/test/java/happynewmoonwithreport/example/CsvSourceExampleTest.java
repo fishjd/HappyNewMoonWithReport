@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 Whole Bean Software, LTD.
+ *  Copyright 2018 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -14,32 +14,24 @@
  *  limitations under the License.
  *
  */
-package happynewmoonwithreport.type;
+package happynewmoonwithreport.example;
 
-
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@DisplayName("Should pass the method parameters provided by the @CsvSource annotation")
+class CsvSourceExampleTest {
 
-public class Uint32EqualTest {
-
-    @BeforeEach
-    public void setUp() throws Exception {
-
+    @DisplayName("Should calculate the correct sum")
+    @ParameterizedTest(name = "{index} => a={0}, b={1}, sum={2}")
+    @CsvSource({
+            "1, 1, 2",
+            "2, 3, 5"
+    })
+    void sum(int a, int b, int sum) {
+        assertEquals(sum, a + b);
     }
-
-    @AfterEach
-    public void tearDown() throws Exception {
-    }
-
-    @Test
-    public void testEqual() throws Exception {
-        UInt32 expected = new UInt32(1L);
-        UInt32 result = new UInt32(1L);
-        assertEquals(expected, result);
-    }
-
 }

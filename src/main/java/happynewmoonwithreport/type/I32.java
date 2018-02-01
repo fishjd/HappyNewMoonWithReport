@@ -41,9 +41,17 @@ public class I32 extends Int {
         this();
         if (isBoundByInteger(value) == false) {
             throw new WasmRuntimeException(UUID.fromString("62298944-804a-430e-b645-7bda0ecab265"),
-                    "Value not bound by integer. Value = " + value );
+                    "Value not bound by integer. Value = " + value + " (" + toHex(value) + ")");
         }
         this.value = value.intValue();
+    }
+
+    private String toHex(Long value) {
+        return "0x" + Long.toHexString(value).toUpperCase();
+    }
+
+    private String toHex(Integer value) {
+        return "0x" + Integer.toHexString(value).toUpperCase();
     }
 
     @Override
@@ -117,7 +125,7 @@ public class I32 extends Int {
 
     @Override
     public Boolean isBoundByInteger() {
-        return  isBoundByInteger(value.longValue());
+        return isBoundByInteger(value.longValue());
     }
 
     protected Boolean isBoundByInteger(Long input) {
@@ -141,5 +149,11 @@ public class I32 extends Int {
     @Override
     public int hashCode() {
         return value.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        String result = "I32{ value = " + value + " (" + toHex(value) + ")";
+        return result;
     }
 }

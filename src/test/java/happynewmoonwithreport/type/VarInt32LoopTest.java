@@ -17,23 +17,24 @@
 package happynewmoonwithreport.type;
 
 import happynewmoonwithreport.BytesFile;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 public class VarInt32LoopTest {
 
     private Map<Integer, byte[]> problemChildren;
     private Random random;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         problemChildren = new HashMap<>();
         setupProblemChildren();
@@ -51,7 +52,7 @@ public class VarInt32LoopTest {
 
     }
 
-    @After
+    @AfterEach
     public void tearDown() throws Exception {
     }
 
@@ -94,7 +95,7 @@ public class VarInt32LoopTest {
     }
 
     private void assertEqualHex(Integer expected, Integer result) {
-        assertEquals("expected = " + expected.toString() + " hex = " + Integer.toHexString(expected), expected, result);
+        assertEquals(expected, result, "expected = " + expected.toString() + " hex = " + Integer.toHexString(expected));
     }
 
     private Integer maxCount = 1_000_000;

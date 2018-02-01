@@ -19,23 +19,22 @@ package happynewmoonwithreport.section;
 import happynewmoonwithreport.BytesFile;
 import happynewmoonwithreport.FunctionBody;
 import happynewmoonwithreport.type.UInt32;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.*;
-
+import static org.junit.jupiter.api.Assertions.*;
 
 public class SectionCodeTest {
-    SectionCode sectionCode;
+    private SectionCode sectionCode;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         sectionCode = new SectionCode();
         assertNotNull(sectionCode);
     }
 
-    @After
+    @AfterEach
     public void tearDown() throws Exception {
     }
 

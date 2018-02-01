@@ -17,18 +17,19 @@
 package happynewmoonwithreport.validation;
 
 import happynewmoonwithreport.Wasm;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 
 public class WasmAdd32ValidationTest {
     private Wasm wasm;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
 
         String path = "./src/test/resources/add32/add32.wasm";
@@ -40,7 +41,7 @@ public class WasmAdd32ValidationTest {
         wasm.instantiate();
     }
 
-    @After
+    @AfterEach
     public void tearDown() throws Exception {
     }
 

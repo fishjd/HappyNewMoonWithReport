@@ -18,23 +18,24 @@ package happynewmoonwithreport;
 
 import happynewmoonwithreport.type.S32;
 import happynewmoonwithreport.type.UInt32;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 public class MemoryTest {
-    private     Memory memory;
+    private Memory memory;
     private UInt32 size;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         size = new UInt32(1L);
         memory = new Memory(size);
     }
 
-    @After
+    @AfterEach
     public void tearDown() throws Exception {
     }
 

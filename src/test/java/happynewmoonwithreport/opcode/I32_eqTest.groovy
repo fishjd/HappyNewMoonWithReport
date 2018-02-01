@@ -21,6 +21,7 @@ import happynewmoonwithreport.WasmRuntimeException
 import happynewmoonwithreport.type.I32
 import happynewmoonwithreport.type.I64
 import spock.lang.Specification
+import spock.lang.Unroll
 
 /**
  * Created on 2017-11-14.
@@ -32,6 +33,7 @@ class I32_eqTest extends Specification {
     void cleanup() {
     }
 
+    @Unroll
     def "Execute I32 Equal to "() {
         setup: " push two values on stack."
         WasmInstanceInterface instance = new WasmInstanceStub();
@@ -47,7 +49,7 @@ class I32_eqTest extends Specification {
         new I32(expected).equals(instance.stack().pop());
 
 
-        where: ""
+        where: "val1 equals val2 returns #expected"
         val1        | val2        || expected
         4           | 3           || 0
         3           | 4           || 0

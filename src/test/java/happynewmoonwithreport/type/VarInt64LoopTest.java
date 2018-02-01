@@ -17,23 +17,23 @@
 package happynewmoonwithreport.type;
 
 import happynewmoonwithreport.BytesFile;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class VarInt64LoopTest {
 
     protected Map<Long, byte[]> problemChildren;
     protected Random random;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         problemChildren = new HashMap<>();
         setupProblemChildren();
@@ -55,7 +55,7 @@ public class VarInt64LoopTest {
 
     }
 
-    @After
+    @AfterEach
     public void tearDown() throws Exception {
     }
 
@@ -104,7 +104,7 @@ public class VarInt64LoopTest {
     }
 
     private void assertEqualHex(Long expected, Long result) {
-        assertEquals("i = " + expected.toString() + " hex = " + Long.toHexString(expected), new Long(expected), result);
+        assertEquals(new Long(expected), result, "i = " + expected.toString() + " hex = " + Long.toHexString(expected));
     }
 
     protected Integer maxCount = 1_000_000;
@@ -121,7 +121,7 @@ public class VarInt64LoopTest {
             VarInt64 varInt64_b = new VarInt64(bytesFile);
             Long result_b = varInt64_b.longValue();
 
-            assertEquals("i = " + i.toString() + " hex = " + Long.toHexString(i), new Long(i), result_b);
+            assertEquals(new Long(i), result_b, "i = " + i.toString() + " hex = " + Long.toHexString(i));
         }
     }
 
