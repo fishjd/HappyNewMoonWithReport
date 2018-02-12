@@ -26,7 +26,7 @@ import static org.junit.Assert.assertEquals;
 
 public class MemoryTest {
     private     Memory memory;
-    private UInt32 size;
+    private UInt32 size;  // in pages
 
     @Before
     public void setUp() throws Exception {

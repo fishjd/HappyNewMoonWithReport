@@ -16,12 +16,11 @@
  */
 package happynewmoonwithreport.opcode
 
-import happynewmoonwithreport.WasmInstanceInterface
 import happynewmoonwithreport.WasmRuntimeException
+import happynewmoonwithreport.WasmStack
 import happynewmoonwithreport.type.I32
 import happynewmoonwithreport.type.I64
 import spock.lang.Specification
-
 /**
  * Created on 2017-08-25.
  */
@@ -34,17 +33,18 @@ class I32_gt_uTest extends Specification {
 
     def "Execute I32 Greater than unsigned "() {
         setup: " push two values on stack."
-        WasmInstanceInterface instance = new WasmInstanceStub();
-        instance.stack().push(new I32(val1));
-        instance.stack().push(new I32(val2));
+        // WasmInstanceInterface instance = new WasmInstanceStub();
+        WasmStack stack = new WasmStack();
+        stack.push(new I32(val1));
+        stack.push(new I32(val2));
 
-        I32_gt_u function = new I32_gt_u(instance);
+        I32_gt_u function = new I32_gt_u(stack);
 
         when: "run the opcode"
         function.execute();
 
         then: " a value of expected"
-        new I32(expected) == instance.stack().pop();
+        new I32(expected) == stack.pop();
 
 
         where: ""
@@ -61,11 +61,11 @@ class I32_gt_uTest extends Specification {
 
     def "Execute I32_gt_u throw exception on incorrect Type on second param "() {
         setup: " a value of I32  value 1  and a value of I64 of value 2"
-        WasmInstanceInterface instance = new WasmInstanceStub();
-        instance.stack().push(new I32(3));  // value 1
-        instance.stack().push(new I64(4));  // value 2
+        WasmStack stack = new WasmStack();
+        stack.push(new I32(3));  // value 1
+        stack.push(new I64(4));  // value 2
 
-        I32_gt_u function = new I32_gt_u(instance);
+        I32_gt_u function = new I32_gt_u(stack);
 
         when: "run the opcode"
         function.execute();
@@ -78,11 +78,11 @@ class I32_gt_uTest extends Specification {
 
     def "Execute I32_gt_u throw exception on incorrect Type on first param "() {
         setup: " a value of I64  value 1  and a value of I32 of value 2"
-        WasmInstanceInterface instance = new WasmInstanceStub();
-        instance.stack().push(new I64(3));  // value 1
-        instance.stack().push(new I32(4));  // value 2
+        WasmStack stack = new WasmStack();
+        stack.push(new I64(3));  // value 1
+        stack.push(new I32(4));  // value 2
 
-        I32_gt_u function = new I32_gt_u(instance);
+        I32_gt_u function = new I32_gt_u(stack);
 
         when: "run the opcode"
         function.execute();

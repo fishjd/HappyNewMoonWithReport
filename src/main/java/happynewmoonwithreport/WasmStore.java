@@ -16,6 +16,8 @@
  */
 package happynewmoonwithreport;
 
+import happynewmoonwithreport.type.WasmVector;
+
 /**
  * The store represents all global state that can be manipulated by WebAssembly programs. It consists of the runtime
  * representation of all instances of functions, tables, memories, and globals that have been allocated during the life
@@ -31,5 +33,6 @@ package happynewmoonwithreport;
 
 class WasmStore {
 
+    private WasmVector<WasmFunction> functionAll;
 
 }

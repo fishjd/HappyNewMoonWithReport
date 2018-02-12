@@ -87,40 +87,40 @@ import java.util.UUID;
  */
 public class I32_load {
 
-    private WasmFrame frame;
+	private WasmFrame frame;
 
-    private I32_load() {
-        super();
-    }
+	private I32_load() {
+		super();
+	}
 
-    public I32_load(WasmFrame frame) {
-        this();
-        this.frame = frame;
-    }
-
-
-    /**
-     * Execute the opcode.
-     */
-    public void execute() {
-        // 1. Let F be the current frame.
-        //    Frame set in constructor.
-
-        // 2. Assert: due to validation, F.module.memaddrs[0] exists.
-        UInt32 memoryIndex = new UInt32(0);
-        final Boolean memoryExists = frame.getModule().memoryExists(memoryIndex);
-        if (memoryExists == false) {
-            throw new WasmRuntimeException(UUID.fromString("35030ef5-2f4a-496c-8e67-06245e05d56d"),
-                    "Memory %s does not exists", memoryExists );
-        }
-
-        // 3. Let a be the memory address F.module.memaddrs[0].
-        final MemoryType a = frame.getModule().getMemory(memoryIndex);
-
-        // 4. Assert: due to validation, S.mems[a] exists.
+	public I32_load(WasmFrame frame) {
+		this();
+		this.frame = frame;
+	}
 
 
-    }
+	/**
+	 * Execute the opcode.
+	 */
+	public void execute() {
+		// 1. Let F be the current frame.
+		// Frame set in constructor.
+
+		// 2. Assert: due to validation, F.module.memaddrs[0] exists.
+		UInt32 memoryIndex = new UInt32(0);
+		final Boolean memoryExists = frame.getModule().memoryExists(memoryIndex);
+		if (memoryExists == false) {
+			throw new WasmRuntimeException(UUID.fromString("35030ef5-2f4a-496c-8e67-06245e05d56d"),
+					"Memory %s does not exists", memoryIndex);
+		}
+
+		// 3. Let a be the memory address F.module.memaddrs[0].
+		final MemoryType a = frame.getModule().getMemory(memoryIndex);
+
+		// 4. Assert: due to validation, S.mems[a] exists.
+
+
+	}
 
 
 }

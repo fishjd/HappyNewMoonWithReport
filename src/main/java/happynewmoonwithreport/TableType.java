@@ -17,6 +17,7 @@
 package happynewmoonwithreport;
 
 import happynewmoonwithreport.type.LimitType;
+import happynewmoonwithreport.type.U32;
 import happynewmoonwithreport.type.UInt32;
 import happynewmoonwithreport.type.UInt8;
 
@@ -33,6 +34,9 @@ import happynewmoonwithreport.type.UInt8;
  * </a>
  */
 public class TableType implements Validation {
+/*
+ * TODO  move to 'type' package
+ */
 
     /**
      * may only be "anyFunc" in MVP.
@@ -75,7 +79,7 @@ public class TableType implements Validation {
      *
      * @return min
      */
-    public UInt32 minimum() {
+    public U32 minimum() {
         return limit.minimum();
     }
 
@@ -93,7 +97,7 @@ public class TableType implements Validation {
      *
      * @return maximum
      */
-    public UInt32 maximum() {
+    public U32 maximum() {
         return limit.maximum();
     }
 

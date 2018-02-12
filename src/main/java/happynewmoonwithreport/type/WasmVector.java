@@ -17,7 +17,10 @@
 package happynewmoonwithreport.type;
 
 
+import happynewmoonwithreport.WasmRuntimeException;
+
 import java.util.ArrayList;
+import java.util.UUID;
 
 /**
  * Vectors are bounded sequences of the form A^n  (or A^*), where the A can either be values or complex constructions. A
@@ -50,7 +53,7 @@ public class WasmVector<Type> extends ArrayList<Type> {
 
     public Boolean exists(DataTypeNumber index) {
         checkIfTooLarge(index);
-        return ( index.integerValue() < size() );
+        return (index.integerValue() < size());
     }
 
     public Type set(DataTypeNumber index, Type element) {
@@ -61,7 +64,8 @@ public class WasmVector<Type> extends ArrayList<Type> {
 
     private void checkIfTooLarge(DataTypeNumber index) {
         if (index.isBoundByInteger() == false) {
-            throw new RuntimeException("Value to Large for Index.  Index = " + index.longValue());
+            throw new WasmRuntimeException(UUID.fromString("86f2807d-ab1b-42c0-8342-86407c615e91"),
+                    "Value to Large for Index.  Index = " + index.longValue());
         }
     }
 

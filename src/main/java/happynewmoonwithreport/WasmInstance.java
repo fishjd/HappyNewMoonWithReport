@@ -29,7 +29,11 @@ import java.util.UUID;
 /**
  * A WebAssembly.Instance object is a stateful, executable instance of a WebAssembly.Module.
  * <p>
- * Source:  <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly/Instance"
+ * Web Assembly Source:  <a href="https://webassembly.github.io/spec/core/exec/runtime.html#module-instances" target="_top">
+ * https://webassembly.github.io/spec/core/exec/runtime.html#module-instances
+ * </a>
+ * <p>
+ * JavaScript Source:  <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly/Instance"
  * target="_top">
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly/Instance
  * </a>
@@ -159,7 +163,7 @@ public class WasmInstance implements WasmInstanceInterface {
                 select.execute();
                 break;
             }
-            case (byte) 0x20: {
+            case (byte) 0x20: {  // get local
                 GetLocal getLocal = new GetLocal(currentFrame, stack);
                 getLocal.execute(new VarUInt32(code));
                 break;

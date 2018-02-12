@@ -24,14 +24,10 @@ import happynewmoonwithreport.type.WasmVector;
  * arguments) in the order corresponding to their static local indices, and a reference to the function’s own module
  * instance:
  * <p>
- * Source:  <a href="https://webassembly.github.io/spec/exec/runtime.html#syntax-frame" target="_top">
- * https://webassembly.github.io/spec/exec/runtime.html#syntax-frame
- * </a>
- * <p>
- * <p>
  * Source:  <a href="https://webassembly.github.io/spec/core/exec/runtime.html#frames" target="_top">
  * https://webassembly.github.io/spec/core/exec/runtime.html#frames
  * </a>
+ * Frame contains:  locals, module, return arity
  */
 public class WasmFrame {
     private WasmModule module;

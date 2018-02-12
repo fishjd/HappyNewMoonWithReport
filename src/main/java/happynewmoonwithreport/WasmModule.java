@@ -41,205 +41,217 @@ import java.util.logging.Logger;
 
 public class WasmModule {
 
-    private UInt32 typeIndex;
-    private UInt32 functionIndex;
-    private UInt32 tableIndex;
-    private UInt32 memoryIndex;
-    private UInt32 globalIndex;
-    private UInt32 localIndex;
-    private UInt32 labelIndex;
+	// https://webassembly.github.io/spec/core/syntax/modules.html#indices
+	private UInt32 typeIndex;
+	private UInt32 functionIndex;
+	private UInt32 tableIndex;
+	private UInt32 memoryIndex;
+	private UInt32 globalIndex;
+	private UInt32 localIndex;
+	private UInt32 labelIndex;
 
-    private WasmVector<FunctionType> types;
-    private WasmVector<WasmFunction> functionAll;
-    private WasmVector<TableType> tables;
-    private WasmVector<MemoryType> memoryAll;  // aka mems
-    private WasmVector<GlobalVariableType> globals;
-    // private WasmVector<> elementAll;  // todo
-    // private WasmVector<> dataAll // todo
-    /**
-     * index to start function. Optional
-     **/
-    private UInt32 start;
-    private WasmVector<ExportEntry> exportAll;
-
-
-    public WasmModule() {
-
-        constructIndexAll();
-
-        types = new WasmVector<>();
-        functionAll = new WasmVector<>();
-        tables = new WasmVector<>();
-        memoryAll = new WasmVector<>();
-        globals = new WasmVector<>();
-        start = new UInt32(0); // todo ?
-        exportAll = new WasmVector<>();
-
-    }
-
-    public WasmModule(
-            WasmVector<FunctionType> types,
-            WasmVector<WasmFunction> functions,
-            WasmVector<TableType> tables,
-            WasmVector<MemoryType> memoryAll,
-            WasmVector<GlobalVariableType> globals,
-            // to do element
-            // to do data
-            UInt32 start,
-            WasmVector<ExportEntry> exportAll
-
-    ) {
-        constructIndexAll();
-        this.types = types;
-        this.functionAll = functions;
-        this.tables = tables;
-        this.memoryAll = memoryAll;
-        this.globals = globals;
-        this.start = start;
-        this.exportAll = exportAll;
-    }
-
-    private void constructIndexAll() {
-        typeIndex = new UInt32(0);
-        functionIndex = new UInt32(0);
-        tableIndex = new UInt32(0);
-        memoryIndex = new UInt32(0);
-        globalIndex = new UInt32(0);
-        localIndex = new UInt32(0);
-        labelIndex = new UInt32(0);
-    }
-
-    /**
-     * Execute all the validity checks
-     * <p>
-     * Source:  <a href="https://webassembly.github.io/spec/valid/index.html" target="_top">
-     * https://webassembly.github.io/spec/valid/index.html
-     * </a>
-     *
-     * @return true if all validity checks pass.
-     */
-    public Boolean validation() {
-        Boolean isValid = true;
-
-        for (FunctionType functionType : types) {
-            Boolean valid = functionType.valid();
-            if (valid == false) {
-                Logger.getLogger(WasmModule.class.getName()).log(Level.SEVERE, "Function Type not valid! Function Type = " + functionType.toString());
-            }
-            isValid &= valid;
-        }
-
-        for (TableType tableType : tables) {
-            Boolean valid = tableType.valid();
-            if (valid == false) {
-                Logger.getLogger(WasmModule.class.getName()).log(Level.SEVERE, "Table Type not valid! Table Type = " + tableType.toString());
-            }
-            isValid &= valid;
-        }
-
-        for (MemoryType memoryType : memoryAll) {
-            Boolean valid = memoryType.valid();
-            if (valid == false) {
-                Logger.getLogger(WasmModule.class.getName()).log(Level.SEVERE, "Memory Type not valid! Memory Type = " + memoryType.toString());
-            }
-            isValid &= valid;
-        }
-
-        isValid &= validateGlobals();
+	private WasmVector<FunctionType> types;
+	private WasmVector<WasmFunction> functionAll; // aka funcs
+	private WasmVector<TableType> tables;
+	private WasmVector<MemoryType> memoryAll;  // aka mems
+	private WasmVector<GlobalVariableType> globals;
+	// private WasmVector<> elementAll;  // todo  // aka elem
+	// private WasmVector<> dataAll // todo  // aka data
+	/**
+	 * index to start function. Optional
+	 **/
+	private UInt32 start;
+	// todo
+	// private WasmVector<ExportEntry> importAll;    // aka imports
+	private WasmVector<ExportEntry> exportAll;    // aka exports
 
 
-        return isValid;
-    }
+	public WasmModule() {
 
-    public Boolean validateGlobals() {
-        Boolean isValid = true;
-        for (GlobalVariableType globalVariable : globals) {
-            Boolean valid = globalVariable.valid();
-            if (valid == false) {
-                Logger.getLogger(WasmModule.class.getName()).log(Level.SEVERE, "Global Variable not valid! Global Variable  = " + globalVariable.toString());
-            }
-            isValid &= valid;
-        }
-        return isValid;
-    }
+		constructIndexAll();
 
-    // boring getters and setters
+		types = new WasmVector<>();
+		functionAll = new WasmVector<>();
+		tables = new WasmVector<>();
+		memoryAll = new WasmVector<>();
+		globals = new WasmVector<>();
+		start = new UInt32(0); // todo ?
+		exportAll = new WasmVector<>();
 
-    public void setTypeIndex(UInt32 typeIndex) {
-        this.typeIndex = typeIndex;
-    }
+	}
 
-    public void setFunctionIndex(UInt32 functionIndex) {
-        this.functionIndex = functionIndex;
-    }
+	public WasmModule(
+			WasmVector<FunctionType> types,
+			WasmVector<WasmFunction> functions,
+			WasmVector<TableType> tables,
+			WasmVector<MemoryType> memoryAll,
+			WasmVector<GlobalVariableType> globals,
+			// to do element
+			// to do data
+			UInt32 start,
+			WasmVector<ExportEntry> exportAll
 
-    public void setTableIndex(UInt32 tableIndex) {
-        this.tableIndex = tableIndex;
-    }
+	) {
+		constructIndexAll();
+		this.types = types;
+		this.functionAll = functions;
+		this.tables = tables;
+		this.memoryAll = memoryAll;
+		this.globals = globals;
+		this.start = start;
+		this.exportAll = exportAll;
+	}
 
-    /**
-     * Note the 'private' access.  MemoryIndex is zero for the MVP.
-     *
-     * @param memoryIndex
-     */
-    private void setMemoryIndex(UInt32 memoryIndex) {
-        if (memoryIndex.integerValue() != 0) {
-            throw new RuntimeException("Memory Index may only be zero");
-        }
-        // this.memoryIndex = memoryIndex;
-    }
+	private void constructIndexAll() {
+		typeIndex = new UInt32(0);
+		functionIndex = new UInt32(0);
+		tableIndex = new UInt32(0);
+		memoryIndex = new UInt32(0);
+		globalIndex = new UInt32(0);
+		localIndex = new UInt32(0);
+		labelIndex = new UInt32(0);
+	}
 
-    public void setGlobalIndex(UInt32 globalIndex) {
-        this.globalIndex = globalIndex;
-    }
+	/**
+	 * Execute all the validity checks
+	 * <p>
+	 * Source:  <a href="https://webassembly.github.io/spec/valid/index.html" target="_top">
+	 * https://webassembly.github.io/spec/valid/index.html
+	 * </a>
+	 *
+	 * @return true if all validity checks pass.
+	 */
+	public Boolean validation() {
+		Boolean isValid = true;
 
-    public void setLocalIndex(UInt32 localIndex) {
-        this.localIndex = localIndex;
-    }
+		for (FunctionType functionType : types) {
+			Boolean valid = functionType.valid();
+			if (valid == false) {
+				Logger.getLogger(WasmModule.class.getName()).log(Level.SEVERE, "Function Type not valid! Function Type = " + functionType.toString());
+			}
+			isValid &= valid;
+		}
 
-    public void setLabelIndex(UInt32 labelIndex) {
-        this.labelIndex = labelIndex;
-    }
+		for (TableType tableType : tables) {
+			Boolean valid = tableType.valid();
+			if (valid == false) {
+				Logger.getLogger(WasmModule.class.getName()).log(Level.SEVERE, "Table Type not valid! Table Type = " + tableType.toString());
+			}
+			isValid &= valid;
+		}
 
-    public WasmVector<FunctionType> getTypes() {
-        return types;
-    }
+		for (MemoryType memoryType : memoryAll) {
+			Boolean valid = memoryType.valid();
+			if (valid == false) {
+				Logger.getLogger(WasmModule.class.getName()).log(Level.SEVERE, "Memory Type not valid! Memory Type = " + memoryType.toString());
+			}
+			isValid &= valid;
+		}
 
-    public UInt32 getStart() {
-        return start;
-    }
+		isValid &= validateGlobals();
 
-    public void setStart(UInt32 start) {
-        this.start = start;
-    }
 
-    public WasmVector<WasmFunction> getFunctionAll() {
-        return functionAll;
-    }
+		return isValid;
+	}
 
-    public WasmVector<ExportEntry> getExportAll() {
-        return exportAll;
-    }
+	public Boolean validateGlobals() {
+		Boolean isValid = true;
+		for (GlobalVariableType globalVariable : globals) {
+			Boolean valid = globalVariable.valid();
+			if (valid == false) {
+				Logger.getLogger(WasmModule.class.getName()).log(Level.SEVERE, "Global Variable not valid! Global Variable  = " + globalVariable.toString());
+			}
+			isValid &= valid;
+		}
+		return isValid;
+	}
 
-    public WasmVector<MemoryType> getMemoryAll() {
-        return memoryAll;
-    }
+	// boring getters and setters
 
-    /**
-     * <i>Assert: due to validation, F.module.memaddrs[index] exists.</i>
-     *
-     * @param index only zero is valid in version 1.0
-     *
-     * @return true if memory[index] exists.
-     */
-    public Boolean memoryExists(UInt32 index) {
-        Boolean result;
-        result = memoryAll.exists(index);
-        return result;
-    }
+	public void setTypeIndex(UInt32 typeIndex) {
+		this.typeIndex = typeIndex;
+	}
 
-    public MemoryType getMemory(UInt32 index) {
-        return memoryAll.get(index);
-    }
+	public void setFunctionIndex(UInt32 functionIndex) {
+		this.functionIndex = functionIndex;
+	}
+
+	public void setTableIndex(UInt32 tableIndex) {
+		this.tableIndex = tableIndex;
+	}
+
+	/**
+	 * Add a memory.   Used for testing.
+	 *
+	 * @param memoryToAdd
+	 */
+	public void addMemory(MemoryType memoryToAdd) {
+		memoryAll.add(memoryToAdd);
+	}
+
+	/**
+	 * Note the 'private' access.  MemoryIndex is zero for the MVP.
+	 *
+	 * @param memoryIndex
+	 */
+	private void setMemoryIndex(UInt32 memoryIndex) {
+		if (memoryIndex.integerValue() != 0) {
+			throw new RuntimeException("Memory Index may only be zero");
+		}
+		// this.memoryIndex = memoryIndex;
+	}
+
+	public void setGlobalIndex(UInt32 globalIndex) {
+		this.globalIndex = globalIndex;
+	}
+
+	public void setLocalIndex(UInt32 localIndex) {
+		this.localIndex = localIndex;
+	}
+
+	public void setLabelIndex(UInt32 labelIndex) {
+		this.labelIndex = labelIndex;
+	}
+
+	public WasmVector<FunctionType> getTypes() {
+		return types;
+	}
+
+	public UInt32 getStart() {
+		return start;
+	}
+
+	public void setStart(UInt32 start) {
+		this.start = start;
+	}
+
+	public WasmVector<WasmFunction> getFunctionAll() {
+		return functionAll;
+	}
+
+	public WasmVector<ExportEntry> getExportAll() {
+		return exportAll;
+	}
+
+	public WasmVector<MemoryType> getMemoryAll() {
+		return memoryAll;
+	}
+
+	/**
+	 * <i>Assert: due to validation, F.module.memaddrs[index] exists.</i>
+	 *
+	 * @param index only zero is valid in version 1.0
+	 *
+	 * @return true if memory[index] exists.
+	 */
+	public Boolean memoryExists(UInt32 index) {
+		Boolean result;
+		result = memoryAll.exists(index);
+		return result;
+	}
+
+	public MemoryType getMemory(UInt32 index) {
+		return memoryAll.get(index);
+	}
 
 }
