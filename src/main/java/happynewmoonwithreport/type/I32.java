@@ -46,6 +46,16 @@ public class I32 extends Int {
         this.value = value.intValue();
     }
 
+    public I32(Byte[] byteAll) {
+        this();
+        value = 0;
+        value += byteAll[0] << 24;
+        value += byteAll[1] << 16;
+        value += byteAll[2] << 8;
+        value += byteAll[3] << 0;
+    }
+
+
     private String toHex(Long value) {
         return "0x" + Long.toHexString(value).toUpperCase();
     }
@@ -153,7 +163,14 @@ public class I32 extends Int {
 
     @Override
     public String toString() {
+<<<<<<<HEAD
         String result = "I32{ value = " + value + " (" + toHex(value) + ")";
         return result;
+=======
+        final StringBuffer sb = new StringBuffer("I32{");
+        sb.append("value=").append(value);
+        sb.append('}');
+        return sb.toString();
+>>>>>>>feature / i32_load_opcode
     }
 }

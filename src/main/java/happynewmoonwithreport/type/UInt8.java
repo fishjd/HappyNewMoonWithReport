@@ -41,6 +41,10 @@ public class UInt8 extends U32 {  // TODO change to Short
         this.value = value.longValue();
     }
 
+    public UInt8(U32 value) {
+        this.value = value.longValue();
+    }
+
     public Integer convert(BytesFile bytesFile) {
         Integer result = 0;
         // little Endian!

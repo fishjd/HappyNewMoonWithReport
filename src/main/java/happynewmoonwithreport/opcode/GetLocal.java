@@ -17,7 +17,6 @@
 package happynewmoonwithreport.opcode;
 
 import happynewmoonwithreport.WasmFrame;
-import happynewmoonwithreport.WasmInstanceInterface;
 import happynewmoonwithreport.WasmRuntimeException;
 import happynewmoonwithreport.WasmStack;
 import happynewmoonwithreport.type.DataTypeNumber;
@@ -52,14 +51,16 @@ import java.util.UUID;
 public class GetLocal {
 
     private WasmFrame frame;
+    private WasmStack stack;
 
     private GetLocal() {
         super();
     }
 
-    public GetLocal(WasmFrame frame) {
+    public GetLocal(WasmFrame frame, WasmStack stack ) {
         this();
         this.frame = frame;
+        this.stack = stack;
     }
 
     /**
@@ -80,8 +81,6 @@ public class GetLocal {
         DataTypeNumber value = frame.localAll().get(index.integerValue());
 
         // 4. Push
-        WasmInstanceInterface instance = frame.instance();
-        WasmStack<Object> stack = instance.stack();
         stack.push(value);
     }
 

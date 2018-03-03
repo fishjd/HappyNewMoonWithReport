@@ -14,9 +14,8 @@
  *  limitations under the License.
  *
  */
-package happynewmoonwithreport.intergration;
+package happynewmoonwithreport;
 
-import happynewmoonwithreport.*;
 import happynewmoonwithreport.type.DataTypeNumber;
 import happynewmoonwithreport.type.S32;
 import happynewmoonwithreport.type.WasmVector;

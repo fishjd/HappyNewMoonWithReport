@@ -17,7 +17,11 @@
 package happynewmoonwithreport.type;
 
 
+import happynewmoonwithreport.WasmRuntimeException;
+
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.UUID;
 
 /**
  * Vectors are bounded sequences of the form A^n  (or A^*), where the A can either be values or complex constructions. A
@@ -48,9 +52,30 @@ public class WasmVector<Type> extends ArrayList<Type> {
         return super.get(index.integerValue());
     }
 
+    /**
+     * Find the <i>Type</i> you are looking for.
+     *
+     * @param needle the one to find.
+     *
+     * @return the one you are looking for.
+     *
+     * @throws WasmRuntimeException if not found.
+     */
+    public Type get(Type needle) {
+        final Iterator<Type> iterator = this.iterator();
+        while (iterator.hasNext()) {
+            Type item = iterator.next();
+            if (needle.equals(item)) {
+                return item;
+            }
+        }
+        throw new WasmRuntimeException(UUID.fromString("ea356805-d4d7-4eaa-bd50-2b81ec168a6c"),
+                "Item %s was not found", needle);
+    }
+
     public Boolean exists(DataTypeNumber index) {
         checkIfTooLarge(index);
-        return ( index.integerValue() < size() );
+        return (index.integerValue() < size());
     }
 
     public Type set(DataTypeNumber index, Type element) {
@@ -61,7 +86,8 @@ public class WasmVector<Type> extends ArrayList<Type> {
 
     private void checkIfTooLarge(DataTypeNumber index) {
         if (index.isBoundByInteger() == false) {
-            throw new RuntimeException("Value to Large for Index.  Index = " + index.longValue());
+            throw new WasmRuntimeException(UUID.fromString("86f2807d-ab1b-42c0-8342-86407c615e91"),
+                    "Value to Large for Index.  Index = " + index.longValue());
         }
     }
 

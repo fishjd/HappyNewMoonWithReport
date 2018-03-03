@@ -3,11 +3,11 @@
 [![Join the chat at https://gitter.im/HappyNewMoonWithReport/Lobby](https://badges.gitter.im/HappyNewMoonWithReport/Lobby.svg)](https://gitter.im/HappyNewMoonWithReport/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 Run and Test `Web Assembly` modules (*.wasm) in Java.
-Written in Java for Java programs. 
+Written in Java for Java programs.
 
 `Happy New Moon with Report`  doesn't concern itself with the production of the wasm binary files; these files should be produced with another tool (such as wabt or binaryen.)
 
-The primary goal of `Happy New Moon with Report` is to be able to load and run a binary `Web Assembly` module in your Java program. 
+The primary goal of `Happy New Moon with Report` is to be able to load and run a binary `Web Assembly` module in your Java program.
 
 ## The basic use case is:
 
@@ -85,8 +85,8 @@ Data Section:  To Do
 - [ ] Tee_local 0x22
 - [ ] Get_global 0x23
 - [ ] Set_global 0x24
-- [ ] I.32 _load 0x28
-- [ ] I.64_load 0x29
+- [x] I32 _load 0x28
+- [ ] I64_load 0x29
 - [ ] f32_load 0x2A
 - [ ] f64_load 0x2B
 - [ ] i32_load8-S  0x2C

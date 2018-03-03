@@ -33,6 +33,11 @@ public class WasmRuntimeException extends RuntimeException {
         this.uuid = uuid;
     }
 
+    public WasmRuntimeException(UUID uuid, String format, Object... args) {
+        super(String.format(format, args));
+        this.uuid = uuid;
+    }
+
 
     public WasmRuntimeException(UUID uuid, String message, String possibleSolutions) {
         super(message + " Possible Solutions " + possibleSolutions);

@@ -17,10 +17,7 @@
 package happynewmoonwithreport;
 
 import happynewmoonwithreport.opcode.*;
-import happynewmoonwithreport.type.DataTypeNumber;
-import happynewmoonwithreport.type.S32;
-import happynewmoonwithreport.type.VarUInt32;
-import happynewmoonwithreport.type.WasmVector;
+import happynewmoonwithreport.type.*;
 import happynewmoonwithreport.type.utility.Hex;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
@@ -29,7 +26,11 @@ import java.util.UUID;
 /**
  * A WebAssembly.Instance object is a stateful, executable instance of a WebAssembly.Module.
  * <p>
- * Source:  <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly/Instance"
+ * Web Assembly Source:  <a href="https://webassembly.github.io/spec/core/exec/runtime.html#module-instances" target="_top">
+ * https://webassembly.github.io/spec/core/exec/runtime.html#module-instances
+ * </a>
+ * <p>
+ * JavaScript Source:  <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly/Instance"
  * target="_top">
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly/Instance
  * </a>
@@ -38,6 +39,7 @@ public class WasmInstance implements WasmInstanceInterface {
     private WasmModule module;
     private WasmFunction wasmFunction;
     private WasmFrame currentFrame;
+    private WasmStore store;
 
     /**
      * the local variables
@@ -49,7 +51,7 @@ public class WasmInstance implements WasmInstanceInterface {
 
     private WasmInstance() {
         stack = new WasmStack();
-        currentFrame = new WasmFrame(this);
+        currentFrame = new WasmFrame(module);
 
     }
 
@@ -59,6 +61,7 @@ public class WasmInstance implements WasmInstanceInterface {
     public WasmInstance(WasmModule module) {
         this();
         this.module = module;
+        this.store = module.getStore();
     }
 
     /**
@@ -159,14 +162,20 @@ public class WasmInstance implements WasmInstanceInterface {
                 select.execute();
                 break;
             }
-            case (byte) 0x20: {
-                GetLocal getLocal = new GetLocal(currentFrame);
+            case (byte) 0x20: {  // get local
+                GetLocal getLocal = new GetLocal(currentFrame, stack);
                 getLocal.execute(new VarUInt32(code));
                 break;
             }
             case (byte) 0x21: {
-                SetLocal setLocal = new SetLocal(currentFrame);
-                setLocal.execute( new VarUInt32(code));
+                SetLocal setLocal = new SetLocal(currentFrame, stack);
+                setLocal.execute(new VarUInt32(code));
+                break;
+            }
+            case (byte) 0x28: {  // I32_load
+                MemoryArgument memoryArgument = new MemoryArgument(); // Not sure what this is.
+                I32_load i32_load = new I32_load(memoryArgument, currentFrame, store, stack);
+                i32_load.execute();
                 break;
             }
             case (byte) 0x40: {
@@ -177,21 +186,21 @@ public class WasmInstance implements WasmInstanceInterface {
                 constantInt32.execute(new VarUInt32(code));
                 break;
             }
-			case (byte) 0x45: { // i32 equals zero
-				I32_eqz i32_eqz = new I32_eqz(this);
-				i32_eqz.execute();
-				break;
-			}
-			case (byte) 0x46: { // i32 equals
-				I32_eq i32_eq = new I32_eq(this);
-				i32_eq.execute();
-				break;
-			}
-			case (byte) 0x47: { // i32 not equals
-				I32_ne i32_ne = new I32_ne(this);
-				i32_ne.execute();
-				break;
-			}
+            case (byte) 0x45: { // i32 equals zero
+                I32_eqz i32_eqz = new I32_eqz(this);
+                i32_eqz.execute();
+                break;
+            }
+            case (byte) 0x46: { // i32 equals
+                I32_eq i32_eq = new I32_eq(this);
+                i32_eq.execute();
+                break;
+            }
+            case (byte) 0x47: { // i32 not equals
+                I32_ne i32_ne = new I32_ne(this);
+                i32_ne.execute();
+                break;
+            }
             case (byte) 0x48: { // i32 less than signed
                 I32_lt_s i32_lt_s = new I32_lt_s(this);
                 i32_lt_s.execute();
@@ -202,56 +211,36 @@ public class WasmInstance implements WasmInstanceInterface {
                 i32_lt_u.execute();
                 break;
             }
-			case (byte) 0x4A: { // i32 greater than signed
-				I32_gt_s i32_gt_s = new I32_gt_s(this);
-				i32_gt_s.execute();
-				break;
-			}
-			case (byte) 0x4B: { // i32 greater than unsigned
-				I32_gt_u i32_gt_u = new I32_gt_u(this);
-				i32_gt_u.execute();
-				break;
-			}
-			case (byte) 0x4C: { // i32 less than or equal to signed
-				I32_le_s i32_le_s = new I32_le_s(this);
-				i32_le_s.execute();
-				break;
-			}
-			case (byte) 0x4D: { // i32 less than or equal to unsigned
-				I32_le_u i32_le_u = new I32_le_u(this);
-				i32_le_u.execute();
-				break;
-			}
-			case (byte) 0x4E: { // i32 greater than or equal to signed
-				I32_ge_s i32_ge_s = new I32_ge_s(this);
-				i32_ge_s.execute();
-				break;
-			}
-			case (byte) 0x4F: { // i32 greater than or equal to unsigned
-				I32_ge_u i32_ge_u = new I32_ge_u(this);
-				i32_ge_u.execute();
-				break;
-			}
-			case (byte) 0x50: { // i64 equals zero
-				I64_eqz i64_eqz = new I64_eqz(this);
-				i64_eqz.execute();
-				break;
-			}
-			case (byte) 0x51: { // i64 equals
-				I64_eq i64_eq = new I64_eq(this);
-				i64_eq.execute();
-				break;
-			}
-			case (byte) 0x52: { // i64 not equals
-				I64_ne i64_ne = new I64_ne(this);
-				i64_ne.execute();
-				break;
-			}
-			case (byte) 0x53: { // i64 less than signed
-				I64_lt_s i64_lt_s = new I64_lt_s(this);
-				i64_lt_s.execute();
-				break;
-			}
+            case (byte) 0x4A: { // i32 greater than signed
+                I32_gt_s i32_gt_s = new I32_gt_s(this);
+                i32_gt_s.execute();
+                break;
+            }
+            case (byte) 0x4B: { // i32 greater than unsigned
+                I32_gt_u i32_gt_u = new I32_gt_u(stack);
+                i32_gt_u.execute();
+                break;
+            }
+            case (byte) 0x4C: { // i32 less than or equal to signed
+                I32_le_s i32_le_s = new I32_le_s(this);
+                i32_le_s.execute();
+                break;
+            }
+            case (byte) 0x4D: { // i32 less than or equal to unsigned
+                I32_le_u i32_le_u = new I32_le_u(this);
+                i32_le_u.execute();
+                break;
+            }
+            case (byte) 0x4E: { // i32 greater than or equal to signed
+                I32_ge_s i32_ge_s = new I32_ge_s(this);
+                i32_ge_s.execute();
+                break;
+            }
+            case (byte) 0x4F: { // i32 greater than or equal to unsigned
+                I32_ge_u i32_ge_u = new I32_ge_u(this);
+                i32_ge_u.execute();
+                break;
+            }
             case (byte) 0x6A: {
                 AddI32 addI32 = new AddI32(this);
                 addI32.execute();
@@ -259,7 +248,6 @@ public class WasmInstance implements WasmInstanceInterface {
             }
             default:
                 throwUnknownOpcodeException(opcode, code.getIndex());
-                return;
         }
     }
 

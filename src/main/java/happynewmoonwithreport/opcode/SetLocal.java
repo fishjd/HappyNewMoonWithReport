@@ -17,8 +17,8 @@
 package happynewmoonwithreport.opcode;
 
 import happynewmoonwithreport.WasmFrame;
-import happynewmoonwithreport.WasmInstanceInterface;
 import happynewmoonwithreport.WasmRuntimeException;
+import happynewmoonwithreport.WasmStack;
 import happynewmoonwithreport.type.DataTypeNumber;
 import happynewmoonwithreport.type.I32;
 
@@ -51,14 +51,16 @@ import java.util.UUID;
 public class SetLocal {
 
     private WasmFrame frame;
+    private WasmStack stack;
 
     private SetLocal() {
         super();
     }
 
-    public SetLocal(WasmFrame frame) {
+    public SetLocal(WasmFrame frame, WasmStack stack ) {
         this();
         this.frame = frame;
+        this.stack = stack;
     }
 
     /**
@@ -67,7 +69,6 @@ public class SetLocal {
      * @param index index in to the vector that contains the local variable.
      */
     public void execute(I32 index) {
-        WasmInstanceInterface instance = frame.instance();
         // 1 Frame set in constructor.
 
         // 2 validate.
@@ -77,12 +78,12 @@ public class SetLocal {
         }
 
         // 3 validate
-        if (instance.stack().empty()) {
+        if (stack.empty()) {
             throw new WasmRuntimeException(UUID.fromString("5f1559de-055f-495f-b793-c210fd049e52"),
                     "SetLocal: No value on the stack");
         }
         // 4. value
-        DataTypeNumber value = (DataTypeNumber) instance.stack().pop();
+        DataTypeNumber value = (DataTypeNumber) stack.pop();
 
         // 5. replace
         frame.localAll().set(index, value);

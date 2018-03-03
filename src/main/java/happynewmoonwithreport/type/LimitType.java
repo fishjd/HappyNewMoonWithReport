@@ -40,8 +40,8 @@ public class LimitType implements Validation {
      * does the limit have max?
      */
     private UInt8 hasMaximum;
-    private UInt32 minimum;
-    private UInt32 maximum;
+    private U32 minimum;
+    private U32 maximum;
 
     private LimitType() {
         maximum = null;
@@ -67,6 +67,16 @@ public class LimitType implements Validation {
             throw new WasmRuntimeException(UUID.fromString("123ceab2-9d6f-44b6-83ca-49eee187726b"), "Has Maximum must be zero.");
         }
         this.hasMaximum = hasMaximum;
+        this.minimum = minimum;
+        this.maximum = null;
+    }
+
+    public LimitType(U32 hasMaximum, U32 minimum) {
+        this();
+        if ( hasMaximum.integerValue() != 0 ) {
+            throw new WasmRuntimeException(UUID.fromString("123ceab2-9d6f-44b6-83ca-49eee187726b"), "Has Maximum must be zero.");
+        }
+        this.hasMaximum = new UInt8(hasMaximum);
         this.minimum = minimum;
         this.maximum = null;
     }
@@ -102,7 +112,7 @@ public class LimitType implements Validation {
      *
      * @return minimum
      */
-    public UInt32 minimum() {
+    public U32 minimum() {
         return minimum;
     }
 
@@ -125,7 +135,7 @@ public class LimitType implements Validation {
      *
      * @return maximum
      */
-    public UInt32 maximum() {
+    public U32 maximum() {
         assert (maximum != null);
         if (maximum == null) {
             throw new RuntimeException("Calling maximum when it is not set!");

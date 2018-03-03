@@ -27,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class MemoryTest {
     private Memory memory;
-    private UInt32 size;
+    private UInt32 size;  // in pages
 
     @BeforeEach
     public void setUp() throws Exception {
