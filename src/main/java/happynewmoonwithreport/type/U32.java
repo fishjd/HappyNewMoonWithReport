@@ -142,7 +142,14 @@ public class U32 extends I32 {
         return result;
     }
 
-    //
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("U32{");
+        sb.append("value=").append(value);
+        sb.append('}');
+        return sb.toString();
+    }
+//
 //    /**
 //     * The value of the number
 //     */

@@ -20,6 +20,7 @@ package happynewmoonwithreport.type;
 import happynewmoonwithreport.WasmRuntimeException;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.UUID;
 
 /**
@@ -49,6 +50,27 @@ public class WasmVector<Type> extends ArrayList<Type> {
         checkIfTooLarge(index);
 
         return super.get(index.integerValue());
+    }
+
+    /**
+     * Find the <i>Type</i> you are looking for.
+     *
+     * @param needle the one to find.
+     *
+     * @return the one you are looking for.
+     *
+     * @throws WasmRuntimeException if not found.
+     */
+    public Type get(Type needle) {
+        final Iterator<Type> iterator = this.iterator();
+        while (iterator.hasNext()) {
+            Type item = iterator.next();
+            if (needle.equals(item)) {
+                return item;
+            }
+        }
+        throw new WasmRuntimeException(UUID.fromString("ea356805-d4d7-4eaa-bd50-2b81ec168a6c"),
+                "Item %s was not found", needle);
     }
 
     public Boolean exists(DataTypeNumber index) {

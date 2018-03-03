@@ -16,6 +16,7 @@
  */
 package happynewmoonwithreport;
 
+import happynewmoonwithreport.type.MemoryType;
 import happynewmoonwithreport.type.WasmVector;
 
 /**
@@ -31,8 +32,62 @@ import happynewmoonwithreport.type.WasmVector;
  * </a>
  */
 
-class WasmStore {
+public class WasmStore {
 
-    private WasmVector<WasmFunction> functionAll;
+	private WasmVector<WasmFunction> functionAll; // aka funcs
+	private WasmVector<TableType> tableAll; // aka tables
+	private WasmVector<MemoryType> memoryAll;  // aka mems
+	private WasmVector<GlobalVariableType> globals;
 
+	/**
+	 * For Unit Testing
+	 */
+	public WasmStore() {
+		this.functionAll = null;
+		this.tableAll = null;
+		this.memoryAll = null;
+		this.globals = null;
+	}
+
+	public WasmStore(WasmVector<WasmFunction> functionAll,
+	                 WasmVector<TableType> tableAll,
+	                 WasmVector<MemoryType> memoryAll,
+	                 WasmVector<GlobalVariableType> globals) {
+		this.functionAll = functionAll;
+		this.tableAll = tableAll;
+		this.memoryAll = memoryAll;
+		this.globals = globals;
+	}
+
+	public WasmVector<TableType> getTableAll() {
+		return tableAll;
+	}
+
+	public void setTableAll(WasmVector<TableType> tableAll) {
+		this.tableAll = tableAll;
+	}
+
+	public WasmVector<WasmFunction> getFunctionAll() {
+		return functionAll;
+	}
+
+	public void setFunctionAll(WasmVector<WasmFunction> functionAll) {
+		this.functionAll = functionAll;
+	}
+
+	public WasmVector<MemoryType> getMemoryAll() {
+		return memoryAll;
+	}
+
+	public void setMemoryAll(WasmVector<MemoryType> memoryAll) {
+		this.memoryAll = memoryAll;
+	}
+
+	public WasmVector<GlobalVariableType> getGlobals() {
+		return globals;
+	}
+
+	public void setGlobals(WasmVector<GlobalVariableType> globals) {
+		this.globals = globals;
+	}
 }

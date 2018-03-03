@@ -112,6 +112,11 @@ public class MemoryType implements Validation {
 		return limit.maximum();
 	}
 
+	/**
+	 * 1 = has max
+	 * 0 = does not have max.
+	 * @return
+	 */
 	public UInt8 hasMaximum() {
 		return limit.hasMaximum();
 	}

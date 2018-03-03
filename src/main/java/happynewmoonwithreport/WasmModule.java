@@ -30,15 +30,14 @@ import java.util.logging.Logger;
  * collects definitions for types, functions, tables, memories, and globals. In addition, it can declare imports and
  * exports and provide initialization logic in the form of data and element segments or a start function.
  * <p>
- * Source: <a href="https://webassembly.github.io/spec/syntax/modules.html#" target="_top">
+ * Source: <a href="https://webassembly.github.io/spec/core/syntax/modules.html#" target="_top">
  * Modules
  * </a>
  * <p>
- * Source:  <a href="https://webassembly.github.io/spec/binary/modules.html#" target="_top">
+ * Source:  <a href="https://webassembly.github.io/spec/core/binary/modules.html#" target="_top">
  * https://webassembly.github.io/spec/binary/modules.html#
  * </a>
  */
-
 public class WasmModule {
 
 	// https://webassembly.github.io/spec/core/syntax/modules.html#indices
@@ -77,7 +76,7 @@ public class WasmModule {
 		globals = new WasmVector<>();
 		start = new UInt32(0); // todo ?
 		exportAll = new WasmVector<>();
-
+		store = new WasmStore(functionAll, tables, memoryAll, globals);
 	}
 
 	public WasmModule(
@@ -100,6 +99,7 @@ public class WasmModule {
 		this.globals = globals;
 		this.start = start;
 		this.exportAll = exportAll;
+		store = new WasmStore(functionAll, tables, memoryAll, globals);
 	}
 
 	private void constructIndexAll() {
@@ -164,6 +164,12 @@ public class WasmModule {
 			isValid &= valid;
 		}
 		return isValid;
+	}
+
+	WasmStore store;
+
+	public WasmStore getStore() {
+		return store;
 	}
 
 	// boring getters and setters

@@ -19,17 +19,31 @@ package happynewmoonwithreport.opcode;
 
 import happynewmoonwithreport.WasmFrame;
 import happynewmoonwithreport.WasmRuntimeException;
-import happynewmoonwithreport.type.MemoryType;
-import happynewmoonwithreport.type.UInt32;
+import happynewmoonwithreport.WasmStack;
+import happynewmoonwithreport.WasmStore;
+import happynewmoonwithreport.type.*;
 
 import java.util.UUID;
 
 /**
  * <h1>i32_load</h1> Load an i32 value from memory to the stack.
  * <p>
- * Source:  <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-load" target="_top">
+ * <p>
+ * Memory Overview<br>
+ * <b>Source:</b>  <a href="https://webassembly.github.io/spec/core/syntax/instructions.html#syntax-instr-memory" target="_top">
+ * https://webassembly.github.io/spec/core/syntax/instructions.html#syntax-instr-memory
+ * </a>
+ * </p>
+ * <p>
+ * <b>Source:</b>  <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-load" target="_top">
  * https://webassembly.github.io/spec/core/exec/instructions.html#exec-load
  * </a>
+ * <p>
+ * <p>
+ * <b>Source:</b>  <a href="https://webassembly.github.io/spec/core/syntax/instructions.html#syntax-instr-memory" target="_top">
+ * https://webassembly.github.io/spec/core/syntax/instructions.html#syntax-instr-memory
+ * </a>
+ * </p>
  * <p>
  * <p>
  * <h2>t.load memarg and t.loadN_sx memarg</h2>
@@ -55,7 +69,7 @@ import java.util.UUID;
  * If N is not part of the instruction, then:
  * <ol type="a">
  * <li>
- * Let N be the bit width |t| of value type t .
+ * Let N be the bit width |t| of value type t.
  * </li> </ol>
  * </li><li>
  * If ea+N/8 is larger than the length of mem.data , then:
@@ -87,15 +101,21 @@ import java.util.UUID;
  */
 public class I32_load {
 
+	private MemoryArgument memoryArgument;
 	private WasmFrame frame;
+	private WasmStore store;
+	private WasmStack stack;
 
 	private I32_load() {
 		super();
 	}
 
-	public I32_load(WasmFrame frame) {
+	public I32_load(MemoryArgument memoryArgument, WasmFrame frame, WasmStore store, WasmStack stack) {
 		this();
+		this.memoryArgument = memoryArgument;
 		this.frame = frame;
+		this.store = store;
+		this.stack = stack;
 	}
 
 
@@ -118,6 +138,64 @@ public class I32_load {
 		final MemoryType a = frame.getModule().getMemory(memoryIndex);
 
 		// 4. Assert: due to validation, S.mems[a] exists.
+		final Boolean memoryTypeExists = store.getMemoryAll().contains(a);
+		if (memoryTypeExists == false) {
+			throw new WasmRuntimeException(UUID.fromString("3e1eac11-9acd-46e4-ab62-08e34f3e3f2b"),
+					"Memory type %s does not exists", a);
+
+		}
+
+		// 5. Let mem be the memory instance S.mems[a].
+		final MemoryType mem = store.getMemoryAll().get(a);
+
+		// 6. Assert: due to validation, a value of value type i32 is on the top of the stack.
+		if ((stack.peek() instanceof I32) == false) {
+			throw new WasmRuntimeException(UUID.fromString("edba1731-664f-4756-9374-1365e8b19a7a"),
+					"I32_load: Step 6: Value type  on stack is incorrect.  Expected I32 but type was " + stack.peek().toString());
+		}
+
+		// 7. Pop the value i32.const i from the stack.
+		I32 i = (I32) stack.pop();
+
+		// 8. Let ea be i+memarg.offset.
+		Long eaValue = i.longValue() + memoryArgument.getOffest().longValue();
+		U32 ea = new U32(eaValue);   // ¿should this be U33?
+
+		// 9. If N is not part of the instruction, then:
+		//        a: Let N be the bit width |t| of value type t .
+		U32 N = new U32(32L);
+
+		// 10. If ea+N/8 is larger than the length of mem.data , then:
+		//        a: Trap.
+		Long length = ea.longValue() + (N.longValue() / 8);
+		if (mem.hasMaximum().integerValue() == 1) {  // not is spec.  This may line may be incorrect.
+			Long memLength = mem.maximum().longValue();
+			if (length > memLength) {
+				throw new WasmRuntimeException(UUID.fromString("518fe904-05b5-492f-9a78-d89b30bb6551"),
+						"I32_load: Step 10: Trap.  Address  + size is too large. length = " + length + " memoryLength = " + memLength);
+			}
+		}
+
+		// 11. Let b∗ be the byte sequence mem.data[ea:N/8].
+		Byte[] bytes = new Byte[4];
+		Integer eaIntegerValue = ea.integerValue();
+		bytes[0] = mem.get(eaIntegerValue + 0);
+		bytes[1] = mem.get(eaIntegerValue + 1);
+		bytes[2] = mem.get(eaIntegerValue + 2);
+		bytes[3] = mem.get(eaIntegerValue + 3);
+
+		// 12. If N and sx are part of the instruction, then:
+		//        a: Let n be the integer for which bytesiN(n)=b∗.
+		//        b: Let c be the result of computing extend_sxN,|t|(n).
+
+		/* does not apply for i32_load does not contain sx **/
+
+		// 13. Else:
+		//        a: Let c be the constant for which bytes<sub>t</sub>(c)=b∗.
+		I32 c = new I32(bytes);
+
+		// 14. Push the value t.const c  to the stack.
+		stack.push(c);
 
 
 	}

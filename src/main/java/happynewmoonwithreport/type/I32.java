@@ -46,6 +46,17 @@ public class I32 extends Int {
         this.value = value.intValue();
     }
 
+    public I32( Byte[] byteAll) {
+        this();
+
+        value = 0;
+        value += byteAll[0] << 24;
+        value += byteAll[1] << 16;
+        value += byteAll[2] << 8;
+        value += byteAll[3] << 0;
+
+    }
+
     @Override
     public Integer maxBits() {
         return 32;
@@ -141,5 +152,13 @@ public class I32 extends Int {
     @Override
     public int hashCode() {
         return value.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("I32{");
+        sb.append("value=").append(value);
+        sb.append('}');
+        return sb.toString();
     }
 }

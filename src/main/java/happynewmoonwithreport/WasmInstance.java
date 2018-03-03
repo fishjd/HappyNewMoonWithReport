@@ -17,10 +17,7 @@
 package happynewmoonwithreport;
 
 import happynewmoonwithreport.opcode.*;
-import happynewmoonwithreport.type.DataTypeNumber;
-import happynewmoonwithreport.type.S32;
-import happynewmoonwithreport.type.VarUInt32;
-import happynewmoonwithreport.type.WasmVector;
+import happynewmoonwithreport.type.*;
 import happynewmoonwithreport.type.utility.Hex;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
@@ -42,6 +39,7 @@ public class WasmInstance implements WasmInstanceInterface {
     private WasmModule module;
     private WasmFunction wasmFunction;
     private WasmFrame currentFrame;
+    private WasmStore store;
 
     /**
      * the local variables
@@ -63,6 +61,7 @@ public class WasmInstance implements WasmInstanceInterface {
     public WasmInstance(WasmModule module) {
         this();
         this.module = module;
+        this.store = module.getStore();
     }
 
     /**
@@ -171,6 +170,12 @@ public class WasmInstance implements WasmInstanceInterface {
             case (byte) 0x21: {
                 SetLocal setLocal = new SetLocal(currentFrame, stack);
                 setLocal.execute(new VarUInt32(code));
+                break;
+            }
+            case (byte) 0x28: {  // I32_load
+                MemoryArgument memoryArgument = new MemoryArgument(); // Not sure what this is.
+                I32_load i32_load = new I32_load(memoryArgument, currentFrame, store, stack);
+                i32_load.execute();
                 break;
             }
             case (byte) 0x40: {

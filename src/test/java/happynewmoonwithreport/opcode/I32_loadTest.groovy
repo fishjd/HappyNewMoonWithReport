@@ -18,8 +18,9 @@ package happynewmoonwithreport.opcode
 
 import happynewmoonwithreport.WasmFrame
 import happynewmoonwithreport.WasmModule
-import happynewmoonwithreport.type.MemoryType
-import happynewmoonwithreport.type.U32
+import happynewmoonwithreport.WasmStack
+import happynewmoonwithreport.WasmStore
+import happynewmoonwithreport.type.*
 import spock.lang.Specification
 
 /**
@@ -30,6 +31,8 @@ class I32_loadTest extends Specification {
 	WasmFrame frame;
 	I32_load i32Load;
 
+	WasmStack stack;
+
 	void setup() {
 		// create a module.
 		module = new WasmModule();
@@ -37,16 +40,38 @@ class I32_loadTest extends Specification {
 		// create a memory if we are going to load from memory we need a memory.
 		U32 hasMaximum = new U32(0);
 		U32 minimum = new U32(1);
-		MemoryType memory = new MemoryType(hasMaximum,minimum	);
+		MemoryType memory = new MemoryType(hasMaximum, minimum);
+		memory.set(0, new Byte((byte) 0x70));
+		memory.set(1, new Byte((byte) 0x01));
+		memory.set(2, new Byte((byte) 0x02));
+		memory.set(3, new Byte((byte) 0x03));
+		memory.set(4, new Byte((byte) 0x04));
+		memory.set(5, new Byte((byte) 0x05));
+		memory.set(6, new Byte((byte) 0x06));
 
 		// add memory to module
-		module.addMemeory(memory);
+		module.addMemory(memory);
 
 		// create a frame
 		frame = new WasmFrame(module)
 
+		//
+		WasmVector<MemoryType> memoryAll = new WasmVector<>();
+		memoryAll.add(memory);
+
+		// create Store
+		WasmStore store = new WasmStore();
+		store.setMemoryAll(memoryAll);
+
+		// create memoryArgument
+		MemoryArgument memoryArgument = new MemoryArgument(new U32(0), new U32(0));
+
+		// create stack
+		stack = new WasmStack();
+		stack.push(new I32(2));  // load bytes starting at 2
+
 		// create class to test.
-		i32Load = new I32_load(frame);
+		i32Load = new I32_load(memoryArgument, frame, store, stack);
 	}
 
 	void cleanup() {
@@ -59,6 +84,9 @@ class I32_loadTest extends Specification {
 		i32Load.execute();
 
 		then: ""
+		I32 actual = (I32) stack.pop();
+		I32 expected = new I32(0x02030405); // Little Endian!
+		actual == expected;
 
 		// expect: ""
 
@@ -67,7 +95,6 @@ class I32_loadTest extends Specification {
 		// where: ""
 
 	}
-
 
 
 }
