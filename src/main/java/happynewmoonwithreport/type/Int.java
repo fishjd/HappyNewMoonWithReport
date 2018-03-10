@@ -19,26 +19,24 @@ package happynewmoonwithreport.type;
 /**
  * Web Assembly Integer
  */
-public abstract class Int implements DataTypeNumber{
+public abstract class Int implements DataTypeNumber {
 
 
-    @Override
-    public Integer maxBytes() {
-        return maxBits() / 8;
-    }
+	@Override
+	public Integer maxBytes() {
+		return maxBits() / 8;
+	}
 
-    @Override
-    public Integer minBytes() {
-        return maxBits() / 8;
-    }
+	@Override
+	public Integer minBytes() {
+		return maxBits() / 8;
+	}
 
 
+	public abstract Boolean booleanValue();
 
-    public abstract Boolean booleanValue();
-
-    //    public abstract Byte byteValue();
+	//    public abstract Byte byteValue();
 //    public abstract Short shortValue();
-
 
 
 ///**
@@ -56,6 +54,6 @@ public abstract class Int implements DataTypeNumber{
 //    public abstract Int unsignedValue();
 
 
-    // public abstract Boolean equals(Int other) ;
+	// public abstract Boolean equals(Int other) ;
 
 }

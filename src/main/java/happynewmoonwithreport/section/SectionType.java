@@ -38,35 +38,35 @@ import happynewmoonwithreport.type.WasmVector;
  */
 public class SectionType implements Section {
 
-    // all the Function Types.
-    private WasmVector<FunctionType> functionSignatures;
+	// all the Function Types.
+	private WasmVector<FunctionType> functionSignatures;
 
 
-    @Override
-    public void instantiate(BytesFile payload) {
+	@Override
+	public void instantiate(BytesFile payload) {
 
-        ValueType form;
-        UInt32 paramCount;
-        VarUInt1 varReturnCount;
+		ValueType form;
+		UInt32 paramCount;
+		VarUInt1 varReturnCount;
 
-        // Type Count
-        UInt32 typeCount = new VarUInt32(payload);
+		// Type Count
+		UInt32 typeCount = new VarUInt32(payload);
 
-        functionSignatures = new WasmVector<>(typeCount.integerValue());
+		functionSignatures = new WasmVector<>(typeCount.integerValue());
 
-        FunctionType functionType;
-        for (Integer countFT = 0; countFT < typeCount.integerValue(); countFT++) {
-            functionType = new FunctionType(payload);
-            functionSignatures.add(countFT, functionType);
-        }
-    }
+		FunctionType functionType;
+		for (Integer countFT = 0; countFT < typeCount.integerValue(); countFT++) {
+			functionType = new FunctionType(payload);
+			functionSignatures.add(countFT, functionType);
+		}
+	}
 
-    public WasmVector<FunctionType> getFunctionSignatures() {
-        return functionSignatures;
-    }
+	public WasmVector<FunctionType> getFunctionSignatures() {
+		return functionSignatures;
+	}
 
-    public Integer getSize() {
-        return functionSignatures.size();
-    }
+	public Integer getSize() {
+		return functionSignatures.size();
+	}
 
 }

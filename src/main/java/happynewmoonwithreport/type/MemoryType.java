@@ -43,6 +43,7 @@ public class MemoryType implements Validation {
 	private LimitType limit;
 	/**
 	 * a vector of bytes;
+	 *
 	 * @TODO change to WasmVector
 	 */
 	private byte[] byteAll;
@@ -115,6 +116,7 @@ public class MemoryType implements Validation {
 	/**
 	 * 1 = has max
 	 * 0 = does not have max.
+	 *
 	 * @return
 	 */
 	public UInt8 hasMaximum() {

@@ -26,61 +26,61 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 public class MemoryTest {
-    private Memory memory;
-    private UInt32 size;  // in pages
+	private Memory memory;
+	private UInt32 size;  // in pages
 
-    @BeforeEach
-    public void setUp() throws Exception {
-        size = new UInt32(1L);
-        memory = new Memory(size);
-    }
+	@BeforeEach
+	public void setUp() throws Exception {
+		size = new UInt32(1L);
+		memory = new Memory(size);
+	}
 
-    @AfterEach
-    public void tearDown() throws Exception {
-    }
+	@AfterEach
+	public void tearDown() throws Exception {
+	}
 
-    @Test
-    public void setAndGetRoundTrip() throws Exception {
-        UInt32 index = new UInt32(3L);
-        byte expectedValue = (byte) 0xC6;
+	@Test
+	public void setAndGetRoundTrip() throws Exception {
+		UInt32 index = new UInt32(3L);
+		byte expectedValue = (byte) 0xC6;
 
-        // set
-        memory.set(index, expectedValue);
+		// set
+		memory.set(index, expectedValue);
 
-        // get
-        byte actual = memory.get(index);
+		// get
+		byte actual = memory.get(index);
 
-        //verify
-        assertEquals(expectedValue, actual);
+		//verify
+		assertEquals(expectedValue, actual);
 
-    }
-
-
-    /**
-     * Test the memory Grow function.
-     *
-     * @throws Exception
-     */
-    @Test
-    public void growTest() throws Exception {
-        UInt32 index = new UInt32(3L);
-        byte expectedValue = (byte) 0xC6;
-
-        // set
-        memory.set(index, expectedValue);
-
-        // run
-        final S32 previousSize = memory.grow(new UInt32(3));
-
-        // get
-        byte actual = memory.get(index);
+	}
 
 
-        //verify
-        assertEquals(new S32(1), previousSize);
-        assertEquals(expectedValue, actual);
+	/**
+	 * Test the memory Grow function.
+	 *
+	 * @throws Exception
+	 */
+	@Test
+	public void growTest() throws Exception {
+		UInt32 index = new UInt32(3L);
+		byte expectedValue = (byte) 0xC6;
 
-    }
+		// set
+		memory.set(index, expectedValue);
+
+		// run
+		final S32 previousSize = memory.grow(new UInt32(3));
+
+		// get
+		byte actual = memory.get(index);
+
+
+		//verify
+		assertEquals(new S32(1), previousSize);
+		assertEquals(expectedValue, actual);
+
+	}
 
 
 }

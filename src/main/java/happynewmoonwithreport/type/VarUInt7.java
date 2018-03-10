@@ -40,34 +40,34 @@ import happynewmoonwithreport.BytesFile;
  * </a>
  */
 public final class VarUInt7 extends UInt8 {
-    // TODO change to extend UInt32
+	// TODO change to extend UInt32
 
-    @SuppressWarnings("unused")
-    private VarUInt7() {
-        super();
-    }
+	@SuppressWarnings("unused")
+	private VarUInt7() {
+		super();
+	}
 
-    public VarUInt7(BytesFile bytesFile) {
-        value = convert(bytesFile).longValue();
-    }
+	public VarUInt7(BytesFile bytesFile) {
+		value = convert(bytesFile).longValue();
+	}
 
-    /**
-     * Create using a Integer.  Used mainly in testing.
-     *
-     * @param value value
-     */
-    public VarUInt7(Integer value) {
-        this.value = value.longValue();
-    }
+	/**
+	 * Create using a Integer.  Used mainly in testing.
+	 *
+	 * @param value value
+	 */
+	public VarUInt7(Integer value) {
+		this.value = value.longValue();
+	}
 
-    /**
-     * Create using a Byte. Used mainly in testing.
-     *
-     * @param value value
-     */
-    public VarUInt7(Byte value) {
-        this.value = value.longValue();
-    }
+	/**
+	 * Create using a Byte. Used mainly in testing.
+	 *
+	 * @param value value
+	 */
+	public VarUInt7(Byte value) {
+		this.value = value.longValue();
+	}
 
 //    public Integer convert(BytesFile bytesFile) {
 //        Integer cur;
@@ -83,22 +83,22 @@ public final class VarUInt7 extends UInt8 {
 //        return result;
 //    }
 
-    @Override
-    public Integer maxBits() {
-        return 7;
-    }
+	@Override
+	public Integer maxBits() {
+		return 7;
+	}
 
 
-    @Override
-    public Long maxValue() {
-        return (1L << maxBits()) - 1;
-    }
+	@Override
+	public Long maxValue() {
+		return (1L << maxBits()) - 1;
+	}
 
 
-    @Override
-    public String toString() {
-        return "VarUInt7{" +
-                "value=" + value +
-                "} ";
-    }
+	@Override
+	public String toString() {
+		return "VarUInt7{" +
+				"value=" + value +
+				"} ";
+	}
 }

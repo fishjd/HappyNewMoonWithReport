@@ -41,20 +41,20 @@ import happynewmoonwithreport.type.VarUInt32;
  */
 public class SectionStart implements Section {
 
-    protected UInt32 index;
+	protected UInt32 index;
 
-    /**
-     * @param payload the input BytesFile.
-     */
-    @Override
-    public void instantiate(BytesFile payload) {
+	/**
+	 * @param payload the input BytesFile.
+	 */
+	@Override
+	public void instantiate(BytesFile payload) {
 
-        //* Index
-        index = new VarUInt32(payload);
+		//* Index
+		index = new VarUInt32(payload);
 
-    }
+	}
 
-    public UInt32 getIndex() {
-        return index;
-    }
+	public UInt32 getIndex() {
+		return index;
+	}
 }

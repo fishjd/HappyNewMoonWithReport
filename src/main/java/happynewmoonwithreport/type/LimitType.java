@@ -36,133 +36,133 @@ import java.util.UUID;
  */
 public class LimitType implements Validation {
 
-    /**
-     * does the limit have max?
-     */
-    private UInt8 hasMaximum;
-    private U32 minimum;
-    private U32 maximum;
+	/**
+	 * does the limit have max?
+	 */
+	private UInt8 hasMaximum;
+	private U32 minimum;
+	private U32 maximum;
 
-    private LimitType() {
-        maximum = null;
-    }
+	private LimitType() {
+		maximum = null;
+	}
 
-    public LimitType(UInt32 minimum) {
-        this();
-        this.hasMaximum = new UInt8(0);  // must be zero.
-        this.minimum = minimum;
-        this.maximum = null;  // not set!
-    }
+	public LimitType(UInt32 minimum) {
+		this();
+		this.hasMaximum = new UInt8(0);  // must be zero.
+		this.minimum = minimum;
+		this.maximum = null;  // not set!
+	}
 
-    public LimitType(UInt32 minimum, UInt32 maximum) {
-        this();
-        this.hasMaximum = new UInt8(1);
-        this.minimum = minimum;
-        this.maximum = maximum;
-    }
+	public LimitType(UInt32 minimum, UInt32 maximum) {
+		this();
+		this.hasMaximum = new UInt8(1);
+		this.minimum = minimum;
+		this.maximum = maximum;
+	}
 
-    public LimitType(UInt8 hasMaximum, UInt32 minimum) {
-        this();
-        if ( hasMaximum.integerValue() != 0 ) {
-            throw new WasmRuntimeException(UUID.fromString("123ceab2-9d6f-44b6-83ca-49eee187726b"), "Has Maximum must be zero.");
-        }
-        this.hasMaximum = hasMaximum;
-        this.minimum = minimum;
-        this.maximum = null;
-    }
+	public LimitType(UInt8 hasMaximum, UInt32 minimum) {
+		this();
+		if (hasMaximum.integerValue() != 0) {
+			throw new WasmRuntimeException(UUID.fromString("123ceab2-9d6f-44b6-83ca-49eee187726b"), "Has Maximum must be zero.");
+		}
+		this.hasMaximum = hasMaximum;
+		this.minimum = minimum;
+		this.maximum = null;
+	}
 
-    public LimitType(U32 hasMaximum, U32 minimum) {
-        this();
-        if ( hasMaximum.integerValue() != 0 ) {
-            throw new WasmRuntimeException(UUID.fromString("123ceab2-9d6f-44b6-83ca-49eee187726b"), "Has Maximum must be zero.");
-        }
-        this.hasMaximum = new UInt8(hasMaximum);
-        this.minimum = minimum;
-        this.maximum = null;
-    }
+	public LimitType(U32 hasMaximum, U32 minimum) {
+		this();
+		if (hasMaximum.integerValue() != 0) {
+			throw new WasmRuntimeException(UUID.fromString("123ceab2-9d6f-44b6-83ca-49eee187726b"), "Has Maximum must be zero.");
+		}
+		this.hasMaximum = new UInt8(hasMaximum);
+		this.minimum = minimum;
+		this.maximum = null;
+	}
 
-    public LimitType(UInt8 hasMaximum, UInt32 minimum, UInt32 maximum) {
-        this();
-        this.hasMaximum = hasMaximum;
-        this.minimum = minimum;
-        this.maximum = maximum;
-    }
+	public LimitType(UInt8 hasMaximum, UInt32 minimum, UInt32 maximum) {
+		this();
+		this.hasMaximum = hasMaximum;
+		this.minimum = minimum;
+		this.maximum = maximum;
+	}
 
 
-    public LimitType(BytesFile payload) {
-        this();
-        hasMaximum = new VarUInt1(payload);
-        minimum = new VarUInt32(payload);
-        if (hasMaximum.booleanValue() == true) {
-            maximum = new VarUInt32(payload);
-        }
-    }
+	public LimitType(BytesFile payload) {
+		this();
+		hasMaximum = new VarUInt1(payload);
+		minimum = new VarUInt32(payload);
+		if (hasMaximum.booleanValue() == true) {
+			maximum = new VarUInt32(payload);
+		}
+	}
 
-    /**
-     * Does the limit set the maximum value?   Limits without a maximum are legal.
-     *
-     * @return hasMaximum   nonZero indicates true.
-     */
-    public UInt8 hasMaximum() {
-        return hasMaximum;
-    }
+	/**
+	 * Does the limit set the maximum value?   Limits without a maximum are legal.
+	 *
+	 * @return hasMaximum   nonZero indicates true.
+	 */
+	public UInt8 hasMaximum() {
+		return hasMaximum;
+	}
 
-    /**
-     * Get the Minimum.
-     *
-     * @return minimum
-     */
-    public U32 minimum() {
-        return minimum;
-    }
+	/**
+	 * Get the Minimum.
+	 *
+	 * @return minimum
+	 */
+	public U32 minimum() {
+		return minimum;
+	}
 
-    /* code in Javadoc source: https://stackoverflow.com/questions/541920/multiple-line-code-example-in-javadoc-comment
-     */
+	/* code in Javadoc source: https://stackoverflow.com/questions/541920/multiple-line-code-example-in-javadoc-comment
+	 */
 
-    /**
-     * Get the Maximum
-     * <p>
-     * Usage:
-     * <pre>
-     * {@code
-     * if (hasMaximum()) {
-     *      max = maximum();
-     * }
-     * }
-     * </pre>
-     * <p>
-     * Throws RuntimeException is maximum is not set.
-     *
-     * @return maximum
-     */
-    public U32 maximum() {
-        assert (maximum != null);
-        if (maximum == null) {
-            throw new RuntimeException("Calling maximum when it is not set!");
-        }
-        return maximum;
-    }
+	/**
+	 * Get the Maximum
+	 * <p>
+	 * Usage:
+	 * <pre>
+	 * {@code
+	 * if (hasMaximum()) {
+	 *      max = maximum();
+	 * }
+	 * }
+	 * </pre>
+	 * <p>
+	 * Throws RuntimeException is maximum is not set.
+	 *
+	 * @return maximum
+	 */
+	public U32 maximum() {
+		assert (maximum != null);
+		if (maximum == null) {
+			throw new RuntimeException("Calling maximum when it is not set!");
+		}
+		return maximum;
+	}
 
-    /**
-     * Limits must have meaningful bounds.
-     * <ul>
-     * <li>If the maximum m? is not empty, then its value must not be smaller than n</li>
-     * <li>Then the limit is valid.</li>
-     * </ul>
-     * source:  <a href="https://webassembly.github.io/spec/valid/types.html#limits" target="_top">
-     * https://webassembly.github.io/spec/valid/types.html#limits</a>
-     *
-     * @return true if limit is valid.
-     */
-    @Override
-    public Boolean valid() {
-        Boolean result = false;
+	/**
+	 * Limits must have meaningful bounds.
+	 * <ul>
+	 * <li>If the maximum m? is not empty, then its value must not be smaller than n</li>
+	 * <li>Then the limit is valid.</li>
+	 * </ul>
+	 * source:  <a href="https://webassembly.github.io/spec/valid/types.html#limits" target="_top">
+	 * https://webassembly.github.io/spec/valid/types.html#limits</a>
+	 *
+	 * @return true if limit is valid.
+	 */
+	@Override
+	public Boolean valid() {
+		Boolean result = false;
 
-        if (hasMaximum.booleanValue() == true) {
-            result = minimum.integerValue() <= maximum.integerValue();
-        } else {
-            return true;
-        }
-        return result;
-    }
+		if (hasMaximum.booleanValue() == true) {
+			result = minimum.integerValue() <= maximum.integerValue();
+		} else {
+			return true;
+		}
+		return result;
+	}
 }

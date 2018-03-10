@@ -56,44 +56,44 @@ import java.util.UUID;
  * </a>
  */
 public class I32_gt_s {
-    private WasmInstanceInterface instance;
+	private WasmInstanceInterface instance;
 
-    private I32_gt_s() {
-        super();
-    }
+	private I32_gt_s() {
+		super();
+	}
 
-    public I32_gt_s(WasmInstanceInterface instance) {
-        this();
-        this.instance = instance;
-    }
+	public I32_gt_s(WasmInstanceInterface instance) {
+		this();
+		this.instance = instance;
+	}
 
 
-    /**
-     * Execute the opcode.
-     */
-    public void execute() {
-        WasmStack<Object> stack = instance.stack();
-        if ((stack.peek() instanceof I32) == false) {
-            throw new WasmRuntimeException(UUID.fromString("a379bcda-2089-496e-9994-29d32f46882b"),
-                    "I32_gt_s: Value2 type is incorrect");
-        }
-        I32 value2 = (I32) stack.pop();
+	/**
+	 * Execute the opcode.
+	 */
+	public void execute() {
+		WasmStack<Object> stack = instance.stack();
+		if ((stack.peek() instanceof I32) == false) {
+			throw new WasmRuntimeException(UUID.fromString("a379bcda-2089-496e-9994-29d32f46882b"),
+					"I32_gt_s: Value2 type is incorrect");
+		}
+		I32 value2 = (I32) stack.pop();
 
-        if ((stack.peek() instanceof I32) == false) {
-            throw new WasmRuntimeException(UUID.fromString("2f6fc2a8-6e0a-44e2-bfce-ed776703d2f6"),
-                    "I32_gt_s: Value1 type is incorrect");
-        }
-        I32 value1 = (I32) stack.pop();
+		if ((stack.peek() instanceof I32) == false) {
+			throw new WasmRuntimeException(UUID.fromString("2f6fc2a8-6e0a-44e2-bfce-ed776703d2f6"),
+					"I32_gt_s: Value1 type is incorrect");
+		}
+		I32 value1 = (I32) stack.pop();
 
-        // these values are signed (positive/negative) values
-        S32 value2Signed = value2.signedValue();
-        S32 value1Signed = value1.signedValue();
+		// these values are signed (positive/negative) values
+		S32 value2Signed = value2.signedValue();
+		S32 value1Signed = value1.signedValue();
 
-        // Do the comparison.
-        I32 result = value1Signed.greaterThan(value2Signed);
+		// Do the comparison.
+		I32 result = value1Signed.greaterThan(value2Signed);
 
-        stack.push(result);
-    }
+		stack.push(result);
+	}
 
 
 }

@@ -27,23 +27,23 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 public class WasmFactorialLongTest {
-    private Wasm wasm;
-    private WasmModule module;
+	private Wasm wasm;
+	private WasmModule module;
 
-    @BeforeEach
-    public void setUp() throws Exception {
+	@BeforeEach
+	public void setUp() throws Exception {
 
-        String path = "./src/test/resources/factorialLong/factorialLong.wasm";
-        File wasmFile = new File(path);
-        assertTrue(wasmFile.exists());
+		String path = "./src/test/resources/factorialLong/factorialLong.wasm";
+		File wasmFile = new File(path);
+		assertTrue(wasmFile.exists());
 
-        wasm = new Wasm(path);
-        module = wasm.instantiate();
-    }
+		wasm = new Wasm(path);
+		module = wasm.instantiate();
+	}
 
-    @AfterEach
-    public void tearDown() throws Exception {
-    }
+	@AfterEach
+	public void tearDown() throws Exception {
+	}
 
 //    /**
 //     * This an end to end test

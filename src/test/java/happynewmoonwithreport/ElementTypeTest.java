@@ -24,26 +24,26 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class ElementTypeTest {
-    @BeforeEach
-    public void setUp() throws Exception {
-    }
+	@BeforeEach
+	public void setUp() throws Exception {
+	}
 
-    @AfterEach
-    public void tearDown() throws Exception {
-    }
+	@AfterEach
+	public void tearDown() throws Exception {
+	}
 
-    /**
-     * Test that the String constructor works.
-     *
-     * @throws Exception
-     */
-    @Test
-    public void constructorWithString() throws Exception {
-        ElementType elementType = new ElementType("anyFunc");
-        assertNotNull(elementType);
-        assertEquals(new Integer((byte) -0x10), elementType.getType());
-        assertEquals("anyFunc", elementType.getValue());
+	/**
+	 * Test that the String constructor works.
+	 *
+	 * @throws Exception
+	 */
+	@Test
+	public void constructorWithString() throws Exception {
+		ElementType elementType = new ElementType("anyFunc");
+		assertNotNull(elementType);
+		assertEquals(new Integer((byte) -0x10), elementType.getType());
+		assertEquals("anyFunc", elementType.getValue());
 
-    }
+	}
 
 }

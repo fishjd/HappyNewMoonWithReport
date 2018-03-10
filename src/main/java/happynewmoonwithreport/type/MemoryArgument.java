@@ -26,41 +26,41 @@ package happynewmoonwithreport.type;
  */
 public class MemoryArgument {
 
-    private U32 offest;
-    private U32 align;
+	private U32 offest;
+	private U32 align;
 
-    public MemoryArgument() {
-        this.offest = new U32(0L);
-        this.align = new U32(0L);
-    }
+	public MemoryArgument() {
+		this.offest = new U32(0L);
+		this.align = new U32(0L);
+	}
 
-    public MemoryArgument(U32 offest, U32 align) {
-        this.offest = offest;
-        this.align = align;
-    }
+	public MemoryArgument(U32 offest, U32 align) {
+		this.offest = offest;
+		this.align = align;
+	}
 
-    public U32 getOffest() {
-        return offest;
-    }
+	public U32 getOffest() {
+		return offest;
+	}
 
-    public void setOffest(U32 offest) {
-        this.offest = offest;
-    }
+	public void setOffest(U32 offest) {
+		this.offest = offest;
+	}
 
-    public U32 getAlign() {
-        return align;
-    }
+	public U32 getAlign() {
+		return align;
+	}
 
-    public void setAlign(U32 align) {
-        this.align = align;
-    }
+	public void setAlign(U32 align) {
+		this.align = align;
+	}
 
-    @Override
-    public String toString() {
-        final StringBuffer sb = new StringBuffer("MemoryArgument{");
-        sb.append("offest=").append(offest);
-        sb.append(", align=").append(align);
-        sb.append('}');
-        return sb.toString();
-    }
+	@Override
+	public String toString() {
+		final StringBuffer sb = new StringBuffer("MemoryArgument{");
+		sb.append("offest=").append(offest);
+		sb.append(", align=").append(align);
+		sb.append('}');
+		return sb.toString();
+	}
 }

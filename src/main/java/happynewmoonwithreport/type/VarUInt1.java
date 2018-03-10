@@ -41,43 +41,43 @@ import happynewmoonwithreport.BytesFile;
  * </a>
  */
 
-public final class VarUInt1 extends UInt8  {
+public final class VarUInt1 extends UInt8 {
 
-    @SuppressWarnings("unused")
-    private VarUInt1() {
-        super();
-    }
+	@SuppressWarnings("unused")
+	private VarUInt1() {
+		super();
+	}
 
-    public VarUInt1(BytesFile bytesFile) {
-        value = convert(bytesFile).longValue();
-    }
+	public VarUInt1(BytesFile bytesFile) {
+		value = convert(bytesFile).longValue();
+	}
 
-    /**
-     * Create using a Integer.  Used mainly in testing.
-     *
-     * @param value value
-     */
-    public VarUInt1(Integer value) {
-        this.value = value.longValue();
-    }
+	/**
+	 * Create using a Integer.  Used mainly in testing.
+	 *
+	 * @param value value
+	 */
+	public VarUInt1(Integer value) {
+		this.value = value.longValue();
+	}
 
-    /**
-     * Create using a Long.  Used mainly in testing.
-     *
-     * @param value value
-     */
-    public VarUInt1(Long value) {
-        this.value = value.longValue();
-    }
+	/**
+	 * Create using a Long.  Used mainly in testing.
+	 *
+	 * @param value value
+	 */
+	public VarUInt1(Long value) {
+		this.value = value.longValue();
+	}
 
-    /**
-     * Create using a Byte.  Used mainly in testing.
-     *
-     * @param value value
-     */
-    public VarUInt1(Byte value) {
-        this.value = value.longValue();
-    }
+	/**
+	 * Create using a Byte.  Used mainly in testing.
+	 *
+	 * @param value value
+	 */
+	public VarUInt1(Byte value) {
+		this.value = value.longValue();
+	}
 
 //    @Override
 //    public Long convert(BytesFile bytesFile) {
@@ -94,30 +94,30 @@ public final class VarUInt1 extends UInt8  {
 //        return result;
 //    }
 
-    public Boolean isFalse() {
-        return value == 0;
-    }
+	public Boolean isFalse() {
+		return value == 0;
+	}
 
-    @Override
-    public Integer maxBits() {
-        return 1;
-    }
+	@Override
+	public Integer maxBits() {
+		return 1;
+	}
 
-    @Override
-    public Long minValue() {
-        return 0L;
-    }
+	@Override
+	public Long minValue() {
+		return 0L;
+	}
 
-    @Override
-    public Long maxValue() {
-        return (1 << maxBits()) - 1L;
-    }
+	@Override
+	public Long maxValue() {
+		return (1 << maxBits()) - 1L;
+	}
 
 
-    @Override
-    public String toString() {
-        return "VarUInt1{" +
-                "value=" + value +
-                "} ";
-    }
+	@Override
+	public String toString() {
+		return "VarUInt1{" +
+				"value=" + value +
+				"} ";
+	}
 }

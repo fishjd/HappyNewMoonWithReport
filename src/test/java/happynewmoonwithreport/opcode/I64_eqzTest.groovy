@@ -26,54 +26,54 @@ import spock.lang.Specification
  * Created on 2017-11-14.
  */
 class I64_eqzTest extends Specification {
-    void setup() {
-    }
+	void setup() {
+	}
 
-    void cleanup() {
-    }
+	void cleanup() {
+	}
 
-    def "Execute I64 Equals zero "() {
-        setup: " push one value on stack."
-        WasmInstanceInterface instance = new WasmInstanceStub();
-        instance.stack().push(new I64(val1));
+	def "Execute I64 Equals zero "() {
+		setup: " push one value on stack."
+		WasmInstanceInterface instance = new WasmInstanceStub();
+		instance.stack().push(new I64(val1));
 
-        I64_eqz function = new I64_eqz(instance);
+		I64_eqz function = new I64_eqz(instance);
 
-        when: "run the opcode"
-        function.execute();
+		when: "run the opcode"
+		function.execute();
 
-        then: " a value of expected"
-        instance.stack().pop() == new I32(expected)  ;
+		then: " a value of expected"
+		instance.stack().pop() == new I32(expected);
 
 
-        where: ""
-        val1        || expected
-        4           || 0
-        0           || 1
-        0xFFFF_FFFF || 0
-        0xFFFF_FFFE || 0
-        0x0000_0000 || 1
-        0x0FFF_FFFF || 0
-        0xFFFF_FFFF_FFFF_FFFF || 0
-        0xFFFF_FFFF_FFFF_FFFE || 0
-        0x0000_0000_0000_0000 || 1
+		where: ""
+		val1                  || expected
+		4                     || 0
+		0                     || 1
+		0xFFFF_FFFF           || 0
+		0xFFFF_FFFE           || 0
+		0x0000_0000           || 1
+		0x0FFF_FFFF           || 0
+		0xFFFF_FFFF_FFFF_FFFF || 0
+		0xFFFF_FFFF_FFFF_FFFE || 0
+		0x0000_0000_0000_0000 || 1
 
-    }
+	}
 
-    def "Execute I64_eqz throw exception on incorrect Type on first param "() {
-        setup: " a value of I32  value 1"
-        WasmInstanceInterface instance = new WasmInstanceStub();
-        instance.stack().push(new I32(3));  // value 1 is an incorrect type
+	def "Execute I64_eqz throw exception on incorrect Type on first param "() {
+		setup: " a value of I32  value 1"
+		WasmInstanceInterface instance = new WasmInstanceStub();
+		instance.stack().push(new I32(3));  // value 1 is an incorrect type
 
-        I64_eqz function = new I64_eqz(instance);
+		I64_eqz function = new I64_eqz(instance);
 
-        when: "run the opcode"
-        function.execute();
+		when: "run the opcode"
+		function.execute();
 
-        then: " Thrown Exception"
-        WasmRuntimeException exception = thrown();
-        exception.message.contains("Value1");
-        exception.getUuid().toString().contains("d33cbf32-66c8-4b8c-9fa5-81e8e195d1bc");
-    }
+		then: " Thrown Exception"
+		WasmRuntimeException exception = thrown();
+		exception.message.contains("Value1");
+		exception.getUuid().toString().contains("d33cbf32-66c8-4b8c-9fa5-81e8e195d1bc");
+	}
 
 }

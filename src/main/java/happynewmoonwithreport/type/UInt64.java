@@ -18,50 +18,50 @@ package happynewmoonwithreport.type;
 
 /**
  * An unsigned integer of 64 bits.
- *
+ * <p>
  * Use U64 instead.
  */
 @Deprecated
 public class UInt64 extends U64 {
 
-    public UInt64() {
-        super();
-    }
+	public UInt64() {
+		super();
+	}
 
-    public UInt64(Long value) {
-        this.value = value;
-    }
+	public UInt64(Long value) {
+		this.value = value;
+	}
 
-    public UInt64(Integer value) {
-        this.value = value.longValue();
-    }
+	public UInt64(Integer value) {
+		this.value = value.longValue();
+	}
 
-    public Integer integerValue() {
-        checkIfTooLarge();
-        return value.intValue();
-    }
+	public Integer integerValue() {
+		checkIfTooLarge();
+		return value.intValue();
+	}
 
-    public void checkIfTooLarge() {
-        if (isBoundByInteger() == false) {
-            throw new RuntimeException("Value is too large!");
-        }
-    }
+	public void checkIfTooLarge() {
+		if (isBoundByInteger() == false) {
+			throw new RuntimeException("Value is too large!");
+		}
+	}
 
 
 	/* Override DataTypeNumber */
 
-    @Override
-    public Integer maxBits() {
-        return 63;  // should be 64 but that is not possible using Java type Long.
-    }
+	@Override
+	public Integer maxBits() {
+		return 63;  // should be 64 but that is not possible using Java type Long.
+	}
 
 
 	/* override of Object **/
 
-    @Override
-    public String toString() {
-        return "UInt64{" +
-                "value=" + value +
-                "} ";
-    }
+	@Override
+	public String toString() {
+		return "UInt64{" +
+				"value=" + value +
+				"} ";
+	}
 }

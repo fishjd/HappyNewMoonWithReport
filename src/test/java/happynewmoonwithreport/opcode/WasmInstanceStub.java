@@ -24,40 +24,40 @@ import happynewmoonwithreport.type.WasmVector;
 
 public class WasmInstanceStub implements WasmInstanceInterface {
 
-    private WasmStack<Object> stack;
-    private WasmVector<DataTypeNumber> localAll;
-    private BytesFile code;
+	private WasmStack<Object> stack;
+	private WasmVector<DataTypeNumber> localAll;
+	private BytesFile code;
 
-    public WasmInstanceStub() {
-        stack = new WasmStack<Object>();
-        localAll = new WasmVector<DataTypeNumber>();
-    }
+	public WasmInstanceStub() {
+		stack = new WasmStack<Object>();
+		localAll = new WasmVector<DataTypeNumber>();
+	}
 
-    @Override
-    public WasmStack<Object> stack() {
-        return stack;
-    }
+	@Override
+	public WasmStack<Object> stack() {
+		return stack;
+	}
 
-    public void setStack(WasmStack<Object> stack) {
-        this.stack = stack;
-    }
+	public void setStack(WasmStack<Object> stack) {
+		this.stack = stack;
+	}
 
 
-    @Override
-    public WasmVector<DataTypeNumber> localAll() {
-        return localAll;
-    }
+	@Override
+	public WasmVector<DataTypeNumber> localAll() {
+		return localAll;
+	}
 
-    public WasmVector<DataTypeNumber> getLocalAll() {
-        return localAll;
-    }
+	public WasmVector<DataTypeNumber> getLocalAll() {
+		return localAll;
+	}
 
-    @Override
-    public BytesFile getCode() {
-        return code;
-    }
+	@Override
+	public BytesFile getCode() {
+		return code;
+	}
 
-    public void setCode(BytesFile code) {
-        this.code = code;
-    }
+	public void setCode(BytesFile code) {
+		this.code = code;
+	}
 }

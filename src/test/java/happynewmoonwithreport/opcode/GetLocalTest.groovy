@@ -21,45 +21,46 @@ import happynewmoonwithreport.WasmInstanceInterface
 import happynewmoonwithreport.WasmRuntimeException
 import happynewmoonwithreport.type.I32
 import spock.lang.Specification
+
 /**
  * Created on 2017-08-25.
  */
 class GetLocalTest extends Specification {
-    void setup() {
-    }
+	void setup() {
+	}
 
-    void cleanup() {
-    }
+	void cleanup() {
+	}
 
-    def "Execute"() {
-        setup: " an instance with one local variable "
-        WasmInstanceInterface instance = new WasmInstanceStub();
+	def "Execute"() {
+		setup: " an instance with one local variable "
+		WasmInstanceInterface instance = new WasmInstanceStub();
 
-        WasmFrame frame = new WasmFrame(instance);
-        frame.localAll().add(new I32(3));
+		WasmFrame frame = new WasmFrame(instance);
+		frame.localAll().add(new I32(3));
 
-        GetLocal function = new GetLocal(frame);
+		GetLocal function = new GetLocal(frame);
 
-        when: "run the opcode"
-        function.execute(new I32(0));
+		when: "run the opcode"
+		function.execute(new I32(0));
 
-        then: " the local value should be on the stack"
-        new I32(3) == instance.stack().pop();
-    }
+		then: " the local value should be on the stack"
+		new I32(3) == instance.stack().pop();
+	}
 
-    def "Execute with exception thrown"() {
-        setup: " an instance with zero local variable "
-        WasmInstanceInterface instance = new WasmInstanceStub();
+	def "Execute with exception thrown"() {
+		setup: " an instance with zero local variable "
+		WasmInstanceInterface instance = new WasmInstanceStub();
 
-        WasmFrame frame = new WasmFrame(instance);
-        // frame.localAll().add(new Int32(3));
+		WasmFrame frame = new WasmFrame(instance);
+		// frame.localAll().add(new Int32(3));
 
-        GetLocal function = new GetLocal(frame);
+		GetLocal function = new GetLocal(frame);
 
-        when: "run the opcode"
-        function.execute(new I32(0));
+		when: "run the opcode"
+		function.execute(new I32(0));
 
-        then: " the local value should be on the stack"
-        thrown WasmRuntimeException;
-    }
+		then: " the local value should be on the stack"
+		thrown WasmRuntimeException;
+	}
 }

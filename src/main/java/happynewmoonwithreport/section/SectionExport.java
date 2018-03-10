@@ -40,31 +40,31 @@ import happynewmoonwithreport.type.WasmVector;
  */
 public class SectionExport implements Section {
 
-    private UInt32 count;
-    private WasmVector<ExportEntry> exports;
+	private UInt32 count;
+	private WasmVector<ExportEntry> exports;
 
-    /**
-     * @param payload the input BytesFile.
-     */
-    @Override
-    public void instantiate(BytesFile payload) {
+	/**
+	 * @param payload the input BytesFile.
+	 */
+	@Override
+	public void instantiate(BytesFile payload) {
 
-        //* Count
-        count = new VarUInt32(payload);
+		//* Count
+		count = new VarUInt32(payload);
 
-        //* Entries of Global Variables.
-        exports = new WasmVector<>(count.integerValue());
-        for (Integer index = 0; index < count.integerValue(); index++) {
-            ExportEntry export = new ExportEntry(payload);
-            exports.add(index, export);
-        }
-    }
+		//* Entries of Global Variables.
+		exports = new WasmVector<>(count.integerValue());
+		for (Integer index = 0; index < count.integerValue(); index++) {
+			ExportEntry export = new ExportEntry(payload);
+			exports.add(index, export);
+		}
+	}
 
-    public UInt32 getCount() {
-        return count;
-    }
+	public UInt32 getCount() {
+		return count;
+	}
 
-    public WasmVector<ExportEntry> getExports() {
-        return exports;
-    }
+	public WasmVector<ExportEntry> getExports() {
+		return exports;
+	}
 }

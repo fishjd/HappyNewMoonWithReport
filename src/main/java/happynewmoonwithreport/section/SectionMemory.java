@@ -40,31 +40,31 @@ import happynewmoonwithreport.type.WasmVector;
  */
 public class SectionMemory implements Section {
 
-    private UInt32 count;
-    private WasmVector<MemoryType> memoryTypeAll;
+	private UInt32 count;
+	private WasmVector<MemoryType> memoryTypeAll;
 
-    /**
-     * @param payload the input BytesFile.
-     */
-    @Override
-    public void instantiate(BytesFile payload) {
+	/**
+	 * @param payload the input BytesFile.
+	 */
+	@Override
+	public void instantiate(BytesFile payload) {
 
-        //* Count
-        count = new VarUInt32(payload);
+		//* Count
+		count = new VarUInt32(payload);
 
-        //* Entries of Resizeable Limits
-        memoryTypeAll = new WasmVector<>(count.integerValue());
-        for (Integer index = 0; index < count.integerValue(); index++) {
-            MemoryType memoryType = new MemoryType(payload);
-            memoryTypeAll.add(index, memoryType);
-        }
-    }
+		//* Entries of Resizeable Limits
+		memoryTypeAll = new WasmVector<>(count.integerValue());
+		for (Integer index = 0; index < count.integerValue(); index++) {
+			MemoryType memoryType = new MemoryType(payload);
+			memoryTypeAll.add(index, memoryType);
+		}
+	}
 
-    public UInt32 getCount() {
-        return count;
-    }
+	public UInt32 getCount() {
+		return count;
+	}
 
-    public WasmVector<MemoryType> getMemoryTypeAll() {
-        return memoryTypeAll;
-    }
+	public WasmVector<MemoryType> getMemoryTypeAll() {
+		return memoryTypeAll;
+	}
 }

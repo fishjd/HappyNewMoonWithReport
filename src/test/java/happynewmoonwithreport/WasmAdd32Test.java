@@ -25,63 +25,61 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 public class WasmAdd32Test {
-    private Wasm wasm;
-    private WasmModule module;
+	private Wasm wasm;
+	private WasmModule module;
 
-    @BeforeEach
-    public void setUp() throws Exception {
+	@BeforeEach
+	public void setUp() throws Exception {
 
-        String path = "./src/test/resources/add32/add32.wasm";
-        File wasmFile = new File(path);
-        assertTrue(wasmFile.exists());
+		String path = "./src/test/resources/add32/add32.wasm";
+		File wasmFile = new File(path);
+		assertTrue(wasmFile.exists());
 
-        wasm = new Wasm(path);
-        module = wasm.instantiate();
-    }
+		wasm = new Wasm(path);
+		module = wasm.instantiate();
+	}
 
-    @AfterEach
-    public void tearDown() throws Exception {
-    }
+	@AfterEach
+	public void tearDown() throws Exception {
+	}
 
-    /**
-     * This an end to end test
-     */
-    @Test
-    public void wasmTest() {
+	/**
+	 * This an end to end test
+	 */
+	@Test
+	public void wasmTest() {
 
-        assertTrue(wasm.validate());
+		assertTrue(wasm.validate());
 
-        assertEquals(new Integer(1), wasm.getFunctionSignatures().getSize());
+		assertEquals(new Integer(1), wasm.getFunctionSignatures().getSize());
 
-        assertEquals(2, wasm.exports().size());
-        assertEquals(new ExternalKind(ExternalKind.memory), wasm.exports().get(0).getExternalKind());
-        assertEquals("memory", wasm.exports().get(0).getFieldName().getValue());
+		assertEquals(2, wasm.exports().size());
+		assertEquals(new ExternalKind(ExternalKind.memory), wasm.exports().get(0).getExternalKind());
+		assertEquals("memory", wasm.exports().get(0).getFieldName().getValue());
 
-        assertEquals(new ExternalKind(ExternalKind.function), wasm.exports().get(1).getExternalKind());
-        assertEquals("add32", wasm.exports().get(1).getFieldName().getValue());
+		assertEquals(new ExternalKind(ExternalKind.function), wasm.exports().get(1).getExternalKind());
+		assertEquals("add32", wasm.exports().get(1).getFieldName().getValue());
 
-        WasmInstance instance = new WasmInstance(module);
-        assertNotNull (instance.stack());
-        WasmFunction functionAdd32 = instance.exportFunction("add32");
+		WasmInstance instance = new WasmInstance(module);
+		assertNotNull(instance.stack());
+		WasmFunction functionAdd32 = instance.exportFunction("add32");
 
-        WasmVector<DataTypeNumber> returnAll = new WasmVector<>(1);
-        WasmVector<DataTypeNumber> paramAll = new WasmVector<>(2);
-        paramAll.add(new S32(3));
-        paramAll.add(new S32(4));
+		WasmVector<DataTypeNumber> returnAll = new WasmVector<>(1);
+		WasmVector<DataTypeNumber> paramAll = new WasmVector<>(2);
+		paramAll.add(new S32(3));
+		paramAll.add(new S32(4));
 
-        instance.call(functionAdd32, returnAll, paramAll);
+		instance.call(functionAdd32, returnAll, paramAll);
 
-        assertNotNull(returnAll);
-        assertEquals(1, returnAll.size());
-        assertEquals(new S32(7), returnAll.get(0));
+		assertNotNull(returnAll);
+		assertEquals(1, returnAll.size());
+		assertEquals(new S32(7), returnAll.get(0));
 
 
-    }
+	}
 
 }

@@ -24,9 +24,9 @@ import happynewmoonwithreport.type.WasmVector;
  */
 
 public interface WasmInstanceInterface {
-    WasmStack<Object> stack();
+	WasmStack<Object> stack();
 
-    WasmVector<DataTypeNumber> localAll();
+	WasmVector<DataTypeNumber> localAll();
 
-    BytesFile getCode();
+	BytesFile getCode();
 }

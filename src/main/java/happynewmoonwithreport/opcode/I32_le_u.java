@@ -56,44 +56,44 @@ import java.util.UUID;
  * </a>
  */
 public class I32_le_u {
-    private WasmInstanceInterface instance;
+	private WasmInstanceInterface instance;
 
-    private I32_le_u() {
-        super();
-    }
+	private I32_le_u() {
+		super();
+	}
 
-    public I32_le_u(WasmInstanceInterface instance) {
-        this();
-        this.instance = instance;
-    }
+	public I32_le_u(WasmInstanceInterface instance) {
+		this();
+		this.instance = instance;
+	}
 
 
-    /**
-     * Execute the opcode.
-     */
-    public void execute() {
-        WasmStack<Object> stack = instance.stack();
-        if ((stack.peek() instanceof I32) == false) {
-            throw new WasmRuntimeException(UUID.fromString("9495007e-98c7-4788-b60d-ef2907778526"),
-                    "i32_le_u: Value2 type is incorrect");
-        }
-        I32 value2 = (I32) stack.pop();
+	/**
+	 * Execute the opcode.
+	 */
+	public void execute() {
+		WasmStack<Object> stack = instance.stack();
+		if ((stack.peek() instanceof I32) == false) {
+			throw new WasmRuntimeException(UUID.fromString("9495007e-98c7-4788-b60d-ef2907778526"),
+					"i32_le_u: Value2 type is incorrect");
+		}
+		I32 value2 = (I32) stack.pop();
 
-        if ((stack.peek() instanceof I32) == false) {
-            throw new WasmRuntimeException(UUID.fromString("888993e6-801a-4a42-8d85-178128a9ef94"),
-                    "i32_le_u: Value1 type is incorrect");
-        }
-        I32 value1 = (I32) stack.pop();
+		if ((stack.peek() instanceof I32) == false) {
+			throw new WasmRuntimeException(UUID.fromString("888993e6-801a-4a42-8d85-178128a9ef94"),
+					"i32_le_u: Value1 type is incorrect");
+		}
+		I32 value1 = (I32) stack.pop();
 
-        // these values are unsigned values and thus we use UInt32
-        U32 value2Unsigned = value2.unsignedValue();
-        U32 value1Unsigned = value1.unsignedValue();
+		// these values are unsigned values and thus we use UInt32
+		U32 value2Unsigned = value2.unsignedValue();
+		U32 value1Unsigned = value1.unsignedValue();
 
-        // Do the comparison.
-        I32 result = value1Unsigned.lessThanEqual(value2Unsigned);
+		// Do the comparison.
+		I32 result = value1Unsigned.lessThanEqual(value2Unsigned);
 
-        stack.push(result);
-    }
+		stack.push(result);
+	}
 
 
 }

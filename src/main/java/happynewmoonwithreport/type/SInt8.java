@@ -27,44 +27,44 @@ import static happynewmoonwithreport.type.utility.MathWBS.pow2;
  * </a>
  */
 public class SInt8 extends S32 {
-    //protected Byte value;
+	//protected Byte value;
 
-    protected SInt8() {
-    }
+	protected SInt8() {
+	}
 
-    public SInt8(Byte value) {
-        this.value = value.intValue();
-    }
+	public SInt8(Byte value) {
+		this.value = value.intValue();
+	}
 
-    public SInt8(Integer value) {
-        this.value = value;
-    }
+	public SInt8(Integer value) {
+		this.value = value;
+	}
 
 	/* private functions **/
 
 	/* Override DataTypeNumber */
 
-    @Override
-    public Integer maxBits() {
-        return 8;
-    }
+	@Override
+	public Integer maxBits() {
+		return 8;
+	}
 
 
-    @Override
-    public Long minValue() {
-        return -1L * pow2(maxBits() - 1);
-    }
+	@Override
+	public Long minValue() {
+		return -1L * pow2(maxBits() - 1);
+	}
 
-    @Override
-    public Long maxValue() {
-        return pow2(maxBits() - 1) - 1;
-    }
+	@Override
+	public Long maxValue() {
+		return pow2(maxBits() - 1) - 1;
+	}
 
-    /* override of Object **/
-    @Override
-    public String toString() {
-        return "Int8{" +
-                "value=" + value +
-                "} ";
-    }
+	/* override of Object **/
+	@Override
+	public String toString() {
+		return "Int8{" +
+				"value=" + value +
+				"} ";
+	}
 }

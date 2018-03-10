@@ -41,43 +41,43 @@ import happynewmoonwithreport.BytesFile;
  * </a>
  */
 public final class VarUInt32 extends UInt32
-        // implements DataTypeNumber<Long>
+		// implements DataTypeNumber<Long>
 {
 
-    @SuppressWarnings("unused")
-    private VarUInt32() {
-        super();
-    }
+	@SuppressWarnings("unused")
+	private VarUInt32() {
+		super();
+	}
 
-    public VarUInt32(BytesFile bytesFile) {
-        value = convert(bytesFile);
-    }
+	public VarUInt32(BytesFile bytesFile) {
+		value = convert(bytesFile);
+	}
 
-    @Override
-    public Long convert(BytesFile bytesFile) {
-        Integer cur;
-        Integer count = 0;
-        Long result = 0L;
+	@Override
+	public Long convert(BytesFile bytesFile) {
+		Integer cur;
+		Integer count = 0;
+		Long result = 0L;
 
-        do {
-            cur = bytesFile.readByte() & 0xff;
-            result |= (cur & 0x7f) << (count * 7);
-            count++;
-        } while (((cur & 0x80) != 0) && count < maxBytes());
+		do {
+			cur = bytesFile.readByte() & 0xff;
+			result |= (cur & 0x7f) << (count * 7);
+			count++;
+		} while (((cur & 0x80) != 0) && count < maxBytes());
 
-        return result;
-    }
+		return result;
+	}
 
-    @Override
-    public Integer maxBytes() {
-        Integer maxBytes = new Double(Math.ceil((double) maxBits() / 7.0D)).intValue();
-        return maxBytes;
-    }
+	@Override
+	public Integer maxBytes() {
+		Integer maxBytes = new Double(Math.ceil((double) maxBits() / 7.0D)).intValue();
+		return maxBytes;
+	}
 
-    @Override
-    public String toString() {
-        return "VarUInt32{" +
-                "value=" + value +
-                "} ";
-    }
+	@Override
+	public String toString() {
+		return "VarUInt32{" +
+				"value=" + value +
+				"} ";
+	}
 }

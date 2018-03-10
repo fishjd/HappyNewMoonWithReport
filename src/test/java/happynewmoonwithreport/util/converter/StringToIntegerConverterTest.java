@@ -26,67 +26,67 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * Created on 2018-01-21.
  */
 class StringToIntegerConverterTest {
-    private StringToIntegerConverter converter;
+	private StringToIntegerConverter converter;
 
-    @BeforeEach
-    void setUp() {
-        converter = new StringToIntegerConverter();
+	@BeforeEach
+	void setUp() {
+		converter = new StringToIntegerConverter();
 
-    }
+	}
 
-    @AfterEach
-    void tearDown() {
-    }
+	@AfterEach
+	void tearDown() {
+	}
 
-    @Test
-    void convert_1() {
+	@Test
+	void convert_1() {
 
-        // run
-        Integer result = (Integer) converter.convert("1", Integer.class);
+		// run
+		Integer result = (Integer) converter.convert("1", Integer.class);
 
-        // verify
-        assertEquals(1, result.intValue());
-    }
+		// verify
+		assertEquals(1, result.intValue());
+	}
 
-    @Test
-    void convert_100_000() {
+	@Test
+	void convert_100_000() {
 
-        // run
-        Integer result = (Integer) converter.convert("100_000", Integer.class);
+		// run
+		Integer result = (Integer) converter.convert("100_000", Integer.class);
 
-        // verify
-        assertEquals(100_000, result.intValue());
-    }
+		// verify
+		assertEquals(100_000, result.intValue());
+	}
 
-    @Test
-    void convert_0FFF_FFFF() {
+	@Test
+	void convert_0FFF_FFFF() {
 
-        // run
-        Integer result = (Integer) converter.convert("0x0FFF_FFFF", Integer.class);
+		// run
+		Integer result = (Integer) converter.convert("0x0FFF_FFFF", Integer.class);
 
-        // verify
-        assertEquals(0x0FFF_FFFF, result.intValue());
-    }
+		// verify
+		assertEquals(0x0FFF_FFFF, result.intValue());
+	}
 
-    @Test
-    void convert_7FFF_FFFF() {
+	@Test
+	void convert_7FFF_FFFF() {
 
-        // run
-        Integer result = (Integer) converter.convert("0x7FFF_FFFF", Integer.class);
+		// run
+		Integer result = (Integer) converter.convert("0x7FFF_FFFF", Integer.class);
 
-        // verify
-        assertEquals(0x7FFF_FFFF, result.intValue());
-    }
+		// verify
+		assertEquals(0x7FFF_FFFF, result.intValue());
+	}
 
-    @Test
-    void convert_Neg_1F() {
+	@Test
+	void convert_Neg_1F() {
 
-        // run
-        Integer result = (Integer) converter.convert("-0x1F", Integer.class);
+		// run
+		Integer result = (Integer) converter.convert("-0x1F", Integer.class);
 
-        // verify
-        assertEquals(-0x1F, result.intValue());
-    }
+		// verify
+		assertEquals(-0x1F, result.intValue());
+	}
 
 
 }

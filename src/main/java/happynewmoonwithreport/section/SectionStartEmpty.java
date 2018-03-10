@@ -25,8 +25,8 @@ import happynewmoonwithreport.type.UInt32;
  */
 public class SectionStartEmpty extends SectionStart {
 
-    public SectionStartEmpty() {
-        index = new UInt32(-1);
-    }
+	public SectionStartEmpty() {
+		index = new UInt32(-1);
+	}
 
 }

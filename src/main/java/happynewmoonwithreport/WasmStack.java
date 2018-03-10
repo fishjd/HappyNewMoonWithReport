@@ -29,14 +29,14 @@ import java.util.UUID;
  */
 public class WasmStack<StackType> extends Stack<StackType> {
 
-    @Override
-    public StackType push(StackType item) {
-        if (typeOK(item) == false) {
-            throw new WasmRuntimeException(UUID.fromString("12f47ca5-6313-4610-9616-ef10ef3861ee"),
-                    "Item is not of correct type for Stack.  Item = " + item.toString());
-        }
-        return super.push(item);
-    }
+	@Override
+	public StackType push(StackType item) {
+		if (typeOK(item) == false) {
+			throw new WasmRuntimeException(UUID.fromString("12f47ca5-6313-4610-9616-ef10ef3861ee"),
+					"Item is not of correct type for Stack.  Item = " + item.toString());
+		}
+		return super.push(item);
+	}
 
 //    @Override
 //    public synchronized StackType pop() {
@@ -48,28 +48,28 @@ public class WasmStack<StackType> extends Stack<StackType> {
 //        return super.peek();
 //    }
 
-    /**
-     * Peek at the element at index
-     *
-     * @param index <p>
-     * <code>Index  = 0 </code> top of the stack, ie the most recent value pushed on the stack. .
-     * <p>
-     * <code>index =  1</code> is the second item on the stack.
-     * <p>
-     * note: <code> peek(0) </code>  is the same as <code>peek()</code>
-     * </p>
-     *
-     * @return the element at index.
-     */
-    public StackType peek(Integer index) {
-        Integer stackIndex = size() - index - 1;
-        return get(stackIndex);
-    }
+	/**
+	 * Peek at the element at index
+	 *
+	 * @param index <p>
+	 * <code>Index  = 0 </code> top of the stack, ie the most recent value pushed on the stack. .
+	 * <p>
+	 * <code>index =  1</code> is the second item on the stack.
+	 * <p>
+	 * note: <code> peek(0) </code>  is the same as <code>peek()</code>
+	 * </p>
+	 *
+	 * @return the element at index.
+	 */
+	public StackType peek(Integer index) {
+		Integer stackIndex = size() - index - 1;
+		return get(stackIndex);
+	}
 
-    public Boolean typeOK(Object item) {
-        Boolean result = false;
-        result |= item instanceof DataTypeNumber;
-        result |= item instanceof WasmLabel;
-        return result;
-    }
+	public Boolean typeOK(Object item) {
+		Boolean result = false;
+		result |= item instanceof DataTypeNumber;
+		result |= item instanceof WasmLabel;
+		return result;
+	}
 }

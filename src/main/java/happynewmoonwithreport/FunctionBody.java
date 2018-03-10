@@ -35,103 +35,103 @@ import happynewmoonwithreport.type.WasmVector;
 
 public class FunctionBody {
 
-    private UInt32 bodySize;
-    /**
-     * Number of local entries.
-     * <p>
-     * Number of objects in localEntryAll.
-     */
-    private UInt32 localCount;
-    /**
-     * Each local entry declares a number of local variables of a given type. It is legal to have several entries with
-     * the same type.
-     * <p>
-     * This is the types of the local variables not the values of the local variables which is in WasmFunction.
-     */
-    private WasmVector<ValueType> localEntryAll;
+	private UInt32 bodySize;
+	/**
+	 * Number of local entries.
+	 * <p>
+	 * Number of objects in localEntryAll.
+	 */
+	private UInt32 localCount;
+	/**
+	 * Each local entry declares a number of local variables of a given type. It is legal to have several entries with
+	 * the same type.
+	 * <p>
+	 * This is the types of the local variables not the values of the local variables which is in WasmFunction.
+	 */
+	private WasmVector<ValueType> localEntryAll;
 
-    /**
-     * This is the actual code of the function.
-     */
-    private byte[] code;
+	/**
+	 * This is the actual code of the function.
+	 */
+	private byte[] code;
 
-    /**
-     * One byte tha is always <code>0x0b</code>, indicating the end of the body.
-     * <p>
-     * Pretty much useless.  Used mainly for reading the wasm file.
-     */
-    private byte end;
+	/**
+	 * One byte tha is always <code>0x0b</code>, indicating the end of the body.
+	 * <p>
+	 * Pretty much useless.  Used mainly for reading the wasm file.
+	 */
+	private byte end;
 
-    public FunctionBody() {
+	public FunctionBody() {
 
-    }
+	}
 
-    public FunctionBody(BytesFile payload) {
-        //* Body Size
-        bodySize = new VarUInt32(payload);
+	public FunctionBody(BytesFile payload) {
+		//* Body Size
+		bodySize = new VarUInt32(payload);
 
-        final Integer start = payload.getIndex();
+		final Integer start = payload.getIndex();
 
-        //* Count
-        localCount = new VarUInt32(payload);
+		//* Count
+		localCount = new VarUInt32(payload);
 
 
-        //* LocalAll
-        localEntryAll = new WasmVector<>(localCount.integerValue());
-        for (Integer index = 0; index < localCount.integerValue(); ) {
-            LocalEntry localEntry = new LocalEntry(payload);
-            for (Integer localIndex = 0; localIndex < localEntry.getCount().integerValue(); localIndex++) {
-                localEntryAll.add(index, localEntry.getValueType());
-                index++;
-            }
-        }
+		//* LocalAll
+		localEntryAll = new WasmVector<>(localCount.integerValue());
+		for (Integer index = 0; index < localCount.integerValue(); ) {
+			LocalEntry localEntry = new LocalEntry(payload);
+			for (Integer localIndex = 0; localIndex < localEntry.getCount().integerValue(); localIndex++) {
+				localEntryAll.add(index, localEntry.getValueType());
+				index++;
+			}
+		}
 
-        final Integer after = payload.getIndex();
+		final Integer after = payload.getIndex();
 
-        final Integer consumedByLocals = after - start;
+		final Integer consumedByLocals = after - start;
 
-        final Integer codeLength = bodySize.integerValue() - consumedByLocals - 1;  // minus 1 for end byte.
+		final Integer codeLength = bodySize.integerValue() - consumedByLocals - 1;  // minus 1 for end byte.
 
-        //* Code
-        code = new byte[codeLength];
-        for (Integer i = 0; i < codeLength; i++) {
-            code[i] = payload.readByte();
-        }
+		//* Code
+		code = new byte[codeLength];
+		for (Integer i = 0; i < codeLength; i++) {
+			code[i] = payload.readByte();
+		}
 
-        //* Byte
-        end = payload.readByte();
-        assert (end == (byte) 0x0B);
-    }
+		//* Byte
+		end = payload.readByte();
+		assert (end == (byte) 0x0B);
+	}
 
-    public UInt32 getBodySize() {
-        return bodySize;
-    }
+	public UInt32 getBodySize() {
+		return bodySize;
+	}
 
-    public UInt32 getLocalCount() {
-        return localCount;
-    }
+	public UInt32 getLocalCount() {
+		return localCount;
+	}
 
-    public WasmVector<ValueType> getLocalEntryAll() {
-        return localEntryAll;
-    }
+	public WasmVector<ValueType> getLocalEntryAll() {
+		return localEntryAll;
+	}
 
-    public void setLocalEntryAll(WasmVector<ValueType> localEntryAll) {
-        this.localEntryAll = localEntryAll;
-    }
+	public void setLocalEntryAll(WasmVector<ValueType> localEntryAll) {
+		this.localEntryAll = localEntryAll;
+	}
 
-    public byte[] getCode() {
-        return code;
-    }
+	public byte[] getCode() {
+		return code;
+	}
 
-    public byte getEnd() {
-        return end;
-    }
+	public byte getEnd() {
+		return end;
+	}
 
-    @Override
-    public String toString() {
-        return "FunctionBody{" +
-                "bodySize=" + bodySize +
-                ", localCount=" + localCount +
-                '}';
-    }
+	@Override
+	public String toString() {
+		return "FunctionBody{" +
+				"bodySize=" + bodySize +
+				", localCount=" + localCount +
+				'}';
+	}
 }

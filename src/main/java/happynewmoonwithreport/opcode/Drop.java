@@ -35,33 +35,33 @@ import java.util.UUID;
  * </a>
  */
 public class Drop {
-    private WasmInstanceInterface instance;
+	private WasmInstanceInterface instance;
 
-    private Drop() {
-        super();
-    }
+	private Drop() {
+		super();
+	}
 
-    public Drop(WasmInstanceInterface instance) {
-        this();
-        this.instance = instance;
-    }
+	public Drop(WasmInstanceInterface instance) {
+		this();
+		this.instance = instance;
+	}
 
 
-    /**
-     * Execute the opcode.
-     */
-    public void execute() {
-        // 1 Assert: due to validation, a value is on the top of the stack.
-        WasmStack<Object> stack = instance.stack();
-        if (stack.empty() == true ) {
-            throw new WasmRuntimeException(UUID.fromString("f42f4399-988b-46ce-b73b-4dcdccae576f"),
-                    "Stack must have at least one value");
-        }
+	/**
+	 * Execute the opcode.
+	 */
+	public void execute() {
+		// 1 Assert: due to validation, a value is on the top of the stack.
+		WasmStack<Object> stack = instance.stack();
+		if (stack.empty() == true) {
+			throw new WasmRuntimeException(UUID.fromString("f42f4399-988b-46ce-b73b-4dcdccae576f"),
+					"Stack must have at least one value");
+		}
 
-        // 2. Pop the value from the stack
-        stack.pop();
+		// 2. Pop the value from the stack
+		stack.pop();
 
-    }
+	}
 
 
 }

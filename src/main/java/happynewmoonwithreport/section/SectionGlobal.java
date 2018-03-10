@@ -40,31 +40,31 @@ import happynewmoonwithreport.type.WasmVector;
  */
 public class SectionGlobal implements Section {
 
-    private UInt32 count;
-    private WasmVector<GlobalVariableType> globals;
+	private UInt32 count;
+	private WasmVector<GlobalVariableType> globals;
 
-    /**
-     * @param payload the input BytesFile.
-     */
-    @Override
-    public void instantiate(BytesFile payload) {
+	/**
+	 * @param payload the input BytesFile.
+	 */
+	@Override
+	public void instantiate(BytesFile payload) {
 
-        //* Count
-        count = new VarUInt32(payload);
+		//* Count
+		count = new VarUInt32(payload);
 
-        //* Entries of Global Variables.
-        globals = new WasmVector<>(count.integerValue());
-        for (Integer index = 0; index < count.integerValue(); index++) {
-            GlobalVariableType globalVariable = new GlobalVariableType(payload);
-            globals.add(index, globalVariable);
-        }
-    }
+		//* Entries of Global Variables.
+		globals = new WasmVector<>(count.integerValue());
+		for (Integer index = 0; index < count.integerValue(); index++) {
+			GlobalVariableType globalVariable = new GlobalVariableType(payload);
+			globals.add(index, globalVariable);
+		}
+	}
 
-    public UInt32 getCount() {
-        return count;
-    }
+	public UInt32 getCount() {
+		return count;
+	}
 
-    public WasmVector<GlobalVariableType> getGlobals() {
-        return globals;
-    }
+	public WasmVector<GlobalVariableType> getGlobals() {
+		return globals;
+	}
 }

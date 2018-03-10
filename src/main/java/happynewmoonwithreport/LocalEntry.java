@@ -33,27 +33,27 @@ import happynewmoonwithreport.type.VarUInt32;
  */
 public class LocalEntry {
 
-    private UInt32 count;
-    private ValueType valueType;
+	private UInt32 count;
+	private ValueType valueType;
 
 
-    /**
-     * @param payload the input BytesFile.
-     */
-    public LocalEntry(BytesFile payload) {
+	/**
+	 * @param payload the input BytesFile.
+	 */
+	public LocalEntry(BytesFile payload) {
 
-        //* Count
-        count = new VarUInt32(payload);
+		//* Count
+		count = new VarUInt32(payload);
 
-        //* Type
-        valueType = new ValueType(payload);
-    }
+		//* Type
+		valueType = new ValueType(payload);
+	}
 
-    public UInt32 getCount() {
-        return count;
-    }
+	public UInt32 getCount() {
+		return count;
+	}
 
-    public ValueType getValueType() {
-        return valueType;
-    }
+	public ValueType getValueType() {
+		return valueType;
+	}
 }

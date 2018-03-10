@@ -42,31 +42,31 @@ import java.util.ArrayList;
  */
 public class SectionFunction implements Section {
 
-    private UInt32 count;
-    private ArrayList<UInt32> types;
+	private UInt32 count;
+	private ArrayList<UInt32> types;
 
-    /**
-     * @param payload the input BytesFile.
-     */
-    @Override
-    public void instantiate(BytesFile payload) {
+	/**
+	 * @param payload the input BytesFile.
+	 */
+	@Override
+	public void instantiate(BytesFile payload) {
 
-        //* Parameter Count
-        count = new VarUInt32(payload);
+		//* Parameter Count
+		count = new VarUInt32(payload);
 
-        //* Parameters Types
-        types = new ArrayList<>(count.integerValue());
-        for (Integer index = 0; index < count.integerValue(); index++) {
-            UInt32 type = new VarUInt32(payload);
-            types.add(index, type);
-        }
-    }
+		//* Parameters Types
+		types = new ArrayList<>(count.integerValue());
+		for (Integer index = 0; index < count.integerValue(); index++) {
+			UInt32 type = new VarUInt32(payload);
+			types.add(index, type);
+		}
+	}
 
-    public UInt32 getCount() {
-        return count;
-    }
+	public UInt32 getCount() {
+		return count;
+	}
 
-    public ArrayList<UInt32> getTypes() {
-        return types;
-    }
+	public ArrayList<UInt32> getTypes() {
+		return types;
+	}
 }

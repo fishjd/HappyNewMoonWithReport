@@ -25,54 +25,54 @@ import spock.lang.Specification
  * Created on 2017-12-28.
  */
 class WasmAddressTest extends Specification {
-    def "GetAddress"() {
-        setup: "Good Address"
-        WasmAddress address = new WasmAddress(new I32(5))
+	def "GetAddress"() {
+		setup: "Good Address"
+		WasmAddress address = new WasmAddress(new I32(5))
 
-        when: ""
+		when: ""
 
-        then: ""
-        address.getAddress() == 5;
+		then: ""
+		address.getAddress() == 5;
 
-        // expect: ""
+		// expect: ""
 
-        // cleanup: ""
+		// cleanup: ""
 
-        // where: ""
+		// where: ""
 
-    }
+	}
 
-    def "GetAddress less than zero throws exception"() {
+	def "GetAddress less than zero throws exception"() {
 
-        when: ""
-        WasmAddress address = new WasmAddress(new I32(-5))
+		when: ""
+		WasmAddress address = new WasmAddress(new I32(-5))
 
-        then: "Throw less than zero exception "
+		then: "Throw less than zero exception "
 
-        WasmRuntimeException exception = thrown();
-        exception.getUuid().toString().contains("bfc55b11-467b-4a66-a8e7-70c02432c97a");
-    }
+		WasmRuntimeException exception = thrown();
+		exception.getUuid().toString().contains("bfc55b11-467b-4a66-a8e7-70c02432c97a");
+	}
 
-    def "SetAddress"() {
-        setup: "Good Address"
-        WasmAddress address = new WasmAddress(new I32(5))
+	def "SetAddress"() {
+		setup: "Good Address"
+		WasmAddress address = new WasmAddress(new I32(5))
 
-        when: ""
-        address.setAddress( new I32 (6))
-        then: ""
-        address.getAddress() == 6;
-    }
+		when: ""
+		address.setAddress(new I32(6))
+		then: ""
+		address.getAddress() == 6;
+	}
 
-    def "SetAddress less than zero throws exception"() {
-        setup: "Good Address"
-        WasmAddress address = new WasmAddress(new I32(0))
+	def "SetAddress less than zero throws exception"() {
+		setup: "Good Address"
+		WasmAddress address = new WasmAddress(new I32(0))
 
-        when: "Set to a negative number "
-        address.setAddress(new I32(-5));
+		when: "Set to a negative number "
+		address.setAddress(new I32(-5));
 
-        then: "Throw less than zero exception "
-        WasmRuntimeException exception = thrown();
-        exception.getUuid().toString().contains("8cde5e2d-58ae-4b84-8955-406e6a97cfc0");
-    }
+		then: "Throw less than zero exception "
+		WasmRuntimeException exception = thrown();
+		exception.getUuid().toString().contains("8cde5e2d-58ae-4b84-8955-406e6a97cfc0");
+	}
 
 }

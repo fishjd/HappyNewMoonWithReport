@@ -34,21 +34,21 @@ import happynewmoonwithreport.WasmInstanceInterface;
  * </a>
  */
 public class Nop {
-    private WasmInstanceInterface instance;
+	private WasmInstanceInterface instance;
 
-    private Nop() {
-        super();
-    }
+	private Nop() {
+		super();
+	}
 
-    public Nop(WasmInstanceInterface instance) {
-        this();
-        this.instance = instance;
-    }
+	public Nop(WasmInstanceInterface instance) {
+		this();
+		this.instance = instance;
+	}
 
-    /**
-     * Execute the opcode.
-     */
-    public void execute() {
-       // Do Nothing!
-    }
+	/**
+	 * Execute the opcode.
+	 */
+	public void execute() {
+		// Do Nothing!
+	}
 }

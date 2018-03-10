@@ -30,42 +30,42 @@ import happynewmoonwithreport.type.WasmVector;
  * Frame contains:  locals, module, return arity
  */
 public class WasmFrame {
-    private WasmModule module;
+	private WasmModule module;
 
-    /**
-     * The arity,  The types of the return values
-     */
-    private WasmVector<DataTypeNumber> returnTypeAll;
+	/**
+	 * The arity,  The types of the return values
+	 */
+	private WasmVector<DataTypeNumber> returnTypeAll;
 
-    /**
-     * Local Variables including arguments
-     */
-    private WasmVector<DataTypeNumber> localAll;
+	/**
+	 * Local Variables including arguments
+	 */
+	private WasmVector<DataTypeNumber> localAll;
 
-    private WasmFrame() {
-        super();
-        localAll = new WasmVector<>();
-        returnTypeAll = new WasmVector<>();
-    }
+	private WasmFrame() {
+		super();
+		localAll = new WasmVector<>();
+		returnTypeAll = new WasmVector<>();
+	}
 
-    public WasmFrame(WasmModule module) {
-        this();
-        this.module = module;
-    }
+	public WasmFrame(WasmModule module) {
+		this();
+		this.module = module;
+	}
 
-    public WasmModule getModule() {
-        return module;
-    }
+	public WasmModule getModule() {
+		return module;
+	}
 
-    public WasmVector<DataTypeNumber> returnTypeAll() {
-        return returnTypeAll;
-    }
+	public WasmVector<DataTypeNumber> returnTypeAll() {
+		return returnTypeAll;
+	}
 
-    public WasmVector<DataTypeNumber> localAll() {
-        return localAll;
-    }
+	public WasmVector<DataTypeNumber> localAll() {
+		return localAll;
+	}
 
-    public void setLocalAll(WasmVector<DataTypeNumber> localAll) {
-        this.localAll = localAll;
-    }
+	public void setLocalAll(WasmVector<DataTypeNumber> localAll) {
+		this.localAll = localAll;
+	}
 }

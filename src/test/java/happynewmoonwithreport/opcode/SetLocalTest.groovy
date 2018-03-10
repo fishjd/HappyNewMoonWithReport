@@ -21,76 +21,77 @@ import happynewmoonwithreport.WasmInstanceInterface
 import happynewmoonwithreport.WasmRuntimeException
 import happynewmoonwithreport.type.I32
 import spock.lang.Specification
+
 /**
  * Created on 2017-08-25.
  */
 class SetLocalTest extends Specification {
-    void setup() {
-    }
+	void setup() {
+	}
 
-    void cleanup() {
-    }
+	void cleanup() {
+	}
 
-    def "Execute"() {
-        setup: "A Frame with two local variables and a Int32 on the stack.  "
-        WasmInstanceInterface instance = new WasmInstanceStub();
+	def "Execute"() {
+		setup: "A Frame with two local variables and a Int32 on the stack.  "
+		WasmInstanceInterface instance = new WasmInstanceStub();
 
-        WasmFrame frame = new WasmFrame(instance);
-        // locals must be initialized.
-        frame.localAll().add(0);
-        frame.localAll().add(0);
-        instance.stack().push(new I32(3));
+		WasmFrame frame = new WasmFrame(instance);
+		// locals must be initialized.
+		frame.localAll().add(0);
+		frame.localAll().add(0);
+		instance.stack().push(new I32(3));
 
-        SetLocal function = new SetLocal(frame);
+		SetLocal function = new SetLocal(frame);
 
-        when: "run the opcode"
-        I32 index = new I32(0);
-        function.execute(index);
+		when: "run the opcode"
+		I32 index = new I32(0);
+		function.execute(index);
 
-        then: " the local value should be set"
-        new I32(3) == frame.localAll().get(index);
-    }
+		then: " the local value should be set"
+		new I32(3) == frame.localAll().get(index);
+	}
 
-    def "Execute with exception thrown when there are zero local variables "() {
-        setup: " an instance with zero local variables "
-        WasmInstanceInterface instance = new WasmInstanceStub();
-        instance.stack().push(new I32(3));
-        WasmFrame frame = new WasmFrame(instance);
-        // frame.localAll().add(0);
+	def "Execute with exception thrown when there are zero local variables "() {
+		setup: " an instance with zero local variables "
+		WasmInstanceInterface instance = new WasmInstanceStub();
+		instance.stack().push(new I32(3));
+		WasmFrame frame = new WasmFrame(instance);
+		// frame.localAll().add(0);
 
-        SetLocal function = new SetLocal(frame);
+		SetLocal function = new SetLocal(frame);
 
-        expect: "no local variables"
-        0 == frame.localAll().size()
+		expect: "no local variables"
+		0 == frame.localAll().size()
 
 
-        when: "run the opcode"
-        function.execute(new I32(0));
+		when: "run the opcode"
+		function.execute(new I32(0));
 
-        then: "Exception Thrown"
-        WasmRuntimeException exception = thrown();
-        exception.message.contains("Local variable")
-        exception.message.contains("SetLocal")
-    }
+		then: "Exception Thrown"
+		WasmRuntimeException exception = thrown();
+		exception.message.contains("Local variable")
+		exception.message.contains("SetLocal")
+	}
 
-    def "Execute with exception thrown when stack is empty"() {
-        setup: " an instance with zero local variables "
-        WasmInstanceInterface instance = new WasmInstanceStub();
+	def "Execute with exception thrown when stack is empty"() {
+		setup: " an instance with zero local variables "
+		WasmInstanceInterface instance = new WasmInstanceStub();
 
-        WasmFrame frame = new WasmFrame(instance);
-        frame.localAll().add(0);
+		WasmFrame frame = new WasmFrame(instance);
+		frame.localAll().add(0);
 
-        SetLocal function = new SetLocal(frame);
+		SetLocal function = new SetLocal(frame);
 
-        expect: "nothing on the stack! "
-        0 == instance.stack().size();
+		expect: "nothing on the stack! "
+		0 == instance.stack().size();
 
-        when: "run the opcode"
-        function.execute(new I32(0));
+		when: "run the opcode"
+		function.execute(new I32(0));
 
-        then: "Exception Thrown "
-        WasmRuntimeException exception = thrown();
-        exception.message.contains("stack")
-        exception.message.contains("SetLocal")
-    }
+		then: "Exception Thrown "
+		WasmRuntimeException exception = thrown();
+		exception.message.contains("stack")
+		exception.message.contains("SetLocal")
+	}
 }

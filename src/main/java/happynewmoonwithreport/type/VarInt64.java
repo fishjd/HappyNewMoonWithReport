@@ -40,118 +40,118 @@ import happynewmoonwithreport.BytesFile;
  */
 public final class VarInt64 extends S64 {
 
-    @SuppressWarnings("unused")
-    private VarInt64() {
-        super();
-    }
+	@SuppressWarnings("unused")
+	private VarInt64() {
+		super();
+	}
 
-    public VarInt64(BytesFile bytesFile) {
-        assert (bytesFile.longEnough(minBytes()));
-        value = convert(bytesFile);
-    }
+	public VarInt64(BytesFile bytesFile) {
+		assert (bytesFile.longEnough(minBytes()));
+		value = convert(bytesFile);
+	}
 
-    /**
-     * Create using a Long. Size is hard coded to 5. Used mainly in testing.
-     *
-     * @param value value
-     */
-    public VarInt64(Long value) {
-        this.value = value;
-        // set to default value.
-    }
+	/**
+	 * Create using a Long. Size is hard coded to 5. Used mainly in testing.
+	 *
+	 * @param value value
+	 */
+	public VarInt64(Long value) {
+		this.value = value;
+		// set to default value.
+	}
 
-    /**
-     * Create using a Integer. Size is hard coded to 1. Used mainly in testing.
-     *
-     * @param value value
-     */
-    public VarInt64(Integer value) {
-        this.value = value.longValue();
-        // set to default value.
-    }
+	/**
+	 * Create using a Integer. Size is hard coded to 1. Used mainly in testing.
+	 *
+	 * @param value value
+	 */
+	public VarInt64(Integer value) {
+		this.value = value.longValue();
+		// set to default value.
+	}
 
-    /**
-     * Create using a Byte. Size is hard coded to 1. Used mainly in testing.
-     *
-     * @param value value
-     */
-    public VarInt64(Byte value) {
-        this.value = value.longValue();
-    }
+	/**
+	 * Create using a Byte. Size is hard coded to 1. Used mainly in testing.
+	 *
+	 * @param value value
+	 */
+	public VarInt64(Byte value) {
+		this.value = value.longValue();
+	}
 
-    @Override
-    public Integer maxBytes() {
-        Integer maxBytes = new Double(Math.ceil((double) maxBits() / 7.0D)).intValue();
-        return maxBytes;
-    }
+	@Override
+	public Integer maxBytes() {
+		Integer maxBytes = new Double(Math.ceil((double) maxBits() / 7.0D)).intValue();
+		return maxBytes;
+	}
 
-    @Override
-    public Integer minBytes() {
-        return 1;
-    }
+	@Override
+	public Integer minBytes() {
+		return 1;
+	}
 
-    public Long convert(BytesFile bytesFile) {
-        Integer cur;
-        Integer count = 0;
-        Long result = 0L;
-        Long signBits = -1L;
+	public Long convert(BytesFile bytesFile) {
+		Integer cur;
+		Integer count = 0;
+		Long result = 0L;
+		Long signBits = -1L;
 
-        do {
-            cur = bytesFile.readByte() & 0xff;
-            result |= ((long) (cur & 0x7f)) << (count * 7);
-            signBits <<= 7;
-            count++;
-        } while (((cur & 0x80) != 0) && count < maxBytes());
+		do {
+			cur = bytesFile.readByte() & 0xff;
+			result |= ((long) (cur & 0x7f)) << (count * 7);
+			signBits <<= 7;
+			count++;
+		} while (((cur & 0x80) != 0) && count < maxBytes());
 
-        // Sign extend if appropriate
-        if (((signBits >> 1) & result) != 0) {
-            result |= signBits;
-        }
+		// Sign extend if appropriate
+		if (((signBits >> 1) & result) != 0) {
+			result |= signBits;
+		}
 
-        return result;
-    }
+		return result;
+	}
 
-    /**
-     * Writes the value as a byte stream.
-     *
-     * @return byte stream.
-     */
-    public ByteOutput convert() {
-        ByteOutput out = new ByteArrayByteOutput(maxBytes());
-        Long remaining = value >> 7;
-        boolean hasMore = true;
-        int end = ((value & Long.MIN_VALUE) == 0) ? 0 : -1;
+	/**
+	 * Writes the value as a byte stream.
+	 *
+	 * @return byte stream.
+	 */
+	public ByteOutput convert() {
+		ByteOutput out = new ByteArrayByteOutput(maxBytes());
+		Long remaining = value >> 7;
+		boolean hasMore = true;
+		int end = ((value & Long.MIN_VALUE) == 0) ? 0 : -1;
 
-        while (hasMore) {
-            hasMore = (remaining != end) || ((remaining & 1) != ((value >> 6) & 1));
+		while (hasMore) {
+			hasMore = (remaining != end) || ((remaining & 1) != ((value >> 6) & 1));
 
-            out.writeByte((byte) ((value & 0x7f) | (hasMore ? 0x80 : 0)));
-            value = remaining;
-            remaining >>= 7;
-        }
-        return out;
-    }
+			out.writeByte((byte) ((value & 0x7f) | (hasMore ? 0x80 : 0)));
+			value = remaining;
+			remaining >>= 7;
+		}
+		return out;
+	}
 
-    @Override
-    public Integer maxBits() {
-        return 64;
-    }
+	@Override
+	public Integer maxBits() {
+		return 64;
+	}
 
-    @Override
-    public Long minValue() {
-        return -1L * (1L << (maxBits() - 1));
-    }
+	@Override
+	public Long minValue() {
+		return -1L * (1L << (maxBits() - 1));
+	}
 
-    @Override
-    public Long maxValue() {
-        return (1L << (maxBits() - 1)) - 1;
-    }
+	@Override
+	public Long maxValue() {
+		return (1L << (maxBits() - 1)) - 1;
+	}
 
 
-    @Override
-    public String toString() {
-        return "VarInt64{" +
-                "value=" + value +
-                "} ";
-    }
+	@Override
+	public String toString() {
+		return "VarInt64{" +
+				"value=" + value +
+				"} ";
+	}
 }

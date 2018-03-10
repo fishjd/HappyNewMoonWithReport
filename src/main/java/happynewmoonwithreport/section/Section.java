@@ -25,9 +25,9 @@ import happynewmoonwithreport.BytesFile;
  */
 public interface Section {
 
-    void instantiate(BytesFile payload);
+	void instantiate(BytesFile payload);
 
-    /* TODO */
+	/* TODO */
 //  /**
 //  * Write to a file.  The complement to instantiate.
 //  */

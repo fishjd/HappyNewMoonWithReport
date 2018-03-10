@@ -33,110 +33,110 @@ import java.util.Map;
  */
 public class ElementType {
 
-    private Integer type;
-    private String value;
+	private Integer type;
+	private String value;
 
-    private ElementType() {
+	private ElementType() {
 
-    }
+	}
 
-    /**
-     * Note use the integer value <code>new ElementType(-0x10)</code> <b>not</b> the byte in the *.wasm file
-     * <code>new ElementType(0x70)</code>.
-     *
-     * @param type type
-     */
+	/**
+	 * Note use the integer value <code>new ElementType(-0x10)</code> <b>not</b> the byte in the *.wasm file
+	 * <code>new ElementType(0x70)</code>.
+	 *
+	 * @param type type
+	 */
 
-    public ElementType(Integer type) {
-        this();
-        this.type = type;
-        calcValue(type);
-    }
+	public ElementType(Integer type) {
+		this();
+		this.type = type;
+		calcValue(type);
+	}
 
-    /**
-     * Note use the integer value <code>new ElementType(-0x10)</code> <b>not</b> the byte in the *.wasm file
-     * <code>new ElementType(0x70)</code>.
-     *
-     * @param type type
-     */
-    public ElementType(VarInt7 type) {
-        this();
-        this.type = type.integerValue();
-        calcValue(this.type);
-    }
+	/**
+	 * Note use the integer value <code>new ElementType(-0x10)</code> <b>not</b> the byte in the *.wasm file
+	 * <code>new ElementType(0x70)</code>.
+	 *
+	 * @param type type
+	 */
+	public ElementType(VarInt7 type) {
+		this();
+		this.type = type.integerValue();
+		calcValue(this.type);
+	}
 
-    public ElementType(BytesFile payload) {
-        this();
-        S32 vt = new VarInt7(payload);
-        this.type = vt.integerValue();
-        calcValue(type);
-    }
+	public ElementType(BytesFile payload) {
+		this();
+		S32 vt = new VarInt7(payload);
+		this.type = vt.integerValue();
+		calcValue(type);
+	}
 
-    public ElementType(String value) {
-        this();
-        Boolean found = false;
-        for (Map.Entry<Integer, String> entry : mapAll.entrySet()) {
-            if (value.equals(entry.getValue())) {
-                this.type = entry.getKey();
-                this.value = value;
-                found = true;
-            }
-        }
-        if (found == false) {
-            throw new RuntimeException("Element Type " + value + " not valid/found");
-        }
-    }
+	public ElementType(String value) {
+		this();
+		Boolean found = false;
+		for (Map.Entry<Integer, String> entry : mapAll.entrySet()) {
+			if (value.equals(entry.getValue())) {
+				this.type = entry.getKey();
+				this.value = value;
+				found = true;
+			}
+		}
+		if (found == false) {
+			throw new RuntimeException("Element Type " + value + " not valid/found");
+		}
+	}
 
-    public String getValue() {
-        return value;
-    }
+	public String getValue() {
+		return value;
+	}
 
-    public Integer getType() {
-        return type;
-    }
+	public Integer getType() {
+		return type;
+	}
 
-    public VarInt7 getTypeVarInt7() {
-        return new VarInt7(type);
-    }
+	public VarInt7 getTypeVarInt7() {
+		return new VarInt7(type);
+	}
 
-    private static Map<Integer, String> mapAll;
+	private static Map<Integer, String> mapAll;
 
-    static {
-        mapAll = new HashMap<>();
+	static {
+		mapAll = new HashMap<>();
 
-        // anyFunc(-0x10)    byte value  0x70
-        mapAll.put(-0x10, "anyFunc");
+		// anyFunc(-0x10)    byte value  0x70
+		mapAll.put(-0x10, "anyFunc");
 
-    }
+	}
 
-    private void calcValue(Integer input) {
-        value = mapAll.get(input);
-        if (value == null) {
-            throw new RuntimeException("type in ElementType is not valid type = " + type + " hex = 0x" + Integer.toHexString(input));
-        }
+	private void calcValue(Integer input) {
+		value = mapAll.get(input);
+		if (value == null) {
+			throw new RuntimeException("type in ElementType is not valid type = " + type + " hex = 0x" + Integer.toHexString(input));
+		}
 
-    }
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
 
-        ElementType that = (ElementType) o;
+		ElementType that = (ElementType) o;
 
-        return type.equals(that.type);
-    }
+		return type.equals(that.type);
+	}
 
-    @Override
-    public int hashCode() {
-        return type.hashCode();
-    }
+	@Override
+	public int hashCode() {
+		return type.hashCode();
+	}
 
-    @Override
-    public String toString() {
-        return "ElementType{" +
-                "type = " + type +
-                ", value = " + value +
-                '}';
-    }
+	@Override
+	public String toString() {
+		return "ElementType{" +
+				"type = " + type +
+				", value = " + value +
+				'}';
+	}
 }

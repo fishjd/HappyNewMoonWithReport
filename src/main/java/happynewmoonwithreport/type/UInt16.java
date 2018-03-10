@@ -24,62 +24,62 @@ import static happynewmoonwithreport.type.utility.MathWBS.pow2;
  * An unsigned integer of 16 bits. .
  */
 public class UInt16 extends U32 {
-    // protected Integer value;
+	// protected Integer value;
 
-    public UInt16(BytesFile bytesFile) {
-        assert (bytesFile.longEnough(minBytes()));
-        value = convert(bytesFile).longValue();
-    }
+	public UInt16(BytesFile bytesFile) {
+		assert (bytesFile.longEnough(minBytes()));
+		value = convert(bytesFile).longValue();
+	}
 
-    public UInt16(Integer value) {
-        this.value = value.longValue();
-    }
+	public UInt16(Integer value) {
+		this.value = value.longValue();
+	}
 
-    public UInt16(DataTypeNumber number) {
-        this.value = number.longValue();
-    }
+	public UInt16(DataTypeNumber number) {
+		this.value = number.longValue();
+	}
 
-    public UInt16(U32 input) {
-        value = input.longValue();
-    }
+	public UInt16(U32 input) {
+		value = input.longValue();
+	}
 
-    public Integer convert(BytesFile bytesFile) {
-        Integer result = 0;
-        // little Endian!
-        for (Integer i = 0; i < maxBits(); i = i + 8) {
-            result += Byte.toUnsignedInt(bytesFile.readByte()) << i;
-        }
-        return result;
-    }
+	public Integer convert(BytesFile bytesFile) {
+		Integer result = 0;
+		// little Endian!
+		for (Integer i = 0; i < maxBits(); i = i + 8) {
+			result += Byte.toUnsignedInt(bytesFile.readByte()) << i;
+		}
+		return result;
+	}
 
 
 	/* private functions **/
 
 	/* Override DataTypeNumber */
 
-    @Override
-    public Integer maxBits() {
-        return 16;
-    }
+	@Override
+	public Integer maxBits() {
+		return 16;
+	}
 
-    @Override
-    public Long minValue() {
-        return 0L;
-    }
+	@Override
+	public Long minValue() {
+		return 0L;
+	}
 
-    @Override
-    public Long maxValue() {
-        return pow2(maxBits());
-    }
+	@Override
+	public Long maxValue() {
+		return pow2(maxBits());
+	}
 
 
 	/* override of Object **/
 
-    @Override
-    public String toString() {
-        return "UInt16{" +
-                "value=" + value +
-                "} ";
-    }
+	@Override
+	public String toString() {
+		return "UInt16{" +
+				"value=" + value +
+				"} ";
+	}
 
 }

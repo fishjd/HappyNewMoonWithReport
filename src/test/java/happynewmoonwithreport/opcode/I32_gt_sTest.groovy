@@ -26,69 +26,69 @@ import spock.lang.Specification
  * Created on 2017-08-25.
  */
 class I32_gt_sTest extends Specification {
-    void setup() {
-    }
+	void setup() {
+	}
 
-    void cleanup() {
-    }
+	void cleanup() {
+	}
 
-    def "Execute I32 Greater than signed "() {
-        setup: " push two values on stack."
-        WasmInstanceInterface instance = new WasmInstanceStub();
-        instance.stack().push(new I32(val1));
-        instance.stack().push(new I32(val2));
+	def "Execute I32 Greater than signed "() {
+		setup: " push two values on stack."
+		WasmInstanceInterface instance = new WasmInstanceStub();
+		instance.stack().push(new I32(val1));
+		instance.stack().push(new I32(val2));
 
-        I32_gt_s function = new I32_gt_s(instance);
+		I32_gt_s function = new I32_gt_s(instance);
 
-        when: "run the opcode"
-        function.execute();
+		when: "run the opcode"
+		function.execute();
 
-        then: " a value of expected"
-        new I32(expected) == instance.stack().pop();
+		then: " a value of expected"
+		new I32(expected) == instance.stack().pop();
 
 
-        where: ""
-        val1        | val2        || expected
-        4           | 3           || 1
-        3           | 4           || 0
-        4           | 4           || 0
-        0           | 0           || 0
-        0x7FFF_FFFF | 0x7FFF_FFFF || 0
-        0x7FFF_FFFF | 0x7FFF_FFFE || 1
-    }
+		where: ""
+		val1        | val2        || expected
+		4           | 3           || 1
+		3           | 4           || 0
+		4           | 4           || 0
+		0           | 0           || 0
+		0x7FFF_FFFF | 0x7FFF_FFFF || 0
+		0x7FFF_FFFF | 0x7FFF_FFFE || 1
+	}
 
-    def "Execute AddI32 throw exception on incorrect Type on second param "() {
-        setup: " a value of I32  value 1  and a value of I64 of value 2"
-        WasmInstanceInterface instance = new WasmInstanceStub();
-        instance.stack().push(new I32(3));  // value 1
-        instance.stack().push(new I64(4));  // value 2
+	def "Execute AddI32 throw exception on incorrect Type on second param "() {
+		setup: " a value of I32  value 1  and a value of I64 of value 2"
+		WasmInstanceInterface instance = new WasmInstanceStub();
+		instance.stack().push(new I32(3));  // value 1
+		instance.stack().push(new I64(4));  // value 2
 
-        I32_gt_s function = new I32_gt_s(instance);
+		I32_gt_s function = new I32_gt_s(instance);
 
-        when: "run the opcode"
-        function.execute();
+		when: "run the opcode"
+		function.execute();
 
-        then: " Thrown Exception"
-        WasmRuntimeException exception = thrown();
-        exception.message.contains("Value2");
-        exception.getUuid().toString().contains("a379bcda-2089-496e-9994-29d32f46882b");
-    }
+		then: " Thrown Exception"
+		WasmRuntimeException exception = thrown();
+		exception.message.contains("Value2");
+		exception.getUuid().toString().contains("a379bcda-2089-496e-9994-29d32f46882b");
+	}
 
-    def "Execute AddI32 throw exception on incorrect Type on first param "() {
-        setup: " a value of I64  value 1  and a value of I32 of value 2"
-        WasmInstanceInterface instance = new WasmInstanceStub();
-        instance.stack().push(new I64(3));  // value 1
-        instance.stack().push(new I32(4));  // value 2
+	def "Execute AddI32 throw exception on incorrect Type on first param "() {
+		setup: " a value of I64  value 1  and a value of I32 of value 2"
+		WasmInstanceInterface instance = new WasmInstanceStub();
+		instance.stack().push(new I64(3));  // value 1
+		instance.stack().push(new I32(4));  // value 2
 
-        I32_gt_s function = new I32_gt_s(instance);
+		I32_gt_s function = new I32_gt_s(instance);
 
-        when: "run the opcode"
-        function.execute();
+		when: "run the opcode"
+		function.execute();
 
-        then: " Thrown Exception"
-        WasmRuntimeException exception = thrown();
-        exception.message.contains("Value1");
-        exception.getUuid().toString().contains("2f6fc2a8-6e0a-44e2-bfce-ed776703d2f6");
-    }
+		then: " Thrown Exception"
+		WasmRuntimeException exception = thrown();
+		exception.message.contains("Value1");
+		exception.getUuid().toString().contains("2f6fc2a8-6e0a-44e2-bfce-ed776703d2f6");
+	}
 
 }

@@ -40,24 +40,24 @@ import happynewmoonwithreport.WasmLabel;
  * </a>
  */
 public class Block {
-    private WasmInstanceInterface instance;
+	private WasmInstanceInterface instance;
 
-    private Block() {
-        super();
-    }
+	private Block() {
+		super();
+	}
 
-    public Block(WasmInstanceInterface instance) {
-        this();
-        this.instance = instance;
-    }
+	public Block(WasmInstanceInterface instance) {
+		this();
+		this.instance = instance;
+	}
 
-    /**
-     * Execute the opcode.
-     */
-    public void execute() {
-        BytesFile code = instance.getCode();
+	/**
+	 * Execute the opcode.
+	 */
+	public void execute() {
+		BytesFile code = instance.getCode();
 
-        WasmLabel label = new WasmLabel(code);
-        instance.stack().push(label);
-    }
+		WasmLabel label = new WasmLabel(code);
+		instance.stack().push(label);
+	}
 }

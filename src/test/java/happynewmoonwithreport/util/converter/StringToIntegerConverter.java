@@ -39,16 +39,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 public class StringToIntegerConverter extends SimpleArgumentConverter {
 
-    @Override
-    protected Object convert(Object source, Class<?> targetType) {
-        assertEquals(Integer.class, targetType, "Can only convert to Integer");
-        String strSource = (String) source;
-        Integer result;
+	@Override
+	protected Object convert(Object source, Class<?> targetType) {
+		assertEquals(Integer.class, targetType, "Can only convert to Integer");
+		String strSource = (String) source;
+		Integer result;
 
-        // remove "_"
-        strSource = strSource.replace("_", "");
-        // convert to Integer.
-        result = Integer.decode(strSource);
-        return result;
-    }
+		// remove "_"
+		strSource = strSource.replace("_", "");
+		// convert to Integer.
+		result = Integer.decode(strSource);
+		return result;
+	}
 }

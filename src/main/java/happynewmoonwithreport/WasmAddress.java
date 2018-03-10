@@ -41,36 +41,36 @@ import java.util.UUID;
  * </a>
  */
 public class WasmAddress {
-    private Integer address;
+	private Integer address;
 
-    private WasmAddress() {
-        super();
-    }
+	private WasmAddress() {
+		super();
+	}
 
-    public WasmAddress(Integer address) {
-        this();
-        if (address < 0) {
-            throw new WasmRuntimeException(UUID.fromString("bfc55b11-467b-4a66-a8e7-70c02432c97a"), "Address may not be less than zero. Address = %d", address);
-        }
-        this.address = address;
-    }
+	public WasmAddress(Integer address) {
+		this();
+		if (address < 0) {
+			throw new WasmRuntimeException(UUID.fromString("bfc55b11-467b-4a66-a8e7-70c02432c97a"), "Address may not be less than zero. Address = %d", address);
+		}
+		this.address = address;
+	}
 
-    public WasmAddress(I32 address) {
-        this(address.integerValue());
-    }
+	public WasmAddress(I32 address) {
+		this(address.integerValue());
+	}
 
-    public Integer getAddress() {
-        return address;
-    }
+	public Integer getAddress() {
+		return address;
+	}
 
-    public void setAddress(Integer address) {
-        if (address < 0) {
-            throw new WasmRuntimeException(UUID.fromString("8cde5e2d-58ae-4b84-8955-406e6a97cfc0"), "Address may not be less than zero. Address = %d", address);
-        }
-        this.address = address;
-    }
+	public void setAddress(Integer address) {
+		if (address < 0) {
+			throw new WasmRuntimeException(UUID.fromString("8cde5e2d-58ae-4b84-8955-406e6a97cfc0"), "Address may not be less than zero. Address = %d", address);
+		}
+		this.address = address;
+	}
 
-    public void setAddress(I32 address) {
-        setAddress(address.integerValue());
-    }
+	public void setAddress(I32 address) {
+		setAddress(address.integerValue());
+	}
 }

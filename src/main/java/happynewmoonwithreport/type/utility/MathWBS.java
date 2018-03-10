@@ -22,8 +22,8 @@ package happynewmoonwithreport.type.utility;
 
 public class MathWBS {
 
-    public static Long pow2(Integer exponent) {
-        return (1L << exponent);
-    }
+	public static Long pow2(Integer exponent) {
+		return (1L << exponent);
+	}
 
 }

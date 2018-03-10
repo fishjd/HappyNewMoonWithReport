@@ -26,20 +26,20 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class Uint32EqualTest {
 
-    @BeforeEach
-    public void setUp() throws Exception {
+	@BeforeEach
+	public void setUp() throws Exception {
 
-    }
+	}
 
-    @AfterEach
-    public void tearDown() throws Exception {
-    }
+	@AfterEach
+	public void tearDown() throws Exception {
+	}
 
-    @Test
-    public void testEqual() throws Exception {
-        UInt32 expected = new UInt32(1L);
-        UInt32 result = new UInt32(1L);
-        assertEquals(expected, result);
-    }
+	@Test
+	public void testEqual() throws Exception {
+		UInt32 expected = new UInt32(1L);
+		UInt32 result = new UInt32(1L);
+		assertEquals(expected, result);
+	}
 
 }

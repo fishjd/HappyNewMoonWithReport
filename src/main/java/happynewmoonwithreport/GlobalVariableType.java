@@ -26,26 +26,26 @@ package happynewmoonwithreport;
  */
 public class GlobalVariableType implements Validation {
 
-    /**
-     * may only be "anyFunc" in MVP.
-     */
-    private GlobalType type;
+	/**
+	 * may only be "anyFunc" in MVP.
+	 */
+	private GlobalType type;
 
-    // TODO
-    // private ? InitialExpression;
+	// TODO
+	// private ? InitialExpression;
 
-    public GlobalVariableType(BytesFile payload) {
-        type = new GlobalType(payload);
-    }
+	public GlobalVariableType(BytesFile payload) {
+		type = new GlobalType(payload);
+	}
 
-    public GlobalType getType() {
-        return type;
-    }
+	public GlobalType getType() {
+		return type;
+	}
 
-    @Override
-    public Boolean valid() {
-        Boolean result = true;
-        result &= type.valid();
-        return result;
-    }
+	@Override
+	public Boolean valid() {
+		Boolean result = true;
+		result &= type.valid();
+		return result;
+	}
 }

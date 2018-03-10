@@ -31,22 +31,23 @@ import happynewmoonwithreport.type.WasmVector;
  */
 public class WasmLabel {
 
-    public WasmLabel (BytesFile code) {
-        returnTypeAll = new WasmVector<>(1);
-        ValueType resultType = new ValueType(code);
-        returnTypeAll.add(resultType);
-    }
-    /**
-     * The arity,  The types of the return values
-     */
-    private WasmVector<ValueType> returnTypeAll;
+	public WasmLabel(BytesFile code) {
+		returnTypeAll = new WasmVector<>(1);
+		ValueType resultType = new ValueType(code);
+		returnTypeAll.add(resultType);
+	}
+
+	/**
+	 * The arity,  The types of the return values
+	 */
+	private WasmVector<ValueType> returnTypeAll;
 
 
-    public WasmVector<ValueType> getReturnTypeAll() {
-        return returnTypeAll;
-    }
+	public WasmVector<ValueType> getReturnTypeAll() {
+		return returnTypeAll;
+	}
 
-    public void setReturnTypeAll(WasmVector<ValueType> returnTypeAll) {
-        this.returnTypeAll = returnTypeAll;
-    }
+	public void setReturnTypeAll(WasmVector<ValueType> returnTypeAll) {
+		this.returnTypeAll = returnTypeAll;
+	}
 }

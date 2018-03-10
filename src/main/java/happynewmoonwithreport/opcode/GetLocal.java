@@ -50,39 +50,39 @@ import java.util.UUID;
  */
 public class GetLocal {
 
-    private WasmFrame frame;
-    private WasmStack stack;
+	private WasmFrame frame;
+	private WasmStack stack;
 
-    private GetLocal() {
-        super();
-    }
+	private GetLocal() {
+		super();
+	}
 
-    public GetLocal(WasmFrame frame, WasmStack stack ) {
-        this();
-        this.frame = frame;
-        this.stack = stack;
-    }
+	public GetLocal(WasmFrame frame, WasmStack stack) {
+		this();
+		this.frame = frame;
+		this.stack = stack;
+	}
 
-    /**
-     * Execute the opcode
-     *
-     * @param index index in to the vector that contains the local variable.
-     */
-    public void execute(I32 index) {
-        // 1 Frame set in constructor.
+	/**
+	 * Execute the opcode
+	 *
+	 * @param index index in to the vector that contains the local variable.
+	 */
+	public void execute(I32 index) {
+		// 1 Frame set in constructor.
 
-        // 2 validate.
-        if ((index.integerValue() < frame.localAll().size()) == false) {
-            throw new WasmRuntimeException(UUID.fromString("dcbf3c1d-334a-451d-9010-e32bdc876e9d"),
-                    "getLocal: Local variable " + index.integerValue() + " does not exist");
-        }
+		// 2 validate.
+		if ((index.integerValue() < frame.localAll().size()) == false) {
+			throw new WasmRuntimeException(UUID.fromString("dcbf3c1d-334a-451d-9010-e32bdc876e9d"),
+					"getLocal: Local variable " + index.integerValue() + " does not exist");
+		}
 
-        // 3. value
-        DataTypeNumber value = frame.localAll().get(index.integerValue());
+		// 3. value
+		DataTypeNumber value = frame.localAll().get(index.integerValue());
 
-        // 4. Push
-        stack.push(value);
-    }
+		// 4. Push
+		stack.push(value);
+	}
 
 
 }

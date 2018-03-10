@@ -25,46 +25,46 @@ import spock.lang.Specification
  * Created on 2017-12-22.
  */
 class WasmModuleTest extends Specification {
-    def "MemoryExists Golden "() {
-        setup: "Set up with valid memory"
-        WasmModule module = new WasmModule();
+	def "MemoryExists Golden "() {
+		setup: "Set up with valid memory"
+		WasmModule module = new WasmModule();
 
-        // set up memory and add
-        MemoryType memory = new MemoryType(new UInt8(0), new UInt32(0));
-        module.memoryAll.add(0, memory);
+		// set up memory and add
+		MemoryType memory = new MemoryType(new UInt8(0), new UInt32(0));
+		module.memoryAll.add(0, memory);
 
-        when: "do nothing "
-        // all code in constructor
+		when: "do nothing "
+		// all code in constructor
 
-        then: " check exists"
-        (module.memoryExists(new UInt32(index)) == expected);
+		then: " check exists"
+		(module.memoryExists(new UInt32(index)) == expected);
 
-        where: ""
-        index | expected
-        0     | true
-        1     | false
-        2     | false
-    }
+		where: ""
+		index | expected
+		0     | true
+		1     | false
+		2     | false
+	}
 
-    def "MemoryExists fails when no memory exists  "() {
-        setup: "Set up with valid memory"
-        WasmModule module = new WasmModule();
+	def "MemoryExists fails when no memory exists  "() {
+		setup: "Set up with valid memory"
+		WasmModule module = new WasmModule();
 
-        // set up memory and add
-        // MemoryType memory = new MemoryType(new UInt8(0), new UInt32(0));
-        // module.memoryAll.add(0, memory);
+		// set up memory and add
+		// MemoryType memory = new MemoryType(new UInt8(0), new UInt32(0));
+		// module.memoryAll.add(0, memory);
 
-        when: "do nothing "
-        // all code in constructor
+		when: "do nothing "
+		// all code in constructor
 
-        then: " check does not exists"
-        (module.memoryExists(new UInt32(index)) == expected);
+		then: " check does not exists"
+		(module.memoryExists(new UInt32(index)) == expected);
 
-        where: ""
-        index | expected
-        0     | false
-        1     | false
-        2     | false
+		where: ""
+		index | expected
+		0     | false
+		1     | false
+		2     | false
 
-    }
+	}
 }

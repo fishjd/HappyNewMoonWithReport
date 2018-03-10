@@ -23,30 +23,30 @@ import spock.lang.Specification
  * Created on 2017-12-12.
  */
 class WasmStackTest extends Specification {
-    def "Peek"() {
-        setup: "set up stack with two elements."
-        WasmStack<I32> stack = new Stack<>();
-        I32 val1 = new I32(4);
-        stack.push(val1);
-        I32 val2 = new I32(7);
-        stack.push(val2);
+	def "Peek"() {
+		setup: "set up stack with two elements."
+		WasmStack<I32> stack = new Stack<>();
+		I32 val1 = new I32(4);
+		stack.push(val1);
+		I32 val2 = new I32(7);
+		stack.push(val2);
 
-        expect:
-        stack.size() == 2
+		expect:
+		stack.size() == 2
 
-        when: "peek at index 0 "
-        I32 val1Actual = stack.peek(1);
-        I32 val2Actual = stack.peek(0);
-
-
-        then: ""
-        val1Actual == val1;
-        val2Actual == val2;
-        stack.size() == 2;
-
-        then: "Stack() is the same as stack(0) "
-        stack.peek() == stack.peek(0);
+		when: "peek at index 0 "
+		I32 val1Actual = stack.peek(1);
+		I32 val2Actual = stack.peek(0);
 
 
-    }
+		then: ""
+		val1Actual == val1;
+		val2Actual == val2;
+		stack.size() == 2;
+
+		then: "Stack() is the same as stack(0) "
+		stack.peek() == stack.peek(0);
+
+
+	}
 }

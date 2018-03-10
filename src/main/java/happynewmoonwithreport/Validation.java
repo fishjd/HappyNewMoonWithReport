@@ -25,5 +25,5 @@ package happynewmoonwithreport;
  */
 public interface Validation {
 
-    Boolean valid();
+	Boolean valid();
 }

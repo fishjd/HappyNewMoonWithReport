@@ -25,40 +25,40 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class UInt64Test {
 
-    @BeforeEach
-    public void setUp() throws Exception {
-    }
+	@BeforeEach
+	public void setUp() throws Exception {
+	}
 
-    @AfterEach
-    public void tearDown() throws Exception {
-    }
+	@AfterEach
+	public void tearDown() throws Exception {
+	}
 
-    private UInt64 uInt64;
+	private UInt64 uInt64;
 
-    @Test
-    public void maxBits() throws Exception {
-        uInt64 = new UInt64(0);
-        assertEquals(new Integer(63), uInt64.maxBits());
-    }
+	@Test
+	public void maxBits() throws Exception {
+		uInt64 = new UInt64(0);
+		assertEquals(new Integer(63), uInt64.maxBits());
+	}
 
-    @Test
-    public void minValue() throws Exception {
-        uInt64 = new UInt64(0);
-        assertEquals(new Long(0), uInt64.minValue());
-    }
+	@Test
+	public void minValue() throws Exception {
+		uInt64 = new UInt64(0);
+		assertEquals(new Long(0), uInt64.minValue());
+	}
 
-    @Test
-    public void maxValue() throws Exception {
-        uInt64 = new UInt64(0);
-        // If we had the full 64 bits.
-        // assertEquals(new Long( 18_446_744_073_709_551_616L), uInt64.maxValue());
-        assertEquals(new Long(9_223_372_036_854_775_807L), uInt64.maxValue());
-    }
+	@Test
+	public void maxValue() throws Exception {
+		uInt64 = new UInt64(0);
+		// If we had the full 64 bits.
+		// assertEquals(new Long( 18_446_744_073_709_551_616L), uInt64.maxValue());
+		assertEquals(new Long(9_223_372_036_854_775_807L), uInt64.maxValue());
+	}
 
 
-    private void assertEqualHex(Long expected, Long result) {
-        assertEquals( new Long(expected), result ,"i = " + expected.toString() + " hex = " + Long.toHexString(expected));
-    }
+	private void assertEqualHex(Long expected, Long result) {
+		assertEquals(new Long(expected), result, "i = " + expected.toString() + " hex = " + Long.toHexString(expected));
+	}
 
 
 }

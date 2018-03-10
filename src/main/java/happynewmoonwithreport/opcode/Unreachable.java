@@ -37,22 +37,22 @@ import java.util.UUID;
  * </a>
  */
 public class Unreachable {
-    private WasmInstanceInterface instance;
+	private WasmInstanceInterface instance;
 
-    private Unreachable() {
-        super();
-    }
+	private Unreachable() {
+		super();
+	}
 
-    public Unreachable(WasmInstanceInterface instance) {
-        this();
-        this.instance = instance;
-    }
+	public Unreachable(WasmInstanceInterface instance) {
+		this();
+		this.instance = instance;
+	}
 
-    /**
-     * Execute the opcode.
-     */
-    public void execute() {
-        throw new WasmTrapException(UUID.fromString("e496383f-377d-4090-9cff-64bdfc50a32e"),
-                "Unreachable code tried to execute!");
-    }
+	/**
+	 * Execute the opcode.
+	 */
+	public void execute() {
+		throw new WasmTrapException(UUID.fromString("e496383f-377d-4090-9cff-64bdfc50a32e"),
+				"Unreachable code tried to execute!");
+	}
 }

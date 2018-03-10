@@ -56,44 +56,44 @@ import java.util.UUID;
  */
 public class I32_gt_u {
 
-    private WasmStack<Object> stack;
+	private WasmStack<Object> stack;
 
-    private I32_gt_u() {
-        super();
-    }
+	private I32_gt_u() {
+		super();
+	}
 
-    public I32_gt_u(WasmStack<Object> stack) {
-        this();
-        this.stack = stack;
-    }
-
-
-    /**
-     * Execute the opcode.
-     */
-    public void execute() {
-        if ((stack.peek() instanceof I32) == false) {
-            throw new WasmRuntimeException(UUID.fromString("b422e802-6418-4b81-9eba-cff76bcdefb2"),
-                    "i32_gt_u: Value2 type is incorrect");
-        }
-        I32 value2 = (I32) stack.pop();
-
-        if ((stack.peek() instanceof I32) == false) {
-            throw new WasmRuntimeException(UUID.fromString("16c20d8f-cf3d-499f-b758-7e48fa9fec0f"),
-                    "i32_gt_u: Value1 type is incorrect");
-        }
-        I32 value1 = (I32) stack.pop();
-
-        // these values are unsigned values
-        U32 value2Unsigned = value2.unsignedValue();
-        U32 value1Unsigned = value1.unsignedValue();
-
-        // Do the comparison.
-        I32 result = value1Unsigned.greaterThan(value2Unsigned);
+	public I32_gt_u(WasmStack<Object> stack) {
+		this();
+		this.stack = stack;
+	}
 
 
-        stack.push(result);
-    }
+	/**
+	 * Execute the opcode.
+	 */
+	public void execute() {
+		if ((stack.peek() instanceof I32) == false) {
+			throw new WasmRuntimeException(UUID.fromString("b422e802-6418-4b81-9eba-cff76bcdefb2"),
+					"i32_gt_u: Value2 type is incorrect");
+		}
+		I32 value2 = (I32) stack.pop();
+
+		if ((stack.peek() instanceof I32) == false) {
+			throw new WasmRuntimeException(UUID.fromString("16c20d8f-cf3d-499f-b758-7e48fa9fec0f"),
+					"i32_gt_u: Value1 type is incorrect");
+		}
+		I32 value1 = (I32) stack.pop();
+
+		// these values are unsigned values
+		U32 value2Unsigned = value2.unsignedValue();
+		U32 value1Unsigned = value1.unsignedValue();
+
+		// Do the comparison.
+		I32 result = value1Unsigned.greaterThan(value2Unsigned);
+
+
+		stack.push(result);
+	}
 
 
 }

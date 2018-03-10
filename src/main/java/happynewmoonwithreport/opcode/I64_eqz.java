@@ -17,13 +17,13 @@
 package happynewmoonwithreport.opcode;
 
 
-import java.util.UUID;
-
 import happynewmoonwithreport.WasmInstanceInterface;
 import happynewmoonwithreport.WasmRuntimeException;
 import happynewmoonwithreport.WasmStack;
 import happynewmoonwithreport.type.I32;
 import happynewmoonwithreport.type.I64;
+
+import java.util.UUID;
 
 /**
  * I64 equals zero (i64_eqz)
@@ -59,7 +59,7 @@ public class I64_eqz {
 		WasmStack<Object> stack = instance.stack();
 		if ((stack.peek() instanceof I64) == false) {
 			throw new WasmRuntimeException(UUID.fromString("d33cbf32-66c8-4b8c-9fa5-81e8e195d1bc"),
-										   "I64_eqz: Value1 type is incorrect");
+					"I64_eqz: Value1 type is incorrect");
 		}
 		I64 value1 = (I64) stack.pop();
 

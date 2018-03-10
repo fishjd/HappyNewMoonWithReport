@@ -36,51 +36,51 @@ import java.util.HashMap;
  */
 public class ExternalKind extends ValueBase {
 
-    public static final String function = "function";
-    public static final String table = "table";
-    public static final String memory = "memory";
-    public static final String global = "global ";
+	public static final String function = "function";
+	public static final String table = "table";
+	public static final String memory = "memory";
+	public static final String global = "global ";
 
-    private void setup() {
-        mapAll = new HashMap<>();
-        mapAll.put(0, function);
-        mapAll.put(1, table);
-        mapAll.put(2, memory);
-        mapAll.put(3, global);
-    }
+	private void setup() {
+		mapAll = new HashMap<>();
+		mapAll.put(0, function);
+		mapAll.put(1, table);
+		mapAll.put(2, memory);
+		mapAll.put(3, global);
+	}
 
-    private ExternalKind() {
-        className = ExternalKind.class.getName();
-        setup();
-    }
+	private ExternalKind() {
+		className = ExternalKind.class.getName();
+		setup();
+	}
 
-    public ExternalKind(Integer type) {
-        this();
-        this.type = type;
-        this.value = calcValue(type);
-    }
+	public ExternalKind(Integer type) {
+		this();
+		this.type = type;
+		this.value = calcValue(type);
+	}
 
-    public ExternalKind(UInt8 type) {
-        this();
-        this.type = type.integerValue();
-        this.value = calcValue(this.type);
-    }
+	public ExternalKind(UInt8 type) {
+		this();
+		this.type = type.integerValue();
+		this.value = calcValue(this.type);
+	}
 
-    public ExternalKind(BytesFile payload) {
-        this();
-        UInt8 vt = new UInt8(payload);
-        this.type = vt.integerValue();
-        this.value = calcValue(type);
-    }
+	public ExternalKind(BytesFile payload) {
+		this();
+		UInt8 vt = new UInt8(payload);
+		this.type = vt.integerValue();
+		this.value = calcValue(type);
+	}
 
-    public ExternalKind(String value) {
-        this();
-        this.value = value;
-        this.type = calcType(value);
-    }
+	public ExternalKind(String value) {
+		this();
+		this.value = value;
+		this.type = calcType(value);
+	}
 
-    public UInt8 getTypeUInt8() {
-        return new UInt8(type);
-    }
+	public UInt8 getTypeUInt8() {
+		return new UInt8(type);
+	}
 
 }
