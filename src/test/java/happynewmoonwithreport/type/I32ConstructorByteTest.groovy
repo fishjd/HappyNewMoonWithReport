@@ -28,6 +28,29 @@ class I32ConstructorByteTest extends Specification {
 	void cleanup() {
 	}
 
+	def "Generate I32 with 4 bytes size = 8 "() {
+		setup: ""
+		Byte[] byteAll = new Byte[4];
+		byteAll[0] = new Byte((byte) 0x70);
+		byteAll[1] = new Byte((byte) 0x01);
+		byteAll[2] = new Byte((byte) 0x02);
+		byteAll[3] = new Byte((byte) 0x03);
+
+
+		when: "Construct the I32 size 8 "
+		I32 actual = new I32(byteAll,8,false);
+
+		then: ""
+		actual.integerValue() == 0x00000070;
+
+		// expect: ""
+
+		// cleanup: ""
+
+		// where: ""
+
+	}
+
 	def "Generate I32 with four bytes "() {
 		setup: ""
 		Byte[] byteAll = new Byte[4];
@@ -42,6 +65,7 @@ class I32ConstructorByteTest extends Specification {
 
 		then: ""
 		actual.integerValue() == 1879114243;
+		actual.integerValue() == 0x70010203;
 
 		// expect: ""
 

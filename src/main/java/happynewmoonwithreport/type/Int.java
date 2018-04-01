@@ -56,4 +56,72 @@ public abstract class Int implements DataTypeNumber {
 
 	// public abstract Boolean equals(Int other) ;
 
+	/**
+	 * Sign extend a byte to an integer.
+	 * <p>
+	 * <p>
+	 * extend_sM,N(i)
+	 * <ol>
+	 * <li>
+	 * Let j be the signed interpretation of i of size M.
+	 * </li> <li>
+	 * Return the two’s complement of j relative to size N.
+	 * </li>
+	 * </ol>
+	 * <p>
+	 * <p>
+	 * <b>Source:</b>  <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-extend-s" target="_top">
+	 * https://webassembly.github.io/spec/core/exec/numerics.html#op-extend-s
+	 * </a>
+	 *
+	 * @param input a byte
+	 *
+	 * @return an integer that is the same value of the byte.
+	 */
+	public static Integer signExtend(byte input) {
+		int result;
+
+		byte j = input;
+		result = 0x7F & j;
+		if (isSignBitSet(j)) {
+			// negative
+			result = twoComplement(result);
+		}
+		return new Integer(result);
+	}
+
+
+	/**
+	 * Is the sign bit set?   Is input negative?
+	 *
+	 * @param input
+	 *
+	 * @return true if sign bit is set.
+	 */
+	public static Boolean isSignBitSet(byte input) {
+		int mask = 0x80;
+		Boolean result = ((byte) mask & (byte) input) != 0;
+		return result;
+	}
+
+	/**
+	 * calculate the two complement of a number
+	 * <p>
+	 * <b>Source:</b>  <a href="https://introcs.cs.princeton.edu/java/61data/" target="_top">
+	 * https://introcs.cs.princeton.edu/java/61data/
+	 * </a>
+	 *
+	 * @param input
+	 *
+	 * @return the twos complement.
+	 */
+	public static int twoComplement(int input) {
+		// ones complement,  i.e flip all the bits, i.e binary negation.
+		int result = ~input;
+		// Add one.
+		result = result + 1;
+		return result;
+	}
+
+
 }

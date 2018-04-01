@@ -19,6 +19,7 @@ package happynewmoonwithreport.opcode
 import happynewmoonwithreport.WasmFrame
 import happynewmoonwithreport.WasmModule
 import happynewmoonwithreport.WasmRuntimeException
+import happynewmoonwithreport.opcode.Memory.I32_load
 import spock.lang.Specification
 
 /**

@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 Whole Bean Software, LTD.
+ *  Copyright 2018 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  *  limitations under the License.
  *
  */
-package happynewmoonwithreport.opcode;
+package happynewmoonwithreport.opcode.Memory;
 
 
 import happynewmoonwithreport.WasmFrame;
@@ -99,7 +99,7 @@ import java.util.UUID;
  * </li>
  * </ol>
  */
-public class I32_load {
+public class I32_load extends LoadBase {
 
 	private MemoryArgument memoryArgument;
 	private WasmFrame frame;

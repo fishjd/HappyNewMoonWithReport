@@ -17,6 +17,8 @@
 package happynewmoonwithreport;
 
 import happynewmoonwithreport.opcode.*;
+import happynewmoonwithreport.opcode.Memory.I32_load;
+import happynewmoonwithreport.opcode.Memory.I32_load8_s;
 import happynewmoonwithreport.type.*;
 import happynewmoonwithreport.type.utility.Hex;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
@@ -178,6 +180,21 @@ public class WasmInstance implements WasmInstanceInterface {
 				i32_load.execute();
 				break;
 			}
+//			case (byte) 0x29: {   // I64_load
+//			case (byte) 0x2A: {   // F32_load
+//			case (byte) 0x2B: {   // F64_load
+			case (byte) 0x2C: {   // I32_load8_s
+				MemoryArgument memoryArgument = new MemoryArgument(); // Not sure what this is.
+				I32_load8_s i32_load8_s = new I32_load8_s(memoryArgument, currentFrame, store, stack);
+				i32_load8_s.execute();
+				break;
+			}
+//			case (byte) 0x2D: {   // I32_load8_u
+//			case (byte) 0x2E: {   // I32_load16_s
+//			case (byte) 0x2F: {   // I32_load16_u
+//			case (byte) 0x30: {   // I64_load8_u
+//			case (byte) 0x31: {   // I64_load8_s
+//			case (byte) 0x32: {   // I64_load16_s
 			case (byte) 0x40: {
 				break;
 			}

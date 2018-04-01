@@ -20,17 +20,16 @@ import happynewmoonwithreport.WasmFrame
 import happynewmoonwithreport.WasmModule
 import happynewmoonwithreport.WasmStack
 import happynewmoonwithreport.WasmStore
-import happynewmoonwithreport.opcode.Memory.I32_load
+import happynewmoonwithreport.opcode.Memory.I32_load8_s
 import happynewmoonwithreport.type.*
 import spock.lang.Specification
-
 /**
  * Created on 2018-02-12.
  */
-class I32_loadTest extends Specification {
+class I32_load8_s_Test extends Specification {
 	WasmModule module;
 	WasmFrame frame;
-	I32_load i32Load;
+	I32_load8_s i32Load8_s;
 
 	WasmStack stack;
 
@@ -72,7 +71,7 @@ class I32_loadTest extends Specification {
 		stack.push(new I32(2));  // load bytes starting at 2
 
 		// create class to test.
-		i32Load = new I32_load(memoryArgument, frame, store, stack);
+		i32Load8_s = new I32_load8_s(memoryArgument, frame, store, stack);
 	}
 
 	void cleanup() {
@@ -82,11 +81,11 @@ class I32_loadTest extends Specification {
 		// setup: ""
 
 		when: ""
-		i32Load.execute();
+		i32Load8_s.execute();
 
 		then: ""
 		I32 actual = (I32) stack.pop();
-		I32 expected = new I32(0x02030405); // Little Endian!
+		I32 expected = new I32(0x02); // Little Endian!
 		actual == expected;
 
 		// expect: ""

@@ -56,6 +56,44 @@ public class I32 extends Int {
 	}
 
 
+	public I32(byte[] byteAll, Integer length, Boolean signExtension) {
+
+		this();
+		value = 0;
+		switch (length) {
+			case 8: {
+				value += byteAll[0] << 0;
+				if (signExtension) {
+					value = signExtend(byteAll[0]);
+				}
+				break;
+			}
+			case 16: {
+				value += byteAll[0] << 8;
+				value += byteAll[1] << 0;
+				break;
+			}
+			// I'm not sure 24 and 32 are necessary or required by the specification.
+			case 24: {
+				value += byteAll[0] << 16;
+				value += byteAll[1] << 8;
+				value += byteAll[2] << 0;
+				break;
+			}
+			case 32: {
+				value += byteAll[0] << 24;
+				value += byteAll[1] << 16;
+				value += byteAll[2] << 8;
+				value += byteAll[3] << 0;
+				break;
+			}
+			default: {
+				throw new WasmRuntimeException(UUID.fromString("f8d78ad2-67ed-441f-a327-6df48f2afca7"),
+						"I32 Constructor Illegal value in length.  Valid values are 8, 16, 24, 32.    Length =  " + length);
+			}
+		}
+	}
+
 	private String toHex(Long value) {
 		return "0x" + Long.toHexString(value).toUpperCase();
 	}
@@ -163,14 +201,7 @@ public class I32 extends Int {
 
 	@Override
 	public String toString() {
-<<<<<<<HEAD
-		String result = "I32{ value = " + value + " (" + toHex(value) + ")";
+		String result = "I32{ value = " + value + " ( hex = " + toHex(value) + ")" + "}";
 		return result;
-=======
-		final StringBuffer sb = new StringBuffer("I32{");
-		sb.append("value=").append(value);
-		sb.append('}');
-		return sb.toString();
->>>>>>>feature / i32_load_opcode
 	}
 }
