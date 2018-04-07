@@ -241,16 +241,21 @@ public class WasmInstance implements WasmInstanceInterface {
 				i32_ge_u.execute();
 				break;
 			}
-			case (byte) 0x6A: {
-				AddI32 addI32 = new AddI32(this);
-				addI32.execute();
+			case (byte) 0x55: { // i64 greater than signed
+				I64_gt_s i64_gt_s = new I64_gt_s(this);
+				i64_gt_s.execute();
 				break;
 			}
-			default:
-				throwUnknownOpcodeException(opcode, code.getIndex());
-		}
-	}
-
+            case (byte) 0x6A: {
+                AddI32 addI32 = new AddI32(this);
+                addI32.execute();
+                break;
+            }
+            default:
+                throwUnknownOpcodeException(opcode, code.getIndex());
+                return;
+        }
+    }
 	private void throwUnknownOpcodeException(byte opcode, Integer index) {
 		String message = "Wasm tried to run an opcode that was not defined. Unknown Opcode = " + Hex.byteToHex(opcode) + " (0d" + opcode + ")";
 		message += " at byte number = " + index + ". ";

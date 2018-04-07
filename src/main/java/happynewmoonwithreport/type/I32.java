@@ -163,14 +163,7 @@ public class I32 extends Int {
 
 	@Override
 	public String toString() {
-<<<<<<<HEAD
 		String result = "I32{ value = " + value + " (" + toHex(value) + ")";
 		return result;
-=======
-		final StringBuffer sb = new StringBuffer("I32{");
-		sb.append("value=").append(value);
-		sb.append('}');
-		return sb.toString();
->>>>>>>feature / i32_load_opcode
 	}
 }
