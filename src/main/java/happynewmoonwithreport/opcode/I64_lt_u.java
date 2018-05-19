@@ -28,7 +28,7 @@ import happynewmoonwithreport.type.S64;
 import happynewmoonwithreport.type.U64;
 
 /**
- * I32 Less than Signed  (i32_lt_s)
+ * I32 Less than Signed  (i32_lt_u)
  * <p>
  * <b>Note this is the same for all Relative Operations</b>
  * <p>

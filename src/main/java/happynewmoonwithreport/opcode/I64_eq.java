@@ -26,15 +26,26 @@ import happynewmoonwithreport.type.I64;
 import java.util.UUID;
 
 /**
- * I64 equals zero (i64_eqz)
+ * I64 equals (i64_eq)
  * <p>
  * <b>Note this is the same for all Relative Operations</b>
  * <p>
- * t.relop <ol> <li> Assert: due to validation, two values of value type t are on the top of the
- * stack. </li> <li> Pop the value t.const c1 from the stack. </li> <li> Let c be the result of
- * computing relopt(c1). </li> <li> Push the value i32.const c to the stack.
+ * t.relop
+ * <ol>
+ * <li>
+ * Assert: due to validation, two values of value type t are on the top of the stack.
+ * </li>
+ * <li>
+ * Pop the value t.const c1 from the stack.
+ * </li>
+ * <li>
+ * Let c be the result of computing relopt(c1).
+ * </li>
+ * <li>
+ * Push the value i64.const c to the stack.
  * <p>
- * </li> </ol>
+ * </li>
+ * </ol>
  * <p>
  * Source:  <a href="https://webassembly.github.io/spec/core/appendix/index-instructions.html"
  * target="_top"> https://webassembly.github.io/spec/core/appendix/index-instructions.html </a>

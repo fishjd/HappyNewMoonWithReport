@@ -27,7 +27,7 @@ import happynewmoonwithreport.type.I64;
 import happynewmoonwithreport.type.S64;
 
 /**
- * I64 Greater than Signed  (i64_gt_s)
+ * I64 Less than Signed  (i64_le_s)
  * <p>
  * <b>Note this is the same for all Relative Operations</b>
  * <p>
@@ -56,14 +56,14 @@ import happynewmoonwithreport.type.S64;
  * target="_top"> https://webassembly.github.io/spec/core/appendix/index-instructions.html </a>
  * </a>
  */
-public class I64_gt_s {
+public class I64_le_s {
 	private WasmInstanceInterface instance;
 
-	private I64_gt_s() {
+	private I64_le_s() {
 		super();
 	}
 
-	public I64_gt_s(WasmInstanceInterface instance) {
+	public I64_le_s(WasmInstanceInterface instance) {
 		this();
 		this.instance = instance;
 	}
@@ -73,17 +73,16 @@ public class I64_gt_s {
 	 * Execute the opcode.
 	 */
 	public void execute() {
-		// Step 1
 		WasmStack<Object> stack = instance.stack();
 		if ((stack.peek() instanceof I64) == false) {
-			throw new WasmRuntimeException(UUID.fromString("4178a771-bf89-45cd-8dca-21f86b47c36a"),
-										   "I64_gt_s: Value2 type is incorrect");
+		throw new WasmRuntimeException(UUID.fromString("b130e5a2-3cbd-4ebc-a2be-d36bb40297b6"),
+					"I64_le_s: Value2 type is incorrect");
 		}
 		I64 value2 = (I64) stack.pop();
 
 		if ((stack.peek() instanceof I64) == false) {
-			throw new WasmRuntimeException(UUID.fromString("25d935eb-f4b7-458e-b8ac-fe6a080cc531"),
-										   "I64_gt_s: Value1 type is incorrect");
+			throw new WasmRuntimeException(UUID.fromString("1c5c6417-2756-4e24-aa09-05c0d67deed4"),
+					"I64_le_s: Value1 type is incorrect");
 		}
 		I64 value1 = (I64) stack.pop();
 
@@ -92,7 +91,7 @@ public class I64_gt_s {
 		S64 value1Signed = value1.signedValue();
 
 		// Do the comparison.
-		I32 result = value1Signed.greaterThan(value2Signed);
+		I32 result = value1Signed.lessThanEqual(value2Signed);
 
 		stack.push(result);
 	}

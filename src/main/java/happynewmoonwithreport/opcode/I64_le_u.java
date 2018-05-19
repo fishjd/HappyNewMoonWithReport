@@ -24,10 +24,10 @@ import happynewmoonwithreport.WasmRuntimeException;
 import happynewmoonwithreport.WasmStack;
 import happynewmoonwithreport.type.I32;
 import happynewmoonwithreport.type.I64;
-import happynewmoonwithreport.type.S64;
+import happynewmoonwithreport.type.U64;
 
 /**
- * I64 Greater than Signed  (i64_gt_s)
+ * I32 Less than Unsigned  (i32_le_u)
  * <p>
  * <b>Note this is the same for all Relative Operations</b>
  * <p>
@@ -46,7 +46,7 @@ import happynewmoonwithreport.type.S64;
  * Let c be the result of computing relopt(c1,c2).
  * </li>
  * <li>
- * Push the value i64.const c to the stack.
+ * Push the value i32.const c to the stack.
  * <p>
  * </li>
  * </ol>
@@ -56,14 +56,14 @@ import happynewmoonwithreport.type.S64;
  * target="_top"> https://webassembly.github.io/spec/core/appendix/index-instructions.html </a>
  * </a>
  */
-public class I64_gt_s {
+public class I64_le_u {
 	private WasmInstanceInterface instance;
 
-	private I64_gt_s() {
+	private I64_le_u() {
 		super();
 	}
 
-	public I64_gt_s(WasmInstanceInterface instance) {
+	public I64_le_u(WasmInstanceInterface instance) {
 		this();
 		this.instance = instance;
 	}
@@ -73,26 +73,25 @@ public class I64_gt_s {
 	 * Execute the opcode.
 	 */
 	public void execute() {
-		// Step 1
 		WasmStack<Object> stack = instance.stack();
 		if ((stack.peek() instanceof I64) == false) {
-			throw new WasmRuntimeException(UUID.fromString("4178a771-bf89-45cd-8dca-21f86b47c36a"),
-										   "I64_gt_s: Value2 type is incorrect");
+		throw new WasmRuntimeException(UUID.fromString("bb35e895-dc00-45d9-a5fa-9e19032569ab"),
+					"I64_le_u: Value2 type is incorrect");
 		}
 		I64 value2 = (I64) stack.pop();
 
 		if ((stack.peek() instanceof I64) == false) {
-			throw new WasmRuntimeException(UUID.fromString("25d935eb-f4b7-458e-b8ac-fe6a080cc531"),
-										   "I64_gt_s: Value1 type is incorrect");
+			throw new WasmRuntimeException(UUID.fromString("5a702a2b-6bd8-43c4-9183-a9431b1dcb2c"),
+					"I64_le_u: Value1 type is incorrect");
 		}
 		I64 value1 = (I64) stack.pop();
 
-		// these values are signed (positive/negative) values
-		S64 value2Signed = value2.signedValue();
-		S64 value1Signed = value1.signedValue();
+		// these values are unsigned (positive/negative) values
+		U64 value2Unsigned = value2.unsignedValue();
+		U64 value1Unsigned = value1.unsignedValue();
 
 		// Do the comparison.
-		I32 result = value1Signed.greaterThan(value2Signed);
+		I32 result = value1Unsigned.lessThanEqual(value2Unsigned);
 
 		stack.push(result);
 	}
