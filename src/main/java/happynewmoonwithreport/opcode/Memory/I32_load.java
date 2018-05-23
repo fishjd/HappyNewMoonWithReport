@@ -29,21 +29,25 @@ import java.util.UUID;
  * <h1>i32_load</h1> Load an i32 value from memory to the stack.
  * <p>
  * <p>
+ * Memory Instutions<br>
+ * <p>
+ * <b>Source:</b>  <a href="https://webassembly.github.io/spec/core/syntax/instructions.html#memory-instructions" target="_top">
+ * https://webassembly.github.io/spec/core/syntax/instructions.html#memory-instructions
+ * </a>
+ * <br>
+ * <p>
  * Memory Overview<br>
  * <b>Source:</b>  <a href="https://webassembly.github.io/spec/core/syntax/instructions.html#syntax-instr-memory" target="_top">
  * https://webassembly.github.io/spec/core/syntax/instructions.html#syntax-instr-memory
  * </a>
  * </p>
+ * <br>
+ * Exec:
  * <p>
  * <b>Source:</b>  <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-load" target="_top">
  * https://webassembly.github.io/spec/core/exec/instructions.html#exec-load
  * </a>
  * <p>
- * <p>
- * <b>Source:</b>  <a href="https://webassembly.github.io/spec/core/syntax/instructions.html#syntax-instr-memory" target="_top">
- * https://webassembly.github.io/spec/core/syntax/instructions.html#syntax-instr-memory
- * </a>
- * </p>
  * <p>
  * <p>
  * <h2>t.load memarg and t.loadN_sx memarg</h2>

@@ -139,7 +139,6 @@ public class I32_load8_s extends LoadBase {
 		if (memoryTypeExists == false) {
 			throw new WasmRuntimeException(UUID.fromString("3e1eac11-9acd-46e4-ab62-08e34f3e3f2b"),
 					"Memory type %s does not exists", a);
-
 		}
 
 		// 5. Let mem be the memory instance S.mems[a].
