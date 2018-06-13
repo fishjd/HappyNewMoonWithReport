@@ -17,6 +17,8 @@
 package happynewmoonwithreport.opcode;
 
 
+import java.util.UUID;
+
 import happynewmoonwithreport.WasmInstanceInterface;
 import happynewmoonwithreport.WasmRuntimeException;
 import happynewmoonwithreport.WasmStack;
@@ -24,10 +26,8 @@ import happynewmoonwithreport.type.I32;
 import happynewmoonwithreport.type.I64;
 import happynewmoonwithreport.type.S64;
 
-import java.util.UUID;
-
 /**
- * I32 Less than Signed  (i32_lt_s)
+ * I64 Greater than Signed  (i64_gt_s)
  * <p>
  * <b>Note this is the same for all Relative Operations</b>
  * <p>
@@ -46,7 +46,7 @@ import java.util.UUID;
  * Let c be the result of computing relopt(c1,c2).
  * </li>
  * <li>
- * Push the value i32.const c to the stack.
+ * Push the value i64.const c to the stack.
  * <p>
  * </li>
  * </ol>
@@ -56,14 +56,14 @@ import java.util.UUID;
  * target="_top"> https://webassembly.github.io/spec/core/appendix/index-instructions.html </a>
  * </a>
  */
-public class I64_lt_s {
+public class I64_gt_s {
 	private WasmInstanceInterface instance;
 
-	private I64_lt_s() {
+	private I64_gt_s() {
 		super();
 	}
 
-	public I64_lt_s(WasmInstanceInterface instance) {
+	public I64_gt_s(WasmInstanceInterface instance) {
 		this();
 		this.instance = instance;
 	}
@@ -73,16 +73,17 @@ public class I64_lt_s {
 	 * Execute the opcode.
 	 */
 	public void execute() {
+		// Step 1
 		WasmStack<Object> stack = instance.stack();
 		if ((stack.peek() instanceof I64) == false) {
-		throw new WasmRuntimeException(UUID.fromString("f214f3d9-5925-4018-930d-1990780f5eaf"),
-					"I64_lt_s: Value2 type is incorrect");
+			throw new WasmRuntimeException(UUID.fromString("4178a771-bf89-45cd-8dca-21f86b47c36a"),
+										   "I64_gt_s: Value2 type is incorrect");
 		}
 		I64 value2 = (I64) stack.pop();
 
 		if ((stack.peek() instanceof I64) == false) {
-			throw new WasmRuntimeException(UUID.fromString("7fcc3127-70de-4d69-82bf-b9347d3db299"),
-					"I64_lt_s: Value1 type is incorrect");
+			throw new WasmRuntimeException(UUID.fromString("25d935eb-f4b7-458e-b8ac-fe6a080cc531"),
+										   "I64_gt_s: Value1 type is incorrect");
 		}
 		I64 value1 = (I64) stack.pop();
 
@@ -91,7 +92,7 @@ public class I64_lt_s {
 		S64 value1Signed = value1.signedValue();
 
 		// Do the comparison.
-		I32 result = value1Signed.lessThan(value2Signed);
+		I32 result = value1Signed.greaterThan(value2Signed);
 
 		stack.push(result);
 	}

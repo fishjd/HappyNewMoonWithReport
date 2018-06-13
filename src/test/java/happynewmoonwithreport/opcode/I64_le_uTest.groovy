@@ -23,22 +23,22 @@ import happynewmoonwithreport.type.I64
 import spock.lang.Specification
 
 /**
- * Created on 2017-08-25.
+ * Created on 2018-05-18.
  */
-class I64_lt_sTest extends Specification {
+class I64_le_uTest extends Specification {
 	void setup() {
 	}
 
 	void cleanup() {
 	}
 
-	def "Execute I64 Less than signed "() {
+	def "Execute I64 Greater than unsigned "() {
 		setup: " push two values on stack."
 		WasmInstanceInterface instance = new WasmInstanceStub();
 		instance.stack().push(new I64(val1));
 		instance.stack().push(new I64(val2));
 
-		I64_lt_s function = new I64_lt_s(instance);
+		I64_le_u function = new I64_le_u(instance);
 
 		when: "run the opcode"
 		function.execute();
@@ -51,19 +51,19 @@ class I64_lt_sTest extends Specification {
 		val1 | val2 || expected
 		3    | 4    || 1
 		4    | 3    || 0
-		4    | 4    || 0
-		0    | 0    || 0
+		4    | 4    || 1
+		0    | 0    || 1
 //        0x7FFF_FFFF | 0x7FFF_FFFF || 0
 //        0x7FFF_FFFE | 0x7FFF_FFFF || 1
 	}
 
 	def "Execute AddI32 throw exception on incorrect Type on second param "() {
-		setup: " a value of I32  value 1  and a value of I64 of value 2"
+		setup: " a value of I64  value 1  and a value of I32 of value 2"
 		WasmInstanceInterface instance = new WasmInstanceStub();
 		instance.stack().push(new I64(3));  // value 1
 		instance.stack().push(new I32(4));  // value 2
 
-		I64_lt_s function = new I64_lt_s(instance);
+		I64_le_u function = new I64_le_u(instance);
 
 		when: "run the opcode"
 		function.execute();
@@ -71,16 +71,16 @@ class I64_lt_sTest extends Specification {
 		then: " Thrown Exception"
 		WasmRuntimeException exception = thrown();
 		exception.message.contains("Value2");
-		exception.getUuid().toString().contains("f214f3d9-5925-4018-930d-1990780f5eaf");
+		exception.getUuid().toString().contains("bb35e895-dc00-45d9-a5fa-9e19032569ab");
 	}
 
 	def "Execute AddI32 throw exception on incorrect Type on first param "() {
-		setup: " a value of I64  value 1  and a value of I32 of value 2"
+		setup: " a value of I32  value 1  and a value of I64 of value 2"
 		WasmInstanceInterface instance = new WasmInstanceStub();
 		instance.stack().push(new I32(3));  // value 1
 		instance.stack().push(new I64(4));  // value 2
 
-		I64_lt_s function = new I64_lt_s(instance);
+		I64_le_u function = new I64_le_u(instance);
 
 		when: "run the opcode"
 		function.execute();
@@ -88,7 +88,7 @@ class I64_lt_sTest extends Specification {
 		then: " Thrown Exception"
 		WasmRuntimeException exception = thrown();
 		exception.message.contains("Value1");
-		exception.getUuid().toString().contains("7fcc3127-70de-4d69-82bf-b9347d3db299");
+		exception.getUuid().toString().contains("5a702a2b-6bd8-43c4-9183-a9431b1dcb2c");
 	}
 
 }

@@ -258,16 +258,71 @@ public class WasmInstance implements WasmInstanceInterface {
 				i32_ge_u.execute();
 				break;
 			}
-			case (byte) 0x6A: {
-				AddI32 addI32 = new AddI32(this);
-				addI32.execute();
+			case (byte) 0x50: { // i64 equals zero
+				I64_eqz i64_eqz = new I64_eqz(this);
+				i64_eqz.execute();
 				break;
 			}
-			default:
-				throwUnknownOpcodeException(opcode, code.getIndex());
-		}
-	}
-
+			case (byte) 0x51: { // i64 equals
+				I64_eq i64_eq = new I64_eq(this);
+				i64_eq.execute();
+				break;
+			}
+			case (byte) 0x52: { // i64 not equals
+				I64_ne i64_ne = new I64_ne(this);
+				i64_ne.execute();
+				break;
+			}
+			case (byte) 0x53: { // i64 less than signed
+				I64_lt_s i64_lt_s = new I64_lt_s(this);
+				i64_lt_s.execute();
+				break;
+			}
+			case (byte) 0x54: { // i64 less than unsigned
+				I64_lt_u i64_lt_u = new I64_lt_u(this);
+				i64_lt_u.execute();
+				break;
+			}
+			case (byte) 0x55: { // i64 greater than signed
+				I64_gt_s i64_gt_s = new I64_gt_s(this);
+				i64_gt_s.execute();
+				break;
+			}
+			case (byte) 0x56: { // i64 greater than signed
+				I64_gt_s i64_gt_s = new I64_gt_s(this);
+				i64_gt_s.execute();
+				break;
+			}
+			case (byte) 0x57: { // i64 less than equal to signed
+				I64_le_s i64_le_s = new I64_le_s(this);
+				i64_le_s.execute();
+				break;
+			}
+			case (byte) 0x58: { // i64 less than equal to unsigned
+				I64_le_u i64_le_u = new I64_le_u(this);
+				i64_le_u.execute();
+				break;
+			}
+			case (byte) 0x59: { // i64 greater than equal to signed
+				I64_ge_s i64_ge_s = new I64_ge_s(this);
+				i64_ge_s.execute();
+				break;
+			}
+			case (byte) 0x5A: { // i64 greater than equal to usigned
+				I64_ge_u i64_ge_u = new I64_ge_u(this);
+				i64_ge_u.execute();
+				break;
+			}
+            case (byte) 0x6A: {
+                AddI32 addI32 = new AddI32(this);
+                addI32.execute();
+                break;
+            }
+            default:
+                throwUnknownOpcodeException(opcode, code.getIndex());
+                return;
+        }
+    }
 	private void throwUnknownOpcodeException(byte opcode, Integer index) {
 		String message = "Wasm tried to run an opcode that was not defined. Unknown Opcode = " + Hex.byteToHex(opcode) + " (0d" + opcode + ")";
 		message += " at byte number = " + index + ". ";

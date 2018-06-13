@@ -128,13 +128,13 @@ Data Section:  To Do
 - [x] i64_eq 0x51
 - [x] i64_ne 0x52
 - [x] i64_lt_s 0x53
-- [ ] i64_lt_u 0x54
-- [ ] i64_gt_s 0x55
-- [ ] i64_gt_u 0x56
-- [ ] i64_lt_s 0x57
-- [ ] i64_lt_u 0x58
-- [ ] i64_gt_s 0x59
-- [ ] i64_gt_u 0x5A
+- [x] i64_lt_u 0x54
+- [x] i64_gt_s 0x55
+- [x] i64_gt_u 0x56
+- [x] i64_lt_s 0x57
+- [x] i64_lt_u 0x58
+- [x] i64_gt_s 0x59
+- [x] i64_gt_u 0x5A
 - [ ] f32.eq  0x5B
 - [ ] f32.ne 0x5C
 - [ ] f32.lt  0x5D
