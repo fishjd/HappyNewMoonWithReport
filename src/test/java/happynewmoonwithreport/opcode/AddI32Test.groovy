@@ -70,6 +70,7 @@ class AddI32Test extends Specification {
 		then: " Thrown Exception"
 		WasmRuntimeException exception = thrown();
 		exception.message.contains("Value2");  // not sure if this is the Wasm Spec. Maybe it should be "Value1"
+		exception.getUuid().toString().contains("59c20edb-690b-4260-b5cf-704cd509ac07");
 	}
 
 	def "Execute AddI32 throw exception on incorrect Type on first param "() {
@@ -86,5 +87,6 @@ class AddI32Test extends Specification {
 		then: " Thrown Exception"
 		WasmRuntimeException exception = thrown();
 		exception.message.contains("Value1");  // not sure if this is the Wasm Spec. Maybe it should be "Value1"
+		exception.getUuid().toString().contains("22500212-e077-4507-a27a-3a08039da2b7");
 	}
 }
