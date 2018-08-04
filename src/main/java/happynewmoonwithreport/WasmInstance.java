@@ -318,6 +318,11 @@ public class WasmInstance implements WasmInstanceInterface {
                 addI32.execute();
                 break;
             }
+			case (byte) 0x6B: {
+				I32_Sub i32_sub = new I32_Sub(this);
+				i32_sub.execute();
+				break;
+			}
             default:
                 throwUnknownOpcodeException(opcode, code.getIndex());
                 return;

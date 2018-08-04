@@ -150,8 +150,8 @@ Data Section:  To Do
 - [ ] i32.clz  0x67
 - [ ] i32.ctx  0x68
 - [ ] i32.popcnt  0x69
-- [ ] i32.add 0x6A
-- [ ] i32.sub 0x6B
+- [x] i32.add 0x6A
+- [x] i32.sub 0x6B
 - [ ] i32.mul 0x6C
 - [ ] i32.div_s 0x6D
 - [ ] i32.div_u 0x6E
