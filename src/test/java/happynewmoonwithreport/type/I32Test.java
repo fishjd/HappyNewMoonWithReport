@@ -16,6 +16,7 @@
  */
 package happynewmoonwithreport.type;
 
+import happynewmoonwithreport.util.converter.StringToByteArrayConverter;
 import happynewmoonwithreport.util.converter.StringToIntegerConverter;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -46,8 +47,9 @@ class I32Test {
 			, "0xF0,  -0x70"
 	})
 	@ParameterizedTest(name = "signExtendByteTest() index = {index} execute( input input =  {0}, expected = {1})")
-	void signExtendByteTest(@ConvertWith(StringToIntegerConverter.class) Integer input,
-	                        @ConvertWith(StringToIntegerConverter.class) Integer expected
+	void signExtendByteTest(
+			@ConvertWith(StringToIntegerConverter.class) Integer input,
+			@ConvertWith(StringToIntegerConverter.class) Integer expected
 	) {
 
 		// run
@@ -57,4 +59,5 @@ class I32Test {
 		assertThat(actual).isEqualTo(expected);
 
 	}
+
 }

@@ -56,35 +56,52 @@ public class I32 extends Int {
 	}
 
 
-	public I32(byte[] byteAll, Integer length, Boolean signExtension) {
+	/**
+	 * Create an I32 usint a Byte array, length, and sign extension.
+	 * Big Endian.
+	 *
+	 * @param byteAll
+	 * @param length
+	 * @param signExtension
+	 */
+	public I32(Byte[] byteAll, Integer length, Boolean signExtension) {
 
 		this();
 		value = 0;
 		switch (length) {
 			case 8: {
-				value += byteAll[0] << 0;
+				value += Byte.toUnsignedInt(byteAll[0]);
 				if (signExtension) {
 					value = signExtend(byteAll[0]);
 				}
 				break;
 			}
 			case 16: {
-				value += byteAll[0] << 8;
-				value += byteAll[1] << 0;
+				value += (Byte.toUnsignedInt(byteAll[0]) << 0);
+				value += (Byte.toUnsignedInt(byteAll[1]) << 8);
+				if (signExtension && isSignBitSet(byteAll[1])) {
+					value = twoComplement(value);
+				}
 				break;
 			}
 			// I'm not sure 24 and 32 are necessary or required by the specification.
 			case 24: {
-				value += byteAll[0] << 16;
-				value += byteAll[1] << 8;
-				value += byteAll[2] << 0;
+				value += (Byte.toUnsignedInt(byteAll[0]) << 0);
+				value += (Byte.toUnsignedInt(byteAll[1]) << 8);
+				value += (Byte.toUnsignedInt(byteAll[2]) << 16);
+				if (signExtension && isSignBitSet(byteAll[2])) {
+					value = twoComplement(value);
+				}
 				break;
 			}
 			case 32: {
-				value += byteAll[0] << 24;
-				value += byteAll[1] << 16;
-				value += byteAll[2] << 8;
-				value += byteAll[3] << 0;
+				value += (Byte.toUnsignedInt(byteAll[0]) << 0);
+				value += (Byte.toUnsignedInt(byteAll[1]) << 8);
+				value += (Byte.toUnsignedInt(byteAll[2]) << 16);
+				value += (Byte.toUnsignedInt(byteAll[3]) << 24);
+				if (signExtension && isSignBitSet(byteAll[3])) {
+					value = twoComplement(value);
+				}
 				break;
 			}
 			default: {
@@ -201,7 +218,7 @@ public class I32 extends Int {
 
 	@Override
 	public String toString() {
-		String result = "I32{ value = " + value + " ( hex = " + toHex(value) + ")" + "}";
+		String result = "I32{ value = " + value + " (hex = ~" + toHex(value) + ") }";
 		return result;
 	}
 }
