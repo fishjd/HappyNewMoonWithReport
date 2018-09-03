@@ -92,18 +92,22 @@ public class I32ConstructorBytesSizeTest {
 
 	@CsvSource({
 			"03020170, 8,  false,  0x70",
-			"03020170, 16, false,  0x7001",
-			"03020170, 24, false,  0x700102",
-			"03020170, 32, false,  0x70010203",
+			"03020170, 16, false,  0x0170",
+			"03020170, 24, false,  0x020170",
+			"03020170, 32, false,  0x03020170",
 			"03020170, 8,  true ,  0x70",
 			"03020180, 8,  true ,  0x00",
 			"030201F0, 8,  true ,  -0x70",
-			"030201E0, 8,  true ,  -0x60"
-		   ,"E0      , 8,  true ,  -0x60"
-		   ,"D0      , 8,  true ,  -0x50"
+			"030201E0, 8,  true ,  -0x60",
+			"E0      , 8,  true ,  -0x60",
+			"D0      , 8,  true ,  -0x50",
+			"FF      , 8,  false,  0x0000_00FF",
+			"FFFF    , 16, false,  0x0000_FFFF",
+			"FFFFFF  , 24, false,  0x00FF_FFFF",
+			"7FFFFFFF, 32, false,  0x7FFF_FFFF"   // max integer.  
 	})
-	@ParameterizedTest(name = "GenerateI32WithBytes  = {index} execute( input bytes =  {0}, size = {1}, signextension = {3} expected = {4} )")
-	void GenerateI32WithBytes(@ConvertWith(StringToByteArrayConverter.class) byte[] byteAll,
+	@ParameterizedTest(name = "GenerateI32WithBytes  = {index} execute( input bytes =  {0}, size = {1}, signextension = {2} expected = {3} )")
+	void GenerateI32WithBytes(@ConvertWith(StringToByteArrayConverter.class) Byte[] byteAll,
 	                          Integer size,
 	                          Boolean signExtension,
 	                          @ConvertWith(StringToIntegerConverter.class) Integer expected) {

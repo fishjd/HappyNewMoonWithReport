@@ -49,4 +49,13 @@ class StringToByteArrayConverterTest {
 		assertEquals((byte) 0xCD, result[2]);
 
 	}
+
+	@Test
+	void convertFF() {
+		// run
+		byte[] result = (byte[]) converter.convert("FF", byte[].class);
+
+		// verify
+		assertEquals((byte) 0xFF, result[0]);
+	}
 }
