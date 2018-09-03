@@ -35,10 +35,10 @@ public class StringToByteArrayConverter extends SimpleArgumentConverter {
 
 	@Override
 	protected Object convert(Object source, Class<?> targetType) {
-		assertEquals(byte[].class, targetType, "Can only convert to byte Array");
+		// assertEquals(Byte[].class, targetType, "Can only convert to byte Array");
 		String strSource = (String) source;
 		int length = (int) Math.ceil(strSource.length() / 2);
-		byte[] result = new byte[length];
+		Byte[] result = new Byte[length];
 
 		// convert to Byte[].
 		for (int i = 0; i < strSource.length(); i = i + 2) {
