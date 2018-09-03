@@ -90,7 +90,7 @@ Data Section:  To Do
 - [ ] f32_load 0x2A
 - [ ] f64_load 0x2B
 - [x] i32_load8-S  0x2C
-- [ ] i32_load8-U  0x2D
+- [x] i32_load8-U  0x2D
 - [ ] i32_load16-S  0x2E
 - [ ] i32_load16-U  0x2F
 - [ ] i64_load8-S  0x30

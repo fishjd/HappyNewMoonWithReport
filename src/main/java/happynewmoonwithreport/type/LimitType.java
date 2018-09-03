@@ -165,4 +165,15 @@ public class LimitType implements Validation {
 		}
 		return result;
 	}
+
+	@Override
+	public String toString() {
+		final StringBuffer sb = new StringBuffer("LimitType{");
+		sb.append("hasMaximum=").append(hasMaximum);
+		sb.append(", minimum=").append(minimum);
+		sb.append(", maximum=").append(maximum);
+		sb.append(", valid=").append(valid());
+		sb.append('}');
+		return sb.toString();
+	}
 }

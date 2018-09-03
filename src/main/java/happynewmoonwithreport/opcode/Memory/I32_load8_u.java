@@ -39,14 +39,7 @@ import java.util.UUID;
  * https://webassembly.github.io/spec/core/exec/instructions.html#exec-load
  * </a>
  * <p>
- * <h1>t.load memarg and t.loadN_sx memarg</h1>
- *
- * <pre>
- *  t = I32     // result type  <br>
- *  n = 8       // size of input byte array <br>
- *  sx = signed // sign extenstion <br>
- * </pre>
- *
+ * <h2>t.load memarg and t.loadN_sx memarg</h2>
  * <ol>
  * <li>
  * Let F be the current frame.
@@ -98,24 +91,23 @@ import java.util.UUID;
  * Push the value t.const c  to the stack.
  * </li>
  * </ol>
- *
  */
-public class I32_load8_s extends LoadBase {
+public class I32_load8_u extends LoadBase {
 
 	private MemoryArgument memoryArgument;
 	private WasmFrame frame;
 	private WasmStore store;
 	private WasmStack stack;
-	private U32  N;  // the length;
+	private U32 N;  // the length;
 	private Boolean signExtension;
 
-	private I32_load8_s() {
+	private I32_load8_u() {
 		super();
-		signExtension = true;
+		signExtension = false;
 		N = new U32(8L);
 	}
 
-	public I32_load8_s(MemoryArgument memoryArgument, WasmFrame frame, WasmStore store, WasmStack stack) {
+	public I32_load8_u(MemoryArgument memoryArgument, WasmFrame frame, WasmStore store, WasmStack stack) {
 		this();
 		this.memoryArgument = memoryArgument;
 		this.frame = frame;
@@ -168,7 +160,7 @@ public class I32_load8_s extends LoadBase {
 		// 9. If N is not part of the instruction, then:
 		//        a: Let N be the bit width |t| of value type t .
 
-		//  Not Applicaible in i32_load8_s
+		//  Not Applicaible in i32_load8_u
 
 		// 10. If ea+N/8 is larger than the length of mem.data , then:
 		//        a: Trap.
@@ -193,13 +185,6 @@ public class I32_load8_s extends LoadBase {
 		bytesiN[0] = bytes[0];
 
 		//        b: Let c be the result of computing extend_sxN,|t|(n).
-		//        b: Let c be the result of computing extend_sx8,|i32|(signed).
-		/* 
-		<p>
-		* <b>Source:</b>  <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-extend-u" target="_top"> 
-		* https://webassembly.github.io/spec/core/exec/numerics.html#op-extend-u 
-		* </a> 
-		 */
 
 		c = new I32(bytesiN, N.integerValue(), signExtension);
 
