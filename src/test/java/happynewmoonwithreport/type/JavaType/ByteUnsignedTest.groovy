@@ -43,16 +43,41 @@ class ByteUnsignedTest extends Specification {
 
 	}
 
-	def "IntValue"() {
+	def "IntValueRadix10"() {
 		setup: "Set up a value of 1"
 		ByteUnsigned byteUnsigned;
-		byteUnsigned = new ByteUnsigned("1");
+		for (int k = 0; k <= 255; k++) {
+			String sValue = Integer.toString(k);
+			byteUnsigned = new ByteUnsigned(sValue);
 
-		when: ""
-		Integer actual = byteUnsigned.intValue();
+			when: ""
+			Integer actual = byteUnsigned.intValue();
 
-		then: ""
-		actual == 1;
+			then: ""
+			actual == k;
+		}
+		// expect: ""
+
+		// cleanup: ""
+
+		// where: ""
+
+	}
+
+	def "IntValueRadix16"() {
+		setup: "Set up a value of 1"
+		ByteUnsigned byteUnsigned;
+		for (int k = 0; k <= 255; k++) {
+			String sValue = Integer.toString(k, 16).toUpperCase();
+			// System.out.println("sValue = " + sValue);
+			byteUnsigned = new ByteUnsigned(sValue, 16);
+
+			when: ""
+			Integer actual = byteUnsigned.intValue();
+
+			then: ""
+			actual == k;
+		}
 		// expect: ""
 
 		// cleanup: ""
@@ -90,4 +115,5 @@ class ByteUnsignedTest extends Specification {
 		// where: ""
 
 	}
+
 }

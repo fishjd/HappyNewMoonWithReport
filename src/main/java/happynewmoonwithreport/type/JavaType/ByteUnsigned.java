@@ -74,8 +74,13 @@ public final class ByteUnsigned extends Number
 	 * @see java.lang.Byte#parseByte(java.lang.String, int)
 	 */
 	public ByteUnsigned(String s) throws NumberFormatException {
-		this.value = Byte.parseByte(s, 10);
+		this.value = Short.parseShort(s, 10);
 	}
+
+	public ByteUnsigned(String s, Integer radix) throws NumberFormatException {
+		this.value = Short.parseShort(s, radix);
+	}
+
 
 	/**
 	 * Returns the value of this {@code ByteUnsigned} as a {@code double}
