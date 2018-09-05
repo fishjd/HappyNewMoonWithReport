@@ -83,18 +83,6 @@ public final class ByteUnsigned extends Number
 
 
 	/**
-	 * Returns the value of this {@code ByteUnsigned} as a {@code double}
-	 * after a widening primitive conversion.
-	 *
-	 * @jls 5.1.2 Widening Primitive Conversions
-	 */
-	@Override
-	public double doubleValue() {
-		throw new NotImplementedException();
-		//return (double)value;
-	}
-
-	/**
 	 * Returns the value of this {@code Byte} as an {@code int} after
 	 * a widening primitive conversion.
 	 *
@@ -113,8 +101,7 @@ public final class ByteUnsigned extends Number
 	 */
 	@Override
 	public long longValue() {
-		throw new NotImplementedException();
-		//		return (long)value;
+		return (long)value;
 	}
 
 	/**
@@ -125,8 +112,19 @@ public final class ByteUnsigned extends Number
 	 */
 	@Override
 	public float floatValue() {
-		throw new NotImplementedException();
-		//return (float) value;
+		return (float) value;
+	}
+
+
+	/**
+	 * Returns the value of this {@code ByteUnsigned} as a {@code double}
+	 * after a widening primitive conversion.
+	 *
+	 * @jls 5.1.2 Widening Primitive Conversions
+	 */
+	@Override
+	public double doubleValue() {
+		return (double)value;
 	}
 
 

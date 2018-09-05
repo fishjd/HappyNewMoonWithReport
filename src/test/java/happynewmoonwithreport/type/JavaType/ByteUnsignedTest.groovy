@@ -28,20 +28,6 @@ class ByteUnsignedTest extends Specification {
 	void cleanup() {
 	}
 
-	def "DoubleValue"() {
-		// setup: ""
-
-		when: ""
-
-		then: ""
-
-		// expect: ""
-
-		// cleanup: ""
-
-		// where: ""
-
-	}
 
 	def "IntValueRadix10"() {
 		setup: "Set up a value of 1"
@@ -53,8 +39,8 @@ class ByteUnsignedTest extends Specification {
 			when: ""
 			Integer actual = byteUnsigned.intValue();
 
-			then: ""
-			actual == k;
+			then: "then does not work in loops, use explicit assert"
+			assert actual == k;
 		}
 		// expect: ""
 
@@ -65,7 +51,7 @@ class ByteUnsignedTest extends Specification {
 	}
 
 	def "IntValueRadix16"() {
-		setup: "Set up a value of 1"
+		setup: "Set up a value all values "
 		ByteUnsigned byteUnsigned;
 		for (int k = 0; k <= 255; k++) {
 			String sValue = Integer.toString(k, 16).toUpperCase();
@@ -75,44 +61,61 @@ class ByteUnsignedTest extends Specification {
 			when: ""
 			Integer actual = byteUnsigned.intValue();
 
-			then: ""
-			actual == k;
+			then: "then does not work in loops, use explicit assert"
+			assert actual == k;
 		}
-		// expect: ""
-
-		// cleanup: ""
-
-		// where: ""
-
 	}
 
 	def "LongValue"() {
-		// setup: ""
+		setup: "Set up a value all values "
+		ByteUnsigned byteUnsigned;
+		for (int k = 0; k <= 255; k++) {
+			String sValue = Integer.toString(k, 16).toUpperCase();
+			byteUnsigned = new ByteUnsigned(sValue, 16);
 
-		when: ""
+			when: ""
+			Long actual = byteUnsigned.longValue();
 
-		then: ""
+			then: "then does not work in loops, use explicit assert"
+			assert actual == k;
 
-		// expect: ""
-
-		// cleanup: ""
-
-		// where: ""
+		}
 
 	}
 
+
 	def "FloatValue"() {
-		// setup: ""
+		setup: "Set up a value all values "
+		ByteUnsigned byteUnsigned;
+		for (int k = 0; k <= 255; k++) {
+			String sValue = Integer.toString(k, 16).toUpperCase();
+			byteUnsigned = new ByteUnsigned(sValue, 16);
 
-		when: ""
+			when: ""
+			Float actual = byteUnsigned.floatValue();
 
-		then: ""
+			then: "then does not work in loops, use explicit assert"
+			assert actual == k;
 
-		// expect: ""
+		}
 
-		// cleanup: ""
+	}
 
-		// where: ""
+	def "DoubleValue"() {
+		setup: "Set up a value all values "
+		ByteUnsigned byteUnsigned;
+		for (int k = 0; k <= 255; k++) {
+			String sValue = Integer.toString(k, 16).toUpperCase();
+			byteUnsigned = new ByteUnsigned(sValue, 16);
+
+			when: ""
+			Double actual = byteUnsigned.doubleValue();
+
+			then: "then does not work in loops, use explicit assert"
+			System.out.println("Double value sValue = " + sValue + " actual = " + actual.toString());
+			assert actual == k;
+
+		}
 
 	}
 
