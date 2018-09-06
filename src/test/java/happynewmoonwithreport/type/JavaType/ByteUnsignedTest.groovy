@@ -168,4 +168,39 @@ class ByteUnsignedTest extends Specification {
 
 	}
 
+
+	def "toString Decimal"() {
+		setup: "Set up a value all values "
+		ByteUnsigned byteUnsigned;
+		for (int k = 0; k <= 255; k++) {
+			byteUnsigned = new ByteUnsigned(k);
+
+			when: ""
+			String actual = byteUnsigned.toString();
+
+			then: "then does not work in loops, use explicit assert"
+			String expected = Long.toString(k);
+			assert actual == expected;
+
+		}
+
+	}
+
+
+	def "toString base 16 Hex "() {
+		setup: "Set up a value all values "
+		ByteUnsigned byteUnsigned;
+		for (int k = 0; k <= 255; k++) {
+			byteUnsigned = new ByteUnsigned(k);
+
+			when: ""
+			String actual = byteUnsigned.toString(16);
+
+			then: "then does not work in loops, use explicit assert"
+			String expected = Long.toString(k, 16);
+			assert actual == expected;
+		}
+
+	}
+
 }

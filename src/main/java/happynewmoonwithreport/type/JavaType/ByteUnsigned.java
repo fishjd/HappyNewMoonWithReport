@@ -178,6 +178,43 @@ public final class ByteUnsigned extends Number
 		return (double) value;
 	}
 
+	/**
+	 * Returns a {@code String} object representing this
+	 * {@code ByteUnsigend}'s value.  The value is converted to signed
+	 * decimal representation and returned as a string, exactly as if
+	 * the {@code byte} value were given as an argument to the
+	 * {@link java.lang.Byte#toString(byte)} method.
+	 *
+	 * @return a string representation of the value of this object in
+	 * base 10.
+	 */
+	@Override
+	public String toString() {
+		return Integer.toString((int) value);
+	}
 
+	/**
+	 * Returns a {@code String} object representing this
+	 * {@code ByteUnsigend}'s value.  The value is converted to signed
+	 * decimal representation and returned as a string, exactly as if
+	 * the {@code byte} value were given as an argument to the
+	 * {@link java.lang.Byte#toString(byte)} method.
+	 *
+	 * @return a string representation of the value of this object in
+	 * base {@radix}.
+	 */
+	public String toString(int radix) {
+		return Integer.toString((int) value, radix);
+	}
+
+	/**
+	 * Returns a hash code for this {@code ByteUnsigned}.
+	 *
+	 * @return a hash code value for this {@code ByteUnsigned}
+	 */
+	@Override
+	public int hashCode() {
+		return Short.hashCode(value);
+	}
 
 }
