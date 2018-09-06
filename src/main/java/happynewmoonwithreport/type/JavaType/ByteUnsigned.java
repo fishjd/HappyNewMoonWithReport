@@ -16,8 +16,6 @@
  */
 package happynewmoonwithreport.type.JavaType;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 /**
  * The {@code ByteUnsigned} class wraps a value of primitive type {@code byte}
  * in an object.
@@ -36,8 +34,8 @@ public final class ByteUnsigned extends Number
 {
 
 	// use int values because byte is signed and can not store 255 (0xFF).
-	public static final int MIN_VALUE = 0;
-	public static final int MAX_VALUE = 255;
+	public static final Short MIN_VALUE = 0;
+	public static final Short MAX_VALUE = 255;
 
 
 	/**
@@ -48,14 +46,34 @@ public final class ByteUnsigned extends Number
 	private final short value;
 
 	/**
-	 * Constructs a newly allocated {@code Byte} object that
-	 * represents the specified {@code byte} value.
+	 * Constructs a newly allocated {@code ByteUnsigned} object that
+	 * represents the specified {@code byteUnsigned} value.
+	 *
+	 * @param value the value to be represented by the
+	 * {@code ByteUnsigned}.
+	 */
+	public ByteUnsigned(Byte value) {
+		if (inRange(value)) {
+			this.value = value;
+		} else {
+			throw new NumberFormatException("Value out of range. Value = " + value);
+		}
+	}
+
+
+	/**
+	 * Constructs a newly allocated {@code ByteUnsigned} object that
+	 * represents the specified {@code byteUnsigned} value.
 	 *
 	 * @param value the value to be represented by the
 	 * {@code Byte}.
 	 */
-	public ByteUnsigned(byte value) {
-		this.value = value;
+	public ByteUnsigned(Integer value) {
+		if (inRange(value)) {
+			this.value = value.shortValue();
+		} else {
+			throw new NumberFormatException("Value out of range. Value = " + value);
+		}
 	}
 
 
@@ -74,11 +92,44 @@ public final class ByteUnsigned extends Number
 	 * @see java.lang.Byte#parseByte(java.lang.String, int)
 	 */
 	public ByteUnsigned(String s) throws NumberFormatException {
-		this.value = Short.parseShort(s, 10);
+		this(s, 10);
 	}
 
 	public ByteUnsigned(String s, Integer radix) throws NumberFormatException {
-		this.value = Short.parseShort(s, radix);
+		Short prospect = Short.parseShort(s, radix);
+		if (inRange(prospect)) {
+			this.value = prospect;
+		} else {
+			throw new NumberFormatException("Value out of range. Value = " + s);
+		}
+	}
+
+	/**
+	 * Returns true if the input value is within the {@code MIN_VALUE} and {@code MAX_VALUE}
+	 *
+	 * @param valueToTest
+	 *
+	 * @return true if  {@code @MIN_VALUE <= valueToTest <= @MAX_VALUE}
+	 */
+	public static Boolean inRange(Short valueToTest) {
+		Boolean result = true;
+		result &= (MIN_VALUE <= valueToTest);
+		result &= (valueToTest <= MAX_VALUE);
+		return result;
+	}
+
+	public static Boolean inRange(Integer valueToTest) {
+		Boolean result = true;
+		result &= (MIN_VALUE <= valueToTest);
+		result &= (valueToTest <= MAX_VALUE);
+		return result;
+	}
+
+	public static Boolean inRange(Byte valueToTest) {
+		Boolean result = true;
+		result &= (MIN_VALUE <= valueToTest);
+		result &= (valueToTest <= MAX_VALUE);
+		return result;
 	}
 
 
@@ -101,7 +152,7 @@ public final class ByteUnsigned extends Number
 	 */
 	@Override
 	public long longValue() {
-		return (long)value;
+		return (long) value;
 	}
 
 	/**
@@ -124,8 +175,9 @@ public final class ByteUnsigned extends Number
 	 */
 	@Override
 	public double doubleValue() {
-		return (double)value;
+		return (double) value;
 	}
+
 
 
 }

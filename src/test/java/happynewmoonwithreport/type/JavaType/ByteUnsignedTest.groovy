@@ -28,6 +28,57 @@ class ByteUnsignedTest extends Specification {
 	void cleanup() {
 	}
 
+	def "constructor of type Integer"() {
+		setup: "Set up a value of 1"
+		ByteUnsigned byteUnsigned;
+		for (int k = 0; k <= 255; k++) {
+			byteUnsigned = new ByteUnsigned(k);
+
+			when: ""
+			Integer actual = byteUnsigned.intValue();
+
+			then: "then does not work in loops, use explicit assert"
+			assert actual == k;
+		}
+	}
+
+
+	def "constructor with out of range value"() {
+		setup: " Set up"
+
+		when: ""
+		ByteUnsigned byteUnsigned = new ByteUnsigned(input1);
+
+		then: ""
+		thrown(NumberFormatException);
+
+
+		where: ""
+		input1 || notUsed
+		"-2"   || 0
+		"-1"   || 0
+		"256"  || 0
+
+	}
+
+	def "inRange"() {
+		setup: " Set up"
+
+		when: ""
+		Boolean actual = ByteUnsigned.inRange(val1.shortValue());
+
+		then: ""
+		actual == expected;
+
+
+		where: ""
+		val1 || expected
+		-1   || false
+		0    || true
+		1    || true
+		255  || true
+		256  || false
+	}
 
 	def "IntValueRadix10"() {
 		setup: "Set up a value of 1"
@@ -55,7 +106,6 @@ class ByteUnsignedTest extends Specification {
 		ByteUnsigned byteUnsigned;
 		for (int k = 0; k <= 255; k++) {
 			String sValue = Integer.toString(k, 16).toUpperCase();
-			// System.out.println("sValue = " + sValue);
 			byteUnsigned = new ByteUnsigned(sValue, 16);
 
 			when: ""
@@ -112,7 +162,6 @@ class ByteUnsignedTest extends Specification {
 			Double actual = byteUnsigned.doubleValue();
 
 			then: "then does not work in loops, use explicit assert"
-			System.out.println("Double value sValue = " + sValue + " actual = " + actual.toString());
 			assert actual == k;
 
 		}
