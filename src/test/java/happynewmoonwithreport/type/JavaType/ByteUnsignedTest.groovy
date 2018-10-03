@@ -80,6 +80,48 @@ class ByteUnsignedTest extends Specification {
 		256  || false
 	}
 
+	def "Compare"() {
+		setup: " Set up"
+
+		ByteUnsigned byteUnsigned = new ByteUnsigned(val1);
+
+		when: ""
+		int actual = byteUnsigned.compareTo(val2);
+
+		then: ""
+		actual == expected;
+
+
+		where: ""
+		val1 || val2 || expected
+		1    || 0    || 1
+		0    || 1    || -1
+		0    || 0    || 0
+		1    || 1    || 0
+		255  || 255  || 0
+		5    || 5    || 0
+	}
+
+	def "ShiftRight"() {
+		setup: " Set up"
+
+		ByteUnsigned byteUnsigned = new ByteUnsigned(val1);
+
+		when: ""
+		int actual = byteUnsigned.shiftRight();
+
+		then: ""
+		actual == expected;
+
+
+		where: ""
+		val1        || expected
+		1           || 0
+		0b0000_0010 || 0b0000_0001
+		0b1000_0010 || 0b0100_0001
+		0b1111_1111 || 0b0111_1111
+	}
+
 	def "IntValueRadix10"() {
 		setup: "Set up a value of 1"
 		ByteUnsigned byteUnsigned;

@@ -16,6 +16,8 @@
  */
 package happynewmoonwithreport.type.JavaType;
 
+import static java.lang.Integer.compare;
+
 /**
  * The {@code ByteUnsigned} class wraps a value of primitive type {@code byte}
  * in an object.
@@ -29,9 +31,7 @@ package happynewmoonwithreport.type.JavaType;
  * @since September 4, 2018
  */
 
-public final class ByteUnsigned extends Number
-		//  TODO: implements Comparable<ByteUnsigned>
-{
+public final class ByteUnsigned extends Number implements Comparable<ByteUnsigned> {
 
 	// use int values because byte is signed and can not store 255 (0xFF).
 	public static final Short MIN_VALUE = 0;
@@ -176,6 +176,37 @@ public final class ByteUnsigned extends Number
 	@Override
 	public double doubleValue() {
 		return (double) value;
+	}
+
+	public byte byteValue() {
+		return (byte) (value & 0xFF);
+	}
+
+	/** shift bits to the right
+	 *
+	 */
+	public ByteUnsigned shiftRight() {
+		byte myByte = byteValue ();
+		return new ByteUnsigned((myByte & 0xFF) >>>1) ;
+
+	}
+	/**
+	 * Compares two {@code ByteUnsigned} objects numerically.
+	 *
+	 * @param anotherByte the {@code ByteUnsigned} to be compared.
+	 *
+	 * @return the value {@code 0} if this {@code ByteUnsigned} is
+	 * equal to the argument {@code ByteUnsigned}; a value less than
+	 * {@code 0} if this {@code ByteUnsigned} is numerically less
+	 * than the argument {@code ByteUnsigned}; and a value greater than
+	 * {@code 0} if this {@code ByteUnsigned} is numerically
+	 * greater than the argument {@code ByteUnsigned} (signed
+	 * comparison).
+	 *
+	 * @since 1.2
+	 */
+	public int compareTo(ByteUnsigned anotherByte) {
+		return compare(this.value, anotherByte.value);
 	}
 
 	/**
