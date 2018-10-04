@@ -122,6 +122,25 @@ class ByteUnsignedTest extends Specification {
 		0b1111_1111 || 0b0111_1111
 	}
 
+	def "ShiftLeft"() {
+		setup: " Set up"
+
+		ByteUnsigned byteUnsigned = new ByteUnsigned(val1);
+
+		when: "Shift Left"
+		int actual = byteUnsigned.shiftLeft();
+
+		then: ""
+		actual == expected;
+
+		where: ""
+		val1        || expected
+		0b0000_0001 || 0b0000_0010
+		0b0000_1000 || 0b0001_0000
+		0b1000_0000 || 0b0000_0000
+		0b1111_1111 || 0b1111_1110
+	}
+
 	def "IntValueRadix10"() {
 		setup: "Set up a value of 1"
 		ByteUnsigned byteUnsigned;

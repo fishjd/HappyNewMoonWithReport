@@ -182,14 +182,26 @@ public final class ByteUnsigned extends Number implements Comparable<ByteUnsigne
 		return (byte) (value & 0xFF);
 	}
 
-	/** shift bits to the right
-	 *
+	/**
+	 * shift bits to the right
 	 */
 	public ByteUnsigned shiftRight() {
-		byte myByte = byteValue ();
-		return new ByteUnsigned((myByte & 0xFF) >>>1) ;
+		byte myByte = byteValue();
+		return new ByteUnsigned((myByte & 0xFF) >>> 1);
 
 	}
+
+	/**
+	 * shift bits to the Left
+	 */
+	public ByteUnsigned shiftLeft() {
+		byte myByte = byteValue();
+		int temp = (myByte & 0xFF) << 1;
+		temp = (temp & 0xFF);
+		return new ByteUnsigned(temp);
+	}
+
+
 	/**
 	 * Compares two {@code ByteUnsigned} objects numerically.
 	 *
