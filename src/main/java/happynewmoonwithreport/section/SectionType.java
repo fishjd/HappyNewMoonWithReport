@@ -38,7 +38,12 @@ import happynewmoonwithreport.type.WasmVector;
  */
 public class SectionType implements Section {
 
+	public SectionType() {
+		functionSignatures = new WasmVector<>();
+	}
+
 	// all the Function Types.
+	private UInt32 count;
 	private WasmVector<FunctionType> functionSignatures;
 
 
@@ -50,12 +55,12 @@ public class SectionType implements Section {
 		VarUInt1 varReturnCount;
 
 		// Type Count
-		UInt32 typeCount = new VarUInt32(payload);
+		count = new VarUInt32(payload);
 
-		functionSignatures = new WasmVector<>(typeCount.integerValue());
+		functionSignatures = new WasmVector<>(count.integerValue());
 
 		FunctionType functionType;
-		for (Integer countFT = 0; countFT < typeCount.integerValue(); countFT++) {
+		for (Integer countFT = 0; countFT < count.integerValue(); countFT++) {
 			functionType = new FunctionType(payload);
 			functionSignatures.add(countFT, functionType);
 		}
@@ -65,8 +70,10 @@ public class SectionType implements Section {
 		return functionSignatures;
 	}
 
-	public Integer getSize() {
-		return functionSignatures.size();
+
+
+	public UInt32 getCount() {
+		return count;
 	}
 
 }

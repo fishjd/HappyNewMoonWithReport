@@ -43,6 +43,12 @@ public class SectionExport implements Section {
 	private UInt32 count;
 	private WasmVector<ExportEntry> exports;
 
+	public SectionExport()
+	{
+		count = new UInt32(0);
+		exports = new WasmVector<>();
+	}
+
 	/**
 	 * @param payload the input BytesFile.
 	 */

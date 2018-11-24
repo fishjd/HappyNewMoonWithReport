@@ -44,12 +44,19 @@ public class Wasm {
 	private ArrayList<ExportEntry> exportAll;
 
 
-	private SectionType sectionType = null;
-	private SectionFunction sectionFunction = null;
-	private SectionTable sectionTable = null;
-	private SectionMemory sectionMemory = null;
-	private SectionGlobal sectionGlobal = null;
-	private SectionExport sectionExport = null;
+	/*  Initialize all sections execpt Start and Code to be empty.
+		This may not be to the Wasm specification, but avoids Null pointer exections.
+
+		Start Section must be null if not defined.
+		Code Section must exist.  A module with out code make no sense.
+	 */
+	private SectionCustom sectionCustom = new SectionCustom();
+	private SectionType sectionType = new SectionType();
+	private SectionFunction sectionFunction = new SectionFunction();
+	private SectionTable sectionTable = new SectionTable();
+	private SectionMemory sectionMemory = new SectionMemory();
+	private SectionGlobal sectionGlobal = new SectionGlobal();
+	private SectionExport sectionExport = new SectionExport();
 	private SectionStart sectionStart = null;
 	private SectionCode sectionCode = null;
 
@@ -256,8 +263,8 @@ public class Wasm {
 	private WasmVector<WasmFunction> functionAll;
 
 	private void fillFunction(SectionType type, SectionCode code) {
-		functionAll = new WasmVector<>(type.getSize());
-		for (Integer index = 0; index < type.getSize(); index++) {
+		functionAll = new WasmVector<>(type.getCount().integerValue());
+		for (Integer index = 0; index < type.getCount().integerValue(); index++) {
 			WasmFunction function = new WasmFunction(new UInt32(index), code.getFunctionAll().get(index));
 			functionAll.add(function);
 		}

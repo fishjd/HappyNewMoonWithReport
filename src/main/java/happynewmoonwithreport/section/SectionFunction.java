@@ -45,6 +45,11 @@ public class SectionFunction implements Section {
 	private UInt32 count;
 	private ArrayList<UInt32> types;
 
+	public SectionFunction() {
+		count = new UInt32(0);
+		types = new ArrayList<>();
+	}
+
 	/**
 	 * @param payload the input BytesFile.
 	 */

@@ -53,7 +53,7 @@ public class WasmFactorialLongTest {
 //
 //        assertTrue(wasm.validate());
 //
-//        assertEquals(new Integer(1), wasm.getFunctionSignatures().getSize());
+//        assertEquals(new UInt32(1), wasm.getFunctionSignatures().getCount());
 //
 //        assertEquals(2, wasm.exports().size());
 //        Assert.assertEquals(new ExternalKind(ExternalKind.memory), wasm.exports().get(0).getExternalKind());

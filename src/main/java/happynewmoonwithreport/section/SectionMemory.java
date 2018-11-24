@@ -43,6 +43,11 @@ public class SectionMemory implements Section {
 	private UInt32 count;
 	private WasmVector<MemoryType> memoryTypeAll;
 
+	public SectionMemory() {
+		count = new UInt32(0);
+		memoryTypeAll = new WasmVector<>();
+	}
+
 	/**
 	 * @param payload the input BytesFile.
 	 */

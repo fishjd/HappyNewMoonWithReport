@@ -42,6 +42,10 @@ public class SectionTable implements Section {
 	private UInt32 count;
 	private WasmVector<TableType> tables;
 
+	public SectionTable() {
+		count = new UInt32(0);
+		tables = new WasmVector<>();
+	}
 
 	/**
 	 * @param payload the input BytesFile.
