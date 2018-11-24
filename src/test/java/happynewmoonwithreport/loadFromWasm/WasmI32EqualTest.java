@@ -14,12 +14,14 @@
  *  limitations under the License.
  *
  */
-package happynewmoonwithreport;
+package happynewmoonwithreport.loadFromWasm;
 
+import happynewmoonwithreport.*;
 import happynewmoonwithreport.type.DataTypeNumber;
 import happynewmoonwithreport.type.S32;
 import happynewmoonwithreport.type.WasmVector;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -58,7 +60,7 @@ public class WasmI32EqualTest {
 		assertEquals(new Integer(1), wasm.getFunctionSignatures().getSize());
 
 		assertEquals(2, wasm.exports().size());
-		assertEquals(new ExternalKind(ExternalKind.memory), wasm.exports().get(0).getExternalKind());
+		Assertions.assertEquals(new ExternalKind(ExternalKind.memory), wasm.exports().get(0).getExternalKind());
 		assertEquals("memory", wasm.exports().get(0).getFieldName().getValue());
 
 		assertEquals(new ExternalKind(ExternalKind.function), wasm.exports().get(1).getExternalKind());

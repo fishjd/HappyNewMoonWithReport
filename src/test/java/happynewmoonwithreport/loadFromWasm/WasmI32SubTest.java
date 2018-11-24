@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 Whole Bean Software, LTD.
+ *  Copyright 2018 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -14,12 +14,14 @@
  *  limitations under the License.
  *
  */
-package happynewmoonwithreport;
+package happynewmoonwithreport.loadFromWasm;
 
+import happynewmoonwithreport.*;
 import happynewmoonwithreport.type.DataTypeNumber;
 import happynewmoonwithreport.type.S32;
 import happynewmoonwithreport.type.WasmVector;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -28,14 +30,14 @@ import java.io.File;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-public class WasmAdd32Test {
+public class WasmI32SubTest {
 	private Wasm wasm;
 	private WasmModule module;
 
 	@BeforeEach
 	public void setUp() throws Exception {
 
-		String path = "./src/test/resources/add32/add32.wasm";
+		String path = "./src/test/resources/i32Sub/i32Sub.wasm";
 		File wasmFile = new File(path);
 		assertTrue(wasmFile.exists());
 
@@ -58,26 +60,26 @@ public class WasmAdd32Test {
 		assertEquals(new Integer(1), wasm.getFunctionSignatures().getSize());
 
 		assertEquals(2, wasm.exports().size());
-		assertEquals(new ExternalKind(ExternalKind.memory), wasm.exports().get(0).getExternalKind());
+		Assertions.assertEquals(new ExternalKind(ExternalKind.memory), wasm.exports().get(0).getExternalKind());
 		assertEquals("memory", wasm.exports().get(0).getFieldName().getValue());
 
 		assertEquals(new ExternalKind(ExternalKind.function), wasm.exports().get(1).getExternalKind());
-		assertEquals("add32", wasm.exports().get(1).getFieldName().getValue());
+		assertEquals("i32Sub", wasm.exports().get(1).getFieldName().getValue());
 
 		WasmInstance instance = new WasmInstance(module);
 		assertNotNull(instance.stack());
-		WasmFunction functionAdd32 = instance.exportFunction("add32");
+		WasmFunction functionAdd32 = instance.exportFunction("i32Sub");
 
 		WasmVector<DataTypeNumber> returnAll = new WasmVector<>(1);
 		WasmVector<DataTypeNumber> paramAll = new WasmVector<>(2);
 		paramAll.add(new S32(3));
-		paramAll.add(new S32(4));
+		paramAll.add(new S32(7));
 
 		instance.call(functionAdd32, returnAll, paramAll);
 
 		assertNotNull(returnAll);
 		assertEquals(1, returnAll.size());
-		assertEquals(new S32(7), returnAll.get(0));
+		assertEquals(new S32(4), returnAll.get(0));
 
 
 	}
