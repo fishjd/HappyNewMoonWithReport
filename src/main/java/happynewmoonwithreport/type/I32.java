@@ -57,7 +57,7 @@ public class I32 extends Int {
 
 
 	/**
-	 * Create an I32 usint a Byte array, length, and sign extension.
+	 * Create an I32 using a Byte array, length, and sign extension.
 	 * Big Endian.
 	 *
 	 * @param byteAll

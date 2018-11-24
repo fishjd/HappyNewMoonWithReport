@@ -155,13 +155,14 @@ public class Wasm {
 			u32PayloadLength = new VarUInt32(bytesFile);
 
 			payloadLength = u32PayloadLength.integerValue();
-			// ¿ Named Section ?
-			if (sectionName.getType() == 0) {
-				// TODO
-			}
+
 			payloadLength = payloadLength - nameLength.integerValue();
 			BytesFile payload = bytesFile.copy(payloadLength);
 			switch (sectionName.getValue()) {
+				case SectionName.CUSTOM:
+					sectionCustom = new SectionCustom();
+					sectionCustom.instantiate(payload);
+					break;
 				case SectionName.TYPE:
 					sectionType = new SectionType();
 					sectionType.instantiate(payload);

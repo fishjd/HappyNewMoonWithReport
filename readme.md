@@ -43,6 +43,8 @@ Happy New Moon with Report can read from *.wasm file  and run an app that adds t
 
 [Source] (http://webassembly.org/docs/binary-encoding/#module-structure)
 
+Custom (a.k.a Name) section : Completed
+
 Type Section :  Completed
 
 Import Section:   To Do
@@ -232,7 +234,7 @@ Data Section:  To Do
 - [ ] f64.convert_s/i64 0xB9
 - [ ] f64.convert_u/i64 0xBA
 - [ ] f64.promote/f32 0xBB
-- [ ] i32.reinterpert/F32 0xBC
+- [ ] i32.reinterpert/f32 0xBC
 - [ ] i64.reinterpert/f64 0xBD
 - [ ] f32.reinterpert/i32 0xBD
 - [ ] f64.reinterpert/i64 0xBF

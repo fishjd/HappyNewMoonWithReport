@@ -49,6 +49,7 @@ public class SectionName {
 	private Integer type;
 	private String value;
 
+	public static final String CUSTOM = "custom";
 	public static final String TYPE = "type";
 	public static final String IMPORT = "import";
 	public static final String FUNCTION = "function";
@@ -114,6 +115,7 @@ public class SectionName {
 
 	static {
 		mapAll = new HashMap<>();
+		mapAll.put(0, CUSTOM);
 		mapAll.put(1, TYPE);
 		mapAll.put(2, IMPORT);
 		mapAll.put(3, FUNCTION);

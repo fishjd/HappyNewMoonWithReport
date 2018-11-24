@@ -47,9 +47,20 @@ public class BytesFile {
 	}
 
 	public BytesFile copy(Integer length) {
+		byte[] tempBytesAll = getBytes(length);
+		return new BytesFile(tempBytesAll);
+	}
+
+	/**
+	 * Get the bytes starting at index.
+	 *
+	 * @param  number bytes desired
+	 * @return  bytes array
+	 */
+	public byte[] getBytes(Integer length) {
 		byte[] tempBytesAll = Arrays.copyOfRange(bytesAll, index, index + length);
 		index += length;
-		return new BytesFile(tempBytesAll);
+		return tempBytesAll;
 	}
 
 	public byte[] getBytesAll() {

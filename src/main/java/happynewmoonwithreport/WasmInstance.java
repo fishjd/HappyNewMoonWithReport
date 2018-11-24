@@ -79,6 +79,7 @@ public class WasmInstance implements WasmInstanceInterface {
 	}
 
 	/**
+	 * Given a function name then return the Wasm Function.  The Wasm Funciton is definced in the Wasm Module.
 	 * <p>
 	 * Source:  <a href="https://developer.mozilla.org/en-US/docs/WebAssembly/Exported_functions" target="_top">
 	 * https://developer.mozilla.org/en-US/docs/WebAssembly/Exported_functions
