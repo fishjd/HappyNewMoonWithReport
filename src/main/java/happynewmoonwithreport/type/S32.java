@@ -133,7 +133,7 @@ public class S32 extends I32 {
 	@Override
 	public String toString() {
 		return "S32{" +
-				"value=" + value +
+				"value=" + value + " 0x" + Integer.toHexString(value).toUpperCase() +
 				"} ";
 	}
 }

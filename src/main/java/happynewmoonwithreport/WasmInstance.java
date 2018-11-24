@@ -106,7 +106,7 @@ public class WasmInstance implements WasmInstanceInterface {
 
 
 	/**
-	 * Execute an function.  The function must be and export.   This is the entry point from Java.
+	 * Execute an function.  The function must be an export.   This is the entry point from Java.
 	 *
 	 * @param wasmFunction The function to execute/run.
 	 * @param returnAll The output parameters.  May be zero on one.  Future versions of Wasm may return more tha one.
