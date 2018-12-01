@@ -39,25 +39,25 @@ class I32Test {
 	void tearDown() {
 	}
 
-	@CsvSource({
-			"  0x01,  0x01"
-			, "0x70,  0x70"
-			, "0x80,  -0x00"
-			, "0xE0,  -0x60"
-			, "0xF0,  -0x70"
-	})
-	@ParameterizedTest(name = "signExtendByteTest() index = {index} execute( input input =  {0}, expected = {1})")
-	void signExtendByteTest(
-			@ConvertWith(StringToIntegerConverter.class) Integer input,
-			@ConvertWith(StringToIntegerConverter.class) Integer expected
-	) {
-
-		// run
-		Integer actual = I32.signExtend(input.byteValue());
-
-		// verify
-		assertThat(actual).isEqualTo(expected);
-
-	}
+//	@CsvSource({
+//			"  0x01,  0x01"
+//			, "0x70,  0x70"
+//			, "0x80,  -0x00"
+//			, "0xE0,  -0x60"
+//			, "0xF0,  -0x70"
+//	})
+//	@ParameterizedTest(name = "signExtendByteTest() index = {index} execute( input input =  {0}, expected = {1})")
+//	void signExtendByteTest(
+//			@ConvertWith(StringToIntegerConverter.class) Integer input,
+//			@ConvertWith(StringToIntegerConverter.class) Integer expected
+//	) {
+//
+//		// run
+//		Integer actual = I32.signExtend(input.byteValue());
+//
+//		// verify
+//		assertThat(actual).isEqualTo(expected);
+//
+//	}
 
 }

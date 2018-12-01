@@ -20,6 +20,7 @@ import happynewmoonwithreport.opcode.*;
 import happynewmoonwithreport.opcode.Memory.I32_load;
 import happynewmoonwithreport.opcode.Memory.I32_load8_s;
 import happynewmoonwithreport.opcode.Memory.I32_load8_u;
+import happynewmoonwithreport.opcode.Memory.I32_store;
 import happynewmoonwithreport.type.*;
 import happynewmoonwithreport.type.utility.Hex;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
@@ -122,9 +123,9 @@ public class WasmInstance implements WasmInstanceInterface {
 			currentFrame.localAll().add(new S32(0));
 		}
 
-		BytesFile code = new BytesFile(wasmFunction.getCode());
-		while (code.atEndOfFile() == false) {
-			execute(code);
+		BytesFile bfCode = new BytesFile(wasmFunction.getCode());
+		while (bfCode.atEndOfFile() == false) {
+			execute(bfCode);
 		}
 
 		while (stack.isEmpty() == false) {  // ??? ¿¿¿
@@ -156,6 +157,17 @@ public class WasmInstance implements WasmInstanceInterface {
 				block.execute();
 				break;
 			}
+//			case (byte) 0x03: { break;}  // Loop
+//			case (byte) 0x04: { break;}  // If
+//			case (byte) 0x05: { break;}  // Else
+
+//			case (byte) 0x0B: { break;}  // End
+//			case (byte) 0x0C: { break;}  // Branch lable
+//			case (byte) 0x0D: { break;}  // Branch If lable
+//			case (byte) 0x0E: { break;}  // Branch Table
+//			case (byte) 0x0F: { break;}  // Return
+//			case (byte) 0x10: { break;}  // Call x
+
 			case (byte) 0x1A: { // drop
 				Drop drop = new Drop(this);
 				drop.execute();
@@ -176,6 +188,12 @@ public class WasmInstance implements WasmInstanceInterface {
 				setLocal.execute(new VarUInt32(code));
 				break;
 			}
+
+//			case (byte) 0x22: { break;}  // Tee Local x
+//			case (byte) 0x23: { break;}  // Get Global x
+//			case (byte) 0x24: { break;}  // Set Global x
+
+
 			case (byte) 0x28: {  // I32_load
 				MemoryArgument memoryArgument = new MemoryArgument(); // Not sure what this is.
 				I32_load i32_load = new I32_load(memoryArgument, currentFrame, store, stack);
@@ -202,14 +220,38 @@ public class WasmInstance implements WasmInstanceInterface {
 //			case (byte) 0x30: {   // I64_load8_u
 //			case (byte) 0x31: {   // I64_load8_s
 //			case (byte) 0x32: {   // I64_load16_s
-			case (byte) 0x40: {
+//			case (byte) 0x33: {   // I64_load16_u
+//			case (byte) 0x34: {   // I64_load32_s
+//			case (byte) 0x35: {   // I64_load32_u
+
+
+			case (byte) 0x36: {    // I32_store
+				MemoryArgument memoryArgument = new MemoryArgument(); // Not sure what this is.
+				I32_store i32_store = new I32_store(memoryArgument, currentFrame, store, stack);
+				i32_store.execute();
 				break;
 			}
+//			case (byte) 0x37: {      // I64 store
+//			case (byte) 0x38: {      // F32 store
+//			case (byte) 0x39: {      // F64 store
+//			case (byte) 0x3A: {      // I32 8 store
+//			case (byte) 0x3B: {      // I32 16 store
+//			case (byte) 0x3C: {      // I64 8 store
+//			case (byte) 0x3D: {      // I64 16 store
+//			case (byte) 0x3E: {      // I64 32 store
+
+//			case (byte) 0x3F: { break;}  // Memory Size
+//			case (byte) 0x40: { break;}  // Memory Grow
+
 			case (byte) 0x41: {  // i32.const i32
 				ConstantInt32 constantInt32 = new ConstantInt32(this);
 				constantInt32.execute(new VarUInt32(code));
 				break;
 			}
+//			case (byte) 0x42: { break;}  // I64 const I64
+//			case (byte) 0x43: { break;}  // F32 const F32
+//			case (byte) 0x44: { break;}  // F64 const F64
+
 			case (byte) 0x45: { // i32 equals zero
 				I32_eqz i32_eqz = new I32_eqz(this);
 				i32_eqz.execute();
@@ -320,21 +362,22 @@ public class WasmInstance implements WasmInstanceInterface {
 				i64_ge_u.execute();
 				break;
 			}
-            case (byte) 0x6A: {
-                AddI32 addI32 = new AddI32(this);
-                addI32.execute();
-                break;
-            }
+			case (byte) 0x6A: {
+				AddI32 addI32 = new AddI32(this);
+				addI32.execute();
+				break;
+			}
 			case (byte) 0x6B: {
 				I32_Sub i32_sub = new I32_Sub(this);
 				i32_sub.execute();
 				break;
 			}
-            default:
-                throwUnknownOpcodeException(opcode, code.getIndex());
-                return;
-        }
-    }
+			default:
+				throwUnknownOpcodeException(opcode, code.getIndex());
+				return;
+		}
+	}
+
 	private void throwUnknownOpcodeException(byte opcode, Integer index) {
 		String message = "Wasm tried to run an opcode that was not defined. Unknown Opcode = " + Hex.byteToHex(opcode) + " (0d" + opcode + ")";
 		message += " at byte number = " + index + ". ";

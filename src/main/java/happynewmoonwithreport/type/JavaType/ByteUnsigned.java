@@ -47,19 +47,50 @@ public final class ByteUnsigned extends Number implements Comparable<ByteUnsigne
 
 	/**
 	 * Constructs a newly allocated {@code ByteUnsigned} object that
-	 * represents the specified {@code byteUnsigned} value.
+	 * represents the specified {@code byte} value.
+	 * <p>
+	 * The input is interperted as an unsigned value (0-255).
+	 * </p>
 	 *
 	 * @param value the value to be represented by the
 	 * {@code ByteUnsigned}.
 	 */
 	public ByteUnsigned(Byte value) {
-		if (inRange(value)) {
+		if (0 <= value) {
 			this.value = value;
 		} else {
-			throw new NumberFormatException("Value out of range. Value = " + value);
+			this.value = (short) (0x80 | (value & 0x7F));
 		}
+
 	}
 
+	/**
+	 * Construct a {@code ByteUnsigend} from a {@code Byte}.  The input is interperted as a signed value.
+	 *
+	 * @param  b a java Byte -128 to 127
+	 *
+	 * @return a Unsigned Byte.  0 to 127.  Negitive values are converted to zero.
+	 */
+	public static ByteUnsigned fromSignedByte(Byte b) {
+		if ( b < 0) {
+			b = 0;
+		}
+
+		return new ByteUnsigned((short) b & 0x7F);
+	}
+
+	/**
+	 * Construct a {@code ByteUnsigend} from a {@code Byte}.  The input is interperted as an unsigned value (0-255).
+	 * <p>
+	 * Consider using the constuctor {@code ByteUnsigned(Byte)} instead.
+	 *
+	 * @param b a Java Byte
+	 *
+	 * @return a Unsigned byte.  0-255.
+	 */
+	public static ByteUnsigned from_Un_SignedByte(Byte b) {
+		return new ByteUnsigned(b);
+	}
 
 	/**
 	 * Constructs a newly allocated {@code ByteUnsigned} object that
@@ -107,7 +138,7 @@ public final class ByteUnsigned extends Number implements Comparable<ByteUnsigne
 	/**
 	 * Returns true if the input value is within the {@code MIN_VALUE} and {@code MAX_VALUE}
 	 *
-	 * @param valueToTest
+	 * @param valueToTest  The value to test.
 	 *
 	 * @return true if  {@code @MIN_VALUE <= valueToTest <= @MAX_VALUE}
 	 */
@@ -137,7 +168,7 @@ public final class ByteUnsigned extends Number implements Comparable<ByteUnsigne
 	 * Returns the value of this {@code Byte} as an {@code int} after
 	 * a widening primitive conversion.
 	 *
-	 * @jls 5.1.2 Widening Primitive Conversions
+	 * jls 5.1.2 Widening Primitive Conversions
 	 */
 	@Override
 	public int intValue() {
@@ -148,7 +179,7 @@ public final class ByteUnsigned extends Number implements Comparable<ByteUnsigne
 	 * Returns the value of this {@code Byte} as a {@code long} after
 	 * a widening primitive conversion.
 	 *
-	 * @jls 5.1.2 Widening Primitive Conversions
+	 * jls 5.1.2 Widening Primitive Conversions
 	 */
 	@Override
 	public long longValue() {
@@ -159,7 +190,7 @@ public final class ByteUnsigned extends Number implements Comparable<ByteUnsigne
 	 * Returns the value of this {@code Byte} as a {@code float} after
 	 * a widening primitive conversion.
 	 *
-	 * @jls 5.1.2 Widening Primitive Conversions
+	 * jls 5.1.2 Widening Primitive Conversions
 	 */
 	@Override
 	public float floatValue() {
@@ -171,7 +202,7 @@ public final class ByteUnsigned extends Number implements Comparable<ByteUnsigne
 	 * Returns the value of this {@code ByteUnsigned} as a {@code double}
 	 * after a widening primitive conversion.
 	 *
-	 * @jls 5.1.2 Widening Primitive Conversions
+	 * jls 5.1.2 Widening Primitive Conversions
 	 */
 	@Override
 	public double doubleValue() {
@@ -199,6 +230,18 @@ public final class ByteUnsigned extends Number implements Comparable<ByteUnsigne
 		int temp = (myByte & 0xFF) << 1;
 		temp = (temp & 0xFF);
 		return new ByteUnsigned(temp);
+	}
+
+	/**
+	 * Is the high bit set on the byte?
+	 *
+	 * @return true if the high bit is set.
+	 * false otherwise.
+	 */
+	public Boolean isSignBitSet() {
+		Boolean result;
+		result = 0 < (value & 0x80);
+		return result;
 	}
 
 
@@ -243,8 +286,10 @@ public final class ByteUnsigned extends Number implements Comparable<ByteUnsigne
 	 * the {@code byte} value were given as an argument to the
 	 * {@link java.lang.Byte#toString(byte)} method.
 	 *
+	 * @param radix  the base,  usually 10(decimal) or 16(hexidecimal)
+	 *
 	 * @return a string representation of the value of this object in
-	 * base {@radix}.
+	 * base {@code radix}.
 	 */
 	public String toString(int radix) {
 		return Integer.toString((int) value, radix);

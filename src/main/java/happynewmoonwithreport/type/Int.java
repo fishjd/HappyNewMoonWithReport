@@ -16,6 +16,8 @@
  */
 package happynewmoonwithreport.type;
 
+import happynewmoonwithreport.type.JavaType.ByteUnsigned;
+
 /**
  * Web Assembly Integer
  */
@@ -78,12 +80,11 @@ public abstract class Int implements DataTypeNumber {
 	 *
 	 * @return an integer that is the same value of the byte.
 	 */
-	public static Integer signExtend(byte input) {
+	public static Integer signExtend(ByteUnsigned input) {
 		int result;
 
-		byte j = input;
-		result = 0x7F & j;
-		if (isSignBitSet(j)) {
+		result = input.intValue();
+		if (input.isSignBitSet()) {
 			// negative
 			result = twoComplement(result);
 		}
@@ -98,11 +99,11 @@ public abstract class Int implements DataTypeNumber {
 	 *
 	 * @return true if sign bit is set.
 	 */
-	public static Boolean isSignBitSet(byte input) {
-		int mask = 0x80;
-		Boolean result = ((byte) mask & (byte) input) != 0;
-		return result;
-	}
+//	public static Boolean isSignBitSet(ByteUnsigned input) {
+//		int mask = 0x80;
+//		Boolean result = ((byte) mask & (byte) input) != 0;
+//		return result;
+//	}
 
 	/**
 	 * calculate the two complement of a number

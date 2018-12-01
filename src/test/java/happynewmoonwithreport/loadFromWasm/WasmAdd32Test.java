@@ -57,7 +57,7 @@ public class WasmAdd32Test {
 
 		assertTrue(wasm.validate());
 
-		assertEquals(new Integer(1), wasm.getFunctionSignatures().getCount());
+		assertEquals(new Integer(1), wasm.getFunctionSignatures().getCount().integerValue());
 
 		assertEquals(2, wasm.exports().size());
 		Assertions.assertEquals(new ExternalKind(ExternalKind.memory), wasm.exports().get(0).getExternalKind());

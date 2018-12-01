@@ -22,6 +22,7 @@ import happynewmoonwithreport.WasmRuntimeException;
 import happynewmoonwithreport.WasmStack;
 import happynewmoonwithreport.WasmStore;
 import happynewmoonwithreport.type.*;
+import happynewmoonwithreport.type.JavaType.ByteUnsigned;
 
 import java.util.UUID;
 
@@ -181,7 +182,7 @@ public class I32_load extends LoadBase {
 		}
 
 		// 11. Let b∗ be the byte sequence mem.data[ea:N/8].
-		Byte[] bytes = new Byte[4];
+		ByteUnsigned[] bytes = new ByteUnsigned[4];
 		Integer eaIntegerValue = ea.integerValue();
 		bytes[0] = mem.get(eaIntegerValue + 0);
 		bytes[1] = mem.get(eaIntegerValue + 1);
