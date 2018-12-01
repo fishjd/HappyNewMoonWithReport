@@ -14,40 +14,46 @@
  *  limitations under the License.
  *
  */
-package happynewmoonwithreport.opcode
+package happynewmoonwithreport.opcode.Memory
 
 import happynewmoonwithreport.WasmFrame
 import happynewmoonwithreport.WasmModule
 import happynewmoonwithreport.WasmStack
 import happynewmoonwithreport.WasmStore
-import happynewmoonwithreport.opcode.Memory.I32_load8_s
 import happynewmoonwithreport.type.*
+import happynewmoonwithreport.type.JavaType.ByteUnsigned
 import spock.lang.Specification
+
 /**
  * Created on 2018-02-12.
  */
-class I32_load8_s_Test extends Specification {
+class I32_store_load_roundTripTest extends Specification {
 	WasmModule module;
 	WasmFrame frame;
-	I32_load8_s i32Load8_s;
+	I32_store i32Store;
+	I32_load i32Load;
+
+	I32 storeThis;
+	I32 loadThis;
 
 	WasmStack stack;
+	WasmStore store;
 
 	void setup() {
 		// create a module.
 		module = new WasmModule();
 
-		// create a memory if we are going to load from memory we need a memory.
+		// create a memory. if we are going to load from memory we need a memory.
 		U32 hasMaximum = new U32(0);
 		U32 minimum = new U32(1);
 		MemoryType memory = new MemoryType(hasMaximum, minimum);
-		memory.set(0, new Byte((byte) 0x70));
-		memory.set(1, new Byte((byte) 0x01));
-		memory.set(2, new Byte((byte) 0x02));
-		memory.set(3, new Byte((byte) 0x03));
-		memory.set(4, new Byte((byte) 0x04));
-		memory.set(5, new Byte((byte) 0x05));
-		memory.set(6, new Byte((byte) 0x06));
+		memory.set(0, new ByteUnsigned(0x00));
+		memory.set(1, new ByteUnsigned(0x01));
+		memory.set(2, new ByteUnsigned(0x02));
+		memory.set(3, new ByteUnsigned(0x03));
+		memory.set(4, new ByteUnsigned(0x04));
+		memory.set(5, new ByteUnsigned(0x05));
+		memory.set(6, new ByteUnsigned(0x06));
 
 		// add memory to module
 		module.addMemory(memory);
@@ -60,7 +66,7 @@ class I32_load8_s_Test extends Specification {
 		memoryAll.add(memory);
 
 		// create Store
-		WasmStore store = new WasmStore();
+		store = new WasmStore();
 		store.setMemoryAll(memoryAll);
 
 		// create memoryArgument
@@ -70,8 +76,20 @@ class I32_load8_s_Test extends Specification {
 		stack = new WasmStack();
 		stack.push(new I32(2));  // load bytes starting at 2
 
+		// create a value to store
+		ByteUnsigned[] baStoreThis = new ByteUnsigned[4];
+		baStoreThis[0] = new ByteUnsigned(0xFC);
+		baStoreThis[1] = new ByteUnsigned(0xFD);
+		baStoreThis[2] = new ByteUnsigned(0xFE);
+		baStoreThis[3] = new ByteUnsigned(0xFF);
+		storeThis = new I32(baStoreThis);
+
+		// add to the stack
+		stack.push(storeThis);
+
 		// create class to test.
-		i32Load8_s = new I32_load8_s(memoryArgument, frame, store, stack);
+		i32Store = new I32_store(memoryArgument, frame, store, stack);
+		i32Load = new I32_load(memoryArgument, frame, store, stack);
 	}
 
 	void cleanup() {
@@ -81,12 +99,15 @@ class I32_load8_s_Test extends Specification {
 		// setup: ""
 
 		when: ""
-		i32Load8_s.execute();
+		i32Store.execute();
+
+		stack.push(new I32(2));  // load bytes starting at 2
+		i32Load.execute()
+
+		loadThis = stack.pop();
 
 		then: ""
-		I32 actual = (I32) stack.pop();
-		I32 expected = new I32(0x02); // Little Endian!
-		actual == expected;
+		storeThis == loadThis;
 
 		// expect: ""
 
