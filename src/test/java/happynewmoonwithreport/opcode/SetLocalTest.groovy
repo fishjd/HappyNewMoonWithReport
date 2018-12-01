@@ -16,9 +16,11 @@
  */
 package happynewmoonwithreport.opcode
 
+
 import happynewmoonwithreport.WasmFrame
-import happynewmoonwithreport.WasmInstanceInterface
+import happynewmoonwithreport.WasmModule
 import happynewmoonwithreport.WasmRuntimeException
+import happynewmoonwithreport.WasmStack
 import happynewmoonwithreport.type.I32
 import spock.lang.Specification
 
@@ -34,15 +36,15 @@ class SetLocalTest extends Specification {
 
 	def "Execute"() {
 		setup: "A Frame with two local variables and a Int32 on the stack.  "
-		WasmInstanceInterface instance = new WasmInstanceStub();
-
-		WasmFrame frame = new WasmFrame(instance);
+		WasmModule module = new WasmModule();
+		WasmFrame frame = new WasmFrame(module);
+		WasmStack stack = new WasmStack();
 		// locals must be initialized.
 		frame.localAll().add(0);
 		frame.localAll().add(0);
-		instance.stack().push(new I32(3));
+		stack.push(new I32(3));
 
-		SetLocal function = new SetLocal(frame);
+		SetLocal function = new SetLocal(frame, stack);
 
 		when: "run the opcode"
 		I32 index = new I32(0);
@@ -54,12 +56,12 @@ class SetLocalTest extends Specification {
 
 	def "Execute with exception thrown when there are zero local variables "() {
 		setup: " an instance with zero local variables "
-		WasmInstanceInterface instance = new WasmInstanceStub();
-		instance.stack().push(new I32(3));
-		WasmFrame frame = new WasmFrame(instance);
-		// frame.localAll().add(0);
+		WasmModule module = new WasmModule();
+		WasmFrame frame = new WasmFrame(module);
+		WasmStack stack = new WasmStack();
+		stack.push(new I32(3));
 
-		SetLocal function = new SetLocal(frame);
+		SetLocal function = new SetLocal(frame, stack);
 
 		expect: "no local variables"
 		0 == frame.localAll().size()
@@ -76,15 +78,16 @@ class SetLocalTest extends Specification {
 
 	def "Execute with exception thrown when stack is empty"() {
 		setup: " an instance with zero local variables "
-		WasmInstanceInterface instance = new WasmInstanceStub();
+		WasmModule module = new WasmModule();
+		WasmFrame frame = new WasmFrame(module);
+		WasmStack stack = new WasmStack();
 
-		WasmFrame frame = new WasmFrame(instance);
 		frame.localAll().add(0);
 
-		SetLocal function = new SetLocal(frame);
+		SetLocal function = new SetLocal(frame, stack);
 
 		expect: "nothing on the stack! "
-		0 == instance.stack().size();
+		0 == stack.size();
 
 		when: "run the opcode"
 		function.execute(new I32(0));
