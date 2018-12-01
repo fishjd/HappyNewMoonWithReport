@@ -61,6 +61,50 @@ class ByteUnsignedTest extends Specification {
 
 	}
 
+	def "static factory/constructor Signed Byte"() {
+		setup: " Set up"
+
+		when: ""
+		ByteUnsigned actual = ByteUnsigned.fromSignedByte((byte) input1);
+
+		then: ""
+		actual == expected;
+
+
+		where: ""
+		input1 || expected
+		-2     || 0
+		-1     || 0
+		0      || 0
+		1      || 1
+		127    || 127
+		0x7F   || 0x7F
+
+	}
+
+	def "static factory/constructor UnSigned Byte"() {
+		setup: " Set up"
+
+		when: ""
+		ByteUnsigned actual = ByteUnsigned.from_Un_SignedByte((byte) input1);
+
+		then: ""
+		actual == expected;
+
+
+		where: ""
+		input1 || expected
+		-2     || 254
+		-1     || 255
+		0      || 0
+		1      || 1
+		127    || 127
+		0x7F   || 0x7F
+		0xFF   || 0xFF
+
+	}
+
+
 	def "inRange"() {
 		setup: " Set up"
 
@@ -78,6 +122,26 @@ class ByteUnsignedTest extends Specification {
 		1    || true
 		255  || true
 		256  || false
+	}
+
+	def "isSignBitSet"() {
+		setup: " Set up"
+		ByteUnsigned buVal1 = new ByteUnsigned(val1);
+
+		when: ""
+		Boolean actual = buVal1.isSignBitSet();
+
+		then: ""
+		actual == expected;
+
+
+		where: ""
+		val1 || expected
+		0xFF || true
+		0    || false
+		1    || false
+		0x80 || true
+		0x7F || false
 	}
 
 	def "Compare"() {

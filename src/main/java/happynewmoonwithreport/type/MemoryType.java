@@ -19,6 +19,7 @@ package happynewmoonwithreport.type;
 
 import happynewmoonwithreport.BytesFile;
 import happynewmoonwithreport.Validation;
+import happynewmoonwithreport.type.JavaType.ByteUnsigned;
 
 /**
  * Memory Type,
@@ -46,29 +47,29 @@ public class MemoryType implements Validation {
 	 *
 	 * @TODO change to WasmVector
 	 */
-	private byte[] byteAll;
+	private ByteUnsigned[] byteAll;
 
 	public static final Integer _64Ki = 65536;
 	public static final Integer pageSize = _64Ki;
 
 	public MemoryType(UInt8 hasMaximum, UInt32 minimum, UInt32 maximum) {
 		limit = new LimitType(hasMaximum, minimum, maximum);
-		byteAll = new byte[pageSize.intValue() * limit.minimum().integerValue()];
+		byteAll = new ByteUnsigned[pageSize.intValue() * limit.minimum().integerValue()];
 	}
 
 	public MemoryType(UInt8 hasMaximum, UInt32 minimum) {
 		limit = new LimitType(hasMaximum, minimum);
-		byteAll = new byte[pageSize.intValue() * limit.minimum().integerValue()];
+		byteAll = new ByteUnsigned[pageSize.intValue() * limit.minimum().integerValue()];
 	}
 
 	public MemoryType(U32 hasMaximum, U32 minimum) {
 		limit = new LimitType(hasMaximum, minimum);
-		byteAll = new byte[pageSize.intValue() * limit.minimum().integerValue()];
+		byteAll = new ByteUnsigned[pageSize.intValue() * limit.minimum().integerValue()];
 	}
 
 	public MemoryType(BytesFile payload) {
 		limit = new LimitType(payload);
-		byteAll = new byte[pageSize.intValue() * limit.minimum().integerValue()];
+		byteAll = new ByteUnsigned[pageSize.intValue() * limit.minimum().integerValue()];
 	}
 
 	/**
@@ -123,11 +124,11 @@ public class MemoryType implements Validation {
 		return limit.hasMaximum();
 	}
 
-	public Byte get(Integer address) {
+	public ByteUnsigned get(Integer address) {
 		return byteAll[address];
 	}
 
-	public void set(Integer address, Byte value) {
+	public void set(Integer address, ByteUnsigned value) {
 		byteAll[address] = value;
 	}
 

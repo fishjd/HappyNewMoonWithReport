@@ -22,6 +22,7 @@ import happynewmoonwithreport.WasmRuntimeException;
 import happynewmoonwithreport.WasmStack;
 import happynewmoonwithreport.WasmStore;
 import happynewmoonwithreport.type.*;
+import happynewmoonwithreport.type.JavaType.ByteUnsigned;
 
 import java.util.UUID;
 
@@ -182,23 +183,23 @@ public class I32_load8_s extends LoadBase {
 		}
 
 		// 11. Let b∗ be the byte sequence mem.data[ea:N/8].
-		Byte[] bytes = new Byte[4];
+		ByteUnsigned[] bytes = new ByteUnsigned[4];
 		Integer eaIntegerValue = ea.integerValue();
 		bytes[0] = mem.get(eaIntegerValue + 0);
 
 		// 12. If N and sx are part of the instruction, then:
 		//        a: Let n be the integer for which bytesiN(n)=b∗.
 		I32 c;
-		Byte[] bytesiN = new Byte[N.integerValue() / 8];
+		ByteUnsigned[] bytesiN = new ByteUnsigned[N.integerValue() / 8];
 		bytesiN[0] = bytes[0];
 
 		//        b: Let c be the result of computing extend_sxN,|t|(n).
 		//        b: Let c be the result of computing extend_sx8,|i32|(signed).
-		/* 
+		/*
 		<p>
-		* <b>Source:</b>  <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-extend-u" target="_top"> 
-		* https://webassembly.github.io/spec/core/exec/numerics.html#op-extend-u 
-		* </a> 
+		* <b>Source:</b>  <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-extend-u" target="_top">
+		* https://webassembly.github.io/spec/core/exec/numerics.html#op-extend-u
+		* </a>
 		 */
 
 		c = new I32(bytesiN, N.integerValue(), signExtension);

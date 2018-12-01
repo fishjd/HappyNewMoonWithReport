@@ -17,6 +17,7 @@
 package happynewmoonwithreport.type;
 
 import happynewmoonwithreport.WasmRuntimeException;
+import happynewmoonwithreport.type.JavaType.ByteUnsigned;
 
 import java.util.UUID;
 
@@ -30,6 +31,7 @@ public class I32 extends Int {
 	protected Integer value;
 
 	public I32() {
+		Byte b;
 		value = 0;
 	}
 
@@ -55,6 +57,25 @@ public class I32 extends Int {
 		value += byteAll[3] << 0;
 	}
 
+	public I32(ByteUnsigned[] byteAll) {
+		this();
+		value = 0;
+		value += byteAll[0].intValue() << 24;
+		value += byteAll[1].intValue() << 16;
+		value += byteAll[2].intValue() << 8;
+		value += byteAll[3].intValue() << 0;
+	}
+
+	public I32(Byte[] byteAll, Integer length, Boolean signExtension) {
+		this();
+		ByteUnsigned[] buAll = new ByteUnsigned[4];
+		buAll[0] = new ByteUnsigned(byteAll[0]);
+		buAll[1] = new ByteUnsigned(byteAll[1]);
+		buAll[2] = new ByteUnsigned(byteAll[2]);
+		buAll[3] = new ByteUnsigned(byteAll[3]);
+
+		create(buAll, length, signExtension);
+	}
 
 	/**
 	 * Create an I32 using a Byte array, length, and sign extension.
@@ -64,42 +85,45 @@ public class I32 extends Int {
 	 * @param length
 	 * @param signExtension
 	 */
-	public I32(Byte[] byteAll, Integer length, Boolean signExtension) {
-
+	public I32(ByteUnsigned[] byteAll, Integer length, Boolean signExtension) {
 		this();
+		create(byteAll, length, signExtension);
+	}
+
+	private void create(ByteUnsigned[] byteAll, Integer length, Boolean signExtension) {
 		value = 0;
 		switch (length) {
 			case 8: {
-				value += Byte.toUnsignedInt(byteAll[0]);
+				value += byteAll[0].intValue();
 				if (signExtension) {
 					value = signExtend(byteAll[0]);
 				}
 				break;
 			}
 			case 16: {
-				value += (Byte.toUnsignedInt(byteAll[0]) << 0);
-				value += (Byte.toUnsignedInt(byteAll[1]) << 8);
-				if (signExtension && isSignBitSet(byteAll[1])) {
+				value += ((byteAll[0].intValue()) << 0);
+				value += ((byteAll[1].intValue()) << 8);
+				if (signExtension) {
 					value = twoComplement(value);
 				}
 				break;
 			}
 			// I'm not sure 24 and 32 are necessary or required by the specification.
 			case 24: {
-				value += (Byte.toUnsignedInt(byteAll[0]) << 0);
-				value += (Byte.toUnsignedInt(byteAll[1]) << 8);
-				value += (Byte.toUnsignedInt(byteAll[2]) << 16);
-				if (signExtension && isSignBitSet(byteAll[2])) {
+				value += ((byteAll[0].intValue()) << 0);
+				value += ((byteAll[1].intValue()) << 8);
+				value += ((byteAll[2].intValue()) << 16);
+				if (signExtension) {
 					value = twoComplement(value);
 				}
 				break;
 			}
 			case 32: {
-				value += (Byte.toUnsignedInt(byteAll[0]) << 0);
-				value += (Byte.toUnsignedInt(byteAll[1]) << 8);
-				value += (Byte.toUnsignedInt(byteAll[2]) << 16);
-				value += (Byte.toUnsignedInt(byteAll[3]) << 24);
-				if (signExtension && isSignBitSet(byteAll[3])) {
+				value += ((byteAll[0].intValue()) << 0);
+				value += ((byteAll[1].intValue()) << 8);
+				value += ((byteAll[2].intValue()) << 16);
+				value += ((byteAll[3].intValue()) << 32);
+				if (signExtension) {
 					value = twoComplement(value);
 				}
 				break;
@@ -109,6 +133,21 @@ public class I32 extends Int {
 						"I32 Constructor Illegal value in length.  Valid values are 8, 16, 24, 32.    Length =  " + length);
 			}
 		}
+
+	}
+
+	/**
+	 * Get an array of the bytes.  Big Endian.
+	 *
+	 * @return array of bytes.
+	 */
+	public ByteUnsigned[] getBytes() {
+		ByteUnsigned[] byteAll = new ByteUnsigned[4];
+		byteAll[3] = new ByteUnsigned((value >>> 0) & 0x0000_00FF);
+		byteAll[2] = new ByteUnsigned((value >>> 8) & 0x0000_00FF);
+		byteAll[1] = new ByteUnsigned((value >>> 16) & 0x0000_00FF);
+		byteAll[0] = new ByteUnsigned((value >>> 24) & 0x0000_00FF);
+		return byteAll;
 	}
 
 	private String toHex(Long value) {
@@ -218,7 +257,7 @@ public class I32 extends Int {
 
 	@Override
 	public String toString() {
-		String result = "I32{ value = " + value + " (hex = ~" + toHex(value) + ") }";
+		String result = "I32{ value = " + value + " (hex = " + toHex(value) + ") }";
 		return result;
 	}
 }
