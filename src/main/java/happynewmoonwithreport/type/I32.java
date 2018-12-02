@@ -68,11 +68,18 @@ public class I32 extends Int {
 
 	public I32(Byte[] byteAll, Integer length, Boolean signExtension) {
 		this();
+
 		ByteUnsigned[] buAll = new ByteUnsigned[4];
 		buAll[0] = new ByteUnsigned(byteAll[0]);
-		buAll[1] = new ByteUnsigned(byteAll[1]);
-		buAll[2] = new ByteUnsigned(byteAll[2]);
-		buAll[3] = new ByteUnsigned(byteAll[3]);
+		if (16 <= length) {
+			buAll[1] = new ByteUnsigned(byteAll[1]);
+		}
+		if (24 <= length) {
+			buAll[2] = new ByteUnsigned(byteAll[2]);
+		}
+		if (32 <= length) {
+			buAll[3] = new ByteUnsigned(byteAll[3]);
+		}
 
 		create(buAll, length, signExtension);
 	}
@@ -122,7 +129,7 @@ public class I32 extends Int {
 				value += ((byteAll[0].intValue()) << 0);
 				value += ((byteAll[1].intValue()) << 8);
 				value += ((byteAll[2].intValue()) << 16);
-				value += ((byteAll[3].intValue()) << 32);
+				value += ((byteAll[3].intValue()) << 24);
 				if (signExtension) {
 					value = twoComplement(value);
 				}

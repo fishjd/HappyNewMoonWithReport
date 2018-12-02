@@ -21,7 +21,7 @@ import org.junit.jupiter.params.converter.SimpleArgumentConverter;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
- * jUnit 5 argument converter.  Converts a String byte array;
+ * jUnit 5 argument converter.  Converts a String to a Byte array;
  * <p>
  * <b>Source:</b>  <a href="http://junit.org/junit5/docs/current/user-guide/#writing-tests-parameterized-tests-argument-conversion-explicit"
  * target="_top">

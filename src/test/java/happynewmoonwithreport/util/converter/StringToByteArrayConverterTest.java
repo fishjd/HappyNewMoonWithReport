@@ -41,21 +41,21 @@ class StringToByteArrayConverterTest {
 	@Test
 	void convert() {
 		// run
-		byte[] result = (byte[]) converter.convert("CDFE70", byte[].class);
+		Byte[] result = (Byte[]) converter.convert("CDFE70", byte[].class);
 
 		// verify
-		assertEquals((byte) 0x70, result[0]);
-		assertEquals((byte) 0xFE, result[1]);
-		assertEquals((byte) 0xCD, result[2]);
+		assertEquals(new Byte((byte)0x70), result[0]);
+		assertEquals(new Byte((byte)0xFE), result[1]);
+		assertEquals(new Byte((byte)0xCD), result[2]);
 
 	}
 
 	@Test
 	void convertFF() {
 		// run
-		byte[] result = (byte[]) converter.convert("FF", byte[].class);
+		Byte[] result = (Byte[]) converter.convert("FF", byte[].class);
 
 		// verify
-		assertEquals((byte) 0xFF, result[0]);
+		assertEquals(new Byte((byte)0xFF), result[0]);
 	}
 }
