@@ -99,7 +99,6 @@ import java.util.UUID;
  * Push the value t.const c  to the stack.
  * </li>
  * </ol>
- *
  */
 public class I32_load8_s extends LoadBase {
 
@@ -107,7 +106,7 @@ public class I32_load8_s extends LoadBase {
 	private WasmFrame frame;
 	private WasmStore store;
 	private WasmStack stack;
-	private U32  N;  // the length;
+	private U32 N;  // the length;
 	private Boolean signExtension;
 
 	private I32_load8_s() {
@@ -214,6 +213,7 @@ public class I32_load8_s extends LoadBase {
 
 
 	}
+
 
 
 }
