@@ -23,7 +23,7 @@ import happynewmoonwithreport.opcode.Memory.I32_load8_u;
 import happynewmoonwithreport.opcode.Memory.I32_store;
 import happynewmoonwithreport.type.*;
 import happynewmoonwithreport.type.utility.Hex;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
 
 import java.util.UUID;
 
@@ -76,7 +76,7 @@ public class WasmInstance implements WasmInstanceInterface {
 	 */
 	public WasmInstance(WasmModule module, WasmImport wasmImport) {
 		this();
-		throw new NotImplementedException();
+		throw new RuntimeException("Not Implemented");
 	}
 
 	/**
