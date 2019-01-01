@@ -72,12 +72,12 @@ class I32_store8Test extends Specification {
 		stack.push(new I32(2));  // store bytes starting at 2
 
 		// create a value to store
-		ByteUnsigned[] baStoreThis = new ByteUnsigned[4];
-		baStoreThis[0] = new ByteUnsigned(0x7C);
-		baStoreThis[1] = new ByteUnsigned(0x7D);
-		baStoreThis[2] = new ByteUnsigned(0x7E);
-		baStoreThis[3] = new ByteUnsigned(0x7F);
-		I32 storeThis = new I32(baStoreThis);
+		ByteUnsigned[] abuStoreThis = new ByteUnsigned[4];
+		abuStoreThis[0] = new ByteUnsigned(0x7C);
+		abuStoreThis[1] = new ByteUnsigned(0x7D);
+		abuStoreThis[2] = new ByteUnsigned(0x7E);
+		abuStoreThis[3] = new ByteUnsigned(0x7F);
+		I32 storeThis = new I32(abuStoreThis);
 
 		// add to the stack
 		stack.push(storeThis);
