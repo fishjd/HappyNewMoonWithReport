@@ -17,17 +17,21 @@
 package happynewmoonwithreport.opcode.Memory;
 
 
+import java.util.UUID;
+
 import happynewmoonwithreport.WasmFrame;
 import happynewmoonwithreport.WasmRuntimeException;
 import happynewmoonwithreport.WasmStack;
 import happynewmoonwithreport.WasmStore;
-import happynewmoonwithreport.type.*;
+import happynewmoonwithreport.type.I32;
 import happynewmoonwithreport.type.JavaType.ByteUnsigned;
-
-import java.util.UUID;
+import happynewmoonwithreport.type.MemoryArgument;
+import happynewmoonwithreport.type.MemoryType;
+import happynewmoonwithreport.type.U32;
+import happynewmoonwithreport.type.UInt32;
 
 /**
- * <h1>i32_store8</h1> Load an 8 from the stack to memory.
+ * <h1>i32_store16</h1> Load 16 bits from the stack to memory.
  * <p>
  * <p>
  * Memory Instructions<br>
@@ -135,18 +139,18 @@ import java.util.UUID;
  * </li>
  * </ol>
  */
-public class I32_store8 extends LoadBase {
+public class I32_store16 extends LoadBase {
 
 	private MemoryArgument memoryArgument;
 	private WasmFrame frame;
 	private WasmStore store;
 	private WasmStack stack;
 
-	private I32_store8() {
+	private I32_store16() {
 		super();
 	}
 
-	public I32_store8(MemoryArgument memoryArgument, WasmFrame frame, WasmStore store, WasmStack stack) {
+	public I32_store16(MemoryArgument memoryArgument, WasmFrame frame, WasmStore store, WasmStack stack) {
 		this();
 		this.memoryArgument = memoryArgument;
 		this.frame = frame;
@@ -159,7 +163,7 @@ public class I32_store8 extends LoadBase {
 	 * Execute the opcode.
 	 */
 	public void execute() {
-		U32 N = new U32(8);
+		U32 N = new U32(16);
 		U32 t = new U32(32);
 		Object T = new I32(0);
 
@@ -170,7 +174,7 @@ public class I32_store8 extends LoadBase {
 		UInt32 memoryIndex = new UInt32(0);
 		final Boolean memoryExists = frame.getModule().memoryExists(memoryIndex);
 		if (memoryExists == false) {
-			throw new WasmRuntimeException(UUID.fromString("1b1ccfdc-892c-4d12-b6a8-f15e5986f0a4"),
+			throw new WasmRuntimeException(UUID.fromString("fca5ea7c-cb2d-4d23-9d07-c5c98291e984"),
 					"Memory %s does not exists", memoryIndex);
 		}
 
@@ -180,7 +184,7 @@ public class I32_store8 extends LoadBase {
 		// 4. Assert: due to validation, S.mems[a] exists.
 		final Boolean memoryTypeExists = store.getMemoryAll().contains(a);
 		if (memoryTypeExists == false) {
-			throw new WasmRuntimeException(UUID.fromString("c2ceaaf8-3872-4050-aa20-c503053c9a29"),
+			throw new WasmRuntimeException(UUID.fromString("034f36d9-c56f-4585-ba5a-a9af1430938b"),
 					"Memory type %s does not exists", a);
 
 		}
@@ -190,7 +194,7 @@ public class I32_store8 extends LoadBase {
 
 		// 6. Assert: due to validation, a value of value type t is on the top of the stack.
 		if ((stack.peek() instanceof I32) == false) {
-			throw new WasmRuntimeException(UUID.fromString("4302d8c6-79cb-40df-a776-516b5e1e3f9d"),
+			throw new WasmRuntimeException(UUID.fromString("bbfeab8e-8c59-4c77-929d-03df520a0d5b"),
 					"I32_Store: Step 6: Value type on stack is incorrect.  Expected I32 but type was " + stack.peek().toString());
 		}
 
@@ -199,7 +203,7 @@ public class I32_store8 extends LoadBase {
 
 		// 8. Assert: due to validation, a value of value type I32 is on the top of the stack.
 		if ((stack.peek() instanceof I32) == false) {
-			throw new WasmRuntimeException(UUID.fromString("09a2e693-ea94-4040-8e53-02f4cf54cdb6"),
+			throw new WasmRuntimeException(UUID.fromString("91131cdf-141c-4349-8471-c628b4e64500"),
 					"I32_Store: Step 8: Value type on stack is incorrect.  Expected I32 but type was " + stack.peek().toString());
 		}
 
@@ -223,7 +227,7 @@ public class I32_store8 extends LoadBase {
 		if (mem.hasMaximum().integerValue() == 1) {  // not in the webassembly specification.  This may line may be incorrect.
 			Long memLength = mem.maximum().longValue();
 			if (memLength < length) {
-				throw new WasmRuntimeException(UUID.fromString("8486a6d2-31b4-4035-bf27-1d76739bf309"),
+				throw new WasmRuntimeException(UUID.fromString("f51531f2-2f68-462c-a4ab-c8c76c574ffb"),
 						"I32_Store: Step12: Trap.  Address  + size is too large. length = " + length + " memoryLength = " + memLength);
 			}
 		}
@@ -240,7 +244,8 @@ public class I32_store8 extends LoadBase {
 		// ByteUnsigned[] bytes = c.getBytes();
 
 		// 15. Replace the bytes mem.data[ea:N/8] with b*.
-		mem.set(ea.integerValue() + 0, bytes[3]);
+		mem.set(ea.integerValue() + 0, bytes[2]);
+		mem.set(ea.integerValue() + 1, bytes[3]);
 
 	}
 
