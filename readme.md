@@ -105,7 +105,7 @@ Data Section:  To Do
 - [ ] i64_store 0x37
 - [ ] f32_store 0x38
 - [ ] f64_store 0x39
-- [ ] i32_store-8 0x3A
+- [X] i32_store-8 0x3A
 - [ ] i32_store-16 0x3B
 - [ ] i64_store-8 0x3C
 - [ ] i64_store-16 0x3D
