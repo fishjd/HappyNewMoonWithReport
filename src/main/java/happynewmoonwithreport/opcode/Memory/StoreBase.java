@@ -32,8 +32,8 @@ import happynewmoonwithreport.type.UInt32;
 
 /**
  * <h1>i32_storeN </h1> Store N bits from the stack to memory.
- * <p>
- * <p>
+ * <br>
+ * <br>
  * Memory Instructions<br>
  * <p>
  * <b>Source:</b>
@@ -57,7 +57,6 @@ import happynewmoonwithreport.type.UInt32;
  * <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-storen"
  * target="_top"> https://webassembly.github.io/spec/core/exec/instructions.html#exec-storen
  * </a>
- * <p>
  * <h2>t.store memarg and t.storeN memarg</h2>
  * <ol>
  * <li>
@@ -109,13 +108,12 @@ import happynewmoonwithreport.type.UInt32;
  * If N is part of the instruction, then:
  * <ul>
  * <li>
- * Let n
- * <p>
- * be the result of computing wrap|t|,N(c)
+ * Let n be the result of computing wrap|t|,N(c)
  * </li>
- * <li>.
+ * <li>
  * Let b* be the byte sequence bytesiN(n)
  * </li>
+ * </ul>
  * </li>
  * <li>
  * Else:
@@ -262,7 +260,10 @@ public abstract class StoreBase {
 	 * target="_top"> https://webassembly.github.io/spec/core/exec/numerics.html#op-wrap
 	 * </a>
 	 *
-	 * @return
+	 * @param N Number of bits to mask.
+	 * @param i input value.
+	 * @return the value with only the right most 2<sup>N</sup> bits set.  The high bits are set to
+	 * zero.
 	 */
 	public static Integer wrap(// Integer M,
 		Integer N, Integer i) {

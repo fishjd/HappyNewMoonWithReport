@@ -21,13 +21,12 @@ import happynewmoonwithreport.BytesFile;
 /**
  * A unsigned Integer of N bits.
  * <p>
- * Stored in the wasm file as a LEB128 variable-length integer, limited to N bits (i.e., the values [0,
- * 2^N-1]), represented by at most ceil(N/7) bytes that may contain padding 0x80
- * bytes.
+ * Stored in the wasm file as a LEB128 variable-length integer, limited to N bits (i.e., the values
+ * [0, 2^N-1]), represented by at most ceil(N/7) bytes that may contain padding 0x80 bytes.
  * <p>
- * <p>
- * Used to read and write to the wasm file. This project tends to use the 'main' integer types Int32, Int64, UInt32,
- * UInt64.  The recommend use is to convert to a 'main' type as soon as possible.
+ * Used to read and write to the wasm file. This project tends to use the 'main' integer types
+ * Int32, Int64, UInt32, UInt64.  The recommend use is to convert to a 'main' type as soon as
+ * possible.
  * <p>
  * Usage:
  * <pre>
@@ -41,7 +40,7 @@ import happynewmoonwithreport.BytesFile;
  * </a>
  */
 public final class VarUInt32 extends UInt32
-		// implements DataTypeNumber<Long>
+	// implements DataTypeNumber<Long>
 {
 
 	@SuppressWarnings("unused")
@@ -76,8 +75,6 @@ public final class VarUInt32 extends UInt32
 
 	@Override
 	public String toString() {
-		return "VarUInt32{" +
-				"value=" + value +
-				"} ";
+		return "VarUInt32{" + "value=" + value + "} ";
 	}
 }

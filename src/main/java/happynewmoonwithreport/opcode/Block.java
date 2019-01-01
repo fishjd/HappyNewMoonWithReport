@@ -23,7 +23,6 @@ import happynewmoonwithreport.WasmLabel;
 
 /**
  * Block
- * <p>
  * <ol>
  * <li>
  * Let n be the arity |t?| of the result type t?.
@@ -34,9 +33,9 @@ import happynewmoonwithreport.WasmLabel;
  * </li>
  * </ol>
  * <p>
- * <p>
- * Source:  <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-block" target="_top">
- * https://webassembly.github.io/spec/core/exec/instructions.html#exec-block
+ * Source:
+ * <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-block" target="_top">
+ *     https://webassembly.github.io/spec/core/exec/instructions.html#exec-block
  * </a>
  */
 public class Block {

@@ -17,13 +17,13 @@
 package happynewmoonwithreport.opcode;
 
 
+import java.util.UUID;
+
 import happynewmoonwithreport.WasmInstanceInterface;
 import happynewmoonwithreport.WasmRuntimeException;
 import happynewmoonwithreport.WasmStack;
 import happynewmoonwithreport.type.I32;
 import happynewmoonwithreport.type.S32;
-
-import java.util.UUID;
 
 /**
  * I32 Less than Signed  (i32_lt_s)
@@ -49,8 +49,6 @@ import java.util.UUID;
  * <p>
  * </li>
  * </ol>
- * <p>
- * <p>
  * Source:  <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-relop" target="_top">
  * https://webassembly.github.io/spec/core/exec/instructions.html#exec-relop
  * </a>
@@ -75,13 +73,13 @@ public class I32_lt_s {
 		WasmStack<Object> stack = instance.stack();
 		if ((stack.peek() instanceof I32) == false) {
 			throw new WasmRuntimeException(UUID.fromString("f214f3d9-5925-4018-930d-1990780f5eaf"),
-					"I32_lt_s: Value2 type is incorrect");
+										   "I32_lt_s: Value2 type is incorrect");
 		}
 		I32 value2 = (I32) stack.pop();
 
 		if ((stack.peek() instanceof I32) == false) {
 			throw new WasmRuntimeException(UUID.fromString("7fcc3127-70de-4d69-82bf-b9347d3db299"),
-					"I32_lt_s: Value1 type is incorrect");
+										   "I32_lt_s: Value1 type is incorrect");
 		}
 		I32 value1 = (I32) stack.pop();
 

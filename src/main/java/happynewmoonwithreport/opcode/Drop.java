@@ -25,9 +25,8 @@ import java.util.UUID;
 
 /**
  * Drop (Drop) - pop a value off the stack.   The value is discarded.
- * <p>
  * <ol>
- * <li>Assert: due to validation, a value is on the top of the stack.</li
+ * <li>Assert: due to validation, a value is on the top of the stack.</li>
  * <li>Pop the value from the stack.</li>
  * </ol>
  * Source:  <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-drop" target="_top">

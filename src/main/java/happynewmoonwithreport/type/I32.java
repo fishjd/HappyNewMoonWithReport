@@ -16,15 +16,13 @@
  */
 package happynewmoonwithreport.type;
 
+import java.util.UUID;
+
 import happynewmoonwithreport.WasmRuntimeException;
 import happynewmoonwithreport.type.JavaType.ByteUnsigned;
 
-import java.util.UUID;
-
 /**
  * Signed Integer
- *
- * @param
  */
 public class I32 extends Int {
 
@@ -43,7 +41,8 @@ public class I32 extends Int {
 		this();
 		if (isBoundByInteger(value) == false) {
 			throw new WasmRuntimeException(UUID.fromString("62298944-804a-430e-b645-7bda0ecab265"),
-					"Value not bound by integer. Value = " + value + " (" + toHex(value) + ")");
+										   "Value not bound by integer. Value = " + value + " ("
+											   + toHex(value) + ")");
 		}
 		this.value = value.intValue();
 	}
@@ -85,12 +84,11 @@ public class I32 extends Int {
 	}
 
 	/**
-	 * Create an I32 using a Byte array, length, and sign extension.
-	 * Big Endian.
+	 * Create an I32 using a Byte array, length, and sign extension. Big Endian.
 	 *
-	 * @param byteAll
-	 * @param length
-	 * @param signExtension
+	 * @param byteAll       an array of unsigned bytes
+	 * @param length        length
+	 * @param signExtension is this a signed value?  True = signed.
 	 */
 	public I32(ByteUnsigned[] byteAll, Integer length, Boolean signExtension) {
 		this();
@@ -136,8 +134,11 @@ public class I32 extends Int {
 				break;
 			}
 			default: {
-				throw new WasmRuntimeException(UUID.fromString("f8d78ad2-67ed-441f-a327-6df48f2afca7"),
-						"I32 Constructor Illegal value in length.  Valid values are 8, 16, 24, 32.    Length =  " + length);
+				throw new WasmRuntimeException(
+					UUID.fromString("f8d78ad2-67ed-441f-a327-6df48f2afca7"),
+					"I32 Constructor Illegal value in length.  Valid values are 8, 16, 24, 32.    "
+						+ "Length =  "
+						+ length);
 			}
 		}
 
@@ -198,7 +199,7 @@ public class I32 extends Int {
 	/**
 	 * use IntegerValue();
 	 *
-	 * @return
+	 * @return Integer Value
 	 */
 	@Deprecated
 	public Integer getValue() {
@@ -249,8 +250,12 @@ public class I32 extends Int {
 
 	@Override
 	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (!(o instanceof I32)) return false;
+		if (this == o) {
+			return true;
+		}
+		if (!(o instanceof I32)) {
+			return false;
+		}
 
 		I32 i32 = (I32) o;
 

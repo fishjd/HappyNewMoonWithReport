@@ -16,9 +16,9 @@
  */
 package happynewmoonwithreport;
 
-import happynewmoonwithreport.type.utility.Hex;
-
 import java.util.Arrays;
+
+import happynewmoonwithreport.type.utility.Hex;
 
 /**
  * An byte array with an index. Created by James Haring on 2017-07-18.
@@ -31,9 +31,9 @@ public class BytesFile {
 		this(bytesAll, 0);
 	}
 
-//    public BytesFile(byte... bytes) {
-//        this.bytesAll = bytes;
-//    }
+	//    public BytesFile(byte... bytes) {
+	//        this.bytesAll = bytes;
+	//    }
 
 	public BytesFile(byte[] bytesAll, Integer index) {
 		this.bytesAll = bytesAll;
@@ -54,8 +54,8 @@ public class BytesFile {
 	/**
 	 * Get the bytes starting at index.
 	 *
-	 * @param  number bytes desired
-	 * @return  bytes array
+	 * @param length bytes desired
+	 * @return bytes array
 	 */
 	public byte[] getBytes(Integer length) {
 		byte[] tempBytesAll = Arrays.copyOfRange(bytesAll, index, index + length);
@@ -97,11 +97,9 @@ public class BytesFile {
 
 	@Override
 	public String toString() {
-		String result = "BytesFile{" +
-				"current byte = " + Hex.byteToHex(bytesAll[index]) +
-				", index = " + index + " (0x" + Integer.toHexString(index) + ") " +
-				", bytesAll = " + Arrays.toString(bytesAll) +
-				", bytesAll in Hex = " + Hex.bytesToHex(bytesAll);
+		String result = "BytesFile{" + "current byte = " + Hex.byteToHex(bytesAll[index])
+			+ ", index = " + index + " (0x" + Integer.toHexString(index) + ") " + ", bytesAll = "
+			+ Arrays.toString(bytesAll) + ", bytesAll in Hex = " + Hex.bytesToHex(bytesAll);
 		result += ", bytesAll = ";
 		for (Byte myByte : bytesAll) {
 			result += myByte.toString() + "(" + Hex.byteToHex(myByte) + ") ";

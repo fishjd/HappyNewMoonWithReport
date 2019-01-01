@@ -17,36 +17,41 @@
 package happynewmoonwithreport.opcode.Memory;
 
 
+import java.util.UUID;
+
 import happynewmoonwithreport.WasmFrame;
 import happynewmoonwithreport.WasmRuntimeException;
 import happynewmoonwithreport.WasmStack;
 import happynewmoonwithreport.WasmStore;
-import happynewmoonwithreport.type.*;
+import happynewmoonwithreport.type.I32;
 import happynewmoonwithreport.type.JavaType.ByteUnsigned;
-
-import java.util.UUID;
+import happynewmoonwithreport.type.MemoryArgument;
+import happynewmoonwithreport.type.MemoryType;
+import happynewmoonwithreport.type.U32;
+import happynewmoonwithreport.type.UInt32;
 
 /**
  * <h1>i32_load8_s</h1> Load an i8 Signed value from memory to the stack.
- * <p>
- * <p>
+ * <br>
+ * <br>
  * Memory Overview<br>
- * <b>Source:</b>  <a href="https://webassembly.github.io/spec/core/syntax/instructions.html#syntax-instr-memory" target="_top">
+ * <b>Source:</b>
+ * <a href="https://webassembly.github.io/spec/core/syntax/instructions.html#syntax-instr-memory"
+ * target="_top">
  * https://webassembly.github.io/spec/core/syntax/instructions.html#syntax-instr-memory
  * </a>
- * </p>
  * <p>
- * <b>Source:</b>  <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-load" target="_top">
+ * <b>Source:</b>
+ * <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-load"
+ * target="_top">
  * https://webassembly.github.io/spec/core/exec/instructions.html#exec-load
  * </a>
- * <p>
  * <h2>t.load memarg and t.loadN_sx memarg</h2>
  * <ol>
  * <li>
  * Let F be the current frame.
  * </li><li>
- * Assert: due to validation, F.module.memaddrs[0]
- * exists.
+ * Assert: due to validation, F.module.memaddrs[0] exists.
  * </li><li>
  * Let a be the memory address F.module.memaddrs[0].
  * </li><li>
@@ -108,7 +113,8 @@ public class I32_load8_u extends LoadBase {
 		N = new U32(8L);
 	}
 
-	public I32_load8_u(MemoryArgument memoryArgument, WasmFrame frame, WasmStore store, WasmStack stack) {
+	public I32_load8_u(MemoryArgument memoryArgument, WasmFrame frame, WasmStore store,
+		WasmStack stack) {
 		this();
 		this.memoryArgument = memoryArgument;
 		this.frame = frame;
@@ -129,7 +135,7 @@ public class I32_load8_u extends LoadBase {
 		final Boolean memoryExists = frame.getModule().memoryExists(memoryIndex);
 		if (memoryExists == false) {
 			throw new WasmRuntimeException(UUID.fromString("35030ef5-2f4a-496c-8e67-06245e05d56d"),
-					"Memory %s does not exists", memoryIndex);
+										   "Memory %s does not exists", memoryIndex);
 		}
 
 		// 3. Let a be the memory address F.module.memaddrs[0].
@@ -139,7 +145,7 @@ public class I32_load8_u extends LoadBase {
 		final Boolean memoryTypeExists = store.getMemoryAll().contains(a);
 		if (memoryTypeExists == false) {
 			throw new WasmRuntimeException(UUID.fromString("3e1eac11-9acd-46e4-ab62-08e34f3e3f2b"),
-					"Memory type %s does not exists", a);
+										   "Memory type %s does not exists", a);
 		}
 
 		// 5. Let mem be the memory instance S.mems[a].
@@ -148,7 +154,9 @@ public class I32_load8_u extends LoadBase {
 		// 6. Assert: due to validation, a value of value type i32 is on the top of the stack.
 		if ((stack.peek() instanceof I32) == false) {
 			throw new WasmRuntimeException(UUID.fromString("edba1731-664f-4756-9374-1365e8b19a7a"),
-					"I32_load: Step 6: Value type  on stack is incorrect.  Expected I32 but type was " + stack.peek().toString());
+										   "I32_load: Step 6: Value type  on stack is incorrect.  "
+											   + "Expected I32 but type was "
+											   + stack.peek().toString());
 		}
 
 		// 7. Pop the value i32.const i from the stack.
@@ -166,11 +174,14 @@ public class I32_load8_u extends LoadBase {
 		// 10. If ea+N/8 is larger than the length of mem.data , then:
 		//        a: Trap.
 		Long length = ea.longValue() + (N.longValue() / 8);
-		if (mem.hasMaximum().integerValue() == 1) {  // not is spec.  This may line may be incorrect.
+		if (mem.hasMaximum().integerValue()
+			== 1) {  // not is spec.  This may line may be incorrect.
 			Long memLength = mem.maximum().longValue();
 			if (length > memLength) {
-				throw new WasmRuntimeException(UUID.fromString("518fe904-05b5-492f-9a78-d89b30bb6551"),
-						"I32_load: Step 10: Trap.  Address  + size is too large. length = " + length + " memoryLength = " + memLength);
+				throw new WasmRuntimeException(
+					UUID.fromString("518fe904-05b5-492f-9a78-d89b30bb6551"),
+					"I32_load: Step 10: Trap.  Address  + size is too large. length = " + length
+						+ " memoryLength = " + memLength);
 			}
 		}
 

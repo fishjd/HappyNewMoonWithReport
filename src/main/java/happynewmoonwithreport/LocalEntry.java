@@ -22,12 +22,14 @@ import happynewmoonwithreport.type.VarUInt32;
 /**
  * <h1>Local Entry</h1>
  * <p>
- * Each local entry declares a number of local variables of a given type. It is legal to have several entries with the
- * same type.
+ * Each local entry declares a number of local variables of a given type. It is legal to have
+ * several entries with the same type.
  * </p>
- * <table  summary="Local Entry Table ">
+ * <table  >
+ * <caption>Local Entry Table</caption>
  * <tr> <th>Field</th> 	<th>Type</th> 	<th>Description</th> </tr>
- * <tr><td>count</td><td>	varuint32 </td><td>	number of local variables of the following type </td></tr>
+ * <tr><td>count</td><td>	varuint32 </td><td>	number of local variables of the following type
+ * </td></tr>
  * <tr><td>type</td><td>value_type </td><td>	type of the variables</td></tr>
  * </table>
  */

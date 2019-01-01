@@ -17,23 +17,22 @@
 package happynewmoonwithreport.opcode;
 
 
+import java.util.UUID;
+
 import happynewmoonwithreport.WasmInstanceInterface;
 import happynewmoonwithreport.WasmTrapException;
 
-import java.util.UUID;
-
 /**
  * Unreachable
- * <p>
  * <ol>
  * <li>
  * Trap i.e. Throw WasmTrapException.
  * </li>
  * </ol>
  * <p>
- * <p>
- * Source:  <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-unreachable" target="_top">
- * https://webassembly.github.io/spec/core/exec/instructions.html#exec-unreachable
+ * Source:<p>
+ *     <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-unreachable"
+ * target="_top"> https://webassembly.github.io/spec/core/exec/instructions.html#exec-unreachable
  * </a>
  */
 public class Unreachable {
@@ -53,6 +52,6 @@ public class Unreachable {
 	 */
 	public void execute() {
 		throw new WasmTrapException(UUID.fromString("e496383f-377d-4090-9cff-64bdfc50a32e"),
-				"Unreachable code tried to execute!");
+									"Unreachable code tried to execute!");
 	}
 }

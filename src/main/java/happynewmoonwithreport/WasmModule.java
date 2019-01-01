@@ -189,7 +189,7 @@ public class WasmModule {
 	/**
 	 * Add a memory.   Used for testing.
 	 *
-	 * @param memoryToAdd
+	 * @param memoryToAdd memory to add to the module.
 	 */
 	public void addMemory(MemoryType memoryToAdd) {
 		memoryAll.add(memoryToAdd);

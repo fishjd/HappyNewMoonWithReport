@@ -21,15 +21,13 @@ import happynewmoonwithreport.WasmInstanceInterface;
 
 /**
  * No Operation - Do Nothing
- * <p>
  * <ol>
  * <li>
  * Do Nothing
  * </li>
  * </ol>
- * <p>
- * <p>
- * Source:  <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-nop" target="_top">
+ * Source:
+ * <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-nop"target="_top">
  * https://webassembly.github.io/spec/core/exec/instructions.html#exec-nop
  * </a>
  */

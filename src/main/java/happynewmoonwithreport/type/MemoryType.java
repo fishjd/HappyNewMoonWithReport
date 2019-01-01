@@ -23,18 +23,15 @@ import happynewmoonwithreport.type.JavaType.ByteUnsigned;
 
 /**
  * Memory Type,
- * <p>
- * <p>
+ * <br>
+ * <br>
  * Source:  <a href="http://webassembly.org/docs/binary-encoding/#memory_type" target="_top">
  * http://webassembly.org/docs/binary-encoding/#memory_type
  * </a>
  * <p>
- * <p>
  * Source:  <a href="https://webassembly.github.io/spec/syntax/types.html#memory-types" target="_top">
  * https://webassembly.github.io/spec/syntax/types.html#memory-types
  * </a>
- * <p>
- * <p>
  * Source:  <a href="https://webassembly.github.io/spec/core/exec/runtime.html#memory-instances" target="_top">
  * https://webassembly.github.io/spec/core/exec/runtime.html#memory-instances
  * </a>
@@ -75,8 +72,8 @@ public class MemoryType implements Validation {
 	/**
 	 * The limits must be valid.
 	 * <p>
-	 * source:  <a href="https://webassembly.github.io/spec/valid/types.html#memory-types" target="_top">
-	 * https://webassembly.github.io/spec/valid/types.html#memory-types
+	 * source:  <a href="https://webassembly.github.io/spec/valid/types.html#memory-types"
+	 * target="_top"> https://webassembly.github.io/spec/valid/types.html#memory-types
 	 * </a>
 	 *
 	 * @return true if valid.
@@ -101,9 +98,7 @@ public class MemoryType implements Validation {
 	 * <p>
 	 * Usage :
 	 * <code>
-	 * if (hasMaximum()) {
-	 * max = maximum();
-	 * }
+	 * if (hasMaximum()) { max = maximum(); }
 	 * </code>
 	 * <p>
 	 * Throws RuntimeException is maximum is not set.
@@ -115,10 +110,9 @@ public class MemoryType implements Validation {
 	}
 
 	/**
-	 * 1 = has max
-	 * 0 = does not have max.
+	 * Does Memory contain a maximum value 1 = has max 0 = does not have max.
 	 *
-	 * @return
+	 * @return hasMaximum
 	 */
 	public UInt8 hasMaximum() {
 		return limit.hasMaximum();

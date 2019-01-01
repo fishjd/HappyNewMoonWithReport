@@ -25,8 +25,8 @@ import happynewmoonwithreport.type.WasmVector;
  * time of the abstract machine.
  * <p>
  * The Store is represented by capital <b><i>S</i></b> in wasm documentation.
- * <p>
- * <p>
+ * <br>
+ * <br>
  * Source:  <a href="https://webassembly.github.io/spec/core/exec/runtime.html#store" target="_top">
  * https://webassembly.github.io/spec/core/exec/runtime.html#store
  * </a>

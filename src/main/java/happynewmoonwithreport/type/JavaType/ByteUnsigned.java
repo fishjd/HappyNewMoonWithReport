@@ -19,11 +19,10 @@ package happynewmoonwithreport.type.JavaType;
 import static java.lang.Integer.compare;
 
 /**
- * The {@code ByteUnsigned} class wraps a value of primitive type {@code byte}
- * in an object.
+ * The {@code ByteUnsigned} class wraps a value of primitive type {@code byte} in an object.
  * <p>
- * This is a copy of the Java class {@code Byte},  the differene is the 8 bits are
- * interperted to be unsigned 0 - 255 instead of -128 to 127.
+ * This is a copy of the Java class {@code Byte},  the differene is the 8 bits are interperted to be
+ * unsigned 0 - 255 instead of -128 to 127.
  *
  * @author James Haring
  * @see java.lang.Number
@@ -46,14 +45,14 @@ public final class ByteUnsigned extends Number implements Comparable<ByteUnsigne
 	private final short value;
 
 	/**
-	 * Constructs a newly allocated {@code ByteUnsigned} object that
-	 * represents the specified {@code byte} value.
+	 * Constructs a newly allocated {@code ByteUnsigned} object that represents the specified
+	 * {@code
+	 * byte} value.
 	 * <p>
 	 * The input is interperted as an unsigned value (0-255).
 	 * </p>
 	 *
-	 * @param value the value to be represented by the
-	 * {@code ByteUnsigned}.
+	 * @param value the value to be represented by the {@code ByteUnsigned}.
 	 */
 	public ByteUnsigned(Byte value) {
 		if (0 <= value) {
@@ -65,10 +64,10 @@ public final class ByteUnsigned extends Number implements Comparable<ByteUnsigne
 	}
 
 	/**
-	 * Construct a {@code ByteUnsigend} from a {@code Byte}.  The input is interperted as a signed value.
+	 * Construct a {@code ByteUnsigend} from a {@code Byte}.  The input is interperted as a signed
+	 * value.
 	 *
 	 * @param b a java Byte -128 to 127
-	 *
 	 * @return a Unsigned Byte.  0 to 127.  Negitive values are converted to zero.
 	 */
 	public static ByteUnsigned fromSignedByte(Byte b) {
@@ -80,12 +79,12 @@ public final class ByteUnsigned extends Number implements Comparable<ByteUnsigne
 	}
 
 	/**
-	 * Construct a {@code ByteUnsigend} from a {@code Byte}.  The input is interperted as an unsigned value (0-255).
+	 * Construct a {@code ByteUnsigend} from a {@code Byte}.  The input is interperted as an
+	 * unsigned value (0-255).
 	 * <p>
 	 * Consider using the constuctor {@code ByteUnsigned(Byte)} instead.
 	 *
 	 * @param b a Java Byte
-	 *
 	 * @return a Unsigned byte.  0-255.
 	 */
 	public static ByteUnsigned from_Un_SignedByte(Byte b) {
@@ -93,11 +92,11 @@ public final class ByteUnsigned extends Number implements Comparable<ByteUnsigne
 	}
 
 	/**
-	 * Constructs a newly allocated {@code ByteUnsigned} object that
-	 * represents the specified {@code byteUnsigned} value.
+	 * Constructs a newly allocated {@code ByteUnsigned} object that represents the specified
+	 * {@code
+	 * byteUnsigned} value.
 	 *
-	 * @param value the value to be represented by the
-	 * {@code Byte}.
+	 * @param value the value to be represented by the {@code Byte}.
 	 */
 	public ByteUnsigned(Integer value) {
 		if (inRange(value)) {
@@ -109,17 +108,13 @@ public final class ByteUnsigned extends Number implements Comparable<ByteUnsigne
 
 
 	/**
-	 * Constructs a newly allocated {@code ByteUnsigned} object that
-	 * represents the {@code byte} value indicated by the
-	 * {@code String} parameter. The string is converted to a
-	 * {@code int} value in exactly the manner used by the
-	 * {@code parseByte} method for radix 10.
+	 * Constructs a newly allocated {@code ByteUnsigned} object that represents the {@code byte}
+	 * value indicated by the {@code String} parameter. The string is converted to a {@code int}
+	 * value in exactly the manner used by the {@code parseByte} method for radix 10.
 	 *
-	 * @param s the {@code String} to be converted to a
-	 * {@code ByteUnsigned}
-	 *
-	 * @throws NumberFormatException If the {@code String}
-	 * does not contain a parsable {@code int} in the range ByteUnsigned.
+	 * @param s the {@code String} to be converted to a {@code ByteUnsigned}
+	 * @throws NumberFormatException If the {@code String} does not contain a parsable {@code int}
+	 *                               in the range ByteUnsigned.
 	 * @see java.lang.Byte#parseByte(java.lang.String, int)
 	 */
 	public ByteUnsigned(String s) throws NumberFormatException {
@@ -139,7 +134,6 @@ public final class ByteUnsigned extends Number implements Comparable<ByteUnsigne
 	 * Returns true if the input value is within the {@code MIN_VALUE} and {@code MAX_VALUE}
 	 *
 	 * @param valueToTest The value to test.
-	 *
 	 * @return true if  {@code @MIN_VALUE <= valueToTest <= @MAX_VALUE}
 	 */
 	public static Boolean inRange(Short valueToTest) {
@@ -165,8 +159,8 @@ public final class ByteUnsigned extends Number implements Comparable<ByteUnsigne
 
 
 	/**
-	 * Returns the value of this {@code Byte} as an {@code int} after
-	 * a widening primitive conversion.
+	 * Returns the value of this {@code Byte} as an {@code int} after a widening primitive
+	 * conversion.
 	 * <p>
 	 * jls 5.1.2 Widening Primitive Conversions
 	 */
@@ -176,8 +170,8 @@ public final class ByteUnsigned extends Number implements Comparable<ByteUnsigne
 	}
 
 	/**
-	 * Returns the value of this {@code Byte} as a {@code long} after
-	 * a widening primitive conversion.
+	 * Returns the value of this {@code Byte} as a {@code long} after a widening primitive
+	 * conversion.
 	 * <p>
 	 * jls 5.1.2 Widening Primitive Conversions
 	 */
@@ -187,8 +181,8 @@ public final class ByteUnsigned extends Number implements Comparable<ByteUnsigne
 	}
 
 	/**
-	 * Returns the value of this {@code Byte} as a {@code float} after
-	 * a widening primitive conversion.
+	 * Returns the value of this {@code Byte} as a {@code float} after a widening primitive
+	 * conversion.
 	 * <p>
 	 * jls 5.1.2 Widening Primitive Conversions
 	 */
@@ -199,8 +193,9 @@ public final class ByteUnsigned extends Number implements Comparable<ByteUnsigne
 
 
 	/**
-	 * Returns the value of this {@code ByteUnsigned} as a {@code double}
-	 * after a widening primitive conversion.
+	 * Returns the value of this {@code ByteUnsigned} as a {@code double} after a widening
+	 * primitive
+	 * conversion.
 	 * <p>
 	 * jls 5.1.2 Widening Primitive Conversions
 	 */
@@ -215,6 +210,8 @@ public final class ByteUnsigned extends Number implements Comparable<ByteUnsigne
 
 	/**
 	 * shift bits to the right
+	 *
+	 * @return value shifted one bit to the right.
 	 */
 	public ByteUnsigned shiftRight() {
 		byte myByte = byteValue();
@@ -224,6 +221,8 @@ public final class ByteUnsigned extends Number implements Comparable<ByteUnsigne
 
 	/**
 	 * shift bits to the Left
+	 *
+	 * @return value shifted one bit to the left.
 	 */
 	public ByteUnsigned shiftLeft() {
 		byte myByte = byteValue();
@@ -235,8 +234,7 @@ public final class ByteUnsigned extends Number implements Comparable<ByteUnsigne
 	/**
 	 * Is the high bit set on the byte?
 	 *
-	 * @return true if the high bit is set.
-	 * false otherwise.
+	 * @return true if the high bit is set. false otherwise.
 	 */
 	public Boolean isSignBitSet() {
 		Boolean result;
@@ -249,15 +247,11 @@ public final class ByteUnsigned extends Number implements Comparable<ByteUnsigne
 	 * Compares two {@code ByteUnsigned} objects numerically.
 	 *
 	 * @param anotherByte the {@code ByteUnsigned} to be compared.
-	 *
-	 * @return the value {@code 0} if this {@code ByteUnsigned} is
-	 * equal to the argument {@code ByteUnsigned}; a value less than
-	 * {@code 0} if this {@code ByteUnsigned} is numerically less
-	 * than the argument {@code ByteUnsigned}; and a value greater than
-	 * {@code 0} if this {@code ByteUnsigned} is numerically
-	 * greater than the argument {@code ByteUnsigned} (signed
+	 * @return the value {@code 0} if this {@code ByteUnsigned} is equal to the argument {@code
+	 * ByteUnsigned}; a value less than {@code 0} if this {@code ByteUnsigned} is numerically less
+	 * than the argument {@code ByteUnsigned}; and a value greater than {@code 0} if this {@code
+	 * ByteUnsigned} is numerically greater than the argument {@code ByteUnsigned} (signed
 	 * comparison).
-	 *
 	 * @since 1.2
 	 */
 	public int compareTo(ByteUnsigned anotherByte) {
@@ -265,31 +259,28 @@ public final class ByteUnsigned extends Number implements Comparable<ByteUnsigne
 	}
 
 	/**
-	 * Returns a {@code String} object representing this
-	 * {@code ByteUnsigend}'s value.  The value is converted to signed
-	 * decimal representation and returned as a string, exactly as if
-	 * the {@code byte} value were given as an argument to the
-	 * {@link java.lang.Byte#toString(byte)} method.
+	 * Returns a {@code String} object representing this {@code ByteUnsigend}'s value.  The
+	 * value is
+	 * converted to signed decimal representation and returned as a string, exactly as if the
+	 * {@code
+	 * byte} value were given as an argument to the {@link java.lang.Byte#toString(byte)} method.
 	 *
-	 * @return a string representation of the value of this object in
-	 * base 10.
+	 * @return a string representation of the value of this object in base 10.
 	 */
 	@Override
 	public String toString() {
-		return Integer.toString((int) value) + "(0x" + Integer.toHexString((int) value) +")";
+		return Integer.toString((int) value) + "(0x" + Integer.toHexString((int) value) + ")";
 	}
 
 	/**
-	 * Returns a {@code String} object representing this
-	 * {@code ByteUnsigend}'s value.  The value is converted to signed
-	 * decimal representation and returned as a string, exactly as if
-	 * the {@code byte} value were given as an argument to the
-	 * {@link java.lang.Byte#toString(byte)} method.
+	 * Returns a {@code String} object representing this {@code ByteUnsigend}'s value.  The
+	 * value is
+	 * converted to signed decimal representation and returned as a string, exactly as if the
+	 * {@code
+	 * byte} value were given as an argument to the {@link java.lang.Byte#toString(byte)} method.
 	 *
 	 * @param radix the base,  usually 10(decimal) or 16(hexidecimal)
-	 *
-	 * @return a string representation of the value of this object in
-	 * base {@code radix}.
+	 * @return a string representation of the value of this object in base {@code radix}.
 	 */
 	public String toString(int radix) {
 		return Integer.toString((int) value, radix);

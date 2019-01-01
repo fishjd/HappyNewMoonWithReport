@@ -50,10 +50,8 @@ import happynewmoonwithreport.type.S64;
  * <p>
  * </li>
  * </ol>
- * <p>
- * <p>
  * Source:  <a href="https://webassembly.github.io/spec/core/appendix/index-instructions.html"
- * target="_top"> https://webassembly.github.io/spec/core/appendix/index-instructions.html </a>
+ * target="_top"> https://webassembly.github.io/spec/core/appendix/index-instructions.html
  * </a>
  */
 public class I64_le_s {
@@ -75,14 +73,14 @@ public class I64_le_s {
 	public void execute() {
 		WasmStack<Object> stack = instance.stack();
 		if ((stack.peek() instanceof I64) == false) {
-		throw new WasmRuntimeException(UUID.fromString("b130e5a2-3cbd-4ebc-a2be-d36bb40297b6"),
-					"I64_le_s: Value2 type is incorrect");
+			throw new WasmRuntimeException(UUID.fromString("b130e5a2-3cbd-4ebc-a2be-d36bb40297b6"),
+										   "I64_le_s: Value2 type is incorrect");
 		}
 		I64 value2 = (I64) stack.pop();
 
 		if ((stack.peek() instanceof I64) == false) {
 			throw new WasmRuntimeException(UUID.fromString("1c5c6417-2756-4e24-aa09-05c0d67deed4"),
-					"I64_le_s: Value1 type is incorrect");
+										   "I64_le_s: Value1 type is incorrect");
 		}
 		I64 value1 = (I64) stack.pop();
 

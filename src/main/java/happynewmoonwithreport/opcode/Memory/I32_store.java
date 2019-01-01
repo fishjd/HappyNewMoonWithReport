@@ -106,9 +106,10 @@ import happynewmoonwithreport.type.U32;
  * <p>
  * be the result of computing wrap|t|,N(c)
  * </li>
- * <li>.
+ * <li>
  * Let b* be the byte sequence bytesiN(n)
  * </li>
+ * </ul>
  * </li>
  * <li>
  * Else:

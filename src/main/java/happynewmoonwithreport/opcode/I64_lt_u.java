@@ -24,7 +24,6 @@ import happynewmoonwithreport.WasmRuntimeException;
 import happynewmoonwithreport.WasmStack;
 import happynewmoonwithreport.type.I32;
 import happynewmoonwithreport.type.I64;
-import happynewmoonwithreport.type.S64;
 import happynewmoonwithreport.type.U64;
 
 /**
@@ -37,11 +36,10 @@ import happynewmoonwithreport.type.U64;
  * from the stack. </li> <li> Let c be the result of computing relopt(c1,c2). </li> <li> Push the
  * value i32.const c to the stack.
  * <p>
- * </li> </ol>
- * <p>
- * <p>
+ * </li>
+ * </ol>
  * Source:  <a href="https://webassembly.github.io/spec/core/appendix/index-instructions.html"
- * target="_top"> https://webassembly.github.io/spec/core/appendix/index-instructions.html </a>
+ * target="_top"> https://webassembly.github.io/spec/core/appendix/index-instructions.html
  * </a>
  */
 public class I64_lt_u {

@@ -23,8 +23,8 @@ import java.util.HashMap;
 
 /**
  * Represent the Mutability flag.
- * <p>
- * <p>
+ * <br>
+ * <br>
  * Source:  <a href="http://webassembly.org/docs/binary-encoding/#global_type" target="_top">
  * http://webassembly.org/docs/binary-encoding/#global_type
  * </a>

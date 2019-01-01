@@ -33,7 +33,7 @@ public class ValueBase implements Validation {
 	/**
 	 * get the value
 	 *
-	 * @return
+	 * @return value
 	 */
 	public String getValue() {
 		return value;
@@ -47,6 +47,8 @@ public class ValueBase implements Validation {
 	 * Find the value and set type and value.  Used in constructors.
 	 *
 	 * @param value value
+	 *
+	 * @return the Key.
 	 */
 	protected Integer calcType(String value) {
 		Integer result = null;

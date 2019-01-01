@@ -60,8 +60,8 @@ public abstract class Int implements DataTypeNumber {
 
 	/**
 	 * Sign extend a byte to an integer.
-	 * <p>
-	 * <p>
+	 * <br>
+	 * <br>
 	 * extend_sM,N(i)
 	 * <ol>
 	 * <li>
@@ -70,7 +70,6 @@ public abstract class Int implements DataTypeNumber {
 	 * Return the two’s complement of j relative to size N.
 	 * </li>
 	 * </ol>
-	 * <p>
 	 * <p>
 	 * <b>Source:</b>  <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-extend-s" target="_top">
 	 * https://webassembly.github.io/spec/core/exec/numerics.html#op-extend-s
@@ -112,9 +111,9 @@ public abstract class Int implements DataTypeNumber {
 	 * https://introcs.cs.princeton.edu/java/61data/
 	 * </a>
 	 *
-	 * @param input
+	 * @param input value to modify
 	 *
-	 * @return the twos complement.
+	 * @return the twos complement of input
 	 */
 	public static int twoComplement(int input) {
 		// ones complement,  i.e flip all the bits, i.e binary negation.

@@ -49,6 +49,7 @@ public class ConstantInt32 {
 
 	/**
 	 * Execute the opcode.
+	 * @param value  value to push on stack.
 	 */
 	public void execute(I32 value) {
 		instance.stack().push(value);

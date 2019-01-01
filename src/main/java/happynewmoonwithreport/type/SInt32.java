@@ -20,8 +20,8 @@ import static happynewmoonwithreport.type.utility.MathWBS.pow2;
 
 /**
  * An signed integer of 8 bits
- * <p>
- * <p>
+ * <br>
+ * <br>
  * Source:  <a href="http://webassembly.org/docs/binary-encoding/#uintn" target="_top">
  * http://webassembly.org/docs/binary-encoding/#uintn
  * </a>
@@ -61,8 +61,6 @@ public class SInt32 extends S32 {
 	/* override of Object **/
 	@Override
 	public String toString() {
-		return "Int8{" +
-				"value=" + value +
-				"} ";
+		return "Int8{" + "value=" + value + "} ";
 	}
 }

@@ -29,7 +29,6 @@ import java.util.UUID;
 /**
  * <h1>i32_load8_s</h1> Load an i8 Signed value from memory to the stack.
  * <p>
- * <p>
  * Memory Overview<br>
  * <b>Source:</b>  <a href="https://webassembly.github.io/spec/core/syntax/instructions.html#syntax-instr-memory" target="_top">
  * https://webassembly.github.io/spec/core/syntax/instructions.html#syntax-instr-memory
@@ -39,7 +38,6 @@ import java.util.UUID;
  * <b>Source:</b>  <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-load" target="_top">
  * https://webassembly.github.io/spec/core/exec/instructions.html#exec-load
  * </a>
- * <p>
  * <h1>t.load memarg and t.loadN_sx memarg</h1>
  *
  * <pre>
