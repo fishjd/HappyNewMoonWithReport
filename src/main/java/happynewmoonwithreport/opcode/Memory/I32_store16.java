@@ -26,7 +26,7 @@ import happynewmoonwithreport.type.MemoryType;
 import happynewmoonwithreport.type.U32;
 
 /**
- * <h1>i32_store</h1> Store an i32 value from the stack to memory.
+ * <h1>i32_store16</h1> Store 16 bits from the stack to memory.
  * <p>
  * Memory Instructions<br>
  * <p>
@@ -102,13 +102,12 @@ import happynewmoonwithreport.type.U32;
  * If N is part of the instruction, then:
  * <ul>
  * <li>
- * Let n
- * <p>
- * be the result of computing wrap|t|,N(c)
+ * Let n be the result of computing wrap|t|,N(c)
  * </li>
- * <li>.
+ * <li>
  * Let b* be the byte sequence bytesiN(n)
  * </li>
+ * </ul>
  * </li>
  * <li>
  * Else:
@@ -124,23 +123,22 @@ import happynewmoonwithreport.type.U32;
  * </li>
  * </ol>
  */
-public class I32_store extends StoreBase {
+public class I32_store16 extends StoreBase {
 
-	private I32_store() {
+	private I32_store16() {
 		super();
 	}
 
-	public I32_store(MemoryArgument memoryArgument, WasmFrame frame, WasmStore store,
+	public I32_store16(MemoryArgument memoryArgument, WasmFrame frame, WasmStore store,
 		WasmStack stack) {
 		super(memoryArgument, frame, store, stack);
 
-		N = null;
+		N = new U32(16);
 	}
 
 	/* package_private */ void step15_ReplaceBytes(MemoryType mem, U32 ea, ByteUnsigned[] bytes) {
-		mem.set(ea.integerValue() + 0, bytes[0]);
-		mem.set(ea.integerValue() + 1, bytes[1]);
-		mem.set(ea.integerValue() + 2, bytes[2]);
-		mem.set(ea.integerValue() + 3, bytes[3]);
+		mem.set(ea.integerValue() + 0, bytes[2]);
+		mem.set(ea.integerValue() + 1, bytes[3]);
 	}
+
 }
