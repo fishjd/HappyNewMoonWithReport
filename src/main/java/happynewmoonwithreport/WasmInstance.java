@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2019 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -239,7 +239,7 @@ public class WasmInstance implements WasmInstanceInterface {
 				MemoryArgument memoryArgument = new MemoryArgument(); // Not sure what this is.
 				I32_store8 i32_store8 = new I32_store8(memoryArgument, currentFrame, store, stack);
 				i32_store8.execute();
-				break; 
+				break;
 			}
 //			case (byte) 0x3B: {      // I32 16 store
 //			case (byte) 0x3C: {      // I64 8 store
