@@ -35,8 +35,8 @@ import happynewmoonwithreport.WasmLabel;
  * </ol>
  * <p>
  * <p>
- * Source:  <a href="https://webassembly.github.io/spec/exec/instructions.html#exec-block" target="_top">
- * https://webassembly.github.io/spec/exec/instructions.html#exec-block
+ * Source:  <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-block" target="_top">
+ * https://webassembly.github.io/spec/core/exec/instructions.html#exec-block
  * </a>
  */
 public class Block {

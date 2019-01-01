@@ -36,8 +36,8 @@ import java.util.UUID;
  * </li> </ol>
  * <p>
  * <p>
- * Source:  <a href="https://webassembly.github.io/spec/exec/instructions.html#exec-relop"
- * target="_top"> https://webassembly.github.io/spec/exec/instructions.html#exec-relop </a>
+ * Source:  <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-relop"
+ * target="_top"> https://webassembly.github.io/spec/core/exec/instructions.html#exec-relop </a>
  */
 public class I32_eqz {
 	private WasmInstanceInterface instance;

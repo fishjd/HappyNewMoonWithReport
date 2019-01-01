@@ -25,8 +25,8 @@ import happynewmoonwithreport.type.WasmVector;
  * Intuitively, instr∗ is the continuation to execute when the branch is taken, in place of the original control
  * construct.
  * <p>
- * Source:  <a href="https://webassembly.github.io/spec/exec/runtime.html#syntax-label" target="_top">
- * https://webassembly.github.io/spec/exec/runtime.html#syntax-label
+ * Source:  <a href="https://webassembly.github.io/spec/core/exec/runtime.html#syntax-label" target="_top">
+ * https://webassembly.github.io/spec/core/exec/runtime.html#syntax-label
  * </a>
  */
 public class WasmLabel {

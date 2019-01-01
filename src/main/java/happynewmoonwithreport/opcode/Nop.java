@@ -29,8 +29,8 @@ import happynewmoonwithreport.WasmInstanceInterface;
  * </ol>
  * <p>
  * <p>
- * Source:  <a href="https://webassembly.github.io/spec/exec/instructions.html#exec-nop" target="_top">
- * https://webassembly.github.io/spec/exec/instructions.html#exec-nop
+ * Source:  <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-nop" target="_top">
+ * https://webassembly.github.io/spec/core/exec/instructions.html#exec-nop
  * </a>
  */
 public class Nop {

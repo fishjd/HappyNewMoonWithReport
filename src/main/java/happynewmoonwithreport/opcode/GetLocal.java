@@ -40,8 +40,8 @@ import java.util.UUID;
  * Push the value val to the stack.
  * </ol>
  * <p>
- * Source:  <a href="https://webassembly.github.io/spec/exec/instructions.html#variable-instructions" target="_top">
- * https://webassembly.github.io/spec/exec/instructions.html#variable-instructions
+ * Source:  <a href="https://webassembly.github.io/spec/core/exec/instructions.html#variable-instructions" target="_top">
+ * https://webassembly.github.io/spec/core/exec/instructions.html#variable-instructions
  * </a>
  * <p>
  * Source:  <a href="http://webassembly.org/docs/binary-encoding/#variable-access-described-here" target="_top">

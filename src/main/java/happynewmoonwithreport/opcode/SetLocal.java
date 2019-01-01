@@ -44,8 +44,8 @@ import java.util.UUID;
  * http://webassembly.org/docs/binary-encoding/#variable-access-described-here
  * </a>
  * <p>
- * Source:  <a href="https://webassembly.github.io/spec/exec/instructions.html#exec-set-local" target="_top">
- * https://webassembly.github.io/spec/exec/instructions.html#exec-set-local
+ * Source:  <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-set-local" target="_top">
+ * https://webassembly.github.io/spec/core/exec/instructions.html#exec-set-local
  * </a>
  */
 public class SetLocal {

@@ -51,8 +51,8 @@ import java.util.UUID;
  * </ol>
  * <p>
  * <p>
- * Source:  <a href="https://webassembly.github.io/spec/exec/instructions.html#exec-relop" target="_top">
- * https://webassembly.github.io/spec/exec/instructions.html#exec-relop
+ * Source:  <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-relop" target="_top">
+ * https://webassembly.github.io/spec/core/exec/instructions.html#exec-relop
  * </a>
  */
 public class I32_gt_s {

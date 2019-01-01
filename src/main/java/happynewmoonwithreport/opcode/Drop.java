@@ -30,8 +30,8 @@ import java.util.UUID;
  * <li>Assert: due to validation, a value is on the top of the stack.</li
  * <li>Pop the value from the stack.</li>
  * </ol>
- * Source:  <a href="https://webassembly.github.io/spec/exec/instructions.html#exec-drop" target="_top">
- * https://webassembly.github.io/spec/exec/instructions.html#exec-drop
+ * Source:  <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-drop" target="_top">
+ * https://webassembly.github.io/spec/core/exec/instructions.html#exec-drop
  * </a>
  */
 public class Drop {

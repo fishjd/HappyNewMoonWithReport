@@ -32,8 +32,8 @@ import java.util.UUID;
  * </ol>
  * <p>
  * <p>
- * Source:  <a href="https://webassembly.github.io/spec/exec/instructions.html#exec-unreachable" target="_top">
- * https://webassembly.github.io/spec/exec/instructions.html#exec-unreachable
+ * Source:  <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-unreachable" target="_top">
+ * https://webassembly.github.io/spec/core/exec/instructions.html#exec-unreachable
  * </a>
  */
 public class Unreachable {

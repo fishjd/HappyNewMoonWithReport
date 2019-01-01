@@ -51,8 +51,8 @@ import java.util.UUID;
  * </li>
  * </ol>
  * <p>
- * Source:  <a href="https://webassembly.github.io/spec/exec/instructions.html#numeric-instructions" target="_top">
- * https://webassembly.github.io/spec/exec/instructions.html#numeric-instructions  t.binop
+ * Source:  <a href="https://webassembly.github.io/spec/core/exec/instructions.html#numeric-instructions" target="_top">
+ * https://webassembly.github.io/spec/core/exec/instructions.html#numeric-instructions  t.binop
  * </a>
  */
 public class AddI32<ParameterType, ReturnType> {

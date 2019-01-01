@@ -59,9 +59,9 @@ import happynewmoonwithreport.type.I32;
  * https://webassembly.github.io/spec/core/exec/numerics.html#op-isub
  * </a>
  * <p>
- * Source:  <a href="https://webassembly.github.io/spec/exec/instructions.html#numeric-instructions"
+ * Source:  <a href="https://webassembly.github.io/spec/core/exec/instructions.html#numeric-instructions"
  * target="_top">
- * https://webassembly.github.io/spec/exec/instructions.html#numeric-instructions  t.binop
+ * https://webassembly.github.io/spec/core/exec/instructions.html#numeric-instructions  t.binop
  * </a>
  */
 public class I32_Sub<ParameterType, ReturnType> {
