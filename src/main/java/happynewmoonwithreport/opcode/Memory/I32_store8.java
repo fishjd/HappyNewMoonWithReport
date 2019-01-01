@@ -27,7 +27,7 @@ import happynewmoonwithreport.type.JavaType.ByteUnsigned;
 import java.util.UUID;
 
 /**
- * <h1>i32_store</h1> Store an i32 value from the stack to memory.
+ * <h1>i32_store8</h1> Load an 8 from the stack to memory.
  * <p>
  * <p>
  * Memory Instutions<br>
@@ -135,18 +135,18 @@ import java.util.UUID;
  * </li>
  * </ol>
  */
-public class I32_store extends LoadBase {
+public class I32_store8 extends LoadBase {
 
 	private MemoryArgument memoryArgument;
 	private WasmFrame frame;
 	private WasmStore store;
 	private WasmStack stack;
 
-	private I32_store() {
+	private I32_store8() {
 		super();
 	}
 
-	public I32_store(MemoryArgument memoryArgument, WasmFrame frame, WasmStore store, WasmStack stack) {
+	public I32_store8(MemoryArgument memoryArgument, WasmFrame frame, WasmStore store, WasmStack stack) {
 		this();
 		this.memoryArgument = memoryArgument;
 		this.frame = frame;
@@ -159,8 +159,8 @@ public class I32_store extends LoadBase {
 	 * Execute the opcode.
 	 */
 	public void execute() {
-		// N = <Not Set>
-		// type T = I32
+		U32 N = new U32(8);
+		U32 t = new U32(32);
 		Object T = new I32(0);
 
 		// 1. Let F be the current frame.
@@ -170,7 +170,7 @@ public class I32_store extends LoadBase {
 		UInt32 memoryIndex = new UInt32(0);
 		final Boolean memoryExists = frame.getModule().memoryExists(memoryIndex);
 		if (memoryExists == false) {
-			throw new WasmRuntimeException(UUID.fromString("d8a21153-4018-4f0d-bdd1-0827eedb52a2"),
+			throw new WasmRuntimeException(UUID.fromString("1b1ccfdc-892c-4d12-b6a8-f15e5986f0a4"),
 					"Memory %s does not exists", memoryIndex);
 		}
 
@@ -180,7 +180,7 @@ public class I32_store extends LoadBase {
 		// 4. Assert: due to validation, S.mems[a] exists.
 		final Boolean memoryTypeExists = store.getMemoryAll().contains(a);
 		if (memoryTypeExists == false) {
-			throw new WasmRuntimeException(UUID.fromString("421da893-e7ba-4050-86b3-2352e9b00d0c"),
+			throw new WasmRuntimeException(UUID.fromString("c2ceaaf8-3872-4050-aa20-c503053c9a29"),
 					"Memory type %s does not exists", a);
 
 		}
@@ -190,7 +190,7 @@ public class I32_store extends LoadBase {
 
 		// 6. Assert: due to validation, a value of value type t is on the top of the stack.
 		if ((stack.peek() instanceof I32) == false) {
-			throw new WasmRuntimeException(UUID.fromString("a5fae44f-b2c4-496b-8869-7281bf074396"),
+			throw new WasmRuntimeException(UUID.fromString("4302d8c6-79cb-40df-a776-516b5e1e3f9d"),
 					"I32_Store: Step 6: Value type on stack is incorrect.  Expected I32 but type was " + stack.peek().toString());
 		}
 
@@ -199,7 +199,7 @@ public class I32_store extends LoadBase {
 
 		// 8. Assert: due to validation, a value of value type I32 is on the top of the stack.
 		if ((stack.peek() instanceof I32) == false) {
-			throw new WasmRuntimeException(UUID.fromString("4e2ce874-f853-463e-b998-fe5b9ede7f05"),
+			throw new WasmRuntimeException(UUID.fromString("09a2e693-ea94-4040-8e53-02f4cf54cdb6"),
 					"I32_Store: Step 8: Value type on stack is incorrect.  Expected I32 but type was " + stack.peek().toString());
 		}
 
@@ -213,36 +213,55 @@ public class I32_store extends LoadBase {
 
 		// 11. If N is NOT part of the instruction, then:
 		//        a: Let N be the bit width |t| of value type t .
-		U32 N = new U32(32L);
+		if (N == null) {
+			N = new U32(32L);
+		}
 
 		// 12. If ea+N/8 is larger than the length of mem.data , then:
 		//        a: Trap.
 		Long length = ea.longValue() + (N.longValue() / 8);
 		if (mem.hasMaximum().integerValue() == 1) {  // not in the webassembly specification.  This may line may be incorrect.
 			Long memLength = mem.maximum().longValue();
-			if (length > memLength) {
-				throw new WasmRuntimeException(UUID.fromString("2ea707a2-d7b1-483c-9ca5-b8da56628716"),
-						"I32_load: Step12: Trap.  Address  + size is too large. length = " + length + " memoryLength = " + memLength);
+			if (memLength < length) {
+				throw new WasmRuntimeException(UUID.fromString("8486a6d2-31b4-4035-bf27-1d76739bf309"),
+						"I32_Store: Step12: Trap.  Address  + size is too large. length = " + length + " memoryLength = " + memLength);
 			}
 		}
 
 		// 13. If N is part of the instruction, then:
 		//    a. Let n be the result of computing wrap|t|,N(c)
-		//    b. Let b∗ be the byte sequence bytesiN(n).
+		I32 n = new I32(wrap(N.integerValue(), c.integerValue()));
 
-		// Does Not apply as N is not part of the instruction
+		//    b. Let b∗ be the byte sequence bytesiN(n).
+		ByteUnsigned[] bytes = n.getBytes();
 
 		// 14.  Else
 		//  a. Let b∗ be the byte sequence bytes t (c).
-		ByteUnsigned[] bytes = c.getBytes();
+		// ByteUnsigned[] bytes = c.getBytes();
 
 		// 15. Replace the bytes mem.data[ea:N/8] with b*.
-		mem.set(ea.integerValue() + 0, bytes[0]);
-		mem.set(ea.integerValue() + 1, bytes[1]);
-		mem.set(ea.integerValue() + 2, bytes[2]);
-		mem.set(ea.integerValue() + 3, bytes[3]);
+		mem.set(ea.integerValue() + 0, bytes[3]);
 
 	}
 
+	/**
+	 * wrap<sub>M,N</sub>(i)
+	 * <p>
+	 * Return i modulo 2<sup>N</sup>
+	 * <p>
+	 * <b>Source:</b>  <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-wrap" target="_top">
+	 * https://webassembly.github.io/spec/core/exec/numerics.html#op-wrap
+	 * </a>
+	 *
+	 * @return
+	 */
+	public static Integer wrap(// Integer M,
+	                    Integer N, Integer i) {
+		Integer result;
+		Double pow = Math.pow(2, N);
+		result = (i % pow.intValue());
+		return result;
+
+	}
 
 }

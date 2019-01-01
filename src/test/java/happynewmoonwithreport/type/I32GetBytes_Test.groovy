@@ -49,6 +49,7 @@ class I32GetBytes_Test extends Specification {
 
 		where: ""
 		val1       || expected1 || expected2 || expected3 || expected4
+		127        || 0         || 0         || 0         || 127
 		0          || 0         || 0         || 0         || 0
 		1          || 0         || 0         || 0         || 1
 		134480385  || 0x8       || 0x4       || 0x2       || 0x1

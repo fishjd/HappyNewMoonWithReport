@@ -136,10 +136,10 @@ public class LimitType implements Validation {
 	 * @return maximum
 	 */
 	public U32 maximum() {
-		assert (maximum != null);
 		if (maximum == null) {
 			throw new RuntimeException("Calling maximum when it is not set!");
 		}
+		assert (maximum != null);
 		return maximum;
 	}
 

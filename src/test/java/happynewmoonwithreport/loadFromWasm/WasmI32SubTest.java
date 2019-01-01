@@ -19,6 +19,7 @@ package happynewmoonwithreport.loadFromWasm;
 import happynewmoonwithreport.*;
 import happynewmoonwithreport.type.DataTypeNumber;
 import happynewmoonwithreport.type.S32;
+import happynewmoonwithreport.type.UInt32;
 import happynewmoonwithreport.type.WasmVector;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -57,7 +58,7 @@ public class WasmI32SubTest {
 
 		assertTrue(wasm.validate());
 
-		assertEquals(new Integer(1), wasm.getFunctionSignatures().getCount());
+		assertEquals(new UInt32(1), wasm.getFunctionSignatures().getCount());
 
 		assertEquals(2, wasm.exports().size());
 		Assertions.assertEquals(new ExternalKind(ExternalKind.memory), wasm.exports().get(0).getExternalKind());

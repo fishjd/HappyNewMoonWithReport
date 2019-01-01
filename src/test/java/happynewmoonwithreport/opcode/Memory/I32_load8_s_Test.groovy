@@ -21,6 +21,7 @@ import happynewmoonwithreport.WasmModule
 import happynewmoonwithreport.WasmStack
 import happynewmoonwithreport.WasmStore
 import happynewmoonwithreport.type.*
+import happynewmoonwithreport.type.JavaType.ByteUnsigned
 import spock.lang.Specification
 
 /**
@@ -41,13 +42,13 @@ class I32_load8_s_Test extends Specification {
 		U32 hasMaximum = new U32(0);
 		U32 minimum = new U32(1);
 		MemoryType memory = new MemoryType(hasMaximum, minimum);
-		memory.set(0, new Byte((byte) 0x70));
-		memory.set(1, new Byte((byte) 0x01));
-		memory.set(2, new Byte((byte) 0x02));
-		memory.set(3, new Byte((byte) 0x03));
-		memory.set(4, new Byte((byte) 0x04));
-		memory.set(5, new Byte((byte) 0x05));
-		memory.set(6, new Byte((byte) 0x06));
+		memory.set(0, new ByteUnsigned(0x70));
+		memory.set(1, new ByteUnsigned(0x01));
+		memory.set(2, new ByteUnsigned(0x02));
+		memory.set(3, new ByteUnsigned(0x03));
+		memory.set(4, new ByteUnsigned(0x04));
+		memory.set(5, new ByteUnsigned(0x05));
+		memory.set(6, new ByteUnsigned(0x06));
 
 		// add memory to module
 		module.addMemory(memory);

@@ -30,6 +30,7 @@ import java.util.UUID;
  */
 public class U32 extends I32 {
 
+	// TODO Remove !!!   This hides 'value' from I32.
 	protected Long value;
 
 	public U32() {
@@ -44,6 +45,10 @@ public class U32 extends I32 {
 					"Value may not be less than zero. value = " + value + " hex = 0x" + Long.toHexString(value));
 		}
 		this.value = value;
+	}
+
+	public U32(Integer value) {
+		this((long) value);
 	}
 
 	public U32(U32 input) {

@@ -96,15 +96,15 @@ public class I32ConstructorBytesSizeTest {
 			"03020170, 24, false,  0x020170",
 			"03020170, 32, false,  0x03020170",
 			"03020170, 8,  true ,  0x70",
-			"03020180, 8,  true ,  0x00",
-			"030201F0, 8,  true ,  -0x70",
-			"030201E0, 8,  true ,  -0x60",
-			"E0      , 8,  true ,  -0x60",
-			"D0      , 8,  true ,  -0x50",
+			"03020180, 8,  true ,  -128",  //?
+			"030201F0, 8,  true ,  -240",
+			"030201E0, 8,  true ,  -224",
+			"E0      , 8,  true ,  -224",
+			"D0      , 8,  true ,  -208",
 			"FF      , 8,  false,  0x0000_00FF",
 			"FFFF    , 16, false,  0x0000_FFFF",
 			"FFFFFF  , 24, false,  0x00FF_FFFF",
-			"7FFFFFFF, 32, false,  0x7FFF_FFFF"   // max integer.  
+			"7FFFFFFF, 32, false,  0x7FFF_FFFF"   // max integer.
 	})
 	@ParameterizedTest(name = "GenerateI32WithBytes  = {index} execute( input bytes =  {0}, size = {1}, signextension = {2} expected = {3} )")
 	void GenerateI32WithBytes(@ConvertWith(StringToByteArrayConverter.class) Byte[] byteAll,
