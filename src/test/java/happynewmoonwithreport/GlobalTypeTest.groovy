@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2019 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -19,16 +19,16 @@ package happynewmoonwithreport
 import spock.lang.Specification
 
 class GlobalTypeTest extends Specification {
-    def "Global Type Valid"() {
-        setup: "A valid GlobalType "
-        ValueType contentType = new ValueType(ValueType.int32);
-        Mutability mutability = new Mutability(Mutability.immutable);
-        GlobalType globalType = new GlobalType(contentType, mutability);
+	def "Global Type Valid"() {
+		setup: "A valid GlobalType "
+		ValueType contentType = new ValueType(ValueType.int32);
+		Mutability mutability = new Mutability(Mutability.immutable);
+		GlobalType globalType = new GlobalType(contentType, mutability);
 
-        when: ""
+		when: ""
 
-        then: "Should be Valid"
-        globalType.valid();
+		then: "Should be Valid"
+		globalType.valid();
 
-    }
+	}
 }

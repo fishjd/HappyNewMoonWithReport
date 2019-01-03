@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2019 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -24,26 +24,26 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class WasmVectorTest {
-    private WasmVector<String> vector;
+	private WasmVector<String> vector;
 
-    @BeforeEach
-    public void setUp() throws Exception {
-        vector = new WasmVector<>();
-    }
+	@BeforeEach
+	public void setUp() throws Exception {
+		vector = new WasmVector<>();
+	}
 
-    @AfterEach
-    public void tearDown() throws Exception {
-    }
+	@AfterEach
+	public void tearDown() throws Exception {
+	}
 
-    @Test
-    public void addTest() {
-        vector.add("111");
-        assertEquals("111", vector.get(0));
-    }
+	@Test
+	public void addTest() {
+		vector.add("111");
+		assertEquals("111", vector.get(0));
+	}
 
-    @Test
-    public void addAtTest() {
-        vector.add(0, "111");
-        assertEquals("111", vector.get(0));
-    }
+	@Test
+	public void addAtTest() {
+		vector.add(0, "111");
+		assertEquals("111", vector.get(0));
+	}
 }

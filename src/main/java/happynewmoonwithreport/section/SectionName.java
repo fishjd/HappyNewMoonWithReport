@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2019 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -45,102 +45,104 @@ import java.util.Map;
  * </a>
  */
 public class SectionName {
-    /* TODO rename to "Name" or "NameEnum" to avoid confusion with the Custom Sections aka "Name Section" **/
-    private Integer type;
-    private String value;
+	/* TODO rename to "Name" or "NameEnum" to avoid confusion with the Custom Sections aka "Name Section" **/
+	private Integer type;
+	private String value;
 
-    public static final String TYPE = "type";
-    public static final String IMPORT = "import";
-    public static final String FUNCTION = "function";
-    public static final String TABLE = "table";
-    public static final String MEMORY = "memory";
-    public static final String GLOBAL = "global";
-    public static final String EXPORT = "export";
-    public static final String START = "start";
-    public static final String ELEMENT = "element";
-    public static final String CODE = "code";
-    public static final String DATA = "data";
+	public static final String CUSTOM = "custom";
+	public static final String TYPE = "type";
+	public static final String IMPORT = "import";
+	public static final String FUNCTION = "function";
+	public static final String TABLE = "table";
+	public static final String MEMORY = "memory";
+	public static final String GLOBAL = "global";
+	public static final String EXPORT = "export";
+	public static final String START = "start";
+	public static final String ELEMENT = "element";
+	public static final String CODE = "code";
+	public static final String DATA = "data";
 
-    private SectionName() {
-    }
+	private SectionName() {
+	}
 
-    private SectionName(Integer type) {
-        this();
-        this.type = type;
-        calcValue(type);
-    }
+	private SectionName(Integer type) {
+		this();
+		this.type = type;
+		calcValue(type);
+	}
 
-    public SectionName(VarUInt7 input) {
-        this();
-        this.type = input.integerValue();
-        calcValue(type);
-    }
+	public SectionName(VarUInt7 input) {
+		this();
+		this.type = input.integerValue();
+		calcValue(type);
+	}
 
-    public SectionName(BytesFile payload) {
-        this();
-        VarUInt7 vt = new VarUInt7(payload);
-        this.type = vt.integerValue();
-        calcValue(type);
-    }
+	public SectionName(BytesFile payload) {
+		this();
+		VarUInt7 vt = new VarUInt7(payload);
+		this.type = vt.integerValue();
+		calcValue(type);
+	}
 
-    public SectionName(String value) {
-        this();
-        Boolean found = false;
-        for (Map.Entry<Integer, String> entry : mapAll.entrySet()) {
-            if (value.equals(entry.getValue())) {
-                this.type = entry.getKey();
-                this.value = value;
-                found = true;
-            }
-        }
-        if (found == false) {
-            throw new RuntimeException("Element Type " + value + " not valid/found");
-        }
-    }
+	public SectionName(String value) {
+		this();
+		Boolean found = false;
+		for (Map.Entry<Integer, String> entry : mapAll.entrySet()) {
+			if (value.equals(entry.getValue())) {
+				this.type = entry.getKey();
+				this.value = value;
+				found = true;
+			}
+		}
+		if (found == false) {
+			throw new RuntimeException("Element Type " + value + " not valid/found");
+		}
+	}
 
-    public String getValue() {
-        return value;
-    }
+	public String getValue() {
+		return value;
+	}
 
-    public Integer getType() {
-        return type;
-    }
+	public Integer getType() {
+		return type;
+	}
 
-    public VarUInt7 getTypeVarUInt7() {
-        return new VarUInt7(type);
-    }
+	public VarUInt7 getTypeVarUInt7() {
+		return new VarUInt7(type);
+	}
 
-    private static Map<Integer, String> mapAll;
+	private static Map<Integer, String> mapAll;
 
-    static {
-        mapAll = new HashMap<>();
-        mapAll.put(1, TYPE);
-        mapAll.put(2, IMPORT);
-        mapAll.put(3, FUNCTION);
-        mapAll.put(4, TABLE);
-        mapAll.put(5, MEMORY);
-        mapAll.put(6, GLOBAL);
-        mapAll.put(7, EXPORT);
-        mapAll.put(8, START);
-        mapAll.put(9, ELEMENT);
-        mapAll.put(10, CODE);
-        mapAll.put(11, DATA);
-    }
+	static {
+		mapAll = new HashMap<>();
+		mapAll.put(0, CUSTOM);
+		mapAll.put(1, TYPE);
+		mapAll.put(2, IMPORT);
+		mapAll.put(3, FUNCTION);
+		mapAll.put(4, TABLE);
+		mapAll.put(5, MEMORY);
+		mapAll.put(6, GLOBAL);
+		mapAll.put(7, EXPORT);
+		mapAll.put(8, START);
+		mapAll.put(9, ELEMENT);
+		mapAll.put(10, CODE);
+		mapAll.put(11, DATA);
+	}
 
 
-    private void calcValue(Integer input) {
-        value = mapAll.get(input);
-        if (value == null) {
-            throw new RuntimeException("type in Section Code is not valid type = " + type);
-        }
+	private void calcValue(Integer input) {
+		value = mapAll.get(input);
+		if (value == null) {
+			throw new RuntimeException("type in Section Code is not valid type = " + type);
+		}
 
-    }
+	}
 
-    @Override
-    public String toString() {
-        return "SectionName{" +
-                "type=" + type +
-                ", value='" + value + '\'' +
-                '}';
-    }
+	@Override
+	public String toString() {
+		return "SectionName{" +
+				"type=" + type +
+				", value='" + value + '\'' +
+				'}';
+	}
 }

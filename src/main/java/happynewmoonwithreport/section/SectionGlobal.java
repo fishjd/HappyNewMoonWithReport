@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2019 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -34,37 +34,42 @@ import happynewmoonwithreport.type.WasmVector;
  * http://webassembly.org/docs/modules/#global-section
  * </a>
  * <p>
- * Source:  <a href="https://webassembly.github.io/spec/binary/modules.html#global-section" target="_top">
+ * Source:  <a href="https://webassembly.github.io/spec/core/binary/modules.html#global-section" target="_top">
  * https://webassembly.github.io/spec/binary/modules.html#global-section
  * </a>
  */
 public class SectionGlobal implements Section {
 
-    private UInt32 count;
-    private WasmVector<GlobalVariableType> globals;
+	private UInt32 count;
+	private WasmVector<GlobalVariableType> globals;
 
-    /**
-     * @param payload the input BytesFile.
-     */
-    @Override
-    public void instantiate(BytesFile payload) {
+	public SectionGlobal() {
+		count = new UInt32(0);
+		globals = new WasmVector<>();
+	}
 
-        //* Count
-        count = new VarUInt32(payload);
+	/**
+	 * @param payload the input BytesFile.
+	 */
+	@Override
+	public void instantiate(BytesFile payload) {
 
-        //* Entries of Global Variables.
-        globals = new WasmVector<>(count.integerValue());
-        for (Integer index = 0; index < count.integerValue(); index++) {
-            GlobalVariableType globalVariable = new GlobalVariableType(payload);
-            globals.add(index, globalVariable);
-        }
-    }
+		//* Count
+		count = new VarUInt32(payload);
 
-    public UInt32 getCount() {
-        return count;
-    }
+		//* Entries of Global Variables.
+		globals = new WasmVector<>(count.integerValue());
+		for (Integer index = 0; index < count.integerValue(); index++) {
+			GlobalVariableType globalVariable = new GlobalVariableType(payload);
+			globals.add(index, globalVariable);
+		}
+	}
 
-    public WasmVector<GlobalVariableType> getGlobals() {
-        return globals;
-    }
+	public UInt32 getCount() {
+		return count;
+	}
+
+	public WasmVector<GlobalVariableType> getGlobals() {
+		return globals;
+	}
 }

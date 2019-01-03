@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2019 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -40,101 +40,101 @@ import happynewmoonwithreport.BytesFile;
  */
 public final class VarInt7 extends SInt8 {
 
-    @SuppressWarnings("unused")
-    private VarInt7() {
-        super();
-    }
+	@SuppressWarnings("unused")
+	private VarInt7() {
+		super();
+	}
 
-    public VarInt7(BytesFile bytesFile) {
-        assert (bytesFile.longEnough(minBytes()));
-        value = convert(bytesFile).intValue();
-    }
+	public VarInt7(BytesFile bytesFile) {
+		assert (bytesFile.longEnough(minBytes()));
+		value = convert(bytesFile).intValue();
+	}
 
-    /**
-     * Create using a Long. Used mainly in testing.
-     *
-     * @param value value
-     */
-    public VarInt7(Long value) {
-        this.value = value.intValue();
-        // set to default value.
-    }
+	/**
+	 * Create using a Long. Used mainly in testing.
+	 *
+	 * @param value value
+	 */
+	public VarInt7(Long value) {
+		this.value = value.intValue();
+		// set to default value.
+	}
 
-    /**
-     * Create using a Integer. Size is hard coded to 1. Used mainly in testing.
-     *
-     * @param value value
-     */
-    public VarInt7(Integer value) {
-        this.value = value.intValue();
-    }
+	/**
+	 * Create using a Integer. Size is hard coded to 1. Used mainly in testing.
+	 *
+	 * @param value value
+	 */
+	public VarInt7(Integer value) {
+		this.value = value.intValue();
+	}
 
-    /**
-     * Create using a Byte. Size is hard coded to 1. Used mainly in testing.
-     *
-     * @param value value
-     */
-    public VarInt7(Byte value) {
-        this.value = value.intValue();
-    }
+	/**
+	 * Create using a Byte. Size is hard coded to 1. Used mainly in testing.
+	 *
+	 * @param value value
+	 */
+	public VarInt7(Byte value) {
+		this.value = value.intValue();
+	}
 
-    @Override
-    public Integer maxBytes() {
-        Integer maxBytes = new Double(Math.ceil((double) maxBits() / 7.0D)).intValue();
-        return maxBytes;
-    }
+	@Override
+	public Integer maxBytes() {
+		Integer maxBytes = new Double(Math.ceil((double) maxBits() / 7.0D)).intValue();
+		return maxBytes;
+	}
 
-    @Override
-    public Integer minBytes() {
-        return 1;
-    }
+	@Override
+	public Integer minBytes() {
+		return 1;
+	}
 
-    public Integer convert(BytesFile bytesFile) {
-        Integer cur;
-        Integer count = 0;
-        Integer result = 0;
-        Integer signBits = -1;
+	public Integer convert(BytesFile bytesFile) {
+		Integer cur;
+		Integer count = 0;
+		Integer result = 0;
+		Integer signBits = -1;
 
-        do {
-            cur = bytesFile.readByte() & 0xff;
-            result |= ((cur & 0x7f)) << (count * 7);
-            signBits <<= 7;
-            count++;
-        } while (((cur & 0x80) != 0) && count < maxBytes());
+		do {
+			cur = bytesFile.readByte() & 0xff;
+			result |= ((cur & 0x7f)) << (count * 7);
+			signBits <<= 7;
+			count++;
+		} while (((cur & 0x80) != 0) && count < maxBytes());
 
-        // Sign extend if appropriate
-        if (((signBits >> 1) & result) != 0) {
-            result |= signBits;
-        }
+		// Sign extend if appropriate
+		if (((signBits >> 1) & result) != 0) {
+			result |= signBits;
+		}
 
-        return result;
-    }
+		return result;
+	}
 
-    /**
-     * Writes the value as a byte stream.
-     *
-     * @return byte stream.
-     */
-    public ByteOutput convert() {
-        ByteOutput out = new ByteArrayByteOutput(maxBytes());
-        byte remaining = (byte) (value >> 7);
-        boolean hasMore = true;
-        int end = ((value & Long.MIN_VALUE) == 0) ? 0 : -1;
+	/**
+	 * Writes the value as a byte stream.
+	 *
+	 * @return byte stream.
+	 */
+	public ByteOutput convert() {
+		ByteOutput out = new ByteArrayByteOutput(maxBytes());
+		byte remaining = (byte) (value >> 7);
+		boolean hasMore = true;
+		int end = ((value & Long.MIN_VALUE) == 0) ? 0 : -1;
 
-        while (hasMore) {
-            hasMore = (remaining != end) || ((remaining & 1) != ((value >> 6) & 1));
+		while (hasMore) {
+			hasMore = (remaining != end) || ((remaining & 1) != ((value >> 6) & 1));
 
-            out.writeByte((byte) ((value & 0x7f) | (hasMore ? 0x80 : 0)));
-            value = ((int) remaining);
-            remaining = (byte) (remaining >> 7);
-        }
-        return out;
-    }
+			out.writeByte((byte) ((value & 0x7f) | (hasMore ? 0x80 : 0)));
+			value = ((int) remaining);
+			remaining = (byte) (remaining >> 7);
+		}
+		return out;
+	}
 
-    @Override
-    public Integer maxBits() {
-        return 7;
-    }
+	@Override
+	public Integer maxBits() {
+		return 7;
+	}
 
 //    public Integer minValue() {
 //        return -1 * (1 << (maxBits() - 1));
@@ -145,10 +145,10 @@ public final class VarInt7 extends SInt8 {
 //    }
 
 
-    @Override
-    public String toString() {
-        return "VarInt7{" +
-                "value=" + value +
-                "} ";
-    }
+	@Override
+	public String toString() {
+		return "VarInt7{" +
+				"value=" + value +
+				"} ";
+	}
 }

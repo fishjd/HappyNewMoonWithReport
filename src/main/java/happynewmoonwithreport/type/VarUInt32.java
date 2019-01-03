@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2019 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -21,13 +21,12 @@ import happynewmoonwithreport.BytesFile;
 /**
  * A unsigned Integer of N bits.
  * <p>
- * Stored in the wasm file as a LEB128 variable-length integer, limited to N bits (i.e., the values [0,
- * 2^N-1]), represented by at most ceil(N/7) bytes that may contain padding 0x80
- * bytes.
+ * Stored in the wasm file as a LEB128 variable-length integer, limited to N bits (i.e., the values
+ * [0, 2^N-1]), represented by at most ceil(N/7) bytes that may contain padding 0x80 bytes.
  * <p>
- * <p>
- * Used to read and write to the wasm file. This project tends to use the 'main' integer types Int32, Int64, UInt32,
- * UInt64.  The recommend use is to convert to a 'main' type as soon as possible.
+ * Used to read and write to the wasm file. This project tends to use the 'main' integer types
+ * Int32, Int64, UInt32, UInt64.  The recommend use is to convert to a 'main' type as soon as
+ * possible.
  * <p>
  * Usage:
  * <pre>
@@ -41,43 +40,41 @@ import happynewmoonwithreport.BytesFile;
  * </a>
  */
 public final class VarUInt32 extends UInt32
-        // implements DataTypeNumber<Long>
+	// implements DataTypeNumber<Long>
 {
 
-    @SuppressWarnings("unused")
-    private VarUInt32() {
-        super();
-    }
+	@SuppressWarnings("unused")
+	private VarUInt32() {
+		super();
+	}
 
-    public VarUInt32(BytesFile bytesFile) {
-        value = convert(bytesFile);
-    }
+	public VarUInt32(BytesFile bytesFile) {
+		value = convert(bytesFile);
+	}
 
-    @Override
-    public Long convert(BytesFile bytesFile) {
-        Integer cur;
-        Integer count = 0;
-        Long result = 0L;
+	@Override
+	public Long convert(BytesFile bytesFile) {
+		Integer cur;
+		Integer count = 0;
+		Long result = 0L;
 
-        do {
-            cur = bytesFile.readByte() & 0xff;
-            result |= (cur & 0x7f) << (count * 7);
-            count++;
-        } while (((cur & 0x80) != 0) && count < maxBytes());
+		do {
+			cur = bytesFile.readByte() & 0xff;
+			result |= (cur & 0x7f) << (count * 7);
+			count++;
+		} while (((cur & 0x80) != 0) && count < maxBytes());
 
-        return result;
-    }
+		return result;
+	}
 
-    @Override
-    public Integer maxBytes() {
-        Integer maxBytes = new Double(Math.ceil((double) maxBits() / 7.0D)).intValue();
-        return maxBytes;
-    }
+	@Override
+	public Integer maxBytes() {
+		Integer maxBytes = new Double(Math.ceil((double) maxBits() / 7.0D)).intValue();
+		return maxBytes;
+	}
 
-    @Override
-    public String toString() {
-        return "VarUInt32{" +
-                "value=" + value +
-                "} ";
-    }
+	@Override
+	public String toString() {
+		return "VarUInt32{" + "value=" + value + "} ";
+	}
 }

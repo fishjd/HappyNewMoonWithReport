@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2019 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -21,14 +21,14 @@ package happynewmoonwithreport.type;
  */
 public interface ByteOutput {
 
-    /**
-     * Write bytes to this one at a time to create an byte array.
-     *
-     * @param i byte to write.
-     *
-     * @throws IndexOutOfBoundsException if all bytes have been written.
-     */
-    void writeByte(byte i);
+	/**
+	 * Write bytes to this one at a time to create an byte array.
+	 *
+	 * @param i byte to write.
+	 *
+	 * @throws IndexOutOfBoundsException if all bytes have been written.
+	 */
+	void writeByte(byte i);
 
-    byte[] bytes();
+	byte[] bytes();
 }

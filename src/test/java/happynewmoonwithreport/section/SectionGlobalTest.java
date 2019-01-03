@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2019 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -32,48 +32,48 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 
 public class SectionGlobalTest {
-    private SectionGlobal sectionGlobal;
+	private SectionGlobal sectionGlobal;
 
-    @BeforeEach
-    public void setUp() throws Exception {
-        sectionGlobal = new SectionGlobal();
-        assertNotNull(sectionGlobal);
-    }
+	@BeforeEach
+	public void setUp() throws Exception {
+		sectionGlobal = new SectionGlobal();
+		assertNotNull(sectionGlobal);
+	}
 
-    @AfterEach
-    public void tearDown() throws Exception {
-    }
-
-
-    /**
-     * Run instantiate on the add32.wasm bytes.
-     */
-    @Test
-    public void instantiateFull() {
-        // I made this one up.  This is not in Add32
-        byte[] byteAll = {
-                (byte) 0x01,//
-                (byte) 0x7F, // -0x01 i32
-                (byte) 0x00 // mutability = 0
-        };
-        BytesFile payload = new BytesFile(byteAll);
-
-        // run
-        sectionGlobal.instantiate(payload);
-
-        // verify
-        // the count is 1
-        assertEquals(new UInt32(1L), sectionGlobal.getCount());
-
-        ArrayList<GlobalVariableType> globals = sectionGlobal.getGlobals();
-        assertEquals(1, globals.size());
-
-        GlobalVariableType globalVariable = globals.get(0);
-        GlobalType type = globalVariable.getType();
-        assertEquals(new ValueType(-0x01), type.getContentType());
-        assertEquals(0, type.getMutability().getType().intValue());
+	@AfterEach
+	public void tearDown() throws Exception {
+	}
 
 
-    }
+	/**
+	 * Run instantiate on the add32.wasm bytes.
+	 */
+	@Test
+	public void instantiateFull() {
+		// I made this one up.  This is not in Add32
+		byte[] byteAll = {
+				(byte) 0x01,//
+				(byte) 0x7F, // -0x01 i32
+				(byte) 0x00 // mutability = 0
+		};
+		BytesFile payload = new BytesFile(byteAll);
+
+		// run
+		sectionGlobal.instantiate(payload);
+
+		// verify
+		// the count is 1
+		assertEquals(new UInt32(1L), sectionGlobal.getCount());
+
+		ArrayList<GlobalVariableType> globals = sectionGlobal.getGlobals();
+		assertEquals(1, globals.size());
+
+		GlobalVariableType globalVariable = globals.get(0);
+		GlobalType type = globalVariable.getType();
+		assertEquals(new ValueType(-0x01), type.getContentType());
+		assertEquals(0, type.getMutability().getType().intValue());
+
+
+	}
 
 }

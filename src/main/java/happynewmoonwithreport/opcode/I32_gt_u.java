@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2019 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -17,7 +17,6 @@
 package happynewmoonwithreport.opcode;
 
 
-import happynewmoonwithreport.WasmInstanceInterface;
 import happynewmoonwithreport.WasmRuntimeException;
 import happynewmoonwithreport.WasmStack;
 import happynewmoonwithreport.type.I32;
@@ -49,52 +48,50 @@ import java.util.UUID;
  * <p>
  * </li>
  * </ol>
- * <p>
- * <p>
- * Source:  <a href="https://webassembly.github.io/spec/exec/instructions.html#exec-relop" target="_top">
- * https://webassembly.github.io/spec/exec/instructions.html#exec-relop
+ * Source:  <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-relop" target="_top">
+ * https://webassembly.github.io/spec/core/exec/instructions.html#exec-relop
  * </a>
  */
 public class I32_gt_u {
-    private WasmInstanceInterface instance;
 
-    private I32_gt_u() {
-        super();
-    }
+	private WasmStack<Object> stack;
 
-    public I32_gt_u(WasmInstanceInterface instance) {
-        this();
-        this.instance = instance;
-    }
+	private I32_gt_u() {
+		super();
+	}
 
-
-    /**
-     * Execute the opcode.
-     */
-    public void execute() {
-        WasmStack<Object> stack = instance.stack();
-        if ((stack.peek() instanceof I32) == false) {
-            throw new WasmRuntimeException(UUID.fromString("b422e802-6418-4b81-9eba-cff76bcdefb2"),
-                    "i32_gt_u: Value2 type is incorrect");
-        }
-        I32 value2 = (I32) stack.pop();
-
-        if ((stack.peek() instanceof I32) == false) {
-            throw new WasmRuntimeException(UUID.fromString("16c20d8f-cf3d-499f-b758-7e48fa9fec0f"),
-                    "i32_gt_u: Value1 type is incorrect");
-        }
-        I32 value1 = (I32) stack.pop();
-
-        // these values are unsigned values
-        U32 value2Unsigned = value2.unsignedValue();
-        U32 value1Unsigned = value1.unsignedValue();
-
-        // Do the comparison.
-        I32 result = value1Unsigned.greaterThan(value2Unsigned);
+	public I32_gt_u(WasmStack<Object> stack) {
+		this();
+		this.stack = stack;
+	}
 
 
-        stack.push(result);
-    }
+	/**
+	 * Execute the opcode.
+	 */
+	public void execute() {
+		if ((stack.peek() instanceof I32) == false) {
+			throw new WasmRuntimeException(UUID.fromString("b422e802-6418-4b81-9eba-cff76bcdefb2"),
+					"i32_gt_u: Value2 type is incorrect");
+		}
+		I32 value2 = (I32) stack.pop();
+
+		if ((stack.peek() instanceof I32) == false) {
+			throw new WasmRuntimeException(UUID.fromString("16c20d8f-cf3d-499f-b758-7e48fa9fec0f"),
+					"i32_gt_u: Value1 type is incorrect");
+		}
+		I32 value1 = (I32) stack.pop();
+
+		// these values are unsigned values
+		U32 value2Unsigned = value2.unsignedValue();
+		U32 value1Unsigned = value1.unsignedValue();
+
+		// Do the comparison.
+		I32 result = value1Unsigned.greaterThan(value2Unsigned);
+
+
+		stack.push(result);
+	}
 
 
 }

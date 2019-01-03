@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2019 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -17,166 +17,252 @@
 package happynewmoonwithreport;
 
 import happynewmoonwithreport.opcode.*;
-import happynewmoonwithreport.type.DataTypeNumber;
-import happynewmoonwithreport.type.S32;
-import happynewmoonwithreport.type.VarUInt32;
-import happynewmoonwithreport.type.WasmVector;
+import happynewmoonwithreport.opcode.Memory.I32_load;
+import happynewmoonwithreport.opcode.Memory.I32_load8_s;
+import happynewmoonwithreport.opcode.Memory.I32_load8_u;
+import happynewmoonwithreport.opcode.Memory.I32_store;
+import happynewmoonwithreport.opcode.Memory.I32_store16;
+import happynewmoonwithreport.opcode.Memory.I32_store8;
+import happynewmoonwithreport.type.*;
 import happynewmoonwithreport.type.utility.Hex;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
 
 import java.util.UUID;
 
 /**
  * A WebAssembly.Instance object is a stateful, executable instance of a WebAssembly.Module.
  * <p>
- * Source:  <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly/Instance"
+ * Web Assembly Source:  <a href="https://webassembly.github.io/spec/core/exec/runtime.html#module-instances" target="_top">
+ * https://webassembly.github.io/spec/core/exec/runtime.html#module-instances
+ * </a>
+ * <p>
+ * JavaScript Source:  <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly/Instance"
  * target="_top">
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly/Instance
  * </a>
  */
 public class WasmInstance implements WasmInstanceInterface {
-    private WasmModule module;
-    private WasmFunction wasmFunction;
-    private WasmFrame currentFrame;
+	private WasmModule module;
+	private WasmFunction wasmFunction;
+	private WasmFrame currentFrame;
+	private WasmStore store;
 
-    /**
-     * the local variables
-     **/
-    private WasmVector<DataTypeNumber> localAll;
+	/**
+	 * the local variables
+	 **/
+	private WasmVector<DataTypeNumber> localAll;
 
-    private WasmStack<Object> stack;
-    private BytesFile code;
+	private WasmStack<Object> stack;
+	private BytesFile code;
 
-    private WasmInstance() {
-        stack = new WasmStack();
-        currentFrame = new WasmFrame(this);
+	private WasmInstance() {
+		stack = new WasmStack();
+		currentFrame = new WasmFrame(module);
 
-    }
+	}
 
-    /**
-     * @param module Web Assembly Module
-     */
-    public WasmInstance(WasmModule module) {
-        this();
-        this.module = module;
-    }
+	/**
+	 * @param module Web Assembly Module
+	 */
+	public WasmInstance(WasmModule module) {
+		this();
+		this.module = module;
+		this.store = module.getStore();
+	}
 
-    /**
-     * Not Implemented.
-     *
-     * @param module Web Assembly Module
-     * @param wasmImport Web Assembly Import
-     */
-    public WasmInstance(WasmModule module, WasmImport wasmImport) {
-        this();
-        throw new NotImplementedException();
-    }
+	/**
+	 * Not Implemented.
+	 *
+	 * @param module Web Assembly Module
+	 * @param wasmImport Web Assembly Import
+	 */
+	public WasmInstance(WasmModule module, WasmImport wasmImport) {
+		this();
+		throw new RuntimeException("Not Implemented");
+	}
 
-    /**
-     * <p>
-     * Source:  <a href="https://developer.mozilla.org/en-US/docs/WebAssembly/Exported_functions" target="_top">
-     * https://developer.mozilla.org/en-US/docs/WebAssembly/Exported_functions
-     * </a>
-     *
-     * @param name the function name
-     *
-     * @return WasmFunction
-     */
-    public WasmFunction exportFunction(String name) {
-        WasmFunction result = null;
-        WasmVector<WasmFunction> functionAll = module.getFunctionAll();
+	/**
+	 * Given a function name then return the Wasm Function.  The Wasm Funciton is definced in the Wasm Module.
+	 * <p>
+	 * Source:  <a href="https://developer.mozilla.org/en-US/docs/WebAssembly/Exported_functions" target="_top">
+	 * https://developer.mozilla.org/en-US/docs/WebAssembly/Exported_functions
+	 * </a>
+	 *
+	 * @param name the function name
+	 *
+	 * @return WasmFunction
+	 */
+	public WasmFunction exportFunction(String name) {
+		WasmFunction result = null;
+		WasmVector<WasmFunction> functionAll = module.getFunctionAll();
 
-        for (ExportEntry exportEntry : module.getExportAll()) {
-            Boolean found = exportEntry.getExternalKind().equals(new ExternalKind(ExternalKind.function));
-            found &= exportEntry.getFieldName().getValue().equals(name);
-            if (found) {
-                result = functionAll.get(exportEntry.getIndex().integerValue());
-                break;
-            }
-        }
-        return result;
+		for (ExportEntry exportEntry : module.getExportAll()) {
+			Boolean found = exportEntry.getExternalKind().equals(new ExternalKind(ExternalKind.function));
+			found &= exportEntry.getFieldName().getValue().equals(name);
+			if (found) {
+				result = functionAll.get(exportEntry.getIndex().integerValue());
+				break;
+			}
+		}
+		return result;
 
-    }
+	}
 
 
-    /**
-     * Execute an function.  The function must be and export.   This is the entry point from Java.
-     *
-     * @param wasmFunction The function to execute/run.
-     * @param returnAll The output parameters.  May be zero on one.  Future versions of Wasm may return more tha one.
-     * @param paramAll The input parameters.
-     */
-    public void call(WasmFunction wasmFunction, WasmVector<DataTypeNumber> returnAll, WasmVector<DataTypeNumber> paramAll) {
-        this.wasmFunction = wasmFunction;
-        currentFrame.setLocalAll(paramAll);
-        // TODO verify paramAll with LocalEntryAll
+	/**
+	 * Execute an function.  The function must be an export.   This is the entry point from Java.
+	 *
+	 * @param wasmFunction The function to execute/run.
+	 * @param returnAll The output parameters.  May be zero on one.  Future versions of Wasm may return more tha one.
+	 * @param paramAll The input parameters.
+	 */
+	public void call(WasmFunction wasmFunction, WasmVector<DataTypeNumber> returnAll, WasmVector<DataTypeNumber> paramAll) {
+		this.wasmFunction = wasmFunction;
+		currentFrame.setLocalAll(paramAll);
+		// TODO verify paramAll with LocalEntryAll
 
-        for (Integer i = 0; i < wasmFunction.getLocalEntryAll().size(); i++) {
-            currentFrame.localAll().add(new S32(0));
-        }
+		for (Integer i = 0; i < wasmFunction.getLocalEntryAll().size(); i++) {
+			currentFrame.localAll().add(new S32(0));
+		}
 
-        BytesFile code = new BytesFile(wasmFunction.getCode());
-        while (code.atEndOfFile() == false) {
-            execute(code);
-        }
+		BytesFile bfCode = new BytesFile(wasmFunction.getCode());
+		while (bfCode.atEndOfFile() == false) {
+			execute(bfCode);
+		}
 
-        while (stack.isEmpty() == false) {  // ??? ¿¿¿
-            returnAll.add((DataTypeNumber) stack.pop());
-        }
-    }
+		while (stack.isEmpty() == false) {  // ??? ¿¿¿
+			returnAll.add((DataTypeNumber) stack.pop());
+		}
+	}
 
-    /**
-     * Source:  <a href="https://webassembly.github.io/spec/appendix/index-instructions.html" target="_top">
-     * https://webassembly.github.io/spec/appendix/index-instructions.html
-     * </a>
-     */
-    private void execute(BytesFile code) {
-        this.code = code;
-        byte opcode = code.readByte();
-        switch (opcode) {
-            case (byte) 0x00: {  // Unreachable
-                Unreachable unreachable = new Unreachable(this);
-                unreachable.execute();
-                break;
-            }
-            case (byte) 0x01: {  // nop,  no operation.
-                Nop nop = new Nop(this);
-                nop.execute();
-                break;
-            }
-            case (byte) 0x02: {
-                Block block = new Block(this);
-                block.execute();
-                break;
-            }
-            case (byte) 0x1A: { // drop
-                Drop drop = new Drop(this);
-                drop.execute();
-                break;
-            }
-            case (byte) 0x1B: { // select
-                Select select = new Select(this);
-                select.execute();
-                break;
-            }
-            case (byte) 0x20: {
-                GetLocal getLocal = new GetLocal(currentFrame);
-                getLocal.execute(new VarUInt32(code));
-                break;
-            }
-            case (byte) 0x21: {
-                SetLocal setLocal = new SetLocal(currentFrame);
-                setLocal.execute( new VarUInt32(code));
-                break;
-            }
-            case (byte) 0x40: {
-                break;
-            }
-            case (byte) 0x41: {  // i32.const i32
-                ConstantInt32 constantInt32 = new ConstantInt32(this);
-                constantInt32.execute(new VarUInt32(code));
-                break;
-            }
+	/**
+	 * Source:  <a href="https://webassembly.github.io/spec/appendix/index-instructions.html" target="_top">
+	 * https://webassembly.github.io/spec/appendix/index-instructions.html
+	 * </a>
+	 */
+	private void execute(BytesFile code) {
+		this.code = code;
+		byte opcode = code.readByte();
+		switch (opcode) {
+			case (byte) 0x00: {  // Unreachable
+				Unreachable unreachable = new Unreachable(this);
+				unreachable.execute();
+				break;
+			}
+			case (byte) 0x01: {  // nop,  no operation.
+				Nop nop = new Nop(this);
+				nop.execute();
+				break;
+			}
+			case (byte) 0x02: {
+				Block block = new Block(this);
+				block.execute();
+				break;
+			}
+//			case (byte) 0x03: { break;}  // Loop
+//			case (byte) 0x04: { break;}  // If
+//			case (byte) 0x05: { break;}  // Else
+
+//			case (byte) 0x0B: { break;}  // End
+//			case (byte) 0x0C: { break;}  // Branch lable
+//			case (byte) 0x0D: { break;}  // Branch If lable
+//			case (byte) 0x0E: { break;}  // Branch Table
+//			case (byte) 0x0F: { break;}  // Return
+//			case (byte) 0x10: { break;}  // Call x
+
+			case (byte) 0x1A: { // drop
+				Drop drop = new Drop(this);
+				drop.execute();
+				break;
+			}
+			case (byte) 0x1B: { // select
+				Select select = new Select(this);
+				select.execute();
+				break;
+			}
+			case (byte) 0x20: {  // get local
+				GetLocal getLocal = new GetLocal(currentFrame, stack);
+				getLocal.execute(new VarUInt32(code));
+				break;
+			}
+			case (byte) 0x21: {
+				SetLocal setLocal = new SetLocal(currentFrame, stack);
+				setLocal.execute(new VarUInt32(code));
+				break;
+			}
+
+//			case (byte) 0x22: { break;}  // Tee Local x
+//			case (byte) 0x23: { break;}  // Get Global x
+//			case (byte) 0x24: { break;}  // Set Global x
+
+
+			case (byte) 0x28: {  // I32_load
+				MemoryArgument memoryArgument = new MemoryArgument(); // Not sure what this is.
+				I32_load i32_load = new I32_load(memoryArgument, currentFrame, store, stack);
+				i32_load.execute();
+				break;
+			}
+//			case (byte) 0x29: {   // I64_load
+//			case (byte) 0x2A: {   // F32_load
+//			case (byte) 0x2B: {   // F64_load
+			case (byte) 0x2C: {   // I32_load8_s
+				MemoryArgument memoryArgument = new MemoryArgument(); // Not sure what this is.
+				I32_load8_s i32_load8_s = new I32_load8_s(memoryArgument, currentFrame, store, stack);
+				i32_load8_s.execute();
+				break;
+			}
+			case (byte) 0x2D: {   // I32_load8_u
+				MemoryArgument memoryArgument = new MemoryArgument(); // Not sure what this is.
+				I32_load8_u i32_load8_u = new I32_load8_u(memoryArgument, currentFrame, store, stack);
+				i32_load8_u.execute();
+				break;
+			}
+//			case (byte) 0x2E: {   // I32_load16_s
+//			case (byte) 0x2F: {   // I32_load16_u
+//			case (byte) 0x30: {   // I64_load8_u
+//			case (byte) 0x31: {   // I64_load8_s
+//			case (byte) 0x32: {   // I64_load16_s
+//			case (byte) 0x33: {   // I64_load16_u
+//			case (byte) 0x34: {   // I64_load32_s
+//			case (byte) 0x35: {   // I64_load32_u
+
+
+			case (byte) 0x36: {    // I32_store
+				MemoryArgument memoryArgument = new MemoryArgument(); // Not sure what this is.
+				I32_store i32_store = new I32_store(memoryArgument, currentFrame, store, stack);
+				i32_store.execute();
+				break;
+			}
+//			case (byte) 0x37: {      // I64 store
+//			case (byte) 0x38: {      // F32 store
+//			case (byte) 0x39: {      // F64 store
+			case (byte) 0x3A: {      // I32 8 store
+				MemoryArgument memoryArgument = new MemoryArgument(); // Not sure what this is.
+				I32_store8 i32_store8 = new I32_store8(memoryArgument, currentFrame, store, stack);
+				i32_store8.execute();
+				break;
+			}
+			case (byte) 0x3B: {      // I32 16 store
+				MemoryArgument memoryArgument = new MemoryArgument(); // Not sure what this is.
+				I32_store16 i32_store16 = new I32_store16(memoryArgument, currentFrame, store, stack);
+				i32_store16.execute();
+				break;
+			}//			case (byte) 0x3C: {      // I64 8 store
+//			case (byte) 0x3D: {      // I64 16 store
+//			case (byte) 0x3E: {      // I64 32 store
+
+//			case (byte) 0x3F: { break;}  // Memory Size
+//			case (byte) 0x40: { break;}  // Memory Grow
+
+			case (byte) 0x41: {  // i32.const i32
+				ConstantInt32 constantInt32 = new ConstantInt32(this);
+				constantInt32.execute(new VarUInt32(code));
+				break;
+			}
+//			case (byte) 0x42: { break;}  // I64 const I64
+//			case (byte) 0x43: { break;}  // F32 const F32
+//			case (byte) 0x44: { break;}  // F64 const F64
+
 			case (byte) 0x45: { // i32 equals zero
 				I32_eqz i32_eqz = new I32_eqz(this);
 				i32_eqz.execute();
@@ -192,23 +278,23 @@ public class WasmInstance implements WasmInstanceInterface {
 				i32_ne.execute();
 				break;
 			}
-            case (byte) 0x48: { // i32 less than signed
-                I32_lt_s i32_lt_s = new I32_lt_s(this);
-                i32_lt_s.execute();
-                break;
-            }
-            case (byte) 0x49: { // i32 less than unsigned
-                I32_lt_u i32_lt_u = new I32_lt_u(this);
-                i32_lt_u.execute();
-                break;
-            }
+			case (byte) 0x48: { // i32 less than signed
+				I32_lt_s i32_lt_s = new I32_lt_s(this);
+				i32_lt_s.execute();
+				break;
+			}
+			case (byte) 0x49: { // i32 less than unsigned
+				I32_lt_u i32_lt_u = new I32_lt_u(this);
+				i32_lt_u.execute();
+				break;
+			}
 			case (byte) 0x4A: { // i32 greater than signed
 				I32_gt_s i32_gt_s = new I32_gt_s(this);
 				i32_gt_s.execute();
 				break;
 			}
 			case (byte) 0x4B: { // i32 greater than unsigned
-				I32_gt_u i32_gt_u = new I32_gt_u(this);
+				I32_gt_u i32_gt_u = new I32_gt_u(stack);
 				i32_gt_u.execute();
 				break;
 			}
@@ -252,37 +338,77 @@ public class WasmInstance implements WasmInstanceInterface {
 				i64_lt_s.execute();
 				break;
 			}
-            case (byte) 0x6A: {
-                AddI32 addI32 = new AddI32(this);
-                addI32.execute();
-                break;
-            }
-            default:
-                throwUnknownOpcodeException(opcode, code.getIndex());
-                return;
-        }
-    }
+			case (byte) 0x54: { // i64 less than unsigned
+				I64_lt_u i64_lt_u = new I64_lt_u(this);
+				i64_lt_u.execute();
+				break;
+			}
+			case (byte) 0x55: { // i64 greater than signed
+				I64_gt_s i64_gt_s = new I64_gt_s(this);
+				i64_gt_s.execute();
+				break;
+			}
+			case (byte) 0x56: { // i64 greater than signed
+				I64_gt_s i64_gt_s = new I64_gt_s(this);
+				i64_gt_s.execute();
+				break;
+			}
+			case (byte) 0x57: { // i64 less than equal to signed
+				I64_le_s i64_le_s = new I64_le_s(this);
+				i64_le_s.execute();
+				break;
+			}
+			case (byte) 0x58: { // i64 less than equal to unsigned
+				I64_le_u i64_le_u = new I64_le_u(this);
+				i64_le_u.execute();
+				break;
+			}
+			case (byte) 0x59: { // i64 greater than equal to signed
+				I64_ge_s i64_ge_s = new I64_ge_s(this);
+				i64_ge_s.execute();
+				break;
+			}
+			case (byte) 0x5A: { // i64 greater than equal to usigned
+				I64_ge_u i64_ge_u = new I64_ge_u(this);
+				i64_ge_u.execute();
+				break;
+			}
+			case (byte) 0x6A: {
+				AddI32 addI32 = new AddI32(this);
+				addI32.execute();
+				break;
+			}
+			case (byte) 0x6B: {
+				I32_Sub i32_sub = new I32_Sub(this);
+				i32_sub.execute();
+				break;
+			}
+			default:
+				throwUnknownOpcodeException(opcode, code.getIndex());
+				return;
+		}
+	}
 
-    private void throwUnknownOpcodeException(byte opcode, Integer index) {
-        String message = "Wasm tried to run an opcode that was not defined. Unknown Opcode = " + Hex.byteToHex(opcode) + " (0d" + opcode + ")";
-        message += " at byte number = " + index + ". ";
-        String possibleSolutions = "Verify the wasm file is valid.  Recompile Wasm File.  Contact support.";
-        throw new WasmRuntimeException(UUID.fromString("6b5700ee-9642-4544-8850-22794071e848"), message, possibleSolutions);
-    }
+	private void throwUnknownOpcodeException(byte opcode, Integer index) {
+		String message = "Wasm tried to run an opcode that was not defined. Unknown Opcode = " + Hex.byteToHex(opcode) + " (0d" + opcode + ")";
+		message += " at byte number = " + index + ". ";
+		String possibleSolutions = "Verify the wasm file is valid.  Recompile Wasm File.  Contact support.";
+		throw new WasmRuntimeException(UUID.fromString("6b5700ee-9642-4544-8850-22794071e848"), message, possibleSolutions);
+	}
 
 
-    @Override
-    public WasmStack<Object> stack() {
-        return stack;
-    }
+	@Override
+	public WasmStack<Object> stack() {
+		return stack;
+	}
 
-    @Override
-    public WasmVector<DataTypeNumber> localAll() {
-        return localAll;
-    }
+	@Override
+	public WasmVector<DataTypeNumber> localAll() {
+		return localAll;
+	}
 
-    @Override
-    public BytesFile getCode() {
-        return code;
-    }
+	@Override
+	public BytesFile getCode() {
+		return code;
+	}
 }

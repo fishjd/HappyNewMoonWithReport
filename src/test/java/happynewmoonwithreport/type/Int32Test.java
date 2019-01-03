@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2019 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -23,35 +23,35 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class Int32Test {
-    private S32 s32;
+	private S32 s32;
 
-    @BeforeEach
-    public void setUp() throws Exception {
+	@BeforeEach
+	public void setUp() throws Exception {
 
-    }
+	}
 
-    @AfterEach
-    public void tearDown() throws Exception {
-    }
+	@AfterEach
+	public void tearDown() throws Exception {
+	}
 
-    @Test
-    public void maxBits() throws Exception {
-        s32 = new S32(0);
-        assertEquals(new Integer(32), s32.maxBits());
-    }
+	@Test
+	public void maxBits() throws Exception {
+		s32 = new S32(0);
+		assertEquals(new Integer(32), s32.maxBits());
+	}
 
-    @Test
-    public void minValue() throws Exception {
-        s32 = new S32(0);
-        assertEquals(new Long(-2_147_483_648), s32.minValue());
-    }
+	@Test
+	public void minValue() throws Exception {
+		s32 = new S32(0);
+		assertEquals(new Long(-2_147_483_648), s32.minValue());
+	}
 
-    @Test
-    public void maxValue() throws Exception {
-        s32 = new S32(0);
-        assertEquals(new Long(2_147_483_647), s32.maxValue());
+	@Test
+	public void maxValue() throws Exception {
+		s32 = new S32(0);
+		assertEquals(new Long(2_147_483_647), s32.maxValue());
 
-        assertEquals((1 << 31) - 1, new Double(Math.pow(2, 31)).intValue());
-    }
+		assertEquals((1 << 31) - 1, new Double(Math.pow(2, 31)).intValue());
+	}
 
 }

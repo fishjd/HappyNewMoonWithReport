@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2019 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -28,46 +28,46 @@ import happynewmoonwithreport.type.VarUInt1;
 
 public class GlobalType implements Validation {
 
-    /**
-     * may only be "anyFunc" in MVP.
-     */
-    private ValueType contentType;
-    private Mutability mutability;
+	/**
+	 * may only be "anyFunc" in MVP.
+	 */
+	private ValueType contentType;
+	private Mutability mutability;
 
-    public GlobalType(BytesFile payload) {
-        contentType = new ValueType(payload);
-        mutability = new Mutability(new VarUInt1(payload));
-    }
+	public GlobalType(BytesFile payload) {
+		contentType = new ValueType(payload);
+		mutability = new Mutability(new VarUInt1(payload));
+	}
 
-    public GlobalType(ValueType contentType, Mutability mutability) {
-        this.contentType = contentType;
-        this.mutability = mutability;
-    }
+	public GlobalType(ValueType contentType, Mutability mutability) {
+		this.contentType = contentType;
+		this.mutability = mutability;
+	}
 
-    @Override
-    public Boolean valid() {
-        Boolean result = true;
-        result &= mutability.valid();
-        result &= contentType.valid();
+	@Override
+	public Boolean valid() {
+		Boolean result = true;
+		result &= mutability.valid();
+		result &= contentType.valid();
 
-        return result;
-    }
+		return result;
+	}
 
-    public ValueType getContentType() {
-        return contentType;
-    }
+	public ValueType getContentType() {
+		return contentType;
+	}
 
-    public void setContentType(ValueType contentType) {
-        this.contentType = contentType;
-    }
+	public void setContentType(ValueType contentType) {
+		this.contentType = contentType;
+	}
 
-    public Mutability getMutability() {
-        return mutability;
-    }
+	public Mutability getMutability() {
+		return mutability;
+	}
 
-    public void setMutability(Mutability mutability) {
-        this.mutability = mutability;
-    }
+	public void setMutability(Mutability mutability) {
+		this.mutability = mutability;
+	}
 
 
 }

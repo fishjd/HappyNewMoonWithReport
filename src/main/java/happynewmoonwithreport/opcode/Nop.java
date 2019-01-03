@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2019 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -21,34 +21,32 @@ import happynewmoonwithreport.WasmInstanceInterface;
 
 /**
  * No Operation - Do Nothing
- * <p>
  * <ol>
  * <li>
  * Do Nothing
  * </li>
  * </ol>
- * <p>
- * <p>
- * Source:  <a href="https://webassembly.github.io/spec/exec/instructions.html#exec-nop" target="_top">
- * https://webassembly.github.io/spec/exec/instructions.html#exec-nop
+ * Source:
+ * <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-nop"target="_top">
+ * https://webassembly.github.io/spec/core/exec/instructions.html#exec-nop
  * </a>
  */
 public class Nop {
-    private WasmInstanceInterface instance;
+	private WasmInstanceInterface instance;
 
-    private Nop() {
-        super();
-    }
+	private Nop() {
+		super();
+	}
 
-    public Nop(WasmInstanceInterface instance) {
-        this();
-        this.instance = instance;
-    }
+	public Nop(WasmInstanceInterface instance) {
+		this();
+		this.instance = instance;
+	}
 
-    /**
-     * Execute the opcode.
-     */
-    public void execute() {
-       // Do Nothing!
-    }
+	/**
+	 * Execute the opcode.
+	 */
+	public void execute() {
+		// Do Nothing!
+	}
 }

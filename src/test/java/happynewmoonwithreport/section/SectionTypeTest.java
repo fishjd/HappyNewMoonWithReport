@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2019 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -30,44 +30,44 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class SectionTypeTest {
 
-    private SectionType sectionType;
+	private SectionType sectionType;
 
-    @BeforeEach
-    public void setUp() throws Exception {
-        sectionType = new SectionType();
-        assertNotNull(sectionType);
-    }
+	@BeforeEach
+	public void setUp() throws Exception {
+		sectionType = new SectionType();
+		assertNotNull(sectionType);
+	}
 
-    @AfterEach
-    public void tearDown() throws Exception {
-    }
+	@AfterEach
+	public void tearDown() throws Exception {
+	}
 
-    @Test
-    public void testInstantiate() {
-        byte[] byteAll = {(byte) 0x01, (byte) 0x60, (byte) 0x02, (byte) 0x7F, (byte) 0x7F, (byte) 0x01, (byte) 0x7F};
-        BytesFile payload = new BytesFile(byteAll);
-        // run
-        sectionType.instantiate(payload);
+	@Test
+	public void testInstantiate() {
+		byte[] byteAll = {(byte) 0x01, (byte) 0x60, (byte) 0x02, (byte) 0x7F, (byte) 0x7F, (byte) 0x01, (byte) 0x7F};
+		BytesFile payload = new BytesFile(byteAll);
+		// run
+		sectionType.instantiate(payload);
 
-        // verify
-        assertEquals(1, sectionType.getFunctionSignatures().size());
-        final ArrayList<FunctionType> functionSignatureAll = sectionType.getFunctionSignatures();
-        FunctionType functionType = functionSignatureAll.get(0);
-        assertEquals("func", functionType.getForm().getValue());
-        assertEquals(new UInt32(2L), functionType.getParamCount());
-        assertEquals(new UInt32(1), functionType.getReturnCount());
+		// verify
+		assertEquals(1, sectionType.getFunctionSignatures().size());
+		final ArrayList<FunctionType> functionSignatureAll = sectionType.getFunctionSignatures();
+		FunctionType functionType = functionSignatureAll.get(0);
+		assertEquals("func", functionType.getForm().getValue());
+		assertEquals(new UInt32(2L), functionType.getParamCount());
+		assertEquals(new UInt32(1), functionType.getReturnCount());
 
-        assertEquals(new UInt32(2L), functionType.getParamCount());
-        assertEquals(new UInt32(1), functionType.getReturnCount());
+		assertEquals(new UInt32(2L), functionType.getParamCount());
+		assertEquals(new UInt32(1), functionType.getReturnCount());
 
-        assertEquals(2, functionType.getParamTypeAll().size());
-        assertEquals(1, functionType.getReturnTypeAll().size());
+		assertEquals(2, functionType.getParamTypeAll().size());
+		assertEquals(1, functionType.getReturnTypeAll().size());
 
-        assertEquals("int32", functionType.getParamTypeAll().get(0).getValue());
-        assertEquals("int32", functionType.getParamTypeAll().get(1).getValue());
-        assertEquals("int32", functionType.getReturnTypeAll().get(0).getValue());
+		assertEquals("int32", functionType.getParamTypeAll().get(0).getValue());
+		assertEquals("int32", functionType.getParamTypeAll().get(1).getValue());
+		assertEquals("int32", functionType.getReturnTypeAll().get(0).getValue());
 
 
-    }
+	}
 
 }

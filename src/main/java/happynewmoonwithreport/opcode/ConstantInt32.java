@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2019 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@ package happynewmoonwithreport.opcode;
 
 import happynewmoonwithreport.WasmInstanceInterface;
 import happynewmoonwithreport.type.I32;
+
 /**
  * Constant Int32
  * <p>
@@ -30,27 +31,28 @@ import happynewmoonwithreport.type.I32;
  * </li>
  * </ol>
  * <p>
- * Source:  <a href="https://webassembly.github.io/spec/exec/instructions.html#exec-const" target="_top">
- * https://webassembly.github.io/spec/exec/instructions.html#exec-const
+ * Source:  <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-const" target="_top">
+ * https://webassembly.github.io/spec/core/exec/instructions.html#exec-const
  * </a>
  */
 public class ConstantInt32 {
-    private WasmInstanceInterface instance;
+	private WasmInstanceInterface instance;
 
-    private ConstantInt32() {
-        super();
-    }
+	private ConstantInt32() {
+		super();
+	}
 
-    public ConstantInt32(WasmInstanceInterface instance) {
-        this();
-        this.instance = instance;
-    }
+	public ConstantInt32(WasmInstanceInterface instance) {
+		this();
+		this.instance = instance;
+	}
 
-    /**
-     * Execute the opcode.
-     */
-    public void execute(I32 value) {
-        instance.stack().push(value);
+	/**
+	 * Execute the opcode.
+	 * @param value  value to push on stack.
+	 */
+	public void execute(I32 value) {
+		instance.stack().push(value);
 
-    }
+	}
 }

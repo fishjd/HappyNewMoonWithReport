@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2019 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -26,41 +26,41 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 
 
 public class isBoundByIntegerTest {
-    private Integer maxCount = 1_000_000;
+	private Integer maxCount = 1_000_000;
 
-    private Random random;
+	private Random random;
 
-    @BeforeEach
-    public void setUp() throws Exception {
-        random = new Random(System.currentTimeMillis());
+	@BeforeEach
+	public void setUp() throws Exception {
+		random = new Random(System.currentTimeMillis());
 
-    }
+	}
 
 
-    @Test
-    public void inIntegerRange() throws Exception {
-        for (Integer j = 0; j < maxCount; j++) {
-            Integer i = random.nextInt();
-            UInt64 uInt64 = new UInt64(i);
+	@Test
+	public void inIntegerRange() throws Exception {
+		for (Integer j = 0; j < maxCount; j++) {
+			Integer i = random.nextInt();
+			UInt64 uInt64 = new UInt64(i);
 
-            // run
-            Boolean boundByInteger = uInt64.isBoundByInteger();
+			// run
+			Boolean boundByInteger = uInt64.isBoundByInteger();
 
-            // test
-            assertThat(boundByInteger).as("i = " + i.toString()).isTrue();
-        }
-    }
+			// test
+			assertThat(boundByInteger).as("i = " + i.toString()).isTrue();
+		}
+	}
 
-    @Test
-    public void inIntegerRangeFails() throws Exception {
+	@Test
+	public void inIntegerRangeFails() throws Exception {
 
-        UInt64 uInt64 = new UInt64(1L + Integer.MAX_VALUE);
+		UInt64 uInt64 = new UInt64(1L + Integer.MAX_VALUE);
 
-        // run
-        Boolean boundByInteger = uInt64.isBoundByInteger();
+		// run
+		Boolean boundByInteger = uInt64.isBoundByInteger();
 
-        // test
-        assertFalse(boundByInteger);
-    }
+		// test
+		assertFalse(boundByInteger);
+	}
 
 }

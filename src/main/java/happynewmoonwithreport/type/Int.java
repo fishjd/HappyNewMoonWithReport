@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2019 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -16,29 +16,29 @@
  */
 package happynewmoonwithreport.type;
 
+import happynewmoonwithreport.type.JavaType.ByteUnsigned;
+
 /**
  * Web Assembly Integer
  */
-public abstract class Int implements DataTypeNumber{
+public abstract class Int implements DataTypeNumber {
 
 
-    @Override
-    public Integer maxBytes() {
-        return maxBits() / 8;
-    }
+	@Override
+	public Integer maxBytes() {
+		return maxBits() / 8;
+	}
 
-    @Override
-    public Integer minBytes() {
-        return maxBits() / 8;
-    }
+	@Override
+	public Integer minBytes() {
+		return maxBits() / 8;
+	}
 
 
+	public abstract Boolean booleanValue();
 
-    public abstract Boolean booleanValue();
-
-    //    public abstract Byte byteValue();
+	//    public abstract Byte byteValue();
 //    public abstract Short shortValue();
-
 
 
 ///**
@@ -56,6 +56,72 @@ public abstract class Int implements DataTypeNumber{
 //    public abstract Int unsignedValue();
 
 
-    // public abstract Boolean equals(Int other) ;
+	// public abstract Boolean equals(Int other) ;
+
+	/**
+	 * Sign extend a byte to an integer.
+	 * <br>
+	 * <br>
+	 * extend_sM,N(i)
+	 * <ol>
+	 * <li>
+	 * Let j be the signed interpretation of i of size M.
+	 * </li> <li>
+	 * Return the two’s complement of j relative to size N.
+	 * </li>
+	 * </ol>
+	 * <p>
+	 * <b>Source:</b>  <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-extend-s" target="_top">
+	 * https://webassembly.github.io/spec/core/exec/numerics.html#op-extend-s
+	 * </a>
+	 *
+	 * @param input a byte
+	 *
+	 * @return an integer that is the same value of the byte.
+	 */
+	public static Integer signExtend(ByteUnsigned input) {
+		int result;
+
+		result = input.intValue();
+		if (input.isSignBitSet()) {
+			// negative
+			result = twoComplement(result);
+		}
+		return new Integer(result);
+	}
+
+
+	/**
+	 * Is the sign bit set?   Is input negative?
+	 *
+	 * @param input
+	 *
+	 * @return true if sign bit is set.
+	 */
+//	public static Boolean isSignBitSet(ByteUnsigned input) {
+//		int mask = 0x80;
+//		Boolean result = ((byte) mask & (byte) input) != 0;
+//		return result;
+//	}
+
+	/**
+	 * calculate the two complement of a number
+	 * <p>
+	 * <b>Source:</b>  <a href="https://introcs.cs.princeton.edu/java/61data/" target="_top">
+	 * https://introcs.cs.princeton.edu/java/61data/
+	 * </a>
+	 *
+	 * @param input value to modify
+	 *
+	 * @return the twos complement of input
+	 */
+	public static int twoComplement(int input) {
+		// ones complement,  i.e flip all the bits, i.e binary negation.
+		int result = ~input;
+		// Add one.
+		result = result + 1;
+		return result;
+	}
+
 
 }

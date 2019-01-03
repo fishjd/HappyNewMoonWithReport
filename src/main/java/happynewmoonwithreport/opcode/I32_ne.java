@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2019 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -17,13 +17,12 @@
 package happynewmoonwithreport.opcode;
 
 
-import java.util.UUID;
-
 import happynewmoonwithreport.WasmInstanceInterface;
 import happynewmoonwithreport.WasmRuntimeException;
 import happynewmoonwithreport.WasmStack;
 import happynewmoonwithreport.type.I32;
-import happynewmoonwithreport.type.UInt32;
+
+import java.util.UUID;
 
 /**
  * I32 equal to (i32_eq)
@@ -49,52 +48,50 @@ import happynewmoonwithreport.type.UInt32;
  * <p>
  * </li>
  * </ol>
- * <p>
- * <p>
- * Source:  <a href="https://webassembly.github.io/spec/exec/instructions.html#exec-relop" target="_top">
- * https://webassembly.github.io/spec/exec/instructions.html#exec-relop
+ * Source:  <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-relop" target="_top">
+ * https://webassembly.github.io/spec/core/exec/instructions.html#exec-relop
  * </a>
  */
 public class I32_ne {
-    private WasmInstanceInterface instance;
+	private WasmInstanceInterface instance;
 
-    private I32_ne() {
-        super();
-    }
+	private I32_ne() {
+		super();
+	}
 
-    public I32_ne(WasmInstanceInterface instance) {
-        this();
-        this.instance = instance;
-    }
+	public I32_ne(WasmInstanceInterface instance) {
+		this();
+		this.instance = instance;
+	}
 
 
-    /**
-     * Execute the opcode.
-     */
-    public void execute() {
-        WasmStack<Object> stack = instance.stack();
-        if ((stack.peek() instanceof I32) == false) {
-            throw new WasmRuntimeException(UUID.fromString("c0567b29-8821-4db4-82f0-58780682c917"),
-                    "I32_ne: Value2 type is incorrect");
-        }
-        I32 value2 = (I32) stack.pop();
+	/**
+	 * Execute the opcode.
+	 */
+	public void execute() {
+		WasmStack<Object> stack = instance.stack();
+		if ((stack.peek() instanceof I32) == false) {
+			throw new WasmRuntimeException(UUID.fromString("c0567b29-8821-4db4-82f0-58780682c917"),
+					"I32_ne: Value2 type is incorrect");
+		}
+		I32 value2 = (I32) stack.pop();
 
-        if ((stack.peek() instanceof I32) == false) {
-            throw new WasmRuntimeException(UUID.fromString("5878a528-f6b1-48c4-a6e5-0c6e955874cb"),
-                    "I32_ne: Value1 type is incorrect");
-        }
-        I32 value1 = (I32) stack.pop();
+		if ((stack.peek() instanceof I32) == false) {
+			throw new WasmRuntimeException(UUID.fromString("5878a528-f6b1-48c4-a6e5-0c6e955874cb"),
+					"I32_ne: Value1 type is incorrect");
+		}
+		I32 value1 = (I32) stack.pop();
 
-        Integer iResult;
-        if (value1.equals(value2) == false) {
-            iResult = 1;
-        } else {
-            iResult = 0;
-        }
-        I32 result = new I32(iResult);
+		Integer iResult;
+		if (value1.equals(value2) == false) {
+			iResult = 1;
+		} else {
+			iResult = 0;
+		}
+		I32 result = new I32(iResult);
 
-        stack.push(result);
-    }
+		stack.push(result);
+	}
 
 
 }

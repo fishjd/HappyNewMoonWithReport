@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2019 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -17,42 +17,41 @@
 package happynewmoonwithreport.opcode;
 
 
+import java.util.UUID;
+
 import happynewmoonwithreport.WasmInstanceInterface;
 import happynewmoonwithreport.WasmTrapException;
 
-import java.util.UUID;
-
 /**
  * Unreachable
- * <p>
  * <ol>
  * <li>
  * Trap i.e. Throw WasmTrapException.
  * </li>
  * </ol>
  * <p>
- * <p>
- * Source:  <a href="https://webassembly.github.io/spec/exec/instructions.html#exec-unreachable" target="_top">
- * https://webassembly.github.io/spec/exec/instructions.html#exec-unreachable
+ * Source:<p>
+ *     <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-unreachable"
+ * target="_top"> https://webassembly.github.io/spec/core/exec/instructions.html#exec-unreachable
  * </a>
  */
 public class Unreachable {
-    private WasmInstanceInterface instance;
+	private WasmInstanceInterface instance;
 
-    private Unreachable() {
-        super();
-    }
+	private Unreachable() {
+		super();
+	}
 
-    public Unreachable(WasmInstanceInterface instance) {
-        this();
-        this.instance = instance;
-    }
+	public Unreachable(WasmInstanceInterface instance) {
+		this();
+		this.instance = instance;
+	}
 
-    /**
-     * Execute the opcode.
-     */
-    public void execute() {
-        throw new WasmTrapException(UUID.fromString("e496383f-377d-4090-9cff-64bdfc50a32e"),
-                "Unreachable code tried to execute!");
-    }
+	/**
+	 * Execute the opcode.
+	 */
+	public void execute() {
+		throw new WasmTrapException(UUID.fromString("e496383f-377d-4090-9cff-64bdfc50a32e"),
+									"Unreachable code tried to execute!");
+	}
 }

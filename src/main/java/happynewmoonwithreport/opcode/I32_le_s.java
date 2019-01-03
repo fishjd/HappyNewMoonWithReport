@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2019 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -49,52 +49,50 @@ import java.util.UUID;
  * <p>
  * </li>
  * </ol>
- * <p>
- * <p>
- * Source:  <a href="https://webassembly.github.io/spec/exec/instructions.html#exec-relop" target="_top">
- * https://webassembly.github.io/spec/exec/instructions.html#exec-relop
+ * Source:  <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-relop" target="_top">
+ * https://webassembly.github.io/spec/core/exec/instructions.html#exec-relop
  * </a>
  */
 public class I32_le_s {
-    private WasmInstanceInterface instance;
+	private WasmInstanceInterface instance;
 
-    private I32_le_s() {
-        super();
-    }
+	private I32_le_s() {
+		super();
+	}
 
-    public I32_le_s(WasmInstanceInterface instance) {
-        this();
-        this.instance = instance;
-    }
-
-
-    /**
-     * Execute the opcode.
-     */
-    public void execute() {
-        WasmStack<Object> stack = instance.stack();
-        if ((stack.peek() instanceof I32) == false) {
-            throw new WasmRuntimeException(UUID.fromString("8f89d9ff-b81f-4b35-a8ee-9cb96bee6d82"),
-                    "i32_le_s: Value2 type is incorrect");
-        }
-        I32 value2 = (I32) stack.pop();
-
-        if ((stack.peek() instanceof I32) == false) {
-            throw new WasmRuntimeException(UUID.fromString("dbadeae7-72cf-48c4-ac5a-109990edbf8c"),
-                    "i32_le_s: Value1 type is incorrect");
-        }
-        I32 value1 = (I32) stack.pop();
-
-        // these values are signed (positive/negative) values and thus we use Int32
-        S32 value2Signed = value2.signedValue();
-        S32 value1Signed = value1.signedValue();
+	public I32_le_s(WasmInstanceInterface instance) {
+		this();
+		this.instance = instance;
+	}
 
 
-        // Do the comparison.
-        I32 result = value1Signed.lessThanEqual(value2Signed);
+	/**
+	 * Execute the opcode.
+	 */
+	public void execute() {
+		WasmStack<Object> stack = instance.stack();
+		if ((stack.peek() instanceof I32) == false) {
+			throw new WasmRuntimeException(UUID.fromString("8f89d9ff-b81f-4b35-a8ee-9cb96bee6d82"),
+					"i32_le_s: Value2 type is incorrect");
+		}
+		I32 value2 = (I32) stack.pop();
 
-        stack.push(result);
-    }
+		if ((stack.peek() instanceof I32) == false) {
+			throw new WasmRuntimeException(UUID.fromString("dbadeae7-72cf-48c4-ac5a-109990edbf8c"),
+					"i32_le_s: Value1 type is incorrect");
+		}
+		I32 value1 = (I32) stack.pop();
+
+		// these values are signed (positive/negative) values and thus we use Int32
+		S32 value2Signed = value2.signedValue();
+		S32 value1Signed = value1.signedValue();
+
+
+		// Do the comparison.
+		I32 result = value1Signed.lessThanEqual(value2Signed);
+
+		stack.push(result);
+	}
 
 
 }

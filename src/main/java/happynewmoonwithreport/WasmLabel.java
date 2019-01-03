@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2019 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -25,28 +25,29 @@ import happynewmoonwithreport.type.WasmVector;
  * Intuitively, instr∗ is the continuation to execute when the branch is taken, in place of the original control
  * construct.
  * <p>
- * Source:  <a href="https://webassembly.github.io/spec/exec/runtime.html#syntax-label" target="_top">
- * https://webassembly.github.io/spec/exec/runtime.html#syntax-label
+ * Source:  <a href="https://webassembly.github.io/spec/core/exec/runtime.html#syntax-label" target="_top">
+ * https://webassembly.github.io/spec/core/exec/runtime.html#syntax-label
  * </a>
  */
 public class WasmLabel {
 
-    public WasmLabel (BytesFile code) {
-        returnTypeAll = new WasmVector<>(1);
-        ValueType resultType = new ValueType(code);
-        returnTypeAll.add(resultType);
-    }
-    /**
-     * The arity,  The types of the return values
-     */
-    private WasmVector<ValueType> returnTypeAll;
+	public WasmLabel(BytesFile code) {
+		returnTypeAll = new WasmVector<>(1);
+		ValueType resultType = new ValueType(code);
+		returnTypeAll.add(resultType);
+	}
+
+	/**
+	 * The arity,  The types of the return values
+	 */
+	private WasmVector<ValueType> returnTypeAll;
 
 
-    public WasmVector<ValueType> getReturnTypeAll() {
-        return returnTypeAll;
-    }
+	public WasmVector<ValueType> getReturnTypeAll() {
+		return returnTypeAll;
+	}
 
-    public void setReturnTypeAll(WasmVector<ValueType> returnTypeAll) {
-        this.returnTypeAll = returnTypeAll;
-    }
+	public void setReturnTypeAll(WasmVector<ValueType> returnTypeAll) {
+		this.returnTypeAll = returnTypeAll;
+	}
 }

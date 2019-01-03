@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2019 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -20,51 +20,49 @@ import static happynewmoonwithreport.type.utility.MathWBS.pow2;
 
 /**
  * An signed integer of 8 bits
- * <p>
- * <p>
+ * <br>
+ * <br>
  * Source:  <a href="http://webassembly.org/docs/binary-encoding/#uintn" target="_top">
  * http://webassembly.org/docs/binary-encoding/#uintn
  * </a>
  */
 public class SInt8 extends S32 {
-    //protected Byte value;
+	//protected Byte value;
 
-    protected SInt8() {
-    }
+	protected SInt8() {
+	}
 
-    public SInt8(Byte value) {
-        this.value = value.intValue();
-    }
+	public SInt8(Byte value) {
+		this.value = value.intValue();
+	}
 
-    public SInt8(Integer value) {
-        this.value = value;
-    }
+	public SInt8(Integer value) {
+		this.value = value;
+	}
 
 	/* private functions **/
 
 	/* Override DataTypeNumber */
 
-    @Override
-    public Integer maxBits() {
-        return 8;
-    }
+	@Override
+	public Integer maxBits() {
+		return 8;
+	}
 
 
-    @Override
-    public Long minValue() {
-        return -1L * pow2(maxBits() - 1);
-    }
+	@Override
+	public Long minValue() {
+		return -1L * pow2(maxBits() - 1);
+	}
 
-    @Override
-    public Long maxValue() {
-        return pow2(maxBits() - 1) - 1;
-    }
+	@Override
+	public Long maxValue() {
+		return pow2(maxBits() - 1) - 1;
+	}
 
-    /* override of Object **/
-    @Override
-    public String toString() {
-        return "Int8{" +
-                "value=" + value +
-                "} ";
-    }
+	/* override of Object **/
+	@Override
+	public String toString() {
+		return "Int8{" + "value=" + value + "} ";
+	}
 }

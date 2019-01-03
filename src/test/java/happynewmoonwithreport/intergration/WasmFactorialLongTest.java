@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2019 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -27,23 +27,23 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 public class WasmFactorialLongTest {
-    private Wasm wasm;
-    private WasmModule module;
+	private Wasm wasm;
+	private WasmModule module;
 
-    @BeforeEach
-    public void setUp() throws Exception {
+	@BeforeEach
+	public void setUp() throws Exception {
 
-        String path = "./src/test/resources/factorialLong/factorialLong.wasm";
-        File wasmFile = new File(path);
-        assertTrue(wasmFile.exists());
+		String path = "./src/test/resources/factorialLong/factorialLong.wasm";
+		File wasmFile = new File(path);
+		assertTrue(wasmFile.exists());
 
-        wasm = new Wasm(path);
-        module = wasm.instantiate();
-    }
+		wasm = new Wasm(path);
+		module = wasm.instantiate();
+	}
 
-    @AfterEach
-    public void tearDown() throws Exception {
-    }
+	@AfterEach
+	public void tearDown() throws Exception {
+	}
 
 //    /**
 //     * This an end to end test
@@ -53,7 +53,7 @@ public class WasmFactorialLongTest {
 //
 //        assertTrue(wasm.validate());
 //
-//        assertEquals(new Integer(1), wasm.getFunctionSignatures().getSize());
+//        assertEquals(new UInt32(1), wasm.getFunctionSignatures().getCount());
 //
 //        assertEquals(2, wasm.exports().size());
 //        Assert.assertEquals(new ExternalKind(ExternalKind.memory), wasm.exports().get(0).getExternalKind());

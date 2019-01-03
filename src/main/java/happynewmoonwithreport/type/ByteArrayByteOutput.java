@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2019 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -25,32 +25,32 @@ import java.util.Arrays;
  */
 public final class ByteArrayByteOutput implements ByteOutput {
 
-    private byte[] bytes;
-    private int position;
+	private byte[] bytes;
+	private int position;
 
-    public ByteArrayByteOutput(Integer size) {
-        this.bytes = new byte[size];
-        this.position = 0;
-    }
+	public ByteArrayByteOutput(Integer size) {
+		this.bytes = new byte[size];
+		this.position = 0;
+	}
 
-    @Override
-    public void writeByte(byte i) {
-        bytes[position] = i;
-        position++;
-    }
+	@Override
+	public void writeByte(byte i) {
+		bytes[position] = i;
+		position++;
+	}
 
-    @Override
-    public byte[] bytes() {
-        return bytes;
-    }
+	@Override
+	public byte[] bytes() {
+		return bytes;
+	}
 
-    public void reset() {
-        position = 0;
-    }
+	public void reset() {
+		position = 0;
+	}
 
-    @Override
-    public String toString() {
-        return "ByteArrayByteOutput [bytes=" + Arrays.toString(bytes) + "]";
-    }
+	@Override
+	public String toString() {
+		return "ByteArrayByteOutput [bytes=" + Arrays.toString(bytes) + "]";
+	}
 
 }

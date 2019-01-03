@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2019 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -22,8 +22,8 @@ package happynewmoonwithreport.type.utility;
 
 public class MathWBS {
 
-    public static Long pow2(Integer exponent) {
-        return (1L << exponent);
-    }
+	public static Long pow2(Integer exponent) {
+		return (1L << exponent);
+	}
 
 }

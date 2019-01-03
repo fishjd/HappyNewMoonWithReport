@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2019 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -24,45 +24,45 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class Uint8Test {
-    private UInt8 uInt8;
+	private UInt8 uInt8;
 
-    @BeforeEach
-    public void setUp() throws Exception {
-    }
+	@BeforeEach
+	public void setUp() throws Exception {
+	}
 
-    @AfterEach
-    public void tearDown() throws Exception {
-    }
+	@AfterEach
+	public void tearDown() throws Exception {
+	}
 
-    @Test
-    public void maxBits() throws Exception {
-        uInt8 = new UInt8(0);
-        assertEquals(new Integer(8), uInt8.maxBits());
-    }
+	@Test
+	public void maxBits() throws Exception {
+		uInt8 = new UInt8(0);
+		assertEquals(new Integer(8), uInt8.maxBits());
+	}
 
-    @Test
-    public void minValue() throws Exception {
-        uInt8 = new UInt8(0);
-        assertEquals(new Long(0), uInt8.minValue());
-    }
+	@Test
+	public void minValue() throws Exception {
+		uInt8 = new UInt8(0);
+		assertEquals(new Long(0), uInt8.minValue());
+	}
 
-    @Test
-    public void maxValue() throws Exception {
-        uInt8 = new UInt8(0);
-        assertEquals(new Long(256), uInt8.maxValue());
-    }
+	@Test
+	public void maxValue() throws Exception {
+		uInt8 = new UInt8(0);
+		assertEquals(new Long(256), uInt8.maxValue());
+	}
 
 
-    @Test
-    public void testReadUnsigned2() throws Exception {
-        for (Integer i = 0; i < 256; i++) {
-            byte[] bytesAll = new byte[]{new Integer(i).byteValue()};
-            BytesFile bytesFile = new BytesFile(bytesAll);
-            UInt8 uInt8 = new UInt8(bytesFile);
-            Integer result = uInt8.integerValue();
-            assertEquals(i, result, "i = " + i.toString());
-        }
-    }
+	@Test
+	public void testReadUnsigned2() throws Exception {
+		for (Integer i = 0; i < 256; i++) {
+			byte[] bytesAll = new byte[]{new Integer(i).byteValue()};
+			BytesFile bytesFile = new BytesFile(bytesAll);
+			UInt8 uInt8 = new UInt8(bytesFile);
+			Integer result = uInt8.integerValue();
+			assertEquals(i, result, "i = " + i.toString());
+		}
+	}
 
 
 }

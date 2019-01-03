@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2019 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -16,50 +16,53 @@
  */
 package happynewmoonwithreport.opcode
 
+
 import happynewmoonwithreport.WasmFrame
-import happynewmoonwithreport.WasmInstanceInterface
+import happynewmoonwithreport.WasmModule
 import happynewmoonwithreport.WasmRuntimeException
+import happynewmoonwithreport.WasmStack
 import happynewmoonwithreport.type.I32
 import spock.lang.Specification
+
 /**
  * Created on 2017-08-25.
  */
 class GetLocalTest extends Specification {
-    void setup() {
-    }
+	void setup() {
+	}
 
-    void cleanup() {
-    }
+	void cleanup() {
+	}
 
-    def "Execute"() {
-        setup: " an instance with one local variable "
-        WasmInstanceInterface instance = new WasmInstanceStub();
+	def "Execute"() {
+		setup: " an module with one local variable "
+		WasmModule module = new WasmModule();
+		WasmStack stack = new WasmStack();
+		WasmFrame frame = new WasmFrame(module);
+		frame.localAll().add(new I32(3));
 
-        WasmFrame frame = new WasmFrame(instance);
-        frame.localAll().add(new I32(3));
+		GetLocal function = new GetLocal(frame, stack);
 
-        GetLocal function = new GetLocal(frame);
+		when: "run the opcode"
+		function.execute(new I32(0));
 
-        when: "run the opcode"
-        function.execute(new I32(0));
+		then: " the local value should be on the stack"
+		new I32(3) == stack.pop();
+	}
 
-        then: " the local value should be on the stack"
-        new I32(3) == instance.stack().pop();
-    }
+	def "Execute with exception thrown"() {
+		setup: " an instance with zero local variable "
+		WasmModule module = new WasmModule();
+		WasmStack stack = new WasmStack();
+		WasmFrame frame = new WasmFrame(module);
 
-    def "Execute with exception thrown"() {
-        setup: " an instance with zero local variable "
-        WasmInstanceInterface instance = new WasmInstanceStub();
 
-        WasmFrame frame = new WasmFrame(instance);
-        // frame.localAll().add(new Int32(3));
+		GetLocal function = new GetLocal(frame, stack);
 
-        GetLocal function = new GetLocal(frame);
+		when: "run the opcode"
+		function.execute(new I32(0));
 
-        when: "run the opcode"
-        function.execute(new I32(0));
-
-        then: " the local value should be on the stack"
-        thrown WasmRuntimeException;
-    }
+		then: " the local value should be on the stack"
+		thrown WasmRuntimeException;
+	}
 }

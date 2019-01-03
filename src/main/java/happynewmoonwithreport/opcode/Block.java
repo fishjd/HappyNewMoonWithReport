@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2019 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -23,7 +23,6 @@ import happynewmoonwithreport.WasmLabel;
 
 /**
  * Block
- * <p>
  * <ol>
  * <li>
  * Let n be the arity |t?| of the result type t?.
@@ -34,30 +33,30 @@ import happynewmoonwithreport.WasmLabel;
  * </li>
  * </ol>
  * <p>
- * <p>
- * Source:  <a href="https://webassembly.github.io/spec/exec/instructions.html#exec-block" target="_top">
- * https://webassembly.github.io/spec/exec/instructions.html#exec-block
+ * Source:
+ * <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-block" target="_top">
+ *     https://webassembly.github.io/spec/core/exec/instructions.html#exec-block
  * </a>
  */
 public class Block {
-    private WasmInstanceInterface instance;
+	private WasmInstanceInterface instance;
 
-    private Block() {
-        super();
-    }
+	private Block() {
+		super();
+	}
 
-    public Block(WasmInstanceInterface instance) {
-        this();
-        this.instance = instance;
-    }
+	public Block(WasmInstanceInterface instance) {
+		this();
+		this.instance = instance;
+	}
 
-    /**
-     * Execute the opcode.
-     */
-    public void execute() {
-        BytesFile code = instance.getCode();
+	/**
+	 * Execute the opcode.
+	 */
+	public void execute() {
+		BytesFile code = instance.getCode();
 
-        WasmLabel label = new WasmLabel(code);
-        instance.stack().push(label);
-    }
+		WasmLabel label = new WasmLabel(code);
+		instance.stack().push(label);
+	}
 }

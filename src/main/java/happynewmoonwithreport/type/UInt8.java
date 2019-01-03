@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2019 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -26,55 +26,59 @@ import static happynewmoonwithreport.type.utility.MathWBS.pow2;
  */
 public class UInt8 extends U32 {  // TODO change to Short
 
-    // protected Byte value;
+	// protected Byte value;
 
-    public UInt8() {
+	public UInt8() {
 
-    }
+	}
 
-    public UInt8(BytesFile bytesFile) {
-        assert (bytesFile.longEnough(minBytes()));
-        value = convert(bytesFile).longValue();
-    }
+	public UInt8(BytesFile bytesFile) {
+		assert (bytesFile.longEnough(minBytes()));
+		value = convert(bytesFile).longValue();
+	}
 
-    public UInt8(Integer value) {
-        this.value = value.longValue();
-    }
+	public UInt8(Integer value) {
+		this.value = value.longValue();
+	}
 
-    public Integer convert(BytesFile bytesFile) {
-        Integer result = 0;
-        // little Endian!
-        for (Integer i = 0; i < maxBits(); i = i + 8) {
-            result += Byte.toUnsignedInt(bytesFile.readByte()) << i;
-        }
-        return result;
-    }
+	public UInt8(U32 value) {
+		this.value = value.longValue();
+	}
+
+	public Integer convert(BytesFile bytesFile) {
+		Integer result = 0;
+		// little Endian!
+		for (Integer i = 0; i < maxBits(); i = i + 8) {
+			result += Byte.toUnsignedInt(bytesFile.readByte()) << i;
+		}
+		return result;
+	}
 
 
 	/* private functions **/
 
 	/* Override DataTypeNumber */
 
-    @Override
-    public Integer maxBits() {
-        return 8;
-    }
+	@Override
+	public Integer maxBits() {
+		return 8;
+	}
 
-    @Override
-    public Long minValue() {
-        return 0L;
-    }
+	@Override
+	public Long minValue() {
+		return 0L;
+	}
 
-    @Override
-    public Long maxValue() {
-        return pow2(maxBits());
-    }
+	@Override
+	public Long maxValue() {
+		return pow2(maxBits());
+	}
 
-    /* override of Object **/
-    @Override
-    public String toString() {
-        return "UInt8{" +
-                "value=" + value +
-                "} ";
-    }
+	/* override of Object **/
+	@Override
+	public String toString() {
+		return "UInt8{" +
+				"value=" + value +
+				"} ";
+	}
 }

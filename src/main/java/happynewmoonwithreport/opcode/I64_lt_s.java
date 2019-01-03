@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2019 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -51,50 +51,49 @@ import happynewmoonwithreport.type.S64;
  * </li>
  * </ol>
  * <p>
- * <p>
- * Source:  <a href="https://webassembly.github.io/spec/core/appendix/index-instructions.html"
- * target="_top"> https://webassembly.github.io/spec/core/appendix/index-instructions.html </a>
+ * Source: <a href="https://webassembly.github.io/spec/core/appendix/index-instructions.html"
+ * target="_top"> https://webassembly.github.io/spec/core/appendix/index-instructions.html
  * </a>
  */
 public class I64_lt_s {
-    private WasmInstanceInterface instance;
+	private WasmInstanceInterface instance;
 
-    private I64_lt_s() {
-        super();
-    }
+	private I64_lt_s() {
+		super();
+	}
 
-    public I64_lt_s(WasmInstanceInterface instance) {
-        this();
-        this.instance = instance;
-    }
+	public I64_lt_s(WasmInstanceInterface instance) {
+		this();
+		this.instance = instance;
+	}
 
 
-    /**
-     * Execute the opcode.
-     */
-    public void execute() {
-        WasmStack<Object> stack = instance.stack();
-        if ((stack.peek() instanceof I64) == false) {
-            throw new WasmRuntimeException(UUID.fromString("f214f3d9-5925-4018-930d-1990780f5eaf"),
-                    "I64_lt_s: Value2 type is incorrect");
-        }
-        I64 value2 = (I64) stack.pop();
+	/**
+	 * Execute the opcode.
+	 */
+	public void execute() {
+		WasmStack<Object> stack = instance.stack();
+		if ((stack.peek() instanceof I64) == false) {
+			throw new WasmRuntimeException(UUID.fromString("f214f3d9-5925-4018-930d-1990780f5eaf"),
+										   "I64_lt_s: Value2 type is incorrect");
+		}
+		I64 value2 = (I64) stack.pop();
 
-        if ((stack.peek() instanceof I64) == false) {
-            throw new WasmRuntimeException(UUID.fromString("7fcc3127-70de-4d69-82bf-b9347d3db299"),
-                    "I64_lt_s: Value1 type is incorrect");
-        }
-        I64 value1 = (I64) stack.pop();
+		if ((stack.peek() instanceof I64) == false) {
+			throw new WasmRuntimeException(UUID.fromString("7fcc3127-70de-4d69-82bf-b9347d3db299"),
+										   "I64_lt_s: Value1 type is incorrect");
+		}
+		I64 value1 = (I64) stack.pop();
 
-        // these values are signed (positive/negative) values
-        S64	 value2Signed = value2.signedValue();
-        S64 value1Signed = value1.signedValue();
+		// these values are signed (positive/negative) values
+		S64 value2Signed = value2.signedValue();
+		S64 value1Signed = value1.signedValue();
 
-        // Do the comparison.
-        I32 result = value1Signed.lessThan(value2Signed);
+		// Do the comparison.
+		I32 result = value1Signed.lessThan(value2Signed);
 
-        stack.push(result);
-    }
+		stack.push(result);
+	}
 
 
 }

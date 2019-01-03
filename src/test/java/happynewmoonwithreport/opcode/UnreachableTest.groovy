@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2019 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -20,27 +20,28 @@ import happynewmoonwithreport.WasmInstanceInterface
 import happynewmoonwithreport.WasmTrapException
 import happynewmoonwithreport.type.S32
 import spock.lang.Specification
+
 /**
  * Created on 2017-08-25.
  */
 class UnreachableTest extends Specification {
-    void setup() {
-    }
+	void setup() {
+	}
 
-    void cleanup() {
-    }
+	void cleanup() {
+	}
 
-    def "Execute"() {
-        setup: " an instance with one local variable "
-        WasmInstanceInterface instance = new WasmInstanceStub();
-        instance.localAll().add(new S32(3));
+	def "Execute"() {
+		setup: " an instance with one local variable "
+		WasmInstanceInterface instance = new WasmInstanceStub();
+		instance.localAll().add(new S32(3));
 
-        Unreachable function = new Unreachable(instance);
+		Unreachable function = new Unreachable(instance);
 
-        when: "run the opcode"
-        function.execute();
+		when: "run the opcode"
+		function.execute();
 
-        then: "The WasmTrapException is thrown"
-        thrown WasmTrapException;
-    }
+		then: "The WasmTrapException is thrown"
+		thrown WasmTrapException;
+	}
 }

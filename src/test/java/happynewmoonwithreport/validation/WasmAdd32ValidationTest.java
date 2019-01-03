@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2019 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -27,33 +27,33 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 public class WasmAdd32ValidationTest {
-    private Wasm wasm;
+	private Wasm wasm;
 
-    @BeforeEach
-    public void setUp() throws Exception {
+	@BeforeEach
+	public void setUp() throws Exception {
 
-        String path = "./src/test/resources/add32/add32.wasm";
-        File wasmFile = new File(path);
-        assertTrue(wasmFile.exists());
+		String path = "./src/test/resources/add32/add32.wasm";
+		File wasmFile = new File(path);
+		assertTrue(wasmFile.exists());
 
-        // C:\Users\James\Documents\Programming 2017\HappyNewMoonWithReport\src\test\resources\add32
-        wasm = new Wasm(path);
-        wasm.instantiate();
-    }
+		// C:\Users\James\Documents\Programming 2017\HappyNewMoonWithReport\src\test\resources\add32
+		wasm = new Wasm(path);
+		wasm.instantiate();
+	}
 
-    @AfterEach
-    public void tearDown() throws Exception {
-    }
+	@AfterEach
+	public void tearDown() throws Exception {
+	}
 
-    @Test
-    public void isValidTest() {
+	@Test
+	public void isValidTest() {
 
-        // run
-        Boolean valid = wasm.validate();
+		// run
+		Boolean valid = wasm.validate();
 
-        // validate
-        assertTrue(valid);
+		// validate
+		assertTrue(valid);
 
-    }
+	}
 
 }

@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2019 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -17,8 +17,8 @@
 package happynewmoonwithreport.opcode;
 
 import happynewmoonwithreport.WasmFrame;
-import happynewmoonwithreport.WasmInstanceInterface;
 import happynewmoonwithreport.WasmRuntimeException;
+import happynewmoonwithreport.WasmStack;
 import happynewmoonwithreport.type.DataTypeNumber;
 import happynewmoonwithreport.type.I32;
 
@@ -44,49 +44,50 @@ import java.util.UUID;
  * http://webassembly.org/docs/binary-encoding/#variable-access-described-here
  * </a>
  * <p>
- * Source:  <a href="https://webassembly.github.io/spec/exec/instructions.html#exec-set-local" target="_top">
- * https://webassembly.github.io/spec/exec/instructions.html#exec-set-local
+ * Source:  <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-set-local" target="_top">
+ * https://webassembly.github.io/spec/core/exec/instructions.html#exec-set-local
  * </a>
  */
 public class SetLocal {
 
-    private WasmFrame frame;
+	private WasmFrame frame;
+	private WasmStack stack;
 
-    private SetLocal() {
-        super();
-    }
+	private SetLocal() {
+		super();
+	}
 
-    public SetLocal(WasmFrame frame) {
-        this();
-        this.frame = frame;
-    }
+	public SetLocal(WasmFrame frame, WasmStack stack) {
+		this();
+		this.frame = frame;
+		this.stack = stack;
+	}
 
-    /**
-     * Execute the opcode
-     *
-     * @param index index in to the vector that contains the local variable.
-     */
-    public void execute(I32 index) {
-        WasmInstanceInterface instance = frame.instance();
-        // 1 Frame set in constructor.
+	/**
+	 * Execute the opcode
+	 *
+	 * @param index index in to the vector that contains the local variable.
+	 */
+	public void execute(I32 index) {
+		// 1 Frame set in constructor.
 
-        // 2 validate.
-        if (frame.localAll().exists(index) == false) {
-            throw new WasmRuntimeException(UUID.fromString("87eaa036-eaba-4740-93b6-590230b4ba49"),
-                    "SetLocal: Local variable " + index.integerValue() + " does not exist");
-        }
+		// 2 validate.
+		if (frame.localAll().exists(index) == false) {
+			throw new WasmRuntimeException(UUID.fromString("87eaa036-eaba-4740-93b6-590230b4ba49"),
+					"SetLocal: Local variable " + index.integerValue() + " does not exist");
+		}
 
-        // 3 validate
-        if (instance.stack().empty()) {
-            throw new WasmRuntimeException(UUID.fromString("5f1559de-055f-495f-b793-c210fd049e52"),
-                    "SetLocal: No value on the stack");
-        }
-        // 4. value
-        DataTypeNumber value = (DataTypeNumber) instance.stack().pop();
+		// 3 validate
+		if (stack.empty()) {
+			throw new WasmRuntimeException(UUID.fromString("5f1559de-055f-495f-b793-c210fd049e52"),
+					"SetLocal: No value on the stack");
+		}
+		// 4. value
+		DataTypeNumber value = (DataTypeNumber) stack.pop();
 
-        // 5. replace
-        frame.localAll().set(index, value);
-    }
+		// 5. replace
+		frame.localAll().set(index, value);
+	}
 
 
 }

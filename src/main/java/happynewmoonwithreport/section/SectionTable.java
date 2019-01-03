@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2019 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -39,32 +39,36 @@ import happynewmoonwithreport.type.WasmVector;
  */
 public class SectionTable implements Section {
 
-    private UInt32 count;
-    private WasmVector<TableType> tables;
+	private UInt32 count;
+	private WasmVector<TableType> tables;
 
+	public SectionTable() {
+		count = new UInt32(0);
+		tables = new WasmVector<>();
+	}
 
-    /**
-     * @param payload the input BytesFile.
-     */
-    @Override
-    public void instantiate(BytesFile payload) {
+	/**
+	 * @param payload the input BytesFile.
+	 */
+	@Override
+	public void instantiate(BytesFile payload) {
 
-        //* Count
-        count = new VarUInt32(payload);
+		//* Count
+		count = new VarUInt32(payload);
 
-        //* Entries of TableType
-        tables = new WasmVector<>(count.integerValue());
-        for (Integer index = 0; index < count.integerValue(); index++) {
-            TableType table = new TableType(payload);
-            tables.add(index, table);
-        }
-    }
+		//* Entries of TableType
+		tables = new WasmVector<>(count.integerValue());
+		for (Integer index = 0; index < count.integerValue(); index++) {
+			TableType table = new TableType(payload);
+			tables.add(index, table);
+		}
+	}
 
-    public UInt32 getCount() {
-        return count;
-    }
+	public UInt32 getCount() {
+		return count;
+	}
 
-    public WasmVector<TableType> getTables() {
-        return tables;
-    }
+	public WasmVector<TableType> getTables() {
+		return tables;
+	}
 }

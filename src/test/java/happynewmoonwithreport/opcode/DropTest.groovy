@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2019 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -25,52 +25,52 @@ import spock.lang.Specification
  * Created on 2017-08-25.
  */
 class DropTest extends Specification {
-    void setup() {
-    }
+	void setup() {
+	}
 
-    void cleanup() {
-    }
+	void cleanup() {
+	}
 
-    def "Drop Golden Test"() {
-        setup: " push two values on stack."
-        WasmInstanceInterface instance = new WasmInstanceStub();
-        instance.stack().push(new I32(val1));
-        instance.stack().push(new I32(val2));
+	def "Drop Golden Test"() {
+		setup: " push two values on stack."
+		WasmInstanceInterface instance = new WasmInstanceStub();
+		instance.stack().push(new I32(val1));
+		instance.stack().push(new I32(val2));
 
-        Drop function = new Drop(instance);
+		Drop function = new Drop(instance);
 
-        when: "run the opcode"
-        function.execute();
+		when: "run the opcode"
+		function.execute();
 
-        then: " a value of expected"
-        instance.stack().empty() == false;
-        instance.stack().pop();
-        instance.stack().empty() == true;
+		then: " a value of expected"
+		instance.stack().empty() == false;
+		instance.stack().pop();
+		instance.stack().empty() == true;
 
 
-        where: ""
-        val1        | val2        || expected
-        4           | 3           || 1
-        3           | 4           || 0
-        4           | 4           || 1
-        0           | 0           || 1
-        0x7FFF_FFFF | 0x7FFF_FFFF || 1
-        0x7FFF_FFFF | 0x7FFF_FFFE || 1
-    }
+		where: ""
+		val1        | val2        || expected
+		4           | 3           || 1
+		3           | 4           || 0
+		4           | 4           || 1
+		0           | 0           || 1
+		0x7FFF_FFFF | 0x7FFF_FFFF || 1
+		0x7FFF_FFFF | 0x7FFF_FFFE || 1
+	}
 
-    def "Drop Throw Exception when empty"() {
-        setup: "stack with zero elements on it."
+	def "Drop Throw Exception when empty"() {
+		setup: "stack with zero elements on it."
 
-        WasmInstanceInterface instance = new WasmInstanceStub();
+		WasmInstanceInterface instance = new WasmInstanceStub();
 
-        Drop function = new Drop(instance);
+		Drop function = new Drop(instance);
 
-        when: "run the opcode"
-        function.execute();
+		when: "run the opcode"
+		function.execute();
 
-        then: " Thrown Exception"
-        WasmRuntimeException exception = thrown();
-        exception.getUuid().toString().contains("f42f4399-988b-46ce-b73b-4dcdccae576f");
-    }
+		then: " Thrown Exception"
+		WasmRuntimeException exception = thrown();
+		exception.getUuid().toString().contains("f42f4399-988b-46ce-b73b-4dcdccae576f");
+	}
 
 }

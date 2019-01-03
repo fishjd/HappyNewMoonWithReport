@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2019 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -24,47 +24,48 @@ import happynewmoonwithreport.type.WasmVector;
  * arguments) in the order corresponding to their static local indices, and a reference to the function’s own module
  * instance:
  * <p>
- * Source:  <a href="https://webassembly.github.io/spec/exec/runtime.html#syntax-frame" target="_top">
- * https://webassembly.github.io/spec/exec/runtime.html#syntax-frame
+ * Source:  <a href="https://webassembly.github.io/spec/core/exec/runtime.html#frames" target="_top">
+ * https://webassembly.github.io/spec/core/exec/runtime.html#frames
  * </a>
+ * Frame contains:  locals, module, return arity
  */
 public class WasmFrame {
-    private WasmInstanceInterface instance;
+	private WasmModule module;
 
-    /**
-     * The arity,  The types of the return values
-     */
-    private WasmVector<DataTypeNumber> returnTypeAll;
-    /**
-     * Local Variables.
-     */
-    private WasmVector<DataTypeNumber> localAll;
+	/**
+	 * The arity,  The types of the return values
+	 */
+	private WasmVector<DataTypeNumber> returnTypeAll;
 
-    private WasmFrame() {
-        super();
-        localAll = new WasmVector<>(100);
-        returnTypeAll = new WasmVector<>(100);
-    }
+	/**
+	 * Local Variables including arguments
+	 */
+	private WasmVector<DataTypeNumber> localAll;
 
-    public WasmFrame(WasmInstanceInterface instance) {
-        this();
-        this.instance = instance;
+	private WasmFrame() {
+		super();
+		localAll = new WasmVector<>();
+		returnTypeAll = new WasmVector<>();
+	}
 
-    }
+	public WasmFrame(WasmModule module) {
+		this();
+		this.module = module;
+	}
 
-    public WasmInstanceInterface instance() {
-        return instance;
-    }
+	public WasmModule getModule() {
+		return module;
+	}
 
-    public WasmVector<DataTypeNumber> returnTypeAll() {
-        return returnTypeAll;
-    }
+	public WasmVector<DataTypeNumber> returnTypeAll() {
+		return returnTypeAll;
+	}
 
-    public WasmVector<DataTypeNumber> localAll() {
-        return localAll;
-    }
+	public WasmVector<DataTypeNumber> localAll() {
+		return localAll;
+	}
 
-    public void setLocalAll(WasmVector<DataTypeNumber> localAll) {
-        this.localAll = localAll;
-    }
+	public void setLocalAll(WasmVector<DataTypeNumber> localAll) {
+		this.localAll = localAll;
+	}
 }

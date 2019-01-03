@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2019 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -25,76 +25,76 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class VarUInt7Test {
 
-    @BeforeEach
-    public void setUp() throws Exception {
-    }
+	@BeforeEach
+	public void setUp() throws Exception {
+	}
 
-    @AfterEach
-    public void tearDown() throws Exception {
-    }
+	@AfterEach
+	public void tearDown() throws Exception {
+	}
 
-    private VarUInt7 varUInt7;
+	private VarUInt7 varUInt7;
 
-    @Test
-    public void maxBits() throws Exception {
-        varUInt7 = new VarUInt7(0);
-        assertEquals(new Integer(7), varUInt7.maxBits());
-    }
+	@Test
+	public void maxBits() throws Exception {
+		varUInt7 = new VarUInt7(0);
+		assertEquals(new Integer(7), varUInt7.maxBits());
+	}
 
-    @Test
-    public void minValue() throws Exception {
-        varUInt7 = new VarUInt7(0);
-        assertEquals(new Long(0), varUInt7.minValue());
-    }
+	@Test
+	public void minValue() throws Exception {
+		varUInt7 = new VarUInt7(0);
+		assertEquals(new Long(0), varUInt7.minValue());
+	}
 
-    @Test
-    public void maxValue() throws Exception {
-        varUInt7 = new VarUInt7(0);
-        assertEquals(new Long(127), varUInt7.maxValue());
-    }
+	@Test
+	public void maxValue() throws Exception {
+		varUInt7 = new VarUInt7(0);
+		assertEquals(new Long(127), varUInt7.maxValue());
+	}
 
-    public void assertArrayEqualsJDH(byte[] expected, byte[] actual) {
-        Integer length = Math.min(expected.length, actual.length);
-        Boolean equal = true;
-        for (int i = 0; i < length; i++) {
-            if (expected[i] == 0 || actual[i] == 0) {
-                break;
-            }
-            if (expected[i] != actual[i]) {
-                equal = false;
-                throw new AssertionError("Array not equals");
-            }
-        }
-    }
-
-
-    /**
-     * Similarly, either of<br> 0x7e<br> 0xFE 0x7F <br> 0xFE 0xFF 0x7F <br> are well-formed encodings of the value -2.
-     * <p>
-     * source : https://webassembly.github.io/spec/binary/values.html#integers
-     */
+	public void assertArrayEqualsJDH(byte[] expected, byte[] actual) {
+		Integer length = Math.min(expected.length, actual.length);
+		Boolean equal = true;
+		for (int i = 0; i < length; i++) {
+			if (expected[i] == 0 || actual[i] == 0) {
+				break;
+			}
+			if (expected[i] != actual[i]) {
+				equal = false;
+				throw new AssertionError("Array not equals");
+			}
+		}
+	}
 
 
-    @Test
-    public void testReadSignedPositive2() {
-        byte[] bytesAll = new byte[]{(byte) 0x02};
-        BytesFile bytesFile = new BytesFile(bytesAll);
-        NumberHelper.assertEqualHex(new VarUInt7(2).longValue(), new VarUInt7(bytesFile).longValue());
+	/**
+	 * Similarly, either of<br> 0x7e<br> 0xFE 0x7F <br> 0xFE 0xFF 0x7F <br> are well-formed encodings of the value -2.
+	 * <p>
+	 * source : https://webassembly.github.io/spec/binary/values.html#integers
+	 */
 
-    }
 
-    @Test
-    public void testReadSignedPaddedPositive2() {
-        byte[] bytesAll = new byte[]{(byte) 0x02, (byte) 0x80};
-        BytesFile bytesFile = new BytesFile(bytesAll);
-        NumberHelper.assertEqualHex(new VarUInt7(2).longValue(), new VarUInt7(bytesFile).longValue());
-    }
+	@Test
+	public void testReadSignedPositive2() {
+		byte[] bytesAll = new byte[]{(byte) 0x02};
+		BytesFile bytesFile = new BytesFile(bytesAll);
+		NumberHelper.assertEqualHex(new VarUInt7(2).longValue(), new VarUInt7(bytesFile).longValue());
 
-    @Test
-    public void testSize() {
-        byte[] bytesAll = new byte[]{(byte) 0x03};
-        BytesFile bytesFile = new BytesFile(bytesAll);
-    }
+	}
+
+	@Test
+	public void testReadSignedPaddedPositive2() {
+		byte[] bytesAll = new byte[]{(byte) 0x02, (byte) 0x80};
+		BytesFile bytesFile = new BytesFile(bytesAll);
+		NumberHelper.assertEqualHex(new VarUInt7(2).longValue(), new VarUInt7(bytesFile).longValue());
+	}
+
+	@Test
+	public void testSize() {
+		byte[] bytesAll = new byte[]{(byte) 0x03};
+		BytesFile bytesFile = new BytesFile(bytesAll);
+	}
 
 	/* @formatter:off
                         -624485 Decimal

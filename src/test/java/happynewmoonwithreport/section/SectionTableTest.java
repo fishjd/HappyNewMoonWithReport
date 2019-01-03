@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2019 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -26,57 +26,55 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 public class SectionTableTest {
-    private SectionTable sectionTable;
+	private SectionTable sectionTable;
 
-    @BeforeEach
-    public void setUp() throws Exception {
-        sectionTable = new SectionTable();
-        assertNotNull(sectionTable);
-    }
+	@BeforeEach
+	public void setUp() throws Exception {
+		sectionTable = new SectionTable();
+		assertNotNull(sectionTable);
+	}
 
-    @AfterEach
-    public void tearDown() throws Exception {
-    }
+	@AfterEach
+	public void tearDown() throws Exception {
+	}
 
 
-    /**
-     * Run instantiate on the add32.wasm bytes.
-     */
-    @Test
-    public void instantiateAdd32() {
-        byte[] byteAll = {(byte) 0x01, (byte) 0x70, (byte) 0x00, (byte) 0x00};
-        BytesFile payload = new BytesFile(byteAll);
+	/**
+	 * Run instantiate on the add32.wasm bytes.
+	 */
+	@Test
+	public void instantiateAdd32() {
+		byte[] byteAll = {(byte) 0x01, (byte) 0x70, (byte) 0x00, (byte) 0x00};
+		BytesFile payload = new BytesFile(byteAll);
 
-        // run
-        sectionTable.instantiate(payload);
+		// run
+		sectionTable.instantiate(payload);
 
-        // verify
-        // the count is 1
-        assertEquals(new UInt32(1L), sectionTable.getCount());
+		// verify
+		// the count is 1
+		assertEquals(new UInt32(1L), sectionTable.getCount());
 
-        ArrayList<TableType> typeAll = sectionTable.getTables();
-        assertEquals(1, typeAll.size());
+		ArrayList<TableType> typeAll = sectionTable.getTables();
+		assertEquals(1, typeAll.size());
 
-        TableType table = typeAll.get(0);
-        assertNotNull(table);
+		TableType table = typeAll.get(0);
+		assertNotNull(table);
 
-        assertEquals(new ElementType("anyFunc"), table.getElementType());
+		assertEquals(new ElementType("anyFunc"), table.getElementType());
 
-        assertEquals(new UInt32(0), table.hasMaximum());
-        assertEquals(new UInt32(0L), table.minimum());
-        try {
-            table.maximum();
-            fail("maximum Failure");
-        } catch (RuntimeException rte) {
-            // ok ;
-        }
+		assertEquals(new UInt32(0), table.hasMaximum());
+		assertEquals(new UInt32(0L), table.minimum());
+		try {
+			table.maximum();
+			fail("maximum Failure");
+		} catch (RuntimeException rte) {
+			// ok ;
+		}
 
-    }
+	}
 
 }

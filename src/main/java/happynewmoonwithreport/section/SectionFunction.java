@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2019 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -42,31 +42,36 @@ import java.util.ArrayList;
  */
 public class SectionFunction implements Section {
 
-    private UInt32 count;
-    private ArrayList<UInt32> types;
+	private UInt32 count;
+	private ArrayList<UInt32> types;
 
-    /**
-     * @param payload the input BytesFile.
-     */
-    @Override
-    public void instantiate(BytesFile payload) {
+	public SectionFunction() {
+		count = new UInt32(0);
+		types = new ArrayList<>();
+	}
 
-        //* Parameter Count
-        count = new VarUInt32(payload);
+	/**
+	 * @param payload the input BytesFile.
+	 */
+	@Override
+	public void instantiate(BytesFile payload) {
 
-        //* Parameters Types
-        types = new ArrayList<>(count.integerValue());
-        for (Integer index = 0; index < count.integerValue(); index++) {
-            UInt32 type = new VarUInt32(payload);
-            types.add(index, type);
-        }
-    }
+		//* Parameter Count
+		count = new VarUInt32(payload);
 
-    public UInt32 getCount() {
-        return count;
-    }
+		//* Parameters Types
+		types = new ArrayList<>(count.integerValue());
+		for (Integer index = 0; index < count.integerValue(); index++) {
+			UInt32 type = new VarUInt32(payload);
+			types.add(index, type);
+		}
+	}
 
-    public ArrayList<UInt32> getTypes() {
-        return types;
-    }
+	public UInt32 getCount() {
+		return count;
+	}
+
+	public ArrayList<UInt32> getTypes() {
+		return types;
+	}
 }

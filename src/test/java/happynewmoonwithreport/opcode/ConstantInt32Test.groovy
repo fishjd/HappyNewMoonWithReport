@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2019 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -25,33 +25,33 @@ import spock.lang.Specification
  * Created on 2017-08-25.
  */
 class ConstantInt32Test extends Specification {
-    void setup() {
-    }
+	void setup() {
+	}
 
-    void cleanup() {
-    }
+	void cleanup() {
+	}
 
-    def "Execute Constant Int32"() {
-        setup: " a value of ex : 3 "
-        WasmInstanceInterface instance = new WasmInstanceStub();
-        I32 value = new I32(val1);
+	def "Execute Constant Int32"() {
+		setup: " a value of ex : 3 "
+		WasmInstanceInterface instance = new WasmInstanceStub();
+		I32 value = new I32(val1);
 
-        ConstantInt32 function = new ConstantInt32(instance);
+		ConstantInt32 function = new ConstantInt32(instance);
 
-        when: "run the opcode"
-        function.execute(value);
+		when: "run the opcode"
+		function.execute(value);
 
-        then: " value is placed on the stack "
+		then: " value is placed on the stack "
 
-        new I32(expected) == instance.stack().pop();
+		new I32(expected) == instance.stack().pop();
 
-        where: ""
-        val1                  || expected
-        3                     || 3
-        4                     || 4
-        0x7FFF_FFFE           || 0x7FFF_FFFE
-        0x7FFF_FFFF           || new S32(0).maxValue()
-        new S32(0).minValue() || new S32(0).minValue()
-    }
+		where: ""
+		val1                  || expected
+		3                     || 3
+		4                     || 4
+		0x7FFF_FFFE           || 0x7FFF_FFFE
+		0x7FFF_FFFF           || new S32(0).maxValue()
+		new S32(0).minValue() || new S32(0).minValue()
+	}
 
 }

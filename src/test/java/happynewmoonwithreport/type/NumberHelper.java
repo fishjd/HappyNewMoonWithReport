@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2019 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -20,8 +20,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class NumberHelper {
 
-    public static void assertEqualHex(Long expected, Long result) {
-        assertEquals(new Long(expected), result, "i = " + expected.toString() + " hex = " + Long.toHexString(expected));
-    }
+	public static void assertEqualHex(Long expected, Long result) {
+		assertEquals(new Long(expected), result, "i = " + expected.toString() + " hex = " + Long.toHexString(expected));
+	}
 
 }

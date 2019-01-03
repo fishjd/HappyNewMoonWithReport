@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2019 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -25,21 +25,21 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class VarUInt7LoopTest {
 
-    @BeforeEach
-    public void setUp() throws Exception {
-    }
+	@BeforeEach
+	public void setUp() throws Exception {
+	}
 
-    @AfterEach
-    public void tearDown() throws Exception {
-    }
+	@AfterEach
+	public void tearDown() throws Exception {
+	}
 
-    @Test
-    public void testReadUnsigned() throws Exception {
-        for (Integer i = 0; i < 128; i++) {
-            VarUInt7 leb7 = new VarUInt7(new Integer(i).byteValue());
-            Integer result = leb7.integerValue();
-            assertEquals(i, result, "i = " + i.toString());
-        }
-    }
+	@Test
+	public void testReadUnsigned() throws Exception {
+		for (Integer i = 0; i < 128; i++) {
+			VarUInt7 leb7 = new VarUInt7(new Integer(i).byteValue());
+			Integer result = leb7.integerValue();
+			assertEquals(i, result, "i = " + i.toString());
+		}
+	}
 
 }

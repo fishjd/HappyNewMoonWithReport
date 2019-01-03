@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2019 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -40,31 +40,36 @@ import happynewmoonwithreport.type.WasmVector;
  */
 public class SectionMemory implements Section {
 
-    private UInt32 count;
-    private WasmVector<MemoryType> memoryTypeAll;
+	private UInt32 count;
+	private WasmVector<MemoryType> memoryTypeAll;
 
-    /**
-     * @param payload the input BytesFile.
-     */
-    @Override
-    public void instantiate(BytesFile payload) {
+	public SectionMemory() {
+		count = new UInt32(0);
+		memoryTypeAll = new WasmVector<>();
+	}
 
-        //* Count
-        count = new VarUInt32(payload);
+	/**
+	 * @param payload the input BytesFile.
+	 */
+	@Override
+	public void instantiate(BytesFile payload) {
 
-        //* Entries of Resizeable Limits
-        memoryTypeAll = new WasmVector<>(count.integerValue());
-        for (Integer index = 0; index < count.integerValue(); index++) {
-            MemoryType memoryType = new MemoryType(payload);
-            memoryTypeAll.add(index, memoryType);
-        }
-    }
+		//* Count
+		count = new VarUInt32(payload);
 
-    public UInt32 getCount() {
-        return count;
-    }
+		//* Entries of Resizeable Limits
+		memoryTypeAll = new WasmVector<>(count.integerValue());
+		for (Integer index = 0; index < count.integerValue(); index++) {
+			MemoryType memoryType = new MemoryType(payload);
+			memoryTypeAll.add(index, memoryType);
+		}
+	}
 
-    public WasmVector<MemoryType> getMemoryTypeAll() {
-        return memoryTypeAll;
-    }
+	public UInt32 getCount() {
+		return count;
+	}
+
+	public WasmVector<MemoryType> getMemoryTypeAll() {
+		return memoryTypeAll;
+	}
 }

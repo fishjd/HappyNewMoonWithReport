@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2019 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -29,38 +29,38 @@ import happynewmoonwithreport.type.WasmString;
  */
 public class ExportEntry {
 
-    private UInt32 fieldLength;
-    private WasmString fieldName;
-    /**
-     * The 'kind' of export.  Function, Memory,
-     */
-    private ExternalKind externalKind;
-    /**
-     * The index to the table. For example if externalKind is 'function' then this is the index to the function table
-     */
-    private UInt32 index;
+	private UInt32 fieldLength;
+	private WasmString fieldName;
+	/**
+	 * The 'kind' of export.  Function, Memory,
+	 */
+	private ExternalKind externalKind;
+	/**
+	 * The index to the table. For example if externalKind is 'function' then this is the index to the function table
+	 */
+	private UInt32 index;
 
-    public ExportEntry(BytesFile payload) {
-        fieldLength = new VarUInt32(payload);
-        fieldName = new WasmString(payload, fieldLength);
-        externalKind = new ExternalKind(payload);
-        index = new VarUInt32(payload);
-    }
+	public ExportEntry(BytesFile payload) {
+		fieldLength = new VarUInt32(payload);
+		fieldName = new WasmString(payload, fieldLength);
+		externalKind = new ExternalKind(payload);
+		index = new VarUInt32(payload);
+	}
 
-    public UInt32 getFieldLength() {
-        return fieldLength;
-    }
+	public UInt32 getFieldLength() {
+		return fieldLength;
+	}
 
-    public WasmString getFieldName() {
-        return fieldName;
-    }
+	public WasmString getFieldName() {
+		return fieldName;
+	}
 
-    public ExternalKind getExternalKind() {
-        return externalKind;
-    }
+	public ExternalKind getExternalKind() {
+		return externalKind;
+	}
 
-    public UInt32 getIndex() {
-        return index;
-    }
+	public UInt32 getIndex() {
+		return index;
+	}
 
 }

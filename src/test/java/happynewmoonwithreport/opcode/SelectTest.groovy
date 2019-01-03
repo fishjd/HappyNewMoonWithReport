@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2019 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -26,79 +26,79 @@ import spock.lang.Specification
  * Created on 2017-08-25.
  */
 class SelectTest extends Specification {
-    void setup() {
-    }
+	void setup() {
+	}
 
-    void cleanup() {
-    }
+	void cleanup() {
+	}
 
-    def "Select  Golden Test"() {
-        setup: " push three  values on stack."
-        WasmInstanceInterface instance = new WasmInstanceStub();
-        instance.stack().push(new I32(val1));
-        instance.stack().push(new I32(val2));
-        instance.stack().push(new I32(con))
-        Select function = new Select(instance);
+	def "Select  Golden Test"() {
+		setup: " push three  values on stack."
+		WasmInstanceInterface instance = new WasmInstanceStub();
+		instance.stack().push(new I32(val1));
+		instance.stack().push(new I32(val2));
+		instance.stack().push(new I32(con))
+		Select function = new Select(instance);
 
-        when: "run the opcode"
-        function.execute();
+		when: "run the opcode"
+		function.execute();
 
-        then: " a value of expected"
-        I32 actual = (I32) instance.stack().pop();
-        actual.equals(new I32(expected));
+		then: " a value of expected"
+		I32 actual = (I32) instance.stack().pop();
+		actual.equals(new I32(expected));
 
-        where: ""
-        val1 | val2 | con | expected
-        4    | 7    | 1   | 4
-        4    | 7    | 0   | 7
-    }
-
-
-    def "Throw exception when constant incorrect type"() {
-
-        setup: " push three  values on stack. the const value is the incorrect type. "
-        WasmInstanceInterface instance = new WasmInstanceStub();
-        instance.stack().push(new I32(val1));
-        instance.stack().push(new I32(val2));
-        instance.stack().push(new I64(con))  // incorrect, should be I32
-
-        Select function = new Select(instance);
-
-        when: "run the opcode"
-        function.execute();
-
-        then: " Thrown Exception"
-        WasmRuntimeException exception = thrown();
-        exception.getUuid().toString().equals("78c61ec8-a580-40b0-ad97-bd40d6d55739");
-
-        where: ""
-        val1 | val2 | con
-        4    | 7    | 1
-        4    | 7    | 0
-    }
+		where: ""
+		val1 | val2 | con | expected
+		4    | 7    | 1   | 4
+		4    | 7    | 0   | 7
+	}
 
 
-    def "Throw exception when val1 and val2 are not the same type"() {
+	def "Throw exception when constant incorrect type"() {
 
-        setup: " push three  values on stack. the val1 and val2 are not the same type. "
-        WasmInstanceInterface instance = new WasmInstanceStub();
-        instance.stack().push(new I32(val1));
-        instance.stack().push(new I64(val2));// incorrect, should be I32
-        instance.stack().push(new I32(con))
+		setup: " push three  values on stack. the const value is the incorrect type. "
+		WasmInstanceInterface instance = new WasmInstanceStub();
+		instance.stack().push(new I32(val1));
+		instance.stack().push(new I32(val2));
+		instance.stack().push(new I64(con))  // incorrect, should be I32
 
-        Select function = new Select(instance);
+		Select function = new Select(instance);
 
-        when: "run the opcode"
-        function.execute();
+		when: "run the opcode"
+		function.execute();
 
-        then: " Thrown Exception"
-        WasmRuntimeException exception = thrown();
-        exception.getUuid().toString().equals("bd046bf9-6aea-42a4-b1bf-31e74d64f95c");
+		then: " Thrown Exception"
+		WasmRuntimeException exception = thrown();
+		exception.getUuid().toString().equals("78c61ec8-a580-40b0-ad97-bd40d6d55739");
 
-        where: ""
-        val1 | val2 | con
-        4    | 7    | 1
-        4    | 7    | 0
-    }
+		where: ""
+		val1 | val2 | con
+		4    | 7    | 1
+		4    | 7    | 0
+	}
+
+
+	def "Throw exception when val1 and val2 are not the same type"() {
+
+		setup: " push three  values on stack. the val1 and val2 are not the same type. "
+		WasmInstanceInterface instance = new WasmInstanceStub();
+		instance.stack().push(new I32(val1));
+		instance.stack().push(new I64(val2));// incorrect, should be I32
+		instance.stack().push(new I32(con))
+
+		Select function = new Select(instance);
+
+		when: "run the opcode"
+		function.execute();
+
+		then: " Thrown Exception"
+		WasmRuntimeException exception = thrown();
+		exception.getUuid().toString().equals("bd046bf9-6aea-42a4-b1bf-31e74d64f95c");
+
+		where: ""
+		val1 | val2 | con
+		4    | 7    | 1
+		4    | 7    | 0
+	}
 
 }

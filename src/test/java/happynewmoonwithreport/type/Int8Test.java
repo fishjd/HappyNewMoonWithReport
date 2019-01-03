@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2019 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -24,33 +24,33 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class Int8Test {
-    private SInt8 SInt8;
+	private SInt8 SInt8;
 
-    @BeforeEach
-    public void setUp() throws Exception {
+	@BeforeEach
+	public void setUp() throws Exception {
 
-    }
+	}
 
-    @AfterEach
-    public void tearDown() throws Exception {
-    }
+	@AfterEach
+	public void tearDown() throws Exception {
+	}
 
-    @Test
-    public void maxBits() throws Exception {
-        SInt8 = new SInt8((byte) 0);
-        assertEquals(new Integer(8), SInt8.maxBits());
-    }
+	@Test
+	public void maxBits() throws Exception {
+		SInt8 = new SInt8((byte) 0);
+		assertEquals(new Integer(8), SInt8.maxBits());
+	}
 
-    @Test
-    public void minValue() throws Exception {
-        SInt8 = new SInt8((byte) 0);
-        assertEquals(new Long((byte) -128), SInt8.minValue());
-    }
+	@Test
+	public void minValue() throws Exception {
+		SInt8 = new SInt8((byte) 0);
+		assertEquals(new Long((byte) -128), SInt8.minValue());
+	}
 
-    @Test
-    public void maxValue() throws Exception {
-        SInt8 = new SInt8((byte) 0);
-        assertEquals(new Long((byte) 127), SInt8.maxValue());
-    }
+	@Test
+	public void maxValue() throws Exception {
+		SInt8 = new SInt8((byte) 0);
+		assertEquals(new Long((byte) 127), SInt8.maxValue());
+	}
 
 }

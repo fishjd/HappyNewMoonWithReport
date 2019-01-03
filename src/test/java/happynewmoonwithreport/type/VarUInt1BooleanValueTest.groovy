@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2019 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -20,22 +20,22 @@ import spock.lang.Specification
 
 class VarUInt1BooleanValueTest extends Specification {
 
-    VarUInt1 varTrue, varFalse;
+	VarUInt1 varTrue, varFalse;
 
-    void setup() {
-        varTrue = new VarUInt1(1)
-        varFalse = new VarUInt1(0)
-    }
+	void setup() {
+		varTrue = new VarUInt1(1)
+		varFalse = new VarUInt1(0)
+	}
 
-    void cleanup() {
-    }
+	void cleanup() {
+	}
 
 
-    def "BooleanValue"() {
+	def "BooleanValue"() {
 
-        expect:
-        varTrue.booleanValue() == true
-        varFalse.booleanValue() == false
+		expect:
+		varTrue.booleanValue() == true
+		varFalse.booleanValue() == false
 
-    }
+	}
 }

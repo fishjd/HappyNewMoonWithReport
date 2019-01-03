@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2019 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -28,38 +28,38 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class SectionFunctionTest {
-    private SectionFunction sectionFunction;
+	private SectionFunction sectionFunction;
 
-    @BeforeEach
-    public void setUp() throws Exception {
-        sectionFunction = new SectionFunction();
-        assertNotNull(sectionFunction);
-    }
+	@BeforeEach
+	public void setUp() throws Exception {
+		sectionFunction = new SectionFunction();
+		assertNotNull(sectionFunction);
+	}
 
-    @AfterEach
-    public void tearDown() throws Exception {
-    }
-
-
-    @Test
-    public void instantiate() throws Exception {
-        byte[] byteAll = {(byte) 0x01, (byte) 0x00};
-        BytesFile payload = new BytesFile(byteAll);
-
-        // run
-        sectionFunction.instantiate(payload);
-
-        // verify
-        // the count is 1
-        assertEquals(new UInt32(1L), sectionFunction.getCount());
-
-        ArrayList<UInt32> typeAll = sectionFunction.getTypes();
-        assertEquals(1, typeAll.size());
-
-        UInt32 type = typeAll.get(0);
-        assertEquals(new UInt32(0L), type);
+	@AfterEach
+	public void tearDown() throws Exception {
+	}
 
 
-    }
+	@Test
+	public void instantiate() throws Exception {
+		byte[] byteAll = {(byte) 0x01, (byte) 0x00};
+		BytesFile payload = new BytesFile(byteAll);
+
+		// run
+		sectionFunction.instantiate(payload);
+
+		// verify
+		// the count is 1
+		assertEquals(new UInt32(1L), sectionFunction.getCount());
+
+		ArrayList<UInt32> typeAll = sectionFunction.getTypes();
+		assertEquals(1, typeAll.size());
+
+		UInt32 type = typeAll.get(0);
+		assertEquals(new UInt32(0L), type);
+
+
+	}
 
 }

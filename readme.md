@@ -3,11 +3,11 @@
 [![Join the chat at https://gitter.im/HappyNewMoonWithReport/Lobby](https://badges.gitter.im/HappyNewMoonWithReport/Lobby.svg)](https://gitter.im/HappyNewMoonWithReport/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 Run and Test `Web Assembly` modules (*.wasm) in Java.
-Written in Java for Java programs. 
+Written in Java for Java programs.
 
 `Happy New Moon with Report`  doesn't concern itself with the production of the wasm binary files; these files should be produced with another tool (such as wabt or binaryen.)
 
-The primary goal of `Happy New Moon with Report` is to be able to load and run a binary `Web Assembly` module in your Java program. 
+The primary goal of `Happy New Moon with Report` is to be able to load and run a binary `Web Assembly` module in your Java program.
 
 ## The basic use case is:
 
@@ -42,6 +42,8 @@ Happy New Moon with Report can read from *.wasm file  and run an app that adds t
 ### Sections
 
 [Source] (http://webassembly.org/docs/binary-encoding/#module-structure)
+
+Custom (a.k.a Name) section : Completed
 
 Type Section :  Completed
 
@@ -85,12 +87,12 @@ Data Section:  To Do
 - [ ] Tee_local 0x22
 - [ ] Get_global 0x23
 - [ ] Set_global 0x24
-- [ ] I.32 _load 0x28
-- [ ] I.64_load 0x29
+- [x] I32 _load 0x28
+- [ ] I64_load 0x29
 - [ ] f32_load 0x2A
 - [ ] f64_load 0x2B
-- [ ] i32_load8-S  0x2C
-- [ ] i32_load8-U  0x2D
+- [x] i32_load8-S  0x2C
+- [x] i32_load8-U  0x2D
 - [ ] i32_load16-S  0x2E
 - [ ] i32_load16-U  0x2F
 - [ ] i64_load8-S  0x30
@@ -99,12 +101,12 @@ Data Section:  To Do
 - [ ] i64_load16-U  0x33
 - [ ] i64_load32-S 0x34
 - [ ] i64_load32-U 0x35
-- [ ] i32_store 0x36
+- [X] i32_store 0x36
 - [ ] i64_store 0x37
 - [ ] f32_store 0x38
 - [ ] f64_store 0x39
-- [ ] i32_store-8 0x3A
-- [ ] i32_store-16 0x3B
+- [X] i32_store-8 0x3A
+- [X] i32_store-16 0x3B
 - [ ] i64_store-8 0x3C
 - [ ] i64_store-16 0x3D
 - [ ] i64_store-32 0x3E
@@ -128,13 +130,13 @@ Data Section:  To Do
 - [x] i64_eq 0x51
 - [x] i64_ne 0x52
 - [x] i64_lt_s 0x53
-- [ ] i64_lt_u 0x54
-- [ ] i64_gt_s 0x55
-- [ ] i64_gt_u 0x56
-- [ ] i64_lt_s 0x57
-- [ ] i64_lt_u 0x58
-- [ ] i64_gt_s 0x59
-- [ ] i64_gt_u 0x5A
+- [x] i64_lt_u 0x54
+- [x] i64_gt_s 0x55
+- [x] i64_gt_u 0x56
+- [x] i64_lt_s 0x57
+- [x] i64_lt_u 0x58
+- [x] i64_gt_s 0x59
+- [x] i64_gt_u 0x5A
 - [ ] f32.eq  0x5B
 - [ ] f32.ne 0x5C
 - [ ] f32.lt  0x5D
@@ -150,8 +152,8 @@ Data Section:  To Do
 - [ ] i32.clz  0x67
 - [ ] i32.ctx  0x68
 - [ ] i32.popcnt  0x69
-- [ ] i32.add 0x6A
-- [ ] i32.sub 0x6B
+- [x] i32.add 0x6A
+- [x] i32.sub 0x6B
 - [ ] i32.mul 0x6C
 - [ ] i32.div_s 0x6D
 - [ ] i32.div_u 0x6E
@@ -232,7 +234,7 @@ Data Section:  To Do
 - [ ] f64.convert_s/i64 0xB9
 - [ ] f64.convert_u/i64 0xBA
 - [ ] f64.promote/f32 0xBB
-- [ ] i32.reinterpert/F32 0xBC
+- [ ] i32.reinterpert/f32 0xBC
 - [ ] i64.reinterpert/f64 0xBD
 - [ ] f32.reinterpert/i32 0xBD
 - [ ] f64.reinterpert/i64 0xBF

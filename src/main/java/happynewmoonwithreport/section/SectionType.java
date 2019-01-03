@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2019 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -38,35 +38,42 @@ import happynewmoonwithreport.type.WasmVector;
  */
 public class SectionType implements Section {
 
-    // all the Function Types.
-    private WasmVector<FunctionType> functionSignatures;
+	public SectionType() {
+		functionSignatures = new WasmVector<>();
+	}
+
+	// all the Function Types.
+	private UInt32 count;
+	private WasmVector<FunctionType> functionSignatures;
 
 
-    @Override
-    public void instantiate(BytesFile payload) {
+	@Override
+	public void instantiate(BytesFile payload) {
 
-        ValueType form;
-        UInt32 paramCount;
-        VarUInt1 varReturnCount;
+		ValueType form;
+		UInt32 paramCount;
+		VarUInt1 varReturnCount;
 
-        // Type Count
-        UInt32 typeCount = new VarUInt32(payload);
+		// Type Count
+		count = new VarUInt32(payload);
 
-        functionSignatures = new WasmVector<>(typeCount.integerValue());
+		functionSignatures = new WasmVector<>(count.integerValue());
 
-        FunctionType functionType;
-        for (Integer countFT = 0; countFT < typeCount.integerValue(); countFT++) {
-            functionType = new FunctionType(payload);
-            functionSignatures.add(countFT, functionType);
-        }
-    }
+		FunctionType functionType;
+		for (Integer countFT = 0; countFT < count.integerValue(); countFT++) {
+			functionType = new FunctionType(payload);
+			functionSignatures.add(countFT, functionType);
+		}
+	}
 
-    public WasmVector<FunctionType> getFunctionSignatures() {
-        return functionSignatures;
-    }
+	public WasmVector<FunctionType> getFunctionSignatures() {
+		return functionSignatures;
+	}
 
-    public Integer getSize() {
-        return functionSignatures.size();
-    }
+
+
+	public UInt32 getCount() {
+		return count;
+	}
 
 }

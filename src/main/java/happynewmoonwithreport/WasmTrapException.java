@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2019 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -23,42 +23,42 @@ import java.util.UUID;
  */
 public class WasmTrapException extends RuntimeException {
 
-    /**
-     * a uuid to help when searching the internet
-     */
-    private UUID uuid;
+	/**
+	 * a uuid to help when searching the internet
+	 */
+	private UUID uuid;
 
-    public WasmTrapException(UUID uuid, String message) {
-        super(message);
-        this.uuid = uuid;
-    }
+	public WasmTrapException(UUID uuid, String message) {
+		super(message);
+		this.uuid = uuid;
+	}
 
-    public WasmTrapException(UUID uuid, String message, Throwable cause) {
-        super(message, cause);
-        this.uuid = uuid;
-    }
+	public WasmTrapException(UUID uuid, String message, Throwable cause) {
+		super(message, cause);
+		this.uuid = uuid;
+	}
 
-    public WasmTrapException(UUID uuid, Throwable cause) {
-        super(cause);
-        this.uuid = uuid;
-    }
+	public WasmTrapException(UUID uuid, Throwable cause) {
+		super(cause);
+		this.uuid = uuid;
+	}
 
-    public WasmTrapException(UUID uuid, String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-        super(message, cause, enableSuppression, writableStackTrace);
-        this.uuid = uuid;
-    }
+	public WasmTrapException(UUID uuid, String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+		super(message, cause, enableSuppression, writableStackTrace);
+		this.uuid = uuid;
+	}
 
-    private String formatMessage(String message) {
-        String result = "Uuid = " + uuid + " message = " + message;
-        return result;
-    }
+	private String formatMessage(String message) {
+		String result = "Uuid = " + uuid + " message = " + message;
+		return result;
+	}
 
-    @Override
-    public String toString() {
-        final StringBuffer sb = new StringBuffer("WasmTrapException{");
-        sb.append("Uuid='").append(uuid).append('\'');
-        sb.append(", Message='").append(getMessage()).append('\'');
-        sb.append('}');
-        return sb.toString();
-    }
+	@Override
+	public String toString() {
+		final StringBuffer sb = new StringBuffer("WasmTrapException{");
+		sb.append("Uuid='").append(uuid).append('\'');
+		sb.append(", Message='").append(getMessage()).append('\'');
+		sb.append('}');
+		return sb.toString();
+	}
 }

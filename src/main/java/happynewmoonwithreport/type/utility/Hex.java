@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2019 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -21,22 +21,22 @@ package happynewmoonwithreport.type.utility;
  */
 public class Hex {
 
-    private final static char[] hexArray = "0123456789ABCDEF".toCharArray();
+	private final static char[] hexArray = "0123456789ABCDEF".toCharArray();
 
-    public static String bytesToHex(byte[] bytes) {
-        StringBuilder sb = new StringBuilder();
-        for (int j = 0; j < bytes.length; j++) {
-            int v = bytes[j] & 0xFF;
-            sb.append("0x");
-            sb.append(hexArray[v >>> 4]);
-            sb.append(hexArray[v & 0x0F]);
-            sb.append(" ");
-        }
-        return sb.toString();
-    }
+	public static String bytesToHex(byte[] bytes) {
+		StringBuilder sb = new StringBuilder();
+		for (int j = 0; j < bytes.length; j++) {
+			int v = bytes[j] & 0xFF;
+			sb.append("0x");
+			sb.append(hexArray[v >>> 4]);
+			sb.append(hexArray[v & 0x0F]);
+			sb.append(" ");
+		}
+		return sb.toString();
+	}
 
-    public static String byteToHex(Byte input) {
-        String result = "0x" +Integer.toHexString(input);
-        return result;
-    }
+	public static String byteToHex(Byte input) {
+		String result = "0x" + Integer.toHexString(input);
+		return result;
+	}
 }

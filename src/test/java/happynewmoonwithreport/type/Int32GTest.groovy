@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2019 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -17,32 +17,32 @@
 package happynewmoonwithreport.type
 
 class Int32GTest extends spock.lang.Specification {
-    S32 int32
+	S32 int32
 
-    void setup() {
-        int32 = new S32(0)
-    }
+	void setup() {
+		int32 = new S32(0)
+	}
 
-    void cleanup() {
-    }
+	void cleanup() {
+	}
 
 
-    void "MaxBits"() {
+	void "MaxBits"() {
 
-        expect:
-        new Integer(32) == int32.maxBits()
-    }
+		expect:
+		new Integer(32) == int32.maxBits()
+	}
 
-    void "MinValue"() {
-        expect:
-        new Integer(-2_147_483_648) == int32.minValue()
-    }
+	void "MinValue"() {
+		expect:
+		new Integer(-2_147_483_648) == int32.minValue()
+	}
 
-    void "MaxValue"() {
+	void "MaxValue"() {
 
-        expect:
-        new Integer(2_147_483_647) == int32.maxValue()
-        (1 << 31) - 1 == new Double(Math.pow(2, 31)).intValue()
+		expect:
+		new Integer(2_147_483_647) == int32.maxValue()
+		(1 << 31) - 1 == new Double(Math.pow(2, 31)).intValue()
 
-    }
+	}
 }

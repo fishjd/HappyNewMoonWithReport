@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2019 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -24,8 +24,8 @@ import happynewmoonwithreport.type.WasmVector;
 
 /**
  * Export Section.
- * <p>
- * <p>
+ * <br>
+ * <br>
  * Source <a href="http://webassembly.org/docs/binary-encoding/#export-section" target="_top">
  * http://webassembly.org/docs/binary-encoding/#export-section
  * </a>
@@ -40,31 +40,37 @@ import happynewmoonwithreport.type.WasmVector;
  */
 public class SectionExport implements Section {
 
-    private UInt32 count;
-    private WasmVector<ExportEntry> exports;
+	private UInt32 count;
+	private WasmVector<ExportEntry> exports;
 
-    /**
-     * @param payload the input BytesFile.
-     */
-    @Override
-    public void instantiate(BytesFile payload) {
+	public SectionExport()
+	{
+		count = new UInt32(0);
+		exports = new WasmVector<>();
+	}
 
-        //* Count
-        count = new VarUInt32(payload);
+	/**
+	 * @param payload the input BytesFile.
+	 */
+	@Override
+	public void instantiate(BytesFile payload) {
 
-        //* Entries of Global Variables.
-        exports = new WasmVector<>(count.integerValue());
-        for (Integer index = 0; index < count.integerValue(); index++) {
-            ExportEntry export = new ExportEntry(payload);
-            exports.add(index, export);
-        }
-    }
+		//* Count
+		count = new VarUInt32(payload);
 
-    public UInt32 getCount() {
-        return count;
-    }
+		//* Entries of Global Variables.
+		exports = new WasmVector<>(count.integerValue());
+		for (Integer index = 0; index < count.integerValue(); index++) {
+			ExportEntry export = new ExportEntry(payload);
+			exports.add(index, export);
+		}
+	}
 
-    public WasmVector<ExportEntry> getExports() {
-        return exports;
-    }
+	public UInt32 getCount() {
+		return count;
+	}
+
+	public WasmVector<ExportEntry> getExports() {
+		return exports;
+	}
 }
