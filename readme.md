@@ -104,12 +104,12 @@ Data Section:  To Do
 - [ ] i64_load16-U  0x33
 - [ ] i64_load32-S 0x34
 - [ ] i64_load32-U 0x35
-- [X] i32_store 0x36
-- [ ] i64_store 0x37
+- [x] i32_store 0x36
+- [x] i64_store 0x37
 - [ ] f32_store 0x38
 - [ ] f64_store 0x39
-- [X] i32_store-8 0x3A
-- [X] i32_store-16 0x3B
+- [x] i32_store-8 0x3A
+- [x] i32_store-16 0x3B
 - [ ] i64_store-8 0x3C
 - [ ] i64_store-16 0x3D
 - [ ] i64_store-32 0x3E
@@ -172,7 +172,7 @@ Data Section:  To Do
 - [ ] i32.rotr 0x78
 - [ ] i64.clz   0x79
 - [ ] i64.ctz   0x7A
-- [ ] i64. popcnt  0x7B
+- [ ] i64.popcnt  0x7B
 - [ ] i64.add   0x7C
 - [ ] i64.sub  0x7D
 - [ ] i64.mul  0x7E

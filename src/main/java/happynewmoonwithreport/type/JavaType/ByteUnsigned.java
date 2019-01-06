@@ -106,6 +106,21 @@ public final class ByteUnsigned extends Number implements Comparable<ByteUnsigne
 		}
 	}
 
+	/**
+	 * Constructs a newly allocated {@code ByteUnsigned} object that represents the specified
+	 * {@code
+	 * byteUnsigned} value.
+	 *
+	 * @param value the value to be represented by the {@code Byte}.
+	 */
+	public ByteUnsigned(Long value) {
+		if (inRange(value)) {
+			this.value = value.shortValue();
+		} else {
+			throw new NumberFormatException("Value out of range. Value = " + value);
+		}
+	}
+
 
 	/**
 	 * Constructs a newly allocated {@code ByteUnsigned} object that represents the {@code byte}
@@ -144,6 +159,13 @@ public final class ByteUnsigned extends Number implements Comparable<ByteUnsigne
 	}
 
 	public static Boolean inRange(Integer valueToTest) {
+		Boolean result = true;
+		result &= (MIN_VALUE <= valueToTest);
+		result &= (valueToTest <= MAX_VALUE);
+		return result;
+	}
+
+	public static Boolean inRange(Long valueToTest) {
 		Boolean result = true;
 		result &= (MIN_VALUE <= valueToTest);
 		result &= (valueToTest <= MAX_VALUE);

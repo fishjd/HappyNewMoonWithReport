@@ -24,6 +24,8 @@ import happynewmoonwithreport.WasmRuntimeException;
 import happynewmoonwithreport.WasmStack;
 import happynewmoonwithreport.WasmStore;
 import happynewmoonwithreport.type.I32;
+import happynewmoonwithreport.type.I64;
+import happynewmoonwithreport.type.Int;
 import happynewmoonwithreport.type.JavaType.ByteUnsigned;
 import happynewmoonwithreport.type.MemoryArgument;
 import happynewmoonwithreport.type.MemoryType;
@@ -140,7 +142,8 @@ public abstract class StoreBase {
 		super();
 	}
 
-	public StoreBase(MemoryArgument memoryArgument, WasmFrame frame, WasmStore store,
+	/* package_private */ StoreBase(MemoryArgument memoryArgument, WasmFrame frame,
+		WasmStore store,
 		WasmStack stack) {
 		this();
 		this.memoryArgument = memoryArgument;
@@ -151,11 +154,26 @@ public abstract class StoreBase {
 
 	/* package_private */ UInt32 memoryIndex;
 	/* package_private */ U32 N;
+	private Boolean nPartofTheInstruction;
+
+	protected Boolean isNPartofTheInstruction() {
+		return nPartofTheInstruction;
+	}
+
+	protected Boolean isN_NOT_PartofTheInstruction() {
+		return nPartofTheInstruction == false;
+	}
+
+	protected void setnPartofTheInstruction(Boolean nPartofTheInstruction) {
+		this.nPartofTheInstruction = nPartofTheInstruction;
+	}
 
 	/**
 	 * Execute the opcode.
 	 */
 	public void execute() {
+		setnPartofTheInstruction(N != null);
+
 		// 1. Let F be the current frame.
 		// Frame set in constructor.
 
@@ -175,22 +193,24 @@ public abstract class StoreBase {
 		if (memoryTypeExists == false) {
 			throw new WasmRuntimeException(UUID.fromString("c2ceaaf8-3872-4050-aa20-c503053c9a29"),
 										   "Memory type %s does not exists", a);
-
 		}
 
 		// 5. Let mem be the memory instance S.mems[a].
 		final MemoryType mem = store.getMemoryAll().get(a);
 
 		// 6. Assert: due to validation, a value of value type t is on the top of the stack.
-		if ((stack.peek() instanceof I32) == false) {
+		if (stack.peek().getClass() != getExpectedType().getClass()) {
+			// I'm not sure using 'getClass()' is the best way to validate the type of the object
+			// on the stack.
 			throw new WasmRuntimeException(UUID.fromString("4302d8c6-79cb-40df-a776-516b5e1e3f9d"),
 										   "I32_Store: Step 6: Value type on stack is incorrect.  "
-											   + "Expected I32 but type was " + stack.peek()
-																					 .toString());
+											   + "Expected " + getExpectedType().getClass()
+																				.toString()
+											   + " but type was " + stack.peek().toString());
 		}
 
 		// 7. Pop the value t.const c from the stack
-		I32 c = (I32) stack.pop();
+		setC(stack.pop());
 
 		// 8. Assert: due to validation, a value of value type I32 is on the top of the stack.
 		if ((stack.peek() instanceof I32) == false) {
@@ -210,15 +230,16 @@ public abstract class StoreBase {
 
 		// 11. If N is NOT part of the instruction, then:
 		//        a: Let N be the bit width |t| of value type t .
-		if (N == null) {
-			N = new U32(32L);
+		if (isN_NOT_PartofTheInstruction()) {
+			N = getWidthOfExpectedType();
 		}
 
 		// 12. If ea+N/8 is larger than the length of mem.data , then:
 		//        a: Trap.
 		Long length = ea.longValue() + (N.longValue() / 8);
-		if (mem.hasMaximum().integerValue()
-			== 1) {  // not in the webassembly specification.  This may line may be incorrect.
+		// The following line is not in the WebAssembly specification.  It may by incorrect.
+		// It is only a check that the memory has a maximum value.
+		if (mem.hasMaximumBoolean() == true) {
 			Long memLength = mem.maximum().longValue();
 			if (memLength < length) {
 				throw new WasmRuntimeException(
@@ -230,23 +251,42 @@ public abstract class StoreBase {
 
 		ByteUnsigned[] bytes;
 		// 13. If N is part of the instruction, then:
-		if (N != null) {
+		if (isNPartofTheInstruction()) {
 			//    a. Let n be the result of computing wrap|t|,N(c)
-			I32 n = new I32(wrap(N.integerValue(), c.integerValue()));
 
+			// Note:  The spec does not specify the type of n.
+			I64 n = new I64(wrap(N.integerValue(), getC().integerValue()));
 
 			//    b. Let b∗ be the byte sequence bytesiN(n).
 			bytes = n.getBytes();
 		} else {
 			// 14.  Else
 			//  a. Let b∗ be the byte sequence bytes t (c).
-			bytes = c.getBytes();
+			bytes = getC().getBytes();
 		}
 
 		// 15. Replace the bytes mem.data[ea:N/8] with b*.
 		step15_ReplaceBytes(mem, ea, bytes);
 
 	}
+
+	/**
+	 * Get an object of the type  't' in the instruction description <code>t.store memarg and
+	 * t.storeN memarg</code>.  It is limited in the 'Store' opcodes to I32 and I64.
+	 *
+	 * @return
+	 */
+	abstract Object getExpectedType();
+
+	abstract U32 getWidthOfExpectedType();
+
+
+	/**
+	 * The value to store.  <code>'c'</code> is the the value to store in memory.
+	 */
+	abstract Int getC();
+
+	abstract void setC(Object c);
 
 	/* package_private */
 	abstract void step15_ReplaceBytes(MemoryType mem, U32 ea, ByteUnsigned[] bytes);
@@ -266,12 +306,11 @@ public abstract class StoreBase {
 	 * zero.
 	 */
 	public static Integer wrap(// Integer M,
-		Integer N, Integer i) {
+		Integer N, Integer i) {   // TODO change i to Long
 		Integer result;
 		Double pow = Math.pow(2, N);
 		result = (i % pow.intValue());
 		return result;
-
 	}
 
 }

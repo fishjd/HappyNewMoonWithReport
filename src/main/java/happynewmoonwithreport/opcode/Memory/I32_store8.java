@@ -20,6 +20,8 @@ package happynewmoonwithreport.opcode.Memory;
 import happynewmoonwithreport.WasmFrame;
 import happynewmoonwithreport.WasmStack;
 import happynewmoonwithreport.WasmStore;
+import happynewmoonwithreport.type.I32;
+import happynewmoonwithreport.type.Int;
 import happynewmoonwithreport.type.JavaType.ByteUnsigned;
 import happynewmoonwithreport.type.MemoryArgument;
 import happynewmoonwithreport.type.MemoryType;
@@ -138,6 +140,35 @@ public class I32_store8 extends StoreBase {
 
 
 	/* package_private */ void step15_ReplaceBytes(MemoryType mem, U32 ea, ByteUnsigned[] bytes) {
-		mem.set(ea.integerValue() + 0, bytes[3]);
+		mem.set(ea.integerValue() + 0, bytes[7]);
 	}
+
+	/**
+	 * Get an object of the type 't' in the instruction description <code>t.store memarg and
+	 * t.storeN memarg</code>.  It is limited in the 'Store' opcodes to I32 and I64.
+	 *
+	 * @return
+	 */
+	/* package_private */ Object getExpectedType() {
+		return new I32();
+	}
+
+	/* package_private */ U32 getWidthOfExpectedType() {
+		return new U32(32);
+	}
+
+
+	/**
+	 * The value to store. <code>'c'</code> is the the value to store in memory.
+	 */
+	private I32 c;
+
+	/* package_private */ Int getC() {
+		return c;
+	}
+
+	/* package_private */ void setC(Object c) {
+		this.c = (I32) c;
+	}
+
 }
