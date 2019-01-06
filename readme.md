@@ -30,10 +30,13 @@ public void testHelloWorld throws Exception {
 
 This project has nothing to do with reporting or fireworks.
 
-##Similar Projects
+## Similar Projects
 
 For the 'Go' language: Wagon (https://github.com/go-interpreter/wagon)
 
+A Web Assembly virtual Machine written in C/C++:  WAVM (https://github.com/WAVM/WAVM)
+
+'Life' is a secure & fast WebAssembly VM built for decentralized applications, written in Go (https://github.com/perlin-network/life)
 
 ## Progress
 
