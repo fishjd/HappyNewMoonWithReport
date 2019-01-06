@@ -158,14 +158,6 @@ public class I32 extends Int {
 		return byteAll;
 	}
 
-	private String toHex(Long value) {
-		return "0x" + Long.toHexString(value).toUpperCase();
-	}
-
-	private String toHex(Integer value) {
-		return "0x" + Integer.toHexString(value).toUpperCase();
-	}
-
 	@Override
 	public Integer maxBits() {
 		return 32;

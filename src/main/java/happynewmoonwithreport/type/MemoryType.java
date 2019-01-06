@@ -118,6 +118,10 @@ public class MemoryType implements Validation {
 		return limit.hasMaximum();
 	}
 
+	public Boolean hasMaximumBoolean() {
+		return hasMaximum().value != 0;
+	}
+
 	public ByteUnsigned get(Integer address) {
 		return byteAll[address];
 	}

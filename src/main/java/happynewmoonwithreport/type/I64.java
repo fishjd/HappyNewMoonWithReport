@@ -16,8 +16,11 @@
  */
 package happynewmoonwithreport.type;
 
+import happynewmoonwithreport.type.JavaType.ByteUnsigned;
+
 /**
- * I64 is the WebAssembly runtime 64 bit Integer.  It can be interpreted as either signed or unsigned.
+ * I64 is the WebAssembly runtime 64 bit Integer.  It can be interpreted as either signed or
+ * unsigned.
  * <p>
  * source https://webassembly.github.io/spec/text/values.html#integers
  */
@@ -36,6 +39,38 @@ public class I64 extends Int {
 		this();
 		this.value = value.longValue();
 	}
+
+	public I64(ByteUnsigned[] byteAll) {
+		this();
+		value = 0L;
+		value += byteAll[0].longValue() << 56;
+		value += byteAll[1].longValue() << 48;
+		value += byteAll[2].longValue() << 40;
+		value += byteAll[3].longValue() << 32;
+		value += byteAll[4].longValue() << 24;
+		value += byteAll[5].longValue() << 16;
+		value += byteAll[6].longValue() << 8;
+		value += byteAll[7].longValue() << 0;
+	}
+
+	/**
+	 * Get an array of the bytes.  Big Endian.
+	 *
+	 * @return array of bytes.
+	 */
+	public ByteUnsigned[] getBytes() {
+		ByteUnsigned[] byteAll = new ByteUnsigned[8];
+		byteAll[7] = new ByteUnsigned((value >>> 0) & 0x0000_00FF);
+		byteAll[6] = new ByteUnsigned((value >>> 8) & 0x0000_00FF);
+		byteAll[5] = new ByteUnsigned((value >>> 16) & 0x0000_00FF);
+		byteAll[4] = new ByteUnsigned((value >>> 24) & 0x0000_00FF);
+		byteAll[3] = new ByteUnsigned((value >>> 32) & 0x0000_00FF);
+		byteAll[2] = new ByteUnsigned((value >>> 40) & 0x0000_00FF);
+		byteAll[1] = new ByteUnsigned((value >>> 48) & 0x0000_00FF);
+		byteAll[0] = new ByteUnsigned((value >>> 56) & 0x0000_00FF);
+		return byteAll;
+	}
+
 
 	@Override
 	public Integer maxBits() {
@@ -89,21 +124,27 @@ public class I64 extends Int {
 	}
 
 	@Override
-	public boolean equals(Object o) {
-		if (this == o) {
+	public boolean equals(Object other) {
+		if (this == other) {
 			return true;
 		}
-		if (o == null || getClass() != o.getClass()) {
+		if (other == null || getClass() != other.getClass()) {
 			return false;
 		}
 
-		I64 i64 = (I64) o;
+		I64 i64Other = (I64) other;
 
-		return value != null ? value.equals(i64.value) : i64.value == null;
+		return value != null ? value.equals(i64Other.value) : i64Other.value == null;
 	}
 
 	@Override
 	public int hashCode() {
 		return value != null ? value.hashCode() : 0;
+	}
+
+	@Override
+	public String toString() {
+		String result = "I64{ value = " + value + " (hex = " + toHex(value) + ") }";
+		return result;
 	}
 }

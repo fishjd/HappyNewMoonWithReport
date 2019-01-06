@@ -17,6 +17,8 @@
 
 package happynewmoonwithreport.type;
 
+import happynewmoonwithreport.type.JavaType.ByteUnsigned;
+
 /**
  * A number read from the *.wasm file. It is usually create with a collection of bytes.
  */
@@ -93,5 +95,12 @@ public interface DataTypeNumber {
 	 * @return maximum value
 	 */
 	Long maxValue();
+
+	/**
+	 * Get an array of the bytes.  Big Endian.
+	 *
+	 * @return array of bytes.
+	 */
+	ByteUnsigned[] getBytes();
 
 }

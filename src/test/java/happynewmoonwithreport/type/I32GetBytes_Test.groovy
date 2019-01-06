@@ -35,10 +35,10 @@ class I32GetBytes_Test extends Specification {
 		I32 val = new I32(val1);
 
 		ByteUnsigned[] expected = new ByteUnsigned[4];
-		expected[0] = new ByteUnsigned(expected1)
-		expected[1] = new ByteUnsigned(expected2)
-		expected[2] = new ByteUnsigned(expected3)
-		expected[3] = new ByteUnsigned(expected4)
+		expected[0] = new ByteUnsigned(expected0)
+		expected[1] = new ByteUnsigned(expected1)
+		expected[2] = new ByteUnsigned(expected2)
+		expected[3] = new ByteUnsigned(expected3)
 
 
 		when: "convert to to Unsigned byte array"
@@ -48,7 +48,7 @@ class I32GetBytes_Test extends Specification {
 		actual == expected;
 
 		where: ""
-		val1       || expected1 || expected2 || expected3 || expected4
+		val1       || expected0 || expected1 || expected2 || expected3
 		127        || 0         || 0         || 0         || 127
 		0          || 0         || 0         || 0         || 0
 		1          || 0         || 0         || 0         || 1
