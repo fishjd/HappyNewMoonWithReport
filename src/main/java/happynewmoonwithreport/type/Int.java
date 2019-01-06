@@ -124,4 +124,12 @@ public abstract class Int implements DataTypeNumber {
 	}
 
 
+	public static String toHex(Long input) {
+		return "0x" + Long.toHexString(input).toUpperCase();
+	}
+
+	public static String toHex(Integer input) {
+		return "0x" + Integer.toHexString(input).toUpperCase();
+	}
+
 }

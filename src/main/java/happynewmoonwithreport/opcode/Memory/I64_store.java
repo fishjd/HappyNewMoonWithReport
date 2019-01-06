@@ -21,6 +21,7 @@ import happynewmoonwithreport.WasmFrame;
 import happynewmoonwithreport.WasmStack;
 import happynewmoonwithreport.WasmStore;
 import happynewmoonwithreport.type.I32;
+import happynewmoonwithreport.type.I64;
 import happynewmoonwithreport.type.Int;
 import happynewmoonwithreport.type.JavaType.ByteUnsigned;
 import happynewmoonwithreport.type.MemoryArgument;
@@ -28,7 +29,7 @@ import happynewmoonwithreport.type.MemoryType;
 import happynewmoonwithreport.type.U32;
 
 /**
- * <h1>i32_store16</h1> Store 16 bits from the stack to memory.
+ * <h1>i32_store</h1> Store an i32 value from the stack to memory.
  * <p>
  * Memory Instructions<br>
  * <p>
@@ -104,7 +105,9 @@ import happynewmoonwithreport.type.U32;
  * If N is part of the instruction, then:
  * <ul>
  * <li>
- * Let n be the result of computing wrap|t|,N(c)
+ * Let n
+ * <p>
+ * be the result of computing wrap|t|,N(c)
  * </li>
  * <li>
  * Let b* be the byte sequence bytesiN(n)
@@ -125,50 +128,56 @@ import happynewmoonwithreport.type.U32;
  * </li>
  * </ol>
  */
-public class I32_store16 extends StoreBase {
+public class I64_store extends StoreBase {
 
-	private I32_store16() {
+	private I64_store() {
 		super();
 	}
 
-	public I32_store16(MemoryArgument memoryArgument, WasmFrame frame, WasmStore store,
+	public I64_store(MemoryArgument memoryArgument, WasmFrame frame, WasmStore store,
 		WasmStack stack) {
 		super(memoryArgument, frame, store, stack);
 
-		N = new U32(16);
+		N = null;
 	}
 
 	/* package_private */ void step15_ReplaceBytes(MemoryType mem, U32 ea, ByteUnsigned[] bytes) {
-		mem.set(ea.integerValue() + 0, bytes[6]);
-		mem.set(ea.integerValue() + 1, bytes[7]);
+		mem.set(ea.integerValue() + 0, bytes[0]);
+		mem.set(ea.integerValue() + 1, bytes[1]);
+		mem.set(ea.integerValue() + 2, bytes[2]);
+		mem.set(ea.integerValue() + 3, bytes[3]);
+		mem.set(ea.integerValue() + 4, bytes[4]);
+		mem.set(ea.integerValue() + 5, bytes[5]);
+		mem.set(ea.integerValue() + 6, bytes[6]);
+		mem.set(ea.integerValue() + 7, bytes[7]);
 	}
 
 	/**
-	 * Get an object of the type 't' in the instruction description <code>t.store memarg and
+	 * Get an object of the type  't' in the instruction description <code>t.store memarg and
 	 * t.storeN memarg</code>.  It is limited in the 'Store' opcodes to I32 and I64.
 	 *
 	 * @return
 	 */
 	/* package_private */ Object getExpectedType() {
-		return new I32();
+		return new I64();
 	}
 
 	/* package_private */ U32 getWidthOfExpectedType() {
-		return new U32(32);
+		return new U32(64);
 	}
 
 
 	/**
-	 * The value to store. <code>'c'</code> is the the value to store in memory.
+	 * the value to store.  <code>'c'</code> is the the value to store in memory.
 	 */
-	private I32 c;
+	private I64 c;
 
 	/* package_private */ Int getC() {
 		return c;
 	}
 
 	/* package_private */ void setC(Object c) {
-		this.c = (I32) c;
+		this.c = (I64) c;
 	}
 
 

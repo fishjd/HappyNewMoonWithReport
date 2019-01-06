@@ -23,6 +23,7 @@ import happynewmoonwithreport.opcode.Memory.I32_load8_u;
 import happynewmoonwithreport.opcode.Memory.I32_store;
 import happynewmoonwithreport.opcode.Memory.I32_store16;
 import happynewmoonwithreport.opcode.Memory.I32_store8;
+import happynewmoonwithreport.opcode.Memory.I64_store;
 import happynewmoonwithreport.type.*;
 import happynewmoonwithreport.type.utility.Hex;
 
@@ -233,7 +234,12 @@ public class WasmInstance implements WasmInstanceInterface {
 				i32_store.execute();
 				break;
 			}
-//			case (byte) 0x37: {      // I64 store
+			case (byte) 0x37: {      // I64 store
+				MemoryArgument memoryArgument = new MemoryArgument(); // Not sure what this is.
+				I64_store i64_store = new I64_store(memoryArgument, currentFrame, store, stack);
+				i64_store.execute();
+				break;
+			}
 //			case (byte) 0x38: {      // F32 store
 //			case (byte) 0x39: {      // F64 store
 			case (byte) 0x3A: {      // I32 8 store
