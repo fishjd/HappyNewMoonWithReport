@@ -138,9 +138,22 @@ public class I32_store8 extends StoreBase {
 		N = new U32(8);
 	}
 
+	/* package_private */
+	@Override
+	ByteUnsigned[] step13_convert_C_toByteArray() {
+		ByteUnsigned[] result = new ByteUnsigned[4];
+		ByteUnsigned[] baC = c.getBytes();
+
+		result[0] = ByteUnsigned.byteUnsignedZero;
+		result[1] = ByteUnsigned.byteUnsignedZero;
+		result[2] = ByteUnsigned.byteUnsignedZero;
+		result[3] = baC[3];
+
+		return result;
+	}
 
 	/* package_private */ void step15_ReplaceBytes(MemoryType mem, U32 ea, ByteUnsigned[] bytes) {
-		mem.set(ea.integerValue() + 0, bytes[7]);
+		mem.set(ea.integerValue() + 0, bytes[3]);
 	}
 
 	/**

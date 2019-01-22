@@ -304,7 +304,7 @@ class ByteUnsignedTest extends Specification {
 			String actual = byteUnsigned.toString();
 
 			then: "then does not work in loops, use explicit assert"
-			String expected = Long.toString(k) + "(0x" + Long.toHexString(k) + ")";
+			String expected = Long.toString(k) + "(0x" + Long.toHexString(k).toUpperCase() + ")";
 			assert actual == expected;
 
 		}
