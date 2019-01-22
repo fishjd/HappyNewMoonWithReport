@@ -52,6 +52,7 @@ import happynewmoonwithreport.opcode.Memory.I32_store;
 import happynewmoonwithreport.opcode.Memory.I32_store16;
 import happynewmoonwithreport.opcode.Memory.I32_store8;
 import happynewmoonwithreport.opcode.Memory.I64_store;
+import happynewmoonwithreport.opcode.Memory.I64_store16;
 import happynewmoonwithreport.opcode.Memory.I64_store32;
 import happynewmoonwithreport.opcode.Nop;
 import happynewmoonwithreport.opcode.Select;
@@ -296,7 +297,13 @@ public class WasmInstance implements WasmInstanceInterface {
 				i32_store16.execute();
 				break;
 			}//			case (byte) 0x3C: {      // I64 8 store
-			//			case (byte) 0x3D: {      // I64 16 store
+			case (byte) 0x3D: {      // I64 16 store
+				MemoryArgument memoryArgument = new MemoryArgument(); // Not sure what this is.
+				I64_store16 i64_store16 = new I64_store16(memoryArgument, currentFrame, store,
+														  stack);
+				i64_store16.execute();
+				break;
+			}
 			case (byte) 0x3E: {      // I64 32 store
 				MemoryArgument memoryArgument = new MemoryArgument(); // Not sure what this is.
 				I64_store32 i64_store32 = new I64_store32(memoryArgument, currentFrame, store,
@@ -447,8 +454,8 @@ public class WasmInstance implements WasmInstanceInterface {
 			"Wasm tried to run an opcode that was not defined. Unknown Opcode = " + Hex.byteToHex(
 				opcode) + " (0d" + opcode + ")";
 		message += " at byte number = " + index + ". ";
-		String possibleSolutions = "Verify the wasm file is valid.  Recompile Wasm File.  Contact "
-			+ "support.";
+		String possibleSolutions =
+			"Verify the wasm file is valid.  Recompile Wasm File.  Contact " + "support.";
 		throw new WasmRuntimeException(UUID.fromString("6b5700ee-9642-4544-8850-22794071e848"),
 									   message, possibleSolutions);
 	}

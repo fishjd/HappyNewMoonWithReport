@@ -108,7 +108,7 @@ Data Section:  To Do
 - [x] i32_store-8 0x3A
 - [x] i32_store-16 0x3B
 - [ ] i64_store-8 0x3C
-- [ ] i64_store-16 0x3D
+- [x] i64_store-16 0x3D
 - [x] i64_store-32 0x3E
 - [ ] Current_memory 0x3F
 - [ ] Grow_memory 0x40
