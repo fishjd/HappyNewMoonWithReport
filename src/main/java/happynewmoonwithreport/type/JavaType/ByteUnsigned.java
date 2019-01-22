@@ -121,6 +121,7 @@ public final class ByteUnsigned extends Number implements Comparable<ByteUnsigne
 		}
 	}
 
+	public static final ByteUnsigned byteUnsignedZero = new ByteUnsigned(0);
 
 	/**
 	 * Constructs a newly allocated {@code ByteUnsigned} object that represents the {@code byte}
@@ -291,7 +292,7 @@ public final class ByteUnsigned extends Number implements Comparable<ByteUnsigne
 	 */
 	@Override
 	public String toString() {
-		return Integer.toString((int) value) + "(0x" + Integer.toHexString((int) value) + ")";
+		return Integer.toString((int) value) + "(0x" + Integer.toHexString((int) value).toUpperCase() + ")";
 	}
 
 	/**

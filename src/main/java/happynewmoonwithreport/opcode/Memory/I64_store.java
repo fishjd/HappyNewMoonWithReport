@@ -141,6 +141,16 @@ public class I64_store extends StoreBase {
 		N = null;
 	}
 
+	/*package_private */
+	@Override
+	ByteUnsigned[] step13_convert_C_toByteArray() {
+		ByteUnsigned[] result = new ByteUnsigned[8];
+		result  = c.getBytes();
+
+		return result;
+	}
+
+
 	/* package_private */ void step15_ReplaceBytes(MemoryType mem, U32 ea, ByteUnsigned[] bytes) {
 		mem.set(ea.integerValue() + 0, bytes[0]);
 		mem.set(ea.integerValue() + 1, bytes[1]);

@@ -251,19 +251,11 @@ public abstract class StoreBase {
 
 		ByteUnsigned[] bytes;
 		// 13. If N is part of the instruction, then:
-		if (isNPartofTheInstruction()) {
 			//    a. Let n be the result of computing wrap|t|,N(c)
-
-			// Note:  The spec does not specify the type of n.
-			I64 n = new I64(wrap(N.integerValue(), getC().integerValue()));
-
 			//    b. Let b∗ be the byte sequence bytesiN(n).
-			bytes = n.getBytes();
-		} else {
-			// 14.  Else
+		// 14.  Else
 			//  a. Let b∗ be the byte sequence bytes t (c).
-			bytes = getC().getBytes();
-		}
+		bytes = step13_convert_C_toByteArray();
 
 		// 15. Replace the bytes mem.data[ea:N/8] with b*.
 		step15_ReplaceBytes(mem, ea, bytes);
@@ -289,28 +281,11 @@ public abstract class StoreBase {
 	abstract void setC(Object c);
 
 	/* package_private */
+	abstract ByteUnsigned[] step13_convert_C_toByteArray();
+
+	/* package_private */
 	abstract void step15_ReplaceBytes(MemoryType mem, U32 ea, ByteUnsigned[] bytes);
 
-	/**
-	 * wrap<sub>M,N</sub>(i)
-	 * <p>
-	 * Return i modulo 2<sup>N</sup>
-	 * <p>
-	 * <b>Source:</b>  <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-wrap"
-	 * target="_top"> https://webassembly.github.io/spec/core/exec/numerics.html#op-wrap
-	 * </a>
-	 *
-	 * @param N Number of bits to mask.
-	 * @param i input value.
-	 * @return the value with only the right most 2<sup>N</sup> bits set.  The high bits are set to
-	 * zero.
-	 */
-	public static Integer wrap(// Integer M,
-		Integer N, Integer i) {   // TODO change i to Long
-		Integer result;
-		Double pow = Math.pow(2, N);
-		result = (i % pow.intValue());
-		return result;
-	}
+
 
 }
