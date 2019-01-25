@@ -115,7 +115,7 @@ Data Section:  To Do
 - [ ] i32_const 0x41
 - [ ] i64_const 0x42
 - [ ] f32_const 0x43
-- [x] f64_const 0x44
+- [ ] f64_const 0x44
 - [x] i32_eqz  0x46
 - [x] i32_eq 0x47
 - [x] i32_ne 0x48

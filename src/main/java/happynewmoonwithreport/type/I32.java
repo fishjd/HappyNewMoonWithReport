@@ -24,7 +24,7 @@ import happynewmoonwithreport.type.JavaType.ByteUnsigned;
 /**
  * Signed Integer
  */
-public class I32 extends Int {
+public class I32 extends IntWasm {
 
 	protected Integer value;
 

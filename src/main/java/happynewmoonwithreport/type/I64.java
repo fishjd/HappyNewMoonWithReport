@@ -24,7 +24,7 @@ import happynewmoonwithreport.type.JavaType.ByteUnsigned;
  * <p>
  * source https://webassembly.github.io/spec/text/values.html#integers
  */
-public class I64 extends Int {
+public class I64 extends IntWasm {
 	protected Long value;
 
 	public I64() {

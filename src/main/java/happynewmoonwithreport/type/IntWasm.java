@@ -21,7 +21,7 @@ import happynewmoonwithreport.type.JavaType.ByteUnsigned;
 /**
  * Web Assembly Integer
  */
-public abstract class Int implements DataTypeNumber {
+public abstract class IntWasm implements DataTypeNumber {
 
 
 	@Override
