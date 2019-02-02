@@ -18,14 +18,15 @@ package happynewmoonwithreport.util.converter;
 
 import org.junit.jupiter.params.converter.SimpleArgumentConverter;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import happynewmoonwithreport.type.JavaType.ByteUnsigned;
 
 /**
  * jUnit 5 argument converter.  Converts a String to a Byte array;
  * <p>
- * <b>Source:</b>  <a href="http://junit.org/junit5/docs/current/user-guide/#writing-tests-parameterized-tests-argument-conversion-explicit"
- * target="_top">
- * http://junit.org/junit5/docs/current/user-guide/#writing-tests-parameterized-tests-argument-conversion-explicit
+ * <b>Source:</b>
+ * <a href="http://junit.org/junit5/docs/current/user-guide/#writing-tests-parameterized-tests-argument-conversion-explicit"
+ * target="_top"> http://junit.org/junit5/docs/current/user-guide/#writing-tests-parameterized
+ * -tests-argument-conversion-explicit
  * </a>
  *
  * @see Integer#decode(String)
@@ -38,7 +39,7 @@ public class StringToByteArrayConverter extends SimpleArgumentConverter {
 		// assertEquals(Byte[].class, targetType, "Can only convert to byte Array");
 		String strSource = (String) source;
 		int length = (int) Math.ceil(strSource.length() / 2);
-		Byte[] result = new Byte[length];
+		ByteUnsigned[] result = new ByteUnsigned[length];
 
 		// convert to Byte[].
 		for (int i = 0; i < strSource.length(); i = i + 2) {
@@ -48,7 +49,7 @@ public class StringToByteArrayConverter extends SimpleArgumentConverter {
 			int byte2 = Byte.parseByte(strByte2, 16);
 
 			int byteAll = byte1 << 4 | byte2;
-			result[(length-1) - i / 2] = (byte) byteAll;
+			result[i / 2] = new ByteUnsigned(byteAll);
 		}
 		return result;
 	}
