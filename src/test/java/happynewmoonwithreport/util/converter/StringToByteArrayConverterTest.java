@@ -20,6 +20,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import happynewmoonwithreport.type.JavaType.ByteUnsigned;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
@@ -41,21 +43,34 @@ class StringToByteArrayConverterTest {
 	@Test
 	void convert() {
 		// run
-		Byte[] result = (Byte[]) converter.convert("CDFE70", byte[].class);
+		ByteUnsigned[] result = (ByteUnsigned[]) converter.convert("CDFE70", byte[].class);
 
 		// verify
-		assertEquals(new Byte((byte)0x70), result[0]);
-		assertEquals(new Byte((byte)0xFE), result[1]);
-		assertEquals(new Byte((byte)0xCD), result[2]);
+		assertEquals(new ByteUnsigned((byte)0x70), result[2]);
+		assertEquals(new ByteUnsigned((byte)0xFE), result[1]);
+		assertEquals(new ByteUnsigned((byte)0xCD), result[0]);
+
+	}
+
+	@Test
+	void convert00() {
+		// run
+		ByteUnsigned[] result = (ByteUnsigned[]) converter.convert("00CDFE70", byte[].class);
+
+		// verify
+		assertEquals(new ByteUnsigned((byte)0x70), result[3]);
+		assertEquals(new ByteUnsigned((byte)0xFE), result[2]);
+		assertEquals(new ByteUnsigned((byte)0xCD), result[1]);
+		assertEquals(new ByteUnsigned((byte)0x00), result[0]);
 
 	}
 
 	@Test
 	void convertFF() {
 		// run
-		Byte[] result = (Byte[]) converter.convert("FF", byte[].class);
+		ByteUnsigned[] result = (ByteUnsigned[]) converter.convert("FF", byte[].class);
 
 		// verify
-		assertEquals(new Byte((byte)0xFF), result[0]);
+		assertEquals(new ByteUnsigned((byte)0xFF), result[0]);
 	}
 }
