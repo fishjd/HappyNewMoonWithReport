@@ -23,6 +23,7 @@ import happynewmoonwithreport.opcode.Block;
 import happynewmoonwithreport.opcode.ConstantInt32;
 import happynewmoonwithreport.opcode.Drop;
 import happynewmoonwithreport.opcode.GetLocal;
+import happynewmoonwithreport.opcode.I32_Mul;
 import happynewmoonwithreport.opcode.I32_Sub;
 import happynewmoonwithreport.opcode.I32_eq;
 import happynewmoonwithreport.opcode.I32_eqz;
