@@ -87,13 +87,13 @@ public class I32 extends IntWasm {
 			case 8: {
 				value += byteAll[0].intValue();
 				if (signExtension) {
-					value = signExtend(byteAll[0]);
+					value = signExtend8To32(byteAll[0]);
 				}
 				break;
 			}
 			case 16: {
-				value += ((byteAll[1].intValue()) << 0);
-				value += ((byteAll[0].intValue()) << 8);
+				value += ((byteAll[1].intValue()) << 0);	// Least Significant Byte
+				value += ((byteAll[0].intValue()) << 8);	// Most  Significant Byte
 				if (signExtension) {
 					value = twoComplement(value);
 				}
@@ -101,19 +101,19 @@ public class I32 extends IntWasm {
 			}
 			// I'm not sure 24 and 32 are necessary or required by the specification.
 			case 24: {
-				value += ((byteAll[2].intValue()) << 0);
+				value += ((byteAll[2].intValue()) << 0);	// Least  Significant Byte
 				value += ((byteAll[1].intValue()) << 8);
-				value += ((byteAll[0].intValue()) << 16);
+				value += ((byteAll[0].intValue()) << 16);	// Most  Significant Byte
 				if (signExtension) {
 					value = twoComplement(value);
 				}
 				break;
 			}
 			case 32: {
-				value += ((byteAll[3].intValue()) << 0);
+				value += ((byteAll[3].intValue()) << 0);	// Least  Significant Byte
 				value += ((byteAll[2].intValue()) << 8);
 				value += ((byteAll[1].intValue()) << 16);
-				value += ((byteAll[0].intValue()) << 24);
+				value += ((byteAll[0].intValue()) << 24);	// Most  Significant Byte
 				if (signExtension) {
 					value = twoComplement(value);
 				}

@@ -33,6 +33,7 @@ class I32_load8_s_Test extends Specification {
 	I32_load8_s i32Load8_s;
 
 	WasmStack stack;
+	MemoryType memory;
 
 	void setup() {
 		// create a module.
@@ -41,7 +42,8 @@ class I32_load8_s_Test extends Specification {
 		// create a memory if we are going to load from memory we need a memory.
 		U32 hasMaximum = new U32(0);
 		U32 minimum = new U32(1);
-		MemoryType memory = new MemoryType(hasMaximum, minimum);
+
+		memory = new MemoryType(hasMaximum, minimum);
 		memory.set(0, new ByteUnsigned(0x70));
 		memory.set(1, new ByteUnsigned(0x01));
 		memory.set(2, new ByteUnsigned(0x02));
@@ -79,22 +81,34 @@ class I32_load8_s_Test extends Specification {
 	}
 
 	def "Execute Golden Path"() {
-		// setup: ""
+		Integer address = 2;
+
+		setup: ""
+		stack.push(new I32(address));  // load bytes starting at 2
+
+		memory.set(address, new ByteUnsigned(input));
 
 		when: ""
 		i32Load8_s.execute();
 
 		then: ""
 		I32 actual = (I32) stack.pop();
-		I32 expected = new I32(0x02); // Little Endian!
-		actual == expected;
+		I32 expectedI32 = new I32(expected); // Little Endian!
+		actual == expectedI32;
 
 		// expect: ""
 
 		// cleanup: ""
 
-		// where: ""
-
+		where: ""
+		input       || expected
+		0           || 0
+		2           || 2
+		4           || 4
+		0x7F        || 0x7F
+		0xFF        || -1
+		(byte) -100 || -100
+		(byte) -1   || -1
 	}
 
 
