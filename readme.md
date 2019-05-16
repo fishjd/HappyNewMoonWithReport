@@ -154,7 +154,7 @@ Data Section:  To Do
 - [ ] i32.popcnt  0x69
 - [x] i32.add 0x6A
 - [x] i32.sub 0x6B
-- [ ] i32.mul 0x6C
+- [x] i32.mul 0x6C
 - [ ] i32.div_s 0x6D
 - [ ] i32.div_u 0x6E
 - [ ] i32.rem_s 0x6F

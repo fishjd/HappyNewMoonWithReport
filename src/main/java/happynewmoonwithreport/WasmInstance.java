@@ -23,6 +23,7 @@ import happynewmoonwithreport.opcode.Block;
 import happynewmoonwithreport.opcode.ConstantInt32;
 import happynewmoonwithreport.opcode.Drop;
 import happynewmoonwithreport.opcode.GetLocal;
+import happynewmoonwithreport.opcode.I32_Mul;
 import happynewmoonwithreport.opcode.I32_Sub;
 import happynewmoonwithreport.opcode.I32_eq;
 import happynewmoonwithreport.opcode.I32_eqz;
@@ -428,7 +429,7 @@ public class WasmInstance implements WasmInstanceInterface {
 				i64_ge_s.execute();
 				break;
 			}
-			case (byte) 0x5A: { // i64 greater than equal to usigned
+			case (byte) 0x5A: { // i64 greater than equal to unsigned
 				I64_ge_u i64_ge_u = new I64_ge_u(this);
 				i64_ge_u.execute();
 				break;
@@ -441,6 +442,11 @@ public class WasmInstance implements WasmInstanceInterface {
 			case (byte) 0x6B: {
 				I32_Sub i32_sub = new I32_Sub(this);
 				i32_sub.execute();
+				break;
+			}
+			case (byte) 0x6C: { // i32 multiply
+				I32_Mul i32_mul = new I32_Mul(this);
+				i32_mul.execute();
 				break;
 			}
 			default:

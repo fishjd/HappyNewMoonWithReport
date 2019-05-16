@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 - 2019 Whole Bean Software, LTD.
+ *  Copyright 2017 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -57,18 +57,18 @@ import happynewmoonwithreport.type.I32;
  * </a>
  * <p>
  * Source:  <a href="https://webassembly.github.io/spec/core/exec/instructions.html#numeric-instructions"
- * target="_top">
- * https://webassembly.github.io/spec/core/exec/instructions.html#numeric-instructions  t.binop
+ * target="_top"> https://webassembly.github.io/spec/core/exec/instructions.html#numeric-instructions
+ * t.binop
  * </a>
  */
-public class I32_Sub<ParameterType, ReturnType> {
+public class I32_Mul<ParameterType, ReturnType> {
 	private WasmInstanceInterface instance;
 
-	private I32_Sub() {
+	private I32_Mul() {
 		super();
 	}
 
-	public I32_Sub(WasmInstanceInterface instance) {
+	public I32_Mul(WasmInstanceInterface instance) {
 		this();
 		this.instance = instance;
 	}
@@ -79,19 +79,18 @@ public class I32_Sub<ParameterType, ReturnType> {
 	public void execute() {
 		WasmStack<Object> stack = instance.stack();
 		if ((stack.peek() instanceof I32) == false) {
-			throw new WasmRuntimeException(UUID.fromString("ed5b6703-894c-4d1e-8ddc-4aab7ed1f4dd"),
+			throw new WasmRuntimeException(UUID.fromString("847fe99b-56ea-407c-ac94-1cf13c1936f1"),
 										   "addI32: Value2 type is incorrect");
 		}
 		I32 value2 = (I32) stack.pop();
 
 		if ((stack.peek() instanceof I32) == false) {
-			throw new WasmRuntimeException(UUID.fromString("d259488c-e394-4c0c-9246-1882923fb352"),
+			throw new WasmRuntimeException(UUID.fromString("e1433c51-da9f-4c43-a9fe-90ba1d84e56b"),
 										   "addI32: Value1 type is incorrect");
 		}
 		I32 value1 = (I32) stack.pop();
 
-		// does not need modulo because java is already handling
-		I32 result = new I32(value1.integerValue() - value2.integerValue());
+		I32 result = new I32(value1.integerValue() * value2.integerValue());
 
 		stack.push(result);
 	}
