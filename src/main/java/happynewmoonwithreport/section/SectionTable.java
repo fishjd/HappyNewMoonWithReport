@@ -33,8 +33,8 @@ import happynewmoonwithreport.type.WasmVector;
  * http://webassembly.org/docs/modules/#table-section
  * </a>
  * <p>
- * Source:  <a href="https://webassembly.github.io/spec/binary/modules.html#table-section" target="_top">
- * https://webassembly.github.io/spec/binary/modules.html#table-section
+ * Source:  <a href="https://webassembly.github.io/spec/core/binary/modules.html#table-section" target="_top">
+ * https://webassembly.github.io/spec/core/binary/modules.html#table-section
  * </a>
  */
 public class SectionTable implements Section {

@@ -36,8 +36,8 @@ import java.util.ArrayList;
  * http://webassembly.org/docs/modules/#function-and-code-sections
  * </a>
  * <p>
- * Source:  <a href="https://webassembly.github.io/spec/binary/modules.html#function-section" target="_top">
- * https://webassembly.github.io/spec/binary/modules.html#function-section
+ * Source:  <a href="https://webassembly.github.io/spec/core/binary/modules.html#function-section" target="_top">
+ * https://webassembly.github.io/spec/core/binary/modules.html#function-section
  * </a>
  */
 public class SectionFunction implements Section {

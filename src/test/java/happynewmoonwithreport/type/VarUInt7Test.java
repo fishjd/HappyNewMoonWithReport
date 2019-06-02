@@ -71,7 +71,7 @@ public class VarUInt7Test {
 	/**
 	 * Similarly, either of<br> 0x7e<br> 0xFE 0x7F <br> 0xFE 0xFF 0x7F <br> are well-formed encodings of the value -2.
 	 * <p>
-	 * source : https://webassembly.github.io/spec/binary/values.html#integers
+	 * source : https://webassembly.github.io/spec/core/binary/values.html#integers
 	 */
 
 

@@ -22,7 +22,7 @@ import happynewmoonwithreport.type.JavaType.ByteUnsigned;
  * I64 is the WebAssembly runtime 64 bit Integer.  It can be interpreted as either signed or
  * unsigned.
  * <p>
- * source https://webassembly.github.io/spec/text/values.html#integers
+ * source https://webassembly.github.io/spec/core/text/values.html#integers
  */
 public class I64 extends IntWasm {
 	protected Long value;

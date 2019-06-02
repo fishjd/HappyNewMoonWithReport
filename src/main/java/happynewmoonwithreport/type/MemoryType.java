@@ -29,8 +29,8 @@ import happynewmoonwithreport.type.JavaType.ByteUnsigned;
  * http://webassembly.org/docs/binary-encoding/#memory_type
  * </a>
  * <p>
- * Source:  <a href="https://webassembly.github.io/spec/syntax/types.html#memory-types" target="_top">
- * https://webassembly.github.io/spec/syntax/types.html#memory-types
+ * Source:  <a href="https://webassembly.github.io/spec/core/syntax/types.html#memory-types" target="_top">
+ * https://webassembly.github.io/spec/core/syntax/types.html#memory-types
  * </a>
  * Source:  <a href="https://webassembly.github.io/spec/core/exec/runtime.html#memory-instances" target="_top">
  * https://webassembly.github.io/spec/core/exec/runtime.html#memory-instances
@@ -72,8 +72,8 @@ public class MemoryType implements Validation {
 	/**
 	 * The limits must be valid.
 	 * <p>
-	 * source:  <a href="https://webassembly.github.io/spec/valid/types.html#memory-types"
-	 * target="_top"> https://webassembly.github.io/spec/valid/types.html#memory-types
+	 * source:  <a href="https://webassembly.github.io/spec/core/valid/types.html#memory-types"
+	 * target="_top"> https://webassembly.github.io/spec/core/valid/types.html#memory-types
 	 * </a>
 	 *
 	 * @return true if valid.

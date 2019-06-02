@@ -180,9 +180,8 @@ public class WasmInstance implements WasmInstanceInterface {
 	}
 
 	/**
-	 * Source:  <a href="https://webassembly.github.io/spec/appendix/index-instructions.html"
-	 * target="_top"> https://webassembly.github.io/spec/appendix/index-instructions.html
-	 *
+	 * Source:  <a href="https://webassembly.github.io/spec/core/appendix/index-instructions.html"
+	 * target="_top"> https://webassembly.github.io/spec/core/appendix/index-instructions.html
 	 * </a>
 	 */
 	private void execute(BytesFile code) {

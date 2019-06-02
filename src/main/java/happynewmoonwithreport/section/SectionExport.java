@@ -34,8 +34,8 @@ import happynewmoonwithreport.type.WasmVector;
  * http://webassembly.org/docs/modules/#exports
  * </a>
  * <p>
- * Source:  <a href="https://webassembly.github.io/spec/binary/modules.html#export-section" target="_top">
- * https://webassembly.github.io/spec/binary/modules.html#export-section
+ * Source:  <a href="https://webassembly.github.io/spec/core/binary/modules.html#export-section" target="_top">
+ * https://webassembly.github.io/spec/core/binary/modules.html#export-section
  * </a>
  */
 public class SectionExport implements Section {

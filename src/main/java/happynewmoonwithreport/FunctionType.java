@@ -30,8 +30,8 @@ import java.util.ArrayList;
  * </a>
  * </p>
  * <p>
- * <a href = "https://webassembly.github.io/spec/binary/types.html#function-types" target="_top">
- * https://webassembly.github.io/spec/binary/types.html#function-types</a>
+ * <a href = "https://webassembly.github.io/spec/core/binary/types.html#function-types" target="_top">
+ * https://webassembly.github.io/spec/core/binary/types.html#function-types</a>
  * </p>
  */
 public class FunctionType implements Validation {
@@ -115,8 +115,8 @@ public class FunctionType implements Validation {
 	/**
 	 * Function types may not specify more than one result.
 	 * <p>
-	 * source:  <a href="https://webassembly.github.io/spec/valid/types.html#function-types" target="_top">
-	 * https://webassembly.github.io/spec/valid/types.html#function-types</a>
+	 * source:  <a href="https://webassembly.github.io/spec/core/valid/types.html#function-types" target="_top">
+	 * https://webassembly.github.io/spec/core/valid/types.html#function-types</a>
 	 * <p>
 	 * Note:
 	 * This restriction may be removed in future versions of WebAssembly.
