@@ -70,9 +70,9 @@ public class I32 extends IntWasm {
 
 
 	/**
-	 * Create an I32 using a Byte array, length, and sign extension. Big Endian.
+	 * Create an I32 using a Byte array, length, and sign extension.
 	 *
-	 * @param byteAll       an array of unsigned bytes
+	 * @param byteAll       an array of unsigned bytes.  Little Endian.
 	 * @param length        length
 	 * @param signExtension is this a signed value?  True = signed.
 	 */
@@ -95,20 +95,20 @@ public class I32 extends IntWasm {
 				value += ((byteAll[1].intValue()) << 0);	// Least Significant Byte
 				value += ((byteAll[0].intValue()) << 8);	// Most  Significant Byte
 				if (signExtension) {
-					value = twoComplement(value);
+					value = signExtend16To32(value);
 				}
 				break;
 			}
 			// I'm not sure 24 and 32 are necessary or required by the specification.
-			case 24: {
-				value += ((byteAll[2].intValue()) << 0);	// Least  Significant Byte
-				value += ((byteAll[1].intValue()) << 8);
-				value += ((byteAll[0].intValue()) << 16);	// Most  Significant Byte
-				if (signExtension) {
-					value = twoComplement(value);
-				}
-				break;
-			}
+//			case 24: {
+//				value += ((byteAll[2].intValue()) << 0);	// Least  Significant Byte
+//				value += ((byteAll[1].intValue()) << 8);
+//				value += ((byteAll[0].intValue()) << 16);	// Most  Significant Byte
+//				if (signExtension) {
+//					value = twoComplement(value);
+//				}
+//				break;
+//			}
 			case 32: {
 				value += ((byteAll[3].intValue()) << 0);	// Least  Significant Byte
 				value += ((byteAll[2].intValue()) << 8);

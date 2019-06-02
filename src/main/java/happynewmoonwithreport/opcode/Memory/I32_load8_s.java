@@ -128,7 +128,7 @@ public class I32_load8_s extends LoadBase {
 	/* package-private */
 	@Override
 	U32 getBitWithOfN() {
-		return new U32(32);
+		return N;
 	}
 
 	/* package-private */
