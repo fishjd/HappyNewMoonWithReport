@@ -21,7 +21,7 @@ import happynewmoonwithreport.type.JavaType.ByteUnsigned;
 /**
  * Web Assembly Integer
  */
-public abstract class Int implements DataTypeNumber {
+public abstract class IntWasm implements DataTypeNumber {
 
 
 	@Override
@@ -59,7 +59,7 @@ public abstract class Int implements DataTypeNumber {
 	// public abstract Boolean equals(Int other) ;
 
 	/**
-	 * Sign extend a byte to an integer.
+	 * Sign extend an byte to an integer.
 	 * <br>
 	 * <br>
 	 * extend_sM,N(i)
@@ -75,19 +75,33 @@ public abstract class Int implements DataTypeNumber {
 	 * https://webassembly.github.io/spec/core/exec/numerics.html#op-extend-s
 	 * </a>
 	 *
-	 * @param input a byte
+	 * @param input an Unsigned byte of length 8
 	 *
-	 * @return an integer that is the same value of the byte.
+	 * @return an int of length 32.
 	 */
-	public static Integer signExtend(ByteUnsigned input) {
+	public static int signExtend8To32(ByteUnsigned input) {
 		int result;
 
-		result = input.intValue();
 		if (input.isSignBitSet()) {
+			result = 0xFFFF_FF00 | input.byteValue();  // it works?
 			// negative
-			result = twoComplement(result);
+			//result = twoComplement(result);
+		} else {
+			result = input.intValue();
 		}
-		return new Integer(result);
+		return result;
+	}
+
+	public static int signExtend16To32(int input) {
+		int result;
+
+		if (0 < (input & 0x8000)) {
+			result = 0xFFFF_0000 | (input & 0xFFFF);
+			// negative
+		} else {
+			result = input & 0x7FFF;
+		}
+		return result;
 	}
 
 

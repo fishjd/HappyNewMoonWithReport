@@ -16,17 +16,19 @@
  */
 package happynewmoonwithreport.type;
 
-import happynewmoonwithreport.WasmInstanceInterface;
-import happynewmoonwithreport.opcode.I32_eq;
-import happynewmoonwithreport.opcode.WasmInstanceStub;
-import happynewmoonwithreport.util.converter.StringToByteArrayConverter;
-import happynewmoonwithreport.util.converter.StringToIntegerConverter;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.converter.ConvertWith;
 import org.junit.jupiter.params.provider.CsvSource;
+
+import happynewmoonwithreport.WasmInstanceInterface;
+import happynewmoonwithreport.opcode.I32_eq;
+import happynewmoonwithreport.opcode.WasmInstanceStub;
+import happynewmoonwithreport.type.JavaType.ByteUnsigned;
+import happynewmoonwithreport.util.converter.StringToByteArrayConverter;
+import happynewmoonwithreport.util.converter.StringToIntegerConverter;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -59,20 +61,21 @@ public class I32ConstructorBytesSizeTest {
 
 
 	@CsvSource({
-			// val1         , val2         , expected
-			"  3            , 3            , 1"
-			, "3            , 0            , 0"
-			, "0x0FFF_FFFF  , 0x0FFF_FFFE  , 0"
-			, "0x0FFF_FFFF  , 0x0FFF_FFFF  , 1"
-			, "-0x0FFF_FFFF , -0x0FFF_FFFF , 1"
-			, "0x7FFF_FFFF  , 0x7FFF_FFFF  , 1"
-			, "-0x7FFF_FFFF , -0x7FFF_FFFF , 1"
+		// val1         , val2         , expected
+		"  3            , 3            , 1",
+		"3            , 0            , 0",
+		"0x0FFF_FFFF  , 0x0FFF_FFFE  , 0",
+		"0x0FFF_FFFF  , 0x0FFF_FFFF  , 1",
+		"-0x0FFF_FFFF , -0x0FFF_FFFF , 1",
+		"0x7FFF_FFFF  , 0x7FFF_FFFF  , 1",
+		"-0x7FFF_FFFF , -0x7FFF_FFFF , 1"
 	})
 	@ParameterizedTest(name = "index = {index} execute( val1 = {0}, val2 = {1}, expected = {2} )")
-	void execute(
-			@ConvertWith(StringToIntegerConverter.class) Integer val1, // Note: StringToIntegerConverter only needed if using hexadecimal or octal constants.
-			@ConvertWith(StringToIntegerConverter.class) Integer val2, // Note: StringToIntegerConverter only needed if using hexadecimal or octal constants.
-			Integer expected) {
+	void execute(@ConvertWith(StringToIntegerConverter.class) Integer val1,
+		// Note: StringToIntegerConverter only needed if using hexadecimal or octal constants.
+		@ConvertWith(StringToIntegerConverter.class) Integer val2,
+		// Note: StringToIntegerConverter only needed if using hexadecimal or octal constants.
+		Integer expected) {
 
 		// setup push two operands on stack
 		instance.stack().push(new I32(val1));
@@ -91,30 +94,30 @@ public class I32ConstructorBytesSizeTest {
 	}
 
 	@CsvSource({
-			"03020170, 8,  false,  0x70",
-			"03020170, 16, false,  0x0170",
-			"03020170, 24, false,  0x020170",
-			"03020170, 32, false,  0x03020170",
-			"03020170, 8,  true ,  0x70",
-			"03020180, 8,  true ,  -128",  //?
-			"030201F0, 8,  true ,  -240",
-			"030201E0, 8,  true ,  -224",
-			"E0      , 8,  true ,  -224",
-			"D0      , 8,  true ,  -208",
-			"FF      , 8,  false,  0x0000_00FF",
-			"FFFF    , 16, false,  0x0000_FFFF",
-			"FFFFFF  , 24, false,  0x00FF_FFFF",
-			"7FFFFFFF, 32, false,  0x7FFF_FFFF"   // max integer.
+		"03020170, 8,  false,  0x03",
+		"03020170, 16, false,  0x0302",
+		"03020170, 32, false,  0x03020170",
+		"80020170, 8,  true ,  -128",
+		//?
+		"F0020170, 8,  true ,  -16",
+		"E0020170, 8,  true ,  -32",
+		"E0000000, 8,  true ,  -32",
+		"D0000000, 8,  true ,  -48",
+		"FF000000, 8,  false,  0x0000_00FF",
+		"FFFF0000, 16, false,  0x0000_FFFF",
+		"7FFFFFFF, 32, false,  0x7FFF_FFFF"
+		// max integer.
 	})
-	@ParameterizedTest(name = "GenerateI32WithBytes  = {index} execute( input bytes =  {0}, size = {1}, signextension = {2} expected = {3} )")
-	void GenerateI32WithBytes(@ConvertWith(StringToByteArrayConverter.class) Byte[] byteAll,
-	                          Integer size,
-	                          Boolean signExtension,
-	                          @ConvertWith(StringToIntegerConverter.class) Integer expected) {
+	@ParameterizedTest(name = "GenerateI32WithBytes  = {index} execute( input bytes =  {0}, size ="
+		+ " {1}, signextension = {2} expected = {3} )")
+	void GenerateI32WithBytes(@ConvertWith(StringToByteArrayConverter.class) ByteUnsigned[] byteAll,
+		Integer size, Boolean signExtension,
+		@ConvertWith(StringToIntegerConverter.class) Integer expected) {
 
 
 		// Construct the I32
 		I32 actual = new I32(byteAll, size, signExtension);
+
 
 		assertThat(actual).isEqualTo(new I32(expected));
 

@@ -20,9 +20,8 @@ package happynewmoonwithreport.opcode.Memory;
 import happynewmoonwithreport.WasmFrame;
 import happynewmoonwithreport.WasmStack;
 import happynewmoonwithreport.WasmStore;
-import happynewmoonwithreport.type.I32;
 import happynewmoonwithreport.type.I64;
-import happynewmoonwithreport.type.Int;
+import happynewmoonwithreport.type.IntWasm;
 import happynewmoonwithreport.type.JavaType.ByteUnsigned;
 import happynewmoonwithreport.type.MemoryArgument;
 import happynewmoonwithreport.type.MemoryType;
@@ -145,7 +144,7 @@ public class I64_store extends StoreBase {
 	@Override
 	ByteUnsigned[] step13_convert_C_toByteArray() {
 		ByteUnsigned[] result = new ByteUnsigned[8];
-		result  = c.getBytes();
+		result = c.getBytes();
 
 		return result;
 	}
@@ -182,7 +181,7 @@ public class I64_store extends StoreBase {
 	 */
 	private I64 c;
 
-	/* package_private */ Int getC() {
+	/* package_private */ IntWasm getC() {
 		return c;
 	}
 

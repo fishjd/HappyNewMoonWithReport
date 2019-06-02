@@ -22,9 +22,19 @@ import happynewmoonwithreport.WasmRuntimeException;
 import happynewmoonwithreport.type.JavaType.ByteUnsigned;
 
 /**
- * Signed Integer
+ * Signed Integer 32 Bits
+ *
+ * <table>
+ * <td>High Byte</td><td>Byte</td><td>Byte</td><td>Low Byte</td>
+ * </tr>
+ * <tr>
+ * <td>0</td><td>			1</td><td>			2</td><td>			3</td>
+ * </tr>
+ * <tr>	<td>Msb000000</td><td>00000000</td><td>00000000</td><td>0000000Lsb</td>
+ * </tr>
+ * </table>
  */
-public class I32 extends Int {
+public class I32 extends IntWasm {
 
 	protected Integer value;
 
@@ -47,14 +57,6 @@ public class I32 extends Int {
 		this.value = value.intValue();
 	}
 
-	public I32(Byte[] byteAll) {
-		this();
-		value = 0;
-		value += byteAll[0] << 24;
-		value += byteAll[1] << 16;
-		value += byteAll[2] << 8;
-		value += byteAll[3] << 0;
-	}
 
 	public I32(ByteUnsigned[] byteAll) {
 		this();
@@ -65,28 +67,12 @@ public class I32 extends Int {
 		value += byteAll[3].intValue() << 0;
 	}
 
-	public I32(Byte[] byteAll, Integer length, Boolean signExtension) {
-		this();
 
-		ByteUnsigned[] buAll = new ByteUnsigned[4];
-		buAll[0] = new ByteUnsigned(byteAll[0]);
-		if (16 <= length) {
-			buAll[1] = new ByteUnsigned(byteAll[1]);
-		}
-		if (24 <= length) {
-			buAll[2] = new ByteUnsigned(byteAll[2]);
-		}
-		if (32 <= length) {
-			buAll[3] = new ByteUnsigned(byteAll[3]);
-		}
-
-		create(buAll, length, signExtension);
-	}
 
 	/**
-	 * Create an I32 using a Byte array, length, and sign extension. Big Endian.
+	 * Create an I32 using a Byte array, length, and sign extension.
 	 *
-	 * @param byteAll       an array of unsigned bytes
+	 * @param byteAll       an array of unsigned bytes.  Little Endian.
 	 * @param length        length
 	 * @param signExtension is this a signed value?  True = signed.
 	 */
@@ -101,33 +87,33 @@ public class I32 extends Int {
 			case 8: {
 				value += byteAll[0].intValue();
 				if (signExtension) {
-					value = signExtend(byteAll[0]);
+					value = signExtend8To32(byteAll[0]);
 				}
 				break;
 			}
 			case 16: {
-				value += ((byteAll[0].intValue()) << 0);
-				value += ((byteAll[1].intValue()) << 8);
+				value += ((byteAll[1].intValue()) << 0);	// Least Significant Byte
+				value += ((byteAll[0].intValue()) << 8);	// Most  Significant Byte
 				if (signExtension) {
-					value = twoComplement(value);
+					value = signExtend16To32(value);
 				}
 				break;
 			}
 			// I'm not sure 24 and 32 are necessary or required by the specification.
-			case 24: {
-				value += ((byteAll[0].intValue()) << 0);
-				value += ((byteAll[1].intValue()) << 8);
-				value += ((byteAll[2].intValue()) << 16);
-				if (signExtension) {
-					value = twoComplement(value);
-				}
-				break;
-			}
+//			case 24: {
+//				value += ((byteAll[2].intValue()) << 0);	// Least  Significant Byte
+//				value += ((byteAll[1].intValue()) << 8);
+//				value += ((byteAll[0].intValue()) << 16);	// Most  Significant Byte
+//				if (signExtension) {
+//					value = twoComplement(value);
+//				}
+//				break;
+//			}
 			case 32: {
-				value += ((byteAll[0].intValue()) << 0);
-				value += ((byteAll[1].intValue()) << 8);
-				value += ((byteAll[2].intValue()) << 16);
-				value += ((byteAll[3].intValue()) << 24);
+				value += ((byteAll[3].intValue()) << 0);	// Least  Significant Byte
+				value += ((byteAll[2].intValue()) << 8);
+				value += ((byteAll[1].intValue()) << 16);
+				value += ((byteAll[0].intValue()) << 24);	// Most  Significant Byte
 				if (signExtension) {
 					value = twoComplement(value);
 				}

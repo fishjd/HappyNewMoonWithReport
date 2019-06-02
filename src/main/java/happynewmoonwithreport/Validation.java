@@ -19,8 +19,8 @@ package happynewmoonwithreport;
 /**
  * Interface to check class for Validation.
  * <p>
- * Source:  <a href="https://webassembly.github.io/spec/valid/index.html" target="_top">
- * https://webassembly.github.io/spec/valid/index.html
+ * Source:  <a href="https://webassembly.github.io/spec/core/valid/index.html" target="_top">
+ * https://webassembly.github.io/spec/core/valid/index.html
  * </a>
  */
 public interface Validation {

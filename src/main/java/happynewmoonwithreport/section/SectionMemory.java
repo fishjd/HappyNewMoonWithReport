@@ -34,8 +34,8 @@ import happynewmoonwithreport.type.WasmVector;
  * http://webassembly.org/docs/modules/#linear-memory-section
  * </a>
  * <p>
- * Source:  <a href="https://webassembly.github.io/spec/binary/modules.html#memory-section" target="_top">
- * https://webassembly.github.io/spec/binary/modules.html#memory-section
+ * Source:  <a href="https://webassembly.github.io/spec/core/binary/modules.html#memory-section" target="_top">
+ * https://webassembly.github.io/spec/core/binary/modules.html#memory-section
  * </a>
  */
 public class SectionMemory implements Section {

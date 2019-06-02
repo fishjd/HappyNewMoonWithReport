@@ -28,33 +28,29 @@ import happynewmoonwithreport.type.MemoryType;
 import happynewmoonwithreport.type.U32;
 
 /**
- * <h1>i32_load</h1> Load an i32 value from memory to the stack.
- * <p>
- * Memory Instructions<br>
- * <p>
- * <b>Source:</b>
- * <a href="https://webassembly.github.io/spec/core/syntax/instructions.html#memory-instructions"
- * target="_top"> https://webassembly.github.io/spec/core/syntax/instructions
- * .html#memory-instructions
- * </a>
- * <br>
+ * <h1>i32_load16_s</h1> Load an i16 Signed value from memory to the stack.
  * <p>
  * Memory Overview<br>
  * <b>Source:</b>
  * <a href="https://webassembly.github.io/spec/core/syntax/instructions.html#syntax-instr-memory"
- * target="_top"> https://webassembly.github.io/spec/core/syntax/instructions
- * .html#syntax-instr-memory
+ * target="_top">
+ * https://webassembly.github.io/spec/core/syntax/instructions.html#syntax-instr-memory
  * </a>
  * </p>
- * <br>
- * Exec:
  * <p>
  * <b>Source:</b>
- * <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-load" target="_top">
+ * <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-load"
+ * target="_top">
  * https://webassembly.github.io/spec/core/exec/instructions.html#exec-load
  * </a>
- * <br>
- * <h2>t.load memarg and t.loadN_sx memarg</h2>
+ * <h1>t.load memarg and t.loadN_sx memarg</h1>
+ *
+ * <pre>
+ *  t = I32     // result type  <br>
+ *  n = 16       // size of input byte array <br>
+ *  sx = signed // sign extenstion <br>
+ * </pre>
+ *
  * <ol>
  * <li>
  * Let F be the current frame.
@@ -106,15 +102,17 @@ import happynewmoonwithreport.type.U32;
  * </li>
  * </ol>
  */
-public class I32_load extends LoadBase {
+public class I32_load16_s extends LoadBase {
 
+	private Boolean signExtension;
 
-
-	private I32_load() {
+	private I32_load16_s() {
 		super();
+		signExtension = true;
+		N = new U32(16L);
 	}
 
-	public I32_load(MemoryArgument memoryArgument, WasmFrame frame, WasmStore store,
+	public I32_load16_s(MemoryArgument memoryArgument, WasmFrame frame, WasmStore store,
 		WasmStack stack) {
 		this();
 		this.memoryArgument = memoryArgument;
@@ -126,7 +124,7 @@ public class I32_load extends LoadBase {
 	/* package-private */
 	@Override
 	U32 getBitWithOfN() {
-		return new U32(32);
+		return N;
 	}
 
 	/* package-private */
@@ -136,15 +134,15 @@ public class I32_load extends LoadBase {
 		Integer eaIntegerValue = ea.integerValue();
 		bytes[0] = mem.get(eaIntegerValue + 0);
 		bytes[1] = mem.get(eaIntegerValue + 1);
-		bytes[2] = mem.get(eaIntegerValue + 2);
-		bytes[3] = mem.get(eaIntegerValue + 3);
 		return bytes;
 	}
 
 	/* package-private */
 	@Override
 	IntWasm convertToType(ByteUnsigned[] bytes) {
-		I32 c = new I32(bytes);
+		I32 c = new I32(bytes, N.integerValue(), signExtension);
 		return c;
 	}
+
+
 }

@@ -292,7 +292,8 @@ public final class ByteUnsigned extends Number implements Comparable<ByteUnsigne
 	 */
 	@Override
 	public String toString() {
-		return Integer.toString((int) value) + "(0x" + Integer.toHexString((int) value).toUpperCase() + ")";
+		return Integer.toString((int) value) + "(0x" + Integer.toHexString((int) value)
+															  .toUpperCase() + ")";
 	}
 
 	/**
@@ -319,4 +320,17 @@ public final class ByteUnsigned extends Number implements Comparable<ByteUnsigne
 		return Short.hashCode(value);
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+
+		ByteUnsigned that = (ByteUnsigned) o;
+
+		return (value & 0xFF) == (that.value & 0xFF);
+	}
 }

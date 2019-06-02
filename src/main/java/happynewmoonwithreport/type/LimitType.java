@@ -30,8 +30,8 @@ import java.util.UUID;
  * Source : <a href= "http://webassembly.org/docs/binary-encoding/#resizable_limits" target="_top">
  * http://webassembly.org/docs/binary-encoding/#resizable_limits</a>
  * <p>
- * source:  <a href="https://webassembly.github.io/spec/syntax/types.html#limits" target="_top">
- * https://webassembly.github.io/spec/syntax/types.html#limits
+ * source:  <a href="https://webassembly.github.io/spec/core/syntax/types.html#limits" target="_top">
+ * https://webassembly.github.io/spec/core/syntax/types.html#limits
  * </a>
  */
 public class LimitType implements Validation {
@@ -149,8 +149,8 @@ public class LimitType implements Validation {
 	 * <li>If the maximum m? is not empty, then its value must not be smaller than n</li>
 	 * <li>Then the limit is valid.</li>
 	 * </ul>
-	 * source:  <a href="https://webassembly.github.io/spec/valid/types.html#limits" target="_top">
-	 * https://webassembly.github.io/spec/valid/types.html#limits</a>
+	 * source:  <a href="https://webassembly.github.io/spec/core/valid/types.html#limits" target="_top">
+	 * https://webassembly.github.io/spec/core/valid/types.html#limits</a>
 	 *
 	 * @return true if limit is valid.
 	 */

@@ -28,7 +28,7 @@ import happynewmoonwithreport.type.UInt8;
  * </a>
  * </p>
  * <p>
- * Source:  <a href = "https://webassembly.github.io/spec/syntax/types.html#syntax-tabletype" target="_top">
+ * Source:  <a href = "https://webassembly.github.io/spec/core/syntax/types.html#syntax-tabletype" target="_top">
  * Table Type
  * </a>
  */
@@ -57,8 +57,8 @@ public class TableType implements Validation {
 	/**
 	 * The limits must be valid.
 	 * <p>
-	 * source:  <a href="https://webassembly.github.io/spec/valid/types.html#table-types" target="_top">
-	 * https://webassembly.github.io/spec/valid/types.html#table-types
+	 * source:  <a href="https://webassembly.github.io/spec/core/valid/types.html#table-types" target="_top">
+	 * https://webassembly.github.io/spec/core/valid/types.html#table-types
 	 * </a>
 	 *
 	 * @return true if valid.

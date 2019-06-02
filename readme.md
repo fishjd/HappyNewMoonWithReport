@@ -96,8 +96,8 @@ Data Section:  To Do
 - [ ] f64_load 0x2B
 - [x] i32_load8-S  0x2C
 - [x] i32_load8-U  0x2D
-- [ ] i32_load16-S  0x2E
-- [ ] i32_load16-U  0x2F
+- [x] i32_load16-S  0x2E
+- [x] i32_load16-U  0x2F
 - [ ] i64_load8-S  0x30
 - [ ] i64_load8-U  0x31
 - [ ] i64_load16-S  0x32
@@ -118,7 +118,7 @@ Data Section:  To Do
 - [ ] i32_const 0x41
 - [ ] i64_const 0x42
 - [ ] f32_const 0x43
-- [x] f64_const 0x44
+- [ ] f64_const 0x44
 - [x] i32_eqz  0x46
 - [x] i32_eq 0x47
 - [x] i32_ne 0x48
@@ -146,7 +146,7 @@ Data Section:  To Do
 - [ ] f32.gt 0x5E
 - [ ] f32.lt  0x5F
 - [ ] f32.ge 0x60
-- [ ] f64 .eq  0x61
+- [ ] f64.eq  0x61
 - [ ] f64.ne  0x62
 - [ ] f64.lt 0x63
 - [ ] f64.gt 0x64
@@ -157,7 +157,7 @@ Data Section:  To Do
 - [ ] i32.popcnt  0x69
 - [x] i32.add 0x6A
 - [x] i32.sub 0x6B
-- [ ] i32.mul 0x6C
+- [x] i32.mul 0x6C
 - [ ] i32.div_s 0x6D
 - [ ] i32.div_u 0x6E
 - [ ] i32.rem_s 0x6F

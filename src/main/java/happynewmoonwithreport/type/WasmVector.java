@@ -29,7 +29,7 @@ import java.util.UUID;
  * <p>
  * vec(A)::=An(if n &lt; (2^32))
  * <p>
- * Source: <a href="https://webassembly.github.io/spec/syntax/conventions.html#vectors" target="_top" > Vectors</a>
+ * Source: <a href="https://webassembly.github.io/spec/core/syntax/conventions.html#vectors" target="_top" > Vectors</a>
  * <p>
  * Note this implementation can only have 2^31 (Integer.MAX_VALUE) elements.
  * Any attempt to store a larger index will throw an Exception.  The wasm documents specify (2^32)-1  values.

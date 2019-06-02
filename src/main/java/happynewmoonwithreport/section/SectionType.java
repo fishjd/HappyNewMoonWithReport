@@ -32,8 +32,8 @@ import happynewmoonwithreport.type.WasmVector;
  * http://webassembly.org/docs/binary-encoding/#type-section
  * </a>
  * <p>
- * Source:  <a href="https://webassembly.github.io/spec/binary/modules.html#type-section" target="_top">
- * https://webassembly.github.io/spec/binary/modules.html#type-section
+ * Source:  <a href="https://webassembly.github.io/spec/core/binary/modules.html#type-section" target="_top">
+ * https://webassembly.github.io/spec/core/binary/modules.html#type-section
  * </a>
  */
 public class SectionType implements Section {

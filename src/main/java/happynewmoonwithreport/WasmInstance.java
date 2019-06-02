@@ -23,6 +23,7 @@ import happynewmoonwithreport.opcode.Block;
 import happynewmoonwithreport.opcode.ConstantInt32;
 import happynewmoonwithreport.opcode.Drop;
 import happynewmoonwithreport.opcode.GetLocal;
+import happynewmoonwithreport.opcode.I32_Mul;
 import happynewmoonwithreport.opcode.I32_Sub;
 import happynewmoonwithreport.opcode.I32_eq;
 import happynewmoonwithreport.opcode.I32_eqz;
@@ -46,6 +47,8 @@ import happynewmoonwithreport.opcode.I64_lt_s;
 import happynewmoonwithreport.opcode.I64_lt_u;
 import happynewmoonwithreport.opcode.I64_ne;
 import happynewmoonwithreport.opcode.Memory.I32_load;
+import happynewmoonwithreport.opcode.Memory.I32_load16_s;
+import happynewmoonwithreport.opcode.Memory.I32_load16_u;
 import happynewmoonwithreport.opcode.Memory.I32_load8_s;
 import happynewmoonwithreport.opcode.Memory.I32_load8_u;
 import happynewmoonwithreport.opcode.Memory.I32_store;
@@ -177,8 +180,8 @@ public class WasmInstance implements WasmInstanceInterface {
 	}
 
 	/**
-	 * Source:  <a href="https://webassembly.github.io/spec/appendix/index-instructions.html"
-	 * target="_top"> https://webassembly.github.io/spec/appendix/index-instructions.html
+	 * Source:  <a href="https://webassembly.github.io/spec/core/appendix/index-instructions.html"
+	 * target="_top"> https://webassembly.github.io/spec/core/appendix/index-instructions.html
 	 * </a>
 	 */
 	private void execute(BytesFile code) {
@@ -260,8 +263,20 @@ public class WasmInstance implements WasmInstanceInterface {
 				i32_load8_u.execute();
 				break;
 			}
-			//			case (byte) 0x2E: {   // I32_load16_s
-			//			case (byte) 0x2F: {   // I32_load16_u
+			case (byte) 0x2E: {   // I32_load16_s
+				MemoryArgument memoryArgument = new MemoryArgument(); // Not sure what this is.
+				I32_load16_s i32_load16_s = new I32_load16_s(memoryArgument, currentFrame, store,
+															 stack);
+				i32_load16_s.execute();
+				break;
+			}
+			case (byte) 0x2F: {   // I32_load16_u
+				MemoryArgument memoryArgument = new MemoryArgument(); // Not sure what this is.
+				I32_load16_u i32_load16_u = new I32_load16_u(memoryArgument, currentFrame, store,
+															 stack);
+				i32_load16_u.execute();
+				break;
+			}
 			//			case (byte) 0x30: {   // I64_load8_u
 			//			case (byte) 0x31: {   // I64_load8_s
 			//			case (byte) 0x32: {   // I64_load16_s
@@ -428,7 +443,7 @@ public class WasmInstance implements WasmInstanceInterface {
 				i64_ge_s.execute();
 				break;
 			}
-			case (byte) 0x5A: { // i64 greater than equal to usigned
+			case (byte) 0x5A: { // i64 greater than equal to unsigned
 				I64_ge_u i64_ge_u = new I64_ge_u(this);
 				i64_ge_u.execute();
 				break;
@@ -441,6 +456,11 @@ public class WasmInstance implements WasmInstanceInterface {
 			case (byte) 0x6B: {
 				I32_Sub i32_sub = new I32_Sub(this);
 				i32_sub.execute();
+				break;
+			}
+			case (byte) 0x6C: { // i32 multiply
+				I32_Mul i32_mul = new I32_Mul(this);
+				i32_mul.execute();
 				break;
 			}
 			default:

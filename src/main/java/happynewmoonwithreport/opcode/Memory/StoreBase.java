@@ -24,8 +24,7 @@ import happynewmoonwithreport.WasmRuntimeException;
 import happynewmoonwithreport.WasmStack;
 import happynewmoonwithreport.WasmStore;
 import happynewmoonwithreport.type.I32;
-import happynewmoonwithreport.type.I64;
-import happynewmoonwithreport.type.Int;
+import happynewmoonwithreport.type.IntWasm;
 import happynewmoonwithreport.type.JavaType.ByteUnsigned;
 import happynewmoonwithreport.type.MemoryArgument;
 import happynewmoonwithreport.type.MemoryType;
@@ -251,10 +250,10 @@ public abstract class StoreBase {
 
 		ByteUnsigned[] bytes;
 		// 13. If N is part of the instruction, then:
-			//    a. Let n be the result of computing wrap|t|,N(c)
-			//    b. Let b∗ be the byte sequence bytesiN(n).
+		//    a. Let n be the result of computing wrap|t|,N(c)
+		//    b. Let b∗ be the byte sequence bytesiN(n).
 		// 14.  Else
-			//  a. Let b∗ be the byte sequence bytes t (c).
+		//  a. Let b∗ be the byte sequence bytes t (c).
 		bytes = step13_convert_C_toByteArray();
 
 		// 15. Replace the bytes mem.data[ea:N/8] with b*.
@@ -276,7 +275,7 @@ public abstract class StoreBase {
 	/**
 	 * The value to store.  <code>'c'</code> is the the value to store in memory.
 	 */
-	abstract Int getC();
+	abstract IntWasm getC();
 
 	abstract void setC(Object c);
 
@@ -285,7 +284,6 @@ public abstract class StoreBase {
 
 	/* package_private */
 	abstract void step15_ReplaceBytes(MemoryType mem, U32 ea, ByteUnsigned[] bytes);
-
 
 
 }

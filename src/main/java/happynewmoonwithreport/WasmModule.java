@@ -35,7 +35,7 @@ import java.util.logging.Logger;
  * </a>
  * <p>
  * Source:  <a href="https://webassembly.github.io/spec/core/binary/modules.html#" target="_top">
- * https://webassembly.github.io/spec/binary/modules.html#
+ * https://webassembly.github.io/spec/core/binary/modules.html#
  * </a>
  */
 public class WasmModule {
@@ -115,8 +115,8 @@ public class WasmModule {
 	/**
 	 * Execute all the validity checks
 	 * <p>
-	 * Source:  <a href="https://webassembly.github.io/spec/valid/index.html" target="_top">
-	 * https://webassembly.github.io/spec/valid/index.html
+	 * Source:  <a href="https://webassembly.github.io/spec/core/valid/index.html" target="_top">
+	 * https://webassembly.github.io/spec/core/valid/index.html
 	 * </a>
 	 *
 	 * @return true if all validity checks pass.

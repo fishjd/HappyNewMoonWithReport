@@ -21,7 +21,7 @@ import happynewmoonwithreport.WasmFrame;
 import happynewmoonwithreport.WasmStack;
 import happynewmoonwithreport.WasmStore;
 import happynewmoonwithreport.type.I64;
-import happynewmoonwithreport.type.Int;
+import happynewmoonwithreport.type.IntWasm;
 import happynewmoonwithreport.type.JavaType.ByteUnsigned;
 import happynewmoonwithreport.type.MemoryArgument;
 import happynewmoonwithreport.type.MemoryType;
@@ -181,7 +181,7 @@ public class I64_store8 extends StoreBase {
 	 */
 	private I64 c;
 
-	/* package_private */ Int getC() {
+	/* package_private */ IntWasm getC() {
 		return c;
 	}
 

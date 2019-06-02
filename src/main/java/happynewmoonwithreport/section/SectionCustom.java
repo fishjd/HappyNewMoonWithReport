@@ -33,7 +33,7 @@ import java.util.logging.Logger;
  *
  * <p>
  * Source:  <a href="https://webassembly.github.io/spec/core/binary/modules.html#custom-section" target="_top">
- * https://webassembly.github.io/spec/binary/modules.html#global-section
+ * https://webassembly.github.io/spec/core/binary/modules.html#global-section
  * </a>
  */
 public class SectionCustom implements Section {

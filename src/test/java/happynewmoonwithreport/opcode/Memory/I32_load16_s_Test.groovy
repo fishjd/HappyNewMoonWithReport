@@ -27,10 +27,10 @@ import spock.lang.Specification
 /**
  * Created on 2018-02-12.
  */
-class I32_load8_s_Test extends Specification {
+class I32_load16_s_Test extends Specification {
 	WasmModule module;
 	WasmFrame frame;
-	I32_load8_s i32Load8_s;
+	I32_load16_s i32Load16_s;
 
 	WasmStack stack;
 	MemoryType memory;
@@ -74,7 +74,7 @@ class I32_load8_s_Test extends Specification {
 		stack.push(new I32(2));  // load bytes starting at 2
 
 		// create class to test.
-		i32Load8_s = new I32_load8_s(memoryArgument, frame, store, stack);
+		i32Load16_s = new I32_load16_s(memoryArgument, frame, store, stack);
 	}
 
 	void cleanup() {
@@ -86,10 +86,11 @@ class I32_load8_s_Test extends Specification {
 		setup: ""
 		stack.push(new I32(address));  // load bytes starting at 2
 
-		memory.set(address, new ByteUnsigned(input));
+		memory.set(address, new ByteUnsigned(  (input >> 8) & 0xFF));
+		memory.set(address + 1, new ByteUnsigned( (input) & 0xFF ));
 
 		when: ""
-		i32Load8_s.execute();
+		i32Load16_s.execute();
 
 		then: ""
 		I32 actual = (I32) stack.pop();
@@ -101,14 +102,17 @@ class I32_load8_s_Test extends Specification {
 		// cleanup: ""
 
 		where: ""
-		input       || expected
-		0           || 0
-		2           || 2
-		4           || 4
-		0x7F        || 0x7F
-		0xFF        || -1
-		(byte) -100 || -100
-		(byte) -1   || -1
+		input  || expected
+		0      || 0
+		2      || 2
+		4      || 4
+		127    || 127
+		0x7F   || 0x7F
+		0xFF   || 0xFF
+		0x7FFF || 0x7FFF
+		-100   || -100
+		-1     || -1
+		0xFFFF || -1
 	}
 
 
