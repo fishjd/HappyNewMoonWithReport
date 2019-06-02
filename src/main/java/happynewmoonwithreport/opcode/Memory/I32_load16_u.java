@@ -28,7 +28,7 @@ import happynewmoonwithreport.type.MemoryType;
 import happynewmoonwithreport.type.U32;
 
 /**
- * <h1>i32_load16_s</h1> Load an i16 Signed value from memory to the stack.
+ * <h1>i32_load16_u</h1> Load an i16 Unsigned value from memory to the stack.
  * <p>
  * Memory Overview<br>
  * <b>Source:</b>
@@ -47,7 +47,7 @@ import happynewmoonwithreport.type.U32;
  *
  * <pre>
  *  t = I32     // result type  <br>
- *  n = 16       // size of input byte array <br>
+ *  n = 16      // size of input byte array <br>
  *  sx = signed // sign extenstion <br>
  * </pre>
  *
@@ -102,17 +102,17 @@ import happynewmoonwithreport.type.U32;
  * </li>
  * </ol>
  */
-public class I32_load16_s extends LoadBase {
+public class I32_load16_u extends LoadBase {
 
 	private Boolean signExtension;
 
-	private I32_load16_s() {
+	private I32_load16_u() {
 		super();
-		signExtension = true;
+		signExtension = false;
 		N = new U32(16L);
 	}
 
-	public I32_load16_s(MemoryArgument memoryArgument, WasmFrame frame, WasmStore store,
+	public I32_load16_u(MemoryArgument memoryArgument, WasmFrame frame, WasmStore store,
 		WasmStack stack) {
 		this();
 		this.memoryArgument = memoryArgument;
