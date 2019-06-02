@@ -47,6 +47,8 @@ import happynewmoonwithreport.opcode.I64_lt_s;
 import happynewmoonwithreport.opcode.I64_lt_u;
 import happynewmoonwithreport.opcode.I64_ne;
 import happynewmoonwithreport.opcode.Memory.I32_load;
+import happynewmoonwithreport.opcode.Memory.I32_load16_s;
+import happynewmoonwithreport.opcode.Memory.I32_load16_u;
 import happynewmoonwithreport.opcode.Memory.I32_load8_s;
 import happynewmoonwithreport.opcode.Memory.I32_load8_u;
 import happynewmoonwithreport.opcode.Memory.I32_store;
@@ -180,6 +182,7 @@ public class WasmInstance implements WasmInstanceInterface {
 	/**
 	 * Source:  <a href="https://webassembly.github.io/spec/appendix/index-instructions.html"
 	 * target="_top"> https://webassembly.github.io/spec/appendix/index-instructions.html
+	 *
 	 * </a>
 	 */
 	private void execute(BytesFile code) {
@@ -261,8 +264,20 @@ public class WasmInstance implements WasmInstanceInterface {
 				i32_load8_u.execute();
 				break;
 			}
-			//			case (byte) 0x2E: {   // I32_load16_s
-			//			case (byte) 0x2F: {   // I32_load16_u
+			case (byte) 0x2E: {   // I32_load16_s
+				MemoryArgument memoryArgument = new MemoryArgument(); // Not sure what this is.
+				I32_load16_s i32_load16_s = new I32_load16_s(memoryArgument, currentFrame, store,
+															 stack);
+				i32_load16_s.execute();
+				break;
+			}
+			case (byte) 0x2F: {   // I32_load16_u
+				MemoryArgument memoryArgument = new MemoryArgument(); // Not sure what this is.
+				I32_load16_u i32_load16_u = new I32_load16_u(memoryArgument, currentFrame, store,
+															 stack);
+				i32_load16_u.execute();
+				break;
+			}
 			//			case (byte) 0x30: {   // I64_load8_u
 			//			case (byte) 0x31: {   // I64_load8_s
 			//			case (byte) 0x32: {   // I64_load16_s

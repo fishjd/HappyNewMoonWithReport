@@ -92,6 +92,17 @@ public abstract class IntWasm implements DataTypeNumber {
 		return result;
 	}
 
+	public static int signExtend16To32(int input) {
+		int result;
+
+		if (0 < (input & 0x8000)) {
+			result = 0xFFFF_0000 | (input & 0xFFFF);
+			// negative
+		} else {
+			result = input & 0x7FFF;
+		}
+		return result;
+	}
 
 
 	/**

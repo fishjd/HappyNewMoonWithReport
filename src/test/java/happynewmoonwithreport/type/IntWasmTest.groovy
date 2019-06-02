@@ -56,4 +56,29 @@ class IntWasmTest extends Specification {
 
 
 	}
+
+	def "SignExtend16To32"() {
+		setup:
+
+		int input = new Integer(input0);
+
+		when: " extend to signed I32"
+		int actual = IntWasm.signExtend16To32(input);
+
+
+		then: "Test"
+		expected == actual;
+
+
+		where: ""
+		input0 || expected
+		0      || 0
+		100    || 100
+		0xFFFF || -1
+		0XFFEF || -17
+		-100   || -100
+
+
+	}
+
 }

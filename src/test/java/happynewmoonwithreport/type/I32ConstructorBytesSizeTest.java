@@ -96,7 +96,6 @@ public class I32ConstructorBytesSizeTest {
 	@CsvSource({
 		"03020170, 8,  false,  0x03",
 		"03020170, 16, false,  0x0302",
-		"03020170, 24, false,  0x030201",
 		"03020170, 32, false,  0x03020170",
 		"80020170, 8,  true ,  -128",
 		//?
@@ -106,7 +105,6 @@ public class I32ConstructorBytesSizeTest {
 		"D0000000, 8,  true ,  -48",
 		"FF000000, 8,  false,  0x0000_00FF",
 		"FFFF0000, 16, false,  0x0000_FFFF",
-		"FFFFFF00, 24, false,  0x00FF_FFFF",
 		"7FFFFFFF, 32, false,  0x7FFF_FFFF"
 		// max integer.
 	})

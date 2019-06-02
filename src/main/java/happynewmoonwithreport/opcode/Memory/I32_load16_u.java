@@ -17,10 +17,7 @@
 package happynewmoonwithreport.opcode.Memory;
 
 
-import java.util.UUID;
-
 import happynewmoonwithreport.WasmFrame;
-import happynewmoonwithreport.WasmRuntimeException;
 import happynewmoonwithreport.WasmStack;
 import happynewmoonwithreport.WasmStore;
 import happynewmoonwithreport.type.I32;
@@ -29,25 +26,31 @@ import happynewmoonwithreport.type.JavaType.ByteUnsigned;
 import happynewmoonwithreport.type.MemoryArgument;
 import happynewmoonwithreport.type.MemoryType;
 import happynewmoonwithreport.type.U32;
-import happynewmoonwithreport.type.UInt32;
 
 /**
- * <h1>i32_load8_s</h1> Load an i8 Signed value from memory to the stack.
- * <br>
- * <br>
+ * <h1>i32_load16_u</h1> Load an i16 Unsigned value from memory to the stack.
+ * <p>
  * Memory Overview<br>
  * <b>Source:</b>
  * <a href="https://webassembly.github.io/spec/core/syntax/instructions.html#syntax-instr-memory"
  * target="_top">
  * https://webassembly.github.io/spec/core/syntax/instructions.html#syntax-instr-memory
  * </a>
+ * </p>
  * <p>
  * <b>Source:</b>
  * <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-load"
  * target="_top">
  * https://webassembly.github.io/spec/core/exec/instructions.html#exec-load
  * </a>
- * <h2>t.load memarg and t.loadN_sx memarg</h2>
+ * <h1>t.load memarg and t.loadN_sx memarg</h1>
+ *
+ * <pre>
+ *  t = I32     // result type  <br>
+ *  n = 16      // size of input byte array <br>
+ *  sx = signed // sign extenstion <br>
+ * </pre>
+ *
  * <ol>
  * <li>
  * Let F be the current frame.
@@ -99,17 +102,17 @@ import happynewmoonwithreport.type.UInt32;
  * </li>
  * </ol>
  */
-public class I32_load8_u extends LoadBase {
+public class I32_load16_u extends LoadBase {
 
 	private Boolean signExtension;
 
-	private I32_load8_u() {
+	private I32_load16_u() {
 		super();
 		signExtension = false;
-		N = new U32(8L);
+		N = new U32(16L);
 	}
 
-	public I32_load8_u(MemoryArgument memoryArgument, WasmFrame frame, WasmStore store,
+	public I32_load16_u(MemoryArgument memoryArgument, WasmFrame frame, WasmStore store,
 		WasmStack stack) {
 		this();
 		this.memoryArgument = memoryArgument;
@@ -117,7 +120,6 @@ public class I32_load8_u extends LoadBase {
 		this.store = store;
 		this.stack = stack;
 	}
-
 
 	/* package-private */
 	@Override
@@ -131,6 +133,7 @@ public class I32_load8_u extends LoadBase {
 		ByteUnsigned[] bytes = new ByteUnsigned[4];
 		Integer eaIntegerValue = ea.integerValue();
 		bytes[0] = mem.get(eaIntegerValue + 0);
+		bytes[1] = mem.get(eaIntegerValue + 1);
 		return bytes;
 	}
 
@@ -140,7 +143,6 @@ public class I32_load8_u extends LoadBase {
 		I32 c = new I32(bytes, N.integerValue(), signExtension);
 		return c;
 	}
-
 
 
 }
