@@ -2,24 +2,34 @@
 
 [![Join the chat at https://gitter.im/HappyNewMoonWithReport/Lobby](https://badges.gitter.im/HappyNewMoonWithReport/Lobby.svg)](https://gitter.im/HappyNewMoonWithReport/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-Run and Test `Web Assembly` modules (*.wasm) in Java.
-Written in Java for Java programs.
+**Happy New Moon with Report** is an open-source implementation of [WebAssembly](https://webassembly.org/) written entirely in Java. It is typically used to run or test Web Assembly Modules (*.wasm) in Java.
 
-`Happy New Moon with Report`  doesn't concern itself with the production of the wasm binary files; these files should be produced with another tool (such as wabt or binaryen.)
+Happy New Moon with Report doesn't concern itself with the production of the WASM binary files; these files are produced with another tools such as [Emscripten](https://emscripten.org/), [wabt](https://github.com/WebAssembly/wabt) or [binaryen](https://github.com/WebAssembly/binaryen) or any of the number of  languages that can output to WebAssembly such as as [Rust](https://www.rust-lang.org/).   To compile Java to WebAssembly use [ByteCoder](https://mirkosertic.github.io/Bytecoder/)
 
-The primary goal of `Happy New Moon with Report` is to be able to load and run a binary `Web Assembly` module in your Java program.
+The primary goal of `Happy New Moon with Report` is to be able to load and run a binary `WebAssembly` module in your Java program.
+
+Think of Happy New Moon With Report as the [Rhino](https://developer.mozilla.org/en-US/docs/Mozilla/Projects/Rhino) of Web Assembly.   Rhino runs JavaScript in Java; Happy New Moon with Report runs WebAssembly in Java.  
+
+Happy New Moon With Report has nothing to do with reporting or fireworks.
+
 
 ## The basic use case is:
 
 ```java
 Wasm wasm = new Wasm("your Web Assembly Module.wasm");
 wasm.exports().yourFunction();
+```
 
+### A more concrete example.  
+
+Load `HelloWorld.wasm` file and call the `HelloWorld()` function in Java; 
+
+```java
 Wasm wasm = new Wasm("HelloWorld.wasm");
 System.out.println(wasm.exports().HelloWorld());
 ```
 
-## For Testing the Web Assembly Module
+### Testing the `HelloWorld.wasm' Web Assembly Module in JUnit.
 ```java
 @Test
 public void testHelloWorld throws Exception {
@@ -28,7 +38,9 @@ public void testHelloWorld throws Exception {
 }
 ```
 
-This project has nothing to do with reporting or fireworks.
+
+
+## Happy New Moon With Report Downloads
 
 ## Similar Projects
 
@@ -90,8 +102,8 @@ Data Section:  To Do
 - [ ] Tee_local 0x22
 - [ ] Get_global 0x23
 - [ ] Set_global 0x24
-- [x] I32 _load 0x28
-- [ ] I64_load 0x29
+- [x] I32_load 0x28
+- [x] I64_load 0x29
 - [ ] f32_load 0x2A
 - [ ] f64_load 0x2B
 - [x] i32_load8-S  0x2C
