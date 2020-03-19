@@ -39,7 +39,6 @@ public class I32 extends IntWasm {
 	protected Integer value;
 
 	public I32() {
-		Byte b;
 		value = 0;
 	}
 

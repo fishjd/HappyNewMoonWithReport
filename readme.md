@@ -99,8 +99,8 @@ Data Section:  To Do
 - [ ] Tee_local 0x22
 - [ ] Get_global 0x23
 - [ ] Set_global 0x24
-- [x] I32 _load 0x28
-- [ ] I64_load 0x29
+- [x] I32_load 0x28
+- [x] I64_load 0x29
 - [ ] f32_load 0x2A
 - [ ] f64_load 0x2B
 - [x] i32_load8-S  0x2C
