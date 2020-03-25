@@ -128,7 +128,7 @@ public class I32_load8_u extends LoadBase {
 	/* package-private */
 	@Override
 	ByteUnsigned[] getBytesFromMemory(MemoryType mem, U32 ea) {
-		ByteUnsigned[] bytes = new ByteUnsigned[4];
+		ByteUnsigned[] bytes = new ByteUnsigned[1];
 		Integer eaIntegerValue = ea.integerValue();
 		bytes[0] = mem.get(eaIntegerValue + 0);
 		return bytes;

@@ -21,6 +21,7 @@ import happynewmoonwithreport.WasmFrame;
 import happynewmoonwithreport.WasmStack;
 import happynewmoonwithreport.WasmStore;
 import happynewmoonwithreport.type.I32;
+import happynewmoonwithreport.type.I64;
 import happynewmoonwithreport.type.IntWasm;
 import happynewmoonwithreport.type.JavaType.ByteUnsigned;
 import happynewmoonwithreport.type.MemoryArgument;
@@ -28,7 +29,7 @@ import happynewmoonwithreport.type.MemoryType;
 import happynewmoonwithreport.type.U32;
 
 /**
- * <h1>i32_load16_s</h1> Load an i16 Signed value from memory to the stack.
+ * <h1>i64_load8_s</h1> Load an i8 Signed value from memory to the stack.
  * <p>
  * Memory Overview<br>
  * <b>Source:</b>
@@ -46,9 +47,9 @@ import happynewmoonwithreport.type.U32;
  * <h1>t.load memarg and t.loadN_sx memarg</h1>
  *
  * <pre>
- *  t = I32     // result type  <br>
- *  n = 16       // size of input byte array <br>
- *  sx = signed // sign extension <br>
+ *  t = I64     	  // result type  <br>
+ *  n = 8 		      // size of input byte array <br>
+ *  sx or s = signed  // sign extension <br>
  * </pre>
  *
  * <ol>
@@ -102,17 +103,17 @@ import happynewmoonwithreport.type.U32;
  * </li>
  * </ol>
  */
-public class I32_load16_s extends LoadBase {
+public class I64_load8_s extends LoadBase {
 
 	private Boolean signExtension;
 
-	private I32_load16_s() {
+	private I64_load8_s() {
 		super();
 		signExtension = true;
-		N = new U32(16L);
+		N = new U32(8L);
 	}
 
-	public I32_load16_s(MemoryArgument memoryArgument, WasmFrame frame, WasmStore store,
+	public I64_load8_s(MemoryArgument memoryArgument, WasmFrame frame, WasmStore store,
 		WasmStack stack) {
 		this();
 		this.memoryArgument = memoryArgument;
@@ -130,17 +131,16 @@ public class I32_load16_s extends LoadBase {
 	/* package-private */
 	@Override
 	ByteUnsigned[] getBytesFromMemory(MemoryType mem, U32 ea) {
-		ByteUnsigned[] bytes = new ByteUnsigned[2];
+		ByteUnsigned[] bytes = new ByteUnsigned[1];
 		Integer eaIntegerValue = ea.integerValue();
 		bytes[0] = mem.get(eaIntegerValue + 0);
-		bytes[1] = mem.get(eaIntegerValue + 1);
 		return bytes;
 	}
 
 	/* package-private */
 	@Override
 	IntWasm convertToType(ByteUnsigned[] bytes) {
-		I32 c = new I32(bytes, N.integerValue(), signExtension);
+		I64 c = new I64(bytes, N.integerValue(), signExtension);
 		return c;
 	}
 
