@@ -16,6 +16,9 @@
  */
 package happynewmoonwithreport.type;
 
+import java.util.UUID;
+
+import happynewmoonwithreport.WasmRuntimeException;
 import happynewmoonwithreport.type.JavaType.ByteUnsigned;
 
 /**
@@ -51,6 +54,68 @@ public class I64 extends IntWasm {
 		value += byteAll[5].longValue() << 16;
 		value += byteAll[6].longValue() << 8;
 		value += byteAll[7].longValue() << 0;
+	}
+
+	/**
+	 * Create an I64 using a Byte array, length, and sign extension.
+	 *
+	 * @param byteAll       an array of unsigned bytes.  Little Endian.
+	 * @param length        length
+	 * @param signExtension is this a signed value?  True = signed.
+	 */
+	public I64(ByteUnsigned[] byteAll, Integer length, Boolean signExtension) {
+		this();
+		create(byteAll, length, signExtension);
+	}
+
+	private void create(ByteUnsigned[] byteAll, Integer length, Boolean signExtension) {
+		value = 0L;
+		switch (length) {
+			case 8: {
+				value += byteAll[0].intValue();
+				if (signExtension) {
+					value = signExtend8To64(byteAll[0]);
+				}
+				break;
+			}
+			case 16: {
+				value += ((byteAll[1].intValue()) << 0);	// Least Significant Byte
+				value += ((byteAll[0].intValue()) << 8);	// Most  Significant Byte
+				if (signExtension) {
+					throw new RuntimeException("Not Implemented ");
+		// todo 			value = signExtend16To64(value);
+				}
+				break;
+			}
+			// I'm not sure 24 and 32 are necessary or required by the specification.
+			//			case 24: {
+			//				value += ((byteAll[2].intValue()) << 0);	// Least  Significant Byte
+			//				value += ((byteAll[1].intValue()) << 8);
+			//				value += ((byteAll[0].intValue()) << 16);	// Most  Significant Byte
+			//				if (signExtension) {
+			//					value = twoComplement(value);
+			//				}
+			//				break;
+			//			}
+			case 32: {
+				value += ((byteAll[3].intValue()) << 0);	// Least  Significant Byte
+				value += ((byteAll[2].intValue()) << 8);
+				value += ((byteAll[1].intValue()) << 16);
+				value += ((byteAll[0].intValue()) << 24);	// Most  Significant Byte
+				if (signExtension) {
+					value = twoComplement(value);
+				}
+				break;
+			}
+			default: {
+				throw new WasmRuntimeException(
+					UUID.fromString("f8d78ad2-67ed-441f-a327-6df48f2afca7"),
+					"I32 Constructor Illegal value in length.  Valid values are 8, 16, 24, 32.    "
+						+ "Length =  "
+						+ length);
+			}
+		}
+
 	}
 
 	/**

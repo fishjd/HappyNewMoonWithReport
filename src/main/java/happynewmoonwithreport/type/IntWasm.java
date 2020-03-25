@@ -104,6 +104,39 @@ public abstract class IntWasm implements DataTypeNumber {
 		return result;
 	}
 
+	/**
+	 * Sign extend an byte to an integer.
+	 * <br>
+	 * <br>
+	 * extend_sM,N(i)
+	 * <ol>
+	 * <li>
+	 * Let j be the signed interpretation of i of size M.
+	 * </li> <li>
+	 * Return the two’s complement of j relative to size N.
+	 * </li>
+	 * </ol>
+	 * <p>
+	 * <b>Source:</b>  <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-extend-s" target="_top">
+	 * https://webassembly.github.io/spec/core/exec/numerics.html#op-extend-s
+	 * </a>
+	 *
+	 * @param input an Unsigned byte of length 8
+	 *
+	 * @return an int of length 64.
+	 */
+	public static long signExtend8To64(ByteUnsigned input) {
+		long result;
+
+		if (input.isSignBitSet()) {
+			result = 0xFFFF_FF00 | input.byteValue();  // it works?
+			// negative
+			//result = twoComplement(result);
+		} else {
+			result = input.intValue();
+		}
+		return result;
+	}
 
 	/**
 	 * Is the sign bit set?   Is input negative?
@@ -132,6 +165,14 @@ public abstract class IntWasm implements DataTypeNumber {
 	public static int twoComplement(int input) {
 		// ones complement,  i.e flip all the bits, i.e binary negation.
 		int result = ~input;
+		// Add one.
+		result = result + 1;
+		return result;
+	}
+
+	public static long twoComplement(long input) {
+		// ones complement,  i.e flip all the bits, i.e binary negation.
+		long result = ~input;
 		// Add one.
 		result = result + 1;
 		return result;

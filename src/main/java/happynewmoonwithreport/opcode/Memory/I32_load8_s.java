@@ -52,7 +52,7 @@ import happynewmoonwithreport.type.UInt32;
  * <pre>
  *  t = I32     // result type  <br>
  *  n = 8       // size of input byte array <br>
- *  sx = signed // sign extenstion <br>
+ *  sx = signed // sign extension <br>
  * </pre>
  *
  * <ol>
@@ -134,7 +134,7 @@ public class I32_load8_s extends LoadBase {
 	/* package-private */
 	@Override
 	ByteUnsigned[] getBytesFromMemory(MemoryType mem, U32 ea) {
-		ByteUnsigned[] bytes = new ByteUnsigned[4];
+		ByteUnsigned[] bytes = new ByteUnsigned[1];
 		Integer eaIntegerValue = ea.integerValue();
 		bytes[0] = mem.get(eaIntegerValue + 0);
 		return bytes;

@@ -149,9 +149,30 @@ public abstract class LoadBase {
 
 	}
 
+	/**
+	 * The bit width of N.
+	 * EX:
+	 * <pre>
+	 * I64_load8_s   the N value is 8.
+	 * I32_load1616_u the N value is 16
+	 * </pre>
+	 * @return  number of bits in N.
+	 */
 	abstract U32 getBitWithOfN();
 
+	/**
+	 * Get the bytes from memory.
+	 *
+	 * @param mem  The memory to get the bytes from.
+	 * @param ea The effective address.  Where is memory are the bytes stored.
+	 * @return  array of unsigned bytes.  Length = N/8.
+	 */
 	abstract ByteUnsigned[] getBytesFromMemory(MemoryType mem, U32 ea);
 
+	/**
+	 * Convert the bytes from getBytesFromMemory to an Integer.
+	 * @param bytes bytes to convert.   Length = N/8.
+	 * @return the bytes converted to an Integer.
+	 */
 	abstract IntWasm convertToType(ByteUnsigned[] bytes);
 }
