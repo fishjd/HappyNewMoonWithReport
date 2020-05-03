@@ -21,8 +21,8 @@ import static java.lang.Integer.compare;
 /**
  * The {@code ByteUnsigned} class wraps a value of primitive type {@code byte} in an object.
  * <p>
- * This is a copy of the Java class {@code Byte},  the differene is the 8 bits are interperted to be
- * unsigned 0 - 255 instead of -128 to 127.
+ * This is a copy of the Java class {@code Byte},  the difference is the 8 bits are interpreted to
+ * be unsigned 0 - 255 instead of -128 to 127.
  *
  * @author James Haring
  * @see java.lang.Number

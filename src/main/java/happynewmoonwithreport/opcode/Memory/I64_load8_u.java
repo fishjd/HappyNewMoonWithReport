@@ -20,7 +20,6 @@ package happynewmoonwithreport.opcode.Memory;
 import happynewmoonwithreport.WasmFrame;
 import happynewmoonwithreport.WasmStack;
 import happynewmoonwithreport.WasmStore;
-import happynewmoonwithreport.type.I32;
 import happynewmoonwithreport.type.I64;
 import happynewmoonwithreport.type.IntWasm;
 import happynewmoonwithreport.type.JavaType.ByteUnsigned;
@@ -29,7 +28,7 @@ import happynewmoonwithreport.type.MemoryType;
 import happynewmoonwithreport.type.U32;
 
 /**
- * <h1>i64_load8_s</h1> Load an i8 Signed value from memory to the stack.
+ * <h1>i64_load8_u</h1> Load an i8 Signed value from memory to the stack.
  * <p>
  * Memory Overview<br>
  * <b>Source:</b>
@@ -46,11 +45,11 @@ import happynewmoonwithreport.type.U32;
  * </a>
  * <h1>t.load memarg and t.loadN_sx memarg</h1>
  *
- * <code>
+ * <pre>
  *  t = I64				// result type  <br>
  *  n = 8				// size of input byte array <br>
- *  sx or s = signed	// sign extension <br>
- * </code>
+ *  u = unsigned		// un-sign extension <br>
+ * </pre>
  *
  * <ol>
  * <li>
@@ -103,17 +102,17 @@ import happynewmoonwithreport.type.U32;
  * </li>
  * </ol>
  */
-public class I64_load8_s extends LoadBase {
+public class I64_load8_u extends LoadBase {
 
 	private Boolean signExtension;
 
-	private I64_load8_s() {
+	private I64_load8_u() {
 		super();
-		signExtension = true;
+		signExtension = false;
 		N = new U32(8L);
 	}
 
-	public I64_load8_s(MemoryArgument memoryArgument, WasmFrame frame, WasmStore store,
+	public I64_load8_u(MemoryArgument memoryArgument, WasmFrame frame, WasmStore store,
 		WasmStack stack) {
 		this();
 		this.memoryArgument = memoryArgument;

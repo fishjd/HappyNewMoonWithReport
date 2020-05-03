@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 - 2020 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2019 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -14,30 +14,20 @@
  *  limitations under the License.
  *
  */
+package happynewmoonwithreport.opcode.Memory
 
-package happynewmoonwithreport.opcode.Memory;
+import happynewmoonwithreport.WasmFrame
+import happynewmoonwithreport.WasmModule
+import happynewmoonwithreport.WasmStack
+import happynewmoonwithreport.WasmStore
+import happynewmoonwithreport.type.*
+import happynewmoonwithreport.type.JavaType.ByteUnsigned
+import spock.lang.Specification
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
-
-import happynewmoonwithreport.WasmFrame;
-import happynewmoonwithreport.WasmModule;
-import happynewmoonwithreport.WasmStack;
-import happynewmoonwithreport.WasmStore;
-import happynewmoonwithreport.type.I32;
-import happynewmoonwithreport.type.I64;
-import happynewmoonwithreport.type.JavaType.ByteUnsigned;
-import happynewmoonwithreport.type.MemoryArgument;
-import happynewmoonwithreport.type.MemoryType;
-import happynewmoonwithreport.type.U32;
-import happynewmoonwithreport.type.WasmVector;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-class I64_load8_sTest {
+/**
+ * Created on 2020-05-03.
+ */
+class I64_load8_s_Test extends Specification {
 	WasmModule module;
 	WasmFrame frame;
 	I64_load8_s i64Load8_s;
@@ -45,15 +35,13 @@ class I64_load8_sTest {
 	WasmStack stack;
 	MemoryType memory;
 
-	@BeforeEach
-	void setUp() {
+	void setup() {
 		// create a module.
 		module = new WasmModule();
 
 		// create a memory if we are going to load from memory we need a memory.
 		U32 hasMaximum = new U32(0);
 		U32 minimum = new U32(1);
-
 		memory = new MemoryType(hasMaximum, minimum);
 		memory.set(0, new ByteUnsigned(0x70));
 		memory.set(1, new ByteUnsigned(0x01));
@@ -86,39 +74,45 @@ class I64_load8_sTest {
 
 		// create class to test.
 		i64Load8_s = new I64_load8_s(memoryArgument, frame, store, stack);
-
 	}
 
-	@AfterEach
-	void tearDown() {
+	void cleanup() {
 	}
 
-	@DisplayName("Should calculate the correct sum")
-	@ParameterizedTest(name = "{index} => input={0}, expected={1}")
-	@CsvSource({
-		"0           , 0",                //
-		"2           , 2",                //
-		"4           , 4",                //
-		"127         , 127",              //
-		"-100 		 , -100",             //
-		"-128 		 , -128",             //
-		"-1   		 , -1"                //
-	})
-	void execute(Byte input, Long expected) {
+	def "Execute Golden Path"() {
 		Integer address = 2;
 
+		// setup: ""
 		stack.push(new I32(address));  // load bytes starting at 2
 
-		memory.set(address, new ByteUnsigned(input));
+		memory.set(2, new ByteUnsigned(input));
 
-		// run
+
+		when: ""
 		i64Load8_s.execute();
 
-		// verify
+		then: ""
 		I64 actual = (I64) stack.pop();
-		I64 expectedI64 = new I64(expected); // Little Endian!
-		assertEquals(actual, expectedI64);
+		I64 expectedI64 = new I64(expected);
+		actual == expectedI64;
 
+		// expect: ""
+
+		// cleanup: ""
+
+		// where: ""
+		where: ""
+		input       || expected
+		0           || 0
+		2           || 2
+		4           || 4
+		0x7F        || 0x7F  // 0x7F = 127
+		0x80        || -128
+		0xFF        || -1
+		127         || 127
+		(byte) -100 || -100
+		(byte) -128 || -128
+		(byte) -1   || -1
 
 	}
 }
