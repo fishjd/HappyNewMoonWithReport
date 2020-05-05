@@ -59,7 +59,7 @@ public abstract class IntWasm implements DataTypeNumber {
 	// public abstract Boolean equals(Int other) ;
 
 	/**
-	 * Sign extend an byte to an integer.
+	 * Sign extend an two bytes number to an integer.
 	 * <br>
 	 * <br>
 	 * extend_sM,N(i)
@@ -75,37 +75,83 @@ public abstract class IntWasm implements DataTypeNumber {
 	 * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-extend-s" target="_top">
 	 * https://webassembly.github.io/spec/core/exec/numerics.html#op-extend-s
 	 * </a>
+	 * <p>
+	 * Note: perhaps,  this will be the code for opCode 0xC3 i64.extend16_s
+	 * <br>
+	 * <br>
+	 * <b> References: </b>
+	 * <br>
+	 * <a href="http://www.aggregate.org/MAGIC/#Sign%20Extension">"http://www.aggregate.org/MAGIC/#Sign%20Extension"</a>
+	 * <br>
+	 * <br>
+	 * <a href="https://stackoverflow.com/questions/6215256/sign-extension-from-16-to-32-bits-in-c#answer-51958446">
+	 * href="https://stackoverflow.com/questions/6215256/sign-extension-from-16-to-32-bits-in-c
+	 * #answer-51958446"</a>
 	 *
-	 * @param input an Unsigned byte of length 8
+	 * @param bInput an Unsigned byte of length 8
 	 * @return an int of length 32.
-	 */
-	public static int signExtend8To32(ByteUnsigned input) {
+	 */	public static int signExtend8To32(ByteUnsigned bInput) {
 		int result;
+		int input = bInput.intValue();
 
-		if (input.isSignBitSet()) {
-			result = 0xFFFF_FF00 | input.byteValue();  // it works?
-			// negative
-			//result = twoComplement(result);
-		} else {
-			result = input.intValue();
-		}
+		// clear all bytes except bytes 0 & 1
+		input = 0x0000_00FF & input;
+
+		int signBit = 1 << (8 - 1);
+		result = (input ^ signBit);
+		result = result - signBit;
+
 		return result;
 	}
-
+	/**
+	 * Sign extend an two bytes number to an integer.
+	 * <br>
+	 * <br>
+	 * extend_sM,N(i)
+	 * <ol>
+	 * <li>
+	 * Let j be the signed interpretation of i of size M.
+	 * </li> <li>
+	 * Return the two’s complement of j relative to size N.
+	 * </li>
+	 * </ol>
+	 * <p>
+	 * <b>Source:</b>
+	 * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-extend-s" target="_top">
+	 * https://webassembly.github.io/spec/core/exec/numerics.html#op-extend-s
+	 * </a>
+	 * <p>
+	 * Note: perhaps,  this will be the code for opCode 0xC3 i64.extend16_s
+	 * <br>
+	 * <br>
+	 * <b> References: </b>
+	 * <br>
+	 * <a href="http://www.aggregate.org/MAGIC/#Sign%20Extension">"http://www.aggregate.org/MAGIC/#Sign%20Extension"</a>
+	 * <br>
+	 * <br>
+	 * <a href="https://stackoverflow.com/questions/6215256/sign-extension-from-16-to-32-bits-in-c#answer-51958446">
+	 * href="https://stackoverflow.com/questions/6215256/sign-extension-from-16-to-32-bits-in-c
+	 * #answer-51958446"</a>
+	 *
+	 * @param input an int of length 16
+	 * @return an int of length 32.
+	 */
 	public static int signExtend16To32(int input) {
 		int result;
 
-		if (0 < (input & 0x8000)) {
-			result = 0xFFFF_0000 | (input & 0xFFFF);
-			// negative
-		} else {
-			result = input & 0x7FFF;
-		}
+		// clear all bytes except bytes 0 & 1
+		input = 0x0000_FFFF & input;
+
+		int signBit = 1 << (16 - 1);
+		result = (input ^ signBit);
+		result = result - signBit;
+
 		return result;
+
 	}
 
 	/**
-	 * Sign extend an byte to an integer.
+	 * Sign extend an two bytes number to an integer.
 	 * <br>
 	 * <br>
 	 * extend_sM,N(i)
@@ -121,22 +167,31 @@ public abstract class IntWasm implements DataTypeNumber {
 	 * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-extend-s" target="_top">
 	 * https://webassembly.github.io/spec/core/exec/numerics.html#op-extend-s
 	 * </a>
-	 * <p>
-	 * Note:  this will be the code for opCode 0xC2 i64.extend8_s
+	 * <br>
+	 * <b> References: </b>
+	 * <br>
+	 * <a href="http://www.aggregate.org/MAGIC/#Sign%20Extension">"http://www.aggregate.org/MAGIC/#Sign%20Extension"</a>
+	 * <br>
+	 * <br>
+	 * <a href="https://stackoverflow.com/questions/6215256/sign-extension-from-16-to-32-bits-in-c#answer-51958446">
+	 * href="https://stackoverflow.com/questions/6215256/sign-extension-from-16-to-32-bits-in-c
+	 * #answer-51958446"</a>
 	 *
-	 * @param input an Unsigned byte of length 8
+	 * @param bInput an Unsigned byte of length 8
 	 * @return an int of length 64.
 	 */
-	public static long signExtend8To64(ByteUnsigned input) {
+	public static long signExtend8To64(ByteUnsigned bInput) {
 		long result;
 
-		if (input.isSignBitSet()) {
-			result = 0xFFFF_FF00 | input.byteValue();  // it works?
-			// negative
-			//result = twoComplement(result);
-		} else {
-			result = input.intValue();
-		}
+		long input = bInput.longValue();
+
+		// clear all bytes except byte 0
+		input = 0x0000_0000_0000_00FF & input;
+
+		long signBit = 1 << (8 - 1);
+		result = (input ^ signBit);
+		result = result - signBit;
+
 		return result;
 	}
 
@@ -170,7 +225,7 @@ public abstract class IntWasm implements DataTypeNumber {
 	 * href="https://stackoverflow.com/questions/6215256/sign-extension-from-16-to-32-bits-in-c
 	 * #answer-51958446"</a>
 	 *
-	 * @param input an Unsigned byte of length 16
+	 * @param input an int of length 16
 	 * @return an int of length 64.
 	 */
 	public static long signExtend16To64(Long input) {
