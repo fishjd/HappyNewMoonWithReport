@@ -26,12 +26,10 @@ class IntWasmTest extends Specification {
 	 * <p>
 	 *
 	 * Cool Site
-	 * <b>Source of test data:</b>  <a href="https://github.com/WebAssembly/testsuite/blob/master/memory.wast" target="_top">
-	 * https://github.com/WebAssembly/testsuite/blob/master/memory.wast
-	 * </a>
+	 * <b>Source of test data:</b>  <a href="https://github.com/WebAssembly/testsuite/blob/master/i64.wast" target="_top">
+	 * https://github.com/WebAssembly/testsuite/blob/master/64.wast
 	 * </a>
 	 *
-	 * @return
 	 */
 	def "SignExtend8To32"() {
 		setup:
@@ -57,13 +55,22 @@ class IntWasmTest extends Specification {
 
 	}
 
-	def "SignExtend16To32"() {
+	/**
+	 * <p>
+	 *
+	 * Cool Site:  <b>Web Assembly Test Suite</b></br>
+	 * <b>Source of test data:</b>  <a href="https://github.com/WebAssembly/testsuite/blob/master/i64.wast" target="_top">
+	 * https://github.com/WebAssembly/testsuite/blob/master/i64.wast
+	 * </a>
+	 *
+	 */
+	def "SignExtend16To64"() {
 		setup:
 
-		int input = new Integer(input0);
+		Long input = new Long(input0);
 
 		when: " extend to signed I32"
-		int actual = IntWasm.signExtend16To32(input);
+		int actual = IntWasm.signExtend16To64(input);
 
 
 		then: "Test"
@@ -71,14 +78,14 @@ class IntWasmTest extends Specification {
 
 
 		where: ""
-		input0 || expected
-		0      || 0
-		100    || 100
-		0xFFFF || -1
-		0XFFEF || -17
-		-100   || -100
-
-
+		input0                       || expected
+		0                            || 0
+		100                          || 100
+		0x7FFF                       || 32767
+		0x8000                       || -32768
+		0xFFFF                       || -1
+		(Long) 0x1234_5678_9abc_0000 || 0
+		(Long) 0xfedc_ba98_7654_8000 || -0x8000
+		-1                           || -1
 	}
-
 }

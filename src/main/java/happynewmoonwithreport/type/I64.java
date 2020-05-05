@@ -82,21 +82,10 @@ public class I64 extends IntWasm {
 				value += ((byteAll[1].intValue()) << 0);	// Least Significant Byte
 				value += ((byteAll[0].intValue()) << 8);	// Most  Significant Byte
 				if (signExtension) {
-					throw new RuntimeException("Not Implemented ");
-		// todo 			value = signExtend16To64(value);
+					value = signExtend16To64(value);
 				}
 				break;
 			}
-			// I'm not sure 24 and 32 are necessary or required by the specification.
-			//			case 24: {
-			//				value += ((byteAll[2].intValue()) << 0);	// Least  Significant Byte
-			//				value += ((byteAll[1].intValue()) << 8);
-			//				value += ((byteAll[0].intValue()) << 16);	// Most  Significant Byte
-			//				if (signExtension) {
-			//					value = twoComplement(value);
-			//				}
-			//				break;
-			//			}
 			case 32: {
 				value += ((byteAll[3].intValue()) << 0);	// Least  Significant Byte
 				value += ((byteAll[2].intValue()) << 8);
@@ -110,7 +99,7 @@ public class I64 extends IntWasm {
 			default: {
 				throw new WasmRuntimeException(
 					UUID.fromString("f8d78ad2-67ed-441f-a327-6df48f2afca7"),
-					"I32 Constructor Illegal value in length.  Valid values are 8, 16, 24, 32.    "
+					"I32 Constructor Illegal value in length.  Valid values are 8, 16, 32."
 						+ "Length =  "
 						+ length);
 			}
