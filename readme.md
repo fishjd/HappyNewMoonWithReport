@@ -251,7 +251,16 @@ Data Section:  To Do
 - [ ] i64.reinterpert/f64 0xBD
 - [ ] f32.reinterpert/i32 0xBD
 - [ ] f64.reinterpert/i64 0xBF
-
-TODO add  0xC* to 0xFF  
-
-
+- [ ] i32.extend8_s 0xC0
+- [ ] i32.extend16_s 0xC1
+- [ ] i64.extend8_s 0xC2
+- [ ] i64.extend16_s 0xC3
+- [ ] i64.extend34_s 0xC4
+- [ ] i32.trunc_sat_f32_s 0xFC 0x00
+- [ ] i32.trunc_sat_f32_u 0xFC 0x01
+- [ ] i32.trunc_sat_f64_s 0xFC 0x02
+- [ ] i32.trunc_sat_f64_u 0xFC 0x03
+- [ ] i64.trunc_sat_f32_s 0xFC 0x04
+- [ ] i64.trunc_sat_f32_u 0xFC 0x05
+- [ ] i64.trunc_sat_f64_s 0xFC 0x06
+- [ ] i64.trunc_sat_f64_u 0xFC 0x07
