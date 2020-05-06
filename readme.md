@@ -78,6 +78,7 @@ Code Section:  See Opcodes
 Data Section:  To Do
 
 ### OpCodes Completed
+[Source] (https://webassembly.github.io/spec/core/appendix/index-instructions.html)
 
 - [x] UnReachable 0x00
 - [x] NOP 0x01
@@ -103,14 +104,14 @@ Data Section:  To Do
 - [x] I64_load 0x29
 - [ ] f32_load 0x2A
 - [ ] f64_load 0x2B
-- [x] i32_load8-S  0x2C
-- [x] i32_load8-U  0x2D
-- [x] i32_load16-S  0x2E
-- [x] i32_load16-U  0x2F
-- [x] i64_load8-S  0x30
-- [x] i64_load8-U  0x31
-- [x] i64_load16-S  0x32
-- [ ] i64_load16-U  0x33
+- [x] i32_load8-S 0x2C
+- [x] i32_load8-U 0x2D
+- [x] i32_load16-S 0x2E
+- [x] i32_load16-U 0x2F
+- [x] i64_load8-S 0x30
+- [x] i64_load8-U 0x31
+- [x] i64_load16-S 0x32
+- [x] i64_load16-U 0x33
 - [ ] i64_load32-S 0x34
 - [ ] i64_load32-U 0x35
 - [x] i32_store 0x36
@@ -250,6 +251,16 @@ Data Section:  To Do
 - [ ] i64.reinterpert/f64 0xBD
 - [ ] f32.reinterpert/i32 0xBD
 - [ ] f64.reinterpert/i64 0xBF
-
-
-
+- [ ] i32.extend8_s 0xC0
+- [ ] i32.extend16_s 0xC1
+- [ ] i64.extend8_s 0xC2
+- [ ] i64.extend16_s 0xC3
+- [ ] i64.extend34_s 0xC4
+- [ ] i32.trunc_sat_f32_s 0xFC 0x00
+- [ ] i32.trunc_sat_f32_u 0xFC 0x01
+- [ ] i32.trunc_sat_f64_s 0xFC 0x02
+- [ ] i32.trunc_sat_f64_u 0xFC 0x03
+- [ ] i64.trunc_sat_f32_s 0xFC 0x04
+- [ ] i64.trunc_sat_f32_u 0xFC 0x05
+- [ ] i64.trunc_sat_f64_s 0xFC 0x06
+- [ ] i64.trunc_sat_f64_u 0xFC 0x07
