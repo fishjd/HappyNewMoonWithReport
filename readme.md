@@ -78,6 +78,7 @@ Code Section:  See Opcodes
 Data Section:  To Do
 
 ### OpCodes Completed
+[Source] (https://webassembly.github.io/spec/core/appendix/index-instructions.html)
 
 - [x] UnReachable 0x00
 - [x] NOP 0x01
@@ -103,14 +104,14 @@ Data Section:  To Do
 - [x] I64_load 0x29
 - [ ] f32_load 0x2A
 - [ ] f64_load 0x2B
-- [x] i32_load8-S  0x2C
-- [x] i32_load8-U  0x2D
-- [x] i32_load16-S  0x2E
-- [x] i32_load16-U  0x2F
-- [x] i64_load8-S  0x30
-- [x] i64_load8-U  0x31
-- [x] i64_load16-S  0x32
-- [ ] i64_load16-U  0x33
+- [x] i32_load8-S 0x2C
+- [x] i32_load8-U 0x2D
+- [x] i32_load16-S 0x2E
+- [x] i32_load16-U 0x2F
+- [x] i64_load8-S 0x30
+- [x] i64_load8-U 0x31
+- [x] i64_load16-S 0x32
+- [x] i64_load16-U 0x33
 - [ ] i64_load32-S 0x34
 - [ ] i64_load32-U 0x35
 - [x] i32_store 0x36
@@ -251,5 +252,6 @@ Data Section:  To Do
 - [ ] f32.reinterpert/i32 0xBD
 - [ ] f64.reinterpert/i64 0xBF
 
+TODO add  0xC* to 0xFF  
 
 
