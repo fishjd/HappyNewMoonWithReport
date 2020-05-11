@@ -14,14 +14,13 @@
  *  limitations under the License.
  *
  */
-package happynewmoonwithreport.opcode.Memory;
+package happynewmoonwithreport.opcode.memory;
 
 
 import happynewmoonwithreport.WasmFrame;
 import happynewmoonwithreport.WasmStack;
 import happynewmoonwithreport.WasmStore;
 import happynewmoonwithreport.type.I32;
-import happynewmoonwithreport.type.I64;
 import happynewmoonwithreport.type.IntWasm;
 import happynewmoonwithreport.type.JavaType.ByteUnsigned;
 import happynewmoonwithreport.type.MemoryArgument;
