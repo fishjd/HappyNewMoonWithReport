@@ -15,11 +15,9 @@
  *
  */
 
-package happynewmoonwithreport.opcode.Memory;
+package happynewmoonwithreport.opcode.memory;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import happynewmoonwithreport.WasmFrame;
 import happynewmoonwithreport.WasmModule;
@@ -32,8 +30,9 @@ import happynewmoonwithreport.type.MemoryArgument;
 import happynewmoonwithreport.type.MemoryType;
 import happynewmoonwithreport.type.U32;
 import happynewmoonwithreport.type.WasmVector;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 
 /*  I can't get Spock/Groovy working.  It may be my 'new' computer.   So, to move forward were
@@ -41,7 +40,7 @@ stuck with JUnit 5.
 
  ~~ James
  */
-class I64_loadTest_JUnit {
+class I64LoadTestJUnit {
 	WasmModule module;
 	WasmFrame frame;
 	I64_load i64Load;
