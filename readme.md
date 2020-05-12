@@ -113,7 +113,7 @@ Data Section:  To Do
 - [x] i64_load16-S 0x32
 - [x] i64_load16-U 0x33
 - [x] i64_load32-S 0x34
-- [ ] i64_load32-U 0x35
+- [x] i64_load32-U 0x35
 - [x] i32_store 0x36
 - [x] i64_store 0x37
 - [ ] f32_store 0x38
