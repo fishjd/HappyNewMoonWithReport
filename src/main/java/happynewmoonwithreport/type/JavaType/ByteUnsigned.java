@@ -21,8 +21,8 @@ import static java.lang.Integer.compare;
 /**
  * The {@code ByteUnsigned} class wraps a value of primitive type {@code byte} in an object.
  * <p>
- * This is a copy of the Java class {@code Byte},  the differene is the 8 bits are interperted to be
- * unsigned 0 - 255 instead of -128 to 127.
+ * This is a copy of the Java class {@code Byte},  the difference is the 8 bits are interpreted to
+ * be unsigned 0 - 255 instead of -128 to 127.
  *
  * @author James Haring
  * @see java.lang.Number
@@ -35,6 +35,7 @@ public final class ByteUnsigned extends Number implements Comparable<ByteUnsigne
 	// use int values because byte is signed and can not store 255 (0xFF).
 	public static final Short MIN_VALUE = 0;
 	public static final Short MAX_VALUE = 255;
+	public static final ByteUnsigned ZERO = new ByteUnsigned(0);
 
 
 	/**

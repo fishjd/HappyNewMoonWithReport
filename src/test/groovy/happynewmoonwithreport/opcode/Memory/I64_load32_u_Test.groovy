@@ -14,7 +14,7 @@
  *  limitations under the License.
  *
  */
-package happynewmoonwithreport.opcode.Memory
+package happynewmoonwithreport.opcode.memory
 
 import happynewmoonwithreport.WasmFrame
 import happynewmoonwithreport.WasmModule
@@ -23,13 +23,14 @@ import happynewmoonwithreport.WasmStore
 import happynewmoonwithreport.type.*
 import happynewmoonwithreport.type.JavaType.ByteUnsigned
 import spock.lang.Specification
+
 /**
- * Created on 2018-02-12.
+ * Created on 2020-5-12
  */
-class I32_load8_u_Test extends Specification {
+class I64_load32_u_Test extends Specification {
 	WasmModule module;
 	WasmFrame frame;
-	I32_load8_u i32Load8_u;
+	I64_load32_u I64Load32_u;
 
 	WasmStack stack;
 	MemoryType memory;
@@ -41,14 +42,15 @@ class I32_load8_u_Test extends Specification {
 		// create a memory if we are going to load from memory we need a memory.
 		U32 hasMaximum = new U32(0);
 		U32 minimum = new U32(1);
+
 		memory = new MemoryType(hasMaximum, minimum);
-		memory.set(0, new ByteUnsigned((byte) 0x70));
-		memory.set(1, new ByteUnsigned((byte) 0x01));
-		memory.set(2, new ByteUnsigned((byte) 0x02));
-		memory.set(3, new ByteUnsigned((byte) 0x03));
-		memory.set(4, new ByteUnsigned((byte) 0x04));
-		memory.set(5, new ByteUnsigned((byte) 0x05));
-		memory.set(6, new ByteUnsigned((byte) 0x06));
+		memory.set(0, new ByteUnsigned(0x70));
+		memory.set(1, new ByteUnsigned(0x01));
+		memory.set(2, new ByteUnsigned(0x02));
+		memory.set(3, new ByteUnsigned(0x03));
+		memory.set(4, new ByteUnsigned(0x04));
+		memory.set(5, new ByteUnsigned(0x05));
+		memory.set(6, new ByteUnsigned(0x06));
 
 		// add memory to module
 		module.addMemory(memory);
@@ -69,10 +71,10 @@ class I32_load8_u_Test extends Specification {
 
 		// create stack
 		stack = new WasmStack();
-		stack.push(new I32(2));  // load bytes starting at 2
+		stack.push(new I64(2));  // load bytes starting at 2
 
 		// create class to test.
-		i32Load8_u = new I32_load8_u(memoryArgument, frame, store, stack);
+		I64Load32_u = new I64_load32_u(memoryArgument, frame, store, stack);
 	}
 
 	void cleanup() {
@@ -81,32 +83,42 @@ class I32_load8_u_Test extends Specification {
 	def "Execute Golden Path"() {
 		Integer address = 2;
 
-		// setup: ""
-		stack.push(new I32(address) );  // load bytes starting at 2
+		setup: ""
+		stack.push(new I32(address));  // load bytes starting at 2
 
-		memory.set(2, new ByteUnsigned(input));
-
+		memory.set(address + 0, new ByteUnsigned((input >> 24) & 0xFF)); // most significant byte
+		memory.set(address + 1, new ByteUnsigned((input >> 16) & 0xFF));
+		memory.set(address + 2, new ByteUnsigned((input >> 8) & 0xFF));
+		memory.set(address + 3, new ByteUnsigned((input >> 0) & 0xFF)); // most significant byte
 
 		when: ""
-		i32Load8_u.execute();
+		I64Load32_u.execute();
 
 		then: ""
-		I32 actual = (I32) stack.pop();
-		I32 expectedI32 = new I32(expected);
-		actual == expectedI32;
+		I64 actual = (I64) stack.pop();
+		I64 expectedI64 = new I64(expected); // Little Endian!
+		actual == expectedI64;
 
 		// expect: ""
 
 		// cleanup: ""
 
-		// where: ""
 		where: ""
-		input       || expected
-		0           || 0
-		2           || 2
-	 	4           || 4
-		0x7F        || 0x7F
-		0x80        || 0x80
-		0xFF        || 0xFF
+		input                 || expected
+		0                     || 0
+		2                     || 2
+		4                     || 4
+		127                   || 127
+		0x7F                  || 0x7F
+		0xFF                  || 0xFF
+		0x7FFF                || 0x7FFF
+		0x7FFF_FFFF           || 0x7FFF_FFFF
+		-100                  || 0xFFFF_FF9C
+		-1                    || 0xFFFF_FFFF
+		0xFFFF_FFFF           || 0xFFFF_FFFF
+		// test only two right bytes are used.
+		0x7FFF_FFFF_FFFF_FFFF || 0xFFFF_FFFF
 	}
+
+
 }

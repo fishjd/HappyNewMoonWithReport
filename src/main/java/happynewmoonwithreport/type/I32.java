@@ -14,6 +14,7 @@
  *  limitations under the License.
  *
  */
+
 package happynewmoonwithreport.type;
 
 import java.util.UUID;
@@ -21,14 +22,16 @@ import java.util.UUID;
 import happynewmoonwithreport.WasmRuntimeException;
 import happynewmoonwithreport.type.JavaType.ByteUnsigned;
 
+
 /**
- * Signed Integer 32 Bits
+ * Signed Integer 32 Bits.
  *
  * <table>
+ * <tr>
  * <td>High Byte</td><td>Byte</td><td>Byte</td><td>Low Byte</td>
  * </tr>
  * <tr>
- * <td>0</td><td>			1</td><td>			2</td><td>			3</td>
+ * <td>0</td><td>1</td><td>2</td><td>3</td>
  * </tr>
  * <tr>	<td>Msb000000</td><td>00000000</td><td>00000000</td><td>0000000Lsb</td>
  * </tr>
@@ -57,15 +60,21 @@ public class I32 extends IntWasm {
 	}
 
 
+	/**
+	 * Create an I32 with an array of four UnsignedBytes.  Bytes are interpreted as unsigned.
+	 *
+	 * @param byteAll <b>Little Endian</b> an array of 4 UnsignedBytes
+	 *                <p>
+	 *                <p>
+	 *                UnsignedByte[0] is the Most Significant Byte
+	 *                <p>
+	 *                UnsignedByte[3] is the Least Significant Byte
+	 */
 	public I32(ByteUnsigned[] byteAll) {
 		this();
-		value = 0;
-		value += byteAll[0].intValue() << 24;
-		value += byteAll[1].intValue() << 16;
-		value += byteAll[2].intValue() << 8;
-		value += byteAll[3].intValue() << 0;
+		Boolean signExtension = false;
+		create(byteAll, 32, signExtension);
 	}
-
 
 
 	/**
@@ -91,28 +100,18 @@ public class I32 extends IntWasm {
 				break;
 			}
 			case 16: {
-				value += ((byteAll[1].intValue()) << 0);	// Least Significant Byte
-				value += ((byteAll[0].intValue()) << 8);	// Most  Significant Byte
+				value += ((byteAll[1].intValue()) << 0);    // Least Significant Byte
+				value += ((byteAll[0].intValue()) << 8);    // Most  Significant Byte
 				if (signExtension) {
 					value = signExtend16To32(value);
 				}
 				break;
 			}
-			// I'm not sure 24 and 32 are necessary or required by the specification.
-//			case 24: {
-//				value += ((byteAll[2].intValue()) << 0);	// Least  Significant Byte
-//				value += ((byteAll[1].intValue()) << 8);
-//				value += ((byteAll[0].intValue()) << 16);	// Most  Significant Byte
-//				if (signExtension) {
-//					value = twoComplement(value);
-//				}
-//				break;
-//			}
 			case 32: {
-				value += ((byteAll[3].intValue()) << 0);	// Least  Significant Byte
+				value += ((byteAll[3].intValue()) << 0);    // Least  Significant Byte
 				value += ((byteAll[2].intValue()) << 8);
 				value += ((byteAll[1].intValue()) << 16);
-				value += ((byteAll[0].intValue()) << 24);	// Most  Significant Byte
+				value += ((byteAll[0].intValue()) << 24);    // Most  Significant Byte
 				if (signExtension) {
 					value = twoComplement(value);
 				}
@@ -121,9 +120,8 @@ public class I32 extends IntWasm {
 			default: {
 				throw new WasmRuntimeException(
 					UUID.fromString("f8d78ad2-67ed-441f-a327-6df48f2afca7"),
-					"I32 Constructor Illegal value in length.  Valid values are 8, 16, 24, 32.    "
-						+ "Length =  "
-						+ length);
+					"I32 Constructor Illegal value in length.  Valid values are 8, 16, 32.    "
+						+ "Length =  " + length);
 			}
 		}
 

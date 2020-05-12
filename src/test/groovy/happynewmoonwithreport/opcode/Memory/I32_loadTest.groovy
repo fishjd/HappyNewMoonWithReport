@@ -14,7 +14,7 @@
  *  limitations under the License.
  *
  */
-package happynewmoonwithreport.opcode.Memory
+package happynewmoonwithreport.opcode.memory
 
 import happynewmoonwithreport.WasmFrame
 import happynewmoonwithreport.WasmModule
@@ -27,38 +27,28 @@ import spock.lang.Specification
 /**
  * Created on 2018-02-12.
  */
-class I64_store8Test extends Specification {
+class I32_loadTest extends Specification {
 	WasmModule module;
 	WasmFrame frame;
-	I64_store8 i64Store8;
+	I32_load i32Load;
 
 	WasmStack stack;
-	WasmStore store;
 
 	void setup() {
 		// create a module.
 		module = new WasmModule();
 
-		// create a memory. if we are going to store to memory we need a memory.
+		// create a memory if we are going to load from memory we need a memory.
 		U32 hasMaximum = new U32(0);
 		U32 minimum = new U32(1);
 		MemoryType memory = new MemoryType(hasMaximum, minimum);
-		memory.set(0, new ByteUnsigned(0x00));
+		memory.set(0, new ByteUnsigned(0x70));
 		memory.set(1, new ByteUnsigned(0x01));
 		memory.set(2, new ByteUnsigned(0x02));
 		memory.set(3, new ByteUnsigned(0x03));
 		memory.set(4, new ByteUnsigned(0x04));
 		memory.set(5, new ByteUnsigned(0x05));
 		memory.set(6, new ByteUnsigned(0x06));
-		memory.set(7, new ByteUnsigned(0x07));
-		memory.set(8, new ByteUnsigned(0x08));
-		memory.set(9, new ByteUnsigned(0x09));
-		memory.set(10, new ByteUnsigned(0x0A));
-		memory.set(11, new ByteUnsigned(0x0B));
-		memory.set(12, new ByteUnsigned(0x0C));
-		memory.set(13, new ByteUnsigned(0x0D));
-		memory.set(14, new ByteUnsigned(0x0E));
-		memory.set(15, new ByteUnsigned(0x0F));
 
 		// add memory to module
 		module.addMemory(memory);
@@ -71,7 +61,7 @@ class I64_store8Test extends Specification {
 		memoryAll.add(memory);
 
 		// create Store
-		store = new WasmStore();
+		WasmStore store = new WasmStore();
 		store.setMemoryAll(memoryAll);
 
 		// create memoryArgument
@@ -81,23 +71,8 @@ class I64_store8Test extends Specification {
 		stack = new WasmStack();
 		stack.push(new I32(2));  // load bytes starting at 2
 
-		// create a value to store
-		ByteUnsigned[] baStoreThis = new ByteUnsigned[8];
-		baStoreThis[0] = new ByteUnsigned(0xAA) // high byte
-		baStoreThis[1] = new ByteUnsigned(0xAA);
-		baStoreThis[2] = new ByteUnsigned(0xAA);
-		baStoreThis[3] = new ByteUnsigned(0xAA);
-		baStoreThis[4] = new ByteUnsigned(0xFF);
-		baStoreThis[5] = new ByteUnsigned(0xFE);
-		baStoreThis[6] = new ByteUnsigned(0xFD);
-		baStoreThis[7] = new ByteUnsigned(0xFC);    // low byte
-		I64 storeThis = new I64(baStoreThis);
-
-		// add to the stack
-		stack.push(storeThis);
-
 		// create class to test.
-		i64Store8 = new I64_store8(memoryArgument, frame, store, stack);
+		i32Load = new I32_load(memoryArgument, frame, store, stack);
 	}
 
 	void cleanup() {
@@ -107,24 +82,12 @@ class I64_store8Test extends Specification {
 		// setup: ""
 
 		when: ""
-		i64Store8.execute();
+		i32Load.execute();
 
 		then: ""
-		// unchanged
-		new ByteUnsigned(0x00) == store.memoryAll.get(0).get(0);
-		new ByteUnsigned(0x01) == store.memoryAll.get(0).get(1);
-
-		// changed
-		new ByteUnsigned(0xFC) == store.memoryAll.get(0).get(2);
-
-		// unchanged
-		new ByteUnsigned(0x03) == store.memoryAll.get(0).get(3);
-		new ByteUnsigned(0x04) == store.memoryAll.get(0).get(4);
-		new ByteUnsigned(0x05) == store.memoryAll.get(0).get(5);
-		new ByteUnsigned(0x06) == store.memoryAll.get(0).get(6);
-		new ByteUnsigned(0x07) == store.memoryAll.get(0).get(7);
-		new ByteUnsigned(0x08) == store.memoryAll.get(0).get(8);
-		new ByteUnsigned(0x09) == store.memoryAll.get(0).get(9);
+		I32 actual = (I32) stack.pop();
+		I32 expected = new I32(0x02030405); // Little Endian!
+		actual == expected;
 
 		// expect: ""
 

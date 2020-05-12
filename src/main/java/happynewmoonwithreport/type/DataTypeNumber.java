@@ -50,23 +50,24 @@ public interface DataTypeNumber {
 	 * Does the <code>value</code> lay between Integer.minValue and Integer.maxValue.  i.e
 	 * <code>Integer.minValue &lt;= value &lt;= Integer.maxValue;</code>
 	 * <p>
-	 * This will <b>always</b> be true for class where the ValueType is Integer, Byte. But may be false when ValueType
-	 * is Long.
+	 * This will <b>always</b> be true for class where the ValueType is Integer, Byte. But may be
+	 * false when ValueType is Long.
 	 *
 	 * @return true if between Integer.minValue and Integer.maxValue.
 	 **/
 	Boolean isBoundByInteger();
 
 	/**
-	 * The minimum number of bytes this number may be represented by. For UInt this is fixed and is the same as
-	 * maxBytes(). For VarUInt it may be less tha maxBytes().
+	 * The minimum number of bytes this number may be represented by. For UInt this is fixed and is
+	 * the same as maxBytes(). For VarUInt it may be less tha maxBytes().
 	 *
 	 * @return minimum number of bytes.
 	 */
 	Integer minBytes();
 
 	/**
-	 * The maximum number of bytes this number may be represented by. For UInt this is fixed. For VarUInt if may vary.
+	 * The maximum number of bytes this number may be represented by. For UInt this is fixed. For
+	 * VarUInt if may vary.
 	 * <p>
 	 * <code> maxBytes = ceiling(maxBits/8); </code>
 	 *
@@ -75,8 +76,8 @@ public interface DataTypeNumber {
 	Integer maxBytes();
 
 	/**
-	 * The minimum number of bites this number is represented by. It is constant. Usually in the class name VarUInt32
-	 * sets maxBits to 32.
+	 * The minimum number of bites this number is represented by. It is constant. Usually in the
+	 * class name VarUInt32 sets maxBits to 32.
 	 *
 	 * @return maximum number of bits
 	 */

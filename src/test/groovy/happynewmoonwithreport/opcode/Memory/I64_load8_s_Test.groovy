@@ -14,7 +14,7 @@
  *  limitations under the License.
  *
  */
-package happynewmoonwithreport.opcode.Memory
+package happynewmoonwithreport.opcode.memory
 
 import happynewmoonwithreport.WasmFrame
 import happynewmoonwithreport.WasmModule
@@ -25,12 +25,12 @@ import happynewmoonwithreport.type.JavaType.ByteUnsigned
 import spock.lang.Specification
 
 /**
- * Created on 2018-02-12.
+ * Created on 2020-05-03.
  */
-class I32_load16_u_Test extends Specification {
+class I64_load8_s_Test extends Specification {
 	WasmModule module;
 	WasmFrame frame;
-	I32_load16_u i32Load16_u;
+	I64_load8_s i64Load8_s;
 
 	WasmStack stack;
 	MemoryType memory;
@@ -42,7 +42,6 @@ class I32_load16_u_Test extends Specification {
 		// create a memory if we are going to load from memory we need a memory.
 		U32 hasMaximum = new U32(0);
 		U32 minimum = new U32(1);
-
 		memory = new MemoryType(hasMaximum, minimum);
 		memory.set(0, new ByteUnsigned(0x70));
 		memory.set(1, new ByteUnsigned(0x01));
@@ -56,7 +55,7 @@ class I32_load16_u_Test extends Specification {
 		module.addMemory(memory);
 
 		// create a frame
-		frame = new WasmFrame(module)
+		frame = new WasmFrame(module);
 
 		//
 		WasmVector<MemoryType> memoryAll = new WasmVector<>();
@@ -74,7 +73,7 @@ class I32_load16_u_Test extends Specification {
 		stack.push(new I32(2));  // load bytes starting at 2
 
 		// create class to test.
-		i32Load16_u = new I32_load16_u(memoryArgument, frame, store, stack);
+		i64Load8_s = new I64_load8_s(memoryArgument, frame, store, stack);
 	}
 
 	void cleanup() {
@@ -83,36 +82,37 @@ class I32_load16_u_Test extends Specification {
 	def "Execute Golden Path"() {
 		Integer address = 2;
 
-		setup: ""
+		// setup: ""
 		stack.push(new I32(address));  // load bytes starting at 2
 
-		memory.set(address, new ByteUnsigned(  (input >> 8) & 0xFF));
-		memory.set(address + 1, new ByteUnsigned( (input) & 0xFF ));
+		memory.set(2, new ByteUnsigned(input));
+
 
 		when: ""
-		i32Load16_u.execute();
+		i64Load8_s.execute();
 
 		then: ""
-		I32 actual = (I32) stack.pop();
-		I32 expectedI32 = new I32(expected); // Little Endian!
-		actual == expectedI32;
+		I64 actual = (I64) stack.pop();
+		I64 expectedI64 = new I64(expected);
+		actual == expectedI64;
 
 		// expect: ""
 
 		// cleanup: ""
 
+		// where: ""
 		where: ""
-		input  || expected
-		0      || 0
-		2      || 2
-		4      || 4
-		127    || 127
-		0x7F   || 0x7F
-		0xFF   || 0xFF
-		0x7FFF || 0x7FFF
-		0x8000 || 0x8000
-		0xFFFF || 0xFFFF
+		input       || expected
+		0           || 0
+		2           || 2
+		4           || 4
+		0x7F        || 0x7F  // 0x7F = 127
+		0x80        || -128
+		0xFF        || -1
+		127         || 127
+		(byte) -100 || -100
+		(byte) -128 || -128
+		(byte) -1   || -1
+
 	}
-
-
 }

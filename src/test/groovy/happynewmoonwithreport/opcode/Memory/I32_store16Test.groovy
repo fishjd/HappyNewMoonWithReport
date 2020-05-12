@@ -14,7 +14,7 @@
  *  limitations under the License.
  *
  */
-package happynewmoonwithreport.opcode.Memory
+package happynewmoonwithreport.opcode.memory
 
 import happynewmoonwithreport.WasmFrame
 import happynewmoonwithreport.WasmModule
@@ -25,12 +25,12 @@ import happynewmoonwithreport.type.JavaType.ByteUnsigned
 import spock.lang.Specification
 
 /**
- * Created on 2018-02-12.
+ * Created on 2019-01-01
  */
-class I32_storeTest extends Specification {
+class I32_store16Test extends Specification {
 	WasmModule module;
 	WasmFrame frame;
-	I32_store i32Store;
+	I32_store16 i32Store16;
 
 	WasmStack stack;
 	WasmStore store;
@@ -69,21 +69,21 @@ class I32_storeTest extends Specification {
 
 		// create stack
 		stack = new WasmStack();
-		stack.push(new I32(2));  // load bytes starting at 2
+		stack.push(new I32(2));  // store bytes starting at 2
 
 		// create a value to store
-		ByteUnsigned[] baStoreThis = new ByteUnsigned[4];
-		baStoreThis[0] = new ByteUnsigned(0xFC);
-		baStoreThis[1] = new ByteUnsigned(0xFD);
-		baStoreThis[2] = new ByteUnsigned(0xFE);
-		baStoreThis[3] = new ByteUnsigned(0xFF);
-		I32 storeThis = new I32(baStoreThis);
+		ByteUnsigned[] abuStoreThis = new ByteUnsigned[4];
+		abuStoreThis[0] = new ByteUnsigned(0x7C);
+		abuStoreThis[1] = new ByteUnsigned(0x7D);
+		abuStoreThis[2] = new ByteUnsigned(0x7E);
+		abuStoreThis[3] = new ByteUnsigned(0x7F);
+		I32 storeThis = new I32(abuStoreThis);
 
 		// add to the stack
 		stack.push(storeThis);
 
 		// create class to test.
-		i32Store = new I32_store(memoryArgument, frame, store, stack);
+		i32Store16 = new I32_store16(memoryArgument, frame, store, stack);
 	}
 
 	void cleanup() {
@@ -93,13 +93,11 @@ class I32_storeTest extends Specification {
 		// setup: ""
 
 		when: ""
-		i32Store.execute();
+		i32Store16.execute();
 
 		then: ""
-		new ByteUnsigned(0xFC) ==  store.memoryAll.get(0).get(2);
-		new ByteUnsigned(0xFD) ==  store.memoryAll.get(0).get(3);
-		new ByteUnsigned(0xFE) ==  store.memoryAll.get(0).get(4);
-		new ByteUnsigned(0xFF) ==  store.memoryAll.get(0).get(5);
+		new ByteUnsigned(0x7E) ==  store.memoryAll.get(0).get(2);
+		new ByteUnsigned(0x7F) ==  store.memoryAll.get(0).get(3);
 
 		// expect: ""
 

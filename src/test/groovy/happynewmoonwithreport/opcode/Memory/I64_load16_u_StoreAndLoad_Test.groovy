@@ -14,7 +14,7 @@
  *  limitations under the License.
  *
  */
-package happynewmoonwithreport.opcode.Memory
+package happynewmoonwithreport.opcode.memory
 
 import happynewmoonwithreport.WasmFrame
 import happynewmoonwithreport.WasmModule
@@ -25,40 +25,33 @@ import happynewmoonwithreport.type.JavaType.ByteUnsigned
 import spock.lang.Specification
 
 /**
- * Created on 2018-02-12.
+ * Created on 2018-05-05
  */
-class I64_store16Test extends Specification {
+class I64_load16_u_StoreAndLoad_Test extends Specification {
 	WasmModule module;
 	WasmFrame frame;
 	I64_store16 i64Store16;
+	I64_load16_u i64Load16_u;
 
 	WasmStack stack;
-	WasmStore store;
+	MemoryType memory;
 
 	void setup() {
 		// create a module.
 		module = new WasmModule();
 
-		// create a memory. if we are going to store to memory we need a memory.
+		// create a memory if we are going to load from memory we need a memory.
 		U32 hasMaximum = new U32(0);
 		U32 minimum = new U32(1);
-		MemoryType memory = new MemoryType(hasMaximum, minimum);
-		memory.set(0, new ByteUnsigned(0x00));
+
+		memory = new MemoryType(hasMaximum, minimum);
+		memory.set(0, new ByteUnsigned(0x70));
 		memory.set(1, new ByteUnsigned(0x01));
 		memory.set(2, new ByteUnsigned(0x02));
 		memory.set(3, new ByteUnsigned(0x03));
 		memory.set(4, new ByteUnsigned(0x04));
 		memory.set(5, new ByteUnsigned(0x05));
 		memory.set(6, new ByteUnsigned(0x06));
-		memory.set(7, new ByteUnsigned(0x07));
-		memory.set(8, new ByteUnsigned(0x08));
-		memory.set(9, new ByteUnsigned(0x09));
-		memory.set(10, new ByteUnsigned(0x0A));
-		memory.set(11, new ByteUnsigned(0x0B));
-		memory.set(12, new ByteUnsigned(0x0C));
-		memory.set(13, new ByteUnsigned(0x0D));
-		memory.set(14, new ByteUnsigned(0x0E));
-		memory.set(15, new ByteUnsigned(0x0F));
 
 		// add memory to module
 		module.addMemory(memory);
@@ -71,7 +64,7 @@ class I64_store16Test extends Specification {
 		memoryAll.add(memory);
 
 		// create Store
-		store = new WasmStore();
+		WasmStore store = new WasmStore();
 		store.setMemoryAll(memoryAll);
 
 		// create memoryArgument
@@ -79,23 +72,9 @@ class I64_store16Test extends Specification {
 
 		// create stack
 		stack = new WasmStack();
-		stack.push(new I32(2));  // load bytes starting at 2
 
-		// create a value to store
-		ByteUnsigned[] baStoreThis = new ByteUnsigned[8];
-		baStoreThis[0] = new ByteUnsigned(0xAA) // high byte
-		baStoreThis[1] = new ByteUnsigned(0xAA);
-		baStoreThis[2] = new ByteUnsigned(0xAA);
-		baStoreThis[3] = new ByteUnsigned(0xAA);
-		baStoreThis[4] = new ByteUnsigned(0xFF);
-		baStoreThis[5] = new ByteUnsigned(0xFE);
-		baStoreThis[6] = new ByteUnsigned(0xFD);
-		baStoreThis[7] = new ByteUnsigned(0xFC);    // low byte
-		I64 storeThis = new I64(baStoreThis);
-
-		// add to the stack
-		stack.push(storeThis);
-
+		// create class to test.
+		i64Load16_u = new I64_load16_u(memoryArgument, frame, store, stack);
 		// create class to test.
 		i64Store16 = new I64_store16(memoryArgument, frame, store, stack);
 	}
@@ -104,34 +83,42 @@ class I64_store16Test extends Specification {
 	}
 
 	def "Execute Golden Path"() {
-		// setup: ""
+		Integer address = 2;
+
+		setup: ""
+
 
 		when: ""
+
+		// Store on memory
+		stack.push(new I32(address));  // store bytes starting at 2
+		stack.push(new I64(input));
 		i64Store16.execute();
 
+		// Load from memory
+		stack.push(new I32(address));  // load bytes starting at 2
+		i64Load16_u.execute();
+
 		then: ""
-		// unchanged
-		new ByteUnsigned(0x00) == store.memoryAll.get(0).get(0);
-		new ByteUnsigned(0x01) == store.memoryAll.get(0).get(1);
-
-		// changed
-		new ByteUnsigned(0xFD) == store.memoryAll.get(0).get(2);
-		new ByteUnsigned(0xFC) == store.memoryAll.get(0).get(3);
-
-		// unchanged
-		new ByteUnsigned(0x04) == store.memoryAll.get(0).get(4);
-		new ByteUnsigned(0x05) == store.memoryAll.get(0).get(5);
-		new ByteUnsigned(0x06) == store.memoryAll.get(0).get(6);
-		new ByteUnsigned(0x07) == store.memoryAll.get(0).get(7);
-		new ByteUnsigned(0x08) == store.memoryAll.get(0).get(8);
-		new ByteUnsigned(0x09) == store.memoryAll.get(0).get(9);
+		I64 actual = (I64) stack.pop();
+		I64 expectedI64 = new I64(expected);
+		actual == expectedI64;
 
 		// expect: ""
 
 		// cleanup: ""
 
-		// where: ""
-
+		where: ""
+		input  || expected
+		0      || 0
+		2      || 2
+		4      || 4
+		127    || 127
+		0x7F   || 0x7F
+		0xFF   || 0xFF
+		0x7FFF || 0x7FFF
+		0x8000 || 0x8000
+		0xFFFF || 0xFFFF
 	}
 
 

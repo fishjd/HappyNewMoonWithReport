@@ -14,7 +14,7 @@
  *  limitations under the License.
  *
  */
-package happynewmoonwithreport.opcode.Memory;
+package happynewmoonwithreport.opcode.memory;
 
 
 import happynewmoonwithreport.WasmFrame;
@@ -48,7 +48,7 @@ import happynewmoonwithreport.type.U32;
  * <pre>
  *  t = I32     // result type  <br>
  *  n = 16      // size of input byte array <br>
- *  sx = signed // sign extenstion <br>
+ *  sx = signed // sign extension <br>
  * </pre>
  *
  * <ol>
@@ -130,7 +130,7 @@ public class I32_load16_u extends LoadBase {
 	/* package-private */
 	@Override
 	ByteUnsigned[] getBytesFromMemory(MemoryType mem, U32 ea) {
-		ByteUnsigned[] bytes = new ByteUnsigned[4];
+		ByteUnsigned[] bytes = new ByteUnsigned[2];
 		Integer eaIntegerValue = ea.integerValue();
 		bytes[0] = mem.get(eaIntegerValue + 0);
 		bytes[1] = mem.get(eaIntegerValue + 1);

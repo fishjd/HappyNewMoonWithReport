@@ -14,7 +14,7 @@
  *  limitations under the License.
  *
  */
-package happynewmoonwithreport.opcode.Memory
+package happynewmoonwithreport.opcode.memory
 
 import happynewmoonwithreport.WasmFrame
 import happynewmoonwithreport.WasmModule
@@ -25,12 +25,13 @@ import happynewmoonwithreport.type.JavaType.ByteUnsigned
 import spock.lang.Specification
 
 /**
- * Created on 2018-02-12.
+ * Created on 2018-05-05
  */
-class I32_load16_s_Test extends Specification {
+class I64_load32_u_StoreAndLoad_Test extends Specification {
 	WasmModule module;
 	WasmFrame frame;
-	I32_load16_s i32Load16_s;
+	I64_store32 i64Store32;
+	I64_load32_u i64Load32_u;
 
 	WasmStack stack;
 	MemoryType memory;
@@ -71,10 +72,11 @@ class I32_load16_s_Test extends Specification {
 
 		// create stack
 		stack = new WasmStack();
-		stack.push(new I32(2));  // load bytes starting at 2
 
 		// create class to test.
-		i32Load16_s = new I32_load16_s(memoryArgument, frame, store, stack);
+		i64Load32_u = new I64_load32_u(memoryArgument, frame, store, stack);
+		// create class to test.
+		i64Store32 = new I64_store32(memoryArgument, frame, store, stack);
 	}
 
 	void cleanup() {
@@ -84,35 +86,43 @@ class I32_load16_s_Test extends Specification {
 		Integer address = 2;
 
 		setup: ""
-		stack.push(new I32(address));  // load bytes starting at 2
 
-		memory.set(address, new ByteUnsigned(  (input >> 8) & 0xFF));
-		memory.set(address + 1, new ByteUnsigned( (input) & 0xFF ));
 
 		when: ""
-		i32Load16_s.execute();
 
-		then: ""
-		I32 actual = (I32) stack.pop();
-		I32 expectedI32 = new I32(expected); // Little Endian!
-		actual == expectedI32;
+		// Store on memory
+		stack.push(new I32(address));  // store bytes starting at 2
+		stack.push(new I64(input));
+		i64Store32.execute();
+
+		// Load from memory
+		stack.push(new I32(address));  // load bytes starting at 2
+		i64Load32_u.execute();
+
+		then: "Verify we get the same value we stored, value will be sign extended"
+		I64 actual = (I64) stack.pop();
+		I64 expectedI64 = new I64(expected);
+		actual == expectedI64;
 
 		// expect: ""
 
 		// cleanup: ""
 
 		where: ""
-		input  || expected
-		0      || 0
-		2      || 2
-		4      || 4
-		127    || 127
-		0x7F   || 0x7F
-		0xFF   || 0xFF
-		0x7FFF || 0x7FFF
-		-100   || -100
-		-1     || -1
-		0xFFFF || -1
+		input                 || expected
+		0                     || 0
+		2                     || 2
+		4                     || 4
+		127                   || 127
+		0x7F                  || 0x7F
+		0xFF                  || 0xFF
+		0x7FFF                || 0x7FFF
+		0x8000                || 0x8000
+		0xFFFF                || 0xFFFF
+		0x33CC_55AA           || 0x33CC_55AA
+		0x8000_0000           || 0x8000_0000
+		0xFFFF_FFFF           || 0xFFFF_FFFF
+		0xAAAA_AAAA_FFFF_FFFF || 0xFFFF_FFFF
 	}
 
 

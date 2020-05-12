@@ -28,33 +28,29 @@ import happynewmoonwithreport.type.MemoryType;
 import happynewmoonwithreport.type.U32;
 
 /**
- * <h1>i64_load</h1> Load an i64 value from memory to the stack.
- * <p>
- * Memory Instructions<br>
- * <p>
- * <b>Source:</b>
- * <a href="https://webassembly.github.io/spec/core/syntax/instructions.html#memory-instructions"
- * target="_top"> https://webassembly.github.io/spec/core/syntax/instructions
- * .html#memory-instructions
- * </a>
- * <br>
+ * <h1>i64_load8_u</h1> Load an i8 Signed value from memory to the stack.
  * <p>
  * Memory Overview<br>
  * <b>Source:</b>
  * <a href="https://webassembly.github.io/spec/core/syntax/instructions.html#syntax-instr-memory"
- * target="_top"> https://webassembly.github.io/spec/core/syntax/instructions
- * .html#syntax-instr-memory
+ * target="_top">
+ * https://webassembly.github.io/spec/core/syntax/instructions.html#syntax-instr-memory
  * </a>
  * </p>
- * <br>
- * Exec:
  * <p>
  * <b>Source:</b>
- * <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-load" target="_top">
+ * <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-load"
+ * target="_top">
  * https://webassembly.github.io/spec/core/exec/instructions.html#exec-load
  * </a>
- * <br>
- * <h2>t.load memarg and t.loadN_sx memarg</h2>
+ * <h1>t.load memarg and t.loadN_sx memarg</h1>
+ *
+ * <pre>
+ *  t = I64				// result type  <br>
+ *  n = 8				// size of input byte array <br>
+ *  u = unsigned		// un-sign extension <br>
+ * </pre>
+ *
  * <ol>
  * <li>
  * Let F be the current frame.
@@ -106,15 +102,17 @@ import happynewmoonwithreport.type.U32;
  * </li>
  * </ol>
  */
-public class I64_load extends LoadBase {
+public class I64_load8_u extends LoadBase {
 
+	private Boolean signExtension;
 
-
-	private I64_load() {
+	private I64_load8_u() {
 		super();
+		signExtension = false;
+		N = new U32(8L);
 	}
 
-	public I64_load(MemoryArgument memoryArgument, WasmFrame frame, WasmStore store,
+	public I64_load8_u(MemoryArgument memoryArgument, WasmFrame frame, WasmStore store,
 		WasmStack stack) {
 		this();
 		this.memoryArgument = memoryArgument;
@@ -126,29 +124,24 @@ public class I64_load extends LoadBase {
 	/* package-private */
 	@Override
 	U32 getBitWithOfN() {
-		return new U32(64);
+		return N;
 	}
 
 	/* package-private */
 	@Override
 	ByteUnsigned[] getBytesFromMemory(MemoryType mem, U32 ea) {
-		ByteUnsigned[] bytes = new ByteUnsigned[getBitWithOfN().integerValue()/4];
+		ByteUnsigned[] bytes = new ByteUnsigned[1];
 		Integer eaIntegerValue = ea.integerValue();
 		bytes[0] = mem.get(eaIntegerValue + 0);
-		bytes[1] = mem.get(eaIntegerValue + 1);
-		bytes[2] = mem.get(eaIntegerValue + 2);
-		bytes[3] = mem.get(eaIntegerValue + 3);
-		bytes[4] = mem.get(eaIntegerValue + 4);
-		bytes[5] = mem.get(eaIntegerValue + 5);
-		bytes[6] = mem.get(eaIntegerValue + 6);
-		bytes[7] = mem.get(eaIntegerValue + 7);
 		return bytes;
 	}
 
 	/* package-private */
 	@Override
 	IntWasm convertToType(ByteUnsigned[] bytes) {
-		I64 c = new I64(bytes);
+		I64 c = new I64(bytes, N.integerValue(), signExtension);
 		return c;
 	}
+
+
 }

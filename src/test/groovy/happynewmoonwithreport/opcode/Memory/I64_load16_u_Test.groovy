@@ -14,7 +14,7 @@
  *  limitations under the License.
  *
  */
-package happynewmoonwithreport.opcode.Memory
+package happynewmoonwithreport.opcode.memory
 
 import happynewmoonwithreport.WasmFrame
 import happynewmoonwithreport.WasmModule
@@ -25,30 +25,32 @@ import happynewmoonwithreport.type.JavaType.ByteUnsigned
 import spock.lang.Specification
 
 /**
- * Created on 2019-01-01
+ * Created on 2018-05-05
  */
-class I32_store16Test extends Specification {
+class I64_load16_u_Test extends Specification {
 	WasmModule module;
 	WasmFrame frame;
-	I32_store16 i32Store16;
+	I64_load16_u i64Load16_u;
 
 	WasmStack stack;
-	WasmStore store;
+	MemoryType memory;
+
 	void setup() {
 		// create a module.
 		module = new WasmModule();
 
-		// create a memory. if we are going to load from memory we need a memory.
+		// create a memory if we are going to load from memory we need a memory.
 		U32 hasMaximum = new U32(0);
 		U32 minimum = new U32(1);
-		MemoryType memory = new MemoryType(hasMaximum, minimum);
-		memory.set(0, new ByteUnsigned( 0x00));
-		memory.set(1, new ByteUnsigned( 0x01));
-		memory.set(2, new ByteUnsigned( 0x02));
-		memory.set(3, new ByteUnsigned( 0x03));
-		memory.set(4, new ByteUnsigned( 0x04));
-		memory.set(5, new ByteUnsigned( 0x05));
-		memory.set(6, new ByteUnsigned( 0x06));
+
+		memory = new MemoryType(hasMaximum, minimum);
+		memory.set(0, new ByteUnsigned(0x70));
+		memory.set(1, new ByteUnsigned(0x01));
+		memory.set(2, new ByteUnsigned(0x02));
+		memory.set(3, new ByteUnsigned(0x03));
+		memory.set(4, new ByteUnsigned(0x04));
+		memory.set(5, new ByteUnsigned(0x05));
+		memory.set(6, new ByteUnsigned(0x06));
 
 		// add memory to module
 		module.addMemory(memory);
@@ -61,7 +63,7 @@ class I32_store16Test extends Specification {
 		memoryAll.add(memory);
 
 		// create Store
-		store = new WasmStore();
+		WasmStore store = new WasmStore();
 		store.setMemoryAll(memoryAll);
 
 		// create memoryArgument
@@ -69,42 +71,47 @@ class I32_store16Test extends Specification {
 
 		// create stack
 		stack = new WasmStack();
-		stack.push(new I32(2));  // store bytes starting at 2
-
-		// create a value to store
-		ByteUnsigned[] abuStoreThis = new ByteUnsigned[4];
-		abuStoreThis[0] = new ByteUnsigned(0x7C);
-		abuStoreThis[1] = new ByteUnsigned(0x7D);
-		abuStoreThis[2] = new ByteUnsigned(0x7E);
-		abuStoreThis[3] = new ByteUnsigned(0x7F);
-		I32 storeThis = new I32(abuStoreThis);
-
-		// add to the stack
-		stack.push(storeThis);
+		stack.push(new I32(2));  // load bytes starting at 2
 
 		// create class to test.
-		i32Store16 = new I32_store16(memoryArgument, frame, store, stack);
+		i64Load16_u = new I64_load16_u(memoryArgument, frame, store, stack);
 	}
 
 	void cleanup() {
 	}
 
 	def "Execute Golden Path"() {
-		// setup: ""
+		Integer address = 2;
+
+		setup: ""
+		stack.push(new I32(address));  // load bytes starting at 2
+
+		memory.set(address, new ByteUnsigned(  (input >> 8) & 0xFF));
+		memory.set(address + 1, new ByteUnsigned( (input) & 0xFF ));
 
 		when: ""
-		i32Store16.execute();
+		i64Load16_u.execute();
 
 		then: ""
-		new ByteUnsigned(0x7E) ==  store.memoryAll.get(0).get(2);
-		new ByteUnsigned(0x7F) ==  store.memoryAll.get(0).get(3);
+		I64 actual = (I64) stack.pop();
+		I64 expectedI64 = new I64(expected);
+		actual == expectedI64;
 
 		// expect: ""
 
 		// cleanup: ""
 
-		// where: ""
-
+		where: ""
+		input  || expected
+		0      || 0
+		2      || 2
+		4      || 4
+		127    || 127
+		0x7F   || 0x7F
+		0xFF   || 0xFF
+		0x7FFF || 0x7FFF
+		0x8000 || 0x8000
+		0xFFFF || 0xFFFF
 	}
 
 

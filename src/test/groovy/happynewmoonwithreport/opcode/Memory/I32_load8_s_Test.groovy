@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 - 2020 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2019 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -14,49 +14,36 @@
  *  limitations under the License.
  *
  */
+package happynewmoonwithreport.opcode.memory
 
-package happynewmoonwithreport.opcode.Memory;
+import happynewmoonwithreport.WasmFrame
+import happynewmoonwithreport.WasmModule
+import happynewmoonwithreport.WasmStack
+import happynewmoonwithreport.WasmStore
+import happynewmoonwithreport.type.*
+import happynewmoonwithreport.type.JavaType.ByteUnsigned
+import spock.lang.Specification
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import happynewmoonwithreport.WasmFrame;
-import happynewmoonwithreport.WasmModule;
-import happynewmoonwithreport.WasmStack;
-import happynewmoonwithreport.WasmStore;
-import happynewmoonwithreport.type.I32;
-import happynewmoonwithreport.type.I64;
-import happynewmoonwithreport.type.JavaType.ByteUnsigned;
-import happynewmoonwithreport.type.MemoryArgument;
-import happynewmoonwithreport.type.MemoryType;
-import happynewmoonwithreport.type.U32;
-import happynewmoonwithreport.type.WasmVector;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-
-/*  I can't get Spock/Groovy working.  It may be my 'new' computer.   So, to move forward were
-stuck with JUnit 5.
-
- ~~ James
+/**
+ * Created on 2018-02-12.
  */
-class I64_loadTest_JUnit {
+class I32_load8_s_Test extends Specification {
 	WasmModule module;
 	WasmFrame frame;
-	I64_load i64Load;
+	I32_load8_s i32Load8_s;
 
 	WasmStack stack;
+	MemoryType memory;
 
-	@BeforeEach
-	void setUp() {
+	void setup() {
 		// create a module.
 		module = new WasmModule();
 
 		// create a memory if we are going to load from memory we need a memory.
 		U32 hasMaximum = new U32(0);
 		U32 minimum = new U32(1);
-		MemoryType memory = new MemoryType(hasMaximum, minimum);
+
+		memory = new MemoryType(hasMaximum, minimum);
 		memory.set(0, new ByteUnsigned(0x70));
 		memory.set(1, new ByteUnsigned(0x01));
 		memory.set(2, new ByteUnsigned(0x02));
@@ -64,17 +51,12 @@ class I64_loadTest_JUnit {
 		memory.set(4, new ByteUnsigned(0x04));
 		memory.set(5, new ByteUnsigned(0x05));
 		memory.set(6, new ByteUnsigned(0x06));
-		memory.set(7, new ByteUnsigned(0x07));
-		memory.set(8, new ByteUnsigned(0x08));
-		memory.set(9, new ByteUnsigned(0x09));
-		memory.set(10, new ByteUnsigned(0x0A));
-		memory.set(11, new ByteUnsigned(0xFF));
 
 		// add memory to module
 		module.addMemory(memory);
 
 		// create a frame
-		frame = new WasmFrame(module);
+		frame = new WasmFrame(module)
 
 		//
 		WasmVector<MemoryType> memoryAll = new WasmVector<>();
@@ -92,20 +74,42 @@ class I64_loadTest_JUnit {
 		stack.push(new I32(2));  // load bytes starting at 2
 
 		// create class to test.
-		i64Load = new I64_load(memoryArgument, frame, store, stack);
-
+		i32Load8_s = new I32_load8_s(memoryArgument, frame, store, stack);
 	}
 
-	@AfterEach
-	void tearDown() {
+	void cleanup() {
 	}
 
-	@Test
-	void execute() {
-		i64Load.execute();
+	def "Execute Golden Path"() {
+		Integer address = 2;
 
-		I64 actual = (I64) stack.pop();
-		I64 expected = new I64(0x02_03_04_05_06_07_08_09L); // Little Endian!
-		assertEquals(actual, expected);
+		setup: ""
+		stack.push(new I32(address));  // load bytes starting at 2
+
+		memory.set(address, new ByteUnsigned(input));
+
+		when: ""
+		i32Load8_s.execute();
+
+		then: ""
+		I32 actual = (I32) stack.pop();
+		I32 expectedI32 = new I32(expected); // Little Endian!
+		actual == expectedI32;
+
+		// expect: ""
+
+		// cleanup: ""
+
+		where: ""
+		input       || expected
+		0           || 0
+		2           || 2
+		4           || 4
+		0x7F        || 0x7F
+		0xFF        || -1
+		(byte) -100 || -100
+		(byte) -1   || -1
 	}
+
+
 }

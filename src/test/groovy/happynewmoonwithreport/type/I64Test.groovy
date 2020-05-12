@@ -17,6 +17,7 @@
 package happynewmoonwithreport.type
 
 import happynewmoonwithreport.WasmRuntimeException
+import happynewmoonwithreport.type.JavaType.ByteUnsigned
 import spock.lang.Specification
 
 /**
@@ -89,4 +90,49 @@ class I64Test extends Specification {
 		-1L                    || _
 		Long.MIN_VALUE         || _
 	}
+
+	def "SignedValue32to64"() {
+
+		setup: "Create an I64"
+		ByteUnsigned[] byteAll = new ByteUnsigned[4];
+
+
+		byteAll[0] = new ByteUnsigned((input >> 24) & 0xFF); // Most Significant byte
+		byteAll[1] = new ByteUnsigned((input >> 16) & 0xFF);
+		byteAll[2] = new ByteUnsigned((input >> 8) & 0xFF);
+		byteAll[3] = new ByteUnsigned((input >> 0) & 0xFF); // Least Significant byte
+
+		Boolean signExtend = true;
+		when: "convert to Signed value"
+
+		I64 actual = new I64(byteAll, 32, signExtend);
+
+		then: "Test"
+		input <= 4294967295L;
+		Integer.MIN_VALUE <= input;
+
+
+
+		actual.longValue() == expected;
+		actual == new I64(expected);
+
+		where: ""
+		input             || expected
+		0                 || 0
+		2                 || 2
+		4                 || 4
+		127               || 127
+		0x7F              || 0x7F
+		0xFF              || 0xFF
+		0x7FFF            || 0x7FFF
+		-100              || -100
+		-1                || -1
+		0xFFFF_FFFF       || -1
+		Integer.MIN_VALUE || -2147483648
+		0x8000_0000       || -2147483648
+		Integer.MAX_VALUE || 2147483647
+		0X7FFF_FFFF       || 2147483647
+		0x7FFF_FFFF       || 0x7FFF_FFFF
+	}
+
 }

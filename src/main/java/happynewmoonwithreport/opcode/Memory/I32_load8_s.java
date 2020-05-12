@@ -14,13 +14,10 @@
  *  limitations under the License.
  *
  */
-package happynewmoonwithreport.opcode.Memory;
+package happynewmoonwithreport.opcode.memory;
 
-
-import java.util.UUID;
 
 import happynewmoonwithreport.WasmFrame;
-import happynewmoonwithreport.WasmRuntimeException;
 import happynewmoonwithreport.WasmStack;
 import happynewmoonwithreport.WasmStore;
 import happynewmoonwithreport.type.I32;
@@ -29,7 +26,6 @@ import happynewmoonwithreport.type.JavaType.ByteUnsigned;
 import happynewmoonwithreport.type.MemoryArgument;
 import happynewmoonwithreport.type.MemoryType;
 import happynewmoonwithreport.type.U32;
-import happynewmoonwithreport.type.UInt32;
 
 /**
  * <h1>i32_load8_s</h1> Load an i8 Signed value from memory to the stack.
@@ -52,7 +48,7 @@ import happynewmoonwithreport.type.UInt32;
  * <pre>
  *  t = I32     // result type  <br>
  *  n = 8       // size of input byte array <br>
- *  sx = signed // sign extenstion <br>
+ *  sx = signed // sign extension <br>
  * </pre>
  *
  * <ol>
@@ -134,7 +130,7 @@ public class I32_load8_s extends LoadBase {
 	/* package-private */
 	@Override
 	ByteUnsigned[] getBytesFromMemory(MemoryType mem, U32 ea) {
-		ByteUnsigned[] bytes = new ByteUnsigned[4];
+		ByteUnsigned[] bytes = new ByteUnsigned[1];
 		Integer eaIntegerValue = ea.integerValue();
 		bytes[0] = mem.get(eaIntegerValue + 0);
 		return bytes;
