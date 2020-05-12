@@ -16,8 +16,6 @@
  */
 package happynewmoonwithreport;
 
-import java.util.UUID;
-
 import happynewmoonwithreport.opcode.AddI32;
 import happynewmoonwithreport.opcode.Block;
 import happynewmoonwithreport.opcode.ConstantInt32;
@@ -62,6 +60,7 @@ import happynewmoonwithreport.opcode.memory.I64_load;
 import happynewmoonwithreport.opcode.memory.I64_load16_s;
 import happynewmoonwithreport.opcode.memory.I64_load16_u;
 import happynewmoonwithreport.opcode.memory.I64_load32_s;
+import happynewmoonwithreport.opcode.memory.I64_load32_u;
 import happynewmoonwithreport.opcode.memory.I64_load8_s;
 import happynewmoonwithreport.opcode.memory.I64_load8_u;
 import happynewmoonwithreport.opcode.memory.I64_store;
@@ -74,6 +73,9 @@ import happynewmoonwithreport.type.S32;
 import happynewmoonwithreport.type.VarUInt32;
 import happynewmoonwithreport.type.WasmVector;
 import happynewmoonwithreport.type.utility.Hex;
+
+import java.util.UUID;
+
 
 /**
  * A WebAssembly.Instance object is a stateful, executable instance of a WebAssembly.Module.
@@ -323,8 +325,13 @@ public class WasmInstance implements WasmInstanceInterface {
 				i64_load32_s.execute();
 				break;
 			}
-
-			//			case (byte) 0x35: {   // I64_load32_u
+			case (byte) 0x35: {   // I64_load32_u
+				MemoryArgument memoryArgument = new MemoryArgument(); // Not sure what this is.
+				I64_load32_u i64_load32_u = new I64_load32_u(memoryArgument, currentFrame, store,
+															 stack);
+				i64_load32_u.execute();
+				break;
+			}
 
 
 			case (byte) 0x36: {    // I32_store
