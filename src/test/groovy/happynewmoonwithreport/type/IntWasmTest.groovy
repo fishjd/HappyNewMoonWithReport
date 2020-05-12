@@ -88,4 +88,41 @@ class IntWasmTest extends Specification {
 		(Long) 0xfedc_ba98_7654_8000 || -0x8000
 		-1                           || -1
 	}
+
+	/**
+	 * <p>
+	 *
+	 * Cool Site:  <b>Web Assembly Test Suite</b></br>
+	 * <b>Source of test data:</b>  <a href="https://github.com/WebAssembly/testsuite/blob/master/i64.wast" target="_top">
+	 * https://github.com/WebAssembly/testsuite/blob/master/i64.wast
+	 * </a>
+	 *
+	 */
+	def "SignExtend32To64"() {
+		setup:
+
+		Long input = new Long(input0);
+
+		when: " extend to signed signed 64"
+		int actual = IntWasm.signExtend32To64(input);
+
+
+		then: "Test"
+		expected == actual;
+
+
+		where: ""
+		input0                       || expected
+		-100                         || -100
+		0                            || 0
+		100                          || 100
+		0x7FFF                       || 32767
+		0x8000_0000                  || -2147483648
+		0xFFFF_FFFF                  || -1
+		(Long) 0x1234_5678_0000_0000 || 0
+		(Long) 0xfedc_ba98_8000_0000 || -0x8000_0000
+		-1                           || -1
+	}
+
+
 }

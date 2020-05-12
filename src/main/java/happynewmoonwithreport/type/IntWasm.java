@@ -241,6 +241,51 @@ public abstract class IntWasm implements DataTypeNumber {
 		return result;
 	}
 
+	/**
+	 * Sign extend a 32 bits to an 64 bit long.
+	 * <br>
+	 * <br>
+	 * extend_sM,N(i)
+	 * <ol>
+	 * <li>
+	 * Let j be the signed interpretation of i of size M.
+	 * </li> <li>
+	 * Return the two’s complement of j relative to size N.
+	 * </li>
+	 * </ol>
+	 * <p>
+	 * <b>Source:</b>
+	 * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-extend-s" target="_top">
+	 * https://webassembly.github.io/spec/core/exec/numerics.html#op-extend-s
+	 * </a>
+	 * <p>
+	 * Note: perhaps,  this will be the code for opCode 0xC3 i64.extend16_s
+	 * <br>
+	 * <br>
+	 * <b> References: </b>
+	 * <br>
+	 * <a href="http://www.aggregate.org/MAGIC/#Sign%20Extension">"http://www.aggregate.org/MAGIC/#Sign%20Extension"</a>
+	 * <br>
+	 * <br>
+	 * <a href="https://stackoverflow.com/questions/6215256/sign-extension-from-16-to-32-bits-in-c#answer-51958446">
+	 * href="https://stackoverflow.com/questions/6215256/sign-extension-from-16-to-32-bits-in-c
+	 * #answer-51958446"</a>
+	 *
+	 * @param input an int of length 16
+	 * @return an int of length 64.
+	 */
+	public static long signExtend32To64(Long input) {
+		long result;
+
+		// clear all bytes except bytes 0 - 4
+		input = 0x0000_0000_FFFF_FFFF & input;
+
+		long signBit = 1 << (32 - 1);
+		result = (input ^ signBit);
+		result = result - signBit;
+
+		return result;
+	}
 
 	/**
 	 * Is the sign bit set?   Is input negative?

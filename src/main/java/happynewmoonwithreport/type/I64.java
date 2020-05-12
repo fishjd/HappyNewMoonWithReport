@@ -79,20 +79,22 @@ public class I64 extends IntWasm {
 				break;
 			}
 			case 16: {
-				value += ((byteAll[1].intValue()) << 0);	// Least Significant Byte
-				value += ((byteAll[0].intValue()) << 8);	// Most  Significant Byte
+				value += ((byteAll[1].intValue()) << 0);    // Least Significant Byte
+				value += ((byteAll[0].intValue()) << 8);    // Most  Significant Byte
 				if (signExtension) {
 					value = signExtend16To64(value);
 				}
 				break;
 			}
 			case 32: {
-				value += ((byteAll[3].intValue()) << 0);	// Least  Significant Byte
+				value += ((byteAll[3].intValue()) << 0);    // Least  Significant Byte
 				value += ((byteAll[2].intValue()) << 8);
 				value += ((byteAll[1].intValue()) << 16);
-				value += ((byteAll[0].intValue()) << 24);	// Most  Significant Byte
+				// (byteAll[0] << 24) must be cast to long.  The compiler defaults to an int and we
+				// get negative numbers when (0x8000 <= byteAll[0]).
+				value += ((long) (byteAll[0].intValue()) << 24);  // Most  Significant Byte
 				if (signExtension) {
-					value = twoComplement(value);
+					value = signExtend32To64(value);
 				}
 				break;
 			}
@@ -100,8 +102,7 @@ public class I64 extends IntWasm {
 				throw new WasmRuntimeException(
 					UUID.fromString("f8d78ad2-67ed-441f-a327-6df48f2afca7"),
 					"I32 Constructor Illegal value in length.  Valid values are 8, 16, 32."
-						+ "Length =  "
-						+ length);
+						+ "Length =  " + length);
 			}
 		}
 

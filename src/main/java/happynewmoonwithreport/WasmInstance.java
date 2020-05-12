@@ -46,6 +46,10 @@ import happynewmoonwithreport.opcode.I64_le_u;
 import happynewmoonwithreport.opcode.I64_lt_s;
 import happynewmoonwithreport.opcode.I64_lt_u;
 import happynewmoonwithreport.opcode.I64_ne;
+import happynewmoonwithreport.opcode.Nop;
+import happynewmoonwithreport.opcode.Select;
+import happynewmoonwithreport.opcode.SetLocal;
+import happynewmoonwithreport.opcode.Unreachable;
 import happynewmoonwithreport.opcode.memory.I32_load;
 import happynewmoonwithreport.opcode.memory.I32_load16_s;
 import happynewmoonwithreport.opcode.memory.I32_load16_u;
@@ -57,15 +61,12 @@ import happynewmoonwithreport.opcode.memory.I32_store8;
 import happynewmoonwithreport.opcode.memory.I64_load;
 import happynewmoonwithreport.opcode.memory.I64_load16_s;
 import happynewmoonwithreport.opcode.memory.I64_load16_u;
+import happynewmoonwithreport.opcode.memory.I64_load32_s;
 import happynewmoonwithreport.opcode.memory.I64_load8_s;
 import happynewmoonwithreport.opcode.memory.I64_load8_u;
 import happynewmoonwithreport.opcode.memory.I64_store;
 import happynewmoonwithreport.opcode.memory.I64_store16;
 import happynewmoonwithreport.opcode.memory.I64_store32;
-import happynewmoonwithreport.opcode.Nop;
-import happynewmoonwithreport.opcode.Select;
-import happynewmoonwithreport.opcode.SetLocal;
-import happynewmoonwithreport.opcode.Unreachable;
 import happynewmoonwithreport.type.DataTypeNumber;
 import happynewmoonwithreport.type.MemoryArgument;
 import happynewmoonwithreport.type.S32;
@@ -315,7 +316,14 @@ public class WasmInstance implements WasmInstanceInterface {
 				i64_load16_u.execute();
 				break;
 			}
-			//			case (byte) 0x34: {   // I64_load32_s
+			case (byte) 0x34: {   // I64_load32_s
+				MemoryArgument memoryArgument = new MemoryArgument(); // Not sure what this is.
+				I64_load32_s i64_load32_s = new I64_load32_s(memoryArgument, currentFrame, store,
+															 stack);
+				i64_load32_s.execute();
+				break;
+			}
+
 			//			case (byte) 0x35: {   // I64_load32_u
 
 
