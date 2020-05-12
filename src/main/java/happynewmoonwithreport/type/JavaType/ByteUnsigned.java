@@ -35,6 +35,7 @@ public final class ByteUnsigned extends Number implements Comparable<ByteUnsigne
 	// use int values because byte is signed and can not store 255 (0xFF).
 	public static final Short MIN_VALUE = 0;
 	public static final Short MAX_VALUE = 255;
+	public static final ByteUnsigned ZERO = new ByteUnsigned(0);
 
 
 	/**
