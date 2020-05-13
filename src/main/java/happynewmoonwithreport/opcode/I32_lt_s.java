@@ -72,13 +72,13 @@ public class I32_lt_s {
 	public void execute() {
 		WasmStack<Object> stack = instance.stack();
 		if ((stack.peek() instanceof I32) == false) {
-			throw new WasmRuntimeException(UUID.fromString("f214f3d9-5925-4018-930d-1990780f5eaf"),
+			throw new WasmRuntimeException(UUID.fromString("81896be1-ede4-4aa6-b170-d81a431bfe06"),
 										   "I32_lt_s: Value2 type is incorrect");
 		}
 		I32 value2 = (I32) stack.pop();
 
 		if ((stack.peek() instanceof I32) == false) {
-			throw new WasmRuntimeException(UUID.fromString("7fcc3127-70de-4d69-82bf-b9347d3db299"),
+			throw new WasmRuntimeException(UUID.fromString("7fa7aa37-c505-428a-937a-90aa178702df"),
 										   "I32_lt_s: Value1 type is incorrect");
 		}
 		I32 value1 = (I32) stack.pop();
