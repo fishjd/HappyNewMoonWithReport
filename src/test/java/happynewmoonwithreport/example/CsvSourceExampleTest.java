@@ -27,10 +27,7 @@ class CsvSourceExampleTest {
 
 	@DisplayName("Should calculate the correct sum")
 	@ParameterizedTest(name = "{index} => a={0}, b={1}, sum={2}")
-	@CsvSource({
-			"1, 1, 2",
-			"2, 3, 5"
-	})
+	@CsvSource({"1, 1, 2", "2, 3, 5"})
 	void sum(int a, int b, int sum) {
 		assertEquals(sum, a + b);
 	}

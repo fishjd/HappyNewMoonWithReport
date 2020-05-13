@@ -21,11 +21,13 @@ import happynewmoonwithreport.BytesFile;
 /**
  * A unsigned Integer of 7 bits.
  * <p>
- * Stored in the wasm file as a LEB128 variable-length integer, limited to N bits (i.e., the values [0,
+ * Stored in the wasm file as a LEB128 variable-length integer, limited to N bits (i.e., the
+ * values [0,
  * 2^N-1]), represented by at most ceil(N/7) bytes that may contain padding 0x80
  * bytes.
  * <p>
- * Used to read and write to the wasm file. This project tends to use the 'main' integer types I32, I64, U32,
+ * Used to read and write to the wasm file. This project tends to use the 'main' integer types
+ * I32, I64, U32,
  * U64.  The recommend use is to convert to a 'main' type as soon as possible.
  * <p>
  * Usage:
@@ -69,19 +71,19 @@ public final class VarUInt7 extends UInt8 {
 		this.value = value.longValue();
 	}
 
-//    public Integer convert(BytesFile bytesFile) {
-//        Integer cur;
-//        Integer count = 0;
-//        Integer result = 0;
-//
-//        do {
-//            cur = bytesFile.readByte() & 0xff;
-//            result |= (cur & 0x7f) << (count * 7);
-//            count++;
-//        } while (((cur & 0x80) != 0) && count < maxBytes());
-//
-//        return result;
-//    }
+	//    public Integer convert(BytesFile bytesFile) {
+	//        Integer cur;
+	//        Integer count = 0;
+	//        Integer result = 0;
+	//
+	//        do {
+	//            cur = bytesFile.readByte() & 0xff;
+	//            result |= (cur & 0x7f) << (count * 7);
+	//            count++;
+	//        } while (((cur & 0x80) != 0) && count < maxBytes());
+	//
+	//        return result;
+	//    }
 
 	@Override
 	public Integer maxBits() {
@@ -97,8 +99,6 @@ public final class VarUInt7 extends UInt8 {
 
 	@Override
 	public String toString() {
-		return "VarUInt7{" +
-				"value=" + value +
-				"} ";
+		return "VarUInt7{" + "value=" + value + "} ";
 	}
 }

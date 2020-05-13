@@ -21,7 +21,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class NumberHelper {
 
 	public static void assertEqualHex(Long expected, Long result) {
-		assertEquals(new Long(expected), result, "i = " + expected.toString() + " hex = " + Long.toHexString(expected));
+		assertEquals(new Long(expected), result,
+			"i = " + expected.toString() + " hex = " + Long.toHexString(expected));
 	}
 
 }

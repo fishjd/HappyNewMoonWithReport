@@ -49,7 +49,8 @@ import happynewmoonwithreport.type.S32;
  * <p>
  * </li>
  * </ol>
- * Source:  <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-relop" target="_top">
+ * Source:
+ * <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-relop" target="_top">
  * https://webassembly.github.io/spec/core/exec/instructions.html#exec-relop
  * </a>
  */
@@ -73,13 +74,13 @@ public class I32_lt_s {
 		WasmStack<Object> stack = instance.stack();
 		if ((stack.peek() instanceof I32) == false) {
 			throw new WasmRuntimeException(UUID.fromString("81896be1-ede4-4aa6-b170-d81a431bfe06"),
-										   "I32_lt_s: Value2 type is incorrect");
+				"I32_lt_s: Value2 type is incorrect");
 		}
 		I32 value2 = (I32) stack.pop();
 
 		if ((stack.peek() instanceof I32) == false) {
 			throw new WasmRuntimeException(UUID.fromString("7fa7aa37-c505-428a-937a-90aa178702df"),
-										   "I32_lt_s: Value1 type is incorrect");
+				"I32_lt_s: Value1 type is incorrect");
 		}
 		I32 value1 = (I32) stack.pop();
 

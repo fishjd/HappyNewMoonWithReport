@@ -20,7 +20,8 @@ package happynewmoonwithreport;
 import java.util.Map;
 
 /**
- * An extension of java.Enum all entries contain a Key and Value.   Constructors provided for both key and value.
+ * An extension of java.Enum all entries contain a Key and Value.   Constructors provided for
+ * both key and value.
  */
 public class ValueBase implements Validation {
 
@@ -47,7 +48,6 @@ public class ValueBase implements Validation {
 	 * Find the value and set type and value.  Used in constructors.
 	 *
 	 * @param value value
-	 *
 	 * @return the Key.
 	 */
 	protected Integer calcType(String value) {
@@ -69,13 +69,14 @@ public class ValueBase implements Validation {
 	 * Find the value.
 	 *
 	 * @param input what value to find.
-	 *
 	 * @return Value.
 	 */
 	protected String calcValue(Integer input) {
 		String result = mapAll.get(input);
 		if (result == null) {
-			throw new RuntimeException("Type in " + className + " is not valid type = " + type + " hex = 0x" + Integer.toHexString(input));
+			throw new RuntimeException(
+				"Type in " + className + " is not valid type = " + type + " hex = 0x"
+				+ Integer.toHexString(input));
 		}
 		return result;
 	}
@@ -89,8 +90,8 @@ public class ValueBase implements Validation {
 
 	@Override
 	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
+		if (this == o) { return true; }
+		if (o == null || getClass() != o.getClass()) { return false; }
 
 		ValueBase that = (ValueBase) o;
 
@@ -104,10 +105,7 @@ public class ValueBase implements Validation {
 
 	@Override
 	public String toString() {
-		return className + "{" +
-				"type = " + type +
-				", value = " + value +
-				'}';
+		return className + "{" + "type = " + type + ", value = " + value + '}';
 	}
 
 }

@@ -17,9 +17,9 @@
 package happynewmoonwithreport.type;
 
 
-import happynewmoonwithreport.BytesFile;
-
 import java.nio.charset.StandardCharsets;
+
+import happynewmoonwithreport.BytesFile;
 
 /**
  * A String read from the *.wasm file.
@@ -31,7 +31,7 @@ public class WasmString {
 	/**
 	 * Construct using a BytesFile and the length in bytes.
 	 *
-	 * @param payload the input BytesFile.
+	 * @param payload     the input BytesFile.
 	 * @param sizeInBytes size in bytes.
 	 */
 	public WasmString(BytesFile payload, UInt32 sizeInBytes) {
@@ -59,8 +59,8 @@ public class WasmString {
 
 	@Override
 	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
+		if (this == o) { return true; }
+		if (o == null || getClass() != o.getClass()) { return false; }
 
 		WasmString that = (WasmString) o;
 
@@ -74,8 +74,6 @@ public class WasmString {
 
 	@Override
 	public String toString() {
-		return "WasmString{" +
-				"value='" + value + '\'' +
-				'}';
+		return "WasmString{" + "value='" + value + '\'' + '}';
 	}
 }

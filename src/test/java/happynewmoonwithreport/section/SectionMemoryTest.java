@@ -16,16 +16,19 @@
  */
 package happynewmoonwithreport.section;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import happynewmoonwithreport.BytesFile;
 import happynewmoonwithreport.type.MemoryType;
 import happynewmoonwithreport.type.UInt32;
 import happynewmoonwithreport.type.VarUInt1;
 import happynewmoonwithreport.type.WasmVector;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.fail;
 
 
 public class SectionMemoryTest {
@@ -47,10 +50,9 @@ public class SectionMemoryTest {
 	 */
 	@Test
 	public void instantiateAdd32() {
-		byte[] byteAll = {
-				(byte) 0x01,    // count
-				(byte) 0x00,    // has Maximum
-				(byte) 0x01     // minimum
+		byte[] byteAll = {(byte) 0x01,    // count
+			(byte) 0x00,    // has Maximum
+			(byte) 0x01     // minimum
 		};
 		BytesFile payload = new BytesFile(byteAll);
 
@@ -81,11 +83,10 @@ public class SectionMemoryTest {
 	 */
 	@Test
 	public void instantiateHasMax() {
-		byte[] byteAll = {
-				(byte) 0x01,    // count
-				(byte) 0x01,    // has Maximum
-				(byte) 0x03,    // minimum
-				(byte) 0x06     // maximum
+		byte[] byteAll = {(byte) 0x01,    // count
+			(byte) 0x01,    // has Maximum
+			(byte) 0x03,    // minimum
+			(byte) 0x06     // maximum
 		};
 		BytesFile payload = new BytesFile(byteAll);
 

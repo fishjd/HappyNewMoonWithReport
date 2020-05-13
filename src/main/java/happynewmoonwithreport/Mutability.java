@@ -17,9 +17,9 @@
 package happynewmoonwithreport;
 
 
-import happynewmoonwithreport.type.VarUInt1;
-
 import java.util.HashMap;
+
+import happynewmoonwithreport.type.VarUInt1;
 
 /**
  * Represent the Mutability flag.

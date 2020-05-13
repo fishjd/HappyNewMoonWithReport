@@ -190,7 +190,7 @@ public final class ByteUnsigned extends Number implements Comparable<ByteUnsigne
 	 */
 	@Override
 	public int intValue() {
-		return (int) value;
+		return value;
 	}
 
 	/**
@@ -201,7 +201,7 @@ public final class ByteUnsigned extends Number implements Comparable<ByteUnsigne
 	 */
 	@Override
 	public long longValue() {
-		return (long) value;
+		return value;
 	}
 
 	/**
@@ -212,7 +212,7 @@ public final class ByteUnsigned extends Number implements Comparable<ByteUnsigne
 	 */
 	@Override
 	public float floatValue() {
-		return (float) value;
+		return value;
 	}
 
 
@@ -225,9 +225,10 @@ public final class ByteUnsigned extends Number implements Comparable<ByteUnsigne
 	 */
 	@Override
 	public double doubleValue() {
-		return (double) value;
+		return value;
 	}
 
+	@Override
 	public byte byteValue() {
 		return (byte) (value & 0xFF);
 	}
@@ -278,6 +279,7 @@ public final class ByteUnsigned extends Number implements Comparable<ByteUnsigne
 	 * comparison).
 	 * @since 1.2
 	 */
+	@Override
 	public int compareTo(ByteUnsigned anotherByte) {
 		return compare(this.value, anotherByte.value);
 	}
@@ -293,8 +295,7 @@ public final class ByteUnsigned extends Number implements Comparable<ByteUnsigne
 	 */
 	@Override
 	public String toString() {
-		return Integer.toString((int) value) + "(0x" + Integer.toHexString((int) value)
-															  .toUpperCase() + ")";
+		return Integer.toString(value) + "(0x" + Integer.toHexString(value).toUpperCase() + ")";
 	}
 
 	/**
@@ -308,7 +309,7 @@ public final class ByteUnsigned extends Number implements Comparable<ByteUnsigne
 	 * @return a string representation of the value of this object in base {@code radix}.
 	 */
 	public String toString(int radix) {
-		return Integer.toString((int) value, radix);
+		return Integer.toString(value, radix);
 	}
 
 	/**

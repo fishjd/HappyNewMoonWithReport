@@ -17,11 +17,11 @@
 package happynewmoonwithreport.opcode;
 
 
+import java.util.UUID;
+
 import happynewmoonwithreport.WasmInstanceInterface;
 import happynewmoonwithreport.WasmRuntimeException;
 import happynewmoonwithreport.WasmStack;
-
-import java.util.UUID;
 
 /**
  * Drop (Drop) - pop a value off the stack.   The value is discarded.
@@ -29,7 +29,8 @@ import java.util.UUID;
  * <li>Assert: due to validation, a value is on the top of the stack.</li>
  * <li>Pop the value from the stack.</li>
  * </ol>
- * Source:  <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-drop" target="_top">
+ * Source:
+ * <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-drop" target="_top">
  * https://webassembly.github.io/spec/core/exec/instructions.html#exec-drop
  * </a>
  */
@@ -54,7 +55,7 @@ public class Drop {
 		WasmStack<Object> stack = instance.stack();
 		if (stack.empty() == true) {
 			throw new WasmRuntimeException(UUID.fromString("f42f4399-988b-46ce-b73b-4dcdccae576f"),
-					"Stack must have at least one value");
+				"Stack must have at least one value");
 		}
 
 		// 2. Pop the value from the stack

@@ -23,8 +23,10 @@ import happynewmoonwithreport.type.VarUInt32;
 /**
  * The start section declares the start function.
  * <p>
- * If the module has a start node defined, the function it refers should be called by the loader after the instance is
- * initialized, including its Memory and Table though Data and Element sections, and before the exported functions are
+ * If the module has a start node defined, the function it refers should be called by the loader
+ * after the instance is
+ * initialized, including its Memory and Table though Data and Element sections, and before the
+ * exported functions are
  * callable.
  * <p>
  * Source:  <a href="http://webassembly.org/docs/binary-encoding/#start-section" target="_top">
@@ -35,7 +37,8 @@ import happynewmoonwithreport.type.VarUInt32;
  * http://webassembly.org/docs/modules/#module-start-function
  * </a>
  * <p>
- * Source:  <a href="https://webassembly.github.io/spec/core/binary/modules.html#start-section" target="_top">
+ * Source:
+ * <a href="https://webassembly.github.io/spec/core/binary/modules.html#start-section" target="_top">
  * https://webassembly.github.io/spec/core/binary/modules.html#start-section
  * </a>
  */

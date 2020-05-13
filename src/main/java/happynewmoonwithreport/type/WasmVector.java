@@ -17,24 +17,28 @@
 package happynewmoonwithreport.type;
 
 
-import happynewmoonwithreport.WasmRuntimeException;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.UUID;
 
+import happynewmoonwithreport.WasmRuntimeException;
+
 /**
- * Vectors are bounded sequences of the form A^n  (or A^*), where the A can either be values or complex constructions. A
+ * Vectors are bounded sequences of the form A^n  (or A^*), where the A can either be values or
+ * complex constructions. A
  * vector can have at most (2^32)-1 elements.
  * <p>
  * vec(A)::=An(if n &lt; (2^32))
  * <p>
- * Source: <a href="https://webassembly.github.io/spec/core/syntax/conventions.html#vectors" target="_top" > Vectors</a>
+ * Source:
+ * <a href="https://webassembly.github.io/spec/core/syntax/conventions.html#vectors" target="_top" > Vectors</a>
  * <p>
  * Note this implementation can only have 2^31 (Integer.MAX_VALUE) elements.
- * Any attempt to store a larger index will throw an Exception.  The wasm documents specify (2^32)-1  values.
+ * Any attempt to store a larger index will throw an Exception.  The wasm documents specify
+ * (2^32)-1  values.
  *
- * @param <Type> may be any Object.   Known to be used with FunctionType, WasmFunction, TableType, ....
+ * @param <Type> may be any Object.   Known to be used with FunctionType, WasmFunction,
+ *               TableType, ....
  */
 public class WasmVector<Type> extends ArrayList<Type> {
 
@@ -56,9 +60,7 @@ public class WasmVector<Type> extends ArrayList<Type> {
 	 * Find the <i>Type</i> you are looking for.
 	 *
 	 * @param needle the one to find.
-	 *
 	 * @return the one you are looking for.
-	 *
 	 * @throws WasmRuntimeException if not found.
 	 */
 	public Type get(Type needle) {
@@ -70,7 +72,7 @@ public class WasmVector<Type> extends ArrayList<Type> {
 			}
 		}
 		throw new WasmRuntimeException(UUID.fromString("ea356805-d4d7-4eaa-bd50-2b81ec168a6c"),
-				"Item %s was not found", needle);
+			"Item %s was not found", needle);
 	}
 
 	public Boolean exists(DataTypeNumber index) {
@@ -87,7 +89,7 @@ public class WasmVector<Type> extends ArrayList<Type> {
 	private void checkIfTooLarge(DataTypeNumber index) {
 		if (index.isBoundByInteger() == false) {
 			throw new WasmRuntimeException(UUID.fromString("86f2807d-ab1b-42c0-8342-86407c615e91"),
-					"Value to Large for Index.  Index = " + index.longValue());
+				"Value to Large for Index.  Index = " + index.longValue());
 		}
 	}
 

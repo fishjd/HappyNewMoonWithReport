@@ -113,7 +113,7 @@ public class I32_load16_u extends LoadBase {
 	}
 
 	public I32_load16_u(MemoryArgument memoryArgument, WasmFrame frame, WasmStore store,
-		WasmStack stack) {
+						WasmStack stack) {
 		this();
 		this.memoryArgument = memoryArgument;
 		this.frame = frame;

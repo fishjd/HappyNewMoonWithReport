@@ -19,13 +19,16 @@ package happynewmoonwithreport;
 import happynewmoonwithreport.type.WasmVector;
 
 /**
- * Labels carry an argument arity n and their associated branch target, which is expressed syntactically as an
+ * Labels carry an argument arity n and their associated branch target, which is expressed
+ * syntactically as an
  * instruction sequence:
  * <p>
- * Intuitively, instr∗ is the continuation to execute when the branch is taken, in place of the original control
+ * Intuitively, instr∗ is the continuation to execute when the branch is taken, in place of the
+ * original control
  * construct.
  * <p>
- * Source:  <a href="https://webassembly.github.io/spec/core/exec/runtime.html#syntax-label" target="_top">
+ * Source:
+ * <a href="https://webassembly.github.io/spec/core/exec/runtime.html#syntax-label" target="_top">
  * https://webassembly.github.io/spec/core/exec/runtime.html#syntax-label
  * </a>
  */

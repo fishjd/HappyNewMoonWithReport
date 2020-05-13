@@ -56,7 +56,8 @@ public class U64Test {
 
 
 	private void assertEqualHex(Long expected, Long result) {
-		assertEquals("i = " + expected.toString() + " hex = " + Long.toHexString(expected), new Long(expected), result);
+		assertEquals("i = " + expected.toString() + " hex = " + Long.toHexString(expected),
+			new Long(expected), result);
 	}
 
 

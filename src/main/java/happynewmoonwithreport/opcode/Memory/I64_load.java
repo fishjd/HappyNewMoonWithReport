@@ -109,13 +109,12 @@ import happynewmoonwithreport.type.U32;
 public class I64_load extends LoadBase {
 
 
-
 	private I64_load() {
 		super();
 	}
 
 	public I64_load(MemoryArgument memoryArgument, WasmFrame frame, WasmStore store,
-		WasmStack stack) {
+					WasmStack stack) {
 		this();
 		this.memoryArgument = memoryArgument;
 		this.frame = frame;
@@ -132,7 +131,7 @@ public class I64_load extends LoadBase {
 	/* package-private */
 	@Override
 	ByteUnsigned[] getBytesFromMemory(MemoryType mem, U32 ea) {
-		ByteUnsigned[] bytes = new ByteUnsigned[getBitWithOfN().integerValue()/4];
+		ByteUnsigned[] bytes = new ByteUnsigned[getBitWithOfN().integerValue() / 4];
 		Integer eaIntegerValue = ea.integerValue();
 		bytes[0] = mem.get(eaIntegerValue + 0);
 		bytes[1] = mem.get(eaIntegerValue + 1);

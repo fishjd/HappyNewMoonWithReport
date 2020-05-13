@@ -31,7 +31,8 @@ import happynewmoonwithreport.type.I32;
  * </li>
  * </ol>
  * <p>
- * Source:  <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-const" target="_top">
+ * Source:
+ * <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-const" target="_top">
  * https://webassembly.github.io/spec/core/exec/instructions.html#exec-const
  * </a>
  */
@@ -49,7 +50,8 @@ public class ConstantInt32 {
 
 	/**
 	 * Execute the opcode.
-	 * @param value  value to push on stack.
+	 *
+	 * @param value value to push on stack.
 	 */
 	public void execute(I32 value) {
 		instance.stack().push(value);

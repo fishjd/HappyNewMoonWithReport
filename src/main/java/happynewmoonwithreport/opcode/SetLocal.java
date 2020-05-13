@@ -16,13 +16,13 @@
  */
 package happynewmoonwithreport.opcode;
 
+import java.util.UUID;
+
 import happynewmoonwithreport.WasmFrame;
 import happynewmoonwithreport.WasmRuntimeException;
 import happynewmoonwithreport.WasmStack;
 import happynewmoonwithreport.type.DataTypeNumber;
 import happynewmoonwithreport.type.I32;
-
-import java.util.UUID;
 
 /**
  * Set Local - write a local variable or parameter
@@ -40,11 +40,13 @@ import java.util.UUID;
  * </li>
  * </ol>
  * <p>
- * Source:  <a href="http://webassembly.org/docs/binary-encoding/#variable-access-described-here" target="_top">
+ * Source:
+ * <a href="http://webassembly.org/docs/binary-encoding/#variable-access-described-here" target="_top">
  * http://webassembly.org/docs/binary-encoding/#variable-access-described-here
  * </a>
  * <p>
- * Source:  <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-set-local" target="_top">
+ * Source:
+ * <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-set-local" target="_top">
  * https://webassembly.github.io/spec/core/exec/instructions.html#exec-set-local
  * </a>
  */
@@ -74,13 +76,13 @@ public class SetLocal {
 		// 2 validate.
 		if (frame.localAll().exists(index) == false) {
 			throw new WasmRuntimeException(UUID.fromString("87eaa036-eaba-4740-93b6-590230b4ba49"),
-					"SetLocal: Local variable " + index.integerValue() + " does not exist");
+				"SetLocal: Local variable " + index.integerValue() + " does not exist");
 		}
 
 		// 3 validate
 		if (stack.empty()) {
 			throw new WasmRuntimeException(UUID.fromString("5f1559de-055f-495f-b793-c210fd049e52"),
-					"SetLocal: No value on the stack");
+				"SetLocal: No value on the stack");
 		}
 		// 4. value
 		DataTypeNumber value = (DataTypeNumber) stack.pop();

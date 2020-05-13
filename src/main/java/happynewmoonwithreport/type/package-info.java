@@ -16,6 +16,7 @@
  */
 
 /**
- * The Web Assembly Types: Numeric signed, Numeric unsigned, other Non-numeric such as String, and Vector.
+ * The Web Assembly Types: Numeric signed, Numeric unsigned, other Non-numeric such as String,
+ * and Vector.
  */
 package happynewmoonwithreport.type;

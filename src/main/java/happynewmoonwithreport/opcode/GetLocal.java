@@ -16,13 +16,13 @@
  */
 package happynewmoonwithreport.opcode;
 
+import java.util.UUID;
+
 import happynewmoonwithreport.WasmFrame;
 import happynewmoonwithreport.WasmRuntimeException;
 import happynewmoonwithreport.WasmStack;
 import happynewmoonwithreport.type.DataTypeNumber;
 import happynewmoonwithreport.type.I32;
-
-import java.util.UUID;
 
 /**
  * Get Local Opcode
@@ -40,11 +40,13 @@ import java.util.UUID;
  * Push the value val to the stack.
  * </ol>
  * <p>
- * Source:  <a href="https://webassembly.github.io/spec/core/exec/instructions.html#variable-instructions" target="_top">
+ * Source:
+ * <a href="https://webassembly.github.io/spec/core/exec/instructions.html#variable-instructions" target="_top">
  * https://webassembly.github.io/spec/core/exec/instructions.html#variable-instructions
  * </a>
  * <p>
- * Source:  <a href="http://webassembly.org/docs/binary-encoding/#variable-access-described-here" target="_top">
+ * Source:
+ * <a href="http://webassembly.org/docs/binary-encoding/#variable-access-described-here" target="_top">
  * http://webassembly.org/docs/binary-encoding/#variable-access-described-here
  * </a>
  */
@@ -74,7 +76,7 @@ public class GetLocal {
 		// 2 validate.
 		if ((index.integerValue() < frame.localAll().size()) == false) {
 			throw new WasmRuntimeException(UUID.fromString("dcbf3c1d-334a-451d-9010-e32bdc876e9d"),
-					"getLocal: Local variable " + index.integerValue() + " does not exist");
+				"getLocal: Local variable " + index.integerValue() + " does not exist");
 		}
 
 		// 3. value

@@ -74,13 +74,13 @@ public class I32_ge_s {
 		WasmStack<Object> stack = instance.stack();
 		if ((stack.peek() instanceof I32) == false) {
 			throw new WasmRuntimeException(UUID.fromString("41ab1a4c-050e-4283-8844-d0b5894a8ce3"),
-										   "I32_ge_s: Value2 type is incorrect");
+				"I32_ge_s: Value2 type is incorrect");
 		}
 		I32 value2 = (I32) stack.pop();
 
 		if ((stack.peek() instanceof I32) == false) {
 			throw new WasmRuntimeException(UUID.fromString("9422cac7-b713-4761-8692-1746cfe4c94a"),
-										   "I32_ge_s: Value1 type is incorrect");
+				"I32_ge_s: Value1 type is incorrect");
 		}
 		I32 value1 = (I32) stack.pop();
 

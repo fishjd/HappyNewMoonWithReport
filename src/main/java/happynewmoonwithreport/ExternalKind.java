@@ -16,9 +16,9 @@
  */
 package happynewmoonwithreport;
 
-import happynewmoonwithreport.type.UInt8;
-
 import java.util.HashMap;
+
+import happynewmoonwithreport.type.UInt8;
 
 /**
  * A single-byte unsigned integer indicating the kind of definition being imported or defined:

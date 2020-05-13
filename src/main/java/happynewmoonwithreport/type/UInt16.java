@@ -77,9 +77,7 @@ public class UInt16 extends U32 {
 
 	@Override
 	public String toString() {
-		return "UInt16{" +
-				"value=" + value +
-				"} ";
+		return "UInt16{" + "value=" + value + "} ";
 	}
 
 }

@@ -45,7 +45,7 @@ public abstract class LoadBase {
 	}
 
 	/* package_private */ LoadBase(MemoryArgument memoryArgument, WasmFrame frame, WasmStore store,
-		WasmStack stack) {
+								   WasmStack stack) {
 		this();
 		this.memoryArgument = memoryArgument;
 		this.frame = frame;
@@ -80,7 +80,7 @@ public abstract class LoadBase {
 		final Boolean memoryExists = frame.getModule().memoryExists(memoryIndex);
 		if (memoryExists == false) {
 			throw new WasmRuntimeException(UUID.fromString("35030ef5-2f4a-496c-8e67-06245e05d56d"),
-										   "Memory %s does not exists", memoryIndex);
+				"Memory %s does not exists", memoryIndex);
 		}
 
 		// 3. Let a be the memory address F.module.memaddrs[0].
@@ -90,7 +90,7 @@ public abstract class LoadBase {
 		final Boolean memoryTypeExists = store.getMemoryAll().contains(a);
 		if (memoryTypeExists == false) {
 			throw new WasmRuntimeException(UUID.fromString("3e1eac11-9acd-46e4-ab62-08e34f3e3f2b"),
-										   "Memory type %s does not exists", a);
+				"Memory type %s does not exists", a);
 
 		}
 
@@ -100,9 +100,8 @@ public abstract class LoadBase {
 		// 6. Assert: due to validation, a value of value type i32 is on the top of the stack.
 		if ((stack.peek() instanceof I32) == false) {
 			throw new WasmRuntimeException(UUID.fromString("edba1731-664f-4756-9374-1365e8b19a7a"),
-										   "I32_load: Step 6: Value type  on stack is incorrect.  "
-											   + "Expected I32 but type was " + stack.peek()
-																					 .toString());
+				"I32_load: Step 6: Value type  on stack is incorrect.  "
+				+ "Expected I32 but type was " + stack.peek().toString());
 		}
 
 		// 7. Pop the value i32.const i from the stack.
@@ -126,7 +125,7 @@ public abstract class LoadBase {
 				throw new WasmRuntimeException(
 					UUID.fromString("518fe904-05b5-492f-9a78-d89b30bb6551"),
 					"I32_load: Step 10: Trap.  Address  + size is too large. length = " + length
-						+ " memoryLength = " + memLength);
+					+ " memoryLength = " + memLength);
 			}
 		}
 
@@ -156,21 +155,23 @@ public abstract class LoadBase {
 	 * I64_load8_s   the N value is 8.
 	 * I32_load1616_u the N value is 16
 	 * </pre>
-	 * @return  number of bits in N.
+	 *
+	 * @return number of bits in N.
 	 */
 	abstract U32 getBitWithOfN();
 
 	/**
 	 * Get the bytes from memory.
 	 *
-	 * @param mem  The memory to get the bytes from.
-	 * @param ea The effective address.  Where is memory are the bytes stored.
-	 * @return  array of unsigned bytes.  Length = N/8.
+	 * @param mem The memory to get the bytes from.
+	 * @param ea  The effective address.  Where is memory are the bytes stored.
+	 * @return array of unsigned bytes.  Length = N/8.
 	 */
 	abstract ByteUnsigned[] getBytesFromMemory(MemoryType mem, U32 ea);
 
 	/**
 	 * Convert the bytes from getBytesFromMemory to an Integer.
+	 *
 	 * @param bytes bytes to convert.   Length = N/8.
 	 * @return the bytes converted to an Integer.
 	 */
