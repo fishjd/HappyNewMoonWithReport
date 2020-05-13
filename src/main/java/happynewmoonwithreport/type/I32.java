@@ -141,6 +141,17 @@ public class I32 extends IntWasm {
 		return byteAll;
 	}
 
+	/**
+	 * Convert to I64.  Interpreting the 32 bit value as signed.
+	 *
+	 * @return
+	 */
+	public I64 toI64Signed() {
+		long resultLong = signExtend32To64(value.longValue());
+		I64 result = new I64(resultLong);
+		return result;
+	}
+
 	@Override
 	public Integer maxBits() {
 		return 32;

@@ -17,11 +17,20 @@
 
 package happynewmoonwithreport.opcode.convert;
 
+import java.util.UUID;
+
+import happynewmoonwithreport.WasmInstanceInterface;
+import happynewmoonwithreport.WasmRuntimeException;
+import happynewmoonwithreport.WasmStack;
+import happynewmoonwithreport.type.I32;
+import happynewmoonwithreport.type.I64;
+
 /**
  * <h1>I64_extend_I32</h1>
  * <p>
  * Extend an I32 to an I64
  * </p>
+ * <p>Note the notes below are the same for all extend operators.</p>
  * <h2>Source:</h2>
  * <p>
  * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-extend-s"
@@ -41,24 +50,60 @@ package happynewmoonwithreport.opcode.convert;
  * <p>
  * t2.cvtop_t1_sx?
  * </p>
- *	<ol>
- *		<li>Assert: due to validation, a value of value type t1 is on the top of the stack.</li>
- * 		<li>Pop the value t1.const c1 from the stack.</li>
- * 		<li>If cvtopsx?t1,t2(c1) is defined:
- * 				<ol type="a">
- * 					<li>Let c2 be a possible result of computing cvtopsx?t1,t2(c1).</li>
- * 					<li>Push the value t2.const c2 to the stack.</li>
- * 				</ol>
- * 		</li>
- * 		<li>Else:
- *			<ol type="a">
- *   			<li>Trap.</li>
- *   		</ol>
- *		</li>
- *	</ol>
+ * <ol>
+ * 	<li>Assert: due to validation, a value of value type t1 is on the top of the stack.</li>
+ * 	<li>Pop the value t1.const c1 from the stack.</li>
+ * 	<li>If cvtopsx?t1,t2(c1) is defined:
+ * 			<ol type="a">
+ * 				<li>Let c2 be a possible result of computing cvtopsx?t1,t2(c1).</li>
+ * 				<li>Push the value t2.const c2 to the stack.</li>
+ * 			</ol>
+ * 	</li>
+ * 	<li>Else:
+ * 		<ol type="a">
+ *  			<li>Trap.</li>
+ *  		</ol>
+ * 	</li>
+ * </ol>
  */
 
 public class I64_extend_I32 {
+	private final String opCodeName = "I64_extend_I32";
+	private final String t1Type = "I32";
+	private final String t2Type = "I64";
 
+	private WasmInstanceInterface instance;
 
+	private I64_extend_I32() {
+		super();
+	}
+
+	public I64_extend_I32(WasmInstanceInterface instance) {
+		this();
+		this.instance = instance;
+	}
+
+	/**
+	 * Execute the opcode.
+	 */
+	public void execute() {
+		WasmStack<Object> stack = instance.stack();
+
+		// Assert: due to validation, a value of value type t1 is on the top of the stack.
+		if ((stack.peek() instanceof I32) == false) {
+			throw new WasmRuntimeException(UUID.fromString("608e993a-309c-4e7a-98a8-ab8fc58194e3"),
+				opCodeName + ": Value type is incorrect. Value should be of type " + t1Type
+			);
+		}
+		// Pop the value t1.const c1 from the stack.
+		I32 value1 = (I32) stack.pop();
+
+		//Let c2 be a possible result of computing cvtopsx?t1,t2(c1).
+		I64 c2 = value1.toI64Signed();
+
+		// Push the value t2.const c2 to the stack.
+		stack.push(c2);
+
+		// No need to trap as I32 may always be converted to I64.
+	}
 }
