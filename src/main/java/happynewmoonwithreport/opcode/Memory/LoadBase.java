@@ -100,8 +100,8 @@ public abstract class LoadBase {
 		// 6. Assert: due to validation, a value of value type i32 is on the top of the stack.
 		if ((stack.peek() instanceof I32) == false) {
 			throw new WasmRuntimeException(UUID.fromString("edba1731-664f-4756-9374-1365e8b19a7a"),
-				"I32_load: Step 6: Value type  on stack is incorrect.  " +
-				"Expected I32 but type was " + stack.peek().toString());
+				"I32_load: Step 6: Value type  on stack is incorrect.  "
+				+ "Expected I32 but type was " + stack.peek().toString());
 		}
 
 		// 7. Pop the value i32.const i from the stack.
@@ -124,8 +124,8 @@ public abstract class LoadBase {
 			if (length > memLength) {
 				throw new WasmRuntimeException(
 					UUID.fromString("518fe904-05b5-492f-9a78-d89b30bb6551"),
-					"I32_load: Step 10: Trap.  Address  + size is too large. length = " + length +
-					" memoryLength = " + memLength);
+					"I32_load: Step 10: Trap.  Address  + size is too large. length = " + length
+					+ " memoryLength = " + memLength);
 			}
 		}
 

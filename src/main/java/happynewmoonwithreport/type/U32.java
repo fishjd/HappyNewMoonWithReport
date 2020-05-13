@@ -43,8 +43,8 @@ public class U32 extends I32 {
 		this();
 		if (value < 0) {
 			throw new WasmRuntimeException(UUID.fromString("6e4ec5d0-9778-462a-a705-1cb21809f687"),
-				"Value may not be less than zero. value = " + value + " hex = 0x" +
-				Long.toHexString(value));
+				"Value may not be less than zero. value = " + value + " hex = 0x"
+				+ Long.toHexString(value));
 		}
 		this.value = value;
 	}

@@ -117,8 +117,8 @@ public class ElementType {
 		value = mapAll.get(input);
 		if (value == null) {
 			throw new RuntimeException(
-				"type in ElementType is not valid type = " + type + " hex = 0x" +
-				Integer.toHexString(input));
+				"type in ElementType is not valid type = " + type + " hex = 0x"
+				+ Integer.toHexString(input));
 		}
 
 	}

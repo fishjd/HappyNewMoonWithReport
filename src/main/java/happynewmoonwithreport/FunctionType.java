@@ -162,8 +162,8 @@ public class FunctionType implements Validation {
 
 	@Override
 	public String toString() {
-		return "FunctionType{" + "form=" + form + ", paramCount=" + paramCount + ", paramTypeAll" +
-			   "=" + paramTypeAll + ", returnCount=" + returnCount + ", returnTypeAll=" +
-			   returnTypeAll + '}';
+		return "FunctionType{" + "form=" + form + ", paramCount=" + paramCount + ", paramTypeAll"
+			   + "=" + paramTypeAll + ", returnCount=" + returnCount + ", returnTypeAll="
+			   + returnTypeAll + '}';
 	}
 }

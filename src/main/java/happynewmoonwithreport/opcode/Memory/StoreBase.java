@@ -202,9 +202,9 @@ public abstract class StoreBase {
 			// I'm not sure using 'getClass()' is the best way to validate the type of the object
 			// on the stack.
 			throw new WasmRuntimeException(UUID.fromString("4302d8c6-79cb-40df-a776-516b5e1e3f9d"),
-				"I32_Store: Step 6: Value type on stack is incorrect.  " + "Expected " +
-				getExpectedType().getClass().toString() + " but type was " +
-				stack.peek().toString());
+				"I32_Store: Step 6: Value type on stack is incorrect.  " + "Expected "
+				+ getExpectedType().getClass().toString() + " but type was " + stack.peek()
+					.toString());
 		}
 
 		// 7. Pop the value t.const c from the stack
@@ -213,8 +213,8 @@ public abstract class StoreBase {
 		// 8. Assert: due to validation, a value of value type I32 is on the top of the stack.
 		if ((stack.peek() instanceof I32) == false) {
 			throw new WasmRuntimeException(UUID.fromString("09a2e693-ea94-4040-8e53-02f4cf54cdb6"),
-				"I32_Store: Step 8: Value type on stack is incorrect.  " +
-				"Expected I32 but type was " + stack.peek().toString());
+				"I32_Store: Step 8: Value type on stack is incorrect.  "
+				+ "Expected I32 but type was " + stack.peek().toString());
 		}
 
 		// 9. Pop the value t.const i from the stack
@@ -241,8 +241,8 @@ public abstract class StoreBase {
 			if (memLength < length) {
 				throw new WasmRuntimeException(
 					UUID.fromString("8486a6d2-31b4-4035-bf27-1d76739bf309"),
-					"I32_Store: Step12: Trap.  Address  + size is too large. length = " + length +
-					" memoryLength = " + memLength);
+					"I32_Store: Step12: Trap.  Address  + size is too large. length = " + length
+					+ " memoryLength = " + memLength);
 			}
 		}
 

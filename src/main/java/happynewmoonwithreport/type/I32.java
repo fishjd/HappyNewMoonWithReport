@@ -132,8 +132,8 @@ public class I32 extends IntWasm {
 			default: {
 				throw new WasmRuntimeException(
 					UUID.fromString("f8d78ad2-67ed-441f-a327-6df48f2afca7"),
-					"I32 Constructor Illegal value in length.  Valid values are 8, 16, 32.    " +
-					"Length =  " + length);
+					"I32 Constructor Illegal value in length.  Valid values are 8, 16, 32.    "
+					+ "Length =  " + length);
 			}
 		}
 

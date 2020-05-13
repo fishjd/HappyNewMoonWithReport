@@ -39,8 +39,8 @@ public class U64 extends I64 {
 	public U64(Long value) {
 		if (isBoundByLong(value) == false) {
 			throw new WasmRuntimeException(UUID.fromString("1c282299-6b1b-4d02-9e81-a29c279840d3"),
-				"Value too large.  Value = " + value + "Only values from 0 to " + Long.MAX_VALUE +
-				" are currently supported.");
+				"Value too large.  Value = " + value + "Only values from 0 to " + Long.MAX_VALUE
+				+ " are currently supported.");
 		}
 		this.value = value;
 	}

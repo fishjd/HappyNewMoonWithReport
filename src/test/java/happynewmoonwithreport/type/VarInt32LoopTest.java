@@ -91,8 +91,8 @@ public class VarInt32LoopTest {
 			if (expected[i] != actual[i]) {
 				equal = false;
 				throw new AssertionError(
-					"Array not equals" + "expected " + expected.toString() + " actual = " +
-					actual.toString());
+					"Array not equals" + "expected " + expected.toString() + " actual = "
+					+ actual.toString());
 			}
 		}
 	}

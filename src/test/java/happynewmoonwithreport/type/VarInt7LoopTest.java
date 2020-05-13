@@ -87,8 +87,8 @@ public class VarInt7LoopTest {
 			if (expected[i] != actual[i]) {
 				equal = false;
 				throw new AssertionError(
-					"Array not equals" + "expected " + expected.toString() + " actual = " +
-					actual.toString());
+					"Array not equals" + "expected " + expected.toString() + " actual = "
+					+ actual.toString());
 			}
 		}
 	}

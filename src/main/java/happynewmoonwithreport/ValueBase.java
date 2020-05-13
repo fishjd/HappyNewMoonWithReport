@@ -75,8 +75,8 @@ public class ValueBase implements Validation {
 		String result = mapAll.get(input);
 		if (result == null) {
 			throw new RuntimeException(
-				"Type in " + className + " is not valid type = " + type + " hex = 0x" +
-				Integer.toHexString(input));
+				"Type in " + className + " is not valid type = " + type + " hex = 0x"
+				+ Integer.toHexString(input));
 		}
 		return result;
 	}

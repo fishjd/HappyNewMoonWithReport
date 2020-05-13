@@ -165,8 +165,8 @@ public class WasmModule {
 			Boolean valid = globalVariable.valid();
 			if (valid == false) {
 				Logger.getLogger(WasmModule.class.getName())
-					.log(Level.SEVERE, "Global Variable not valid! Global Variable  = " +
-									   globalVariable.toString());
+					.log(Level.SEVERE, "Global Variable not valid! Global Variable  = "
+									   + globalVariable.toString());
 			}
 			isValid &= valid;
 		}

@@ -89,8 +89,8 @@ public class Select {
 		String val_2_type = val_2.getClass().getTypeName();
 		if (val_1_type.equals(val_2_type) == false) {
 			throw new WasmRuntimeException(UUID.fromString("bd046bf9-6aea-42a4-b1bf-31e74d64f95c"),
-				"The two types must be the equals.  type of value 1 = " + val_1_type +
-				" type of val2 = " + val_2_type);
+				"The two types must be the equals.  type of value 1 = " + val_1_type
+				+ " type of val2 = " + val_2_type);
 		}
 
 		// 4 Pop the value val2 from the stack.
