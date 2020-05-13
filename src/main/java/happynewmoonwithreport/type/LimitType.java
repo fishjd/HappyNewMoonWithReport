@@ -74,7 +74,7 @@ public class LimitType implements Validation {
 	public LimitType(U32 hasMaximum, U32 minimum) {
 		this();
 		if (hasMaximum.integerValue() != 0) {
-			throw new WasmRuntimeException(UUID.fromString("123ceab2-9d6f-44b6-83ca-49eee187726b"), "Has Maximum must be zero.");
+			throw new WasmRuntimeException(UUID.fromString("eef166ee-db1f-47ff-bacf-5125195b3dca"), "Has Maximum must be zero.");
 		}
 		this.hasMaximum = new UInt8(hasMaximum);
 		this.minimum = minimum;

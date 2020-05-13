@@ -28,7 +28,7 @@ import happynewmoonwithreport.type.MemoryType;
 import happynewmoonwithreport.type.U32;
 
 /**
- * <h1>i32_store</h1> Store an i32 value from the stack to memory.
+ * <h1>i64_store32</h1>Store an 32 bit value from the stack to memory in 64 bits.
  * <p>
  * Memory Instructions<br>
  * <p>

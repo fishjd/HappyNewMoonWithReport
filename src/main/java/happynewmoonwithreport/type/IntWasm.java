@@ -90,7 +90,8 @@ public abstract class IntWasm implements DataTypeNumber {
 	 *
 	 * @param bInput an Unsigned byte of length 8
 	 * @return an int of length 32.
-	 */	public static int signExtend8To32(ByteUnsigned bInput) {
+	 */
+	public static int signExtend8To32(ByteUnsigned bInput) {
 		int result;
 		int input = bInput.intValue();
 
@@ -103,6 +104,7 @@ public abstract class IntWasm implements DataTypeNumber {
 
 		return result;
 	}
+
 	/**
 	 * Sign extend an two bytes number to an integer.
 	 * <br>
@@ -186,7 +188,7 @@ public abstract class IntWasm implements DataTypeNumber {
 		long input = bInput.longValue();
 
 		// clear all bytes except byte 0
-		input = 0x0000_0000_0000_00FF & input;
+		input = 0x0000_0000_0000_00FFL & input;
 
 		long signBit = 1 << (8 - 1);
 		result = (input ^ signBit);
@@ -232,7 +234,7 @@ public abstract class IntWasm implements DataTypeNumber {
 		long result;
 
 		// clear all bytes except bytes 0 & 1
-		input = 0x0000_0000_0000_FFFF & input;
+		input = 0x0000_0000_0000_FFFFL & input;
 
 		long signBit = 1 << (16 - 1);
 		result = (input ^ signBit);
@@ -277,8 +279,8 @@ public abstract class IntWasm implements DataTypeNumber {
 	public static long signExtend32To64(Long input) {
 		long result;
 
-		// clear all bytes except bytes 0 - 4
-		input = 0x0000_0000_FFFF_FFFF & input;
+		// clear all bytes except bytes 0 - 8
+		input = 0x0000_0000_FFFF_FFFFL & input;
 
 		long signBit = 1 << (32 - 1);
 		result = (input ^ signBit);

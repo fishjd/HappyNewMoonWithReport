@@ -43,6 +43,15 @@ public class I64 extends IntWasm {
 		this.value = value.longValue();
 	}
 
+	/**
+	 * Create a I64 given an array of bytes.
+	 *
+	 * @param byteAll an Array of bytes.  <b>Little Endian</b>
+	 *                <p>
+	 *                byte[0]  - Most significant byte
+	 *                <p>
+	 *                byte[7] - Least significant byte
+	 */
 	public I64(ByteUnsigned[] byteAll) {
 		this();
 		value = 0L;
@@ -60,7 +69,12 @@ public class I64 extends IntWasm {
 	 * Create an I64 using a Byte array, length, and sign extension.
 	 *
 	 * @param byteAll       an array of unsigned bytes.  Little Endian.
-	 * @param length        length
+	 * @param length        the number of bits to interpret.   Valid values 8, 16, 32.  Use only
+	 *                      the  &gt;length&lt; bits. The unused bits are ignored.
+	 *                      <p>
+	 *                      byte[0]  - Most significant byte
+	 *                      <p>
+	 *                      byte[7] - Least significant byte
 	 * @param signExtension is this a signed value?  True = signed.
 	 */
 	public I64(ByteUnsigned[] byteAll, Integer length, Boolean signExtension) {
@@ -100,29 +114,34 @@ public class I64 extends IntWasm {
 			}
 			default: {
 				throw new WasmRuntimeException(
-					UUID.fromString("f8d78ad2-67ed-441f-a327-6df48f2afca7"),
+					UUID.fromString("15ffb37c-ad38-4f03-8499-a77d87ba83b1"),
 					"I32 Constructor Illegal value in length.  Valid values are 8, 16, 32."
-						+ "Length =  " + length);
+						+ "Length =  " + length
+				);
 			}
 		}
 
 	}
 
 	/**
-	 * Get an array of the bytes.  Big Endian.
+	 * Get an array of the bytes.  Little Endian.
 	 *
-	 * @return array of bytes.
+	 * @return array of bytes.  Size of array is 8.
+	 * <p>
+	 * byte[0]  - Most significant byte
+	 * <p>
+	 * byte[7] - Least significant byte
 	 */
 	public ByteUnsigned[] getBytes() {
 		ByteUnsigned[] byteAll = new ByteUnsigned[8];
-		byteAll[7] = new ByteUnsigned((value >>> 0) & 0x0000_00FF);
+		byteAll[7] = new ByteUnsigned((value >>> 0) & 0x0000_00FF);  // Least Significant Byte
 		byteAll[6] = new ByteUnsigned((value >>> 8) & 0x0000_00FF);
 		byteAll[5] = new ByteUnsigned((value >>> 16) & 0x0000_00FF);
 		byteAll[4] = new ByteUnsigned((value >>> 24) & 0x0000_00FF);
 		byteAll[3] = new ByteUnsigned((value >>> 32) & 0x0000_00FF);
 		byteAll[2] = new ByteUnsigned((value >>> 40) & 0x0000_00FF);
 		byteAll[1] = new ByteUnsigned((value >>> 48) & 0x0000_00FF);
-		byteAll[0] = new ByteUnsigned((value >>> 56) & 0x0000_00FF);
+		byteAll[0] = new ByteUnsigned((value >>> 56) & 0x0000_00FF);  // Most Significant Byte
 		return byteAll;
 	}
 

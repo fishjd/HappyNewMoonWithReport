@@ -231,7 +231,7 @@ Data Section:  To Do
 - [ ] f32.trunc_u/f32 0xA9
 - [ ] f32.trunc_s/f64 0xAA
 - [ ] f32.trunc_u/f64 0xAB
-- [ ] i64.extend_s/i32 0xAC
+- [x] i64.extend_s/i32 0xAC
 - [ ] i64.extend_u/i32 0xAD
 - [ ] i64.trunc_s/f32 0xAE
 - [ ] i64.trunc_u/f32 0xAF
