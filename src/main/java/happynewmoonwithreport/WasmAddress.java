@@ -16,27 +16,32 @@
  */
 package happynewmoonwithreport;
 
-import happynewmoonwithreport.type.I32;
-
 import java.util.UUID;
 
+import happynewmoonwithreport.type.I32;
+
 /**
- * Function instances, table instances, memory instances, and global instances in the store are referenced with
+ * Function instances, table instances, memory instances, and global instances in the store are
+ * referenced with
  * abstract addresses. These are simply indices into the respective store component.
  * <p>
  * Note:
  * <p>
- * Addresses are dynamic, globally unique references to runtime objects, in contrast to indices, which are static,
+ * Addresses are dynamic, globally unique references to runtime objects, in contrast to indices,
+ * which are static,
  * module-local references to their original definitions. A memory address memaddr
  * <p>
- * denotes the abstract address of a memory instance in the store, not an offset inside a memory instance.
+ * denotes the abstract address of a memory instance in the store, not an offset inside a memory
+ * instance.
  * <p>
- * There is no specific limit on the number of allocations of store objects, hence logical addresses can be arbitrarily
+ * There is no specific limit on the number of allocations of store objects, hence logical
+ * addresses can be arbitrarily
  * large natural numbers.
  * <p>
  * This class is just the single Integer.  Limited in range from zero to Integer.MAX_VALUE.
  * <p>
- * Source:  <a href="https://webassembly.github.io/spec/core/exec/runtime.html#addresses" target="_top">
+ * Source:
+ * <a href="https://webassembly.github.io/spec/core/exec/runtime.html#addresses" target="_top">
  * https://webassembly.github.io/spec/core/exec/runtime.html#addresses
  * </a>
  */
@@ -50,7 +55,8 @@ public class WasmAddress {
 	public WasmAddress(Integer address) {
 		this();
 		if (address < 0) {
-			throw new WasmRuntimeException(UUID.fromString("bfc55b11-467b-4a66-a8e7-70c02432c97a"), "Address may not be less than zero. Address = %d", address);
+			throw new WasmRuntimeException(UUID.fromString("bfc55b11-467b-4a66-a8e7-70c02432c97a"),
+				"Address may not be less than zero. Address = %d", address);
 		}
 		this.address = address;
 	}
@@ -65,7 +71,8 @@ public class WasmAddress {
 
 	public void setAddress(Integer address) {
 		if (address < 0) {
-			throw new WasmRuntimeException(UUID.fromString("8cde5e2d-58ae-4b84-8955-406e6a97cfc0"), "Address may not be less than zero. Address = %d", address);
+			throw new WasmRuntimeException(UUID.fromString("8cde5e2d-58ae-4b84-8955-406e6a97cfc0"),
+				"Address may not be less than zero. Address = %d", address);
 		}
 		this.address = address;
 	}

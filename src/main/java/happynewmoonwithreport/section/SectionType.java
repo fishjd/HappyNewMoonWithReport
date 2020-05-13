@@ -32,7 +32,8 @@ import happynewmoonwithreport.type.WasmVector;
  * http://webassembly.org/docs/binary-encoding/#type-section
  * </a>
  * <p>
- * Source:  <a href="https://webassembly.github.io/spec/core/binary/modules.html#type-section" target="_top">
+ * Source:
+ * <a href="https://webassembly.github.io/spec/core/binary/modules.html#type-section" target="_top">
  * https://webassembly.github.io/spec/core/binary/modules.html#type-section
  * </a>
  */
@@ -69,7 +70,6 @@ public class SectionType implements Section {
 	public WasmVector<FunctionType> getFunctionSignatures() {
 		return functionSignatures;
 	}
-
 
 
 	public UInt32 getCount() {

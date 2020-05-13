@@ -16,11 +16,13 @@
  */
 package happynewmoonwithreport;
 
-import happynewmoonwithreport.type.*;
-
 import java.util.ArrayList;
 
-;
+import happynewmoonwithreport.type.UInt32;
+import happynewmoonwithreport.type.UInt8;
+import happynewmoonwithreport.type.VarUInt1;
+import happynewmoonwithreport.type.VarUInt32;
+import happynewmoonwithreport.type.WasmVector;
 
 /**
  * The description of a function signature
@@ -96,14 +98,14 @@ public class FunctionType implements Validation {
 	}
 
 
-	public FunctionType(UInt32 paramCount, WasmVector<ValueType> paramTypeAll,
-	                    UInt8 returnCount, WasmVector<ValueType> returnTypeAll) {
+	public FunctionType(UInt32 paramCount, WasmVector<ValueType> paramTypeAll, UInt8 returnCount,
+						WasmVector<ValueType> returnTypeAll) {
 		this(new ValueType("func"), paramCount, paramTypeAll, returnCount, returnTypeAll);
 	}
 
 
 	public FunctionType(ValueType form, UInt32 paramCount, WasmVector<ValueType> paramTypeAll,
-	                    UInt8 returnCount, WasmVector<ValueType> returnTypeAll) {
+						UInt8 returnCount, WasmVector<ValueType> returnTypeAll) {
 		super();
 		this.form = form;
 		this.paramCount = paramCount;
@@ -115,7 +117,8 @@ public class FunctionType implements Validation {
 	/**
 	 * Function types may not specify more than one result.
 	 * <p>
-	 * source:  <a href="https://webassembly.github.io/spec/core/valid/types.html#function-types" target="_top">
+	 * source:
+	 * <a href="https://webassembly.github.io/spec/core/valid/types.html#function-types" target="_top">
 	 * https://webassembly.github.io/spec/core/valid/types.html#function-types</a>
 	 * <p>
 	 * Note:
@@ -159,12 +162,8 @@ public class FunctionType implements Validation {
 
 	@Override
 	public String toString() {
-		return "FunctionType{" +
-				"form=" + form +
-				", paramCount=" + paramCount +
-				", paramTypeAll=" + paramTypeAll +
-				", returnCount=" + returnCount +
-				", returnTypeAll=" + returnTypeAll +
-				'}';
+		return "FunctionType{" + "form=" + form + ", paramCount=" + paramCount + ", paramTypeAll" +
+			   "=" + paramTypeAll + ", returnCount=" + returnCount + ", returnTypeAll=" +
+			   returnTypeAll + '}';
 	}
 }

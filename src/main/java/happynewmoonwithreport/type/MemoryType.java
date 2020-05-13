@@ -29,10 +29,12 @@ import happynewmoonwithreport.type.JavaType.ByteUnsigned;
  * http://webassembly.org/docs/binary-encoding/#memory_type
  * </a>
  * <p>
- * Source:  <a href="https://webassembly.github.io/spec/core/syntax/types.html#memory-types" target="_top">
+ * Source:
+ * <a href="https://webassembly.github.io/spec/core/syntax/types.html#memory-types" target="_top">
  * https://webassembly.github.io/spec/core/syntax/types.html#memory-types
  * </a>
- * Source:  <a href="https://webassembly.github.io/spec/core/exec/runtime.html#memory-instances" target="_top">
+ * Source:
+ * <a href="https://webassembly.github.io/spec/core/exec/runtime.html#memory-instances" target="_top">
  * https://webassembly.github.io/spec/core/exec/runtime.html#memory-instances
  * </a>
  */

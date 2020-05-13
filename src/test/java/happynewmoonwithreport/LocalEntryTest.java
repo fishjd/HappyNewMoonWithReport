@@ -16,10 +16,11 @@
  */
 package happynewmoonwithreport;
 
-import happynewmoonwithreport.type.UInt32;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import happynewmoonwithreport.type.UInt32;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -42,9 +43,8 @@ public class LocalEntryTest {
 	@Test
 	public void instantiateFull() {
 		// I made this one up.  This is not in Add32.wasm
-		byte[] byteAll = {
-				(byte) 0x02,    // Count
-				(byte) 0x7F     // int32
+		byte[] byteAll = {(byte) 0x02,    // Count
+			(byte) 0x7F     // int32
 		};
 		BytesFile payload = new BytesFile(byteAll);
 

@@ -66,8 +66,7 @@ public class I32 extends IntWasm {
 		this();
 		if (isBoundByInteger(value) == false) {
 			throw new WasmRuntimeException(UUID.fromString("62298944-804a-430e-b645-7bda0ecab265"),
-				"Value not bound by integer. Value = " + value + " (" + toHex(value) + ")"
-			);
+				"Value not bound by integer. Value = " + value + " (" + toHex(value) + ")");
 		}
 		this.value = value.intValue();
 	}
@@ -133,9 +132,8 @@ public class I32 extends IntWasm {
 			default: {
 				throw new WasmRuntimeException(
 					UUID.fromString("f8d78ad2-67ed-441f-a327-6df48f2afca7"),
-					"I32 Constructor Illegal value in length.  Valid values are 8, 16, 32.    "
-						+ "Length =  " + length
-				);
+					"I32 Constructor Illegal value in length.  Valid values are 8, 16, 32.    " +
+					"Length =  " + length);
 			}
 		}
 
@@ -146,6 +144,7 @@ public class I32 extends IntWasm {
 	 *
 	 * @return array of bytes.
 	 */
+	@Override
 	public ByteUnsigned[] getBytes() {
 		ByteUnsigned[] byteAll = new ByteUnsigned[4];
 		byteAll[3] = new ByteUnsigned((value >>> 0) & 0x0000_00FF);

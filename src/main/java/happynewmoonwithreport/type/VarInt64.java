@@ -21,11 +21,14 @@ import happynewmoonwithreport.BytesFile;
 /**
  * A variable integer of 64 bits.
  * <p>
- * Used to read and write to the wasm file. This project tends to use the 'main' integer types Int32, Int64, UInt32,
+ * Used to read and write to the wasm file. This project tends to use the 'main' integer types
+ * Int32, Int64, UInt32,
  * UInt64.  The recommend use is to convert to a 'main' type as soon as possible.
  * <p>
- * A Signed LEB128 variable-length integer, limited to N bits (i.e., the values [-2^(N-1), +2^(N-1)-1]), represented by
- * at most ceil(N/7) bytes that may contain padding for positive number 0x80 bytes or for negative numbers 0xFF bytes.
+ * A Signed LEB128 variable-length integer, limited to N bits (i.e., the values [-2^(N-1), +2^
+ * (N-1)-1]), represented by
+ * at most ceil(N/7) bytes that may contain padding for positive number 0x80 bytes or for
+ * negative numbers 0xFF bytes.
  * <p>
  * Usage:
  * <pre>
@@ -150,8 +153,6 @@ public final class VarInt64 extends S64 {
 
 	@Override
 	public String toString() {
-		return "VarInt64{" +
-				"value=" + value +
-				"} ";
+		return "VarInt64{" + "value=" + value + "} ";
 	}
 }

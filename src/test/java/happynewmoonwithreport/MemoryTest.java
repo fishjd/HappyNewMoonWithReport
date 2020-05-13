@@ -16,11 +16,12 @@
  */
 package happynewmoonwithreport;
 
-import happynewmoonwithreport.type.S32;
-import happynewmoonwithreport.type.UInt32;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import happynewmoonwithreport.type.S32;
+import happynewmoonwithreport.type.UInt32;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

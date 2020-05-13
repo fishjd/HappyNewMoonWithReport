@@ -132,7 +132,7 @@ public class I32_store16 extends StoreBase {
 	}
 
 	public I32_store16(MemoryArgument memoryArgument, WasmFrame frame, WasmStore store,
-		WasmStack stack) {
+					   WasmStack stack) {
 		super(memoryArgument, frame, store, stack);
 
 		N = new U32(16);
@@ -152,7 +152,9 @@ public class I32_store16 extends StoreBase {
 		return result;
 	}
 
-	/* package_private */ void step15_ReplaceBytes(MemoryType mem, U32 ea, ByteUnsigned[] bytes) {
+	/* package_private */
+	@Override
+	void step15_ReplaceBytes(MemoryType mem, U32 ea, ByteUnsigned[] bytes) {
 		mem.set(ea.integerValue() + 0, bytes[2]);
 		mem.set(ea.integerValue() + 1, bytes[3]);
 	}
@@ -163,11 +165,15 @@ public class I32_store16 extends StoreBase {
 	 *
 	 * @return
 	 */
-	/* package_private */ Object getExpectedType() {
+	/* package_private */
+	@Override
+	Object getExpectedType() {
 		return new I32();
 	}
 
-	/* package_private */ U32 getWidthOfExpectedType() {
+	/* package_private */
+	@Override
+	U32 getWidthOfExpectedType() {
 		return new U32(32);
 	}
 
@@ -177,11 +183,15 @@ public class I32_store16 extends StoreBase {
 	 */
 	private I32 c;
 
-	/* package_private */ IntWasm getC() {
+	/* package_private */
+	@Override
+	IntWasm getC() {
 		return c;
 	}
 
-	/* package_private */ void setC(Object c) {
+	/* package_private */
+	@Override
+	void setC(Object c) {
 		this.c = (I32) c;
 	}
 

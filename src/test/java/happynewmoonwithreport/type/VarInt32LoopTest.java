@@ -16,7 +16,6 @@
  */
 package happynewmoonwithreport.type;
 
-import happynewmoonwithreport.BytesFile;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,6 +24,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
+
+import happynewmoonwithreport.BytesFile;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -48,7 +49,8 @@ public class VarInt32LoopTest {
 		problemChildren.put(1, new byte[]{0x01});
 		problemChildren.put(2, new byte[]{0x02});
 		problemChildren.put(-1, new byte[]{0x7F});
-// todo        problemChildren.put(134217728, new byte[]{(byte) 0x80, (byte) 0x80, (byte) 0x80, (byte) 0x08});
+		// todo        problemChildren.put(134217728, new byte[]{(byte) 0x80, (byte) 0x80, (byte)
+		//  0x80, (byte) 0x08});
 
 	}
 
@@ -89,13 +91,15 @@ public class VarInt32LoopTest {
 			if (expected[i] != actual[i]) {
 				equal = false;
 				throw new AssertionError(
-						"Array not equals" + "expected " + expected.toString() + " actual = " + actual.toString());
+					"Array not equals" + "expected " + expected.toString() + " actual = " +
+					actual.toString());
 			}
 		}
 	}
 
 	private void assertEqualHex(Integer expected, Integer result) {
-		assertEquals(expected, result, "expected = " + expected.toString() + " hex = " + Integer.toHexString(expected));
+		assertEquals(expected, result,
+			"expected = " + expected.toString() + " hex = " + Integer.toHexString(expected));
 	}
 
 	private Integer maxCount = 1_000_000;

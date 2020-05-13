@@ -52,6 +52,6 @@ public class Unreachable {
 	 */
 	public void execute() {
 		throw new WasmTrapException(UUID.fromString("e496383f-377d-4090-9cff-64bdfc50a32e"),
-									"Unreachable code tried to execute!");
+			"Unreachable code tried to execute!");
 	}
 }

@@ -17,12 +17,12 @@
 package happynewmoonwithreport.opcode;
 
 
+import java.util.UUID;
+
 import happynewmoonwithreport.WasmInstanceInterface;
 import happynewmoonwithreport.WasmRuntimeException;
 import happynewmoonwithreport.WasmStack;
 import happynewmoonwithreport.type.I32;
-
-import java.util.UUID;
 
 /**
  * <h1>Select</h1>  - Select one of two values on the stack.
@@ -76,19 +76,21 @@ public class Select {
 		Object value = stack.peek();
 		if ((value instanceof I32) == false) {
 			throw new WasmRuntimeException(UUID.fromString("78c61ec8-a580-40b0-ad97-bd40d6d55739"),
-					"Stack value must be of type I32");
+				"Stack value must be of type I32");
 		}
 		// 2 Pop the value i32.const c from the stack.
 		I32 c = (I32) stack.pop();
 
-		// 3 Assert: due to validation, two more values (of the same value type) are on the top of the stack.
+		// 3 Assert: due to validation, two more values (of the same value type) are on the top of
+		// the stack.
 		Object val_1 = stack.peek(1);
 		Object val_2 = stack.peek(0);
 		String val_1_type = val_1.getClass().getTypeName();
 		String val_2_type = val_2.getClass().getTypeName();
 		if (val_1_type.equals(val_2_type) == false) {
 			throw new WasmRuntimeException(UUID.fromString("bd046bf9-6aea-42a4-b1bf-31e74d64f95c"),
-					"The two types must be the equals.  type of value 1 = " + val_1_type + " type of val2 = " + val_2_type);
+				"The two types must be the equals.  type of value 1 = " + val_1_type +
+				" type of val2 = " + val_2_type);
 		}
 
 		// 4 Pop the value val2 from the stack.

@@ -16,14 +16,17 @@
  */
 package happynewmoonwithreport.section;
 
-import happynewmoonwithreport.BytesFile;
-import happynewmoonwithreport.FunctionBody;
-import happynewmoonwithreport.type.UInt32;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import happynewmoonwithreport.BytesFile;
+import happynewmoonwithreport.FunctionBody;
+import happynewmoonwithreport.type.UInt32;
+
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class SectionCodeTest {
 	private SectionCode sectionCode;
@@ -44,17 +47,17 @@ public class SectionCodeTest {
 	 */
 	@Test
 	public void instantiateAdd32() {
-		byte[] byteAll =
-				{
-						//* Payload
-						(byte) 0x01,                                                        // count of functions
-						//** function Body
-						(byte) 0x87, (byte) 0x80, (byte) 0x80, (byte) 0x80, (byte) 0x00,    // Body Size 7
-						(byte) 0x00,                                                        // Local Count 0
-						// *** Code
-						(byte) 0x20, (byte) 0x01, (byte) 0x20, (byte) 0x00, (byte) 0x6A,
-						(byte) 0x0B                                                         // End Byte 0x0B
-				};
+		byte[] byteAll = {
+			//* Payload
+			(byte) 0x01,                                                        // count of
+			// functions
+			//** function Body
+			(byte) 0x87, (byte) 0x80, (byte) 0x80, (byte) 0x80, (byte) 0x00,    // Body Size 7
+			(byte) 0x00,                                                        // Local Count 0
+			// *** Code
+			(byte) 0x20, (byte) 0x01, (byte) 0x20, (byte) 0x00, (byte) 0x6A,
+			(byte) 0x0B                                                         // End Byte 0x0B
+		};
 
 		BytesFile payload = new BytesFile(byteAll);
 
@@ -75,9 +78,9 @@ public class SectionCodeTest {
 		assertEquals(new UInt32(0L), functionBody.getLocalCount());
 
 		//** Local Variables
-//        assertEquals(2, functionBody.getLocalAll().size());
-//        assertEquals(new ValueType("int32"), functionBody.getLocalAll().get(0));
-//        assertEquals(new ValueType("int32"), functionBody.getLocalAll().get(1));
+		//        assertEquals(2, functionBody.getLocalAll().size());
+		//        assertEquals(new ValueType("int32"), functionBody.getLocalAll().get(0));
+		//        assertEquals(new ValueType("int32"), functionBody.getLocalAll().get(1));
 
 		//** Code
 		byte[] expectedCode = {(byte) 0x20, (byte) 0x01, (byte) 0x20, (byte) 0x00, (byte) 0x6A};

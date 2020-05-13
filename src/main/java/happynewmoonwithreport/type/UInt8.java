@@ -77,8 +77,6 @@ public class UInt8 extends U32 {  // TODO change to Short
 	/* override of Object **/
 	@Override
 	public String toString() {
-		return "UInt8{" +
-				"value=" + value +
-				"} ";
+		return "UInt8{" + "value=" + value + "} ";
 	}
 }

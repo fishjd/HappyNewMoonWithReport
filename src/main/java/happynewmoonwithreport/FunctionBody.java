@@ -23,8 +23,10 @@ import happynewmoonwithreport.type.WasmVector;
 /**
  * FunctionBody Bodies
  * <p>
- * FunctionBody bodies consist of a sequence of local variable declarations followed by bytecode instructions.
- * Instructions are encoded as an opcode followed by zero or more immediates as defined by the tables below. Each
+ * FunctionBody bodies consist of a sequence of local variable declarations followed by bytecode
+ * instructions.
+ * Instructions are encoded as an opcode followed by zero or more immediates as defined by the
+ * tables below. Each
  * function body must end with the end opcode.
  * </p>
  * <p>
@@ -43,10 +45,12 @@ public class FunctionBody {
 	 */
 	private UInt32 localCount;
 	/**
-	 * Each local entry declares a number of local variables of a given type. It is legal to have several entries with
+	 * Each local entry declares a number of local variables of a given type. It is legal to have
+	 * several entries with
 	 * the same type.
 	 * <p>
-	 * This is the types of the local variables not the values of the local variables which is in WasmFunction.
+	 * This is the types of the local variables not the values of the local variables which is in
+	 * WasmFunction.
 	 */
 	private WasmVector<ValueType> localEntryAll;
 
@@ -80,7 +84,8 @@ public class FunctionBody {
 		localEntryAll = new WasmVector<>(localCount.integerValue());
 		for (Integer index = 0; index < localCount.integerValue(); ) {
 			LocalEntry localEntry = new LocalEntry(payload);
-			for (Integer localIndex = 0; localIndex < localEntry.getCount().integerValue(); localIndex++) {
+			for (Integer localIndex = 0; localIndex < localEntry.getCount().integerValue();
+				 localIndex++) {
 				localEntryAll.add(index, localEntry.getValueType());
 				index++;
 			}
@@ -90,7 +95,9 @@ public class FunctionBody {
 
 		final Integer consumedByLocals = after - start;
 
-		final Integer codeLength = bodySize.integerValue() - consumedByLocals - 1;  // minus 1 for end byte.
+		final Integer codeLength =
+			bodySize.integerValue() - consumedByLocals - 1;  // minus 1 for end byte.
+
 
 		//* Code
 		code = new byte[codeLength];
@@ -129,9 +136,6 @@ public class FunctionBody {
 
 	@Override
 	public String toString() {
-		return "FunctionBody{" +
-				"bodySize=" + bodySize +
-				", localCount=" + localCount +
-				'}';
+		return "FunctionBody{" + "bodySize=" + bodySize + ", localCount=" + localCount + '}';
 	}
 }

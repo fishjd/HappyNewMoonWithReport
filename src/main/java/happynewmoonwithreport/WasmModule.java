@@ -16,19 +16,22 @@
  */
 package happynewmoonwithreport;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import happynewmoonwithreport.type.MemoryType;
 import happynewmoonwithreport.type.UInt32;
 import happynewmoonwithreport.type.WasmVector;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 /**
  * A Web Assembly Module
  * <p>
- * WebAssembly programs are organized into modules, which are the unit of deployment, loading, and compilation. A module
- * collects definitions for types, functions, tables, memories, and globals. In addition, it can declare imports and
- * exports and provide initialization logic in the form of data and element segments or a start function.
+ * WebAssembly programs are organized into modules, which are the unit of deployment, loading,
+ * and compilation. A module
+ * collects definitions for types, functions, tables, memories, and globals. In addition, it can
+ * declare imports and
+ * exports and provide initialization logic in the form of data and element segments or a start
+ * function.
  * <p>
  * Source: <a href="https://webassembly.github.io/spec/core/syntax/modules.html#" target="_top">
  * Modules
@@ -79,16 +82,12 @@ public class WasmModule {
 		store = new WasmStore(functionAll, tables, memoryAll, globals);
 	}
 
-	public WasmModule(
-			WasmVector<FunctionType> types,
-			WasmVector<WasmFunction> functions,
-			WasmVector<TableType> tables,
-			WasmVector<MemoryType> memoryAll,
-			WasmVector<GlobalVariableType> globals,
-			// to do element
-			// to do data
-			UInt32 start,
-			WasmVector<ExportEntry> exportAll
+	public WasmModule(WasmVector<FunctionType> types, WasmVector<WasmFunction> functions,
+					  WasmVector<TableType> tables, WasmVector<MemoryType> memoryAll,
+					  WasmVector<GlobalVariableType> globals,
+					  // to do element
+					  // to do data
+					  UInt32 start, WasmVector<ExportEntry> exportAll
 
 	) {
 		constructIndexAll();
@@ -127,7 +126,9 @@ public class WasmModule {
 		for (FunctionType functionType : types) {
 			Boolean valid = functionType.valid();
 			if (valid == false) {
-				Logger.getLogger(WasmModule.class.getName()).log(Level.SEVERE, "Function Type not valid! Function Type = " + functionType.toString());
+				Logger.getLogger(WasmModule.class.getName())
+					.log(Level.SEVERE,
+						"Function Type not valid! Function Type = " + functionType.toString());
 			}
 			isValid &= valid;
 		}
@@ -135,7 +136,9 @@ public class WasmModule {
 		for (TableType tableType : tables) {
 			Boolean valid = tableType.valid();
 			if (valid == false) {
-				Logger.getLogger(WasmModule.class.getName()).log(Level.SEVERE, "Table Type not valid! Table Type = " + tableType.toString());
+				Logger.getLogger(WasmModule.class.getName())
+					.log(Level.SEVERE,
+						"Table Type not valid! Table Type = " + tableType.toString());
 			}
 			isValid &= valid;
 		}
@@ -143,7 +146,9 @@ public class WasmModule {
 		for (MemoryType memoryType : memoryAll) {
 			Boolean valid = memoryType.valid();
 			if (valid == false) {
-				Logger.getLogger(WasmModule.class.getName()).log(Level.SEVERE, "Memory Type not valid! Memory Type = " + memoryType.toString());
+				Logger.getLogger(WasmModule.class.getName())
+					.log(Level.SEVERE,
+						"Memory Type not valid! Memory Type = " + memoryType.toString());
 			}
 			isValid &= valid;
 		}
@@ -159,7 +164,9 @@ public class WasmModule {
 		for (GlobalVariableType globalVariable : globals) {
 			Boolean valid = globalVariable.valid();
 			if (valid == false) {
-				Logger.getLogger(WasmModule.class.getName()).log(Level.SEVERE, "Global Variable not valid! Global Variable  = " + globalVariable.toString());
+				Logger.getLogger(WasmModule.class.getName())
+					.log(Level.SEVERE, "Global Variable not valid! Global Variable  = " +
+									   globalVariable.toString());
 			}
 			isValid &= valid;
 		}
@@ -247,7 +254,6 @@ public class WasmModule {
 	 * <i>Assert: due to validation, F.module.memaddrs[index] exists.</i>
 	 *
 	 * @param index only zero is valid in version 1.0
-	 *
 	 * @return true if memory[index] exists.
 	 */
 	public Boolean memoryExists(UInt32 index) {

@@ -16,7 +16,6 @@
  */
 package happynewmoonwithreport.type;
 
-import happynewmoonwithreport.BytesFile;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,6 +24,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
+
+import happynewmoonwithreport.BytesFile;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -86,13 +87,15 @@ public class VarInt7LoopTest {
 			if (expected[i] != actual[i]) {
 				equal = false;
 				throw new AssertionError(
-						"Array not equals" + "expected " + expected.toString() + " actual = " + actual.toString());
+					"Array not equals" + "expected " + expected.toString() + " actual = " +
+					actual.toString());
 			}
 		}
 	}
 
 	private void assertEqualHex(Integer expected, Integer result) {
-		assertEquals(expected, result, "expected = " + expected.toString() + " hex = " + Integer.toHexString(expected));
+		assertEquals(expected, result,
+			"expected = " + expected.toString() + " hex = " + Integer.toHexString(expected));
 	}
 
 	private Integer maxCount = 1_000_000;

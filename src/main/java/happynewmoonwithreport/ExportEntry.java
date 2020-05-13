@@ -36,7 +36,8 @@ public class ExportEntry {
 	 */
 	private ExternalKind externalKind;
 	/**
-	 * The index to the table. For example if externalKind is 'function' then this is the index to the function table
+	 * The index to the table. For example if externalKind is 'function' then this is the index to
+	 * the function table
 	 */
 	private UInt32 index;
 

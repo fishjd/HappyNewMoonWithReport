@@ -46,9 +46,9 @@ import happynewmoonwithreport.type.U32;
  * <h1>t.load memarg and t.loadN_sx memarg</h1>
  *
  * <code>
- *  t = I64				// result type  <br>
- *  n = 8				// size of input byte array <br>
- *  sx or s = signed	// sign extension <br>
+ * t = I64				// result type  <br>
+ * n = 8				// size of input byte array <br>
+ * sx or s = signed	// sign extension <br>
  * </code>
  *
  * <ol>
@@ -113,7 +113,7 @@ public class I64_load8_s extends LoadBase {
 	}
 
 	public I64_load8_s(MemoryArgument memoryArgument, WasmFrame frame, WasmStore store,
-		WasmStack stack) {
+					   WasmStack stack) {
 		this();
 		this.memoryArgument = memoryArgument;
 		this.frame = frame;

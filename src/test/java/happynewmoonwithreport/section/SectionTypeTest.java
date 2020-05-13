@@ -16,14 +16,15 @@
  */
 package happynewmoonwithreport.section;
 
-import happynewmoonwithreport.BytesFile;
-import happynewmoonwithreport.FunctionType;
-import happynewmoonwithreport.type.UInt32;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+
+import happynewmoonwithreport.BytesFile;
+import happynewmoonwithreport.FunctionType;
+import happynewmoonwithreport.type.UInt32;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -44,7 +45,9 @@ public class SectionTypeTest {
 
 	@Test
 	public void testInstantiate() {
-		byte[] byteAll = {(byte) 0x01, (byte) 0x60, (byte) 0x02, (byte) 0x7F, (byte) 0x7F, (byte) 0x01, (byte) 0x7F};
+		byte[] byteAll =
+			{(byte) 0x01, (byte) 0x60, (byte) 0x02, (byte) 0x7F, (byte) 0x7F, (byte) 0x01,
+				(byte) 0x7F};
 		BytesFile payload = new BytesFile(byteAll);
 		// run
 		sectionType.instantiate(payload);

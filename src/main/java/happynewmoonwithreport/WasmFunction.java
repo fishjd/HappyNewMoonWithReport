@@ -23,7 +23,8 @@ import happynewmoonwithreport.type.WasmVector;
 /**
  * Web Assembly Function
  * <p>
- * Source:<a href="https://webassembly.github.io/spec/core/syntax/modules.html#syntax-func" target="_top">
+ * Source:
+ * <a href="https://webassembly.github.io/spec/core/syntax/modules.html#syntax-func" target="_top">
  * https://webassembly.github.io/spec/core/syntax/modules.html#syntax-func
  * </a>
  */

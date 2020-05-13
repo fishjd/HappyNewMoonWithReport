@@ -16,6 +16,12 @@
  */
 package happynewmoonwithreport.loadFromWasm;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import java.io.File;
+
 import happynewmoonwithreport.Wasm;
 import happynewmoonwithreport.WasmFunction;
 import happynewmoonwithreport.WasmInstance;
@@ -24,13 +30,10 @@ import happynewmoonwithreport.type.DataTypeNumber;
 import happynewmoonwithreport.type.S32;
 import happynewmoonwithreport.type.UInt32;
 import happynewmoonwithreport.type.WasmVector;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
-import java.io.File;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 public class WasmI32Sub_2_Test {
@@ -64,11 +67,13 @@ public class WasmI32Sub_2_Test {
 
 		assertEquals(1, wasm.exports().size());
 
-//		Assertions.assertEquals(new ExternalKind(ExternalKind.memory), wasm.exports().get(0).getExternalKind());
-//		assertEquals("memory", wasm.exports().get(0).getFieldName().getValue());
-//		assertEquals(new ExternalKind(ExternalKind.function), wasm.exports().get(1).getExternalKind());
+		//		Assertions.assertEquals(new ExternalKind(ExternalKind.memory), wasm.exports().get
+		//		(0).getExternalKind());
+		//		assertEquals("memory", wasm.exports().get(0).getFieldName().getValue());
+		//		assertEquals(new ExternalKind(ExternalKind.function), wasm.exports().get(1)
+		//		.getExternalKind());
 
-//		assertEquals("$add", wasm.exports().get(1).getFieldName().getValue());
+		//		assertEquals("$add", wasm.exports().get(1).getFieldName().getValue());
 
 		WasmInstance instance = new WasmInstance(module);
 		assertNotNull(instance.stack());

@@ -16,12 +16,13 @@
  */
 package happynewmoonwithreport.intergration;
 
-import happynewmoonwithreport.Wasm;
-import happynewmoonwithreport.WasmModule;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
 import java.io.File;
+
+import happynewmoonwithreport.Wasm;
+import happynewmoonwithreport.WasmModule;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -45,38 +46,40 @@ public class WasmFactorialLongTest {
 	public void tearDown() throws Exception {
 	}
 
-//    /**
-//     * This an end to end test
-//     */
-//    @Test
-//    public void wasmTest() {
-//
-//        assertTrue(wasm.validate());
-//
-//        assertEquals(new UInt32(1), wasm.getFunctionSignatures().getCount());
-//
-//        assertEquals(2, wasm.exports().size());
-//        Assert.assertEquals(new ExternalKind(ExternalKind.memory), wasm.exports().get(0).getExternalKind());
-//        assertEquals("memory", wasm.exports().get(0).getFieldName().getValue());
-//
-//        assertEquals(new ExternalKind(ExternalKind.function), wasm.exports().get(1).getExternalKind());
-//        assertEquals("factorialLong", wasm.exports().get(1).getFieldName().getValue());
-//
-//        WasmInstance instance = new WasmInstance(module);
-//        assertNotNull(instance.stack());
-//        WasmFunction functionFactorial = instance.exportFunction("factorialLong");
-//
-//        WasmVector<DataTypeNumber> returnAll = new WasmVector<>(1);
-//        WasmVector<DataTypeNumber> paramAll = new WasmVector<>(2);
-//        paramAll.add(new I32(5));
-//
-//        instance.call(functionFactorial, returnAll, paramAll);
-//
-//        assertNotNull(returnAll);
-//        assertEquals(1, returnAll.size());
-//        assertEquals(new S32(120), returnAll.get(0));
-//
-//
-//    }
+	//    /**
+	//     * This an end to end test
+	//     */
+	//    @Test
+	//    public void wasmTest() {
+	//
+	//        assertTrue(wasm.validate());
+	//
+	//        assertEquals(new UInt32(1), wasm.getFunctionSignatures().getCount());
+	//
+	//        assertEquals(2, wasm.exports().size());
+	//        Assert.assertEquals(new ExternalKind(ExternalKind.memory), wasm.exports().get(0)
+	//        .getExternalKind());
+	//        assertEquals("memory", wasm.exports().get(0).getFieldName().getValue());
+	//
+	//        assertEquals(new ExternalKind(ExternalKind.function), wasm.exports().get(1)
+	//        .getExternalKind());
+	//        assertEquals("factorialLong", wasm.exports().get(1).getFieldName().getValue());
+	//
+	//        WasmInstance instance = new WasmInstance(module);
+	//        assertNotNull(instance.stack());
+	//        WasmFunction functionFactorial = instance.exportFunction("factorialLong");
+	//
+	//        WasmVector<DataTypeNumber> returnAll = new WasmVector<>(1);
+	//        WasmVector<DataTypeNumber> paramAll = new WasmVector<>(2);
+	//        paramAll.add(new I32(5));
+	//
+	//        instance.call(functionFactorial, returnAll, paramAll);
+	//
+	//        assertNotNull(returnAll);
+	//        assertEquals(1, returnAll.size());
+	//        assertEquals(new S32(120), returnAll.get(0));
+	//
+	//
+	//    }
 
 }

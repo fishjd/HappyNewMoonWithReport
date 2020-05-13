@@ -23,7 +23,7 @@ import happynewmoonwithreport.BytesFile;
  * Usually it is Big Endian.
  */
 public class UInt32 extends U32
-//        implements DataTypeNumber<Long>
+	//        implements DataTypeNumber<Long>
 {
 
 	//public Long value;
@@ -82,10 +82,14 @@ public class UInt32 extends U32
 
 	private void assertInRange(Long value) {
 		if ((minValue() <= value) == false) {
-			throw new IllegalArgumentException("87765c72-a4b0-437f-ae27-9b57e702dc50 " + "Value " + value + " must be greater or equal to " + minValue());
+			throw new IllegalArgumentException(
+				"87765c72-a4b0-437f-ae27-9b57e702dc50 " + "Value " + value +
+				" must be greater or equal to " + minValue());
 		}
 		if ((value <= maxValue()) == false) {
-			throw new IllegalArgumentException("f4ac4150-12c7-40c1-bd25-47f5dc4a28ba " + "Value " + value + " must be less than or equal to " + maxValue());
+			throw new IllegalArgumentException(
+				"f4ac4150-12c7-40c1-bd25-47f5dc4a28ba " + "Value " + value +
+				" must be less than or equal to " + maxValue());
 		}
 	}
 
@@ -117,8 +121,6 @@ public class UInt32 extends U32
 
 	@Override
 	public String toString() {
-		return "UInt32{" +
-				"value=" + value +
-				"} ";
+		return "UInt32{" + "value=" + value + "} ";
 	}
 }

@@ -17,12 +17,12 @@
 package happynewmoonwithreport.opcode;
 
 
+import java.util.UUID;
+
 import happynewmoonwithreport.WasmInstanceInterface;
 import happynewmoonwithreport.WasmRuntimeException;
 import happynewmoonwithreport.WasmStack;
 import happynewmoonwithreport.type.I32;
-
-import java.util.UUID;
 
 /**
  * Sign-agnostic addition
@@ -41,7 +41,8 @@ import java.util.UUID;
  * Pop the value t.const c1 from the stack.
  * </li>
  * <li>
- * If binopt(c1,c2) is defined, then: Let c be a possible result of computing binopt(c1,c2). Push the value t.const
+ * If binopt(c1,c2) is defined, then: Let c be a possible result of computing binopt(c1,c2). Push
+ * the value t.const
  * c to the stack.
  * </li>
  * <li>
@@ -51,7 +52,8 @@ import java.util.UUID;
  * </li>
  * </ol>
  * <p>
- * Source:  <a href="https://webassembly.github.io/spec/core/exec/instructions.html#numeric-instructions" target="_top">
+ * Source:
+ * <a href="https://webassembly.github.io/spec/core/exec/instructions.html#numeric-instructions" target="_top">
  * https://webassembly.github.io/spec/core/exec/instructions.html#numeric-instructions  t.binop
  * </a>
  */
@@ -74,13 +76,13 @@ public class AddI32<ParameterType, ReturnType> {
 		WasmStack<Object> stack = instance.stack();
 		if ((stack.peek() instanceof I32) == false) {
 			throw new WasmRuntimeException(UUID.fromString("59c20edb-690b-4260-b5cf-704cd509ac07"),
-					"addI32: Value2 type is incorrect");
+				"addI32: Value2 type is incorrect");
 		}
 		I32 value2 = (I32) stack.pop();
 
 		if ((stack.peek() instanceof I32) == false) {
 			throw new WasmRuntimeException(UUID.fromString("22500212-e077-4507-a27a-3a08039da2b7"),
-					"addI32: Value1 type is incorrect");
+				"addI32: Value1 type is incorrect");
 		}
 		I32 value1 = (I32) stack.pop();
 

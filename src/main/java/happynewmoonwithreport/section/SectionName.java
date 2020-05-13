@@ -16,11 +16,11 @@
  */
 package happynewmoonwithreport.section;
 
-import happynewmoonwithreport.BytesFile;
-import happynewmoonwithreport.type.VarUInt7;
-
 import java.util.HashMap;
 import java.util.Map;
+
+import happynewmoonwithreport.BytesFile;
+import happynewmoonwithreport.type.VarUInt7;
 
 /**
  * Enum for the defined section names.
@@ -40,12 +40,14 @@ import java.util.Map;
  * Data             11    Data
  * </pre>
  * <p>
- * Source:  <a href="http://webassembly.org/docs/binary-encoding/#high-level-structure" target="_top">
+ * Source:
+ * <a href="http://webassembly.org/docs/binary-encoding/#high-level-structure" target="_top">
  * http://webassembly.org/docs/binary-encoding/#high-level-structure
  * </a>
  */
 public class SectionName {
-	/* TODO rename to "Name" or "NameEnum" to avoid confusion with the Custom Sections aka "Name Section" **/
+	/* TODO rename to "Name" or "NameEnum" to avoid confusion with the Custom Sections aka "Name
+	    Section" **/
 	private Integer type;
 	private String value;
 
@@ -140,9 +142,6 @@ public class SectionName {
 
 	@Override
 	public String toString() {
-		return "SectionName{" +
-				"type=" + type +
-				", value='" + value + '\'' +
-				'}';
+		return "SectionName{" + "type=" + type + ", value='" + value + '\'' + '}';
 	}
 }

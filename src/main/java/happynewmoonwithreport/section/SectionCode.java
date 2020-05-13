@@ -16,18 +16,20 @@
  */
 package happynewmoonwithreport.section;
 
+import java.util.ArrayList;
+
 import happynewmoonwithreport.BytesFile;
 import happynewmoonwithreport.FunctionBody;
 import happynewmoonwithreport.type.UInt32;
 import happynewmoonwithreport.type.VarUInt32;
 
-import java.util.ArrayList;
-
 /**
  * <h1>Code section</h1>
  * <p>
- * The code section contains a body for every function in the Module. The count of function declared in the function
- * section and function bodies defined in this section must be the same and the ith declaration corresponds to the ith
+ * The code section contains a body for every function in the Module. The count of function
+ * declared in the function
+ * section and function bodies defined in this section must be the same and the ith declaration
+ * corresponds to the ith
  * function body.
  * </p>
  * <p>

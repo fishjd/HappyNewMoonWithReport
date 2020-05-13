@@ -16,16 +16,17 @@
  */
 package happynewmoonwithreport.section;
 
-import happynewmoonwithreport.BytesFile;
-import happynewmoonwithreport.GlobalType;
-import happynewmoonwithreport.GlobalVariableType;
-import happynewmoonwithreport.ValueType;
-import happynewmoonwithreport.type.UInt32;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+
+import happynewmoonwithreport.BytesFile;
+import happynewmoonwithreport.GlobalType;
+import happynewmoonwithreport.GlobalVariableType;
+import happynewmoonwithreport.ValueType;
+import happynewmoonwithreport.type.UInt32;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -51,10 +52,9 @@ public class SectionGlobalTest {
 	@Test
 	public void instantiateFull() {
 		// I made this one up.  This is not in Add32
-		byte[] byteAll = {
-				(byte) 0x01,//
-				(byte) 0x7F, // -0x01 i32
-				(byte) 0x00 // mutability = 0
+		byte[] byteAll = {(byte) 0x01,//
+			(byte) 0x7F, // -0x01 i32
+			(byte) 0x00 // mutability = 0
 		};
 		BytesFile payload = new BytesFile(byteAll);
 

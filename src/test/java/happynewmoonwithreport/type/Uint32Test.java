@@ -16,7 +16,6 @@
  */
 package happynewmoonwithreport.type;
 
-import happynewmoonwithreport.BytesFile;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,6 +24,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
+
+import happynewmoonwithreport.BytesFile;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -45,8 +46,10 @@ public class Uint32Test {
 	private void setupProblemChildren() {
 		problemChildren.put(0L, new byte[]{0x00, 0x00, 0x00, 0x00});
 		problemChildren.put(1L, new byte[]{0x01, 0x00, 0x00, 0x00});
-		problemChildren.put(134217728L, new byte[]{(byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x08});
-		problemChildren.put(4294967295L, new byte[]{(byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF});
+		problemChildren.put(134217728L,
+			new byte[]{(byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x08});
+		problemChildren.put(4294967295L,
+			new byte[]{(byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF});
 	}
 
 	@AfterEach
@@ -85,7 +88,8 @@ public class Uint32Test {
 	}
 
 	private void assertEqualHex(Long expected, Long result) {
-		assertEquals(expected, result, "i = " + expected.toString() + " hex = " + Long.toHexString(expected));
+		assertEquals(expected, result,
+			"i = " + expected.toString() + " hex = " + Long.toHexString(expected));
 	}
 
 	@Test
@@ -101,7 +105,8 @@ public class Uint32Test {
 
 			UInt32 uint32 = new UInt32(b1, b2, b3, b4);
 			Long result = uint32.longValue();
-			assertEquals(new Long(i), result, "i = " + i.toString() + " hex = " + Long.toHexString(i));
+			assertEquals(new Long(i), result,
+				"i = " + i.toString() + " hex = " + Long.toHexString(i));
 
 		}
 	}
@@ -124,7 +129,8 @@ public class Uint32Test {
 			UInt32 uint32_b = new UInt32(bytesFile);
 			Long result_b = uint32_b.longValue();
 
-			assertEquals(new Long(i), result_b, ("i = " + i.toString() + " hex = " + Long.toHexString(i)));
+			assertEquals(new Long(i), result_b,
+				("i = " + i.toString() + " hex = " + Long.toHexString(i)));
 		}
 	}
 

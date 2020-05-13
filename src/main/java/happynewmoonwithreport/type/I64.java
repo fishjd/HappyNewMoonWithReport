@@ -115,9 +115,8 @@ public class I64 extends IntWasm {
 			default: {
 				throw new WasmRuntimeException(
 					UUID.fromString("15ffb37c-ad38-4f03-8499-a77d87ba83b1"),
-					"I32 Constructor Illegal value in length.  Valid values are 8, 16, 32."
-						+ "Length =  " + length
-				);
+					"I32 Constructor Illegal value in length.  Valid values are 8, 16, 32." +
+					"Length =  " + length);
 			}
 		}
 
@@ -132,6 +131,7 @@ public class I64 extends IntWasm {
 	 * <p>
 	 * byte[7] - Least significant byte
 	 */
+	@Override
 	public ByteUnsigned[] getBytes() {
 		ByteUnsigned[] byteAll = new ByteUnsigned[8];
 		byteAll[7] = new ByteUnsigned((value >>> 0) & 0x0000_00FF);  // Least Significant Byte

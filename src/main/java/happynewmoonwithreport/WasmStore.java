@@ -20,8 +20,10 @@ import happynewmoonwithreport.type.MemoryType;
 import happynewmoonwithreport.type.WasmVector;
 
 /**
- * The store represents all global state that can be manipulated by WebAssembly programs. It consists of the runtime
- * representation of all instances of functions, tables, memories, and globals that have been allocated during the life
+ * The store represents all global state that can be manipulated by WebAssembly programs. It
+ * consists of the runtime
+ * representation of all instances of functions, tables, memories, and globals that have been
+ * allocated during the life
  * time of the abstract machine.
  * <p>
  * The Store is represented by capital <b><i>S</i></b> in wasm documentation.
@@ -49,10 +51,8 @@ public class WasmStore {
 		this.globals = null;
 	}
 
-	public WasmStore(WasmVector<WasmFunction> functionAll,
-	                 WasmVector<TableType> tableAll,
-	                 WasmVector<MemoryType> memoryAll,
-	                 WasmVector<GlobalVariableType> globals) {
+	public WasmStore(WasmVector<WasmFunction> functionAll, WasmVector<TableType> tableAll,
+					 WasmVector<MemoryType> memoryAll, WasmVector<GlobalVariableType> globals) {
 		this.functionAll = functionAll;
 		this.tableAll = tableAll;
 		this.memoryAll = memoryAll;

@@ -92,8 +92,7 @@ public class I64_extend_I32_s {
 		// Assert: due to validation, a value of value type t1 is on the top of the stack.
 		if ((stack.peek() instanceof I32) == false) {
 			throw new WasmRuntimeException(UUID.fromString("608e993a-309c-4e7a-98a8-ab8fc58194e3"),
-				opCodeName + ": Value type is incorrect. Value should be of type " + t1Type
-			);
+				opCodeName + ": Value type is incorrect. Value should be of type " + t1Type);
 		}
 		// Pop the value t1.const c1 from the stack.
 		I32 value1 = (I32) stack.pop();
