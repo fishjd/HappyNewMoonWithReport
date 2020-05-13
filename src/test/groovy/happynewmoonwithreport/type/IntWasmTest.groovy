@@ -104,7 +104,7 @@ class IntWasmTest extends Specification {
 		Long input = new Long(input0);
 
 		when: " extend to signed signed 64"
-		int actual = IntWasm.signExtend32To64(input);
+		long actual = IntWasm.signExtend32To64(input);
 
 
 		then: "Test"
