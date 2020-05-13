@@ -67,18 +67,18 @@ import happynewmoonwithreport.type.I64;
  * </ol>
  */
 
-public class I64_extend_I32 {
+public class I64_extend_I32_s {
 	private final String opCodeName = "I64_extend_I32";
 	private final String t1Type = "I32";
 	private final String t2Type = "I64";
 
 	private WasmInstanceInterface instance;
 
-	private I64_extend_I32() {
+	private I64_extend_I32_s() {
 		super();
 	}
 
-	public I64_extend_I32(WasmInstanceInterface instance) {
+	public I64_extend_I32_s(WasmInstanceInterface instance) {
 		this();
 		this.instance = instance;
 	}

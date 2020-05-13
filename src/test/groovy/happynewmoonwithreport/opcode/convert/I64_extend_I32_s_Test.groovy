@@ -24,9 +24,9 @@ import happynewmoonwithreport.type.I32
 import happynewmoonwithreport.type.I64
 import spock.lang.Specification
 
-class I64_extend_I32Test extends Specification {
+class I64_extend_I32_s_Test extends Specification {
 	// CUT  Component/Class/Code under test
-	I64_extend_I32 i64_extend_i32;
+	I64_extend_I32_s i64_extend_i32;
 
 	WasmInstanceInterface instance;
 
@@ -34,7 +34,7 @@ class I64_extend_I32Test extends Specification {
 		instance = new WasmInstanceStub();
 
 		// create class to test.
-		i64_extend_i32 = new I64_extend_I32(instance);
+		i64_extend_i32 = new I64_extend_I32_s(instance);
 	}
 
 	void cleanup() {
