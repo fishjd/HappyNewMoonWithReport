@@ -36,6 +36,12 @@ import happynewmoonwithreport.type.JavaType.ByteUnsigned;
  * <tr>	<td>Msb000000</td><td>00000000</td><td>00000000</td><td>0000000Lsb</td>
  * </tr>
  * </table>
+ * <p>
+ * Range:  -2<sup>N-1</sup>| ... | -1 | 0 | 1 | ... 2<sup>N-1 </sup> -1
+ * <p>
+ * When N = 32
+ * <p>
+ * - ‭2,147,483,648‬ to 2,147,483,647
  */
 public class I32 extends IntWasm {
 
@@ -49,12 +55,19 @@ public class I32 extends IntWasm {
 		this.value = value;
 	}
 
+	/**
+	 * Create a I32 given a long value.
+	 *
+	 * @param value Value to store in I32
+	 * @throws RuntimeException if value is outside the range of an Integer.   @TODO validate if
+	 *                          this is a good ideal.
+	 */
 	public I32(Long value) {
 		this();
 		if (isBoundByInteger(value) == false) {
 			throw new WasmRuntimeException(UUID.fromString("62298944-804a-430e-b645-7bda0ecab265"),
-										   "Value not bound by integer. Value = " + value + " ("
-											   + toHex(value) + ")");
+				"Value not bound by integer. Value = " + value + " (" + toHex(value) + ")"
+			);
 		}
 		this.value = value.intValue();
 	}
@@ -121,7 +134,8 @@ public class I32 extends IntWasm {
 				throw new WasmRuntimeException(
 					UUID.fromString("f8d78ad2-67ed-441f-a327-6df48f2afca7"),
 					"I32 Constructor Illegal value in length.  Valid values are 8, 16, 32.    "
-						+ "Length =  " + length);
+						+ "Length =  " + length
+				);
 			}
 		}
 
@@ -183,7 +197,7 @@ public class I32 extends IntWasm {
 	}
 
 	/**
-	 * use IntegerValue();
+	 * use integerValue().
 	 *
 	 * @return Integer Value
 	 */
