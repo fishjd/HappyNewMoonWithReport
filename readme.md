@@ -227,12 +227,12 @@ Data Section:  To Do
 - [ ] f64.max 0xA5
 - [ ] f64.copysign 0xA6
 - [ ] f32.warp/i64 0xA7
-- [ ] f32.trunc_s/f3s  0xA8
+- [ ] f32.trunc_s/f32 0xA8
 - [ ] f32.trunc_u/f32 0xA9
 - [ ] f32.trunc_s/f64 0xAA
 - [ ] f32.trunc_u/f64 0xAB
 - [x] i64.extend_s/i32 0xAC
-- [ ] i64.extend_u/i32 0xAD
+- [x] i64.extend_u/i32 0xAD
 - [ ] i64.trunc_s/f32 0xAE
 - [ ] i64.trunc_u/f32 0xAF
 - [ ] i64.trunc_s/f64 0xB0
