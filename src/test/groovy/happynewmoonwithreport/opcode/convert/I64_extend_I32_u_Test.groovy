@@ -24,9 +24,9 @@ import happynewmoonwithreport.type.I32
 import happynewmoonwithreport.type.I64
 import spock.lang.Specification
 
-class I64_extend_I32_s_Test extends Specification {
+class I64_extend_I32_u_Test extends Specification {
 	// CUT  Component/Class/Code under test
-	I64_extend_I32_s i64_extend_i32;
+	I64_extend_I32_u i64_extend_i32_u;
 
 	WasmInstanceInterface instance;
 
@@ -34,7 +34,7 @@ class I64_extend_I32_s_Test extends Specification {
 		instance = new WasmInstanceStub();
 
 		// create class to test.
-		i64_extend_i32 = new I64_extend_I32_s(instance);
+		i64_extend_i32_u = new I64_extend_I32_u(instance);
 	}
 
 	void cleanup() {
@@ -50,7 +50,7 @@ class I64_extend_I32_s_Test extends Specification {
 
 		when:  // convert
 		// execute
-		i64_extend_i32.execute();
+		i64_extend_i32_u.execute();
 
 		then:
 		// verify
@@ -59,17 +59,16 @@ class I64_extend_I32_s_Test extends Specification {
 
 		where:
 		input0            || expected
-		-100              || -100
 		0                 || 0
 		100               || 100
+		-100              || 0x0000_0000_FFFF_FF9CL
+		10000             || 10000
+		-10000            || 0x0000_0000_FFFF_D8F0L
 		0x7FFF            || 32767
-		(int) 0x8000_0000 || -2147483648
-		(int) 0x8000_0000 || 0xFFFF_FFFF_8000_0000L
-		0x7FFF_FFFF       || 2147483647
+		-1                || 0x0000_0000_FFFF_FFFFL
+		(int) 0x8000_0000 || 0x0000_0000_8000_0000L
 		0x7FFF_FFFF       || 0x0000_0000_7FFF_FFFFL
-		-1                || -1
-		1                 || 1
-		Integer.MIN_VALUE || -2147483648
+		Integer.MIN_VALUE || 0x0000_0000_8000_0000L
 		Integer.MAX_VALUE || 2147483647
 	}
 }
