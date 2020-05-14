@@ -67,18 +67,18 @@ import happynewmoonwithreport.type.I64;
  * </ol>
  */
 
-public class I64_extend_I32_s {
-	private final String opCodeName = "I64_extend_I32_s";
+public class I64_extend_I32_u {
+	private final String opCodeName = "I64_extend_I32_u";
 	private final String t1Type = "I32";
 	private final String t2Type = "I64";
 
 	private WasmInstanceInterface instance;
 
-	private I64_extend_I32_s() {
+	private I64_extend_I32_u() {
 		super();
 	}
 
-	public I64_extend_I32_s(WasmInstanceInterface instance) {
+	public I64_extend_I32_u(WasmInstanceInterface instance) {
 		this();
 		this.instance = instance;
 	}
@@ -91,14 +91,14 @@ public class I64_extend_I32_s {
 
 		// Assert: due to validation, a value of value type t1 is on the top of the stack.
 		if ((stack.peek() instanceof I32) == false) {
-			throw new WasmRuntimeException(UUID.fromString("bf6e4ff7-23cf-4acf-8c5e-1e5fdf46a51a"),
+			throw new WasmRuntimeException(UUID.fromString("608e993a-309c-4e7a-98a8-ab8fc58194e3"),
 				opCodeName + ": Value type is incorrect. Value should be of type " + t1Type);
 		}
 		// Pop the value t1.const c1 from the stack.
 		I32 value1 = (I32) stack.pop();
 
 		//Let c2 be a possible result of computing cvtopsx?t1,t2(c1).
-		I64 c2 = value1.toI64Signed();
+		I64 c2 = value1.toI64Unsigned();
 
 		// Push the value t2.const c2 to the stack.
 		stack.push(c2);

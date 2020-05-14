@@ -66,7 +66,11 @@ public class I32 extends IntWasm {
 		this();
 		if (isBoundByInteger(value) == false) {
 			throw new WasmRuntimeException(UUID.fromString("62298944-804a-430e-b645-7bda0ecab265"),
-				"Value not bound by integer. Value = " + value + " (" + toHex(value) + ")");
+				"Input value to I32(Long) is out of bounds.  Value not bound by integer. Value = "
+				+ value + " (" + toHex(value) + ")",
+				"Possible Solutions: Use I32(Integer) instead.  The input for this function is "
+				+ "'Long'. Maybe you only need and input of 'Int'? Ex: for I32(0xFFFF_FFFFL); use "
+				+ "instead I32(0xFFFF_FFFF); .");
 		}
 		this.value = value.intValue();
 	}
@@ -157,10 +161,22 @@ public class I32 extends IntWasm {
 	/**
 	 * Convert to I64.  Interpreting the 32 bit value as signed.
 	 *
-	 * @return
+	 * @return An I64 value
 	 */
 	public I64 toI64Signed() {
 		long resultLong = signExtend32To64(value.longValue());
+		I64 result = new I64(resultLong);
+		return result;
+	}
+
+	/**
+	 * Convert to I64.  Interpreting the 32 bit value as un-signed.
+	 *
+	 * @return An I64 value
+	 */
+	public I64 toI64Unsigned() {
+		long resultLong = value.longValue();
+		resultLong = resultLong & 0x0000_0000_FFFF_FFFFL;
 		I64 result = new I64(resultLong);
 		return result;
 	}
