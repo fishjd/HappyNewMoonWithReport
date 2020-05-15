@@ -50,6 +50,7 @@ import happynewmoonwithreport.opcode.Nop;
 import happynewmoonwithreport.opcode.Select;
 import happynewmoonwithreport.opcode.SetLocal;
 import happynewmoonwithreport.opcode.Unreachable;
+import happynewmoonwithreport.opcode.convert.I32_extend8_s;
 import happynewmoonwithreport.opcode.convert.I64_extend_I32_s;
 import happynewmoonwithreport.opcode.convert.I64_extend_I32_u;
 import happynewmoonwithreport.opcode.memory.I32_load;
@@ -530,7 +531,11 @@ public class WasmInstance implements WasmInstanceInterface {
 				i64_extend_i32_u.execute();
 				break;
 			}
-			// case (byte) 0xAD: { // I64 Extend I32  Unsigned
+			case (byte) 0xC0: { // I32 Extend 8 Signed
+				I32_extend8_s i32_extend8_s = new I32_extend8_s(this);
+				i32_extend8_s.execute();
+				break;
+			}
 			default:
 				throwUnknownOpcodeException(opcode, code.getIndex());
 				return;
