@@ -144,7 +144,7 @@ public abstract class IntWasm implements DataTypeNumber {
 	 * @param input an int of length 16
 	 * @return an int of length 32.
 	 */
-	public static int signExtend16To32(int input) {
+	public static int signExtend16To32(Integer input) {
 		int result;
 
 		// clear all bytes except bytes 0 & 1

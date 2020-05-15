@@ -26,12 +26,13 @@ import spock.lang.Specification
  * Test I32 extend 8 signed.
  *
  * Some test cases are from:
- * <a href="https://github.com/WebAssembly/testsuite/blob/c17cd7f4e379b814055c82fcc0fc1f6202ba9e2a/i32.wast#LC270">
+ * <a href="https://github.com/WebAssembly/testsuite/blob/c17cd7f4e379b814055c82fcc0fc1f6202ba9e2a/i32.wast#LC278">
  *      WebAssembly Test Suite i32.wast
- * </a> */
-class I32_extend8_s_Test extends Specification {
+ * </a>
+ */
+class I32_extend16_s_Test extends Specification {
 	// CUT  Component/Class/Code under test
-	I32_extend8_s i64_extend8_s;
+	I32_extend16_s i32_extend16_s;
 
 	WasmInstanceInterface instance;
 
@@ -39,7 +40,7 @@ class I32_extend8_s_Test extends Specification {
 		instance = new WasmInstanceStub();
 
 		// create class to test.
-		i64_extend8_s = new I32_extend8_s(instance);
+		i32_extend16_s = new I32_extend16_s(instance);
 	}
 
 	void cleanup() {
@@ -55,7 +56,7 @@ class I32_extend8_s_Test extends Specification {
 
 		when:  // convert
 		// execute
-		i64_extend8_s.execute();
+		i32_extend16_s.execute();
 
 		then:
 		// verify
@@ -66,11 +67,11 @@ class I32_extend8_s_Test extends Specification {
 		input0            || expected
 		0                 || 0
 		1                 || 1
-		0x0000_007F       || 127
-		0x0000_0080       || -128
-		0x0000_00FF       || -1
-		0x0123_4500       || 0
-		(int) 0xfedc_ba80 || -0x80
+		0x0000_7FFF       || 32767
+		(int) 0x0000_8000 || -32768
+		0x0000_FFFF       || -1
+		0x0123_0000       || 0
+		(int) 0xfedc_8000 || -0x8000
 		-1                || -1
 		100               || 100
 		-100              || -100

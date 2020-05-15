@@ -193,6 +193,18 @@ public class I32 extends IntWasm {
 		return result;
 	}
 
+	/**
+	 * Extend 16 to 32 signed.  Interpreting the 16 least significant bits as signed and convert to
+	 * 32 bits I32.
+	 *
+	 * @return An I32 value
+	 */
+	public I32 extend16To32Signed() {
+		int resultInt = signExtend16To32(value);
+		I32 result = new I32(resultInt);
+		return result;
+	}
+
 	@Override
 	public Integer maxBits() {
 		return 32;
