@@ -252,7 +252,7 @@ Data Section:  To Do
 - [ ] f32.reinterpert/i32 0xBD
 - [ ] f64.reinterpert/i64 0xBF
 - [x] i32.extend8_s 0xC0
-- [ ] i32.extend16_s 0xC1
+- [x] i32.extend16_s 0xC1
 - [ ] i64.extend8_s 0xC2
 - [ ] i64.extend16_s 0xC3
 - [ ] i64.extend34_s 0xC4
