@@ -59,10 +59,14 @@ public class I32_eqTest5 {
 
 	@CsvSource({
 		// val1         , val2         , expected
-		"  3            , 3            , 1", "3            , 0            , 0", "0x0FFF_FFFF  , " +
-																				"0x0FFF_FFFE  , 0"
-		, "0x0FFF_FFFF  , 0x0FFF_FFFF  , 1", "-0x0FFF_FFFF , -0x0FFF_FFFF , 1",
-		"0x7FFF_FFFF  , " + "0x7FFF_FFFF  , 1", "-0x7FFF_FFFF , -0x7FFF_FFFF , 1"})
+		"3            , 3            , 1",//
+		"3            , 0            , 0", //
+		"0x0FFF_FFFF  , 0x0FFF_FFFE  , 0", //
+		"0x0FFF_FFFF  , 0x0FFF_FFFF  , 1", //
+		"-0x0FFF_FFFF , -0x0FFF_FFFF , 1",//
+		"0x7FFF_FFFF  , 0x7FFF_FFFF  , 1", //
+		"-0x7FFF_FFFF , -0x7FFF_FFFF , 1"//
+	})
 	@ParameterizedTest(name = "index = {index} execute( val1 = {0}, val2 = {1}, expected = {2} )")
 	void execute(@ConvertWith(StringToIntegerConverter.class) Integer val1,
 				 // Note: StringToIntegerConverter only needed if using hexadecimal or octal
