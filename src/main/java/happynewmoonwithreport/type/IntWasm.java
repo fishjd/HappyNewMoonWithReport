@@ -94,6 +94,12 @@ public abstract class IntWasm implements DataTypeNumber {
 	public static int signExtend8To32(ByteUnsigned bInput) {
 		int result;
 		int input = bInput.intValue();
+		result = signExtend8to32(input);
+		return result;
+	}
+
+	public static int signExtend8to32(Integer input) {
+		int result;
 
 		// clear all bytes except bytes 0 & 1
 		input = 0x0000_00FF & input;
