@@ -145,6 +145,41 @@ public class I64 extends IntWasm {
 		return byteAll;
 	}
 
+	/**
+	 * Extend 8 to 32 signed.  Interpreting the 8 least significant bits as signed and convert to
+	 * 32 bits I64.
+	 *
+	 * @return An I64 value
+	 */
+	public I64 extend8To32Signed() {
+		long resultLong = signExtend8to32(value.intValue());
+		I64 result = new I64(resultLong);
+		return result;
+	}
+
+	/**
+	 * Extend 8 to 64 signed.  Interpreting the 8 least significant bits as signed and convert to
+	 * 32 bits I64.
+	 *
+	 * @return An I64 value
+	 */
+	public I64 extend8To64Signed() {
+		long resultLong = signExtend8To64(value);
+		I64 result = new I64(resultLong);
+		return result;
+	}
+
+	/**
+	 * Extend 16 to 32 signed.  Interpreting the 16 least significant bits as signed and convert to
+	 * 32 bits I64.
+	 *
+	 * @return An I64 value
+	 */
+	public I64 extend16To32Signed() {
+		long resultInt = signExtend16To64(value);
+		I64 result = new I64(resultInt);
+		return result;
+	}
 
 	@Override
 	public Integer maxBits() {

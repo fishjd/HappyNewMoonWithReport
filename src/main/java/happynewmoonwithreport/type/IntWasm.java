@@ -190,10 +190,45 @@ public abstract class IntWasm implements DataTypeNumber {
 	 */
 	public static long signExtend8To64(ByteUnsigned bInput) {
 		long result;
+		result = signExtend8To64(bInput.longValue());
+		return result;
+	}
 
-		long input = bInput.longValue();
 
-		// clear all bytes except byte 0
+	/**
+	 * Sign extend an two bytes number to an integer.
+	 * <br>
+	 * <br>
+	 * extend_sM,N(i)
+	 * <ol>
+	 * <li>
+	 * Let j be the signed interpretation of i of size M.
+	 * </li> <li>
+	 * Return the two’s complement of j relative to size N.
+	 * </li>
+	 * </ol>
+	 * <p>
+	 * <b>Source:</b>
+	 * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-extend-s" target="_top">
+	 * https://webassembly.github.io/spec/core/exec/numerics.html#op-extend-s
+	 * </a>
+	 * <br>
+	 * <b> References: </b>
+	 * <br>
+	 * <a href="http://www.aggregate.org/MAGIC/#Sign%20Extension">"http://www.aggregate.org/MAGIC/#Sign%20Extension"</a>
+	 * <br>
+	 * <br>
+	 * <a href="https://stackoverflow.com/questions/6215256/sign-extension-from-16-to-32-bits-in-c#answer-51958446">
+	 * href="https://stackoverflow.com/questions/6215256/sign-extension-from-16-to-32-bits-in-c
+	 * #answer-51958446"</a>
+	 *
+	 * @param input Long, value to convert to 64 bits.  Only the least significant byte is used.
+	 * @return an int of length 64.
+	 */
+	public static long signExtend8To64(Long input) {
+		long result;
+
+		// clear all bytes except byte 0, the least significant byte
 		input = 0x0000_0000_0000_00FFL & input;
 
 		long signBit = 1 << (8 - 1);
