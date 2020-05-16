@@ -38,6 +38,19 @@ import happynewmoonwithreport.BytesFile;
  * Source:  <a href="http://webassembly.org/docs/binary-encoding/#varuintn" target="_top">
  * http://webassembly.org/docs/binary-encoding/#varuintn
  * </a>
+ * <p>
+ *
+ * <a href="https://web.archive.org/web/20200401050249/http://webassembly.org/docs/binary-encoding/" target="_top">
+ * Same link on the Internet Archive
+ * </a>
+ * <p>
+ * New Link 2020-05-16.   I don't know why WebAssembly changed all the links.  I really liked the
+ * old documentation.
+ * <p>
+ * Source:
+ * <a href="https://webassembly.github.io/spec/core/binary/values.html#integers" target="_top">
+ * https://webassembly.github.io/spec/core/binary/values.html#integers
+ * </a>
  */
 public final class VarUInt32 extends UInt32
 	// implements DataTypeNumber<Long>
@@ -54,15 +67,15 @@ public final class VarUInt32 extends UInt32
 
 	@Override
 	public Long convert(BytesFile bytesFile) {
-		Integer cur;
+		Integer currentByte;
 		Integer count = 0;
 		Long result = 0L;
 
 		do {
-			cur = bytesFile.readByte() & 0xff;
-			result |= (cur & 0x7f) << (count * 7);
+			currentByte = bytesFile.readByte() & 0xff;
+			result |= (currentByte & 0x7f) << (count * 7);
 			count++;
-		} while (((cur & 0x80) != 0) && count < maxBytes());
+		} while (((currentByte & 0x80) != 0) && count < maxBytes());
 
 		return result;
 	}

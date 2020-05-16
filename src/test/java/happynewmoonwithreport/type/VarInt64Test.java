@@ -40,13 +40,13 @@ public class VarInt64Test {
 	@Test
 	public void maxBits() throws Exception {
 		varS64 = new VarInt64(0);
-		assertEquals(new Integer(64), varS64.maxBits());
+		assertEquals(Integer.valueOf(64), varS64.maxBits());
 	}
 
 	@Test
 	public void minValue() throws Exception {
 		varS64 = new VarInt64(0);
-		assertEquals(new Long(-9_223_372_036_854_775_808L), varS64.minValue());
+		assertEquals(Long.valueOf(-9_223_372_036_854_775_808L), varS64.minValue());
 	}
 
 	@Test
