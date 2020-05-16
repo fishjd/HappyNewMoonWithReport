@@ -21,7 +21,8 @@ import org.junit.jupiter.params.converter.SimpleArgumentConverter;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
- * jUnit 5 argument converter.  Converts a String to an integer where integers can be decimal <b>or</b> hexadecimal
+ * jUnit 5 argument converter.  Converts a String to an integer where integers can be decimal
+ * <b>or</b> hexadecimal
  * <b>or</b> octal.
  * The String may include "_" which will be stripped out.
  * <p>
@@ -30,9 +31,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * Example Octal: {@code "01",  "0_100_000",  "-0_100_000"}<br>
  * <p>
  * <p>
- * <b>Source:</b>  <a href="http://junit.org/junit5/docs/current/user-guide/#writing-tests-parameterized-tests-argument-conversion-explicit"
+ * <b>Source:</b>
+ * <a href="http://junit.org/junit5/docs/current/user-guide/#writing-tests-parameterized-tests-argument-conversion-explicit"
  * target="_top">
- * http://junit.org/junit5/docs/current/user-guide/#writing-tests-parameterized-tests-argument-conversion-explicit
+ * http://junit.org/junit5/docs/current/user-guide/#writing-tests-parameterized-tests-argument
+ * -conversion-explicit
  * </a>
  *
  * @see java.lang.Integer#decode(String)

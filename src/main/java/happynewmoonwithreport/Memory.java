@@ -16,11 +16,11 @@
  */
 package happynewmoonwithreport;
 
+import java.util.Arrays;
+
 import happynewmoonwithreport.type.S32;
 import happynewmoonwithreport.type.UInt16;
 import happynewmoonwithreport.type.UInt32;
-
-import java.util.Arrays;
 
 /**
  * The web assembly memory.
@@ -57,7 +57,6 @@ public class Memory {
 	 * <code>-1</code> if enough memory cannot be allocated.
 	 *
 	 * @param additionalSize in page_size.
-	 *
 	 * @return "previous size" in page size on success;   -1 on failure;
 	 */
 	public S32 grow(UInt32 additionalSize) {
@@ -73,7 +72,8 @@ public class Memory {
 		}
 		try {
 			// increase the memory.
-			byte[] memoryNew = Arrays.copyOfRange(memory, 0, sizeNewInPages * page_size.integerValue());
+			byte[] memoryNew =
+				Arrays.copyOfRange(memory, 0, sizeNewInPages * page_size.integerValue());
 			memory = memoryNew;
 		} catch (Exception exception) {
 			return failure;

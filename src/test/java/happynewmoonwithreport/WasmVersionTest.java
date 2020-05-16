@@ -16,12 +16,13 @@
  */
 package happynewmoonwithreport;
 
-import happynewmoonwithreport.type.UInt32;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
+
+import happynewmoonwithreport.type.UInt32;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -35,7 +36,8 @@ public class WasmVersionTest {
 		File wasmFile = new File(path);
 		assertTrue(wasmFile.exists());
 
-		// C:\Users\James\Documents\Programming 2017\HappyNewMoonWithReport\src\test\resources\add32
+		// C:\Users\James\Documents\Programming
+		// 2017\HappyNewMoonWithReport\src\test\resources\add32
 		wasm = new Wasm(path);
 		wasm.instantiate();
 	}

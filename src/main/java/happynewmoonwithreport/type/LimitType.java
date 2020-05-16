@@ -16,21 +16,23 @@
  */
 package happynewmoonwithreport.type;
 
+import java.util.UUID;
+
 import happynewmoonwithreport.BytesFile;
 import happynewmoonwithreport.Validation;
 import happynewmoonwithreport.WasmRuntimeException;
 
-import java.util.UUID;
-
 /**
  * Limit also known as resizable limit.
- * Limits classify the size range of resizeable storage associated with memory types and table types.
+ * Limits classify the size range of resizeable storage associated with memory types and table
+ * types.
  * If no maximum is given, the respective storage can grow to any size.
  * <p>
  * Source : <a href= "http://webassembly.org/docs/binary-encoding/#resizable_limits" target="_top">
  * http://webassembly.org/docs/binary-encoding/#resizable_limits</a>
  * <p>
- * source:  <a href="https://webassembly.github.io/spec/core/syntax/types.html#limits" target="_top">
+ * source:
+ * <a href="https://webassembly.github.io/spec/core/syntax/types.html#limits" target="_top">
  * https://webassembly.github.io/spec/core/syntax/types.html#limits
  * </a>
  */
@@ -64,7 +66,8 @@ public class LimitType implements Validation {
 	public LimitType(UInt8 hasMaximum, UInt32 minimum) {
 		this();
 		if (hasMaximum.integerValue() != 0) {
-			throw new WasmRuntimeException(UUID.fromString("123ceab2-9d6f-44b6-83ca-49eee187726b"), "Has Maximum must be zero.");
+			throw new WasmRuntimeException(UUID.fromString("123ceab2-9d6f-44b6-83ca-49eee187726b"),
+				"Has Maximum must be zero.");
 		}
 		this.hasMaximum = hasMaximum;
 		this.minimum = minimum;
@@ -74,7 +77,8 @@ public class LimitType implements Validation {
 	public LimitType(U32 hasMaximum, U32 minimum) {
 		this();
 		if (hasMaximum.integerValue() != 0) {
-			throw new WasmRuntimeException(UUID.fromString("123ceab2-9d6f-44b6-83ca-49eee187726b"), "Has Maximum must be zero.");
+			throw new WasmRuntimeException(UUID.fromString("eef166ee-db1f-47ff-bacf-5125195b3dca"),
+				"Has Maximum must be zero.");
 		}
 		this.hasMaximum = new UInt8(hasMaximum);
 		this.minimum = minimum;
@@ -116,7 +120,8 @@ public class LimitType implements Validation {
 		return minimum;
 	}
 
-	/* code in Javadoc source: https://stackoverflow.com/questions/541920/multiple-line-code-example-in-javadoc-comment
+	/* code in Javadoc source: https://stackoverflow
+	.com/questions/541920/multiple-line-code-example-in-javadoc-comment
 	 */
 
 	/**
@@ -149,7 +154,8 @@ public class LimitType implements Validation {
 	 * <li>If the maximum m? is not empty, then its value must not be smaller than n</li>
 	 * <li>Then the limit is valid.</li>
 	 * </ul>
-	 * source:  <a href="https://webassembly.github.io/spec/core/valid/types.html#limits" target="_top">
+	 * source:
+	 * <a href="https://webassembly.github.io/spec/core/valid/types.html#limits" target="_top">
 	 * https://webassembly.github.io/spec/core/valid/types.html#limits</a>
 	 *
 	 * @return true if limit is valid.

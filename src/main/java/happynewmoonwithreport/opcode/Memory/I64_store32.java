@@ -28,7 +28,7 @@ import happynewmoonwithreport.type.MemoryType;
 import happynewmoonwithreport.type.U32;
 
 /**
- * <h1>i32_store</h1> Store an i32 value from the stack to memory.
+ * <h1>i64_store32</h1>Store an 32 bit value from the stack to memory in 64 bits.
  * <p>
  * Memory Instructions<br>
  * <p>
@@ -134,7 +134,7 @@ public class I64_store32 extends StoreBase {
 	}
 
 	public I64_store32(MemoryArgument memoryArgument, WasmFrame frame, WasmStore store,
-		WasmStack stack) {
+					   WasmStack stack) {
 		super(memoryArgument, frame, store, stack);
 
 		N = new U32(32);
@@ -157,7 +157,9 @@ public class I64_store32 extends StoreBase {
 		return result;
 	}
 
-	/* package_private */ void step15_ReplaceBytes(MemoryType mem, U32 ea, ByteUnsigned[] bytes) {
+	/* package_private */
+	@Override
+	void step15_ReplaceBytes(MemoryType mem, U32 ea, ByteUnsigned[] bytes) {
 		mem.set(ea.integerValue() + 0, bytes[4]);
 		mem.set(ea.integerValue() + 1, bytes[5]);
 		mem.set(ea.integerValue() + 2, bytes[6]);
@@ -170,11 +172,15 @@ public class I64_store32 extends StoreBase {
 	 *
 	 * @return
 	 */
-	/* package_private */ Object getExpectedType() {
+	/* package_private */
+	@Override
+	Object getExpectedType() {
 		return new I64();
 	}
 
-	/* package_private */ U32 getWidthOfExpectedType() {
+	/* package_private */
+	@Override
+	U32 getWidthOfExpectedType() {
 		return new U32(64);
 	}
 
@@ -184,11 +190,15 @@ public class I64_store32 extends StoreBase {
 	 */
 	private I64 c;
 
-	/* package_private */ IntWasm getC() {
+	/* package_private */
+	@Override
+	IntWasm getC() {
 		return c;
 	}
 
-	/* package_private */ void setC(Object c) {
+	/* package_private */
+	@Override
+	void setC(Object c) {
 		this.c = (I64) c;
 	}
 

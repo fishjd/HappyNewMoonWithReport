@@ -16,14 +16,24 @@
  */
 package happynewmoonwithreport;
 
-import happynewmoonwithreport.section.*;
-import happynewmoonwithreport.type.UInt32;
-import happynewmoonwithreport.type.VarUInt32;
-import happynewmoonwithreport.type.WasmVector;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.UUID;
+
+import happynewmoonwithreport.section.SectionCode;
+import happynewmoonwithreport.section.SectionCustom;
+import happynewmoonwithreport.section.SectionExport;
+import happynewmoonwithreport.section.SectionFunction;
+import happynewmoonwithreport.section.SectionGlobal;
+import happynewmoonwithreport.section.SectionMemory;
+import happynewmoonwithreport.section.SectionName;
+import happynewmoonwithreport.section.SectionStart;
+import happynewmoonwithreport.section.SectionStartEmpty;
+import happynewmoonwithreport.section.SectionTable;
+import happynewmoonwithreport.section.SectionType;
+import happynewmoonwithreport.type.UInt32;
+import happynewmoonwithreport.type.VarUInt32;
+import happynewmoonwithreport.type.WasmVector;
 
 /**
  * Start Here, The class to loads a WebAssembly file
@@ -79,8 +89,8 @@ public class Wasm {
 	 * }
 	 * </pre>
 	 *
-	 * @param fileName The fileName.  This parameter will be used in <code>new File(fileName)</code>
-	 *
+	 * @param fileName The fileName.  This parameter will be used in <code>new File(fileName)
+	 *                 </code>
 	 * @throws IOException Thrown if the file does not exist and other reasons.
 	 */
 	public Wasm(String fileName) throws IOException {
@@ -101,7 +111,8 @@ public class Wasm {
 
 	/**
 	 * <p>
-	 * Source:  <a href="https://github.com/WebAssembly/design/blob/master/JS.md#user-content-webassemblyinstantiate"
+	 * Source:  <a href="https://github.com/WebAssembly/design/blob/master/JS
+	 * .md#user-content-webassemblyinstantiate"
 	 * target="_top">
 	 * https://github.com/WebAssembly/design/blob/master/JS.md#user-content-webassemblyinstantiate
 	 * </a>
@@ -113,7 +124,8 @@ public class Wasm {
 		SectionName sectionName;
 		UInt32 u32PayloadLength;
 		/*
-		 * payloadLength needs to be a java type as it is used in math (+).  Should be Long but copyOfRange only handles int.
+		 * payloadLength needs to be a java type as it is used in math (+).  Should be Long but
+		 * copyOfRange only handles int.
 		 */
 		Integer payloadLength;
 
@@ -127,17 +139,15 @@ public class Wasm {
 
 		fillFunction(sectionType, sectionCode);
 
-		module = new WasmModule(
-				sectionType.getFunctionSignatures(), //
-				functionAll, //
-				sectionTable.getTables(),//
-				sectionMemory.getMemoryTypeAll(),//
-				sectionGlobal.getGlobals(),
-				// to do element
-				// to do data
-				sectionStart.getIndex(),
-				sectionExport.getExports()
-				// to do import
+		module = new WasmModule(sectionType.getFunctionSignatures(), //
+			functionAll, //
+			sectionTable.getTables(),//
+			sectionMemory.getMemoryTypeAll(),//
+			sectionGlobal.getGlobals(),
+			// to do element
+			// to do data
+			sectionStart.getIndex(), sectionExport.getExports()
+			// to do import
 		);
 		return module;
 	}
@@ -196,8 +206,9 @@ public class Wasm {
 					sectionCode.instantiate(payload);
 					break;
 				default:
-					throw new WasmRuntimeException(UUID.fromString("e737f67f-5935-4c61-a14f-eeb97e393178")
-							, "Unknown Section in Module. Section = " + sectionName.getValue());
+					throw new WasmRuntimeException(
+						UUID.fromString("e737f67f-5935-4c61-a14f-eeb97e393178"),
+						"Unknown Section in Module. Section = " + sectionName.getValue());
 
 			}
 		}
@@ -207,14 +218,17 @@ public class Wasm {
 	/**
 	 * Returns true if module is valid.   Call only after <code>instantiate();</code>
 	 * <p>
-	 * Source:  <a href="https://github.com/WebAssembly/design/blob/master/JS.md#user-content-webassemblyvalidate"
+	 * Source:
+	 * <a href="https://github.com/WebAssembly/design/blob/master/JS.md#user-content-webassemblyvalidate"
 	 * target="_top">
 	 * https://github.com/WebAssembly/design/blob/master/JS.md#user-content-webassemblyvalidate
 	 * </a>
 	 * <p>
-	 * Source:  <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly/validate"
+	 * Source:
+	 * <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly/validate"
 	 * target="_top">
-	 * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly/validate
+	 * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects
+	 * /WebAssembly/validate
 	 * </a>
 	 *
 	 * @return true if valid.
@@ -242,7 +256,8 @@ public class Wasm {
 	private void checkMagicNumber() {
 		// magicNumberExpected ‘\0asm’ = 1836278016
 
-		UInt32 magicNumberExpected = new UInt32((byte) 0x00, (byte) 0x61, (byte) 0x73, (byte) 0x6D);
+		UInt32 magicNumberExpected = new UInt32((byte) 0x00, (byte) 0x61, (byte) 0x73,
+			(byte) 0x6D);
 		Boolean result = magicNumber.equals(magicNumberExpected);
 		if (result == false) {
 			throw new RuntimeException("Magic Number does not match.  May not be a *.wasm file");
@@ -266,7 +281,8 @@ public class Wasm {
 	private void fillFunction(SectionType type, SectionCode code) {
 		functionAll = new WasmVector<>(type.getCount().integerValue());
 		for (Integer index = 0; index < type.getCount().integerValue(); index++) {
-			WasmFunction function = new WasmFunction(new UInt32(index), code.getFunctionAll().get(index));
+			WasmFunction function =
+				new WasmFunction(new UInt32(index), code.getFunctionAll().get(index));
 			functionAll.add(function);
 		}
 	}

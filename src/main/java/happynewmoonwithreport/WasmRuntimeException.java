@@ -55,7 +55,8 @@ public class WasmRuntimeException extends RuntimeException {
 		this.uuid = uuid;
 	}
 
-	public WasmRuntimeException(UUID uuid, String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+	public WasmRuntimeException(UUID uuid, String message, Throwable cause,
+								boolean enableSuppression, boolean writableStackTrace) {
 		super(message, cause, enableSuppression, writableStackTrace);
 		this.uuid = uuid;
 	}

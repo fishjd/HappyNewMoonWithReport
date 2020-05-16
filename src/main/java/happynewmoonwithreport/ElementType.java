@@ -16,15 +16,17 @@
  */
 package happynewmoonwithreport;
 
-import happynewmoonwithreport.type.S32;
-import happynewmoonwithreport.type.VarInt7;
-
 import java.util.HashMap;
 import java.util.Map;
 
+import happynewmoonwithreport.type.S32;
+import happynewmoonwithreport.type.VarInt7;
+
 /**
- * The Element Type  in Web Assembly. <p> A varint7 indicating the types of elements in a table. In the MVP, only one
- * type is available: <p> anyfunc <p> Note: In the future :unicorn:, other element types may be allowed. </p>
+ * The Element Type  in Web Assembly. <p> A varint7 indicating the types of elements in a table.
+ * In the MVP, only one
+ * type is available: <p> anyfunc <p> Note: In the future :unicorn:, other element types may be
+ * allowed. </p>
  * <p>
  * Source : <a href= "http://webassembly.org/docs/binary-encoding/#elem_type" target="_top">
  * http://webassembly.org/docs/binary-encoding/#elem_type
@@ -41,7 +43,8 @@ public class ElementType {
 	}
 
 	/**
-	 * Note use the integer value <code>new ElementType(-0x10)</code> <b>not</b> the byte in the *.wasm file
+	 * Note use the integer value <code>new ElementType(-0x10)</code> <b>not</b> the byte in the *
+	 * .wasm file
 	 * <code>new ElementType(0x70)</code>.
 	 *
 	 * @param type type
@@ -54,7 +57,8 @@ public class ElementType {
 	}
 
 	/**
-	 * Note use the integer value <code>new ElementType(-0x10)</code> <b>not</b> the byte in the *.wasm file
+	 * Note use the integer value <code>new ElementType(-0x10)</code> <b>not</b> the byte in the *
+	 * .wasm file
 	 * <code>new ElementType(0x70)</code>.
 	 *
 	 * @param type type
@@ -112,15 +116,17 @@ public class ElementType {
 	private void calcValue(Integer input) {
 		value = mapAll.get(input);
 		if (value == null) {
-			throw new RuntimeException("type in ElementType is not valid type = " + type + " hex = 0x" + Integer.toHexString(input));
+			throw new RuntimeException(
+				"type in ElementType is not valid type = " + type + " hex = 0x"
+				+ Integer.toHexString(input));
 		}
 
 	}
 
 	@Override
 	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
+		if (this == o) { return true; }
+		if (o == null || getClass() != o.getClass()) { return false; }
 
 		ElementType that = (ElementType) o;
 
@@ -134,9 +140,6 @@ public class ElementType {
 
 	@Override
 	public String toString() {
-		return "ElementType{" +
-				"type = " + type +
-				", value = " + value +
-				'}';
+		return "ElementType{" + "type = " + type + ", value = " + value + '}';
 	}
 }

@@ -75,13 +75,13 @@ public class I64_lt_s {
 		WasmStack<Object> stack = instance.stack();
 		if ((stack.peek() instanceof I64) == false) {
 			throw new WasmRuntimeException(UUID.fromString("f214f3d9-5925-4018-930d-1990780f5eaf"),
-										   "I64_lt_s: Value2 type is incorrect");
+				"I64_lt_s: Value2 type is incorrect");
 		}
 		I64 value2 = (I64) stack.pop();
 
 		if ((stack.peek() instanceof I64) == false) {
 			throw new WasmRuntimeException(UUID.fromString("7fcc3127-70de-4d69-82bf-b9347d3db299"),
-										   "I64_lt_s: Value1 type is incorrect");
+				"I64_lt_s: Value1 type is incorrect");
 		}
 		I64 value1 = (I64) stack.pop();
 

@@ -142,8 +142,8 @@ public abstract class StoreBase {
 	}
 
 	/* package_private */ StoreBase(MemoryArgument memoryArgument, WasmFrame frame,
-		WasmStore store,
-		WasmStack stack) {
+									WasmStore store,
+									WasmStack stack) {
 		this();
 		this.memoryArgument = memoryArgument;
 		this.frame = frame;
@@ -181,7 +181,7 @@ public abstract class StoreBase {
 		final Boolean memoryExists = frame.getModule().memoryExists(memoryIndex);
 		if (memoryExists == false) {
 			throw new WasmRuntimeException(UUID.fromString("1b1ccfdc-892c-4d12-b6a8-f15e5986f0a4"),
-										   "Memory %s does not exists", memoryIndex);
+				"Memory %s does not exists", memoryIndex);
 		}
 
 		// 3. Let a be the memory address F.module.memaddrs[0].
@@ -191,7 +191,7 @@ public abstract class StoreBase {
 		final Boolean memoryTypeExists = store.getMemoryAll().contains(a);
 		if (memoryTypeExists == false) {
 			throw new WasmRuntimeException(UUID.fromString("c2ceaaf8-3872-4050-aa20-c503053c9a29"),
-										   "Memory type %s does not exists", a);
+				"Memory type %s does not exists", a);
 		}
 
 		// 5. Let mem be the memory instance S.mems[a].
@@ -202,10 +202,9 @@ public abstract class StoreBase {
 			// I'm not sure using 'getClass()' is the best way to validate the type of the object
 			// on the stack.
 			throw new WasmRuntimeException(UUID.fromString("4302d8c6-79cb-40df-a776-516b5e1e3f9d"),
-										   "I32_Store: Step 6: Value type on stack is incorrect.  "
-											   + "Expected " + getExpectedType().getClass()
-																				.toString()
-											   + " but type was " + stack.peek().toString());
+				"I32_Store: Step 6: Value type on stack is incorrect.  " + "Expected "
+				+ getExpectedType().getClass().toString() + " but type was " + stack.peek()
+					.toString());
 		}
 
 		// 7. Pop the value t.const c from the stack
@@ -214,9 +213,8 @@ public abstract class StoreBase {
 		// 8. Assert: due to validation, a value of value type I32 is on the top of the stack.
 		if ((stack.peek() instanceof I32) == false) {
 			throw new WasmRuntimeException(UUID.fromString("09a2e693-ea94-4040-8e53-02f4cf54cdb6"),
-										   "I32_Store: Step 8: Value type on stack is incorrect.  "
-											   + "Expected I32 but type was " + stack.peek()
-																					 .toString());
+				"I32_Store: Step 8: Value type on stack is incorrect.  "
+				+ "Expected I32 but type was " + stack.peek().toString());
 		}
 
 		// 9. Pop the value t.const i from the stack
@@ -244,7 +242,7 @@ public abstract class StoreBase {
 				throw new WasmRuntimeException(
 					UUID.fromString("8486a6d2-31b4-4035-bf27-1d76739bf309"),
 					"I32_Store: Step12: Trap.  Address  + size is too large. length = " + length
-						+ " memoryLength = " + memLength);
+					+ " memoryLength = " + memLength);
 			}
 		}
 

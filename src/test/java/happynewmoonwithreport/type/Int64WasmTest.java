@@ -42,8 +42,7 @@ class Int64WasmTest {
 
 	@DisplayName("Sign extend 8 to 64")
 	@ParameterizedTest(name = "{index} => val1={0}, expected={1}")
-	@CsvSource({
-		"0, 0",  //
+	@CsvSource({"0, 0",  //
 		"1, 1",  //
 		"2, 2",  //
 		"127, 127",  //

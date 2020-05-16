@@ -16,7 +16,6 @@
  */
 package happynewmoonwithreport.type;
 
-import happynewmoonwithreport.BytesFile;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,6 +24,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
+
+import happynewmoonwithreport.BytesFile;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -47,11 +48,15 @@ public class VarInt64LoopTest {
 		problemChildren.put(new Long(1), new byte[]{0x01});
 		problemChildren.put(new Long(2), new byte[]{0x02});
 		problemChildren.put(new Long(-1), new byte[]{0x7F});
-		problemChildren.put(134217728L, new byte[]{(byte) 0x80, (byte) 0x80, (byte) 0x80, (byte) 0xC0, (byte) 0x00});
-		problemChildren.put(-1066294073546240435L, new byte[]{(byte) 0xCD, (byte) 0x9C, (byte) 0xB0, (byte) 0xC1,
-				(byte) 0x88, (byte) 0xE6, (byte) 0xF0, (byte) 0x99, (byte) 0x71});
-		problemChildren.put(new Long(4294967295L), new byte[]{(byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0x0F});
-		//problemChildren.put(2368947463459826787L, new byte[] { (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF });
+		problemChildren.put(134217728L,
+			new byte[]{(byte) 0x80, (byte) 0x80, (byte) 0x80, (byte) 0xC0, (byte) 0x00});
+		problemChildren.put(-1066294073546240435L,
+			new byte[]{(byte) 0xCD, (byte) 0x9C, (byte) 0xB0, (byte) 0xC1, (byte) 0x88,
+				(byte) 0xE6, (byte) 0xF0, (byte) 0x99, (byte) 0x71});
+		problemChildren.put(new Long(4294967295L),
+			new byte[]{(byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0x0F});
+		//problemChildren.put(2368947463459826787L, new byte[] { (byte) 0xFF, (byte) 0xFF, (byte)
+		// 0xFF, (byte) 0xFF });
 
 	}
 
@@ -64,9 +69,9 @@ public class VarInt64LoopTest {
 		for (Entry<Long, byte[]> child : problemChildren.entrySet()) {
 			VarInt64 expected = new VarInt64(child.getKey());
 			ByteOutput convert = expected.convert();
-//            System.out.print("expected = " + child.getKey() + " " );
-//            String byteString = Hex.bytesToHex(convert.bytes());
-//            System.out.println( byteString);
+			//            System.out.print("expected = " + child.getKey() + " " );
+			//            String byteString = Hex.bytesToHex(convert.bytes());
+			//            System.out.println( byteString);
 
 
 			BytesFile bytesFile = new BytesFile(child.getValue());
@@ -98,13 +103,15 @@ public class VarInt64LoopTest {
 			if (expected[i] != actual[i]) {
 				equal = false;
 				throw new AssertionError(
-						"Array not equals" + "expected " + expected.toString() + " actual = " + actual.toString());
+					"Array not equals" + "expected " + expected.toString() + " actual = "
+					+ actual.toString());
 			}
 		}
 	}
 
 	private void assertEqualHex(Long expected, Long result) {
-		assertEquals(new Long(expected), result, "i = " + expected.toString() + " hex = " + Long.toHexString(expected));
+		assertEquals(new Long(expected), result,
+			"i = " + expected.toString() + " hex = " + Long.toHexString(expected));
 	}
 
 	protected Integer maxCount = 1_000_000;
@@ -121,7 +128,8 @@ public class VarInt64LoopTest {
 			VarInt64 varInt64_b = new VarInt64(bytesFile);
 			Long result_b = varInt64_b.longValue();
 
-			assertEquals(new Long(i), result_b, "i = " + i.toString() + " hex = " + Long.toHexString(i));
+			assertEquals(new Long(i), result_b,
+				"i = " + i.toString() + " hex = " + Long.toHexString(i));
 		}
 	}
 

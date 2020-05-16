@@ -46,9 +46,9 @@ class StringToByteArrayConverterTest {
 		ByteUnsigned[] result = (ByteUnsigned[]) converter.convert("CDFE70", byte[].class);
 
 		// verify
-		assertEquals(new ByteUnsigned((byte)0x70), result[2]);
-		assertEquals(new ByteUnsigned((byte)0xFE), result[1]);
-		assertEquals(new ByteUnsigned((byte)0xCD), result[0]);
+		assertEquals(new ByteUnsigned((byte) 0x70), result[2]);
+		assertEquals(new ByteUnsigned((byte) 0xFE), result[1]);
+		assertEquals(new ByteUnsigned((byte) 0xCD), result[0]);
 
 	}
 
@@ -58,10 +58,10 @@ class StringToByteArrayConverterTest {
 		ByteUnsigned[] result = (ByteUnsigned[]) converter.convert("00CDFE70", byte[].class);
 
 		// verify
-		assertEquals(new ByteUnsigned((byte)0x70), result[3]);
-		assertEquals(new ByteUnsigned((byte)0xFE), result[2]);
-		assertEquals(new ByteUnsigned((byte)0xCD), result[1]);
-		assertEquals(new ByteUnsigned((byte)0x00), result[0]);
+		assertEquals(new ByteUnsigned((byte) 0x70), result[3]);
+		assertEquals(new ByteUnsigned((byte) 0xFE), result[2]);
+		assertEquals(new ByteUnsigned((byte) 0xCD), result[1]);
+		assertEquals(new ByteUnsigned((byte) 0x00), result[0]);
 
 	}
 
@@ -71,6 +71,6 @@ class StringToByteArrayConverterTest {
 		ByteUnsigned[] result = (ByteUnsigned[]) converter.convert("FF", byte[].class);
 
 		// verify
-		assertEquals(new ByteUnsigned((byte)0xFF), result[0]);
+		assertEquals(new ByteUnsigned((byte) 0xFF), result[0]);
 	}
 }

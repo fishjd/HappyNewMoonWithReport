@@ -56,7 +56,8 @@ import happynewmoonwithreport.type.I32;
  * target="_top"> https://webassembly.github.io/spec/core/exec/numerics.html#op-isub
  * </a>
  * <p>
- * Source:  <a href="https://webassembly.github.io/spec/core/exec/instructions.html#numeric-instructions"
+ * Source:
+ * <a href="https://webassembly.github.io/spec/core/exec/instructions.html#numeric-instructions"
  * target="_top">
  * https://webassembly.github.io/spec/core/exec/instructions.html#numeric-instructions  t.binop
  * </a>
@@ -80,13 +81,13 @@ public class I32_Sub<ParameterType, ReturnType> {
 		WasmStack<Object> stack = instance.stack();
 		if ((stack.peek() instanceof I32) == false) {
 			throw new WasmRuntimeException(UUID.fromString("ed5b6703-894c-4d1e-8ddc-4aab7ed1f4dd"),
-										   "addI32: Value2 type is incorrect");
+				"addI32: Value2 type is incorrect");
 		}
 		I32 value2 = (I32) stack.pop();
 
 		if ((stack.peek() instanceof I32) == false) {
 			throw new WasmRuntimeException(UUID.fromString("d259488c-e394-4c0c-9246-1882923fb352"),
-										   "addI32: Value1 type is incorrect");
+				"addI32: Value1 type is incorrect");
 		}
 		I32 value1 = (I32) stack.pop();
 

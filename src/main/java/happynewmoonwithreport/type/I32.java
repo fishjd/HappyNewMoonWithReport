@@ -36,6 +36,12 @@ import happynewmoonwithreport.type.JavaType.ByteUnsigned;
  * <tr>	<td>Msb000000</td><td>00000000</td><td>00000000</td><td>0000000Lsb</td>
  * </tr>
  * </table>
+ * <p>
+ * Range:  -2<sup>N-1</sup>| ... | -1 | 0 | 1 | ... 2<sup>N-1 </sup> -1
+ * <p>
+ * When N = 32
+ * <p>
+ * - ‭2,147,483,648‬ to 2,147,483,647
  */
 public class I32 extends IntWasm {
 
@@ -49,12 +55,22 @@ public class I32 extends IntWasm {
 		this.value = value;
 	}
 
+	/**
+	 * Create a I32 given a long value.
+	 *
+	 * @param value Value to store in I32
+	 * @throws RuntimeException if value is outside the range of an Integer.   @TODO validate if
+	 *                          this is a good ideal.
+	 */
 	public I32(Long value) {
 		this();
 		if (isBoundByInteger(value) == false) {
 			throw new WasmRuntimeException(UUID.fromString("62298944-804a-430e-b645-7bda0ecab265"),
-										   "Value not bound by integer. Value = " + value + " ("
-											   + toHex(value) + ")");
+				"Input value to I32(Long) is out of bounds.  Value not bound by integer. Value = "
+				+ value + " (" + toHex(value) + ")",
+				"Possible Solutions: Use I32(Integer) instead.  The input for this function is "
+				+ "'Long'. Maybe you only need and input of 'Int'? Ex: for I32(0xFFFF_FFFFL); use "
+				+ "instead I32(0xFFFF_FFFF); .");
 		}
 		this.value = value.intValue();
 	}
@@ -121,7 +137,7 @@ public class I32 extends IntWasm {
 				throw new WasmRuntimeException(
 					UUID.fromString("f8d78ad2-67ed-441f-a327-6df48f2afca7"),
 					"I32 Constructor Illegal value in length.  Valid values are 8, 16, 32.    "
-						+ "Length =  " + length);
+					+ "Length =  " + length);
 			}
 		}
 
@@ -132,6 +148,7 @@ public class I32 extends IntWasm {
 	 *
 	 * @return array of bytes.
 	 */
+	@Override
 	public ByteUnsigned[] getBytes() {
 		ByteUnsigned[] byteAll = new ByteUnsigned[4];
 		byteAll[3] = new ByteUnsigned((value >>> 0) & 0x0000_00FF);
@@ -139,6 +156,53 @@ public class I32 extends IntWasm {
 		byteAll[1] = new ByteUnsigned((value >>> 16) & 0x0000_00FF);
 		byteAll[0] = new ByteUnsigned((value >>> 24) & 0x0000_00FF);
 		return byteAll;
+	}
+
+	/**
+	 * Convert to I64.  Interpreting the 32 bit value as signed.
+	 *
+	 * @return An I64 value
+	 */
+	public I64 toI64Signed() {
+		long resultLong = signExtend32To64(value.longValue());
+		I64 result = new I64(resultLong);
+		return result;
+	}
+
+	/**
+	 * Convert to I64.  Interpreting the 32 bit value as un-signed.
+	 *
+	 * @return An I64 value
+	 */
+	public I64 toI64Unsigned() {
+		long resultLong = value.longValue();
+		resultLong = resultLong & 0x0000_0000_FFFF_FFFFL;
+		I64 result = new I64(resultLong);
+		return result;
+	}
+
+	/**
+	 * Extend 8 to 32 signed.  Interpreting the 8 least significant bits as signed and convert to
+	 * 32 bits I32.
+	 *
+	 * @return An I32 value
+	 */
+	public I32 extend8To32Signed() {
+		int resultInt = signExtend8to32(value);
+		I32 result = new I32(resultInt);
+		return result;
+	}
+
+	/**
+	 * Extend 16 to 32 signed.  Interpreting the 16 least significant bits as signed and convert to
+	 * 32 bits I32.
+	 *
+	 * @return An I32 value
+	 */
+	public I32 extend16To32Signed() {
+		int resultInt = signExtend16To32(value);
+		I32 result = new I32(resultInt);
+		return result;
 	}
 
 	@Override
@@ -172,7 +236,7 @@ public class I32 extends IntWasm {
 	}
 
 	/**
-	 * use IntegerValue();
+	 * use integerValue().
 	 *
 	 * @return Integer Value
 	 */

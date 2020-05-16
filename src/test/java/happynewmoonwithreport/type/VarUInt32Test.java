@@ -16,10 +16,11 @@
  */
 package happynewmoonwithreport.type;
 
-import happynewmoonwithreport.BytesFile;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import happynewmoonwithreport.BytesFile;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -36,7 +37,8 @@ public class VarUInt32Test {
 
 	@Test
 	public void testMaxBytes() {
-		byte[] bytesAll = new byte[]{(byte) 0x87, (byte) 0x80, (byte) 0x80, (byte) 0x80, (byte) 0x80};
+		byte[] bytesAll =
+			new byte[]{(byte) 0x87, (byte) 0x80, (byte) 0x80, (byte) 0x80, (byte) 0x80};
 		BytesFile payload = new BytesFile(bytesAll);
 		assertEquals(new Integer(5), new VarUInt32(payload).maxBytes());
 	}
@@ -44,7 +46,8 @@ public class VarUInt32Test {
 	@Test
 	public void testReadUnsigned() {
 		// Byte byte1 = Integer.parseInt("0x01", 16).;
-		byte[] bytesAll = new byte[]{(byte) 0x87, (byte) 0x80, (byte) 0x80, (byte) 0x80, (byte) 0x00};
+		byte[] bytesAll =
+			new byte[]{(byte) 0x87, (byte) 0x80, (byte) 0x80, (byte) 0x80, (byte) 0x00};
 		BytesFile payload = new BytesFile(bytesAll);
 		assertEquals(new UInt32(7L), new VarUInt32(payload));
 	}

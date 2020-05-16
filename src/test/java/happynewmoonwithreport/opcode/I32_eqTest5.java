@@ -16,15 +16,16 @@
  */
 package happynewmoonwithreport.opcode;
 
-import happynewmoonwithreport.WasmInstanceInterface;
-import happynewmoonwithreport.type.I32;
-import happynewmoonwithreport.util.converter.StringToIntegerConverter;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.converter.ConvertWith;
 import org.junit.jupiter.params.provider.CsvSource;
+
+import happynewmoonwithreport.WasmInstanceInterface;
+import happynewmoonwithreport.type.I32;
+import happynewmoonwithreport.util.converter.StringToIntegerConverter;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -57,20 +58,23 @@ public class I32_eqTest5 {
 
 
 	@CsvSource({
-			// val1         , val2         , expected
-			"  3            , 3            , 1"
-			, "3            , 0            , 0"
-			, "0x0FFF_FFFF  , 0x0FFF_FFFE  , 0"
-			, "0x0FFF_FFFF  , 0x0FFF_FFFF  , 1"
-			, "-0x0FFF_FFFF , -0x0FFF_FFFF , 1"
-			, "0x7FFF_FFFF  , 0x7FFF_FFFF  , 1"
-			, "-0x7FFF_FFFF , -0x7FFF_FFFF , 1"
+		// val1         , val2         , expected
+		"3            , 3            , 1",//
+		"3            , 0            , 0", //
+		"0x0FFF_FFFF  , 0x0FFF_FFFE  , 0", //
+		"0x0FFF_FFFF  , 0x0FFF_FFFF  , 1", //
+		"-0x0FFF_FFFF , -0x0FFF_FFFF , 1",//
+		"0x7FFF_FFFF  , 0x7FFF_FFFF  , 1", //
+		"-0x7FFF_FFFF , -0x7FFF_FFFF , 1"//
 	})
 	@ParameterizedTest(name = "index = {index} execute( val1 = {0}, val2 = {1}, expected = {2} )")
-	void execute(
-			@ConvertWith(StringToIntegerConverter.class) Integer val1, // Note: StringToIntegerConverter only needed if using hexadecimal or octal constants.
-			@ConvertWith(StringToIntegerConverter.class) Integer val2, // Note: StringToIntegerConverter only needed if using hexadecimal or octal constants.
-			Integer expected) {
+	void execute(@ConvertWith(StringToIntegerConverter.class) Integer val1,
+				 // Note: StringToIntegerConverter only needed if using hexadecimal or octal
+				 // constants.
+				 @ConvertWith(StringToIntegerConverter.class) Integer val2,
+				 // Note: StringToIntegerConverter only needed if using hexadecimal or octal
+				 // constants.
+				 Integer expected) {
 
 		// setup push two operands on stack
 		instance.stack().push(new I32(val1));

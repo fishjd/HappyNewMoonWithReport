@@ -109,13 +109,12 @@ import happynewmoonwithreport.type.U32;
 public class I32_load extends LoadBase {
 
 
-
 	private I32_load() {
 		super();
 	}
 
 	public I32_load(MemoryArgument memoryArgument, WasmFrame frame, WasmStore store,
-		WasmStack stack) {
+					WasmStack stack) {
 		this();
 		this.memoryArgument = memoryArgument;
 		this.frame = frame;

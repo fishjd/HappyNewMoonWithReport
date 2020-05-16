@@ -36,6 +36,7 @@ public class UInt64 extends U64 {
 		this.value = value.longValue();
 	}
 
+	@Override
 	public Integer integerValue() {
 		checkIfTooLarge();
 		return value.intValue();
@@ -60,8 +61,6 @@ public class UInt64 extends U64 {
 
 	@Override
 	public String toString() {
-		return "UInt64{" +
-				"value=" + value +
-				"} ";
+		return "UInt64{" + "value=" + value + "} ";
 	}
 }

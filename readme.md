@@ -230,12 +230,12 @@ Data Section:  To Do
 - [ ] f64.max 0xA5
 - [ ] f64.copysign 0xA6
 - [ ] f32.warp/i64 0xA7
-- [ ] f32.trunc_s/f3s  0xA8
+- [ ] f32.trunc_s/f32 0xA8
 - [ ] f32.trunc_u/f32 0xA9
 - [ ] f32.trunc_s/f64 0xAA
 - [ ] f32.trunc_u/f64 0xAB
-- [ ] i64.extend_s/i32 0xAC
-- [ ] i64.extend_u/i32 0xAD
+- [x] i64.extend_s/i32 0xAC
+- [x] i64.extend_u/i32 0xAD
 - [ ] i64.trunc_s/f32 0xAE
 - [ ] i64.trunc_u/f32 0xAF
 - [ ] i64.trunc_s/f64 0xB0
@@ -254,11 +254,11 @@ Data Section:  To Do
 - [ ] i64.reinterpert/f64 0xBD
 - [ ] f32.reinterpert/i32 0xBD
 - [ ] f64.reinterpert/i64 0xBF
-- [ ] i32.extend8_s 0xC0
-- [ ] i32.extend16_s 0xC1
-- [ ] i64.extend8_s 0xC2
-- [ ] i64.extend16_s 0xC3
-- [ ] i64.extend34_s 0xC4
+- [x] i32.extend8_s 0xC0
+- [x] i32.extend16_s 0xC1
+- [x] i64.extend8_s 0xC2
+- [x] i64.extend16_s 0xC3
+- [x] i64.extend34_s 0xC4
 - [ ] i32.trunc_sat_f32_s 0xFC 0x00
 - [ ] i32.trunc_sat_f32_u 0xFC 0x01
 - [ ] i32.trunc_sat_f64_s 0xFC 0x02

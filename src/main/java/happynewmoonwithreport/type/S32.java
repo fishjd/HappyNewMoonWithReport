@@ -16,9 +16,9 @@
  */
 package happynewmoonwithreport.type;
 
-import happynewmoonwithreport.WasmRuntimeException;
-
 import java.util.UUID;
+
+import happynewmoonwithreport.WasmRuntimeException;
 
 /**
  * An signed integer of 32 bits,
@@ -36,7 +36,8 @@ public class S32 extends I32 {
 	public S32(Long value) {
 		this();
 		if (isBoundByInteger(value) == false) {
-			throw new WasmRuntimeException(UUID.fromString("2c992eb4-00c8-495f-ac1e-afb85fd47aff"), "Value not bound by integer");
+			throw new WasmRuntimeException(UUID.fromString("2c992eb4-00c8-495f-ac1e-afb85fd47aff"),
+				"Value not bound by integer");
 		}
 		this.value = value.intValue();
 	}
@@ -115,25 +116,23 @@ public class S32 extends I32 {
 
 
 	//
-//    @Override
-//    public Long minValue() {
-//        Long minValue = -1L * (1L << (maxBits() - 1L));
-//        return minValue;
-//
-//    }
-//
-//    @Override
-//    public Long maxValue() {
-//        Long maxValue = (1L << (maxBits() - 1L)) - 1L;
-//        return maxValue;
-//    }
-//
-//
+	//    @Override
+	//    public Long minValue() {
+	//        Long minValue = -1L * (1L << (maxBits() - 1L));
+	//        return minValue;
+	//
+	//    }
+	//
+	//    @Override
+	//    public Long maxValue() {
+	//        Long maxValue = (1L << (maxBits() - 1L)) - 1L;
+	//        return maxValue;
+	//    }
+	//
+	//
 	/* override of Object **/
 	@Override
 	public String toString() {
-		return "S32{" +
-				"value=" + value + " 0x" + Integer.toHexString(value).toUpperCase() +
-				"} ";
+		return "S32{" + "value=" + value + " 0x" + Integer.toHexString(value).toUpperCase() + "} ";
 	}
 }

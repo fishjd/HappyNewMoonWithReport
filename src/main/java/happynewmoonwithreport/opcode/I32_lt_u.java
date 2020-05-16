@@ -17,13 +17,13 @@
 package happynewmoonwithreport.opcode;
 
 
+import java.util.UUID;
+
 import happynewmoonwithreport.WasmInstanceInterface;
 import happynewmoonwithreport.WasmRuntimeException;
 import happynewmoonwithreport.WasmStack;
 import happynewmoonwithreport.type.I32;
 import happynewmoonwithreport.type.U32;
-
-import java.util.UUID;
 
 /**
  * I32 Less than Unsigned  (i32_lt_u)
@@ -49,7 +49,8 @@ import java.util.UUID;
  * <p>
  * </li>
  * </ol>
- * Source:  <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-relop" target="_top">
+ * Source:
+ * <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-relop" target="_top">
  * https://webassembly.github.io/spec/core/exec/instructions.html#exec-relop
  * </a>
  */
@@ -73,13 +74,13 @@ public class I32_lt_u {
 		WasmStack<Object> stack = instance.stack();
 		if ((stack.peek() instanceof I32) == false) {
 			throw new WasmRuntimeException(UUID.fromString("cb177362-ff56-4f17-800d-023c699a510e"),
-					"I32_lt_u: Value2 type is incorrect");
+				"I32_lt_u: Value2 type is incorrect");
 		}
 		I32 value2 = (I32) stack.pop();
 
 		if ((stack.peek() instanceof I32) == false) {
 			throw new WasmRuntimeException(UUID.fromString("d05dde28-6aaa-4de5-b140-2343c02204db"),
-					"I32_lt_u: Value1 type is incorrect");
+				"I32_lt_u: Value1 type is incorrect");
 		}
 		I32 value1 = (I32) stack.pop();
 

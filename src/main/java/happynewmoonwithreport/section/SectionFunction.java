@@ -16,16 +16,17 @@
  */
 package happynewmoonwithreport.section;
 
+import java.util.ArrayList;
+
 import happynewmoonwithreport.BytesFile;
 import happynewmoonwithreport.type.UInt32;
 import happynewmoonwithreport.type.VarUInt32;
 
-import java.util.ArrayList;
-
 /**
  * Function section
  * <p>
- * The function section declares the signatures of all functions in the module (their definitions appear in the code
+ * The function section declares the signatures of all functions in the module (their definitions
+ * appear in the code
  * section).
  * <p>
  * Source:  <a href="http://webassembly.org/docs/binary-encoding/#function-section" target="_top">
@@ -36,7 +37,8 @@ import java.util.ArrayList;
  * http://webassembly.org/docs/modules/#function-and-code-sections
  * </a>
  * <p>
- * Source:  <a href="https://webassembly.github.io/spec/core/binary/modules.html#function-section" target="_top">
+ * Source:
+ * <a href="https://webassembly.github.io/spec/core/binary/modules.html#function-section" target="_top">
  * https://webassembly.github.io/spec/core/binary/modules.html#function-section
  * </a>
  */

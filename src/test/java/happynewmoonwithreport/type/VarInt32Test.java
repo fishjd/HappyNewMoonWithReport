@@ -16,10 +16,11 @@
  */
 package happynewmoonwithreport.type;
 
-import happynewmoonwithreport.BytesFile;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import happynewmoonwithreport.BytesFile;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -60,7 +61,8 @@ public class VarInt32Test {
 		// -624485 (0xFFF6789B) is encoded as 0x9B 0xF1 0x59.
 		byte[] bytesAll = new byte[]{(byte) 0x9B, (byte) 0xF1, (byte) 0x59};
 		BytesFile bytesFile = new BytesFile(bytesAll);
-		NumberHelper.assertEqualHex(new VarInt32(-624485L).longValue(), new VarInt32(bytesFile).longValue());
+		NumberHelper.assertEqualHex(new VarInt32(-624485L).longValue(),
+			new VarInt32(bytesFile).longValue());
 	}
 
 	@Test
@@ -95,11 +97,13 @@ public class VarInt32Test {
 		// -624485 (0xFFF6789B) is encoded as 0x9B 0xF1 0x59.
 		byte[] bytesAll = new byte[]{(byte) 0x9B, (byte) 0xF1, (byte) 0xD9, (byte) 0x7F};
 		BytesFile bytesFile = new BytesFile(bytesAll);
-		NumberHelper.assertEqualHex(new VarInt32(-624485L).longValue(), new VarInt32(bytesFile).longValue());
+		NumberHelper.assertEqualHex(new VarInt32(-624485L).longValue(),
+			new VarInt32(bytesFile).longValue());
 	}
 
 	/**
-	 * Similarly, either of<br> 0x7e<br> 0xFE 0x7F <br> 0xFE 0xFF 0x7F <br> are well-formed encodings of the value -2.
+	 * Similarly, either of<br> 0x7e<br> 0xFE 0x7F <br> 0xFE 0xFF 0x7F <br> are well-formed
+	 * encodings of the value -2.
 	 * <p>
 	 * source : https://webassembly.github.io/spec/core/binary/values.html#integers
 	 */
@@ -108,46 +112,58 @@ public class VarInt32Test {
 		byte[] bytesAll = new byte[]{(byte) 0x7E};
 		BytesFile bytesFile = new BytesFile(bytesAll);
 
-		NumberHelper.assertEqualHex(new VarInt32(-2).longValue(), new VarInt32(bytesFile).longValue());
+		NumberHelper.assertEqualHex(new VarInt32(-2).longValue(),
+			new VarInt32(bytesFile).longValue());
 
 		bytesAll = new byte[]{(byte) 0xFE, (byte) 0x7F};
 		bytesFile = new BytesFile(bytesAll);
-		NumberHelper.assertEqualHex(new VarInt32(-2).longValue(), new VarInt32(bytesFile).longValue());
+		NumberHelper.assertEqualHex(new VarInt32(-2).longValue(),
+			new VarInt32(bytesFile).longValue());
 
 		bytesAll = new byte[]{(byte) 0xFE, (byte) 0xFF, (byte) 0x7F};
 		bytesFile = new BytesFile(bytesAll);
-		NumberHelper.assertEqualHex(new VarInt32(-2).longValue(), new VarInt32(bytesFile).longValue());
+		NumberHelper.assertEqualHex(new VarInt32(-2).longValue(),
+			new VarInt32(bytesFile).longValue());
 
 		bytesAll = new byte[]{(byte) 0xFE, (byte) 0xFF, (byte) 0x7F, (byte) 0x00};
 		bytesFile = new BytesFile(bytesAll);
-		NumberHelper.assertEqualHex(new VarInt32(-2).longValue(), new VarInt32(bytesFile).longValue());
+		NumberHelper.assertEqualHex(new VarInt32(-2).longValue(),
+			new VarInt32(bytesFile).longValue());
 
-		bytesAll = new byte[]{(byte) 0xFE, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0x7F, (byte) 0x00};
+		bytesAll =
+			new byte[]{(byte) 0xFE, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0x7F,
+				(byte) 0x00};
 		bytesFile = new BytesFile(bytesAll);
-		NumberHelper.assertEqualHex(new VarInt32(-2).longValue(), new VarInt32(bytesFile).longValue());
+		NumberHelper.assertEqualHex(new VarInt32(-2).longValue(),
+			new VarInt32(bytesFile).longValue());
 	}
 
 	@Test
 	public void testReadSignedPaddedPositive2() {
 		byte[] bytesAll = new byte[]{(byte) 0x02};
 		BytesFile bytesFile = new BytesFile(bytesAll);
-		NumberHelper.assertEqualHex(new VarInt32(2).longValue(), new VarInt32(bytesFile).longValue());
+		NumberHelper.assertEqualHex(new VarInt32(2).longValue(),
+			new VarInt32(bytesFile).longValue());
 
 		bytesAll = new byte[]{(byte) 0x82, (byte) 0x00};
 		bytesFile = new BytesFile(bytesAll);
-		NumberHelper.assertEqualHex(new VarInt32(2).longValue(), new VarInt32(bytesFile).longValue());
+		NumberHelper.assertEqualHex(new VarInt32(2).longValue(),
+			new VarInt32(bytesFile).longValue());
 
 		bytesAll = new byte[]{(byte) 0x82, (byte) 0x80, (byte) 0x00};
 		bytesFile = new BytesFile(bytesAll);
-		NumberHelper.assertEqualHex(new VarInt32(2).longValue(), new VarInt32(bytesFile).longValue());
+		NumberHelper.assertEqualHex(new VarInt32(2).longValue(),
+			new VarInt32(bytesFile).longValue());
 
 		bytesAll = new byte[]{(byte) 0x82, (byte) 0x80, (byte) 0x00, (byte) 0x00};
 		bytesFile = new BytesFile(bytesAll);
-		NumberHelper.assertEqualHex(new VarInt32(2).longValue(), new VarInt32(bytesFile).longValue());
+		NumberHelper.assertEqualHex(new VarInt32(2).longValue(),
+			new VarInt32(bytesFile).longValue());
 
 		bytesAll = new byte[]{(byte) 0x82, (byte) 0x80, (byte) 0x80, (byte) 0x80, (byte) 0x00};
 		bytesFile = new BytesFile(bytesAll);
-		NumberHelper.assertEqualHex(new VarInt32(2).longValue(), new VarInt32(bytesFile).longValue());
+		NumberHelper.assertEqualHex(new VarInt32(2).longValue(),
+			new VarInt32(bytesFile).longValue());
 
 	}
 

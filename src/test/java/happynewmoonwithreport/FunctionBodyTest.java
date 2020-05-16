@@ -16,10 +16,11 @@
  */
 package happynewmoonwithreport;
 
-import happynewmoonwithreport.type.UInt32;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import happynewmoonwithreport.type.UInt32;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -45,21 +46,17 @@ public class FunctionBodyTest {
 	public void instantiateFull() {
 		// I made this one up.  This is not in Add32.wasm
 		byte[] byteAll = {
-				//Body Size
-				(byte) 0x09,
-				// Local Count
-				(byte) 0x02,
-				// Local Entry
-				(byte) 0x02,    // count
-				(byte) 0x7F,    // int 32
-				// Code
-				(byte) 0x20,
-				(byte) 0x01,
-				(byte) 0x20,
-				(byte) 0x00,
-				(byte) 0x6A,
-				// End Byte
-				(byte) 0x0B     // always 0x0B
+			//Body Size
+			(byte) 0x09,
+			// Local Count
+			(byte) 0x02,
+			// Local Entry
+			(byte) 0x02,    // count
+			(byte) 0x7F,    // int 32
+			// Code
+			(byte) 0x20, (byte) 0x01, (byte) 0x20, (byte) 0x00, (byte) 0x6A,
+			// End Byte
+			(byte) 0x0B     // always 0x0B
 		};
 		BytesFile payload = new BytesFile(byteAll);
 
