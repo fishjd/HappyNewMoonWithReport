@@ -169,6 +169,18 @@ public class I64 extends IntWasm {
 		return result;
 	}
 
+	/**
+	 * Extend 32 to 64 signed.  Interpreting the 32 least significant bits as signed and convert to
+	 * 64 bits I64.
+	 *
+	 * @return An I64 value
+	 */
+	public I64 extend32To64Signed() {
+		long resultInt = signExtend32To64(value);
+		I64 result = new I64(resultInt);
+		return result;
+	}
+
 	@Override
 	public Integer maxBits() {
 		return 64;

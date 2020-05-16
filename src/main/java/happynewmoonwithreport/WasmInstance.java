@@ -53,6 +53,7 @@ import happynewmoonwithreport.opcode.Unreachable;
 import happynewmoonwithreport.opcode.convert.I32_extend16_s;
 import happynewmoonwithreport.opcode.convert.I32_extend8_s;
 import happynewmoonwithreport.opcode.convert.I64_extend16_s;
+import happynewmoonwithreport.opcode.convert.I64_extend32_s;
 import happynewmoonwithreport.opcode.convert.I64_extend8_s;
 import happynewmoonwithreport.opcode.convert.I64_extend_I32_s;
 import happynewmoonwithreport.opcode.convert.I64_extend_I32_u;
@@ -552,6 +553,11 @@ public class WasmInstance implements WasmInstanceInterface {
 			case (byte) 0xC3: { // I64 Extend 16 Signed
 				I64_extend16_s i64_extend16_s = new I64_extend16_s(this);
 				i64_extend16_s.execute();
+				break;
+			}
+			case (byte) 0xC4: { // I64 Extend 32 Signed
+				I64_extend32_s i64_extend32_s = new I64_extend32_s(this);
+				i64_extend32_s.execute();
 				break;
 			}
 			default:
