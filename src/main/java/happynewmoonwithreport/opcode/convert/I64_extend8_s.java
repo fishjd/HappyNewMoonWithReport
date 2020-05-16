@@ -22,13 +22,13 @@ import java.util.UUID;
 import happynewmoonwithreport.WasmInstanceInterface;
 import happynewmoonwithreport.WasmRuntimeException;
 import happynewmoonwithreport.WasmStack;
-import happynewmoonwithreport.type.I32;
+import happynewmoonwithreport.type.I64;
 
 /**
- * <h1>I64_extend16_s</h1>
+ * <h1>I64_extend8_s</h1>
  * <p>
- * Extend an I32 Extend 16 signed.  Extend the 16 least significant bits to 32 bits.  The 16
- * least significant bits are interpreted as a signed value.
+ * Extend the least significant 8 bits to 64 bits signed.  The 8 least significant bits are
+ * interpreted as a signed value.
  * </p>
  * <h2>Source:</h2>
  *
@@ -68,18 +68,18 @@ import happynewmoonwithreport.type.I32;
  * </ol>
  */
 
-public class I32_extend16_s {
+public class I64_extend8_s {
 	private final String opCodeName = getClass().getName();
-	private final String t1Type = "I32";
-	private final String t2Type = "I32";
+	private final String t1Type = "I64";
+	private final String t2Type = "I64";
 
 	private WasmInstanceInterface instance;
 
-	private I32_extend16_s() {
+	private I64_extend8_s() {
 		super();
 	}
 
-	public I32_extend16_s(WasmInstanceInterface instance) {
+	public I64_extend8_s(WasmInstanceInterface instance) {
 		this();
 		this.instance = instance;
 	}
@@ -91,19 +91,19 @@ public class I32_extend16_s {
 		WasmStack<Object> stack = instance.stack();
 
 		// Assert: due to validation, a value of value type t1 is on the top of the stack.
-		if ((stack.peek() instanceof I32) == false) {
-			throw new WasmRuntimeException(UUID.fromString("31e655d7-20c3-4d0e-b0b5-94ecaf89c48f"),
+		if ((stack.peek() instanceof I64) == false) {
+			throw new WasmRuntimeException(UUID.fromString("1b3f933e-7440-47d3-a12f-6839ffaa1fbd"),
 				opCodeName + ": Value type is incorrect. Value should be of type " + t1Type);
 		}
 		// Pop the value t1.const c1 from the stack.
-		I32 c1 = (I32) stack.pop();
+		I64 c1 = (I64) stack.pop();
 
 		//Let c be a possible result of computing unopt(c1).
-		I32 c = c1.extend16To32Signed();
+		I64 c = c1.extend8To64Signed();
 
 		// Push the value t.const c to the stack.
 		stack.push(c);
 
-		// No need to trap as I32 may always be converted to I32.
+		// No need to trap as I64 may always be converted to I64.
 	}
 }
