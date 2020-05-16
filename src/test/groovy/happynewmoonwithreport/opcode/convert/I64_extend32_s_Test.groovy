@@ -17,16 +17,21 @@
 
 package happynewmoonwithreport.opcode.convert
 
-
 import happynewmoonwithreport.WasmInstanceInterface
 import happynewmoonwithreport.opcode.WasmInstanceStub
-import happynewmoonwithreport.type.I32
 import happynewmoonwithreport.type.I64
 import spock.lang.Specification
 
-class I64_extend_I32_s_Test extends Specification {
+/**
+ * Test I64 extend 32 signed.
+ *
+ * Some test cases are from:
+ * <a href="https://github.com/WebAssembly/testsuite/blob/c17cd7f4e379b814055c82fcc0fc1f6202ba9e2a/i64.wast#LC287">
+ *      WebAssembly Test Suite i64.wast
+ * </a> */
+class I64_extend32_s_Test extends Specification {
 	// CUT  Component/Class/Code under test
-	I64_extend_I32_s i64_extend_i32;
+	I64_extend32_s i64_extend32_s;
 
 	WasmInstanceInterface instance;
 
@@ -34,23 +39,22 @@ class I64_extend_I32_s_Test extends Specification {
 		instance = new WasmInstanceStub();
 
 		// create class to test.
-		i64_extend_i32 = new I64_extend_I32_s(instance);
+		i64_extend32_s = new I64_extend32_s(instance);
 	}
 
 	void cleanup() {
 	}
 
 	def "test execute"() {
-		given: // An I32 value
-		I32 value = new I32(input0);
+		given: // An I64 value
+		I64 value = new I64(input0);
 
 		// push on stack
 		instance.stack().push(value);
 
-
 		when:  // convert
 		// execute
-		i64_extend_i32.execute();
+		i64_extend32_s.execute();
 
 		then:
 		// verify
@@ -58,21 +62,25 @@ class I64_extend_I32_s_Test extends Specification {
 		new I64(expected) == result;
 
 		where:
-		input0            || expected // Long
-		-100              || -100
-		0                 || 0
-		100               || 100
-		0x7FFF            || 32767
-		0x8000            || 32768
-		0xFFFF            || 65535
-		(int) 0x8000_0000 || -2147483648
-		(int) 0x8000_0000 || 0xFFFF_FFFF_8000_0000L
-		0x7FFF_FFFF       || 2147483647
-		0x7FFF_FFFF       || 0x0000_0000_7FFF_FFFFL
-		(int) 0xFFFF_FFFF || -1L
-		-1                || -1
-		1                 || 1
-		Integer.MIN_VALUE || -2147483648
-		Integer.MAX_VALUE || 2147483647
+		input0              || expected
+		-100                || -100
+		0                   || 0
+		100                 || 100
+		0x7FFF              || 32767
+		0x8000              || 32768
+		0xFFFF              || 65535
+		0x8000_0000         || -2147483648
+		0x8000_0000         || 0xFFFF_FFFF_8000_0000L
+		0x7FFF_FFFF         || 2147483647
+		0x7FFF_FFFF         || 0x0000_0000_7FFF_FFFFL
+		0xFFFF_FFFF         || -1L
+		0x01234567_00000000 || 0
+		0xfedcba98_80000000 || -0x80000000
+		-1                  || -1
+		1                   || 1
+		Integer.MIN_VALUE   || -2147483648
+		Integer.MAX_VALUE   || 2147483647
+
+
 	}
 }
