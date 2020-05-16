@@ -42,6 +42,7 @@ import happynewmoonwithreport.opcode.I64_eqz;
 import happynewmoonwithreport.opcode.I64_ge_s;
 import happynewmoonwithreport.opcode.I64_ge_u;
 import happynewmoonwithreport.opcode.I64_gt_s;
+import happynewmoonwithreport.opcode.I64_gt_u;
 import happynewmoonwithreport.opcode.I64_le_s;
 import happynewmoonwithreport.opcode.I64_le_u;
 import happynewmoonwithreport.opcode.I64_lt_s;
@@ -492,9 +493,9 @@ public class WasmInstance implements WasmInstanceInterface {
 				i64_gt_s.execute();
 				break;
 			}
-			case (byte) 0x56: { // i64 greater than signed
-				I64_gt_s i64_gt_s = new I64_gt_s(this);
-				i64_gt_s.execute();
+			case (byte) 0x56: { // i64 greater than unsigned
+				I64_gt_u i64_gt_u = new I64_gt_u(this);
+				i64_gt_u.execute();
 				break;
 			}
 			case (byte) 0x57: { // i64 less than equal to signed
