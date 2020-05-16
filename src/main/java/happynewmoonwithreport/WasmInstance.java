@@ -21,6 +21,7 @@ import java.util.UUID;
 import happynewmoonwithreport.opcode.AddI32;
 import happynewmoonwithreport.opcode.Block;
 import happynewmoonwithreport.opcode.ConstantInt32;
+import happynewmoonwithreport.opcode.ConstantInt64;
 import happynewmoonwithreport.opcode.Drop;
 import happynewmoonwithreport.opcode.GetLocal;
 import happynewmoonwithreport.opcode.I32_Mul;
@@ -79,6 +80,8 @@ import happynewmoonwithreport.opcode.memory.I64_store8;
 import happynewmoonwithreport.type.DataTypeNumber;
 import happynewmoonwithreport.type.MemoryArgument;
 import happynewmoonwithreport.type.S32;
+import happynewmoonwithreport.type.VarInt32;
+import happynewmoonwithreport.type.VarInt64;
 import happynewmoonwithreport.type.VarUInt32;
 import happynewmoonwithreport.type.WasmVector;
 import happynewmoonwithreport.type.utility.Hex;
@@ -393,12 +396,16 @@ public class WasmInstance implements WasmInstanceInterface {
 
 			case (byte) 0x41: {  // i32.const i32
 				ConstantInt32 constantInt32 = new ConstantInt32(this);
-				constantInt32.execute(new VarUInt32(code));
+				constantInt32.execute(new VarInt32(code)); // Not sure if this is signed or unsigned
 				break;
 			}
-			//			case (byte) 0x42: { break;}  // I64 const I64
-			//			case (byte) 0x43: { break;}  // F32 const F32
-			//			case (byte) 0x44: { break;}  // F64 const F64
+			case (byte) 0x42: {   // I64 const I64
+				ConstantInt64 constantInt64 = new ConstantInt64(this);
+				constantInt64.execute(new VarInt64(code));// Not sure if this is signed or unsigned
+				break;
+			}
+			//			case (byte) 0x43: {  // F32 const F32
+			//			case (byte) 0x44: {  // F64 const F64
 
 			case (byte) 0x45: { // i32 equals zero
 				I32_eqz i32_eqz = new I32_eqz(this);
@@ -564,11 +571,13 @@ public class WasmInstance implements WasmInstanceInterface {
 				throwUnknownOpcodeException(opcode, code.getIndex());
 				return;
 		}
+
 	}
 
 	private void throwUnknownOpcodeException(byte opcode, Integer index) {
-		String message = "Wasm tried to run an opcode that was not defined. Unknown Opcode = " +
-						 Hex.byteToHex(opcode) + " (0d" + opcode + ")";
+		String message =
+			"Wasm tried to run an opcode that was not defined. Unknown Opcode = " + Hex.byteToHex(
+				opcode) + " (0d" + opcode + ")";
 		message += " at byte number = " + index + ". ";
 		String possibleSolutions =
 			"Verify the wasm file is valid.  Recompile Wasm File.  Contact " + "support.";

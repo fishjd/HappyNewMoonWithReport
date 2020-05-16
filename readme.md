@@ -126,7 +126,7 @@ Data Section:  To Do
 - [ ] Current_memory 0x3F
 - [ ] Grow_memory 0x40
 - [x] i32_const 0x41
-- [ ] i64_const 0x42
+- [x] i64_const 0x42
 - [ ] f32_const 0x43
 - [ ] f64_const 0x44
 - [x] i32_eqz  0x46
