@@ -166,7 +166,7 @@ Data Section:  To Do
 - [ ] f64.le  0x65
 - [ ] f64.ge 0x66
 - [x] i32.clz  0x67
-- [ ] i32.ctz  0x68
+- [x] i32.ctz  0x68
 - [ ] i32.popcnt  0x69
 - [x] i32.add 0x6A
 - [x] i32.sub 0x6B

@@ -17,24 +17,22 @@
 
 package happynewmoonwithreport.opcode.countingBits;
 
-import java.util.Stack;
 import java.util.UUID;
 
-import happynewmoonwithreport.WasmInstanceInterface;
 import happynewmoonwithreport.WasmRuntimeException;
 import happynewmoonwithreport.WasmStack;
 import happynewmoonwithreport.type.I32;
 
 /**
- * Return the number of leading zeros.  CLZ stands for <b>C</b>ount <b>L</b>eading <b>Z</b>eros
+ * Return the number of trailing zeros.  CTZ stands for <b>C</b>ount <b>T</b>railing <b>Z</b>eros
  * </p>
  * <h2>Source:</h2>
  * <h3>Operator:</h3>
  * <p>
- * Return the count of leading zero bits in i; all bits are considered leading zeros if i is 0.
+ * Return the count of trailing zero bits in i; all bits are considered trailing zeros if i is 0.
  * <p>
- * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-iclz" target="_top">
- * https://webassembly.github.io/spec/core/exec/numerics.html#op-iclz </a>
+ * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-ictz" target="_top">
+ * https://webassembly.github.io/spec/core/exec/numerics.html#op-ictz </a>
  *
  *
  * <p>Note: the documentation below is the same for all unary operators.</p>
@@ -73,18 +71,18 @@ import happynewmoonwithreport.type.I32;
  * </ol>
  */
 
-public class I32_clz {
+public class I32_ctz {
 	private final String opCodeName = getClass().getName();
 	private final String t1Type = "I32";
 	private final String t2Type = "I32";
 
 	private WasmStack<Object> stack;
 
-	private I32_clz() {
+	private I32_ctz() {
 		super();
 	}
 
-	public I32_clz(WasmStack<Object> stack ) {
+	public I32_ctz(WasmStack<Object> stack ) {
 		this();
 		this.stack = stack;
 	}
@@ -103,7 +101,7 @@ public class I32_clz {
 		I32 c1 = (I32) stack.pop();
 
 		//Let c be a possible result of computing unopt(c1).
-		I32 c = c1.countLeadingZeros();
+		I32 c = c1.countTrailingZeros();
 
 		// Push the value t.const c to the stack.
 		stack.push(c);

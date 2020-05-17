@@ -23,16 +23,16 @@ import happynewmoonwithreport.type.I32
 import spock.lang.Specification
 
 /**
- * Test I32 count leading zeros.
+ * Test I32 count trailing zeros.
  *
  * Some test cases are from:
- * <a href="https://github.com/WebAssembly/testsuite/blob/c17cd7f4e379b814055c82fcc0fc1f6202ba9e2a/i32.wast#LC245">
+ * <a href="https://github.com/WebAssembly/testsuite/blob/c17cd7f4e379b814055c82fcc0fc1f6202ba9e2a/i32.wast#LC254">
  *      WebAssembly Test Suite i32.wast
  * </a>
  */
-class I32_clz_Test extends Specification {
+class I32_ctz_Test extends Specification {
 	// CUT  Component/Class/Code under test
-	I32_clz i32_clz;
+	I32_ctz i32_ctz;
 
 	WasmInstanceInterface instance;
 
@@ -40,7 +40,7 @@ class I32_clz_Test extends Specification {
 		instance = new WasmInstanceStub();
 
 		// create class to test.
-		i32_clz = new I32_clz(instance.stack());
+		i32_ctz = new I32_ctz(instance.stack());
 	}
 
 	void cleanup() {
@@ -56,22 +56,25 @@ class I32_clz_Test extends Specification {
 
 		when:  // convert
 		// execute
-		i32_clz.execute();
+		i32_ctz.execute();
 
 		then:
 		// verify
 		I32 result = instance.stack().pop();
-		new I32(expected) == result;
+		result.integerValue() == expected;
+		result == new I32(expected);
 
 		where:
 		input             || expected
-		(int) 0xFFFF_FFFF || 0
+		-1                || 0
 		0                 || 32
-		(int) 0x0000_8000 || 16
-		0x0000_00FF       || 24
-		(int) 0x8000_0000 || 0
-		1                 || 31
-		2                 || 30
-		0x7FFF_FFFF       || 1
+		(int) 0x0001_0000 || 16
+		0x0000_00FF       || 0
+		(int) 0x8000_0000 || 31
+		1                 || 0
+		2                 || 1
+		0x7FFF_FFFF       || 0
+
+
 	}
 }
