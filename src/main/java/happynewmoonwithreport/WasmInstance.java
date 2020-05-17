@@ -61,6 +61,7 @@ import happynewmoonwithreport.opcode.convert.I64_extend_I32_s;
 import happynewmoonwithreport.opcode.convert.I64_extend_I32_u;
 import happynewmoonwithreport.opcode.countingBits.I32_clz;
 import happynewmoonwithreport.opcode.countingBits.I32_ctz;
+import happynewmoonwithreport.opcode.countingBits.I32_popcnt;
 import happynewmoonwithreport.opcode.memory.I32_load;
 import happynewmoonwithreport.opcode.memory.I32_load16_s;
 import happynewmoonwithreport.opcode.memory.I32_load16_u;
@@ -529,6 +530,11 @@ public class WasmInstance implements WasmInstanceInterface {
 			case (byte) 0x68: {  // I32 Count Trailing Zeros
 				I32_ctz i32_ctz = new I32_ctz(this.stack);
 				i32_ctz.execute();
+				break;
+			}
+			case (byte) 0x69: {  // I32 Population Count,  aka Bit Count
+				I32_popcnt i32_popcnt = new I32_popcnt(this.stack);
+				i32_popcnt.execute();
 				break;
 			}
 			case (byte) 0x6A: {

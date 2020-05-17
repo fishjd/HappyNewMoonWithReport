@@ -227,6 +227,17 @@ public class I32 extends IntWasm {
 		return new I32(result);
 	}
 
+	/**
+	 * Count the number one-bits in the value.
+	 * <p>
+	 *
+	 * @return I32   (0<= result && result <=32).
+	 */
+	public I32 populationCount() {
+		Integer result =  Integer.bitCount(value);
+		return new I32(result);
+	}
+
 	@Override
 	public Integer maxBits() {
 		return 32;
