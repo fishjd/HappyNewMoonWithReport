@@ -58,6 +58,7 @@ import happynewmoonwithreport.opcode.convert.I64_extend32_s;
 import happynewmoonwithreport.opcode.convert.I64_extend8_s;
 import happynewmoonwithreport.opcode.convert.I64_extend_I32_s;
 import happynewmoonwithreport.opcode.convert.I64_extend_I32_u;
+import happynewmoonwithreport.opcode.countingBits.I32_clz;
 import happynewmoonwithreport.opcode.memory.I32_load;
 import happynewmoonwithreport.opcode.memory.I32_load16_s;
 import happynewmoonwithreport.opcode.memory.I32_load16_u;
@@ -515,6 +516,12 @@ public class WasmInstance implements WasmInstanceInterface {
 			case (byte) 0x5A: { // i64 greater than equal to unsigned
 				I64_ge_u i64_ge_u = new I64_ge_u(this);
 				i64_ge_u.execute();
+				break;
+			}
+			case (byte) 0x67: {  // I32 Count Leading Zeros
+				// I'm not sure to pass the WasmInstance or the Stack Only?
+				I32_clz i32_clz = new I32_clz(this.stack);
+				i32_clz.execute();
 				break;
 			}
 			case (byte) 0x6A: {
