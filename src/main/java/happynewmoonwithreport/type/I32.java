@@ -205,6 +205,17 @@ public class I32 extends IntWasm {
 		return result;
 	}
 
+	/**
+	 * Count the number of leading zero in the value.
+	 * <p>
+	 *
+	 * @return I32   (0<= result && result <=32).
+	 */
+	public I32 countLeadingZeros() {
+		Integer result =  Integer.numberOfLeadingZeros(value);
+		return new I32(result);
+	}
+
 	@Override
 	public Integer maxBits() {
 		return 32;
