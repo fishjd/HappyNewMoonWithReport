@@ -87,6 +87,15 @@ public abstract class IntWasm implements DataTypeNumber {
 	 * <a href="https://stackoverflow.com/questions/6215256/sign-extension-from-16-to-32-bits-in-c#answer-51958446">
 	 * href="https://stackoverflow.com/questions/6215256/sign-extension-from-16-to-32-bits-in-c
 	 * #answer-51958446"</a>
+	 * <p>
+	 * This algorithm is in:
+	 * Warren, Henry S.. Hacker's Delight. N.p., Pearson Education, 2012.  Section 2.6 Sign
+	 * Extension
+	 * <br>
+	 * <br>
+	 * <a href="https://www.google.com/books/edition/Hacker_s_Delight/VicPJYM0I5QC?hl=en&gbpv=0">
+	 *     Hackers Delight on Google Books.
+	 * </a>
 	 *
 	 * @param bInput an Unsigned byte of length 8
 	 * @return an int of length 32.
@@ -140,6 +149,15 @@ public abstract class IntWasm implements DataTypeNumber {
 	 * <a href="https://stackoverflow.com/questions/6215256/sign-extension-from-16-to-32-bits-in-c#answer-51958446">
 	 * href="https://stackoverflow.com/questions/6215256/sign-extension-from-16-to-32-bits-in-c
 	 * #answer-51958446"</a>
+	 * <p>
+	 * This algorithm is in:
+	 * Warren, Henry S.. Hacker's Delight. N.p., Pearson Education, 2012.  Section 2.6 Sign
+	 * Extension
+	 * <br>
+	 * <br>
+	 * <a href="https://www.google.com/books/edition/Hacker_s_Delight/VicPJYM0I5QC?hl=en&gbpv=0">
+	 *     Hackers Delight on Google Books.
+	 * </a>
 	 *
 	 * @param input an int of length 16
 	 * @return an int of length 32.
@@ -184,6 +202,15 @@ public abstract class IntWasm implements DataTypeNumber {
 	 * <a href="https://stackoverflow.com/questions/6215256/sign-extension-from-16-to-32-bits-in-c#answer-51958446">
 	 * href="https://stackoverflow.com/questions/6215256/sign-extension-from-16-to-32-bits-in-c
 	 * #answer-51958446"</a>
+	 * <p>
+	 * This algorithm is in:
+	 * Warren, Henry S.. Hacker's Delight. N.p., Pearson Education, 2012.  Section 2.6 Sign
+	 * Extension
+	 * <br>
+	 * <br>
+	 * <a href="https://www.google.com/books/edition/Hacker_s_Delight/VicPJYM0I5QC?hl=en&gbpv=0">
+	 *     Hackers Delight on Google Books.
+	 * </a>
 	 *
 	 * @param bInput an Unsigned byte of length 8
 	 * @return an int of length 64.
@@ -221,6 +248,15 @@ public abstract class IntWasm implements DataTypeNumber {
 	 * <a href="https://stackoverflow.com/questions/6215256/sign-extension-from-16-to-32-bits-in-c#answer-51958446">
 	 * href="https://stackoverflow.com/questions/6215256/sign-extension-from-16-to-32-bits-in-c
 	 * #answer-51958446"</a>
+	 * <p>
+	 * This algorithm is in:
+	 * Warren, Henry S.. Hacker's Delight. N.p., Pearson Education, 2012.  Section 2.6 Sign
+	 * Extension
+	 * <br>
+	 * <br>
+	 * <a href="https://www.google.com/books/edition/Hacker_s_Delight/VicPJYM0I5QC?hl=en&gbpv=0">
+	 *     Hackers Delight on Google Books.
+	 * </a>
 	 *
 	 * @param input Long, value to convert to 64 bits.  Only the least significant byte is used.
 	 * @return an int of length 64.
@@ -267,6 +303,15 @@ public abstract class IntWasm implements DataTypeNumber {
 	 * <a href="https://stackoverflow.com/questions/6215256/sign-extension-from-16-to-32-bits-in-c#answer-51958446">
 	 * href="https://stackoverflow.com/questions/6215256/sign-extension-from-16-to-32-bits-in-c
 	 * #answer-51958446"</a>
+	 * <p>
+	 * This algorithm is in:
+	 * Warren, Henry S.. Hacker's Delight. N.p., Pearson Education, 2012.  Section 2.6 Sign
+	 * Extension
+	 * <br>
+	 * <br>
+	 * <a href="https://www.google.com/books/edition/Hacker_s_Delight/VicPJYM0I5QC?hl=en&gbpv=0">
+	 *     Hackers Delight on Google Books.
+	 * </a>
 	 *
 	 * @param input an int of length 16
 	 * @return an int of length 64.
@@ -313,6 +358,15 @@ public abstract class IntWasm implements DataTypeNumber {
 	 * <a href="https://stackoverflow.com/questions/6215256/sign-extension-from-16-to-32-bits-in-c#answer-51958446">
 	 * href="https://stackoverflow.com/questions/6215256/sign-extension-from-16-to-32-bits-in-c
 	 * #answer-51958446"</a>
+	 * <p>
+	 * This algorithm is in:
+	 * Warren, Henry S.. Hacker's Delight. N.p., Pearson Education, 2012.  Section 2.6 Sign
+	 * Extension
+	 * <br>
+	 * <br>
+	 * <a href="https://www.google.com/books/edition/Hacker_s_Delight/VicPJYM0I5QC?hl=en&gbpv=0">
+	 *     Hackers Delight on Google Books.
+	 * </a>
 	 *
 	 * @param input an int of length 16
 	 * @return an int of length 64.
