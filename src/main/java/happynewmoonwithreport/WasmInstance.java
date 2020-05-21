@@ -62,6 +62,9 @@ import happynewmoonwithreport.opcode.convert.I64_extend_I32_u;
 import happynewmoonwithreport.opcode.countingBits.I32_clz;
 import happynewmoonwithreport.opcode.countingBits.I32_ctz;
 import happynewmoonwithreport.opcode.countingBits.I32_popcnt;
+import happynewmoonwithreport.opcode.countingBits.I64_clz;
+import happynewmoonwithreport.opcode.countingBits.I64_ctz;
+import happynewmoonwithreport.opcode.countingBits.I64_popcnt;
 import happynewmoonwithreport.opcode.memory.I32_load;
 import happynewmoonwithreport.opcode.memory.I32_load16_s;
 import happynewmoonwithreport.opcode.memory.I32_load16_u;
@@ -400,7 +403,7 @@ public class WasmInstance implements WasmInstanceInterface {
 
 			case (byte) 0x41: {  // i32.const i32
 				ConstantInt32 constantInt32 = new ConstantInt32(this);
-				constantInt32.execute(new VarInt32(code)); // Not sure if this is signed or unsigned
+				constantInt32.execute(new VarInt32(code));// Not sure if this is signed or unsigned
 				break;
 			}
 			case (byte) 0x42: {   // I64 const I64
@@ -550,6 +553,21 @@ public class WasmInstance implements WasmInstanceInterface {
 			case (byte) 0x6C: { // i32 multiply
 				I32_Mul i32_mul = new I32_Mul(this);
 				i32_mul.execute();
+				break;
+			}
+			case (byte) 0x79: {  // I64 Count Leading Zeros
+				I64_clz i64_clz = new I64_clz(this.stack);
+				i64_clz.execute();
+				break;
+			}
+			case (byte) 0x7A: {  // I64 Count Trailing Zeros
+				I64_ctz i64_ctz = new I64_ctz(this.stack);
+				i64_ctz.execute();
+				break;
+			}
+			case (byte) 0x7b: {  // I64 Population Count,  aka Bit Count
+				I64_popcnt i64_popcnt = new I64_popcnt(this.stack);
+				i64_popcnt.execute();
 				break;
 			}
 			case (byte) 0xAC: { // I64 Extend I32 Signed
