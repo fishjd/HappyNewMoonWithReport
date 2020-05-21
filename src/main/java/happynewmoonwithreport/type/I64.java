@@ -185,7 +185,7 @@ public class I64 extends IntWasm {
 	 * Count the number of leading zeros in the value.
 	 * <p>
 	 *
-	 * @return I32   (0<= result && result <=32).
+	 * @return I32   (0<= result && result <= 64).
 	 */
 	public I32 countLeadingZeros() {
 		Integer result = Long.numberOfLeadingZeros(value);
@@ -196,7 +196,7 @@ public class I64 extends IntWasm {
 	 * Count the number of trailing zeros in the value.
 	 * <p>
 	 *
-	 * @return I32   (0<= result && result <=32).
+	 * @return I32   (0<= result && result <= 64).
 	 */
 	public I32 countTrailingZeros() {
 		Integer result = Long.numberOfTrailingZeros(value);
@@ -207,7 +207,7 @@ public class I64 extends IntWasm {
 	 * Count the number one-bits in the value.
 	 * <p>
 	 *
-	 * @return I32   (0<= result && result <=32).
+	 * @return I32   (0<= result && result <= 64).
 	 */
 	public I32 populationCount() {
 		Integer result = Long.bitCount(value);
