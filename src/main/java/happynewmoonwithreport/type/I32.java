@@ -212,7 +212,7 @@ public class I32 extends IntWasm {
 	 * @return I32   (0<= result && result <=32).
 	 */
 	public I32 countLeadingZeros() {
-		Integer result =  Integer.numberOfLeadingZeros(value);
+		Integer result = Integer.numberOfLeadingZeros(value);
 		return new I32(result);
 	}
 
@@ -223,7 +223,7 @@ public class I32 extends IntWasm {
 	 * @return I32   (0<= result && result <=32).
 	 */
 	public I32 countTrailingZeros() {
-		Integer result =  Integer.numberOfTrailingZeros(value);
+		Integer result = Integer.numberOfTrailingZeros(value);
 		return new I32(result);
 	}
 
@@ -234,7 +234,7 @@ public class I32 extends IntWasm {
 	 * @return I32   (0<= result && result <=32).
 	 */
 	public I32 populationCount() {
-		Integer result =  Integer.bitCount(value);
+		Integer result = Integer.bitCount(value);
 		return new I32(result);
 	}
 

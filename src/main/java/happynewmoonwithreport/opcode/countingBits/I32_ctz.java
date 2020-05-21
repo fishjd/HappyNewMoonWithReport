@@ -74,7 +74,6 @@ import happynewmoonwithreport.type.I32;
 public class I32_ctz {
 	private final String opCodeName = getClass().getName();
 	private final String t1Type = "I32";
-	private final String t2Type = "I32";
 
 	private WasmStack<Object> stack;
 

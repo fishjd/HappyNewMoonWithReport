@@ -22,17 +22,18 @@ import java.util.UUID;
 import happynewmoonwithreport.WasmRuntimeException;
 import happynewmoonwithreport.WasmStack;
 import happynewmoonwithreport.type.I32;
+import happynewmoonwithreport.type.I64;
 
 /**
- * Return the number of one-bits.  Popcnt stands for population count.  Also call bitCount in Java.
+ * Return the number of leading zeros.  CLZ stands for <b>C</b>ount <b>L</b>eading <b>Z</b>eros
  * </p>
  * <h2>Source:</h2>
  * <h3>Operator:</h3>
  * <p>
- * Return the count of non-zero bits in i.
+ * Return the count of leading zero bits in i; all bits are considered leading zeros if i is 0.
  * <p>
- * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-ipopcnt" target="_top">
- * https://webassembly.github.io/spec/core/exec/numerics.html#op-ipopcnt</a>
+ * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-iclz" target="_top">
+ * https://webassembly.github.io/spec/core/exec/numerics.html#op-iclz </a>
  *
  *
  * <p>Note: the documentation below is the same for all unary operators.</p>
@@ -71,17 +72,17 @@ import happynewmoonwithreport.type.I32;
  * </ol>
  */
 
-public class I32_popcnt {
+public class I64_clz {
 	private final String opCodeName = getClass().getName();
-	private final String t1Type = "I32";
+	private final String t1Type = "I64";
 
 	private WasmStack<Object> stack;
 
-	private I32_popcnt() {
+	private I64_clz() {
 		super();
 	}
 
-	public I32_popcnt(WasmStack<Object> stack ) {
+	public I64_clz(WasmStack<Object> stack ) {
 		this();
 		this.stack = stack;
 	}
@@ -92,19 +93,19 @@ public class I32_popcnt {
 	public void execute() {
 
 		// Assert: due to validation, a value of value type t1 is on the top of the stack.
-		if ((stack.peek() instanceof I32) == false) {
-			throw new WasmRuntimeException(UUID.fromString("6132922f-a968-42a0-bef5-236f486448d5"),
+		if ((stack.peek() instanceof I64) == false) {
+			throw new WasmRuntimeException(UUID.fromString("e3dfb90a-6745-42d4-9ade-be472248f199"),
 				opCodeName + ": Value type is incorrect. Value should be of type " + t1Type);
 		}
 		// Pop the value t1.const c1 from the stack.
-		I32 c1 = (I32) stack.pop();
+		I64 c1 = (I64) stack.pop();
 
 		//Let c be a possible result of computing unopt(c1).
-		I32 c = c1.populationCount();
+		I32 c = c1.countLeadingZeros();
 
 		// Push the value t.const c to the stack.
 		stack.push(c);
 
-		// No need to trap as I32 may always be converted to I32.
+		// No need to trap as I64 may always be converted to I64.
 	}
 }
