@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 - 2019 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2020 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -14,10 +14,11 @@
  *  limitations under the License.
  *
  */
-package happynewmoonwithreport.opcode
+package happynewmoonwithreport.opcode.math
 
 import happynewmoonwithreport.WasmInstanceInterface
 import happynewmoonwithreport.WasmRuntimeException
+import happynewmoonwithreport.opcode.WasmInstanceStub
 import happynewmoonwithreport.opcode.math.I32_add
 import happynewmoonwithreport.type.I32
 import happynewmoonwithreport.type.S32
