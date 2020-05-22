@@ -19,28 +19,27 @@ package happynewmoonwithreport.opcode.math
 import happynewmoonwithreport.WasmInstanceInterface
 import happynewmoonwithreport.WasmRuntimeException
 import happynewmoonwithreport.opcode.WasmInstanceStub
-import happynewmoonwithreport.opcode.math.I32_Sub
 import happynewmoonwithreport.type.S32
 import happynewmoonwithreport.type.S64
 import spock.lang.Specification
 
 /**
- * Created on 2018-08-04.
+ * Created on 2019-02-23.
  */
-class I32_SubTest extends Specification {
+class I32_mulTest extends Specification {
 	void setup() {
 	}
 
 	void cleanup() {
 	}
 
-	def "Execute I32_Sub"() {
-		setup: " a value of 3 and a value of 4"
+	def "Execute I32_Mul"() {
+		setup: " given two values val1 and val2"
 		WasmInstanceInterface instance = new WasmInstanceStub();
 		instance.stack().push(new S32(val1));
 		instance.stack().push(new S32(val2));
 
-		I32_Sub function = new I32_Sub(instance);
+		I32_mul function = new I32_mul(instance);
 
 		when: "run the opcode"
 		function.execute();
@@ -50,42 +49,22 @@ class I32_SubTest extends Specification {
 		new S32(expected) == instance.stack().pop();
 
 		where: ""
-		val1        | val2 || expected
-		3           | 4    || -1
-		4           | 3    || 1
-		0x7FFF_FFFE | 0x1  || 0x7FFF_FFFD
-		new S32(0).maxValue() | 0x1  || 0x7FFF_FFFE
+		val1                  | val2 || expected
+		3                     | 4    || 12
+		3                     | 0    || 0
+		4                     | 3    || 12
+		0x7FFF_FFFE           | 0x1  || 0x7FFF_FFFE
+		new S32(0).maxValue() | 0x1  || new S32(0).maxValue()
 		;
 	}
 
-	def "Execute I32_Sub test underflow"() {
-		setup: " test underflow condition"
-		WasmInstanceInterface instance = new WasmInstanceStub();
-		instance.stack().push(new S32(val1));
-		instance.stack().push(new S32(val2));
-
-		I32_Sub function = new I32_Sub(instance);
-
-		when: "run the opcode"
-		function.execute();
-
-		then: " a value of expected"
-
-		new S32(expected) == instance.stack().pop();
-
-		where: ""
-		val1        | val2 || expected
-		new S32(0).minValue() | 0x1  || new S32(0).maxValue()
-		;
-	}
-
-	def "Execute opcode I32_Sub throw exception on incorrect Type on second param "() {
+	def "Execute opcode I32_Mul throw exception on incorrect Type on second param "() {
 		setup: " a value of int64  of 3  and a value of int32 of 4"
 		WasmInstanceInterface instance = new WasmInstanceStub();
 		instance.stack().push(new S32(4));
 		instance.stack().push(new S64(3));
 
-		I32_Sub function = new I32_Sub(instance);
+		I32_mul function = new I32_mul(instance);
 
 		when: "run the opcode"
 		function.execute();
@@ -93,16 +72,16 @@ class I32_SubTest extends Specification {
 		then: " Thrown Exception"
 		WasmRuntimeException exception = thrown();
 		exception.message.contains("Value2");  // not sure if this is the Wasm Spec. Maybe it should be "Value1"
-		exception.getUuid().toString().contains("ed5b6703-894c-4d1e-8ddc-4aab7ed1f4dd");
+		exception.getUuid().toString().contains("847fe99b-56ea-407c-ac94-1cf13c1936f1");
 	}
 
-	def "Execute I32_Sub throw exception on incorrect Type on first param "() {
+	def "Execute I32_Mul throw exception on incorrect Type on first param "() {
 		setup: " a value of int32  of 3  and a value of int64 of 4"
 		WasmInstanceInterface instance = new WasmInstanceStub();
 		instance.stack().push(new S64(4));
 		instance.stack().push(new S32(3));
 
-		I32_Sub function = new I32_Sub(instance);
+		I32_mul function = new I32_mul(instance);
 
 		when: "run the opcode"
 		function.execute();
@@ -110,6 +89,6 @@ class I32_SubTest extends Specification {
 		then: " Thrown Exception"
 		WasmRuntimeException exception = thrown();
 		exception.message.contains("Value1");  // not sure if this is the Wasm Spec. Maybe it should be "Value1"
-		exception.getUuid().toString().contains("d259488c-e394-4c0c-9246-1882923fb352");
+		exception.getUuid().toString().contains("e1433c51-da9f-4c43-a9fe-90ba1d84e56b");
 	}
 }

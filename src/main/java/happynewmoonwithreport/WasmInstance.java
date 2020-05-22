@@ -62,8 +62,8 @@ import happynewmoonwithreport.opcode.countingBits.I32_popcnt;
 import happynewmoonwithreport.opcode.countingBits.I64_clz;
 import happynewmoonwithreport.opcode.countingBits.I64_ctz;
 import happynewmoonwithreport.opcode.countingBits.I64_popcnt;
-import happynewmoonwithreport.opcode.math.I32_Mul;
-import happynewmoonwithreport.opcode.math.I32_Sub;
+import happynewmoonwithreport.opcode.math.I32_mul;
+import happynewmoonwithreport.opcode.math.I32_sub;
 import happynewmoonwithreport.opcode.math.I32_add;
 import happynewmoonwithreport.opcode.math.I64_add;
 import happynewmoonwithreport.opcode.memory.I32_load;
@@ -204,7 +204,7 @@ public class WasmInstance implements WasmInstanceInterface {
 	}
 
 	/**
-	 * Run a file of Web Assembly byte codes.
+	 * Run one opcode in the byte file.
 	 * <p>
 	 * Source: <a href="https://webassembly.github.io/spec/core/appendix/index-instructions.html"
 	 * target="_top"> https://webassembly.github.io/spec/core/appendix/index-instructions.html
@@ -547,12 +547,12 @@ public class WasmInstance implements WasmInstanceInterface {
 				break;
 			}
 			case (byte) 0x6B: {
-				I32_Sub i32_sub = new I32_Sub(this);
+				I32_sub i32_sub = new I32_sub(this);
 				i32_sub.execute();
 				break;
 			}
 			case (byte) 0x6C: { // i32 multiply
-				I32_Mul i32_mul = new I32_Mul(this);
+				I32_mul i32_mul = new I32_mul(this);
 				i32_mul.execute();
 				break;
 			}

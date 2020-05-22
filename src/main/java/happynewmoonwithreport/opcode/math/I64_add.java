@@ -25,7 +25,7 @@ import happynewmoonwithreport.WasmStack;
 import happynewmoonwithreport.type.I64;
 
 /**
- * Return the result of adding i1 and i2 modulo 2N.
+ * Return the result of adding i<sub>1</sub> from i<sub>2</sub> modulo 2<sup>N</sup>.
  * <br>
  * <br>
  * Note the below is the same for all Binary Operations
@@ -37,31 +37,39 @@ import happynewmoonwithreport.type.I64;
  * Assert: due to validation, two values of value type t are on the top of the stack.
  * </li>
  * <li>
- * Pop the value t.const c2 from the stack.
+ * Pop the value t.const c<sub>2</sub> from the stack.
  * </li>
  * <li>
- * Pop the value t.const c1 from the stack.
+ * Pop the value t.const c<sub>1</sub> from the stack.
  * </li>
  * <li>
- * If binopt(c1,c2) is defined, then: Let c be a possible result of computing binopt(c1,c2). Push
- * the value t.const
- * c to the stack.
+ * If binop<sub>t</sub>(c<sub>1</sub>,c<sub>2</sub>) is defined, then:
+ * 		<ol type="a">
+ * 			<li>
+ * 			    Let c be a possible result of computing binopt(c<sub>1</sub>,c<sub>2</sub>).
+ * 			</li>
+ * 			<li>
+ * 		    	Push the value t.const c to the stack.
+ * 			</li>
+ * 		</ol>
  * </li>
  * <li>
  * Else:
- * Trap.
- * <br>
+ * 		<ol type="a">
+ * 			<li>
+ * 			 	Trap.
+ * 			</li>
+ * 		</ol>
  * </li>
  * </ol>
- * <br>
  * Source:
  * <br>
  * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-iadd" target="_top">
- *   https://webassembly.github.io/spec/core/exec/numerics.html#op-iadd
- *   </a>
+ *   	Addition Operator
+ * </a>
  * <br>
- * <a href="https://webassembly.github.io/spec/core/exec/instructions.html#numeric-instructions" target="_top">
- * https://webassembly.github.io/spec/core/exec/instructions.html#numeric-instructions  t.binop
+ * <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-binop" target="_top">
+ *		Binary Operator
  * </a>
  */
 public class I64_add<ParameterType, ReturnType> {

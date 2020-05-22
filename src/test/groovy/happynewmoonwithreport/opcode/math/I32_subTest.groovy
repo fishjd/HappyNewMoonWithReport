@@ -19,53 +19,67 @@ package happynewmoonwithreport.opcode.math
 import happynewmoonwithreport.WasmInstanceInterface
 import happynewmoonwithreport.WasmRuntimeException
 import happynewmoonwithreport.opcode.WasmInstanceStub
-import happynewmoonwithreport.opcode.math.I32_Mul
+import happynewmoonwithreport.type.I32
 import happynewmoonwithreport.type.S32
 import happynewmoonwithreport.type.S64
 import spock.lang.Specification
 
 /**
- * Created on 2019-02-23.
+ * Created on 2018-08-04.
+ *
+ * Some test cases are from:
+ * <a href="https://github.com/WebAssembly/testsuite/blob/c17cd7f4e379b814055c82fcc0fc1f6202ba9e2a/i32.wast#L46">
+ *      WebAssembly Test Suite i32.wast
+ * </a>
+
  */
-class I32_MulTest extends Specification {
+class I32_subTest extends Specification {
 	void setup() {
 	}
 
 	void cleanup() {
 	}
 
-	def "Execute I32_Mul"() {
-		setup: " given two values val1 and val2"
+	def "Execute I32_Sub"() {
+		setup: "two values"
 		WasmInstanceInterface instance = new WasmInstanceStub();
 		instance.stack().push(new S32(val1));
 		instance.stack().push(new S32(val2));
 
-		I32_Mul function = new I32_Mul(instance);
+		I32_sub i32_sub = new I32_sub(instance);
 
 		when: "run the opcode"
-		function.execute();
+		i32_sub.execute();
 
-		then: " a value of expected"
+		then: "get the result off the stack and verify it matches the expected value"
 
-		new S32(expected) == instance.stack().pop();
+		new I32(expected) == instance.stack().pop();
 
-		where: ""
-		val1                  | val2 || expected
-		3                     | 4    || 12
-		3                     | 0    || 0
-		4                     | 3    || 12
-		0x7FFF_FFFE           | 0x1  || 0x7FFF_FFFE
-		new S32(0).maxValue() | 0x1  || new S32(0).maxValue()
-		;
+		where: "Subtract"
+		val1                  | val2              || expected
+		// Web Assembly Tests
+		1                     | 1                 || 0
+		1                     | 0                 || 1
+		-1                    | -1                || 0
+		0x7FFF_FFFF           | -1                || (int) 0x8000_0000
+		(int) 0x8000_0000     | 1                 || 0x7FFF_FFFF
+		(int) 0x8000_0000     | (int) 0x8000_0000 || 0
+		0x3FFF_FFFF           | -1                || 0x4000_0000
+		// Happy New Moon with Report Tests
+		3                     | 4                 || -1
+		4                     | 3                 || 1
+		0x7FFF_FFFE           | 0x1               || 0x7FFF_FFFD
+		new S32(0).maxValue() | 0x1               || 0x7FFF_FFFE
 	}
 
-	def "Execute opcode I32_Mul throw exception on incorrect Type on second param "() {
+
+	def "Execute opcode I32_Sub throw exception on incorrect Type on second param "() {
 		setup: " a value of int64  of 3  and a value of int32 of 4"
 		WasmInstanceInterface instance = new WasmInstanceStub();
 		instance.stack().push(new S32(4));
 		instance.stack().push(new S64(3));
 
-		I32_Mul function = new I32_Mul(instance);
+		I32_sub function = new I32_sub(instance);
 
 		when: "run the opcode"
 		function.execute();
@@ -73,16 +87,16 @@ class I32_MulTest extends Specification {
 		then: " Thrown Exception"
 		WasmRuntimeException exception = thrown();
 		exception.message.contains("Value2");  // not sure if this is the Wasm Spec. Maybe it should be "Value1"
-		exception.getUuid().toString().contains("847fe99b-56ea-407c-ac94-1cf13c1936f1");
+		exception.getUuid().toString().contains("ed5b6703-894c-4d1e-8ddc-4aab7ed1f4dd");
 	}
 
-	def "Execute I32_Mul throw exception on incorrect Type on first param "() {
+	def "Execute I32_Sub throw exception on incorrect Type on first param "() {
 		setup: " a value of int32  of 3  and a value of int64 of 4"
 		WasmInstanceInterface instance = new WasmInstanceStub();
 		instance.stack().push(new S64(4));
 		instance.stack().push(new S32(3));
 
-		I32_Mul function = new I32_Mul(instance);
+		I32_sub function = new I32_sub(instance);
 
 		when: "run the opcode"
 		function.execute();
@@ -90,6 +104,6 @@ class I32_MulTest extends Specification {
 		then: " Thrown Exception"
 		WasmRuntimeException exception = thrown();
 		exception.message.contains("Value1");  // not sure if this is the Wasm Spec. Maybe it should be "Value1"
-		exception.getUuid().toString().contains("e1433c51-da9f-4c43-a9fe-90ba1d84e56b");
+		exception.getUuid().toString().contains("d259488c-e394-4c0c-9246-1882923fb352");
 	}
 }
