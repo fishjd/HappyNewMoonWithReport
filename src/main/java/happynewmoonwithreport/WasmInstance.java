@@ -37,6 +37,7 @@ import happynewmoonwithreport.opcode.I32_le_u;
 import happynewmoonwithreport.opcode.I32_lt_s;
 import happynewmoonwithreport.opcode.I32_lt_u;
 import happynewmoonwithreport.opcode.I32_ne;
+import happynewmoonwithreport.opcode.I64_add;
 import happynewmoonwithreport.opcode.I64_eq;
 import happynewmoonwithreport.opcode.I64_eqz;
 import happynewmoonwithreport.opcode.I64_ge_s;
@@ -565,9 +566,14 @@ public class WasmInstance implements WasmInstanceInterface {
 				i64_ctz.execute();
 				break;
 			}
-			case (byte) 0x7b: {  // I64 Population Count,  aka Bit Count
+			case (byte) 0x7B: {  // I64 Population Count,  aka Bit Count
 				I64_popcnt i64_popcnt = new I64_popcnt(this.stack);
 				i64_popcnt.execute();
+				break;
+			}
+			case (byte) 0x7C: {
+				I64_add addI64 = new I64_add(this);
+				addI64.execute();
 				break;
 			}
 			case (byte) 0xAC: { // I64 Extend I32 Signed
