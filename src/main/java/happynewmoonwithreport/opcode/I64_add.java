@@ -22,13 +22,15 @@ import java.util.UUID;
 import happynewmoonwithreport.WasmInstanceInterface;
 import happynewmoonwithreport.WasmRuntimeException;
 import happynewmoonwithreport.WasmStack;
-import happynewmoonwithreport.type.I32;
+import happynewmoonwithreport.type.I64;
 
 /**
- * Sign-agnostic addition
- * <p>
- * <b>Note this is the same for all Binary Operations</b>
- * <p>
+ * Return the result of adding i1 and i2 modulo 2N.
+ * <br>
+ * <br>
+ * Note the below is the same for all Binary Operations
+ * <br>
+ * <br>
  * t.binop
  * <ol>
  * <li>
@@ -48,23 +50,32 @@ import happynewmoonwithreport.type.I32;
  * <li>
  * Else:
  * Trap.
- * <p>
+ * <br>
  * </li>
  * </ol>
- * <p>
+ * <br>
  * Source:
+ * <br>
+ * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-iadd" target="_top">
+ *   https://webassembly.github.io/spec/core/exec/numerics.html#op-iadd
+ *   </a>
+ * <br>
  * <a href="https://webassembly.github.io/spec/core/exec/instructions.html#numeric-instructions" target="_top">
  * https://webassembly.github.io/spec/core/exec/instructions.html#numeric-instructions  t.binop
  * </a>
  */
-public class AddI32<ParameterType, ReturnType> {
+public class I64_add<ParameterType, ReturnType> {
+	private final String opCodeName = getClass().getName();
+	private final String t1Type = "I64";
+	private final String t2Type = "I64";
+
 	private WasmInstanceInterface instance;
 
-	private AddI32() {
+	private I64_add() {
 		super();
 	}
 
-	public AddI32(WasmInstanceInterface instance) {
+	public I64_add(WasmInstanceInterface instance) {
 		this();
 		this.instance = instance;
 	}
@@ -74,19 +85,20 @@ public class AddI32<ParameterType, ReturnType> {
 	 */
 	public void execute() {
 		WasmStack<Object> stack = instance.stack();
-		if ((stack.peek() instanceof I32) == false) {
-			throw new WasmRuntimeException(UUID.fromString("59c20edb-690b-4260-b5cf-704cd509ac07"),
-				"addI32: Value2 type is incorrect");
+		if ((stack.peek() instanceof I64) == false) {
+			throw new WasmRuntimeException(UUID.fromString("a846eb0e-2ff2-4ffd-b570-da1f4bea8604"),
+				opCodeName + ": Value2 type is incorrect. Value should be of type " + t1Type);
 		}
-		I32 value2 = (I32) stack.pop();
+		I64 value2 = (I64) stack.pop();
 
-		if ((stack.peek() instanceof I32) == false) {
-			throw new WasmRuntimeException(UUID.fromString("22500212-e077-4507-a27a-3a08039da2b7"),
-				"addI32: Value1 type is incorrect");
+		if ((stack.peek() instanceof I64) == false) {
+			throw new WasmRuntimeException(UUID.fromString("c3b6e630-56be-41c5-b4ca-a869e2012166"),
+				opCodeName + ": Value1 type is incorrect. Value should be of type " + t2Type);
 		}
-		I32 value1 = (I32) stack.pop();
+		I64 value1 = (I64) stack.pop();
 
-		I32 result = new I32(value1.integerValue() + value2.integerValue());
+
+		I64 result = new I64(value1.longValue() + value2.longValue());
 
 		stack.push(result);
 	}

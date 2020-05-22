@@ -18,7 +18,6 @@ package happynewmoonwithreport;
 
 import java.util.UUID;
 
-import happynewmoonwithreport.opcode.AddI32;
 import happynewmoonwithreport.opcode.Block;
 import happynewmoonwithreport.opcode.ConstantInt32;
 import happynewmoonwithreport.opcode.ConstantInt64;
@@ -26,6 +25,7 @@ import happynewmoonwithreport.opcode.Drop;
 import happynewmoonwithreport.opcode.GetLocal;
 import happynewmoonwithreport.opcode.I32_Mul;
 import happynewmoonwithreport.opcode.I32_Sub;
+import happynewmoonwithreport.opcode.I32_add;
 import happynewmoonwithreport.opcode.I32_eq;
 import happynewmoonwithreport.opcode.I32_eqz;
 import happynewmoonwithreport.opcode.I32_ge_s;
@@ -37,6 +37,7 @@ import happynewmoonwithreport.opcode.I32_le_u;
 import happynewmoonwithreport.opcode.I32_lt_s;
 import happynewmoonwithreport.opcode.I32_lt_u;
 import happynewmoonwithreport.opcode.I32_ne;
+import happynewmoonwithreport.opcode.I64_add;
 import happynewmoonwithreport.opcode.I64_eq;
 import happynewmoonwithreport.opcode.I64_eqz;
 import happynewmoonwithreport.opcode.I64_ge_s;
@@ -541,7 +542,7 @@ public class WasmInstance implements WasmInstanceInterface {
 				break;
 			}
 			case (byte) 0x6A: {
-				AddI32 addI32 = new AddI32(this);
+				I32_add addI32 = new I32_add(this);
 				addI32.execute();
 				break;
 			}
@@ -565,9 +566,14 @@ public class WasmInstance implements WasmInstanceInterface {
 				i64_ctz.execute();
 				break;
 			}
-			case (byte) 0x7b: {  // I64 Population Count,  aka Bit Count
+			case (byte) 0x7B: {  // I64 Population Count,  aka Bit Count
 				I64_popcnt i64_popcnt = new I64_popcnt(this.stack);
 				i64_popcnt.execute();
+				break;
+			}
+			case (byte) 0x7C: {
+				I64_add addI64 = new I64_add(this);
+				addI64.execute();
 				break;
 			}
 			case (byte) 0xAC: { // I64 Extend I32 Signed
