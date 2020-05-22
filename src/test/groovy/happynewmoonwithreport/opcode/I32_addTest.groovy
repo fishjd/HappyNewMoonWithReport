@@ -18,12 +18,19 @@ package happynewmoonwithreport.opcode
 
 import happynewmoonwithreport.WasmInstanceInterface
 import happynewmoonwithreport.WasmRuntimeException
+import happynewmoonwithreport.type.I32
 import happynewmoonwithreport.type.S32
 import happynewmoonwithreport.type.S64
 import spock.lang.Specification
 
 /**
  * Created on 2017-08-25.
+ *
+ * Some test cases are from:
+ * <a href="https://github.com/WebAssembly/testsuite/blob/c17cd7f4e379b814055c82fcc0fc1f6202ba9e2a/i32.wast#L37">
+ *      WebAssembly Test Suite i32.wast
+ * </a>
+ *
  */
 class I32_addTest extends Specification {
 	void setup() {
@@ -38,21 +45,31 @@ class I32_addTest extends Specification {
 		instance.stack().push(new S32(val1));
 		instance.stack().push(new S32(val2));
 
-		I32_add function = new I32_add(instance);
+		I32_add i32_add = new I32_add(instance);
 
 		when: "run the opcode"
-		function.execute();
+		i32_add.execute();
 
 		then: " a value of expected"
 
-		new S32(expected) == instance.stack().pop();
+		new I32(expected) == instance.stack().pop()
 
 		where: ""
-		val1        | val2 || expected
-		3           | 4    || 7
-		4           | 3    || 7
-		0x7FFF_FFFE | 0x1  || 0x7FFF_FFFF
-		0x7FFF_FFFE | 0x1  || new S32(0).maxValue();
+		val1              | val2             || expected
+		// Web Assembly Test Suite
+		1                 | 1                 | 2
+		1                 | 0                 | 1
+		-1                | -1                | -2
+		-1                | 1                 | 0
+		0x7FFF_FFFF       | 1                 | (int) 0x8000_0000
+		(int) 0x8000_0000 | -1                | 0x7FFF_FFFF
+		(int) 0x8000_0000 | (int) 0x8000_0000 | 0
+		0x3FFF_FFFF       | 1                 | 0x4000_0000
+		// Happy New Moon With Report tests
+		3                 | 4                || 7
+		4                 | 3                || 7
+		0x7FFF_FFFE       | 0x1              || 0x7FFF_FFFF
+		0x7FFF_FFFE       | 0x1              || new S32(0).maxValue();
 	}
 
 
@@ -62,10 +79,10 @@ class I32_addTest extends Specification {
 		instance.stack().push(new S32(4));
 		instance.stack().push(new S64(3));
 
-		I32_add function = new I32_add(instance);
+		I32_add i32_add = new I32_add(instance);
 
 		when: "run the opcode"
-		function.execute();
+		i32_add.execute();
 
 		then: " Thrown Exception"
 		WasmRuntimeException exception = thrown();
@@ -79,10 +96,10 @@ class I32_addTest extends Specification {
 		instance.stack().push(new S64(4));
 		instance.stack().push(new S32(3));
 
-		I32_add function = new I32_add(instance);
+		I32_add i32_add = new I32_add(instance);
 
 		when: "run the opcode"
-		function.execute();
+		i32_add.execute();
 
 		then: " Thrown Exception"
 		WasmRuntimeException exception = thrown();
