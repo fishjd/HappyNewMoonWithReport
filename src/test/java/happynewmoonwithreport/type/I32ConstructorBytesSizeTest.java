@@ -24,7 +24,7 @@ import org.junit.jupiter.params.converter.ConvertWith;
 import org.junit.jupiter.params.provider.CsvSource;
 
 import happynewmoonwithreport.WasmInstanceInterface;
-import happynewmoonwithreport.opcode.I32_eq;
+import happynewmoonwithreport.opcode.comparison.I32_eq;
 import happynewmoonwithreport.opcode.WasmInstanceStub;
 import happynewmoonwithreport.type.JavaType.ByteUnsigned;
 import happynewmoonwithreport.util.converter.StringToByteArrayConverter;

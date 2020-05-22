@@ -24,6 +24,7 @@ import org.junit.jupiter.params.converter.ConvertWith;
 import org.junit.jupiter.params.provider.CsvSource;
 
 import happynewmoonwithreport.WasmInstanceInterface;
+import happynewmoonwithreport.opcode.comparison.I32_eq;
 import happynewmoonwithreport.type.I32;
 import happynewmoonwithreport.util.converter.StringToIntegerConverter;
 
