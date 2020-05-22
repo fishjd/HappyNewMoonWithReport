@@ -25,7 +25,7 @@ import spock.lang.Specification
 /**
  * Created on 2017-08-25.
  */
-class AddI32Test extends Specification {
+class I32_addTest extends Specification {
 	void setup() {
 	}
 
@@ -38,7 +38,7 @@ class AddI32Test extends Specification {
 		instance.stack().push(new S32(val1));
 		instance.stack().push(new S32(val2));
 
-		AddI32 function = new AddI32(instance);
+		I32_add function = new I32_add(instance);
 
 		when: "run the opcode"
 		function.execute();
@@ -62,7 +62,7 @@ class AddI32Test extends Specification {
 		instance.stack().push(new S32(4));
 		instance.stack().push(new S64(3));
 
-		AddI32 function = new AddI32(instance);
+		I32_add function = new I32_add(instance);
 
 		when: "run the opcode"
 		function.execute();
@@ -79,7 +79,7 @@ class AddI32Test extends Specification {
 		instance.stack().push(new S64(4));
 		instance.stack().push(new S32(3));
 
-		AddI32 function = new AddI32(instance);
+		I32_add function = new I32_add(instance);
 
 		when: "run the opcode"
 		function.execute();

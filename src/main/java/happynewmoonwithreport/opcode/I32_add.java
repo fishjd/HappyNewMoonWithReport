@@ -57,14 +57,14 @@ import happynewmoonwithreport.type.I32;
  * https://webassembly.github.io/spec/core/exec/instructions.html#numeric-instructions  t.binop
  * </a>
  */
-public class AddI32<ParameterType, ReturnType> {
+public class I32_add<ParameterType, ReturnType> {
 	private WasmInstanceInterface instance;
 
-	private AddI32() {
+	private I32_add() {
 		super();
 	}
 
-	public AddI32(WasmInstanceInterface instance) {
+	public I32_add(WasmInstanceInterface instance) {
 		this();
 		this.instance = instance;
 	}

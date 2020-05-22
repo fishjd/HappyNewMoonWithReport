@@ -18,7 +18,6 @@ package happynewmoonwithreport;
 
 import java.util.UUID;
 
-import happynewmoonwithreport.opcode.AddI32;
 import happynewmoonwithreport.opcode.Block;
 import happynewmoonwithreport.opcode.ConstantInt32;
 import happynewmoonwithreport.opcode.ConstantInt64;
@@ -26,6 +25,7 @@ import happynewmoonwithreport.opcode.Drop;
 import happynewmoonwithreport.opcode.GetLocal;
 import happynewmoonwithreport.opcode.I32_Mul;
 import happynewmoonwithreport.opcode.I32_Sub;
+import happynewmoonwithreport.opcode.I32_add;
 import happynewmoonwithreport.opcode.I32_eq;
 import happynewmoonwithreport.opcode.I32_eqz;
 import happynewmoonwithreport.opcode.I32_ge_s;
@@ -541,7 +541,7 @@ public class WasmInstance implements WasmInstanceInterface {
 				break;
 			}
 			case (byte) 0x6A: {
-				AddI32 addI32 = new AddI32(this);
+				I32_add addI32 = new I32_add(this);
 				addI32.execute();
 				break;
 			}
