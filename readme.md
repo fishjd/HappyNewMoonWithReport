@@ -187,7 +187,7 @@ Data Section:  To Do
 - [x] i64.ctz 0x7A
 - [x] i64.popcnt 0x7B
 - [x] i64.add 0x7C
-- [ ] i64.sub  0x7D
+- [x] i64.sub  0x7D
 - [ ] i64.mul  0x7E
 - [ ] i64.div_s   0x7F
 - [ ] i64.div_u   0x80
