@@ -30,7 +30,7 @@ import spock.lang.Specification
  * <a href="https://github.com/WebAssembly/testsuite/blob/c17cd7f4e379b814055c82fcc0fc1f6202ba9e2a/i64.wast#L47">
  *      WebAssembly Test Suite i64.wast
  * </a>
-
+ *
  */
 class I64_subTest extends Specification {
 	void setup() {

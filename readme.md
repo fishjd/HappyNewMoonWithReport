@@ -180,17 +180,17 @@ Data Section:  To Do
 - [ ] i32.xor 0x73
 - [ ] i32.shl 0x74
 - [ ] i32.shr_s 0x75
-- [ ] i32.shr_u  0x76
+- [ ] i32.shr_u 0x76
 - [ ] i32.rotl 0x77
 - [ ] i32.rotr 0x78
-- [x] i64.clz  0x79
+- [x] i64.clz 0x79
 - [x] i64.ctz 0x7A
 - [x] i64.popcnt 0x7B
 - [x] i64.add 0x7C
-- [x] i64.sub  0x7D
-- [ ] i64.mul  0x7E
-- [ ] i64.div_s   0x7F
-- [ ] i64.div_u   0x80
+- [x] i64.sub 0x7D
+- [x] i64.mul 0x7E
+- [ ] i64.div_s 0x7F
+- [ ] i64.div_u 0x80
 - [ ] i64.rem_s 0x81
 - [ ] i64.rem_u 0x82
 - [ ] i64.and 0x83

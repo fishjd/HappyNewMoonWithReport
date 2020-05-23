@@ -37,7 +37,11 @@ public class S32 extends I32 {
 		this();
 		if (isBoundByInteger(value) == false) {
 			throw new WasmRuntimeException(UUID.fromString("2c992eb4-00c8-495f-ac1e-afb85fd47aff"),
-				"Value not bound by integer");
+				"Input value to S32(Long) is out of bounds.  Value not bound by integer. Value = "
+				+ value + " (" + toHex(value) + ")",
+				"Possible Solutions: Use S32(Integer) instead.  The input for this function is "
+				+ "'Long'. Maybe you only need and input of 'Int'? Ex: for S32(0xFFFF_FFFFL); use "
+				+ "instead I32(0xFFFF_FFFF); .");
 		}
 		this.value = value.intValue();
 	}
