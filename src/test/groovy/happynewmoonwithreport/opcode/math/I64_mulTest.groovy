@@ -84,7 +84,7 @@ class I64_mulTest extends Specification {
 
 		then: "Throw Exception"
 		WasmRuntimeException exception = thrown();
-		exception.message.contains("Value2");  // not sure if this is the Wasm Spec. Maybe it should be "Value1"
+		exception.message.contains("Value2");
 		exception.getUuid().toString().contains("81a80536-eb28-4910-bc07-1b5123173882");
 	}
 
@@ -101,7 +101,7 @@ class I64_mulTest extends Specification {
 
 		then: "Throw Exception"
 		WasmRuntimeException exception = thrown();
-		exception.message.contains("Value1");  // not sure if this is the Wasm Spec. Maybe it should be "Value1"
+		exception.message.contains("Value1");
 		exception.getUuid().toString().contains("2e92b30a-2dc6-4697-a1cb-d9121b9ad135");
 	}
 }

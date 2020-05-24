@@ -25,8 +25,8 @@ import spock.lang.Specification
 
 /**
  * Some test cases are from:
- * <a href="https://github.com/WebAssembly/testsuite/blob/c17cd7f4e379b814055c82fcc0fc1f6202ba9e2a/i64.wast#L55">
- *      WebAssembly Test Suite i64.wast
+ * <a href="https://github.com/WebAssembly/testsuite/blob/c17cd7f4e379b814055c82fcc0fc1f6202ba9e2a/i64.wast#L54">
+ *      WebAssembly Test Suite i32.wast
  * </a>
  */
 class I32_mulTest extends Specification {
