@@ -33,7 +33,19 @@ public class WasmDivideByZeroException extends RuntimeException {
 		this.uuid = uuid;
 	}
 
-	public WasmDivideByZeroException(UUID uuid, String message, Throwable cause) {
+	public WasmRuntimeException(UUID uuid, String format, Object... args) {
+		super(String.format(format, args));
+		this.uuid = uuid;
+	}
+
+
+	public WasmRuntimeException(UUID uuid, String message, String possibleSolutions) {
+		super(message + " Possible Solutions " + possibleSolutions);
+		this.uuid = uuid;
+	}
+
+
+	public WasmRuntimeException(UUID uuid, String message, Throwable cause) {
 		super(message, cause);
 		this.uuid = uuid;
 	}
@@ -52,6 +64,10 @@ public class WasmDivideByZeroException extends RuntimeException {
 	private String formatMessage(String message) {
 		String result = "Uuid = " + uuid + " message = " + message;
 		return result;
+	}
+
+	public UUID getUuid() {
+		return uuid;
 	}
 
 	@Override
