@@ -65,6 +65,7 @@ import happynewmoonwithreport.opcode.countingBits.I64_popcnt;
 import happynewmoonwithreport.opcode.math.I32_div_s;
 import happynewmoonwithreport.opcode.math.I32_div_u;
 import happynewmoonwithreport.opcode.math.I32_mul;
+import happynewmoonwithreport.opcode.math.I32_rem_s;
 import happynewmoonwithreport.opcode.math.I32_sub;
 import happynewmoonwithreport.opcode.math.I32_add;
 import happynewmoonwithreport.opcode.math.I64_add;
@@ -563,6 +564,11 @@ public class WasmInstance implements WasmInstanceInterface {
 			case (byte) 0x6D: { // i32 divide unsigned
 				I32_div_s i32_div_s = new I32_div_s(this);
 				i32_div_s.execute();
+				break;
+			}
+			case (byte) 0x6F: { // i32 remainder signed
+				I32_rem_s i32_rem_s = new I32_rem_s(this);
+				i32_rem_s.execute();
 				break;
 			}
 			case (byte) 0x6E: { // i32 divide unsigned
