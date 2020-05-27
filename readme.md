@@ -174,7 +174,7 @@ Data Section:  To Do
 - [x] i32.div_s 0x6D
 - [x] i32.div_u 0x6E
 - [x] i32.rem_s 0x6F
-- [ ] i32.rem_u 0x70
+- [x] i32.rem_u 0x70
 - [ ] i32.and 0x71
 - [ ] i32.or 0x72
 - [ ] i32.xor 0x73
