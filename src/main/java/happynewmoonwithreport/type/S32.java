@@ -47,13 +47,15 @@ public class S32 extends I32 {
 	}
 
 	public S32(S32 input) {
-		this();
-		this.value = input.integerValue();
+		this(input.integerValue());
 	}
 
 	public S32(U32 input) {
-		this();
-		this.value = input.integerValue();
+		this(input.integerValue());
+	}
+
+	public S32(I32 input) {
+		this(input.integerValue());
 	}
 
 	/* private functions **/

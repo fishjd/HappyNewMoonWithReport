@@ -19,19 +19,42 @@ package happynewmoonwithreport.opcode.math;
 
 import java.util.UUID;
 
+import happynewmoonwithreport.WasmDivideByZeroException;
+import happynewmoonwithreport.WasmDivideOverflowException;
 import happynewmoonwithreport.WasmInstanceInterface;
 import happynewmoonwithreport.WasmRuntimeException;
 import happynewmoonwithreport.WasmStack;
 import happynewmoonwithreport.type.I32;
+import happynewmoonwithreport.type.S32;
 
 /**
- * Return the result of multiplying i<sub>1</sub> from i<sub>2</sub> modulo 2<sup>N</sup>.
+ * Remainder 32 signed.
+ * <br>
+ * <br>
+ * <h2>
+ * irem_s<sub><i>N</i></sub>(<i>i</i><sub>1</sub>,<i>i</i><sub>2</sub>)
+ * </h2>
+ * 	<ul>
+ * 		<li>
+ * 			Let j<sub>1</sub> be the signed interpretation of i<sub>1</sub>.
+ * 		</li>
+ * 		<li>
+ * 			Let j<sub>2</sub> be the signed interpretation of i<sub>2</sub>.
+ * 		</li>
+ * 		<li>
+ * 			If i<sub>2</sub> is 0, then the result is undefined.
+ * 		</li>
+ * 		<li>
+ * 			Else, return the remainder of dividing j<sub>1</sub> by j<sub>2</sub>, with the sign
+ * 			of the dividend j<sub>1</sub>.
+ * 		</li>
+ * 	</ul>
  * <br>
  * <br>
  * Note the below is the same for all Binary Operations
  * <br>
  * <br>
- * t.binop
+ * <h3>t.binop</h3>
  * <ol>
  * <li>
  * Assert: due to validation, two values of value type t are on the top of the stack.
@@ -64,27 +87,27 @@ import happynewmoonwithreport.type.I32;
  * </ol>
  * Source:
  * <br>
- * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-imul"
+ * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-irem-s"
  * target="_top">
- * 		Multiply Operator
+ * 		Remainder Signed Operator
  * </a>
  * <br>
  * <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-binop" target="_top">
  * 		Binary Operator
  * </a>
  */
-public class I32_mul<ParameterType, ReturnType> {
+public class I32_rem_s<ParameterType, ReturnType> {
 	private final String opcodeName = getClass().getName();
 	private final String t1Type = "I32";
 	private final String t2Type = "I32";
 
 	private WasmInstanceInterface instance;
 
-	private I32_mul() {
+	private I32_rem_s() {
 		super();
 	}
 
-	public I32_mul(WasmInstanceInterface instance) {
+	public I32_rem_s(WasmInstanceInterface instance) {
 		this();
 		this.instance = instance;
 	}
@@ -95,18 +118,32 @@ public class I32_mul<ParameterType, ReturnType> {
 	public void execute() {
 		WasmStack<Object> stack = instance.stack();
 		if ((stack.peek() instanceof I32) == false) {
-			throw new WasmRuntimeException(UUID.fromString("847fe99b-56ea-407c-ac94-1cf13c1936f1"),
+			throw new WasmRuntimeException(UUID.fromString("48441ff5-2e20-4e67-bbed-365b251b19e7"),
 				opcodeName + ": Value2 type is incorrect. Value should be of type " + t1Type);
 		}
 		I32 value2 = (I32) stack.pop();
 
 		if ((stack.peek() instanceof I32) == false) {
-			throw new WasmRuntimeException(UUID.fromString("e1433c51-da9f-4c43-a9fe-90ba1d84e56b"),
+			throw new WasmRuntimeException(UUID.fromString("625d6b4e-3586-4d51-8534-62cfa8df058b"),
 				opcodeName + ": Value1 type is incorrect. Value should be of type " + t2Type);
 		}
 		I32 value1 = (I32) stack.pop();
 
-		I32 result = new I32(value1.integerValue() * value2.integerValue());
+
+		// Let j1 be the signed interpretation of i1.
+		S32 j1 = new S32(value1);
+		// Let j2 be the signed interpretation of i2.
+		S32 j2 = new S32(value2);
+
+		//If j2 is 0, then the result is undefined.
+		if (j2.integerValue() == 0) {
+			throw new WasmDivideByZeroException(
+				UUID.fromString("5b00bedc-f56e-4026-aa70-8ad526c71faa"),
+				opcodeName + "Divide by zero is not defined");
+		}
+
+		//return the result of dividing j1 by j2, truncated toward zero.
+		I32 result = new I32(j1.integerValue() % j2.integerValue());
 
 		stack.push(result);
 	}

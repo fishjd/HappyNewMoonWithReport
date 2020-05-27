@@ -62,7 +62,11 @@ import happynewmoonwithreport.opcode.countingBits.I32_popcnt;
 import happynewmoonwithreport.opcode.countingBits.I64_clz;
 import happynewmoonwithreport.opcode.countingBits.I64_ctz;
 import happynewmoonwithreport.opcode.countingBits.I64_popcnt;
+import happynewmoonwithreport.opcode.math.I32_div_s;
+import happynewmoonwithreport.opcode.math.I32_div_u;
 import happynewmoonwithreport.opcode.math.I32_mul;
+import happynewmoonwithreport.opcode.math.I32_rem_s;
+import happynewmoonwithreport.opcode.math.I32_rem_u;
 import happynewmoonwithreport.opcode.math.I32_sub;
 import happynewmoonwithreport.opcode.math.I32_add;
 import happynewmoonwithreport.opcode.math.I64_add;
@@ -556,6 +560,25 @@ public class WasmInstance implements WasmInstanceInterface {
 			case (byte) 0x6C: { // i32 multiply
 				I32_mul i32_mul = new I32_mul(this);
 				i32_mul.execute();
+				break;
+			}
+			case (byte) 0x6D: { // i32 divide unsigned
+				I32_div_s i32_div_s = new I32_div_s(this);
+				i32_div_s.execute();
+				break;
+			}
+			case (byte) 0x6E: { // i32 divide unsigned
+				I32_div_u i32_div_u = new I32_div_u(this);
+				i32_div_u.execute();
+				break;
+			}case (byte) 0x6F: { // i32 remainder signed
+				I32_rem_s i32_rem_s = new I32_rem_s(this);
+				i32_rem_s.execute();
+				break;
+			}
+			case (byte) 0x70: { // i32 remainder unsigned
+				I32_rem_u i32_rem_u = new I32_rem_u(this);
+				i32_rem_u.execute();
 				break;
 			}
 			case (byte) 0x79: {  // I64 Count Leading Zeros

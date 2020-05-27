@@ -19,19 +19,34 @@ package happynewmoonwithreport.opcode.math;
 
 import java.util.UUID;
 
+import happynewmoonwithreport.WasmDivideByZeroException;
 import happynewmoonwithreport.WasmInstanceInterface;
 import happynewmoonwithreport.WasmRuntimeException;
 import happynewmoonwithreport.WasmStack;
-import happynewmoonwithreport.type.I64;
+import happynewmoonwithreport.type.I32;
 
 /**
- * Return the result of adding i<sub>1</sub> from i<sub>2</sub> modulo 2<sup>N</sup>.
+ * Remainder 32 unsigned.
+ * <br>
+ * <br>
+ * <h2>
+ * irem_u<sub><i>N</i></sub>(<i>i</i><sub>1</sub>,<i>i</i><sub>2</sub>)
+ * </h2>
+ * 	<ul>
+ * 		<li>
+ * 			If i<sub>2</sub> is 0, then the result is undefined.
+ * 		</li>
+ * 		<li>
+ * 			Else, return the remainder of dividing i<sub>1</sub> by i<sub>2</sub>, with the sign
+ * 			of the dividend i<sub>1</sub>.
+ * 		</li>
+ * 	</ul>
  * <br>
  * <br>
  * Note the below is the same for all Binary Operations
  * <br>
  * <br>
- * t.binop
+ * <h3>t.binop</h3>
  * <ol>
  * <li>
  * Assert: due to validation, two values of value type t are on the top of the stack.
@@ -64,26 +79,27 @@ import happynewmoonwithreport.type.I64;
  * </ol>
  * Source:
  * <br>
- * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-iadd" target="_top">
- *   	Addition Operator
+ * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-irem-u"
+ * target="_top">
+ * 		Remainder Unsigned Operator
  * </a>
  * <br>
  * <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-binop" target="_top">
  * 		Binary Operator
  * </a>
  */
-public class I64_add<ParameterType, ReturnType> {
-	private final String opCodeName = getClass().getName();
-	private final String t1Type = "I64";
-	private final String t2Type = "I64";
+public class I32_rem_u<ParameterType, ReturnType> {
+	private final String opcodeName = getClass().getName();
+	private final String t1Type = "I32";
+	private final String t2Type = "I32";
 
 	private WasmInstanceInterface instance;
 
-	private I64_add() {
+	private I32_rem_u() {
 		super();
 	}
 
-	public I64_add(WasmInstanceInterface instance) {
+	public I32_rem_u(WasmInstanceInterface instance) {
 		this();
 		this.instance = instance;
 	}
@@ -93,20 +109,29 @@ public class I64_add<ParameterType, ReturnType> {
 	 */
 	public void execute() {
 		WasmStack<Object> stack = instance.stack();
-		if ((stack.peek() instanceof I64) == false) {
-			throw new WasmRuntimeException(UUID.fromString("a846eb0e-2ff2-4ffd-b570-da1f4bea8604"),
-				opCodeName + ": Value2 type is incorrect. Value should be of type " + t1Type);
+		if ((stack.peek() instanceof I32) == false) {
+			throw new WasmRuntimeException(UUID.fromString("41adb2fd-04a7-446b-be32-ef7dcf7e8a8c"),
+				opcodeName + ": Value2 type is incorrect. Value should be of type " + t1Type);
 		}
-		I64 value2 = (I64) stack.pop();
+		I32 value2 = (I32) stack.pop();
 
-		if ((stack.peek() instanceof I64) == false) {
-			throw new WasmRuntimeException(UUID.fromString("c3b6e630-56be-41c5-b4ca-a869e2012166"),
-				opCodeName + ": Value1 type is incorrect. Value should be of type " + t2Type);
+		if ((stack.peek() instanceof I32) == false) {
+			throw new WasmRuntimeException(UUID.fromString("c3a3c752-7cb5-4f3f-9b18-40a31edd71d3"),
+				opcodeName + ": Value1 type is incorrect. Value should be of type " + t2Type);
 		}
-		I64 value1 = (I64) stack.pop();
+		I32 value1 = (I32) stack.pop();
 
 
-		I64 result = new I64(value1.longValue() + value2.longValue());
+		//If j2 is 0, then the result is undefined.
+		if (value2.integerValue() == 0) {
+			throw new WasmDivideByZeroException(
+				UUID.fromString("fc12cf95-94b4-4780-984e-e02b74e72ffb"),
+				opcodeName + "Divide by zero is not defined");
+		}
+
+		//return the remainder of dividing i1 by i2, with the sign of the dividend i1.
+		I32 result =
+			new I32(Integer.remainderUnsigned(value1.integerValue(), value2.integerValue()));
 
 		stack.push(result);
 	}
