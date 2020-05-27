@@ -89,7 +89,7 @@ import happynewmoonwithreport.type.S32;
  * <br>
  * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-irem-s"
  * target="_top">
- * 		Divide Signed Operator
+ * 		Remainder Signed Operator
  * </a>
  * <br>
  * <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-binop" target="_top">

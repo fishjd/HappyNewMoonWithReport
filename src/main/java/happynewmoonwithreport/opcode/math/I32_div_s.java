@@ -143,7 +143,7 @@ public class I32_div_s<ParameterType, ReturnType> {
 
 		// Else if j1 divided by j2 is 2N-1, then the result is undefined.
 		// Hackers Delight Section 2-13 states this is the only overflow condition.
-		if (j1.integerValue() == 0x8000_0000 && j2.integerValue() ==  0xFFFF_FFFF) {
+		if (j1.integerValue() == 0x8000_0000 && j2.integerValue() == 0xFFFF_FFFF) {
 			throw new WasmDivideOverflowException(
 				UUID.fromString("4acf4694-fe77-4678-b37b-15b8391ee5fa"),
 				opcodeName + "Integer divide Overflow");

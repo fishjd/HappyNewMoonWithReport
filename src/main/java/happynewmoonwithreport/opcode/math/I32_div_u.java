@@ -24,7 +24,6 @@ import happynewmoonwithreport.WasmInstanceInterface;
 import happynewmoonwithreport.WasmRuntimeException;
 import happynewmoonwithreport.WasmStack;
 import happynewmoonwithreport.type.I32;
-import happynewmoonwithreport.type.S32;
 
 /**
  * Divide 32 signed
@@ -75,9 +74,9 @@ import happynewmoonwithreport.type.S32;
  * </ol>
  * Source:
  * <br>
- * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-idiv-s"
+ * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-idiv-u"
  * target="_top">
- * 		Divide Signed Operator
+ * 		Divide Unsigned Operator
  * </a>
  * <br>
  * <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-binop" target="_top">
@@ -116,8 +115,6 @@ public class I32_div_u<ParameterType, ReturnType> {
 				opcodeName + ": Value1 type is incorrect. Value should be of type " + t2Type);
 		}
 		I32 value1 = (I32) stack.pop();
-
-
 
 
 		//If j2 is 0, then the result is undefined.

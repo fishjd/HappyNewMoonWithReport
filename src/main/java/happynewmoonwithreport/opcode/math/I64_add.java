@@ -69,7 +69,7 @@ import happynewmoonwithreport.type.I64;
  * </a>
  * <br>
  * <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-binop" target="_top">
- *		Binary Operator
+ * 		Binary Operator
  * </a>
  */
 public class I64_add<ParameterType, ReturnType> {

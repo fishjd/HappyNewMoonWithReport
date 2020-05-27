@@ -70,7 +70,7 @@ import happynewmoonwithreport.type.I32;
  * </a>
  * <br>
  * <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-binop" target="_top">
- *		Binary Operator
+ * 		Binary Operator
  * </a>
  */
 public class I32_mul<ParameterType, ReturnType> {
