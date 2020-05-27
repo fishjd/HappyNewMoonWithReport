@@ -39,7 +39,12 @@ class I32_div_sTest extends Specification {
 	void cleanup() {
 	}
 
+	//@Unroll
 	def "Execute I32_div_s"() {
+		// println(formatInteger('val1', val1))
+		// println(formatInteger('val2', val2))
+		// println(formatInteger('expected', expected))
+		// println();
 		setup: " given two values val1 and val2"
 		WasmInstanceInterface instance = new WasmInstanceStub();
 		instance.stack().push(new S32(val1));
