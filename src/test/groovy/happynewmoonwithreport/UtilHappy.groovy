@@ -30,7 +30,7 @@ class UtilHappy {
 	 * @return  a String with the name, value and hexadecimal value.
 	 */
 	public static GString formatInteger(String inputName, Integer input) {
-		return "${inputName} = ${input} (0x${Integer.toHexString(input)})"
+		return "${inputName} = ${input} (0x${Integer.toHexString(input).toUpperCase()})"
 	}
 
 	/**
@@ -40,6 +40,6 @@ class UtilHappy {
 	 * @return  a String with the name, value and hexadecimal value.
 	 */
 	public static GString formatInteger(String inputName, Long input) {
-		return "${inputName} = ${input} (0x${Long.toHexString(input)})"
+		return "${inputName} = ${input} (0x${Long.toHexString(input).toUpperCase()})"
 	}
 }
