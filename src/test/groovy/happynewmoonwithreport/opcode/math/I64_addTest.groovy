@@ -87,7 +87,7 @@ class I64_addTest extends Specification {
 
 		then: " Thrown Exception"
 		WasmRuntimeException exception = thrown();
-		exception.message.contains("Value2");  // not sure if this is the Wasm Spec. Maybe it should be "Value1"
+		exception.message.contains("Value2");
 		exception.getUuid().toString().contains("a846eb0e-2ff2-4ffd-b570-da1f4bea8604");
 	}
 
@@ -104,7 +104,7 @@ class I64_addTest extends Specification {
 
 		then: " Thrown Exception"
 		WasmRuntimeException exception = thrown();
-		exception.message.contains("Value1");  // not sure if this is the Wasm Spec. Maybe it should be "Value1"
+		exception.message.contains("Value1");
 		exception.getUuid().toString().contains("c3b6e630-56be-41c5-b4ca-a869e2012166");
 	}
 }
