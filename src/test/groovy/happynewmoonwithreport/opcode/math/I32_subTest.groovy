@@ -40,7 +40,7 @@ class I32_subTest extends Specification {
 	void cleanup() {
 	}
 
-	def "Execute I32_Sub"() {
+	def "Execute I32_Sub"(Integer val1, Integer val2, Integer expected) {
 		setup: "two values"
 		WasmInstanceInterface instance = new WasmInstanceStub();
 		instance.stack().push(new S32(val1));
@@ -56,20 +56,20 @@ class I32_subTest extends Specification {
 		new I32(expected) == instance.stack().pop();
 
 		where: "Subtract"
-		val1                  | val2              || expected
+		val1                  | val2        || expected
 		// Web Assembly Tests
-		1                     | 1                 || 0
-		1                     | 0                 || 1
-		-1                    | -1                || 0
-		0x7FFF_FFFF           | -1                || (int) 0x8000_0000
-		(int) 0x8000_0000     | 1                 || 0x7FFF_FFFF
-		(int) 0x8000_0000     | (int) 0x8000_0000 || 0
-		0x3FFF_FFFF           | -1                || 0x4000_0000
+		1                     | 1           || 0
+		1                     | 0           || 1
+		-1                    | -1          || 0
+		0x7FFF_FFFF           | -1          || 0x8000_0000
+		0x8000_0000           | 1           || 0x7FFF_FFFF
+		0x8000_0000           | 0x8000_0000 || 0
+		0x3FFF_FFFF           | -1          || 0x4000_0000
 		// Happy New Moon with Report Tests
-		3                     | 4                 || -1
-		4                     | 3                 || 1
-		0x7FFF_FFFE           | 0x1               || 0x7FFF_FFFD
-		new S32(0).maxValue() | 0x1               || 0x7FFF_FFFE
+		3                     | 4           || -1
+		4                     | 3           || 1
+		0x7FFF_FFFE           | 0x1         || 0x7FFF_FFFD
+		new S32(0).maxValue() | 0x1         || 0x7FFF_FFFE
 	}
 
 

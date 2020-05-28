@@ -20,32 +20,26 @@ package happynewmoonwithreport.opcode.math;
 import java.util.UUID;
 
 import happynewmoonwithreport.WasmDivideByZeroException;
-import happynewmoonwithreport.WasmDivideOverflowException;
 import happynewmoonwithreport.WasmInstanceInterface;
 import happynewmoonwithreport.WasmRuntimeException;
 import happynewmoonwithreport.WasmStack;
 import happynewmoonwithreport.type.I32;
-import happynewmoonwithreport.type.S32;
+import happynewmoonwithreport.type.I64;
 
 /**
- * Divide 32 signed
+ * Remainder 32 unsigned.
+ * <br>
+ * <br>
+ * <h2>
+ * irem_u<sub><i>N</i></sub>(<i>i</i><sub>1</sub>,<i>i</i><sub>2</sub>)
+ * </h2>
  * 	<ul>
  * 		<li>
- * 			Let j<sub>1</sub> be the signed interpretation of i<sub>1</sub>.
+ * 			If i<sub>2</sub> is 0, then the result is undefined.
  * 		</li>
  * 		<li>
- * 			Let j<sub>2</sub> be the signed interpretation of i<sub>2</sub>.
- * 		</li>
- * 		<li>
- * 			If j<sub>2</sub> is 0, then the result is undefined.
- * 		</li>
- * 		<li>
- * 			Else if j<sub>1</sub> divided by j<sub>2</sub> is 2<sup>N-1</sup>, then the result is
- * 			undefined.
- * 		</li>
- * 		<li>
- * 			Else, return the result of dividing j<sub>1</sub> by j<sub>2</sub>, truncated toward
- * 			zero.
+ * 			Else, return the remainder of dividing i<sub>1</sub> by i<sub>2</sub>, with the sign
+ * 			of the dividend i<sub>1</sub>.
  * 		</li>
  * 	</ul>
  * <br>
@@ -86,27 +80,27 @@ import happynewmoonwithreport.type.S32;
  * </ol>
  * Source:
  * <br>
- * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-idiv-s"
+ * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-irem-u"
  * target="_top">
- * 		Divide Signed Operator
+ * 		Remainder Unsigned Operator
  * </a>
  * <br>
  * <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-binop" target="_top">
  * 		Binary Operator
  * </a>
  */
-public class I32_div_s<ParameterType, ReturnType> {
+public class I64_rem_u {
 	private final String opcodeName = getClass().getName();
-	private final String t1Type = "I32";
-	private final String t2Type = "I32";
+	private final String t1Type = "I64";
+	private final String t2Type = "I64";
 
 	private WasmInstanceInterface instance;
 
-	private I32_div_s() {
+	private I64_rem_u() {
 		super();
 	}
 
-	public I32_div_s(WasmInstanceInterface instance) {
+	public I64_rem_u(WasmInstanceInterface instance) {
 		this();
 		this.instance = instance;
 	}
@@ -116,41 +110,29 @@ public class I32_div_s<ParameterType, ReturnType> {
 	 */
 	public void execute() {
 		WasmStack<Object> stack = instance.stack();
-		if ((stack.peek() instanceof I32) == false) {
-			throw new WasmRuntimeException(UUID.fromString("12a6126e-d632-4486-94a5-20f9c974c1de"),
+		if ((stack.peek() instanceof I64) == false) {
+			throw new WasmRuntimeException(UUID.fromString("5a5e465e-a559-4240-a4bf-052cb519ee8b"),
 				opcodeName + ": Value2 type is incorrect. Value should be of type " + t1Type);
 		}
-		I32 value2 = (I32) stack.pop();
+		I64 value2 = (I64) stack.pop();
 
-		if ((stack.peek() instanceof I32) == false) {
-			throw new WasmRuntimeException(UUID.fromString("099049ec-f319-4d6b-9e6f-64e66467bc45"),
+		if ((stack.peek() instanceof I64) == false) {
+			throw new WasmRuntimeException(UUID.fromString("6c6c8160-c566-461d-9ae9-76e64b81e97b"),
 				opcodeName + ": Value1 type is incorrect. Value should be of type " + t2Type);
 		}
-		I32 value1 = (I32) stack.pop();
+		I64 value1 = (I64) stack.pop();
 
-
-		// Let j1 be the signed interpretation of i1.
-		S32 j1 = new S32(value1);
-		// Let j2 be the signed interpretation of i2.
-		S32 j2 = new S32(value2);
 
 		//If j2 is 0, then the result is undefined.
-		if (j2.integerValue() == 0) {
+		if (value2.longValue() == 0) {
 			throw new WasmDivideByZeroException(
-				UUID.fromString("2c6526b2-6f08-45c4-8343-579fc6cfe515"),
+				UUID.fromString("668d8f31-6e66-4226-ba20-4d2dacafe3c9"),
 				opcodeName + "Divide by zero is not defined");
 		}
 
-		// Else if j1 divided by j2 is 2N-1, then the result is undefined.
-		// Hackers Delight Section 2-13 states this is the only overflow condition.
-		if (j1.integerValue() == 0x8000_0000 && j2.integerValue() == 0xFFFF_FFFF) {
-			throw new WasmDivideOverflowException(
-				UUID.fromString("4acf4694-fe77-4678-b37b-15b8391ee5fa"),
-				opcodeName + "Integer divide Overflow");
-		}
-
-		//return the result of dividing j1 by j2, truncated toward zero.
-		I32 result = new I32(j1.integerValue() / j2.integerValue());
+		//return the remainder of dividing i1 by i2, with the sign of the dividend i1.
+		I64 result =
+			new I64(Long.remainderUnsigned(value1.longValue(), value2.longValue()));
 
 		stack.push(result);
 	}

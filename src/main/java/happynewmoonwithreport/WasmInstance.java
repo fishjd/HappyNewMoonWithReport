@@ -70,7 +70,11 @@ import happynewmoonwithreport.opcode.math.I32_rem_u;
 import happynewmoonwithreport.opcode.math.I32_sub;
 import happynewmoonwithreport.opcode.math.I32_add;
 import happynewmoonwithreport.opcode.math.I64_add;
+import happynewmoonwithreport.opcode.math.I64_div_s;
+import happynewmoonwithreport.opcode.math.I64_div_u;
 import happynewmoonwithreport.opcode.math.I64_mul;
+import happynewmoonwithreport.opcode.math.I64_rem_s;
+import happynewmoonwithreport.opcode.math.I64_rem_u;
 import happynewmoonwithreport.opcode.math.I64_sub;
 import happynewmoonwithreport.opcode.memory.I32_load;
 import happynewmoonwithreport.opcode.memory.I32_load16_s;
@@ -609,6 +613,26 @@ public class WasmInstance implements WasmInstanceInterface {
 			case (byte) 0x7E: {
 				I64_mul i64_mul = new I64_mul(this);
 				i64_mul.execute();
+				break;
+			}
+			case (byte) 0x7F: {
+				I64_div_s i64_div_s = new I64_div_s(this);
+				i64_div_s.execute();
+				break;
+			}
+			case (byte) 0x80: {
+				I64_div_u i64_div_u = new I64_div_u(this);
+				i64_div_u.execute();
+				break;
+			}
+			case (byte) 0x81: {
+				I64_rem_s i64_rem_s = new I64_rem_s(this);
+				i64_rem_s.execute();
+				break;
+			}
+			case (byte) 0x82: {
+				I64_rem_u i64_rem_u = new I64_rem_u(this);
+				i64_rem_u.execute();
 				break;
 			}
 			case (byte) 0xAC: { // I64 Extend I32 Signed

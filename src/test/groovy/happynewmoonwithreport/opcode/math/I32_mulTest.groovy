@@ -36,7 +36,7 @@ class I32_mulTest extends Specification {
 	void cleanup() {
 	}
 
-	def "Execute I32_Mul"() {
+	def "Execute I32_Mul"(Integer val1, Integer val2, Integer expected) {
 		setup: " given two values val1 and val2"
 		WasmInstanceInterface instance = new WasmInstanceStub();
 		instance.stack().push(new S32(val1));
@@ -52,22 +52,22 @@ class I32_mulTest extends Specification {
 		new S32(expected) == instance.stack().pop();
 
 		where: ""
-		val1              | val2        || expected
+		val1        | val2        || expected
 		// Web Assembly Test
-		1                 | 1           || 1
-		1                 | 0           || 0
-		-1                | -1          || 1
-		0x1000_0000       | 4096        || 0
-		(int) 0x8000_0000 | 0           || 0
-		(int) 0x8000_0000 | -1          || (int) 0x8000_0000
-		0x7FFF_FFFF       | -1          || (int) 0x8000_0001
-		0x0123_4567       | 0x7654_3210 || 0x358e7470
-		0x7FFF_FFFF       | 0x7FFF_FFFF || 1
+		1           | 1           || 1
+		1           | 0           || 0
+		-1          | -1          || 1
+		0x1000_0000 | 4096        || 0
+		0x8000_0000 | 0           || 0
+		0x8000_0000 | -1          || 0x8000_0000
+		0x7FFF_FFFF | -1          || 0x8000_0001
+		0x0123_4567 | 0x7654_3210 || 0x358e7470
+		0x7FFF_FFFF | 0x7FFF_FFFF || 1
 		// Happy New Moon tests
-		3                 | 4           || 12
-		3                 | 0           || 0
-		4                 | 3           || 12
-		0x7FFF_FFFE       | 0x1         || 0x7FFF_FFFE
+		3           | 4           || 12
+		3           | 0           || 0
+		4           | 3           || 12
+		0x7FFF_FFFE | 0x1         || 0x7FFF_FFFE
 
 	}
 

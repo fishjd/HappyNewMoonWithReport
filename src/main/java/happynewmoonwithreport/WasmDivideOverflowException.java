@@ -33,6 +33,18 @@ public class WasmDivideOverflowException extends RuntimeException {
 		this.uuid = uuid;
 	}
 
+	public WasmDivideOverflowException(UUID uuid, String format, Object... args) {
+		super(String.format(format, args));
+		this.uuid = uuid;
+	}
+
+
+	public WasmDivideOverflowException(UUID uuid, String message, String possibleSolutions) {
+		super(message + " Possible Solutions " + possibleSolutions);
+		this.uuid = uuid;
+	}
+
+
 	public WasmDivideOverflowException(UUID uuid, String message, Throwable cause) {
 		super(message, cause);
 		this.uuid = uuid;
@@ -52,6 +64,10 @@ public class WasmDivideOverflowException extends RuntimeException {
 	private String formatMessage(String message) {
 		String result = "Uuid = " + uuid + " message = " + message;
 		return result;
+	}
+
+	public UUID getUuid() {
+		return uuid;
 	}
 
 	@Override

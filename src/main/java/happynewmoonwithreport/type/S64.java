@@ -33,6 +33,10 @@ public class S64 extends I64 {
 		this.value = value;
 	}
 
+	public S64(I64 value) {
+		this(value.longValue());
+	}
+
 
 	public I32 lessThan(S64 other) {
 		I32 result;
