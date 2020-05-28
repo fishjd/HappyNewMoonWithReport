@@ -95,7 +95,7 @@ import happynewmoonwithreport.type.S64;
  * 		Binary Operator
  * </a>
  */
-public class I64_div_s<ParameterType, ReturnType> {
+public class I64_div_s {
 	private final String opcodeName = getClass().getName();
 	private final String t1Type = "I64";
 	private final String t2Type = "I64";

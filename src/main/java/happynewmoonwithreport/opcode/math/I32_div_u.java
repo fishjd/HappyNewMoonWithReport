@@ -83,7 +83,7 @@ import happynewmoonwithreport.type.I32;
  * 		Binary Operator
  * </a>
  */
-public class I32_div_u<ParameterType, ReturnType> {
+public class I32_div_u {
 	private final String opcodeName = getClass().getName();
 	private final String t1Type = "I32";
 	private final String t2Type = "I32";

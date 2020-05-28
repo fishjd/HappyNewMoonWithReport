@@ -73,7 +73,7 @@ import happynewmoonwithreport.type.I32;
  * 		Binary Operator
  * </a>
  */
-public class I32_add<ParameterType, ReturnType> {
+public class I32_add {
 	private final String opCodeName = getClass().getName();
 	private final String t1Type = "I32";
 	private final String t2Type = "I32";

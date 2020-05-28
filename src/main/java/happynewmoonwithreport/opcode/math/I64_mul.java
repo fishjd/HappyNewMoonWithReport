@@ -73,7 +73,7 @@ import happynewmoonwithreport.type.I64;
  * 		Binary Operator
  * </a>
  */
-public class I64_mul<ParameterType, ReturnType> {
+public class I64_mul {
 	private final String opCodeName = getClass().getName();
 	private final String t1Type = "I64";
 	private final String t2Type = "I64";
