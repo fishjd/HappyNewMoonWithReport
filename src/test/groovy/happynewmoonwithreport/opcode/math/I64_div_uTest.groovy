@@ -1,0 +1,141 @@
+/*
+ *  Copyright 2017 - 2020 Whole Bean Software, LTD.
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ *
+ */
+package happynewmoonwithreport.opcode.math
+
+import happynewmoonwithreport.WasmDivideByZeroException
+import happynewmoonwithreport.WasmInstanceInterface
+import happynewmoonwithreport.WasmRuntimeException
+import happynewmoonwithreport.opcode.WasmInstanceStub
+import happynewmoonwithreport.type.I32
+import happynewmoonwithreport.type.I64
+import happynewmoonwithreport.type.S64
+import spock.lang.Specification
+
+/**
+ * Some test cases are from:
+ * <a href="https://github.com/WebAssembly/testsuite/blob/c17cd7f4e379b814055c82fcc0fc1f6202ba9e2a/i64.wast#L86">
+ *      WebAssembly Test Suite i64.wast
+ * </a>
+ */
+class I64_div_uTest extends Specification {
+	void setup() {
+	}
+
+	void cleanup() {
+	}
+
+	//@Unroll
+	def "Execute I64_div_u val1 = #val1 val2 = #val2 expected = #expected"(Long val1, Long val2, Long expected) {
+		// println(formatInteger('val1', val1))
+		// println(formatInteger('val2', val2))
+		// println(formatInteger('expected', expected))
+		// println();
+
+		setup: " given two values val1 and val2"
+		WasmInstanceInterface instance = new WasmInstanceStub();
+		instance.stack().push(new S64(val1));
+		instance.stack().push(new S64(val2));
+
+		I64_div_u function = new I64_div_u(instance);
+
+		when: "run the opcode"
+		function.execute();
+
+		then: " a value of expected"
+
+		new I64(expected) == instance.stack().pop();
+
+		where: ""
+		val1                  | val2        || expected
+		// Web Assembly Test
+		1                     | 1           || 1
+		0                     | 1           || 0
+		-1                    | -1          || 1
+		0x8000_0000_0000_0000 | -1          || 0
+		0x8000_0000_0000_0000 | 2           || 0x4000_0000_0000_0000
+		0x8FF0_0FF0_0FF0_0FF0 | 0x100000001 || 0x8FF0_0FEF
+		0x8000_0000_0000_0001 | 1000        || 0x20_C49B_A5E3_53F7
+		5                     | 2           || 2
+		-5                    | 2           || 0x7FFF_FFFF_FFFF_FFFD
+		5                     | -2          || 0
+		-5                    | -2          || 0
+		7                     | 3           || 2
+		11                    | 5           || 2
+		17                    | 7           || 2
+		// Happy New Moon tests
+		0                     | -1          || 0
+
+	}
+
+	def "Execute I64_div_u throws divide by zero exception"(Long val1, Long val2) {
+		setup: " given two values val1 and val2"
+		WasmInstanceInterface instance = new WasmInstanceStub();
+		instance.stack().push(new S64(val1));
+		instance.stack().push(new S64(val2));
+
+		I64_div_u function = new I64_div_u(instance);
+
+		when: "run the opcode"
+		function.execute();
+
+		then: "a divide by zero exception is thrown "
+		WasmDivideByZeroException exception = thrown();
+		exception.getUuid().toString().contains("96b09b8c-3950-47e8-a2b3-9dc7018a3339");
+
+		where: ""
+		val1        | val2
+		// Web Assembly Test
+		1           | 0
+		0           | 0
+		0x8000_0000 | 0
+
+	}
+
+	def "Execute opcode I64_div_u throws exception on incorrect Type on second param "() {
+		setup: " a value of int64  of 3  and a value of int64 of 4"
+		WasmInstanceInterface instance = new WasmInstanceStub();
+		instance.stack().push(new I64(4));
+		instance.stack().push(new I32(3));  // wrong type
+
+		I64_div_u function = new I64_div_u(instance);
+
+		when: "run the opcode"
+		function.execute();
+
+		then: " Thrown Exception"
+		WasmRuntimeException exception = thrown();
+		exception.message.contains("Value2");
+		exception.getUuid().toString().contains("9d9586e6-2635-4c41-8aa1-3aa72ec3c2fb");
+	}
+
+	def "Execute opcode I64_div_u throws exception on incorrect Type on first param "() {
+		setup: " a value of int64  of 3  and a value of int64 of 4"
+		WasmInstanceInterface instance = new WasmInstanceStub();
+		instance.stack().push(new I32(4));  // wrong type
+		instance.stack().push(new I64(3));
+
+		I64_div_u function = new I64_div_u(instance);
+
+		when: "run the opcode"
+		function.execute();
+
+		then: " Thrown Exception"
+		WasmRuntimeException exception = thrown();
+		exception.message.contains("Value1");
+		exception.getUuid().toString().contains("6f4f5c6f-a225-4311-b1dc-660f2ec48f80");
+	}
+}

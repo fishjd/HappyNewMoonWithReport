@@ -20,28 +20,17 @@ package happynewmoonwithreport.opcode.math;
 import java.util.UUID;
 
 import happynewmoonwithreport.WasmDivideByZeroException;
-import happynewmoonwithreport.WasmDivideOverflowException;
 import happynewmoonwithreport.WasmInstanceInterface;
 import happynewmoonwithreport.WasmRuntimeException;
 import happynewmoonwithreport.WasmStack;
 import happynewmoonwithreport.type.I64;
-import happynewmoonwithreport.type.S64;
+import happynewmoonwithreport.type.I64;
 
 /**
- * Divide 64 signed
+ * Divide 64 signed.
  * 	<ul>
  * 		<li>
- * 			Let j<sub>1</sub> be the signed interpretation of i<sub>1</sub>.
- * 		</li>
- * 		<li>
- * 			Let j<sub>2</sub> be the signed interpretation of i<sub>2</sub>.
- * 		</li>
- * 		<li>
  * 			If j<sub>2</sub> is 0, then the result is undefined.
- * 		</li>
- * 		<li>
- * 			Else if j<sub>1</sub> divided by j<sub>2</sub> is 2<sup>N-1</sup>, then the result is
- * 			undefined.
  * 		</li>
  * 		<li>
  * 			Else, return the result of dividing j<sub>1</sub> by j<sub>2</sub>, truncated toward
@@ -86,27 +75,27 @@ import happynewmoonwithreport.type.S64;
  * </ol>
  * Source:
  * <br>
- * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-idiv-s"
+ * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-idiv-u"
  * target="_top">
- * 		Divide Signed Operator
+ * 		Divide Unsigned Operator
  * </a>
  * <br>
  * <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-binop" target="_top">
  * 		Binary Operator
  * </a>
  */
-public class I64_div_s<ParameterType, ReturnType> {
+public class I64_div_u {
 	private final String opcodeName = getClass().getName();
 	private final String t1Type = "I64";
 	private final String t2Type = "I64";
 
 	private WasmInstanceInterface instance;
 
-	private I64_div_s() {
+	private I64_div_u() {
 		super();
 	}
 
-	public I64_div_s(WasmInstanceInterface instance) {
+	public I64_div_u(WasmInstanceInterface instance) {
 		this();
 		this.instance = instance;
 	}
@@ -117,40 +106,27 @@ public class I64_div_s<ParameterType, ReturnType> {
 	public void execute() {
 		WasmStack<Object> stack = instance.stack();
 		if ((stack.peek() instanceof I64) == false) {
-			throw new WasmRuntimeException(UUID.fromString("a3dd4634-f7fa-41ca-a355-0611ed0bfca7"),
+			throw new WasmRuntimeException(UUID.fromString("9d9586e6-2635-4c41-8aa1-3aa72ec3c2fb"),
 				opcodeName + ": Value2 type is incorrect. Value should be of type " + t1Type);
 		}
 		I64 value2 = (I64) stack.pop();
 
 		if ((stack.peek() instanceof I64) == false) {
-			throw new WasmRuntimeException(UUID.fromString("b92dc38f-c903-4eb4-a1ae-3e248181f23c"),
+			throw new WasmRuntimeException(UUID.fromString("6f4f5c6f-a225-4311-b1dc-660f2ec48f80"),
 				opcodeName + ": Value1 type is incorrect. Value should be of type " + t2Type);
 		}
 		I64 value1 = (I64) stack.pop();
 
 
-		// Let j1 be the signed interpretation of i1.
-		S64 j1 = new S64(value1);
-		// Let j2 be the signed interpretation of i2.
-		S64 j2 = new S64(value2);
-
 		//If j2 is 0, then the result is undefined.
-		if (j2.longValue() == 0) {
+		if (value2.longValue() == 0) {
 			throw new WasmDivideByZeroException(
-				UUID.fromString("f2d3464a-f45d-4dbc-836a-6cd9020e138d"),
+				UUID.fromString("96b09b8c-3950-47e8-a2b3-9dc7018a3339"),
 				opcodeName + "Divide by zero is not defined");
 		}
 
-		// Else if j1 divided by j2 is 2N-1, then the result is undefined.
-		// Hackers Delight Section 2-13 states this is the only overflow condition.
-		if (j1.longValue() == 0x8000_0000_0000_0000L && j2.longValue() == 0xFFFF_FFFF_FFFF_FFFFL) {
-			throw new WasmDivideOverflowException(
-				UUID.fromString("3160d190-0508-4a79-91aa-f0f290f2f254"),
-				opcodeName + "Integer divide Overflow");
-		}
-
 		//return the result of dividing j1 by j2, truncated toward zero.
-		I64 result = new I64(j1.longValue() / j2.longValue());
+		I64 result = new I64(Long.divideUnsigned(value1.longValue(), value2.longValue()));
 
 		stack.push(result);
 	}

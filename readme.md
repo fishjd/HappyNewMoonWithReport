@@ -190,7 +190,7 @@ Data Section:  To Do
 - [x] i64.sub 0x7D
 - [x] i64.mul 0x7E
 - [x] i64.div_s 0x7F
-- [ ] i64.div_u 0x80
+- [x] i64.div_u 0x80
 - [ ] i64.rem_s 0x81
 - [ ] i64.rem_u 0x82
 - [ ] i64.and 0x83

@@ -71,6 +71,7 @@ import happynewmoonwithreport.opcode.math.I32_sub;
 import happynewmoonwithreport.opcode.math.I32_add;
 import happynewmoonwithreport.opcode.math.I64_add;
 import happynewmoonwithreport.opcode.math.I64_div_s;
+import happynewmoonwithreport.opcode.math.I64_div_u;
 import happynewmoonwithreport.opcode.math.I64_mul;
 import happynewmoonwithreport.opcode.math.I64_sub;
 import happynewmoonwithreport.opcode.memory.I32_load;
@@ -615,6 +616,11 @@ public class WasmInstance implements WasmInstanceInterface {
 			case (byte) 0x7F: {
 				I64_div_s i64_div_s = new I64_div_s(this);
 				i64_div_s.execute();
+				break;
+			}
+			case (byte) 0x80: {
+				I64_div_u i64_div_u = new I64_div_u(this);
+				i64_div_u.execute();
 				break;
 			}
 			case (byte) 0xAC: { // I64 Extend I32 Signed
