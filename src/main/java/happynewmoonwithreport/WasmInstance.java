@@ -64,6 +64,7 @@ import happynewmoonwithreport.opcode.countingBits.I64_ctz;
 import happynewmoonwithreport.opcode.countingBits.I64_popcnt;
 import happynewmoonwithreport.opcode.logic.I32_and;
 import happynewmoonwithreport.opcode.logic.I32_or;
+import happynewmoonwithreport.opcode.logic.I32_xor;
 import happynewmoonwithreport.opcode.math.I32_div_s;
 import happynewmoonwithreport.opcode.math.I32_div_u;
 import happynewmoonwithreport.opcode.math.I32_mul;
@@ -595,6 +596,11 @@ public class WasmInstance implements WasmInstanceInterface {
 			case (byte) 0x72: { // i32 logical or
 				I32_or i32_or = new I32_or(this);
 				i32_or.execute();
+				break;
+			}
+			case (byte) 0x73: { // i32 logical xor
+				I32_xor i32_xor = new I32_xor(this);
+				i32_xor.execute();
 				break;
 			}
 			case (byte) 0x79: {  // I64 Count Leading Zeros
