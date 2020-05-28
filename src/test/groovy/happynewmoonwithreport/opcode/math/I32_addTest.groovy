@@ -41,7 +41,7 @@ class I32_addTest extends Specification {
 	void cleanup() {
 	}
 
-	def "Execute AddI32"() {
+	def "Execute AddI32"(Integer val1, Integer val2, Integer expected) {
 		setup: " a value of 3 and a value of 4"
 		WasmInstanceInterface instance = new WasmInstanceStub();
 		instance.stack().push(new S32(val1));
@@ -57,21 +57,21 @@ class I32_addTest extends Specification {
 		new I32(expected) == instance.stack().pop()
 
 		where: ""
-		val1              | val2             || expected
+		val1        | val2       || expected
 		// Web Assembly Test Suite
-		1                 | 1                 | 2
-		1                 | 0                 | 1
-		-1                | -1                | -2
-		-1                | 1                 | 0
-		0x7FFF_FFFF       | 1                 | (int) 0x8000_0000
-		(int) 0x8000_0000 | -1                | 0x7FFF_FFFF
-		(int) 0x8000_0000 | (int) 0x8000_0000 | 0
-		0x3FFF_FFFF       | 1                 | 0x4000_0000
+		1           | 1           | 2
+		1           | 0           | 1
+		-1          | -1          | -2
+		-1          | 1           | 0
+		0x7FFF_FFFF | 1           | 0x8000_0000
+		0x8000_0000 | -1          | 0x7FFF_FFFF
+		0x8000_0000 | 0x8000_0000 | 0
+		0x3FFF_FFFF | 1           | 0x4000_0000
 		// Happy New Moon With Report tests
-		3                 | 4                || 7
-		4                 | 3                || 7
-		0x7FFF_FFFE       | 0x1              || 0x7FFF_FFFF
-		0x7FFF_FFFE       | 0x1              || new S32(0).maxValue();
+		3           | 4          || 7
+		4           | 3          || 7
+		0x7FFF_FFFE | 0x1        || 0x7FFF_FFFF
+		0x7FFF_FFFE | 0x1        || new S32(0).maxValue();
 	}
 
 

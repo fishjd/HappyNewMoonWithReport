@@ -24,7 +24,6 @@ import happynewmoonwithreport.type.I32
 import happynewmoonwithreport.type.S32
 import happynewmoonwithreport.type.S64
 import spock.lang.Specification
-import spock.lang.Unroll
 
 /**
  * Some test cases are from:
@@ -84,7 +83,7 @@ class I32_rem_uTest extends Specification {
 
 	}
 
-	def "Execute I32_rem throws divide by zero exception"() {
+	def "Execute I32_rem throws divide by zero exception"(Integer val1, Integer val2) {
 		setup: " given two values val1 and val2"
 		WasmInstanceInterface instance = new WasmInstanceStub();
 		instance.stack().push(new S32(val1));
@@ -100,12 +99,12 @@ class I32_rem_uTest extends Specification {
 		exception.getUuid().toString().contains("fc12cf95-94b4-4780-984e-e02b74e72ffb");
 
 		where: ""
-		val1              | val2
+		val1        | val2
 		// Web Assembly Test
-		1                 | 0
-		0                 | 0
+		1           | 0
+		0           | 0
 		// Happy New Moon with Report Tests
-		(int) 0x8000_0000 | 0
+		0x8000_0000 | 0
 
 	}
 

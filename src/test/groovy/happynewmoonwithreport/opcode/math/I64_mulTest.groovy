@@ -36,7 +36,7 @@ class I64_mulTest extends Specification {
 	void cleanup() {
 	}
 
-	def "Execute I64_Mul"() {
+	def "Execute I64_Mul"(Long val1, Long val2, Long expected) {
 		setup: " given two values val1 and val2"
 		WasmInstanceInterface instance = new WasmInstanceStub();
 		instance.stack().push(new I64(val1));
@@ -57,11 +57,11 @@ class I64_mulTest extends Specification {
 		1                      | 1                      || 1
 		1                      | 0                      || 0
 		-1                     | -1                     || 1
-		0x1000_0000_0000_0000L | 4096                   || 0
-		0x8000_0000_0000_0000L | 0                      || 0
-		0x8000_0000_0000_0000L | -1                     || 0x8000_0000_0000_0000L
-		0x7FFF_FFFF_FFFF_FFFF  | -1                     || 0x8000_0000_0000_0001L
-		0x0123_4567_89AB_CDEF  | 0xFEDC_BA98_7654_3210L || 0x2236_D88F_E561_8CF0
+		0x1000_0000_0000_0000 | 4096                   || 0
+		0x8000_0000_0000_0000 | 0                      || 0
+		0x8000_0000_0000_0000 | -1                     || 0x8000_0000_0000_0000
+		0x7FFF_FFFF_FFFF_FFFF  | -1                     || 0x8000_0000_0000_0001
+		0x0123_4567_89AB_CDEF  | 0xFEDC_BA98_7654_3210 || 0x2236_D88F_E561_8CF0
 		0x7FFF_FFFF_FFFF_FFFF  | 0x7FFF_FFFF_FFFF_FFFF  || 1
 		// Happy New Moon tests
 		3                      | 4                      || 12

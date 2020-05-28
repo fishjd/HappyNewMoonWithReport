@@ -24,7 +24,6 @@ import happynewmoonwithreport.type.I32
 import happynewmoonwithreport.type.S32
 import happynewmoonwithreport.type.S64
 import spock.lang.Specification
-import spock.lang.Unroll
 
 /**
  * Some test cases are from:
@@ -40,7 +39,7 @@ class I32_rem_sTest extends Specification {
 	}
 
 	//@Unroll
-	def "Execute I32_rem_s val1 = #val1 val2 = #val2 expected = #expected "() {
+	def "Execute I32_rem_s val1 = #val1 val2 = #val2 expected = #expected "(Integer val1, Integer val2, Integer expected) {
 //		println(formatInteger('val1', val1))
 //		println(formatInteger('val2', val2))
 //		println(formatInteger('expected', expected))
@@ -62,33 +61,33 @@ class I32_rem_sTest extends Specification {
 		new I32(expected) == instance.stack().pop();
 
 		where: ""
-		val1              | val2              || expected
+		val1        | val2        || expected
 		// Web Assembly Test
-		0x7FFF_FFFF       | -1                || 0
-		1                 | 1                 || 0
-		0                 | 1                 || 0
-		0                 | -1                || 0
-		-1                | -1                || 0
-		(int) 0x8000_0000 | -1                || 0
-		(int) 0x8000_0000 | 2                 || 0
-		(int) 0x8000_0001 | 1000              || -647
-		5                 | 2                 || 1
-		-5                | 2                 || -1
-		5                 | -2                || 1
-		-5                | -2                || -1
-		7                 | 3                 || 1
-		-7                | 3                 || -1
-		7                 | -3                || 1
-		-7                | -3                || -1
-		11                | 5                 || 1
-		17                | 7                 || 3
+		0x7FFF_FFFF | -1          || 0
+		1           | 1           || 0
+		0           | 1           || 0
+		0           | -1          || 0
+		-1          | -1          || 0
+		0x8000_0000 | -1          || 0
+		0x8000_0000 | 2           || 0
+		0x8000_0001 | 1000        || -647
+		5           | 2           || 1
+		-5          | 2           || -1
+		5           | -2          || 1
+		-5          | -2          || -1
+		7           | 3           || 1
+		-7          | 3           || -1
+		7           | -3          || 1
+		-7          | -3          || -1
+		11          | 5           || 1
+		17          | 7           || 3
 		// Happy New Moon tests
-		(int) 0x8000_0000 | (int) 0xFFFF_FFFE || 0   // Not divide overflow
-		(int) 0x8000_0001 | (int) 0xFFFF_FFFF || 0   // Not divide overflow
+		0x8000_0000 | 0xFFFF_FFFE || 0   // Not divide overflow
+		0x8000_0001 | 0xFFFF_FFFF || 0   // Not divide overflow
 
 	}
 
-	def "Execute I32_rem throws divide by zero exception"() {
+	def "Execute I32_rem throws divide by zero exception"(Integer val1, Integer val2) {
 		setup: " given two values val1 and val2"
 		WasmInstanceInterface instance = new WasmInstanceStub();
 		instance.stack().push(new S32(val1));
@@ -104,12 +103,12 @@ class I32_rem_sTest extends Specification {
 		exception.getUuid().toString().contains("5b00bedc-f56e-4026-aa70-8ad526c71faa");
 
 		where: ""
-		val1              | val2
+		val1        | val2
 		// Web Assembly Test
-		1                 | 0
-		0                 | 0
+		1           | 0
+		0           | 0
 		// Happy New Moon with Report Tests
-		(int) 0x8000_0000 | 0
+		0x8000_0000 | 0
 
 	}
 

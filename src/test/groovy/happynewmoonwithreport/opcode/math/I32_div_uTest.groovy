@@ -38,7 +38,7 @@ class I32_div_uTest extends Specification {
 	void cleanup() {
 	}
 
-	def "Execute I32_div_u"() {
+	def "Execute I32_div_u"(Integer val1, Integer val2, Integer expected) {
 		setup: " given two values val1 and val2"
 		WasmInstanceInterface instance = new WasmInstanceStub();
 		instance.stack().push(new S32(val1));
@@ -54,28 +54,28 @@ class I32_div_uTest extends Specification {
 		new I32(expected) == instance.stack().pop();
 
 		where: ""
-		val1              | val2              || expected
+		val1        | val2    || expected
 		// Web Assembly Test
-		1                 | 1                 || 1
-		0                 | 1                 || 0
-		-1                | -1                || 1
-		(int) 0x8000_0000 | -1                || 0
-		(int) 0x8000_0000 | 2                 || 0x4000_0000
-		(int) 0x8FF00FF0  | 0x10001           || 0x8FEF
-		(int) 0x8000_0001 | 1000              || 0x20_C49B
-		5                 | 2                 || 2
-		-5                | 2                 || 0x7FFFFFFD
-		5                 | -2                || 0
-		-5                | -2                || 0
-		7                 | 3                 || 2
-		11                | 5                 || 2
-		17                | 7                 || 2
+		1           | 1       || 1
+		0           | 1       || 0
+		-1          | -1      || 1
+		0x8000_0000 | -1      || 0
+		0x8000_0000 | 2       || 0x4000_0000
+		0x8FF00FF0  | 0x10001 || 0x8FEF
+		0x8000_0001 | 1000    || 0x20_C49B
+		5           | 2       || 2
+		-5          | 2       || 0x7FFFFFFD
+		5           | -2      || 0
+		-5          | -2      || 0
+		7           | 3       || 2
+		11          | 5       || 2
+		17          | 7       || 2
 		// Happy New Moon tests
-		0                 | -1                || 0
+		0           | -1      || 0
 
 	}
 
-	def "Execute I32_Div throws divide by zero exception"() {
+	def "Execute I32_Div throws divide by zero exception"(Integer val1, Integer val2) {
 		setup: " given two values val1 and val2"
 		WasmInstanceInterface instance = new WasmInstanceStub();
 		instance.stack().push(new S32(val1));
@@ -91,11 +91,11 @@ class I32_div_uTest extends Specification {
 		exception.getUuid().toString().contains("900174aa-3a9e-4a3a-b43e-3f5342aa867f");
 
 		where: ""
-		val1              | val2
+		val1        | val2
 		// Web Assembly Test
-		1                 | 0
-		0                 | 0
-		(int) 0x8000_0000 | 0
+		1           | 0
+		0           | 0
+		0x8000_0000 | 0
 
 	}
 

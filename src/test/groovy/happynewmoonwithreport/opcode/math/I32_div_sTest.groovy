@@ -40,7 +40,7 @@ class I32_div_sTest extends Specification {
 	}
 
 	//@Unroll
-	def "Execute I32_div_s"() {
+	def "Execute I32_div_s"(Integer val1, Integer val2, Integer expected) {
 		// println(formatInteger('val1', val1))
 		// println(formatInteger('val2', val2))
 		// println(formatInteger('expected', expected))
@@ -60,31 +60,31 @@ class I32_div_sTest extends Specification {
 		new I32(expected) == instance.stack().pop();
 
 		where: ""
-		val1              | val2              || expected
+		val1        | val2        || expected
 		// Web Assembly Test
-		1                 | 1                 || 1
-		0                 | 1                 || 0
-		0                 | -1                || 0
-		-1                | -1                || 1
-		(int) 0x8000_0000 | 2                 || (int) 0xC000_0000
-		(int) 0x8000_0001 | 1000              || (int) 0xFFDF3B65
-		5                 | 2                 || 2
-		-5                | 2                 || -2
-		5                 | -2                || -2
-		-5                | -2                || 2
-		7                 | 3                 || 2
-		-7                | 3                 || -2
-		7                 | -3                || -2
-		-7                | -3                || 2
-		11                | 5                 || 2
-		17                | 7                 || 2
+		1           | 1           || 1
+		0           | 1           || 0
+		0           | -1          || 0
+		-1          | -1          || 1
+		0x8000_0000 | 2           || 0xC000_0000
+		0x8000_0001 | 1000        || 0xFFDF3B65
+		5           | 2           || 2
+		-5          | 2           || -2
+		5           | -2          || -2
+		-5          | -2          || 2
+		7           | 3           || 2
+		-7          | 3           || -2
+		7           | -3          || -2
+		-7          | -3          || 2
+		11          | 5           || 2
+		17          | 7           || 2
 		// Happy New Moon tests
-		(int) 0x8000_0000 | (int) 0xFFFF_FFFE || 0x4000_0000   // Not divide overflow
-		(int) 0x8000_0001 | (int) 0xFFFF_FFFF || 0x7FFF_FFFF   // Not divide overflow
+		0x8000_0000 | 0xFFFF_FFFE || 0x4000_0000   // Not divide overflow
+		0x8000_0001 | 0xFFFF_FFFF || 0x7FFF_FFFF   // Not divide overflow
 
 	}
 
-	def "Execute I32_Div throws divide by zero exception"() {
+	def "Execute I32_Div throws divide by zero exception"(Integer val1, Integer val2) {
 		setup: " given two values val1 and val2"
 		WasmInstanceInterface instance = new WasmInstanceStub();
 		instance.stack().push(new S32(val1));
@@ -99,15 +99,15 @@ class I32_div_sTest extends Specification {
 		thrown(WasmDivideByZeroException)
 
 		where: ""
-		val1              | val2
+		val1        | val2
 		// Web Assembly Test
-		1                 | 0
-		0                 | 0
-		(int) 0x8000_0000 | 0
+		1           | 0
+		0           | 0
+		0x8000_0000 | 0
 
 	}
 
-	def "Execute I32_Div throws divide overflow exception"() {
+	def "Execute I32_Div throws divide overflow exception"(Integer val1, Integer val2) {
 		setup: " given two values val1 and val2"
 		WasmInstanceInterface instance = new WasmInstanceStub();
 		instance.stack().push(new I32(val1));
@@ -122,11 +122,11 @@ class I32_div_sTest extends Specification {
 		thrown(WasmDivideOverflowException)
 
 		where: ""
-		val1              | val2
+		val1        | val2
 		// Web Assembly Test
-		(int) 0x8000_0000 | -1                  // mixed hexadecimal | decimal
-		(int) -2147483648 | -1                  // in decimal
-		(int) 0x8000_0000 | (int) 0xFFFF_FFFF   // in hexadecimal
+		0x8000_0000 | -1                  // mixed hexadecimal | decimal
+		-2147483648 | -1                  // in decimal
+		0x8000_0000 | 0xFFFF_FFFF   // in hexadecimal
 
 	}
 

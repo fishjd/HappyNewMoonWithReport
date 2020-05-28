@@ -41,7 +41,7 @@ class I64_addTest extends Specification {
 	void cleanup() {
 	}
 
-	def "Execute AddI64"() {
+	def "Execute AddI64"(Long val1, Long val2, Long expected) {
 		setup: " a value of 3 and a value of 4"
 		WasmInstanceInterface instance = new WasmInstanceStub();
 		instance.stack().push(new S64(val1));
@@ -57,20 +57,20 @@ class I64_addTest extends Specification {
 		new I64(expected) == instance.stack().pop()
 
 		where: ""
-		val1                   | val2                   || expected
+		val1                  | val2                  || expected
 		// Web Assembly Test Suite
-		1                      | 1                      || 2
-		1                      | 0                      || 1
-		-1                     | -1                     || -2
-		-1                     | 1                      || 0
-		0x7FFF_FFFF_FFFF_FFFFL | 1                      || 0x8000_0000_0000_0000L
-		0x8000_0000_0000_0000L | -1                     || 0x7FFF_FFFF_FFFF_FFFFL
-		0x8000_0000_0000_0000L | 0x8000_0000_0000_0000L || 0
-		0x3FFF_FFFF            | 1                      || 0x4000_0000
+		1                     | 1                     || 2
+		1                     | 0                     || 1
+		-1                    | -1                    || -2
+		-1                    | 1                     || 0
+		0x7FFF_FFFF_FFFF_FFFF | 1                     || 0x8000_0000_0000_0000
+		0x8000_0000_0000_0000 | -1                    || 0x7FFF_FFFF_FFFF_FFFF
+		0x8000_0000_0000_0000 | 0x8000_0000_0000_0000 || 0
+		0x3FFF_FFFF           | 1                     || 0x4000_0000
 		// Happy New Moon With Report  tests
-		3                      | 4                      || 7
-		4                      | 3                      || 7
-		0x7FFF_FFFE            | 0x1                    || 0x7FFF_FFFF
+		3                     | 4                     || 7
+		4                     | 3                     || 7
+		0x7FFF_FFFE           | 0x1                   || 0x7FFF_FFFF
 	}
 
 
