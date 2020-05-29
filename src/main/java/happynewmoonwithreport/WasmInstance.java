@@ -27,6 +27,7 @@ import happynewmoonwithreport.opcode.Nop;
 import happynewmoonwithreport.opcode.Select;
 import happynewmoonwithreport.opcode.SetLocal;
 import happynewmoonwithreport.opcode.Unreachable;
+import happynewmoonwithreport.opcode.bitshift.I32_shl;
 import happynewmoonwithreport.opcode.comparison.I32_eq;
 import happynewmoonwithreport.opcode.comparison.I32_eqz;
 import happynewmoonwithreport.opcode.comparison.I32_ge_s;
@@ -604,6 +605,11 @@ public class WasmInstance implements WasmInstanceInterface {
 			case (byte) 0x73: { // i32 logical xor
 				I32_xor i32_xor = new I32_xor(this);
 				i32_xor.execute();
+				break;
+			}
+			case (byte) 0x74: { // i32 bitshit shl
+				I32_shl i32_shl = new I32_shl(this);
+				i32_shl.execute();
 				break;
 			}
 			case (byte) 0x79: {  // I64 Count Leading Zeros
