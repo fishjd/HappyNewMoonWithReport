@@ -194,7 +194,7 @@ Data Section:  To Do
 - [x] i64.rem_s 0x81
 - [x] i64.rem_u 0x82
 - [x] i64.and 0x83
-- [ ] i64.or 0x84
+- [x] i64.or 0x84
 - [ ] i64.xor 0x85
 - [ ] i64.shl 0x86
 - [ ] i64.shr_s 0x87
