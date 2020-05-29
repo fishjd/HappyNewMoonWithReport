@@ -64,7 +64,7 @@ class I32_andTest extends Specification {
 		0           | 0           || 0
 		0x7FFF_FFFF | 0x8000_0000 || 0
 		0x7FFF_FFFF | -1          || 0x7FFF_FFFF
-		0xF0F0_FFFF | 0xF0F0_FFFF || 0xF0F0_FFFF
+		0xF0F0_FFFF | 0xFFFF_F0F0 || 0xF0F0_F0F0
 		0xFFFF_FFFF | 0xFFFF_FFFF || 0xFFFF_FFFF
 	}
 
