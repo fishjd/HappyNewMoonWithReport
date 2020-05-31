@@ -25,13 +25,12 @@ import happynewmoonwithreport.WasmStack;
 import happynewmoonwithreport.type.I32;
 
 /**
- * I32 Shr_u opcode.
+ * I32 Rotl opcode.
  * <br>
- * ishr_u<sub>N</sub>(i<sub>1</sub>,i<sub>2</sub>)
+ * irotl<sub>N</sub>(i<sub>1</sub>,i<sub>2</sub>)
  * <ul>
  *     <li>Let <i>k</i> be i<sub>2</sub> modulo N.</li>
- *     <li>Return the result of shifting i<sub>1</sub> right by <i>k</i> bits,
- *     extended with 0 bits.
+ *     <li>Return the result of rotating i<sub>1</sub> left by <i>k</i> bits.
  *
  * </ul>
  * <br>
@@ -72,15 +71,15 @@ import happynewmoonwithreport.type.I32;
  * <br>
  * Source:
  * <br>
- * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-ishr-s" target="_top">
- *   	Shr_u Operator
+ * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-irotl" target="_top">
+ *   	Rotl Operator
  * </a>
  * <br>
  * <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-binop" target="_top">
  * 		Binary Operator
  * </a>
  */
-public class I32_shr_u {
+public class I32_rotl {
 	private final String opCodeName = getClass().getName();
 	private final Integer N = 32;   // number of bits
 	private final String t1Type = "I32";
@@ -88,11 +87,11 @@ public class I32_shr_u {
 
 	private WasmInstanceInterface instance;
 
-	private I32_shr_u() {
+	private I32_rotl() {
 		super();
 	}
 
-	public I32_shr_u(WasmInstanceInterface instance) {
+	public I32_rotl(WasmInstanceInterface instance) {
 		this();
 		this.instance = instance;
 	}
@@ -105,14 +104,14 @@ public class I32_shr_u {
 
 		//Pop the value t.const value2 from the stack.
 		if ((stack.peek() instanceof I32) == false) {
-			throw new WasmRuntimeException(UUID.fromString("42b9e53c-0c4a-4fdc-8f1e-2a6c618d3cef"),
+			throw new WasmRuntimeException(UUID.fromString("7632477d-f6fe-4a19-86f2-3a11c10e4a34"),
 				opCodeName + ": Value2 type is incorrect. Value should be of type " + t1Type);
 		}
 		I32 value2 = (I32) stack.pop();
 
 		//Pop the value t.const value1 from the stack.
 		if ((stack.peek() instanceof I32) == false) {
-			throw new WasmRuntimeException(UUID.fromString("dce4370c-c5ba-48ea-9d8e-9699fcf41d43"),
+			throw new WasmRuntimeException(UUID.fromString("1c59edee-2bd2-4655-b7e4-97cf0b67b99c"),
 				opCodeName + ": Value1 type is incorrect. Value should be of type " + t2Type);
 		}
 		I32 value1 = (I32) stack.pop();
@@ -123,7 +122,8 @@ public class I32_shr_u {
 		Integer k = value2.integerValue() % N;
 
 		// Return the result of shifting i1 right  by k bits, modulo 2^N
-		I32 result = new I32(value1.integerValue() >>> k);   // Java handles the modulo 2^N
+		I32 result =
+			new I32(Integer.rotateLeft(value1.integerValue(), k));
 
 		// Push the value t.const c(i.e. result) to the stack.
 		stack.push(result);
