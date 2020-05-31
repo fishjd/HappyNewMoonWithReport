@@ -25,12 +25,13 @@ import happynewmoonwithreport.WasmStack;
 import happynewmoonwithreport.type.I32;
 
 /**
- * I32 Shl opcode.
+ * I32 Shr_s opcode.
  * <br>
- * ishl<sub>N</sub>(i<sub>1</sub>,i<sub>2</sub>)
+ * ishr_s<sub>N</sub>(i<sub>1</sub>,i<sub>2</sub>)
  * <ul>
- *     <li>Let K be i<sub>2</sub> modulo N.</li>
- *     <li>Return the result of shifting i<sub>1</sub> left by k bits, modulo 2<sup>N</sup></li>
+ *     <li>Let <i>k</i> be i<sub>2</sub> modulo N.</li>
+ *     <li>Return the result of shifting i<sub>1</sub> right by <i>k</i> bits,
+ *     extended with the most significant bit of the original value.
  *
  * </ul>
  * <br>
@@ -71,15 +72,15 @@ import happynewmoonwithreport.type.I32;
  * <br>
  * Source:
  * <br>
- * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-ishl" target="_top">
- *   	Shl Operator
+ * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-ishr-s" target="_top">
+ *   	Shr_s Operator
  * </a>
  * <br>
  * <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-binop" target="_top">
  * 		Binary Operator
  * </a>
  */
-public class I32_shl {
+public class I32_shr_s {
 	private final String opCodeName = getClass().getName();
 	private final Integer N = 32;   // number of bits
 	private final String t1Type = "I32";
@@ -87,11 +88,11 @@ public class I32_shl {
 
 	private WasmInstanceInterface instance;
 
-	private I32_shl() {
+	private I32_shr_s() {
 		super();
 	}
 
-	public I32_shl(WasmInstanceInterface instance) {
+	public I32_shr_s(WasmInstanceInterface instance) {
 		this();
 		this.instance = instance;
 	}
@@ -104,25 +105,25 @@ public class I32_shl {
 
 		//Pop the value t.const value2 from the stack.
 		if ((stack.peek() instanceof I32) == false) {
-			throw new WasmRuntimeException(UUID.fromString("3439bc1d-3d08-42b1-91ef-7f5b3a20449a"),
+			throw new WasmRuntimeException(UUID.fromString("1337b561-7faa-4e0d-912e-2e377b2fd660"),
 				opCodeName + ": Value2 type is incorrect. Value should be of type " + t1Type);
 		}
 		I32 value2 = (I32) stack.pop();
 
 		//Pop the value t.const value1 from the stack.
 		if ((stack.peek() instanceof I32) == false) {
-			throw new WasmRuntimeException(UUID.fromString("759b989f-7408-41a4-92ae-f61a0c194d86"),
+			throw new WasmRuntimeException(UUID.fromString("22db161f-451d-4a06-8562-b8e767632888"),
 				opCodeName + ": Value1 type is incorrect. Value should be of type " + t2Type);
 		}
 		I32 value1 = (I32) stack.pop();
 
 		// Let c(i.e. result) be a possible result of computing binopt(value1,value2).
 
-		// Let K be i2 modulo N.
-		Integer K = value2.integerValue() % N;
+		// Let k be i2 modulo N.
+		Integer k = value2.integerValue() % N;
 
-		// Return the result of shifting i1 left by k bits, modulo 2^N
-		I32 result = new I32(value1.integerValue() << K);   // Java handles the modulo 2^N
+		// Return the result of shifting i1 right  by k bits, modulo 2^N
+		I32 result = new I32(value1.integerValue() >> k);   // Java handles the modulo 2^N
 
 		// Push the value t.const c(i.e. result) to the stack.
 		stack.push(result);

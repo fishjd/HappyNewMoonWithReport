@@ -179,7 +179,7 @@ Data Section:  To Do
 - [x] i32.or 0x72
 - [x] i32.xor 0x73
 - [x] i32.shl 0x74
-- [ ] i32.shr_s 0x75
+- [x] i32.shr_s 0x75
 - [ ] i32.shr_u 0x76
 - [ ] i32.rotl 0x77
 - [ ] i32.rotr 0x78
