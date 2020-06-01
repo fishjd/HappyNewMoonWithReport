@@ -27,6 +27,11 @@ import happynewmoonwithreport.opcode.Nop;
 import happynewmoonwithreport.opcode.Select;
 import happynewmoonwithreport.opcode.SetLocal;
 import happynewmoonwithreport.opcode.Unreachable;
+import happynewmoonwithreport.opcode.bitshift.I32_rotl;
+import happynewmoonwithreport.opcode.bitshift.I32_rotr;
+import happynewmoonwithreport.opcode.bitshift.I32_shl;
+import happynewmoonwithreport.opcode.bitshift.I32_shr_s;
+import happynewmoonwithreport.opcode.bitshift.I32_shr_u;
 import happynewmoonwithreport.opcode.comparison.I32_eq;
 import happynewmoonwithreport.opcode.comparison.I32_eqz;
 import happynewmoonwithreport.opcode.comparison.I32_ge_s;
@@ -68,13 +73,13 @@ import happynewmoonwithreport.opcode.logic.I32_xor;
 import happynewmoonwithreport.opcode.logic.I64_and;
 import happynewmoonwithreport.opcode.logic.I64_or;
 import happynewmoonwithreport.opcode.logic.I64_xor;
+import happynewmoonwithreport.opcode.math.I32_add;
 import happynewmoonwithreport.opcode.math.I32_div_s;
 import happynewmoonwithreport.opcode.math.I32_div_u;
 import happynewmoonwithreport.opcode.math.I32_mul;
 import happynewmoonwithreport.opcode.math.I32_rem_s;
 import happynewmoonwithreport.opcode.math.I32_rem_u;
 import happynewmoonwithreport.opcode.math.I32_sub;
-import happynewmoonwithreport.opcode.math.I32_add;
 import happynewmoonwithreport.opcode.math.I64_add;
 import happynewmoonwithreport.opcode.math.I64_div_s;
 import happynewmoonwithreport.opcode.math.I64_div_u;
@@ -581,7 +586,8 @@ public class WasmInstance implements WasmInstanceInterface {
 				I32_div_u i32_div_u = new I32_div_u(this);
 				i32_div_u.execute();
 				break;
-			}case (byte) 0x6F: { // i32 remainder signed
+			}
+			case (byte) 0x6F: { // i32 remainder signed
 				I32_rem_s i32_rem_s = new I32_rem_s(this);
 				i32_rem_s.execute();
 				break;
@@ -604,6 +610,31 @@ public class WasmInstance implements WasmInstanceInterface {
 			case (byte) 0x73: { // i32 logical xor
 				I32_xor i32_xor = new I32_xor(this);
 				i32_xor.execute();
+				break;
+			}
+			case (byte) 0x74: { // i32 bit shift shl
+				I32_shl i32_shl = new I32_shl(this);
+				i32_shl.execute();
+				break;
+			}
+			case (byte) 0x75: { // i32 bit shift shr_s
+				I32_shr_s i32_shr_s = new I32_shr_s(this);
+				i32_shr_s.execute();
+				break;
+			}
+			case (byte) 0x76: { // i32 bit shift shr_u
+				I32_shr_u i32_shr_u = new I32_shr_u(this);
+				i32_shr_u.execute();
+				break;
+			}
+			case (byte) 0x77: { // i32 bit shift rotl
+				I32_rotl i32_rotl = new I32_rotl(this);
+				i32_rotl.execute();
+				break;
+			}
+			case (byte) 0x78: { // i32 bit shift rotr
+				I32_rotr i32_rotr = new I32_rotr(this);
+				i32_rotr.execute();
 				break;
 			}
 			case (byte) 0x79: {  // I64 Count Leading Zeros
