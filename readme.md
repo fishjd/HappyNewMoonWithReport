@@ -182,7 +182,7 @@ Data Section:  To Do
 - [x] i32.shr_s 0x75
 - [x] i32.shr_u 0x76
 - [x] i32.rotl 0x77
-- [ ] i32.rotr 0x78
+- [x] i32.rotr 0x78
 - [x] i64.clz 0x79
 - [x] i64.ctz 0x7A
 - [x] i64.popcnt 0x7B

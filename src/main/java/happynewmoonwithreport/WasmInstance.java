@@ -28,6 +28,7 @@ import happynewmoonwithreport.opcode.Select;
 import happynewmoonwithreport.opcode.SetLocal;
 import happynewmoonwithreport.opcode.Unreachable;
 import happynewmoonwithreport.opcode.bitshift.I32_rotl;
+import happynewmoonwithreport.opcode.bitshift.I32_rotr;
 import happynewmoonwithreport.opcode.bitshift.I32_shl;
 import happynewmoonwithreport.opcode.bitshift.I32_shr_s;
 import happynewmoonwithreport.opcode.bitshift.I32_shr_u;
@@ -629,6 +630,11 @@ public class WasmInstance implements WasmInstanceInterface {
 			case (byte) 0x77: { // i32 bit shift rotl
 				I32_rotl i32_rotl = new I32_rotl(this);
 				i32_rotl.execute();
+				break;
+			}
+			case (byte) 0x78: { // i32 bit shift rotr
+				I32_rotr i32_rotr = new I32_rotr(this);
+				i32_rotr.execute();
 				break;
 			}
 			case (byte) 0x79: {  // I64 Count Leading Zeros
