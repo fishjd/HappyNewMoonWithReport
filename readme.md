@@ -60,7 +60,7 @@ Happy New Moon with Report can read from *.wasm file and run an app that adds tw
 
 All I32 and I64 instruction are complete.  
 
-##To do:  
+## To do:  
 Branching opcodes   ex : If, Block.  11 remaining.  
 Floating point opcodes.  About 75 remaining. 
 
