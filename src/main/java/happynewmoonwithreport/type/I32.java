@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 - 2019 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2020 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -75,6 +75,23 @@ public class I32 extends IntWasm {
 		this.value = value.intValue();
 	}
 
+	/**
+	 * Create and I32 from a Boolean value
+	 *
+	 * @param input Boolean value to convert to I32
+	 * @return if input is true then 1 <br>
+	 * else 0
+	 */
+	public static I32 fromBoolean(Boolean input) {
+		// I am a bit disenchanted with creating a constructor I32(Boolean) because constructor
+		// I32(Long) is a pain in the neck.  I'll try this and see if it is any better.
+		I32 result = new I32(1);
+		if (input == false) {
+			result.setValue(0);
+		}
+		assert result.value != null;
+		return result;
+	}
 
 	/**
 	 * Create an I32 with an array of four UnsignedBytes.  Bytes are interpreted as unsigned.
@@ -278,6 +295,10 @@ public class I32 extends IntWasm {
 		return value;
 	}
 
+	public void setValue(Integer value) {
+		this.value = value;
+	}
+
 	@Override
 	public Byte byteValue() {
 		return value.byteValue();
@@ -292,6 +313,11 @@ public class I32 extends IntWasm {
 		return new U32(Integer.toUnsignedLong(value));
 	}
 
+	/**
+	 * Return the value interperted as a Boolean.
+	 * @return  if value is non-zero return true <br>
+	 *     else return false
+	 */
 	@Override
 	public Boolean booleanValue() {
 		return value != 0;

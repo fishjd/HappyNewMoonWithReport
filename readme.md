@@ -171,36 +171,36 @@ Data Section:  To Do
 - [x] i32.add 0x6A
 - [x] i32.sub 0x6B
 - [x] i32.mul 0x6C
-- [ ] i32.div_s 0x6D
-- [ ] i32.div_u 0x6E
-- [ ] i32.rem_s 0x6F
-- [ ] i32.rem_u 0x70
-- [ ] i32.and 0x71
-- [ ] i32.or 0x72
-- [ ] i32.xor 0x73
-- [ ] i32.shl 0x74
-- [ ] i32.shr_s 0x75
-- [ ] i32.shr_u  0x76
-- [ ] i32.rotl 0x77
-- [ ] i32.rotr 0x78
-- [x] i64.clz  0x79
+- [x] i32.div_s 0x6D
+- [x] i32.div_u 0x6E
+- [x] i32.rem_s 0x6F
+- [x] i32.rem_u 0x70
+- [x] i32.and 0x71
+- [x] i32.or 0x72
+- [x] i32.xor 0x73
+- [x] i32.shl 0x74
+- [x] i32.shr_s 0x75
+- [x] i32.shr_u 0x76
+- [x] i32.rotl 0x77
+- [x] i32.rotr 0x78
+- [x] i64.clz 0x79
 - [x] i64.ctz 0x7A
 - [x] i64.popcnt 0x7B
-- [ ] i64.add   0x7C
-- [ ] i64.sub  0x7D
-- [ ] i64.mul  0x7E
-- [ ] i64.div_s   0x7F
-- [ ] i64.div_u   0x80
-- [ ] i64.rem_s 0x81
-- [ ] i64.rem_u 0x82
-- [ ] i64.and 0x83
-- [ ] i64.or 0x84
-- [ ] i64.xor 0x85
-- [ ] i64.shl 0x86
-- [ ] i64.shr_s 0x87
-- [ ] i64.shr_u 0x88
-- [ ] i64.rotl 0x89
-- [ ] i64.rotr 0x8A
+- [x] i64.add 0x7C
+- [x] i64.sub 0x7D
+- [x] i64.mul 0x7E
+- [x] i64.div_s 0x7F
+- [x] i64.div_u 0x80
+- [x] i64.rem_s 0x81
+- [x] i64.rem_u 0x82
+- [x] i64.and 0x83
+- [x] i64.or 0x84
+- [x] i64.xor 0x85
+- [x] i64.shl 0x86
+- [x] i64.shr_s 0x87
+- [x] i64.shr_u 0x88
+- [x] i64.rotl 0x89
+- [x] i64.rotr 0x8A
 - [ ] f32.abs 0x8B
 - [ ] f32.neg 0x8C
 - [ ] f32.ceil 0x8D

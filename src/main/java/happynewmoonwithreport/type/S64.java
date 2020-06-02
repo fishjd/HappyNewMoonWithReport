@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 - 2019 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2020 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -31,6 +31,10 @@ public class S64 extends I64 {
 
 	public S64(Long value) {
 		this.value = value;
+	}
+
+	public S64(I64 value) {
+		this(value.longValue());
 	}
 
 

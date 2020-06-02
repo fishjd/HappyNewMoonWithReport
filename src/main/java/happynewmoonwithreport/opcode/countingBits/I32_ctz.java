@@ -93,7 +93,7 @@ public class I32_ctz {
 
 		// Assert: due to validation, a value of value type t1 is on the top of the stack.
 		if ((stack.peek() instanceof I32) == false) {
-			throw new WasmRuntimeException(UUID.fromString("6132922f-a968-42a0-bef5-236f486448d5"),
+			throw new WasmRuntimeException(UUID.fromString("47159f57-7695-42a1-b99b-255a38389aba"),
 				opCodeName + ": Value type is incorrect. Value should be of type " + t1Type);
 		}
 		// Pop the value t1.const c1 from the stack.

@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 - 2019 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2020 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -37,19 +37,25 @@ public class S32 extends I32 {
 		this();
 		if (isBoundByInteger(value) == false) {
 			throw new WasmRuntimeException(UUID.fromString("2c992eb4-00c8-495f-ac1e-afb85fd47aff"),
-				"Value not bound by integer");
+				"Input value to S32(Long) is out of bounds.  Value not bound by integer. Value = "
+				+ value + " (" + toHex(value) + ")",
+				"Possible Solutions: Use S32(Integer) instead.  The input for this function is "
+				+ "'Long'. Maybe you only need and input of 'Int'? Ex: for S32(0xFFFF_FFFFL); use "
+				+ "instead I32(0xFFFF_FFFF); .");
 		}
 		this.value = value.intValue();
 	}
 
 	public S32(S32 input) {
-		this();
-		this.value = input.integerValue();
+		this(input.integerValue());
 	}
 
 	public S32(U32 input) {
-		this();
-		this.value = input.integerValue();
+		this(input.integerValue());
+	}
+
+	public S32(I32 input) {
+		this(input.integerValue());
 	}
 
 	/* private functions **/

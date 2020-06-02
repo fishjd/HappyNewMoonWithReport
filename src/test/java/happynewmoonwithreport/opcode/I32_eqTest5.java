@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 - 2019 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2020 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -24,6 +24,7 @@ import org.junit.jupiter.params.converter.ConvertWith;
 import org.junit.jupiter.params.provider.CsvSource;
 
 import happynewmoonwithreport.WasmInstanceInterface;
+import happynewmoonwithreport.opcode.comparison.I32_eq;
 import happynewmoonwithreport.type.I32;
 import happynewmoonwithreport.util.converter.StringToIntegerConverter;
 
