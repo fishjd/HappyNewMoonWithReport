@@ -33,6 +33,7 @@ import happynewmoonwithreport.opcode.bitshift.I32_shl;
 import happynewmoonwithreport.opcode.bitshift.I32_shr_s;
 import happynewmoonwithreport.opcode.bitshift.I32_shr_u;
 import happynewmoonwithreport.opcode.bitshift.I64_rotl;
+import happynewmoonwithreport.opcode.bitshift.I64_rotr;
 import happynewmoonwithreport.opcode.bitshift.I64_shl;
 import happynewmoonwithreport.opcode.bitshift.I64_shr_s;
 import happynewmoonwithreport.opcode.bitshift.I64_shr_u;
@@ -427,7 +428,7 @@ public class WasmInstance implements WasmInstanceInterface {
 			//			case (byte) 0x3F: { break;}  // Memory Size
 			//			case (byte) 0x40: { break;}  // Memory Grow
 
-			case (byte) 0x41: {  // i32.const i32
+			case (byte) 0x41: {  // I32.const i32
 				ConstantInt32 constantInt32 = new ConstantInt32(this);
 				constantInt32.execute(new VarInt32(code));// Not sure if this is signed or unsigned
 				break;
@@ -440,112 +441,112 @@ public class WasmInstance implements WasmInstanceInterface {
 			//			case (byte) 0x43: {  // F32 const F32
 			//			case (byte) 0x44: {  // F64 const F64
 
-			case (byte) 0x45: { // i32 equals zero
+			case (byte) 0x45: { // I32 equals zero
 				I32_eqz i32_eqz = new I32_eqz(this);
 				i32_eqz.execute();
 				break;
 			}
-			case (byte) 0x46: { // i32 equals
+			case (byte) 0x46: { // I32 equals
 				I32_eq i32_eq = new I32_eq(this);
 				i32_eq.execute();
 				break;
 			}
-			case (byte) 0x47: { // i32 not equals
+			case (byte) 0x47: { // I32 not equals
 				I32_ne i32_ne = new I32_ne(this);
 				i32_ne.execute();
 				break;
 			}
-			case (byte) 0x48: { // i32 less than signed
+			case (byte) 0x48: { // I32 less than signed
 				I32_lt_s i32_lt_s = new I32_lt_s(this);
 				i32_lt_s.execute();
 				break;
 			}
-			case (byte) 0x49: { // i32 less than unsigned
+			case (byte) 0x49: { // I32 less than unsigned
 				I32_lt_u i32_lt_u = new I32_lt_u(this);
 				i32_lt_u.execute();
 				break;
 			}
-			case (byte) 0x4A: { // i32 greater than signed
+			case (byte) 0x4A: { // I32 greater than signed
 				I32_gt_s i32_gt_s = new I32_gt_s(this);
 				i32_gt_s.execute();
 				break;
 			}
-			case (byte) 0x4B: { // i32 greater than unsigned
+			case (byte) 0x4B: { // I32 greater than unsigned
 				I32_gt_u i32_gt_u = new I32_gt_u(stack);
 				i32_gt_u.execute();
 				break;
 			}
-			case (byte) 0x4C: { // i32 less than or equal to signed
+			case (byte) 0x4C: { // I32 less than or equal to signed
 				I32_le_s i32_le_s = new I32_le_s(this);
 				i32_le_s.execute();
 				break;
 			}
-			case (byte) 0x4D: { // i32 less than or equal to unsigned
+			case (byte) 0x4D: { // I32 less than or equal to unsigned
 				I32_le_u i32_le_u = new I32_le_u(this);
 				i32_le_u.execute();
 				break;
 			}
-			case (byte) 0x4E: { // i32 greater than or equal to signed
+			case (byte) 0x4E: { // I32 greater than or equal to signed
 				I32_ge_s i32_ge_s = new I32_ge_s(this);
 				i32_ge_s.execute();
 				break;
 			}
-			case (byte) 0x4F: { // i32 greater than or equal to unsigned
+			case (byte) 0x4F: { // I32 greater than or equal to unsigned
 				I32_ge_u i32_ge_u = new I32_ge_u(this);
 				i32_ge_u.execute();
 				break;
 			}
-			case (byte) 0x50: { // i64 equals zero
+			case (byte) 0x50: { // I64 equals zero
 				I64_eqz i64_eqz = new I64_eqz(this);
 				i64_eqz.execute();
 				break;
 			}
-			case (byte) 0x51: { // i64 equals
+			case (byte) 0x51: { // I64 equals
 				I64_eq i64_eq = new I64_eq(this);
 				i64_eq.execute();
 				break;
 			}
-			case (byte) 0x52: { // i64 not equals
+			case (byte) 0x52: { // I64 not equals
 				I64_ne i64_ne = new I64_ne(this);
 				i64_ne.execute();
 				break;
 			}
-			case (byte) 0x53: { // i64 less than signed
+			case (byte) 0x53: { // I64 less than signed
 				I64_lt_s i64_lt_s = new I64_lt_s(this);
 				i64_lt_s.execute();
 				break;
 			}
-			case (byte) 0x54: { // i64 less than unsigned
+			case (byte) 0x54: { // I64 less than unsigned
 				I64_lt_u i64_lt_u = new I64_lt_u(this);
 				i64_lt_u.execute();
 				break;
 			}
-			case (byte) 0x55: { // i64 greater than signed
+			case (byte) 0x55: { // I64 greater than signed
 				I64_gt_s i64_gt_s = new I64_gt_s(this);
 				i64_gt_s.execute();
 				break;
 			}
-			case (byte) 0x56: { // i64 greater than unsigned
+			case (byte) 0x56: { // I64 greater than unsigned
 				I64_gt_u i64_gt_u = new I64_gt_u(this);
 				i64_gt_u.execute();
 				break;
 			}
-			case (byte) 0x57: { // i64 less than equal to signed
+			case (byte) 0x57: { // I64 less than equal to signed
 				I64_le_s i64_le_s = new I64_le_s(this);
 				i64_le_s.execute();
 				break;
 			}
-			case (byte) 0x58: { // i64 less than equal to unsigned
+			case (byte) 0x58: { // I64 less than equal to unsigned
 				I64_le_u i64_le_u = new I64_le_u(this);
 				i64_le_u.execute();
 				break;
 			}
-			case (byte) 0x59: { // i64 greater than equal to signed
+			case (byte) 0x59: { // I64 greater than equal to signed
 				I64_ge_s i64_ge_s = new I64_ge_s(this);
 				i64_ge_s.execute();
 				break;
 			}
-			case (byte) 0x5A: { // i64 greater than equal to unsigned
+			case (byte) 0x5A: { // I64 greater than equal to unsigned
 				I64_ge_u i64_ge_u = new I64_ge_u(this);
 				i64_ge_u.execute();
 				break;
@@ -566,77 +567,77 @@ public class WasmInstance implements WasmInstanceInterface {
 				i32_popcnt.execute();
 				break;
 			}
-			case (byte) 0x6A: {
+			case (byte) 0x6A: { // I32 add
 				I32_add addI32 = new I32_add(this);
 				addI32.execute();
 				break;
 			}
-			case (byte) 0x6B: {
+			case (byte) 0x6B: { // I32 subtract
 				I32_sub i32_sub = new I32_sub(this);
 				i32_sub.execute();
 				break;
 			}
-			case (byte) 0x6C: { // i32 multiply
+			case (byte) 0x6C: { // I32 multiply
 				I32_mul i32_mul = new I32_mul(this);
 				i32_mul.execute();
 				break;
 			}
-			case (byte) 0x6D: { // i32 divide unsigned
+			case (byte) 0x6D: { // I32 divide unsigned
 				I32_div_s i32_div_s = new I32_div_s(this);
 				i32_div_s.execute();
 				break;
 			}
-			case (byte) 0x6E: { // i32 divide unsigned
+			case (byte) 0x6E: { // I32 divide unsigned
 				I32_div_u i32_div_u = new I32_div_u(this);
 				i32_div_u.execute();
 				break;
 			}
-			case (byte) 0x6F: { // i32 remainder signed
+			case (byte) 0x6F: { // I32 remainder signed
 				I32_rem_s i32_rem_s = new I32_rem_s(this);
 				i32_rem_s.execute();
 				break;
 			}
-			case (byte) 0x70: { // i32 remainder unsigned
+			case (byte) 0x70: { // I32 remainder unsigned
 				I32_rem_u i32_rem_u = new I32_rem_u(this);
 				i32_rem_u.execute();
 				break;
 			}
-			case (byte) 0x71: { // i32 logical and
+			case (byte) 0x71: { // I32 logical and
 				I32_and i32_and = new I32_and(this);
 				i32_and.execute();
 				break;
 			}
-			case (byte) 0x72: { // i32 logical or
+			case (byte) 0x72: { // I32 logical or
 				I32_or i32_or = new I32_or(this);
 				i32_or.execute();
 				break;
 			}
-			case (byte) 0x73: { // i32 logical xor
+			case (byte) 0x73: { // I32 logical xor
 				I32_xor i32_xor = new I32_xor(this);
 				i32_xor.execute();
 				break;
 			}
-			case (byte) 0x74: { // i32 bit shift shl
+			case (byte) 0x74: { // I32 bit shift shl
 				I32_shl i32_shl = new I32_shl(this);
 				i32_shl.execute();
 				break;
 			}
-			case (byte) 0x75: { // i32 bit shift shr_s
+			case (byte) 0x75: { // I32 bit shift shr_s
 				I32_shr_s i32_shr_s = new I32_shr_s(this);
 				i32_shr_s.execute();
 				break;
 			}
-			case (byte) 0x76: { // i32 bit shift shr_u
+			case (byte) 0x76: { // I32 bit shift shr_u
 				I32_shr_u i32_shr_u = new I32_shr_u(this);
 				i32_shr_u.execute();
 				break;
 			}
-			case (byte) 0x77: { // i32 bit shift rotl
+			case (byte) 0x77: { // I32 bit shift rotl
 				I32_rotl i32_rotl = new I32_rotl(this);
 				i32_rotl.execute();
 				break;
 			}
-			case (byte) 0x78: { // i32 bit shift rotr
+			case (byte) 0x78: { // I32 bit shift rotr
 				I32_rotr i32_rotr = new I32_rotr(this);
 				i32_rotr.execute();
 				break;
@@ -656,74 +657,79 @@ public class WasmInstance implements WasmInstanceInterface {
 				i64_popcnt.execute();
 				break;
 			}
-			case (byte) 0x7C: {
+			case (byte) 0x7C: { // I64 add
 				I64_add i64_add = new I64_add(this);
 				i64_add.execute();
 				break;
 			}
-			case (byte) 0x7D: {
+			case (byte) 0x7D: { // I64 subtract
 				I64_sub i64_sub = new I64_sub(this);
 				i64_sub.execute();
 				break;
 			}
-			case (byte) 0x7E: {
+			case (byte) 0x7E: { // I64 multiply
 				I64_mul i64_mul = new I64_mul(this);
 				i64_mul.execute();
 				break;
 			}
-			case (byte) 0x7F: {
+			case (byte) 0x7F: { // I64 division signed
 				I64_div_s i64_div_s = new I64_div_s(this);
 				i64_div_s.execute();
 				break;
 			}
-			case (byte) 0x80: {
+			case (byte) 0x80: { // I64 division unsigned
 				I64_div_u i64_div_u = new I64_div_u(this);
 				i64_div_u.execute();
 				break;
 			}
-			case (byte) 0x81: {
+			case (byte) 0x81: { // I64 remainder signed
 				I64_rem_s i64_rem_s = new I64_rem_s(this);
 				i64_rem_s.execute();
 				break;
 			}
-			case (byte) 0x82: {
+			case (byte) 0x82: { // I64 remainder unsigned
 				I64_rem_u i64_rem_u = new I64_rem_u(this);
 				i64_rem_u.execute();
 				break;
 			}
-			case (byte) 0x83: {
+			case (byte) 0x83: { // I64 and
 				I64_and i64_and = new I64_and(this);
 				i64_and.execute();
 				break;
 			}
-			case (byte) 0x84: {
+			case (byte) 0x84: { // I64 or
 				I64_or i64_or = new I64_or(this);
 				i64_or.execute();
 				break;
 			}
-			case (byte) 0x85: {
+			case (byte) 0x85: { // I64 exclusive or
 				I64_xor i64_xor = new I64_xor(this);
 				i64_xor.execute();
 				break;
 			}
-			case (byte) 0x86: {
+			case (byte) 0x86: { // I64 shift left
 				I64_shl i64_shl = new I64_shl(this);
 				i64_shl.execute();
 				break;
 			}
-			case (byte) 0x87: {
+			case (byte) 0x87: { // I64 shift right signed
 				I64_shr_s i64_shr_s = new I64_shr_s(this);
 				i64_shr_s.execute();
 				break;
 			}
-			case (byte) 0x88: {
+			case (byte) 0x88: { // I64 Shift right unsigned
 				I64_shr_u i64_shr_u = new I64_shr_u(this);
 				i64_shr_u.execute();
 				break;
 			}
-			case (byte) 0x89: {
+			case (byte) 0x89: { // I64 Rotate Left
 				I64_rotl i64_rotl = new I64_rotl(this);
 				i64_rotl.execute();
+				break;
+			}
+			case (byte) 0x8A: { // I64 Rotate Right
+				I64_rotr i64_rotr = new I64_rotr(this);
+				i64_rotr.execute();
 				break;
 			}
 			case (byte) 0xAC: { // I64 Extend I32 Signed
