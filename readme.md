@@ -198,7 +198,7 @@ Data Section:  To Do
 - [x] i64.xor 0x85
 - [x] i64.shl 0x86
 - [x] i64.shr_s 0x87
-- [ ] i64.shr_u 0x88
+- [x] i64.shr_u 0x88
 - [ ] i64.rotl 0x89
 - [ ] i64.rotr 0x8A
 - [ ] f32.abs 0x8B

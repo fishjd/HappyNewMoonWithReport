@@ -34,6 +34,7 @@ import happynewmoonwithreport.opcode.bitshift.I32_shr_s;
 import happynewmoonwithreport.opcode.bitshift.I32_shr_u;
 import happynewmoonwithreport.opcode.bitshift.I64_shl;
 import happynewmoonwithreport.opcode.bitshift.I64_shr_s;
+import happynewmoonwithreport.opcode.bitshift.I64_shr_u;
 import happynewmoonwithreport.opcode.comparison.I32_eq;
 import happynewmoonwithreport.opcode.comparison.I32_eqz;
 import happynewmoonwithreport.opcode.comparison.I32_ge_s;
@@ -712,6 +713,11 @@ public class WasmInstance implements WasmInstanceInterface {
 			case (byte) 0x87: {
 				I64_shr_s i64_shr_s = new I64_shr_s(this);
 				i64_shr_s.execute();
+				break;
+			}
+			case (byte) 0x88: {
+				I64_shr_u i64_shr_u = new I64_shr_u(this);
+				i64_shr_u.execute();
 				break;
 			}
 			case (byte) 0xAC: { // I64 Extend I32 Signed
