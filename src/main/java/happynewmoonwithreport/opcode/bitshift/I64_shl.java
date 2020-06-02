@@ -119,7 +119,11 @@ public class I64_shl {
 		// Let c(i.e. result) be a possible result of computing binopt(value1,value2).
 
 		// Let k be i2 modulo N.
-		Long k = value2.longValue() % N;
+		// Do the modulo division (%) as with Long values
+		Long k_long = value2.longValue() % N;
+		// After the modulo we know the value of k is less than N and thus can be converted to an
+		// Integer with out loss.
+		Integer k = k_long.intValue();
 
 		// Return the result of shifting i1 left by k bits, modulo 2^N
 		I64 result = new I64(value1.longValue() << k);   // Java handles the modulo 2^N
