@@ -21,6 +21,7 @@ import happynewmoonwithreport.type.I32
 import happynewmoonwithreport.type.MemoryArgument
 import happynewmoonwithreport.type.U32
 import spock.lang.Specification
+
 /**
  * Created on 2018-02-12.
  */
@@ -29,7 +30,6 @@ class I32_load_memoryDoesNotExistsTest extends Specification {
 	WasmFrame frame;
 	I32_load i32Load;
 	WasmStack stack;
-
 
 
 	void setup() {
@@ -72,7 +72,6 @@ class I32_load_memoryDoesNotExistsTest extends Specification {
 		// create class to test.
 		i32Load = new I32_load(memoryArgument, frame, store, stack);
 	}
-
 
 
 	void cleanup() {

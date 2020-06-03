@@ -22,7 +22,6 @@ import happynewmoonwithreport.opcode.WasmInstanceStub
 import happynewmoonwithreport.type.I32
 import happynewmoonwithreport.type.I64
 import spock.lang.Specification
-import spock.lang.Unroll
 
 /**
  * Test I64_shlTest opcode.

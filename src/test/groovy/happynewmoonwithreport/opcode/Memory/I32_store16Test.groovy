@@ -34,6 +34,7 @@ class I32_store16Test extends Specification {
 
 	WasmStack stack;
 	WasmStore store;
+
 	void setup() {
 		// create a module.
 		module = new WasmModule();
@@ -42,13 +43,13 @@ class I32_store16Test extends Specification {
 		U32 hasMaximum = new U32(0);
 		U32 minimum = new U32(1);
 		MemoryType memory = new MemoryType(hasMaximum, minimum);
-		memory.set(0, new ByteUnsigned( 0x00));
-		memory.set(1, new ByteUnsigned( 0x01));
-		memory.set(2, new ByteUnsigned( 0x02));
-		memory.set(3, new ByteUnsigned( 0x03));
-		memory.set(4, new ByteUnsigned( 0x04));
-		memory.set(5, new ByteUnsigned( 0x05));
-		memory.set(6, new ByteUnsigned( 0x06));
+		memory.set(0, new ByteUnsigned(0x00));
+		memory.set(1, new ByteUnsigned(0x01));
+		memory.set(2, new ByteUnsigned(0x02));
+		memory.set(3, new ByteUnsigned(0x03));
+		memory.set(4, new ByteUnsigned(0x04));
+		memory.set(5, new ByteUnsigned(0x05));
+		memory.set(6, new ByteUnsigned(0x06));
 
 		// add memory to module
 		module.addMemory(memory);
@@ -96,8 +97,8 @@ class I32_store16Test extends Specification {
 		i32Store16.execute();
 
 		then: ""
-		new ByteUnsigned(0x7E) ==  store.memoryAll.get(0).get(2);
-		new ByteUnsigned(0x7F) ==  store.memoryAll.get(0).get(3);
+		new ByteUnsigned(0x7E) == store.memoryAll.get(0).get(2);
+		new ByteUnsigned(0x7F) == store.memoryAll.get(0).get(3);
 
 		// expect: ""
 
