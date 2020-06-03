@@ -29,7 +29,7 @@ class UtilHappy {
 	 * @param input The value to format.
 	 * @return a String with the name, value and hexadecimal value.
 	 */
-	public static GString formatInteger(String inputName, Integer input) {
+	static GString formatInteger(String inputName, Integer input) {
 		return "${inputName} = ${input} (0x${Integer.toHexString(input).toUpperCase()})"
 	}
 
@@ -39,7 +39,7 @@ class UtilHappy {
 	 * @param input The value to format.
 	 * @return a String with the name, value and hexadecimal value.
 	 */
-	public static GString formatInteger(String inputName, Long input) {
+	static GString formatInteger(String inputName, Long input) {
 		return "${inputName} = ${input} (0x${Long.toHexString(input).toUpperCase()})"
 	}
 }

@@ -67,8 +67,7 @@ public class SectionCustom implements Section {
 			Logger.getLogger(SectionCustom.class.getName())
 				.log(Level.WARNING, "552775a5-ca14-459c-8911-20669e7e1f87 "
 									+ "Custom Section: unknown Exception.  This does not "
-									+ "invalidate the module.",
-					exception);
+									+ "invalidate the module.", exception);
 
 		}
 
