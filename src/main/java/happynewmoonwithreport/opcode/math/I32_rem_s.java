@@ -20,7 +20,6 @@ package happynewmoonwithreport.opcode.math;
 import java.util.UUID;
 
 import happynewmoonwithreport.WasmDivideByZeroException;
-import happynewmoonwithreport.WasmDivideOverflowException;
 import happynewmoonwithreport.WasmInstanceInterface;
 import happynewmoonwithreport.WasmRuntimeException;
 import happynewmoonwithreport.WasmStack;

@@ -30,7 +30,8 @@ import happynewmoonwithreport.type.I32;
  * ishl<sub>N</sub>(i<sub>1</sub>,i<sub>2</sub>)
  * <ul>
  *     <li>Let <i>k</i> be i<sub>2</sub> modulo N.</li>
- *     <li>Return the result of shifting i<sub>1</sub> left by <i>k</i> bits, modulo 2<sup>N</sup></li>
+ *     <li>Return the result of shifting i<sub>1</sub> left by <i>k</i> bits, modulo
+ *     2<sup>N</sup></li>
  *
  * </ul>
  * <br>

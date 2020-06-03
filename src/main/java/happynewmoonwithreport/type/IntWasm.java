@@ -236,7 +236,8 @@ public abstract class IntWasm implements DataTypeNumber {
 	 * </ol>
 	 * <p>
 	 * <b>Source:</b>
-	 * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-extend-s" target="_top">
+	 * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-extend-s"
+	 * target="_top">
 	 * https://webassembly.github.io/spec/core/exec/numerics.html#op-extend-s
 	 * </a>
 	 * <br>

@@ -55,8 +55,8 @@ public class WasmDivideOverflowException extends RuntimeException {
 		this.uuid = uuid;
 	}
 
-	public WasmDivideOverflowException(UUID uuid, String message, Throwable cause, boolean enableSuppression,
-									   boolean writableStackTrace) {
+	public WasmDivideOverflowException(UUID uuid, String message, Throwable cause,
+									   boolean enableSuppression, boolean writableStackTrace) {
 		super(message, cause, enableSuppression, writableStackTrace);
 		this.uuid = uuid;
 	}
