@@ -20,16 +20,18 @@ import happynewmoonwithreport.type.WasmVector;
 
 /**
  * Labels carry an argument arity n and their associated branch target, which is expressed
- * syntactically as an
- * instruction sequence:
+ * syntactically as an instruction sequence:
  * <p>
  * Intuitively, instr∗ is the continuation to execute when the branch is taken, in place of the
- * original control
- * construct.
+ * original control construct.
  * <p>
- * Source:
- * <a href="https://webassembly.github.io/spec/core/exec/runtime.html#syntax-label" target="_top">
- * https://webassembly.github.io/spec/core/exec/runtime.html#syntax-label
+ * <h3>Source:</h3>
+ * <a href="https://webassembly.github.io/spec/core/exec/runtime.html#labels" target="_top">
+ * Wasm Label Documentation
+ * </a>
+ * <br>
+ * <a href="https://github.com/sunfishcode/wasm-reference-manual/blob/467fc534e5b546b8d22363abf3668aa7f988ecfa/WebAssembly.md#labels" target="_top">
+ * Sunfish Label documentation
  * </a>
  */
 public class WasmLabel {
