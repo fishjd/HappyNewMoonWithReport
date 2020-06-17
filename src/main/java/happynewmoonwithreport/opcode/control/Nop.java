@@ -14,7 +14,7 @@
  *  limitations under the License.
  *
  */
-package happynewmoonwithreport.opcode;
+package happynewmoonwithreport.opcode.control;
 
 
 import happynewmoonwithreport.WasmInstanceInterface;

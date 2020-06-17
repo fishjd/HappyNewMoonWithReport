@@ -18,15 +18,15 @@ package happynewmoonwithreport;
 
 import java.util.UUID;
 
-import happynewmoonwithreport.opcode.Block;
+import happynewmoonwithreport.opcode.control.Block;
 import happynewmoonwithreport.opcode.ConstantInt32;
 import happynewmoonwithreport.opcode.ConstantInt64;
 import happynewmoonwithreport.opcode.Drop;
 import happynewmoonwithreport.opcode.GetLocal;
-import happynewmoonwithreport.opcode.Nop;
+import happynewmoonwithreport.opcode.control.Nop;
 import happynewmoonwithreport.opcode.Select;
 import happynewmoonwithreport.opcode.SetLocal;
-import happynewmoonwithreport.opcode.Unreachable;
+import happynewmoonwithreport.opcode.control.Unreachable;
 import happynewmoonwithreport.opcode.bitshift.I32_rotl;
 import happynewmoonwithreport.opcode.bitshift.I32_rotr;
 import happynewmoonwithreport.opcode.bitshift.I32_shl;
