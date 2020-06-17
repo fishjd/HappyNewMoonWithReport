@@ -20,11 +20,11 @@ import happynewmoonwithreport.BytesFile
 import happynewmoonwithreport.ValueType
 import happynewmoonwithreport.WasmLabel
 import spock.lang.Specification
+
 /**
  * Created on 2017-09-23.
  */
 class BlockTest extends Specification {
-
 
 
 	def "Execute"() {

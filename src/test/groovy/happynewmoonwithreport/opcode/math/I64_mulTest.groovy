@@ -52,22 +52,22 @@ class I64_mulTest extends Specification {
 		new I64(expected) == instance.stack().pop();
 
 		where: ""
-		val1                   | val2                   || expected
+		val1                  | val2                  || expected
 		// Web Assembly Test
-		1                      | 1                      || 1
-		1                      | 0                      || 0
-		-1                     | -1                     || 1
-		0x1000_0000_0000_0000 | 4096                   || 0
-		0x8000_0000_0000_0000 | 0                      || 0
-		0x8000_0000_0000_0000 | -1                     || 0x8000_0000_0000_0000
-		0x7FFF_FFFF_FFFF_FFFF  | -1                     || 0x8000_0000_0000_0001
-		0x0123_4567_89AB_CDEF  | 0xFEDC_BA98_7654_3210 || 0x2236_D88F_E561_8CF0
-		0x7FFF_FFFF_FFFF_FFFF  | 0x7FFF_FFFF_FFFF_FFFF  || 1
+		1                     | 1                     || 1
+		1                     | 0                     || 0
+		-1                    | -1                    || 1
+		0x1000_0000_0000_0000 | 4096                  || 0
+		0x8000_0000_0000_0000 | 0                     || 0
+		0x8000_0000_0000_0000 | -1                    || 0x8000_0000_0000_0000
+		0x7FFF_FFFF_FFFF_FFFF | -1                    || 0x8000_0000_0000_0001
+		0x0123_4567_89AB_CDEF | 0xFEDC_BA98_7654_3210 || 0x2236_D88F_E561_8CF0
+		0x7FFF_FFFF_FFFF_FFFF | 0x7FFF_FFFF_FFFF_FFFF || 1
 		// Happy New Moon tests
-		3                      | 4                      || 12
-		3                      | 0                      || 0
-		4                      | 3                      || 12
-		0x7FFF_FFFE            | 0x1                    || 0x7FFF_FFFE
+		3                     | 4                     || 12
+		3                     | 0                     || 0
+		4                     | 3                     || 12
+		0x7FFF_FFFE           | 0x1                   || 0x7FFF_FFFE
 
 	}
 

@@ -58,5 +58,4 @@ class I64ConstructorByteTest extends Specification {
 	}
 
 
-
 }

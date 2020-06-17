@@ -50,11 +50,11 @@ class I64_ge_sTest extends Specification {
 
 
 		where: ""
-		val1        | val2        || expected
-		3           | 4           || 0
-		4           | 3           || 1
-		4           | 4           || 1
-		0           | 0           || 1
+		val1 | val2 || expected
+		3    | 4    || 0
+		4    | 3    || 1
+		4    | 4    || 1
+		0    | 0    || 1
 //		0x7FFF_FFFF | 0x7FFF_FFFF || 1
 //		0x7FFF_FFFE | 0x7FFF_FFFF || 0
 //		0x7FFF_FFFF | 0x7FFF_FFFE || 1

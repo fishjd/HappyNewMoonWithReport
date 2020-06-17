@@ -23,6 +23,7 @@ import happynewmoonwithreport.WasmStore
 import happynewmoonwithreport.type.*
 import happynewmoonwithreport.type.JavaType.ByteUnsigned
 import spock.lang.Specification
+
 /**
  * Created on 2018-02-12.
  */
@@ -82,7 +83,7 @@ class I32_load8_u_Test extends Specification {
 		Integer address = 2;
 
 		// setup: ""
-		stack.push(new I32(address) );  // load bytes starting at 2
+		stack.push(new I32(address));  // load bytes starting at 2
 
 		memory.set(2, new ByteUnsigned(input));
 
@@ -101,12 +102,12 @@ class I32_load8_u_Test extends Specification {
 
 		// where: ""
 		where: ""
-		input       || expected
-		0           || 0
-		2           || 2
-	 	4           || 4
-		0x7F        || 0x7F
-		0x80        || 0x80
-		0xFF        || 0xFF
+		input || expected
+		0     || 0
+		2     || 2
+		4     || 4
+		0x7F  || 0x7F
+		0x80  || 0x80
+		0xFF  || 0xFF
 	}
 }

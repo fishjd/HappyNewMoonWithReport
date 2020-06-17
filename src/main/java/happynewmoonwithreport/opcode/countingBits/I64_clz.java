@@ -82,7 +82,7 @@ public class I64_clz {
 		super();
 	}
 
-	public I64_clz(WasmStack<Object> stack ) {
+	public I64_clz(WasmStack<Object> stack) {
 		this();
 		this.stack = stack;
 	}

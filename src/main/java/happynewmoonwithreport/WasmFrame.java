@@ -21,14 +21,12 @@ import happynewmoonwithreport.type.WasmVector;
 
 /**
  * Activation frames carry the return arity of the respective function, hold the values of its
- * locals (including
- * arguments) in the order corresponding to their static local indices, and a reference to the
- * function’s own module
- * instance:
+ * locals (including arguments) in the order corresponding to their static local indices, and a
+ * reference to the function’s own module instance:
  * <p>
  * Source:
- * <a href="https://webassembly.github.io/spec/core/exec/runtime.html#frames" target="_top">
- * https://webassembly.github.io/spec/core/exec/runtime.html#frames
+ * <a href="https://webassembly.github.io/spec/core/exec/runtime.html#activations-and-frames" target="_top">
+ * Frames
  * </a>
  * Frame contains:  locals, module, return arity
  */

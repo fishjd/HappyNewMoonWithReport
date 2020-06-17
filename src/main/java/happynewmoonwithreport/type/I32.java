@@ -315,8 +315,9 @@ public class I32 extends IntWasm {
 
 	/**
 	 * Return the value interperted as a Boolean.
-	 * @return  if value is non-zero return true <br>
-	 *     else return false
+	 *
+	 * @return if value is non-zero return true <br>
+	 * else return false
 	 */
 	@Override
 	public Boolean booleanValue() {

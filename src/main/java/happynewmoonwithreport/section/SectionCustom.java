@@ -65,9 +65,9 @@ public class SectionCustom implements Section {
 			// https://webassembly.github.io/spec/core/binary/modules.html#custom-section
 			// </a>
 			Logger.getLogger(SectionCustom.class.getName())
-				.log(Level.WARNING, "552775a5-ca14-459c-8911-20669e7e1f87 " +
-									"Custom Section: unknown Exception.  " +
-									"This does not invalidate the module.", exception);
+				.log(Level.WARNING, "552775a5-ca14-459c-8911-20669e7e1f87 "
+									+ "Custom Section: unknown Exception.  This does not "
+									+ "invalidate the module.", exception);
 
 		}
 

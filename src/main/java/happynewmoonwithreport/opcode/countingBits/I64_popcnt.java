@@ -82,7 +82,7 @@ public class I64_popcnt {
 		super();
 	}
 
-	public I64_popcnt(WasmStack<Object> stack ) {
+	public I64_popcnt(WasmStack<Object> stack) {
 		this();
 		this.stack = stack;
 	}

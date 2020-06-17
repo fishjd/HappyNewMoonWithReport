@@ -23,7 +23,6 @@ import happynewmoonwithreport.WasmDivideByZeroException;
 import happynewmoonwithreport.WasmInstanceInterface;
 import happynewmoonwithreport.WasmRuntimeException;
 import happynewmoonwithreport.WasmStack;
-import happynewmoonwithreport.type.I32;
 import happynewmoonwithreport.type.I64;
 
 /**
@@ -131,8 +130,7 @@ public class I64_rem_u {
 		}
 
 		//return the remainder of dividing i1 by i2, with the sign of the dividend i1.
-		I64 result =
-			new I64(Long.remainderUnsigned(value1.longValue(), value2.longValue()));
+		I64 result = new I64(Long.remainderUnsigned(value1.longValue(), value2.longValue()));
 
 		stack.push(result);
 	}

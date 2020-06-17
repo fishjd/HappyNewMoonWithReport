@@ -81,7 +81,7 @@ public class I32_ctz {
 		super();
 	}
 
-	public I32_ctz(WasmStack<Object> stack ) {
+	public I32_ctz(WasmStack<Object> stack) {
 		this();
 		this.stack = stack;
 	}

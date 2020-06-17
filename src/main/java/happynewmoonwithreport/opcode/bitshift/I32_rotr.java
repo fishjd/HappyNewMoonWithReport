@@ -121,8 +121,7 @@ public class I32_rotr {
 		Integer k = value2.integerValue() % N;
 
 		// Return the result of shifting i1 right  by k bits, modulo 2^N
-		I32 result =
-			new I32(Integer.rotateRight(value1.integerValue(), k));
+		I32 result = new I32(Integer.rotateRight(value1.integerValue(), k));
 
 		// Push the value t.const c(i.e. result) to the stack.
 		stack.push(result);

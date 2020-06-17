@@ -86,8 +86,8 @@ class I64_load16_u_Test extends Specification {
 		setup: ""
 		stack.push(new I32(address));  // load bytes starting at 2
 
-		memory.set(address, new ByteUnsigned(  (input >> 8) & 0xFF));
-		memory.set(address + 1, new ByteUnsigned( (input) & 0xFF ));
+		memory.set(address, new ByteUnsigned((input >> 8) & 0xFF));
+		memory.set(address + 1, new ByteUnsigned((input) & 0xFF));
 
 		when: ""
 		i64Load16_u.execute();

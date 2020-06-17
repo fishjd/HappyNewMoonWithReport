@@ -99,10 +99,10 @@ class I64_rem_uTest extends Specification {
 		exception.getUuid().toString().contains("668d8f31-6e66-4226-ba20-4d2dacafe3c9");
 
 		where: ""
-		val1              | val2
+		val1                  | val2
 		// Web Assembly Test
-		1                 | 0
-		0                 | 0
+		1                     | 0
+		0                     | 0
 		// Happy New Moon with Report Tests
 		0x8000_0000_0000_0000 | 0
 

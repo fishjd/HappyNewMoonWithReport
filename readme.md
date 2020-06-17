@@ -8,9 +8,11 @@ Happy New Moon with Report doesn't concern itself with the production of the WAS
 
 The primary goal of `Happy New Moon with Report` is to be able to load and run a binary `WebAssembly` module in your Java program.
 
-Think of Happy New Moon With Report as the [Rhino](https://developer.mozilla.org/en-US/docs/Mozilla/Projects/Rhino) of Web Assembly.   Rhino runs JavaScript in Java; Happy New Moon with Report runs WebAssembly in Java.  
+Think of Happy New Moon With Report as the [Rhino](https://developer.mozilla.org/en-US/docs/Mozilla/Projects/Rhino) of Web Assembly.   Rhino runs JavaScript in Java; Happy New Moon with Report runs WebAssembly in Java.
 
 Happy New Moon With Report has nothing to do with reporting or fireworks.
+
+For a list of Web Assembly languages see: [Awesome WASM languages](https://github.com/appcypher/awesome-wasm-langs).
 
 
 ## The basic use case is:
@@ -44,15 +46,23 @@ public void testHelloWorld throws Exception {
 
 ## Similar Projects
 
-For the 'Go' language: Wagon (https://github.com/go-interpreter/wagon)
+For the 'Go' language: Wagon (https://github.com/go-interpreter/wagon).
 
-A Web Assembly virtual Machine written in C/C++:  WAVM (https://github.com/WAVM/WAVM)
+A Web Assembly virtual Machine written in C/C++:  WAVM (https://github.com/WAVM/WAVM).
 
-'Life' is a secure & fast WebAssembly VM built for decentralized applications, written in Go (https://github.com/perlin-network/life)
+'Life' is a secure & fast WebAssembly VM built for decentralized applications, written in Go (https://github.com/perlin-network/life).
+
+For a list of Web Assembly Run times at [Awesome WASM runtimes](https://github.com/appcypher/awesome-wasm-runtimes).
 
 ## Progress
 
-Happy New Moon with Report can read from *.wasm file  and run an app that adds two numbers.
+Happy New Moon with Report can read from *.wasm file and run an app that adds two numbers.
+
+All I32 and I64 instruction are complete.  
+
+## To do:  
+Branching opcodes   ex : If, Block.  11 remaining.  
+Floating point opcodes.  About 75 remaining. 
 
 ### Sections
 
@@ -76,7 +86,7 @@ Export Section:  Completed
 
 Start Section:  Completed
 
-Code Section:  See Opcodes
+Code Section:  See Opcodes list below. 
 
 Data Section:  To Do
 

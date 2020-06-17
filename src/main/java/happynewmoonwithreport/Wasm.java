@@ -54,8 +54,8 @@ public class Wasm {
 	private ArrayList<ExportEntry> exportAll;
 
 
-	/*  Initialize all sections execpt Start and Code to be empty.
-		This may not be to the Wasm specification, but avoids Null pointer exections.
+	/*  Initialize all sections except Start and Code to be empty.
+		This may not be to the Wasm specification, but avoids Null pointer exceptions.
 
 		Start Section must be null if not defined.
 		Code Section must exist.  A module with out code make no sense.

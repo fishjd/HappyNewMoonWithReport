@@ -17,10 +17,8 @@
 
 package happynewmoonwithreport.opcode.countingBits;
 
-import java.util.Stack;
 import java.util.UUID;
 
-import happynewmoonwithreport.WasmInstanceInterface;
 import happynewmoonwithreport.WasmRuntimeException;
 import happynewmoonwithreport.WasmStack;
 import happynewmoonwithreport.type.I32;
@@ -83,7 +81,7 @@ public class I32_clz {
 		super();
 	}
 
-	public I32_clz(WasmStack<Object> stack ) {
+	public I32_clz(WasmStack<Object> stack) {
 		this();
 		this.stack = stack;
 	}
