@@ -260,7 +260,8 @@ public class Wasm {
 			(byte) 0x6D);
 		Boolean result = magicNumber.equals(magicNumberExpected);
 		if (result == false) {
-			throw new RuntimeException("Magic Number does not match.  May not be a *.wasm file");
+			throw new WasmRuntimeException(UUID.fromString("402c27fb-0633-4191-bb86-8e5b44479230"),
+				"Magic Number does not match.  May not be a *.wasm file");
 		}
 	}
 

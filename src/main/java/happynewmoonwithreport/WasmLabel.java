@@ -55,4 +55,12 @@ public class WasmLabel {
 	public void setReturnTypeAll(WasmVector<ValueType> returnTypeAll) {
 		this.returnTypeAll = returnTypeAll;
 	}
+
+	@Override
+	public String toString() {
+		final StringBuffer sb = new StringBuffer("WasmLabel{");
+		sb.append("returnTypeAll=").append(returnTypeAll);
+		sb.append('}');
+		return sb.toString();
+	}
 }
