@@ -83,8 +83,8 @@ public class Select {
 
 		// 3 Assert: due to validation, two more values (of the same value type) are on the top of
 		// the stack.
-		Object val_1 = stack.peek(1);
-		Object val_2 = stack.peek(0);
+		Object val_1 = stack.peek(stack.size()-1);  // top of the stack
+		Object val_2 = stack.peek(stack.size()-2);	// top of the stack -1
 		String val_1_type = val_1.getClass().getTypeName();
 		String val_2_type = val_2.getClass().getTypeName();
 		if (val_1_type.equals(val_2_type) == false) {
