@@ -14,38 +14,35 @@
  *  limitations under the License.
  *
  */
-package happynewmoonwithreport.opcode;
+package happynewmoonwithreport.opcode.control;
 
 
-import happynewmoonwithreport.BytesFile;
+import java.util.UUID;
+
 import happynewmoonwithreport.WasmInstanceInterface;
-import happynewmoonwithreport.WasmLabel;
+import happynewmoonwithreport.WasmTrapException;
 
 /**
- * Block
+ * Unreachable
  * <ol>
  * <li>
- * Let n be the arity |t?| of the result type t?.
- * </li><li>
- * Let L be the label whose arity is n and whose continuation is the end of the block.
- * </li><li>
- * Enter the block instr∗ with label L.
+ * Trap i.e. Throw WasmTrapException.
  * </li>
  * </ol>
  * <p>
- * Source:
- * <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-block" target="_top">
- *     https://webassembly.github.io/spec/core/exec/instructions.html#exec-block
+ * Source:<p>
+ *     <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-unreachable"
+ * target="_top"> https://webassembly.github.io/spec/core/exec/instructions.html#exec-unreachable
  * </a>
  */
-public class Block {
+public class Unreachable {
 	private WasmInstanceInterface instance;
 
-	private Block() {
+	private Unreachable() {
 		super();
 	}
 
-	public Block(WasmInstanceInterface instance) {
+	public Unreachable(WasmInstanceInterface instance) {
 		this();
 		this.instance = instance;
 	}
@@ -54,9 +51,7 @@ public class Block {
 	 * Execute the opcode.
 	 */
 	public void execute() {
-		BytesFile code = instance.getCode();
-
-		WasmLabel label = new WasmLabel(code);
-		instance.stack().push(label);
+		throw new WasmTrapException(UUID.fromString("e496383f-377d-4090-9cff-64bdfc50a32e"),
+			"Unreachable code tried to execute!");
 	}
 }

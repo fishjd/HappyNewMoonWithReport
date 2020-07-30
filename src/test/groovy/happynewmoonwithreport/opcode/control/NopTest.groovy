@@ -14,9 +14,11 @@
  *  limitations under the License.
  *
  */
-package happynewmoonwithreport.opcode
+package happynewmoonwithreport.opcode.control
 
 import happynewmoonwithreport.WasmInstanceInterface
+import happynewmoonwithreport.opcode.WasmInstanceStub
+import happynewmoonwithreport.opcode.control.Nop
 import happynewmoonwithreport.type.S32
 import spock.lang.Specification
 

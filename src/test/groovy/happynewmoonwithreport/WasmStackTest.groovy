@@ -35,18 +35,24 @@ class WasmStackTest extends Specification {
 		stack.size() == 2
 
 		when: "peek at index 0 "
-		I32 val1Actual = stack.peek(1);
-		I32 val2Actual = stack.peek(0);
+		I32 val1Actual = stack.peek(0);  // bottom of the stack.
+		I32 val2Actual = stack.peek(1);  // top of the stack.
 
 
 		then: ""
 		val1Actual == val1;
 		val2Actual == val2;
+		val2 == stack.peek();
+		val2 == stack.peek(stack.size() - 1)
+
 		stack.size() == 2;
 
-		then: "Stack() is the same as stack(0) "
-		stack.peek() == stack.peek(0);
+		//then: "Stack.peak(), which views the top of the stack, is the same as stack(stack.size()-1) "
+		stack.peek() == stack.peek(stack.size() - 1);
 
+		then:
+		val2 == stack.pop();
+		val1 == stack.pop();
 
 	}
 }

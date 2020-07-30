@@ -8,7 +8,7 @@ Location in File 0x0A to  011
 
 
 Section 0  0x00 an byte 0x29
-Payload Lenght  28 (Ox1C) at byte 0x2A
+Payload Length 28 (Ox1C) at byte 0x2A
 
 BytesFile{
 	current byte = 0x4,

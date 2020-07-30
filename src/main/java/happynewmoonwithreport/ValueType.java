@@ -48,7 +48,7 @@ public class ValueType extends ValueBase implements Validation {
 	private void setup() {
 		mapAll = new HashMap<>();
 
-		// int32(-0x01)      byte value  0x7F
+		// int32(-0x01)      byte value  0x7F int value 127
 		mapAll.put(-0x01, int32);
 		// int64(-0x02)      byte value  0x7e
 		mapAll.put(-0x02, int64);

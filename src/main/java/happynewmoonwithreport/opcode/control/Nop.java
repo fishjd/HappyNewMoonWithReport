@@ -14,35 +14,31 @@
  *  limitations under the License.
  *
  */
-package happynewmoonwithreport.opcode;
+package happynewmoonwithreport.opcode.control;
 
-
-import java.util.UUID;
 
 import happynewmoonwithreport.WasmInstanceInterface;
-import happynewmoonwithreport.WasmTrapException;
 
 /**
- * Unreachable
+ * No Operation - Do Nothing
  * <ol>
  * <li>
- * Trap i.e. Throw WasmTrapException.
+ * Do Nothing
  * </li>
  * </ol>
- * <p>
- * Source:<p>
- *     <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-unreachable"
- * target="_top"> https://webassembly.github.io/spec/core/exec/instructions.html#exec-unreachable
+ * Source:
+ * <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-nop"target="_top">
+ * https://webassembly.github.io/spec/core/exec/instructions.html#exec-nop
  * </a>
  */
-public class Unreachable {
+public class Nop {
 	private WasmInstanceInterface instance;
 
-	private Unreachable() {
+	private Nop() {
 		super();
 	}
 
-	public Unreachable(WasmInstanceInterface instance) {
+	public Nop(WasmInstanceInterface instance) {
 		this();
 		this.instance = instance;
 	}
@@ -51,7 +47,6 @@ public class Unreachable {
 	 * Execute the opcode.
 	 */
 	public void execute() {
-		throw new WasmTrapException(UUID.fromString("e496383f-377d-4090-9cff-64bdfc50a32e"),
-			"Unreachable code tried to execute!");
+		// Do Nothing!
 	}
 }
