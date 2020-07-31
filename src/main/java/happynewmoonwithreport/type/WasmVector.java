@@ -37,10 +37,14 @@ import happynewmoonwithreport.WasmRuntimeException;
  * Any attempt to store a larger index will throw an Exception.  The wasm documents specify
  * (2^32)-1  values.
  *
- * @param <Type> may be any Object.   Known to be used with FunctionType, WasmFunction,
+ * <b>Java Implementation</b>
+ * WasmVector simply extends an ArrayList&lt;TypeAny&gt; I use the "TypeAny" instead of the "T".
+ * TypeAny is any type.
+ *
+ * @param <TypeAny> may be any Object.   Known to be used with FunctionType, WasmFunction,
  *               TableType, ....
  */
-public class WasmVector<Type> extends ArrayList<Type> {
+public class WasmVector<TypeAny> extends ArrayList<TypeAny> {
 
 	public WasmVector() {
 		super();
@@ -50,23 +54,23 @@ public class WasmVector<Type> extends ArrayList<Type> {
 		super(initialCapacity);
 	}
 
-	public Type get(DataTypeNumber index) {
+	public TypeAny get(DataTypeNumber index) {
 		checkIfTooLarge(index);
 
 		return super.get(index.integerValue());
 	}
 
 	/**
-	 * Find the <i>Type</i> you are looking for.
+	 * Find the <i>TypeAny</i> you are looking for.
 	 *
 	 * @param needle the one to find.
 	 * @return the one you are looking for.
 	 * @throws WasmRuntimeException if not found.
 	 */
-	public Type get(Type needle) {
-		final Iterator<Type> iterator = this.iterator();
+	public TypeAny get(TypeAny needle) {
+		final Iterator<TypeAny> iterator = this.iterator();
 		while (iterator.hasNext()) {
-			Type item = iterator.next();
+			TypeAny item = iterator.next();
 			if (needle.equals(item)) {
 				return item;
 			}
@@ -80,7 +84,7 @@ public class WasmVector<Type> extends ArrayList<Type> {
 		return (index.integerValue() < size());
 	}
 
-	public Type set(DataTypeNumber index, Type element) {
+	public TypeAny set(DataTypeNumber index, TypeAny element) {
 		checkIfTooLarge(index);
 
 		return super.set(index.integerValue(), element);
