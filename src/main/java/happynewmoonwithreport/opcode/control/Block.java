@@ -26,7 +26,7 @@ import happynewmoonwithreport.type.I32;
 import java.util.UUID;
 
 /**
- * Block
+ * Block opcode.
  * <ol>
  * <li>
  * Assert: due to validation expand<sub>F</sub>(Blocktype) is defined.
@@ -94,7 +94,7 @@ public class Block {
 
 		WasmLabel label = new WasmLabel(code);
 
-		// Entering Blocks   
+		// Entering Blocks
 		// See:  https://webassembly.github.io/spec/core/exec/instructions.html#blocks
 		instance.stack().push(label);
 	}
