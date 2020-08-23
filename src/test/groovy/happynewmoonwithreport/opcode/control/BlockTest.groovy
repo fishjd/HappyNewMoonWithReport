@@ -14,11 +14,13 @@
  *  limitations under the License.
  *
  */
-package happynewmoonwithreport.opcode
+package happynewmoonwithreport.opcode.control
 
 import happynewmoonwithreport.BytesFile
 import happynewmoonwithreport.ValueType
 import happynewmoonwithreport.WasmLabel
+import happynewmoonwithreport.opcode.WasmInstanceStub
+import happynewmoonwithreport.opcode.control.Block
 import spock.lang.Specification
 
 /**

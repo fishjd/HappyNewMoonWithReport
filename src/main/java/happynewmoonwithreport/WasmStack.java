@@ -16,10 +16,10 @@
  */
 package happynewmoonwithreport;
 
+import happynewmoonwithreport.type.DataTypeNumber;
+import happynewmoonwithreport.type.DataTypeNumberFloat;
 import java.util.Stack;
 import java.util.UUID;
-
-import happynewmoonwithreport.type.DataTypeNumber;
 
 /**
  * This is the web assembly runtime stack.
@@ -53,23 +53,30 @@ public class WasmStack<StackType> extends Stack<StackType> {
 	 * Peek at the element at index
 	 *
 	 * @param index <p>
-	 *              <code>Index  = 0 </code> top of the stack, ie the most recent value pushed on
-	 *              the stack. .
+	 *              N is the size of the stack.
+	 *              <code>Index = N - 1 </code> top of the stack, ie the most recent value
+	 *              pushed on
+	 *              the stack. The first to be popped off.
 	 *              <p>
-	 *              <code>index =  1</code> is the second item on the stack.
+	 *              <code>index = 0</code> is the bottom of the stack, ie the first value pushed
+	 *              on the stack.  The last to be popped off.
 	 *              <p>
-	 *              note: <code> peek(0) </code>  is the same as <code>peek()</code>
+	 *              note: <code> peek(stack.size() -1) </code>  is the same as <code>peek()</code>
 	 *              </p>
+	 *              <b> </b>
+	 *
+	 *
 	 * @return the element at index.
 	 */
 	public StackType peek(Integer index) {
-		Integer stackIndex = size() - index - 1;
+		Integer stackIndex = index;
 		return get(stackIndex);
 	}
 
 	public Boolean typeOK(Object item) {
 		Boolean result = false;
 		result |= item instanceof DataTypeNumber;
+		result |= item instanceof DataTypeNumberFloat;
 		result |= item instanceof WasmLabel;
 		return result;
 	}

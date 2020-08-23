@@ -16,17 +16,12 @@
  */
 package happynewmoonwithreport;
 
-import java.util.UUID;
-
-import happynewmoonwithreport.opcode.Block;
 import happynewmoonwithreport.opcode.ConstantInt32;
 import happynewmoonwithreport.opcode.ConstantInt64;
 import happynewmoonwithreport.opcode.Drop;
 import happynewmoonwithreport.opcode.GetLocal;
-import happynewmoonwithreport.opcode.Nop;
 import happynewmoonwithreport.opcode.Select;
 import happynewmoonwithreport.opcode.SetLocal;
-import happynewmoonwithreport.opcode.Unreachable;
 import happynewmoonwithreport.opcode.bitshift.I32_rotl;
 import happynewmoonwithreport.opcode.bitshift.I32_rotr;
 import happynewmoonwithreport.opcode.bitshift.I32_shl;
@@ -59,6 +54,10 @@ import happynewmoonwithreport.opcode.comparison.I64_le_u;
 import happynewmoonwithreport.opcode.comparison.I64_lt_s;
 import happynewmoonwithreport.opcode.comparison.I64_lt_u;
 import happynewmoonwithreport.opcode.comparison.I64_ne;
+import happynewmoonwithreport.opcode.control.Block;
+import happynewmoonwithreport.opcode.control.End;
+import happynewmoonwithreport.opcode.control.Nop;
+import happynewmoonwithreport.opcode.control.Unreachable;
 import happynewmoonwithreport.opcode.convert.I32_extend16_s;
 import happynewmoonwithreport.opcode.convert.I32_extend8_s;
 import happynewmoonwithreport.opcode.convert.I64_extend16_s;
@@ -92,6 +91,7 @@ import happynewmoonwithreport.opcode.math.I64_mul;
 import happynewmoonwithreport.opcode.math.I64_rem_s;
 import happynewmoonwithreport.opcode.math.I64_rem_u;
 import happynewmoonwithreport.opcode.math.I64_sub;
+import happynewmoonwithreport.opcode.memory.F32_load;
 import happynewmoonwithreport.opcode.memory.I32_load;
 import happynewmoonwithreport.opcode.memory.I32_load16_s;
 import happynewmoonwithreport.opcode.memory.I32_load16_u;
@@ -112,6 +112,7 @@ import happynewmoonwithreport.opcode.memory.I64_store16;
 import happynewmoonwithreport.opcode.memory.I64_store32;
 import happynewmoonwithreport.opcode.memory.I64_store8;
 import happynewmoonwithreport.type.DataTypeNumber;
+import happynewmoonwithreport.type.I32;
 import happynewmoonwithreport.type.MemoryArgument;
 import happynewmoonwithreport.type.S32;
 import happynewmoonwithreport.type.VarInt32;
@@ -119,6 +120,7 @@ import happynewmoonwithreport.type.VarInt64;
 import happynewmoonwithreport.type.VarUInt32;
 import happynewmoonwithreport.type.WasmVector;
 import happynewmoonwithreport.type.utility.Hex;
+import java.util.UUID;
 
 
 /**
@@ -202,7 +204,7 @@ public class WasmInstance implements WasmInstanceInterface {
 
 
 	/**
-	 * Execute an function.  The function must be an export.   This is the entry point from Java.
+	 * Execute a function.  The function must be an export.   This is the entry point from Java.
 	 *
 	 * @param wasmFunction The function to execute/run.
 	 * @param returnAll    The output parameters.  May be zero on one.  Future versions of Wasm may
@@ -224,7 +226,8 @@ public class WasmInstance implements WasmInstanceInterface {
 			execute(bfCode);
 		}
 
-		while (stack.isEmpty() == false) {  // ??? ¿¿¿
+		// copy the stack to the returnAll Vector.
+		while (stack.isEmpty() == false) {
 			returnAll.add((DataTypeNumber) stack.pop());
 		}
 	}
@@ -259,7 +262,11 @@ public class WasmInstance implements WasmInstanceInterface {
 			//			case (byte) 0x04: { break;}  // If
 			//			case (byte) 0x05: { break;}  // Else
 
-			//			case (byte) 0x0B: { break;}  // End
+			case (byte) 0x0B: { // End Opcode
+				End end = new End(this);
+				end.execute();
+				break;
+			}
 			//			case (byte) 0x0C: { break;}  // Branch lable
 			//			case (byte) 0x0D: { break;}  // Branch If lable
 			//			case (byte) 0x0E: { break;}  // Branch Table
@@ -304,7 +311,12 @@ public class WasmInstance implements WasmInstanceInterface {
 				i64_load.execute();
 				break;
 			}
-			//			case (byte) 0x2A: {   // F32_load
+			case (byte) 0x2A: {   // F32_load
+				MemoryArgument memoryArgument = new MemoryArgument(); // Not sure what this is.
+				F32_load f32_load = new F32_load(memoryArgument, currentFrame, store, stack);
+				f32_load.execute();
+				break;
+			}
 			//			case (byte) 0x2B: {   // F64_load
 			case (byte) 0x2C: {   // I32_load8_s
 				MemoryArgument memoryArgument = new MemoryArgument(); // Not sure what this is.

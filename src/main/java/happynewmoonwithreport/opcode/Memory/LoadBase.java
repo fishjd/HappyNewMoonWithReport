@@ -16,21 +16,21 @@
  */
 package happynewmoonwithreport.opcode.memory;
 
-import java.util.UUID;
-
 import happynewmoonwithreport.WasmFrame;
 import happynewmoonwithreport.WasmRuntimeException;
 import happynewmoonwithreport.WasmStack;
 import happynewmoonwithreport.WasmStore;
 import happynewmoonwithreport.type.I32;
-import happynewmoonwithreport.type.IntWasm;
 import happynewmoonwithreport.type.JavaType.ByteUnsigned;
 import happynewmoonwithreport.type.MemoryArgument;
 import happynewmoonwithreport.type.MemoryType;
 import happynewmoonwithreport.type.U32;
 import happynewmoonwithreport.type.UInt32;
+import java.util.UUID;
 
 /**
+ * Load a value from memory to the stack.
+ * <p>
  * Base class for Load opcodes
  */
 public abstract class LoadBase {
@@ -140,7 +140,9 @@ public abstract class LoadBase {
 
 		// 13. Else:
 		//        a: Let c be the constant for which bytes<sub>t</sub>(c)=b∗.
-		IntWasm c = convertToType(bytes);
+		// TODO Consider reworking Number/Integer/Float class hierarchy to return something
+		//  besides 'Object'.
+		Object c = convertToType(bytes);
 
 		// 14. Push the value t.const c  to the stack.
 		stack.push(c);
@@ -175,5 +177,5 @@ public abstract class LoadBase {
 	 * @param bytes bytes to convert.   Length = N/8.
 	 * @return the bytes converted to an Integer.
 	 */
-	abstract IntWasm convertToType(ByteUnsigned[] bytes);
+	abstract Object convertToType(ByteUnsigned[] bytes);
 }
