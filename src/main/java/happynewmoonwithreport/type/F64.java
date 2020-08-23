@@ -17,6 +17,9 @@
 
 package happynewmoonwithreport.type;
 
+import happynewmoonwithreport.type.JavaType.ByteUnsigned;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
 /**
  * A F64 data type.
  * A class that implements an F64 data type.
@@ -123,5 +126,38 @@ public class F64 implements DataTypeNumberFloat {
 	@Override
 	public Double maxValue() {
 		return (double) Double.MIN_VALUE;
+	}
+
+	/**
+	 * Convert the F32 value to an array of ByteUnsigned.
+	 * <p>
+	 * <b>See:</b>
+	 * <p>
+	 * <a href="https://www.h-schmidt.net/FloatConverter/IEEE754.html" target="_top">
+	 * IEEE-754 Floating Point Converter
+	 * </a>
+	 * <p>
+	 * The complement is F32(ByteUnsigned []) constructor.
+	 * <p>
+	 * <b>Java implementation</b>
+	 * This uses <code>Float.floatToIntBits(float)</code> to covert to an <code>Integer</code>.
+	 *
+	 *
+	 * @return an array of ByteUnsigned
+	 */
+	public ByteUnsigned[] getBytes() {
+		throw new NotImplementedException();
+
+//		// consider using floatToIntBits(value);
+//		Integer bits = Float.floatToRawIntBits(value);
+//
+//		// Integer to ByteUnsigned array
+//		ByteUnsigned[] byteAll = new ByteUnsigned[4];
+//		byteAll[3] = new ByteUnsigned((bits >>> 0) & 0x0000_00FF);
+//		byteAll[2] = new ByteUnsigned((bits >>> 8) & 0x0000_00FF);
+//		byteAll[1] = new ByteUnsigned((bits >>> 16) & 0x0000_00FF);
+//		byteAll[0] = new ByteUnsigned((bits >>> 24) & 0x0000_00FF);
+//
+//		return byteAll;
 	}
 }
