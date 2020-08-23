@@ -102,6 +102,6 @@ public interface DataTypeNumberFloat {
 	 *
 	 * @return array of bytes.
 	 */
-	//ByteUnsigned[] getBytes();
+	ByteUnsigned[] getBytes();
 
 }

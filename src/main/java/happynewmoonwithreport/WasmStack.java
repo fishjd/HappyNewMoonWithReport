@@ -17,6 +17,7 @@
 package happynewmoonwithreport;
 
 import happynewmoonwithreport.type.DataTypeNumber;
+import happynewmoonwithreport.type.DataTypeNumberFloat;
 import java.util.Stack;
 import java.util.UUID;
 
@@ -75,6 +76,7 @@ public class WasmStack<StackType> extends Stack<StackType> {
 	public Boolean typeOK(Object item) {
 		Boolean result = false;
 		result |= item instanceof DataTypeNumber;
+		result |= item instanceof DataTypeNumberFloat;
 		result |= item instanceof WasmLabel;
 		return result;
 	}
