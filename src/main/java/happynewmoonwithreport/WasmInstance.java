@@ -92,6 +92,7 @@ import happynewmoonwithreport.opcode.math.I64_rem_s;
 import happynewmoonwithreport.opcode.math.I64_rem_u;
 import happynewmoonwithreport.opcode.math.I64_sub;
 import happynewmoonwithreport.opcode.memory.F32_load;
+import happynewmoonwithreport.opcode.memory.F64_load;
 import happynewmoonwithreport.opcode.memory.I32_load;
 import happynewmoonwithreport.opcode.memory.I32_load16_s;
 import happynewmoonwithreport.opcode.memory.I32_load16_u;
@@ -317,8 +318,12 @@ public class WasmInstance implements WasmInstanceInterface {
 				f32_load.execute();
 				break;
 			}
-			//			case (byte) 0x2B: {   // F64_load
-			case (byte) 0x2C: {   // I32_load8_s
+			case (byte) 0x2B: {   // F64_load
+				MemoryArgument memoryArgument = new MemoryArgument(); // Not sure what this is.
+				F64_load f64_load = new F64_load(memoryArgument, currentFrame, store, stack);
+				f64_load.execute();
+				break;
+			}case (byte) 0x2C: {   // I32_load8_s
 				MemoryArgument memoryArgument = new MemoryArgument(); // Not sure what this is.
 				I32_load8_s i32_load8_s =
 					new I32_load8_s(memoryArgument, currentFrame, store, stack);

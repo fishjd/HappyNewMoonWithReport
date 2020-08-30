@@ -18,7 +18,6 @@
 package happynewmoonwithreport.type;
 
 import happynewmoonwithreport.type.JavaType.ByteUnsigned;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * A F64 data type.
@@ -129,7 +128,52 @@ public class F64 implements DataTypeNumberFloat {
 	}
 
 	/**
-	 * Convert the F32 value to an array of ByteUnsigned.
+	 * Convert the F64 value to an array of ByteUnsigned.
+	 * <p>
+	 * <b>See:</b>
+	 * <p>
+	 * <a href="https://www.h-schmidt.net/FloatConverter/IEEE754.html" target="_top">
+	 * IEEE-754 Floating Point Converter.  Works for 32 bit only.
+	 * </a>
+	 * <br>
+	 * <a href="http://weitz.de/ieee/" target="_top">
+	 * IEEE-754 Floating Point Calculator.  Works for 32 & 64 bits.
+	 * </a>
+	 * <p>
+	 * The complement is F64(ByteUnsigned []) constructor.
+	 * <p>
+	 * <b>Java implementation</b>
+	 * This uses <code>Float.floatToIntBits(float)</code> to covert to an <code>Integer</code>.
+	 *
+	 * @return an array of ByteUnsigned
+	 */
+	public ByteUnsigned[] getBytes() {
+
+
+		// consider using floatToIntBits(value);
+		Long bits = Double.doubleToRawLongBits(value);
+
+		// Integer to ByteUnsigned array
+		ByteUnsigned[] byteAll = getByteUnsigned(bits);
+
+		return byteAll;
+	}
+
+	private ByteUnsigned[] getByteUnsigned(Long input) {
+		ByteUnsigned[] byteAll = new ByteUnsigned[8];
+		byteAll[7] = new ByteUnsigned((input >>> 0) & 0x0000_00FF);
+		byteAll[6] = new ByteUnsigned((input >>> 8) & 0x0000_00FF);
+		byteAll[5] = new ByteUnsigned((input >>> 16) & 0x0000_00FF);
+		byteAll[4] = new ByteUnsigned((input >>> 24) & 0x0000_00FF);
+		byteAll[3] = new ByteUnsigned((input >>> 32) & 0x0000_00FF);
+		byteAll[2] = new ByteUnsigned((input >>> 40) & 0x0000_00FF);
+		byteAll[1] = new ByteUnsigned((input >>> 48) & 0x0000_00FF);
+		byteAll[0] = new ByteUnsigned((input >>> 56) & 0x0000_00FF);
+		return byteAll;
+	}
+
+	/**
+	 * Create an F64 with an array of four UnsignedBytes.  Bytes are interpreted as unsigned.
 	 * <p>
 	 * <b>See:</b>
 	 * <p>
@@ -137,27 +181,57 @@ public class F64 implements DataTypeNumberFloat {
 	 * IEEE-754 Floating Point Converter
 	 * </a>
 	 * <p>
-	 * The complement is F32(ByteUnsigned []) constructor.
-	 * <p>
-	 * <b>Java implementation</b>
-	 * This uses <code>Float.floatToIntBits(float)</code> to covert to an <code>Integer</code>.
 	 *
-	 *
-	 * @return an array of ByteUnsigned
+	 * @param byteAll an array of 4 UnsignedBytes
 	 */
-	public ByteUnsigned[] getBytes() {
-		throw new NotImplementedException();
+	public F64(ByteUnsigned[] byteAll) {
+		Long valueLong =0L ;
+		valueLong += ((long) (byteAll[7].intValue()) << 0);
+		valueLong += ((long) (byteAll[6].intValue()) << 8);
+		valueLong += ((long) (byteAll[5].intValue()) << 16);
+		valueLong += ((long) (byteAll[4].intValue()) << 24);
 
-//		// consider using floatToIntBits(value);
-//		Integer bits = Float.floatToRawIntBits(value);
-//
-//		// Integer to ByteUnsigned array
-//		ByteUnsigned[] byteAll = new ByteUnsigned[4];
-//		byteAll[3] = new ByteUnsigned((bits >>> 0) & 0x0000_00FF);
-//		byteAll[2] = new ByteUnsigned((bits >>> 8) & 0x0000_00FF);
-//		byteAll[1] = new ByteUnsigned((bits >>> 16) & 0x0000_00FF);
-//		byteAll[0] = new ByteUnsigned((bits >>> 24) & 0x0000_00FF);
-//
-//		return byteAll;
+		valueLong += ((long) (byteAll[3].intValue()) << 32);
+		valueLong += ((long) (byteAll[2].intValue()) << 40);
+		valueLong += ((long) (byteAll[1].intValue()) << 48);
+		valueLong += ((long) (byteAll[0].intValue()) << 56);
+
+		value = Double.longBitsToDouble(valueLong);
+	}
+
+	@Override
+	public String toString() {
+		final StringBuffer sb = new StringBuffer("F64{");
+		sb.append("value=").append(value);
+		if (value != null) {
+			Long bits = Double.doubleToRawLongBits(value);
+			ByteUnsigned[] bytesAll = getByteUnsigned(bits);
+			sb.append(" hex =  0x");
+			sb.append(bytesAll[0]).append(' ');
+			sb.append(bytesAll[1]).append(' ');
+			sb.append(bytesAll[2]).append(' ');
+			sb.append(bytesAll[3]).append(' ');
+			sb.append(bytesAll[4]).append(' ');
+			sb.append(bytesAll[5]).append(' ');
+			sb.append(bytesAll[6]).append(' ');
+			sb.append(bytesAll[7]).append(' ');
+		}
+		sb.append('}');
+		return sb.toString();
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) { return true; }
+		if (o == null || getClass() != o.getClass()) { return false; }
+
+		F64 f64 = (F64) o;
+
+		return value.equals(f64.value);
+	}
+
+	@Override
+	public int hashCode() {
+		return value.hashCode();
 	}
 }

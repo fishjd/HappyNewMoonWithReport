@@ -1,12 +1,14 @@
 # Happy New Moon with Report
 
-[![Join the chat at https://gitter.im/HappyNewMoonWithReport/Lobby](https://badges.gitter.im/HappyNewMoonWithReport/Lobby.svg)](https://gitter.im/HappyNewMoonWithReport/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+**Happy New Moon with Report** is an open-source implementation of 
+[WebAssembly](https://webassembly.org/) written entirely in Java. It is typically used to run or 
+test Web Assembly Modules (*.wasm) in Java.
 
-**Happy New Moon with Report** is an open-source implementation of [WebAssembly](https://webassembly.org/) written entirely in Java. It is typically used to run or test Web Assembly Modules (*.wasm) in Java.
-
-Happy New Moon with Report doesn't concern itself with the production of the WASM binary files; these files are produced with another tools such as [Emscripten](https://emscripten.org/), [wabt](https://github.com/WebAssembly/wabt) or [binaryen](https://github.com/WebAssembly/binaryen) or any of the number of  languages that can output to WebAssembly such as as [Rust](https://www.rust-lang.org/).   To compile Java to WebAssembly use [ByteCoder](https://mirkosertic.github.io/Bytecoder/)
-
-The primary goal of `Happy New Moon with Report` is to be able to load and run a binary `WebAssembly` module in your Java program.
+Happy New Moon with Report doesn't concern itself with the production of the WASM binary files; 
+these files are produced with another tools such as [Emscripten](https://emscripten.org/), 
+[wabt](https://github.com/WebAssembly/wabt) or [binaryen](https://github.com/WebAssembly/binaryen) 
+or any of the number of  languages that can output to WebAssembly such as as 
+[Rust](https://www.rust-lang.org/).   
 
 Think of Happy New Moon With Report as the [Rhino](https://developer.mozilla.org/en-US/docs/Mozilla/Projects/Rhino) of Web Assembly.   Rhino runs JavaScript in Java; Happy New Moon with Report runs WebAssembly in Java.
 
@@ -31,6 +33,43 @@ Wasm wasm = new Wasm("HelloWorld.wasm");
 System.out.println(wasm.exports().HelloWorld());
 ```
 
+##Goals
+
+1. An interpreter of *.wasm files in the Java Language
+1. Code in the Web Assembly Specification language.  For example Happy New Moon With Report creates an web 
+assembly full I32 object for the Web Assembly I32 data type.  If there is a object in the Web Assembly 
+specification there will be an analogous object in Happy New Moon With Report. Conversion to Java 
+is 'pressed down' as far a possible in the code.  This should allow 
+causal readers of the code to understand it with only a beginning understanding of Java.
+1. Every object has links to the Web Assembly Specification.  This will explain what the code is implementing.    
+1. Happy New Moon With Report is only an interpreter.  No conversion from text files (*.wast) to modules (*.wasm). 
+1. Easily embeddable in your Java project.     
+1. Compatible with the Web Assembly Specification.
+1. Well commented to help casual readers. 
+1. Tested with extensive unit tests.  
+
+
+### Where to start your journey in the code
+
+#### Wasm.java
+The main object is in [Wasm.java](https://github.com/fishjd/HappyNewMoonWithReport/blob/master/src/main/java/happynewmoonwithreport/Wasm.java).  
+This opens the wasm module(*.wasm), parses the web assembly sections such as 
+* [Type](https://webassembly.github.io/spec/core/binary/modules.html#type-section) 
+* [Function](https://webassembly.github.io/spec/core/binary/modules.html#function-section) 
+* [Table](https://webassembly.github.io/spec/core/binary/modules.html#table-section)
+* all the other [sections](https://webassembly.github.io/spec/core/binary/modules.html#function-section)...
+
+#### WasmInstance.Java 
+The main loop of the interpreter is in [WasmInstance.Java](https://github.com/fishjd/HappyNewMoonWithReport/blob/master/src/main/java/happynewmoonwithreport/WasmInstance.java).
+In the `execute(BytesFile)` function an opcode is decoded and executed.  
+ 
+#### A unit test on how to load a Web Assembly module and execute a function.
+See [WasmAdd32Test.Java](https://github.com/fishjd/HappyNewMoonWithReport/blob/master/src/test/java/happynewmoonwithreport/loadFromWasm/WasmAdd32Test.java)
+This will need to be simplified in future revisions, It is currently a bit of a mess.   
+
+The wasm module may is in the [add32 folder](https://github.com/fishjd/HappyNewMoonWithReport/tree/master/src/test/resources/add32).  
+This folder also contains the wasm text files and notes on the bytes in the wasm module.    
+  
 ### Testing the `HelloWorld.wasm' Web Assembly Module in JUnit.
 ```java
 @Test
@@ -39,10 +78,6 @@ public void testHelloWorld throws Exception {
 	assertEquals("Hello World", wasm.exports().HelloWorld());
 }
 ```
-
-
-
-## Happy New Moon With Report Downloads
 
 ## Similar Projects
 
@@ -53,6 +88,8 @@ A Web Assembly virtual Machine written in C/C++:  WAVM (https://github.com/WAVM/
 'Life' is a secure & fast WebAssembly VM built for decentralized applications, written in Go (https://github.com/perlin-network/life).
 
 For a list of Web Assembly Run times at [Awesome WASM runtimes](https://github.com/appcypher/awesome-wasm-runtimes).
+
+To compile Java to WebAssembly use [ByteCoder](https://mirkosertic.github.io/Bytecoder/)
 
 ## Progress
 
@@ -95,11 +132,11 @@ Data Section:  To Do
 
 - [x] UnReachable 0x00
 - [x] NOP 0x01
-- [ ] Block 0x02
+- [x] Block 0x02
 - [ ] Loop 0x03
 - [ ] If 0x04
 - [ ] Else 0x05
-- [ ] End 0x0B
+- [x] End 0x0B
 - [ ] Br 0x0C
 - [ ] Br_if  0x0D
 - [ ] Br_table 0x0E
@@ -116,7 +153,7 @@ Data Section:  To Do
 - [x] I32_load 0x28
 - [x] I64_load 0x29
 - [x] f32_load 0x2A
-- [ ] f64_load 0x2B
+- [x] f64_load 0x2B
 - [x] i32_load8-S 0x2C
 - [x] i32_load8-U 0x2D
 - [x] i32_load16-S 0x2E
