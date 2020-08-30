@@ -92,6 +92,7 @@ import happynewmoonwithreport.opcode.math.I64_rem_s;
 import happynewmoonwithreport.opcode.math.I64_rem_u;
 import happynewmoonwithreport.opcode.math.I64_sub;
 import happynewmoonwithreport.opcode.memory.F32_load;
+import happynewmoonwithreport.opcode.memory.F32_store;
 import happynewmoonwithreport.opcode.memory.F64_load;
 import happynewmoonwithreport.opcode.memory.I32_load;
 import happynewmoonwithreport.opcode.memory.I32_load16_s;
@@ -407,7 +408,12 @@ public class WasmInstance implements WasmInstanceInterface {
 				i64_store.execute();
 				break;
 			}
-			//			case (byte) 0x38: {      // F32 store
+			case (byte) 0x38: {      // F32 store
+				MemoryArgument memoryArgument = new MemoryArgument(); // Not sure what this is.
+				F32_store f32_store = new F32_store(memoryArgument, currentFrame, store, stack);
+				f32_store.execute();
+				break;
+			}
 			//			case (byte) 0x39: {      // F64 store
 			case (byte) 0x3A: {      // I32 8 store
 				MemoryArgument memoryArgument = new MemoryArgument(); // Not sure what this is.
@@ -447,12 +453,12 @@ public class WasmInstance implements WasmInstanceInterface {
 
 			case (byte) 0x41: {  // I32.const i32
 				ConstantInt32 constantInt32 = new ConstantInt32(this);
-				constantInt32.execute(new VarInt32(code));// Not sure if this is signed or unsigned
+				constantInt32.execute(new VarInt32(code)); // Not sure if this is signed or unsigned
 				break;
 			}
 			case (byte) 0x42: {   // I64 const I64
 				ConstantInt64 constantInt64 = new ConstantInt64(this);
-				constantInt64.execute(new VarInt64(code));// Not sure if this is signed or unsigned
+				constantInt64.execute(new VarInt64(code)); // Not sure if this is signed or unsigned
 				break;
 			}
 			//			case (byte) 0x43: {  // F32 const F32

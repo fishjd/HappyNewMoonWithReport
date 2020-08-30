@@ -38,6 +38,10 @@ import happynewmoonwithreport.type.JavaType.ByteUnsigned;
 public class F64 implements DataTypeNumberFloat {
 	protected Double value;
 
+	public F64() {
+		this.value = 0D;
+	}
+
 	public F64(Double value) {
 		this.value = value;
 	}

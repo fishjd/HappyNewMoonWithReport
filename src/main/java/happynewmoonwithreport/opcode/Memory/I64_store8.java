@@ -21,7 +21,6 @@ import happynewmoonwithreport.WasmFrame;
 import happynewmoonwithreport.WasmStack;
 import happynewmoonwithreport.WasmStore;
 import happynewmoonwithreport.type.I64;
-import happynewmoonwithreport.type.IntWasm;
 import happynewmoonwithreport.type.JavaType.ByteUnsigned;
 import happynewmoonwithreport.type.MemoryArgument;
 import happynewmoonwithreport.type.MemoryType;
@@ -186,12 +185,6 @@ public class I64_store8 extends StoreBase {
 	 * the value to store.  <code>'c'</code> is the the value to store in memory.
 	 */
 	private I64 c;
-
-	/* package_private */
-	@Override
-	IntWasm getC() {
-		return c;
-	}
 
 	/* package_private */
 	@Override
