@@ -192,12 +192,6 @@ public class I64_store32 extends StoreBase {
 
 	/* package_private */
 	@Override
-	IntWasm getC() {
-		return c;
-	}
-
-	/* package_private */
-	@Override
 	void setC(Object c) {
 		this.c = (I64) c;
 	}

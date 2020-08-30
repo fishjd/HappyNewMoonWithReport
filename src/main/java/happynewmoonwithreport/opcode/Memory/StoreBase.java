@@ -273,8 +273,6 @@ public abstract class StoreBase {
 	/**
 	 * The value to store.  <code>'c'</code> is the the value to store in memory.
 	 */
-	abstract IntWasm getC();
-
 	abstract void setC(Object c);
 
 	/* package_private */

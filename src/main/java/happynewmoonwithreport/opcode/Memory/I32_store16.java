@@ -185,12 +185,6 @@ public class I32_store16 extends StoreBase {
 
 	/* package_private */
 	@Override
-	IntWasm getC() {
-		return c;
-	}
-
-	/* package_private */
-	@Override
 	void setC(Object c) {
 		this.c = (I32) c;
 	}
