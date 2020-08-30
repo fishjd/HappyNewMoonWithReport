@@ -20,7 +20,7 @@ package happynewmoonwithreport.opcode.memory;
 import happynewmoonwithreport.WasmFrame;
 import happynewmoonwithreport.WasmStack;
 import happynewmoonwithreport.WasmStore;
-import happynewmoonwithreport.type.F32;
+import happynewmoonwithreport.type.F64;
 import happynewmoonwithreport.type.JavaType.ByteUnsigned;
 import happynewmoonwithreport.type.MemoryArgument;
 import happynewmoonwithreport.type.MemoryType;
@@ -28,7 +28,7 @@ import happynewmoonwithreport.type.U32;
 
 
 /**
- * <h1>f32_load</h1> Load an F32 value from memory to the stack.
+ * <h1>F64_load</h1> Load an F64 value from memory to the stack.
  * <p>
  * Memory Instructions<br>
  * <p>
@@ -62,9 +62,9 @@ import happynewmoonwithreport.type.U32;
  * </li><li>
  * Let mem be the memory instance S.mems[a].
  * </li><li>
- * Assert: due to validation, a value of value type F32 is on the top of the stack.
+ * Assert: due to validation, a value of value type i32 is on the top of the stack.
  * </li><li>
- * Pop the value f32.const i from the stack.
+ * Pop the value i32.const i from the stack.
  * </li><li>
  * Let ea be i+memarg.offset.
  * </li><li>
@@ -101,10 +101,10 @@ import happynewmoonwithreport.type.U32;
  * </li>
  * </ol>
  */
-public class F32_load extends LoadBase {
+public class F64_load extends LoadBase {
 
 
-	private F32_load() {
+	private F64_load() {
 		super();
 	}
 
@@ -116,7 +116,7 @@ public class F32_load extends LoadBase {
 	 * @param store          The current Store.
 	 * @param stack          The stack to place the value.
 	 */
-	public F32_load(MemoryArgument memoryArgument, WasmFrame frame, WasmStore store,
+	public F64_load(MemoryArgument memoryArgument, WasmFrame frame, WasmStore store,
 					WasmStack stack) {
 		this();
 		this.memoryArgument = memoryArgument;
@@ -128,29 +128,31 @@ public class F32_load extends LoadBase {
 	/* package-private */
 	@Override
 	U32 getBitWithOfN() {
-		return new U32(32);
+		return new U32(64);
 	}
 
 	/* package-private */
 	@Override
 	ByteUnsigned[] getBytesFromMemory(MemoryType mem, U32 ea) {
-		ByteUnsigned[] bytes = new ByteUnsigned[4];
+		ByteUnsigned[] bytes = new ByteUnsigned[8];
 		Integer eaIntegerValue = ea.integerValue();
 		bytes[0] = mem.get(eaIntegerValue + 0);
 		bytes[1] = mem.get(eaIntegerValue + 1);
 		bytes[2] = mem.get(eaIntegerValue + 2);
 		bytes[3] = mem.get(eaIntegerValue + 3);
+
+		bytes[4] = mem.get(eaIntegerValue + 4);
+		bytes[5] = mem.get(eaIntegerValue + 5);
+		bytes[6] = mem.get(eaIntegerValue + 6);
+		bytes[7] = mem.get(eaIntegerValue + 7);
+
 		return bytes;
-
-
 	}
 
 	/* package-private */
 	@Override
-	F32 convertToType(ByteUnsigned[] bytes) {
-		F32 c = new F32(bytes);
+	F64 convertToType(ByteUnsigned[] bytes) {
+		F64 c = new F64(bytes);
 		return c;
 	}
-
-
 }

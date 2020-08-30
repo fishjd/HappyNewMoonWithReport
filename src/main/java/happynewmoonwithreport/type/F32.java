@@ -192,7 +192,7 @@ public class F32 implements DataTypeNumberFloat {
 		final StringBuffer sb = new StringBuffer("F32{");
 		sb.append("value=").append(value);
 		if (value != null) {
-			sb.append("0x").append(Float.floatToIntBits(value));
+			sb.append("0x").append(Float.floatToRawIntBits(value));
 		}
 		sb.append('}');
 		return sb.toString();
