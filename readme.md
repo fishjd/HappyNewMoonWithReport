@@ -167,7 +167,7 @@ Data Section:  To Do
 - [x] i32_store 0x36
 - [x] i64_store 0x37
 - [x] f32_store 0x38
-- [ ] f64_store 0x39
+- [x] f64_store 0x39
 - [x] i32_store-8 0x3A
 - [x] i32_store-16 0x3B
 - [x] i64_store-8 0x3C

@@ -20,15 +20,16 @@ package happynewmoonwithreport.opcode.Memory;
 import happynewmoonwithreport.WasmFrame;
 import happynewmoonwithreport.WasmStack;
 import happynewmoonwithreport.WasmStore;
-import happynewmoonwithreport.type.I32;
-import happynewmoonwithreport.type.IntWasm;
+import happynewmoonwithreport.type.F32;
+import happynewmoonwithreport.type.F64;
 import happynewmoonwithreport.type.JavaType.ByteUnsigned;
 import happynewmoonwithreport.type.MemoryArgument;
 import happynewmoonwithreport.type.MemoryType;
 import happynewmoonwithreport.type.U32;
+import happynewmoonwithreport.type.U64;
 
 /**
- * <h1>i32_store16</h1> Store 16 bits from the stack to memory.
+ * <h1>f32_store</h1> Store an f32 value from the stack to memory.
  * <p>
  * Memory Instructions<br>
  * <p>
@@ -37,15 +38,6 @@ import happynewmoonwithreport.type.U32;
  * target="_top"> https://webassembly.github.io/spec/core/syntax/instructions
  * .html#memory-instructions
  * </a>
- * <br>
- * <p>
- * Memory Overview<br>
- * <b>Source:</b>
- * <a href="https://webassembly.github.io/spec/core/syntax/instructions.html#syntax-instr-memory"
- * target="_top"> https://webassembly.github.io/spec/core/syntax/instructions
- * .html#syntax-instr-memory
- * </a>
- * </p>
  * <br>
  * Exec:
  * <p>
@@ -104,7 +96,9 @@ import happynewmoonwithreport.type.U32;
  * If N is part of the instruction, then:
  * <ul>
  * <li>
- * Let n be the result of computing wrap|t|,N(c)
+ * Let n
+ * <p>
+ * be the result of computing wrap|t|,N(c)
  * </li>
  * <li>
  * Let b* be the byte sequence bytesiN(n)
@@ -125,38 +119,48 @@ import happynewmoonwithreport.type.U32;
  * </li>
  * </ol>
  */
-public class I32_store16 extends StoreBase {
+public class F64_store extends happynewmoonwithreport.opcode.Memory.StoreBase {
 
-	private I32_store16() {
+	private F64_store() {
 		super();
 	}
 
-	public I32_store16(MemoryArgument memoryArgument, WasmFrame frame, WasmStore store,
-					   WasmStack stack) {
+	/**
+	 * Construct an F32_Store object.
+	 * @param memoryArgument memoryArgument
+	 * @param frame The Web Assembly Frame
+	 * @param store The Web Assembly Store
+	 * @param stack The stack to get the F32 to store in memory
+	 */
+	public F64_store(MemoryArgument memoryArgument, WasmFrame frame, WasmStore store,
+					 WasmStack stack) {
 		super(memoryArgument, frame, store, stack);
 
-		N = new U32(16);
+		N = null;
 	}
 
-	/* package_private */
+	/*package_private */
 	@Override
 	ByteUnsigned[] step13_convert_C_toByteArray() {
-		ByteUnsigned[] result = new ByteUnsigned[4];
-		ByteUnsigned[] baC = c.getBytes();
-
-		result[0] = ByteUnsigned.byteUnsignedZero;
-		result[1] = ByteUnsigned.byteUnsignedZero;
-		result[2] = baC[2];
-		result[3] = baC[3];
+		ByteUnsigned[] result = new ByteUnsigned[8];
+		result = c.getBytes();
 
 		return result;
 	}
 
+
 	/* package_private */
 	@Override
 	void step15_ReplaceBytes(MemoryType mem, U32 ea, ByteUnsigned[] bytes) {
-		mem.set(ea.integerValue() + 0, bytes[2]);
-		mem.set(ea.integerValue() + 1, bytes[3]);
+		mem.set(ea.integerValue() + 0, bytes[0]);
+		mem.set(ea.integerValue() + 1, bytes[1]);
+		mem.set(ea.integerValue() + 2, bytes[2]);
+		mem.set(ea.integerValue() + 3, bytes[3]);
+
+		mem.set(ea.integerValue() + 4, bytes[4]);
+		mem.set(ea.integerValue() + 5, bytes[5]);
+		mem.set(ea.integerValue() + 6, bytes[6]);
+		mem.set(ea.integerValue() + 7, bytes[7]);
 	}
 
 	/**
@@ -168,26 +172,25 @@ public class I32_store16 extends StoreBase {
 	/* package_private */
 	@Override
 	Object getExpectedType() {
-		return new I32();
+		return new F64();
 	}
 
 	/* package_private */
 	@Override
 	U32 getWidthOfExpectedType() {
-		return new U32(32);
+		return new U32(64);
 	}
 
 
 	/**
 	 * The value to store. <code>'c'</code> is the the value to store in memory.
 	 */
-	private I32 c;
+	private F64 c;
 
 	/* package_private */
 	@Override
 	void setC(Object c) {
-		this.c = (I32) c;
+		this.c = (F64) c;
 	}
-
 
 }

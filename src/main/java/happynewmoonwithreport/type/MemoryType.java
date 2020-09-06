@@ -132,6 +132,11 @@ public class MemoryType implements Validation {
 		byteAll[address] = value;
 	}
 
+	public U32 getSize() {
+		Integer sizeInt = byteAll.length;
+		return new U32(sizeInt);
+	}
+
 
 	@Override
 	public String toString() {
@@ -141,6 +146,7 @@ public class MemoryType implements Validation {
 		if (limit.hasMaximum().booleanValue()) {
 			sb.append(", maximum=").append(maximum());
 		}
+		sb.append(", current size = ").append(byteAll.length);
 		sb.append('}');
 		return sb.toString();
 	}

@@ -14,7 +14,7 @@
  *  limitations under the License.
  *
  */
-package happynewmoonwithreport.opcode.memory;
+package happynewmoonwithreport.opcode.Memory;
 
 
 import happynewmoonwithreport.WasmFrame;
@@ -118,11 +118,7 @@ public class F32_load extends LoadBase {
 	 */
 	public F32_load(MemoryArgument memoryArgument, WasmFrame frame, WasmStore store,
 					WasmStack stack) {
-		this();
-		this.memoryArgument = memoryArgument;
-		this.frame = frame;
-		this.store = store;
-		this.stack = stack;
+		super(memoryArgument,frame,store,stack);
 	}
 
 	/* package-private */

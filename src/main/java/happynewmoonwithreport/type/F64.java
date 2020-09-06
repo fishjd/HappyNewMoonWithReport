@@ -177,7 +177,7 @@ public class F64 implements DataTypeNumberFloat {
 	}
 
 	/**
-	 * Create an F64 with an array of four UnsignedBytes.  Bytes are interpreted as unsigned.
+	 * Create an F64 with an array of eight UnsignedBytes.  Bytes are interpreted as unsigned.
 	 * <p>
 	 * <b>See:</b>
 	 * <p>
@@ -186,10 +186,13 @@ public class F64 implements DataTypeNumberFloat {
 	 * </a>
 	 * <p>
 	 *
-	 * @param byteAll an array of 4 UnsignedBytes
+	 * @param byteAll an array of 8 UnsignedBytes
 	 */
 	public F64(ByteUnsigned[] byteAll) {
 		Long valueLong =0L ;
+
+		// TODO  check for at least 8 bytes to avoid null point exception.  Do the same for F32,....
+
 		valueLong += ((long) (byteAll[7].intValue()) << 0);
 		valueLong += ((long) (byteAll[6].intValue()) << 8);
 		valueLong += ((long) (byteAll[5].intValue()) << 16);

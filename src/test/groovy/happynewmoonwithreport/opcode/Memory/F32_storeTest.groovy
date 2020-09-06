@@ -20,7 +20,7 @@ import happynewmoonwithreport.WasmFrame
 import happynewmoonwithreport.WasmModule
 import happynewmoonwithreport.WasmStack
 import happynewmoonwithreport.WasmStore
-import happynewmoonwithreport.opcode.memory.F32_store
+import happynewmoonwithreport.opcode.Memory.F32_store
 import happynewmoonwithreport.type.*
 import happynewmoonwithreport.type.JavaType.ByteUnsigned
 import spock.lang.Specification
@@ -35,6 +35,7 @@ class F32_storeTest extends Specification {
 
 	WasmStack stack;
 	WasmStore store;
+	MemoryArgument memoryArgument;
 
 	void setup() {
 		// create a module.
@@ -67,13 +68,20 @@ class F32_storeTest extends Specification {
 		store.setMemoryAll(memoryAll);
 
 		// create memoryArgument
-		MemoryArgument memoryArgument = new MemoryArgument(new U32(0), new U32(0));
+		memoryArgument = new MemoryArgument(new U32(0), new U32(0));
 
 		// create stack
 		stack = new WasmStack();
 		stack.push(new I32(2));  // load bytes starting at 2
+	}
 
-		// create a value to store
+	void cleanup() {
+	}
+
+	def "Execute Golden Path"() {
+		setup: "Create a value to store in to memory"
+
+		// Create a value to store.  We create a value from Byte Unsigned to make it easier to verify.
 		ByteUnsigned[] baStoreThis = new ByteUnsigned[4];
 		baStoreThis[0] = new ByteUnsigned(0xCC);
 		baStoreThis[1] = new ByteUnsigned(0xCD);
@@ -81,27 +89,20 @@ class F32_storeTest extends Specification {
 		baStoreThis[3] = new ByteUnsigned(0xCF);
 		F32 storeThis = new F32(baStoreThis);
 
-		// add to the stack
+		// add the value to the stack
 		stack.push(storeThis);
 
-		// create class to test.
+		when: "Instantiate the class and execute"
 		f32Store = new F32_store(memoryArgument, frame, store, stack);
-	}
-
-	void cleanup() {
-	}
-
-	def "Execute Golden Path"() {
-		// setup: ""
-
-		when: ""
 		f32Store.execute();
 
-		then: ""
-		new ByteUnsigned(0xCC) == store.memoryAll.get(0).get(2);
-		new ByteUnsigned(0xCD) == store.memoryAll.get(0).get(3);
-		new ByteUnsigned(0xCE) == store.memoryAll.get(0).get(4);
-		new ByteUnsigned(0xCF) == store.memoryAll.get(0).get(5);
+		then: "Verify the memory contains the correct bytes."
+		// Get the first memory.  Wasm has a concept of multiple memories.
+		MemoryType memoryResult = store.getMemory(new I32(0));
+		new ByteUnsigned(0xCC) == memoryResult.get(2);
+		new ByteUnsigned(0xCD) == memoryResult.get(3);
+		new ByteUnsigned(0xCE) == memoryResult.get(4);
+		new ByteUnsigned(0xCF) == memoryResult.get(5);
 
 		// expect: ""
 
