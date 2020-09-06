@@ -20,6 +20,7 @@ import happynewmoonwithreport.opcode.ConstantInt32;
 import happynewmoonwithreport.opcode.ConstantInt64;
 import happynewmoonwithreport.opcode.Drop;
 import happynewmoonwithreport.opcode.GetLocal;
+import happynewmoonwithreport.opcode.Memory.F64_store;
 import happynewmoonwithreport.opcode.Select;
 import happynewmoonwithreport.opcode.SetLocal;
 import happynewmoonwithreport.opcode.bitshift.I32_rotl;
@@ -91,27 +92,28 @@ import happynewmoonwithreport.opcode.math.I64_mul;
 import happynewmoonwithreport.opcode.math.I64_rem_s;
 import happynewmoonwithreport.opcode.math.I64_rem_u;
 import happynewmoonwithreport.opcode.math.I64_sub;
-import happynewmoonwithreport.opcode.memory.F32_load;
-import happynewmoonwithreport.opcode.memory.F64_load;
-import happynewmoonwithreport.opcode.memory.I32_load;
-import happynewmoonwithreport.opcode.memory.I32_load16_s;
-import happynewmoonwithreport.opcode.memory.I32_load16_u;
-import happynewmoonwithreport.opcode.memory.I32_load8_s;
-import happynewmoonwithreport.opcode.memory.I32_load8_u;
-import happynewmoonwithreport.opcode.memory.I32_store;
-import happynewmoonwithreport.opcode.memory.I32_store16;
-import happynewmoonwithreport.opcode.memory.I32_store8;
-import happynewmoonwithreport.opcode.memory.I64_load;
-import happynewmoonwithreport.opcode.memory.I64_load16_s;
-import happynewmoonwithreport.opcode.memory.I64_load16_u;
-import happynewmoonwithreport.opcode.memory.I64_load32_s;
-import happynewmoonwithreport.opcode.memory.I64_load32_u;
-import happynewmoonwithreport.opcode.memory.I64_load8_s;
-import happynewmoonwithreport.opcode.memory.I64_load8_u;
-import happynewmoonwithreport.opcode.memory.I64_store;
-import happynewmoonwithreport.opcode.memory.I64_store16;
-import happynewmoonwithreport.opcode.memory.I64_store32;
-import happynewmoonwithreport.opcode.memory.I64_store8;
+import happynewmoonwithreport.opcode.Memory.F32_load;
+import happynewmoonwithreport.opcode.Memory.F32_store;
+import happynewmoonwithreport.opcode.Memory.F64_load;
+import happynewmoonwithreport.opcode.Memory.I32_load;
+import happynewmoonwithreport.opcode.Memory.I32_load16_s;
+import happynewmoonwithreport.opcode.Memory.I32_load16_u;
+import happynewmoonwithreport.opcode.Memory.I32_load8_s;
+import happynewmoonwithreport.opcode.Memory.I32_load8_u;
+import happynewmoonwithreport.opcode.Memory.I32_store;
+import happynewmoonwithreport.opcode.Memory.I32_store16;
+import happynewmoonwithreport.opcode.Memory.I32_store8;
+import happynewmoonwithreport.opcode.Memory.I64_load;
+import happynewmoonwithreport.opcode.Memory.I64_load16_s;
+import happynewmoonwithreport.opcode.Memory.I64_load16_u;
+import happynewmoonwithreport.opcode.Memory.I64_load32_s;
+import happynewmoonwithreport.opcode.Memory.I64_load32_u;
+import happynewmoonwithreport.opcode.Memory.I64_load8_s;
+import happynewmoonwithreport.opcode.Memory.I64_load8_u;
+import happynewmoonwithreport.opcode.Memory.I64_store;
+import happynewmoonwithreport.opcode.Memory.I64_store16;
+import happynewmoonwithreport.opcode.Memory.I64_store32;
+import happynewmoonwithreport.opcode.Memory.I64_store8;
 import happynewmoonwithreport.type.DataTypeNumber;
 import happynewmoonwithreport.type.I32;
 import happynewmoonwithreport.type.MemoryArgument;
@@ -407,8 +409,18 @@ public class WasmInstance implements WasmInstanceInterface {
 				i64_store.execute();
 				break;
 			}
-			//			case (byte) 0x38: {      // F32 store
-			//			case (byte) 0x39: {      // F64 store
+			case (byte) 0x38: {      // F32 store
+				MemoryArgument memoryArgument = new MemoryArgument(); // Not sure what this is.
+				F32_store f32_store = new F32_store(memoryArgument, currentFrame, store, stack);
+				f32_store.execute();
+				break;
+			}
+			case (byte) 0x39: {      // F64 store
+				MemoryArgument memoryArgument = new MemoryArgument(); // Not sure what this is.
+				F64_store f64_store = new F64_store(memoryArgument, currentFrame, store, stack);
+				f64_store.execute();
+				break;
+			}
 			case (byte) 0x3A: {      // I32 8 store
 				MemoryArgument memoryArgument = new MemoryArgument(); // Not sure what this is.
 				I32_store8 i32_store8 = new I32_store8(memoryArgument, currentFrame, store, stack);
@@ -447,12 +459,12 @@ public class WasmInstance implements WasmInstanceInterface {
 
 			case (byte) 0x41: {  // I32.const i32
 				ConstantInt32 constantInt32 = new ConstantInt32(this);
-				constantInt32.execute(new VarInt32(code));// Not sure if this is signed or unsigned
+				constantInt32.execute(new VarInt32(code)); // Not sure if this is signed or unsigned
 				break;
 			}
 			case (byte) 0x42: {   // I64 const I64
 				ConstantInt64 constantInt64 = new ConstantInt64(this);
-				constantInt64.execute(new VarInt64(code));// Not sure if this is signed or unsigned
+				constantInt64.execute(new VarInt64(code)); // Not sure if this is signed or unsigned
 				break;
 			}
 			//			case (byte) 0x43: {  // F32 const F32

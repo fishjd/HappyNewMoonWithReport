@@ -14,12 +14,13 @@
  *  limitations under the License.
  *
  */
-package happynewmoonwithreport.opcode.memory
+package happynewmoonwithreport.opcode.Memory
 
 import happynewmoonwithreport.WasmFrame
 import happynewmoonwithreport.WasmModule
 import happynewmoonwithreport.WasmStack
 import happynewmoonwithreport.WasmStore
+import happynewmoonwithreport.opcode.Memory.I32_load16_s
 import happynewmoonwithreport.type.*
 import happynewmoonwithreport.type.JavaType.ByteUnsigned
 import spock.lang.Specification

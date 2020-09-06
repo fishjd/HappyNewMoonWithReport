@@ -39,6 +39,10 @@ import happynewmoonwithreport.type.JavaType.ByteUnsigned;
 public class F32 implements DataTypeNumberFloat {
 	protected Float value;
 
+	public F32() {
+		this.value = 0F;
+	}
+
 	public F32(Float value) {
 		this.value = value;
 	}

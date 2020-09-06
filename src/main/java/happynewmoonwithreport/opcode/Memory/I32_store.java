@@ -14,7 +14,7 @@
  *  limitations under the License.
  *
  */
-package happynewmoonwithreport.opcode.memory;
+package happynewmoonwithreport.opcode.Memory;
 
 
 import happynewmoonwithreport.WasmFrame;
@@ -182,12 +182,6 @@ public class I32_store extends StoreBase {
 	 * The value to store. <code>'c'</code> is the the value to store in memory.
 	 */
 	private I32 c;
-
-	/* package_private */
-	@Override
-	IntWasm getC() {
-		return c;
-	}
 
 	/* package_private */
 	@Override

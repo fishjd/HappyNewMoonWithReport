@@ -16,6 +16,7 @@
  */
 package happynewmoonwithreport;
 
+import happynewmoonwithreport.type.DataTypeNumber;
 import happynewmoonwithreport.type.MemoryType;
 import happynewmoonwithreport.type.WasmVector;
 
@@ -81,6 +82,10 @@ public class WasmStore {
 
 	public void setMemoryAll(WasmVector<MemoryType> memoryAll) {
 		this.memoryAll = memoryAll;
+	}
+
+	public MemoryType getMemory(DataTypeNumber index) {
+		return memoryAll.get(index);
 	}
 
 	public WasmVector<GlobalVariableType> getGlobals() {

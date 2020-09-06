@@ -14,7 +14,7 @@
  *  limitations under the License.
  *
  */
-package happynewmoonwithreport.opcode.memory;
+package happynewmoonwithreport.opcode.Memory;
 
 import happynewmoonwithreport.WasmFrame;
 import happynewmoonwithreport.WasmRuntimeException;
@@ -117,17 +117,14 @@ public abstract class LoadBase {
 
 		// 10. If ea+N/8 is larger than the length of mem.data , then:
 		//        a: Trap.
-		Long length = ea.longValue() + (N.longValue() / 8);
-		// not is spec.  This may line may be incorrect.
-		if (mem.hasMaximum().integerValue() == 1) {
-			Long memLength = mem.maximum().longValue();
-			if (length > memLength) {
-				throw new WasmRuntimeException(
-					UUID.fromString("518fe904-05b5-492f-9a78-d89b30bb6551"),
-					"I32_load: Step 10: Trap.  Address  + size is too large. length = " + length
-					+ " memoryLength = " + memLength);
-			}
+		Long lengthRequired = ea.longValue() + (N.longValue() / 8);
+		Long memoryLength = mem.getSize().longValue();
+		if (memoryLength < lengthRequired) {
+			throw new WasmRuntimeException(UUID.fromString("518fe904-05b5-492f-9a78-d89b30bb6551"),
+				"I32_load: Step 10: Trap.  Address  + size is too large. length = " + lengthRequired
+				+ " memoryLength = " + memoryLength);
 		}
+
 
 		// 11. Let b∗ be the byte sequence mem.data[ea:N/8].
 		ByteUnsigned[] bytes = getBytesFromMemory(mem, ea);

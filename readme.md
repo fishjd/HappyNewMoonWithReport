@@ -16,6 +16,7 @@ Happy New Moon With Report has nothing to do with reporting or fireworks.
 
 For a list of Web Assembly languages see: [Awesome WASM languages](https://github.com/appcypher/awesome-wasm-langs).
 
+Happy New Moon With Report. 
 
 ## The basic use case is:
 
@@ -166,8 +167,8 @@ Data Section:  To Do
 - [x] i64_load32-U 0x35
 - [x] i32_store 0x36
 - [x] i64_store 0x37
-- [ ] f32_store 0x38
-- [ ] f64_store 0x39
+- [x] f32_store 0x38
+- [x] f64_store 0x39
 - [x] i32_store-8 0x3A
 - [x] i32_store-16 0x3B
 - [x] i64_store-8 0x3C

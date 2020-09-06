@@ -20,31 +20,32 @@ import happynewmoonwithreport.WasmFrame
 import happynewmoonwithreport.WasmModule
 import happynewmoonwithreport.WasmStack
 import happynewmoonwithreport.WasmStore
+import happynewmoonwithreport.opcode.Memory.F64_store
 import happynewmoonwithreport.type.*
 import happynewmoonwithreport.type.JavaType.ByteUnsigned
 import spock.lang.Specification
 
 /**
- * Created on 2018-02-12.
+ * Created on 2020-08-30
  */
-class I32_load8_s_Test extends Specification {
+class F64_storeTest extends Specification {
 	WasmModule module;
 	WasmFrame frame;
-	I32_load8_s i32Load8_s;
+	F64_store f64Store;
 
 	WasmStack stack;
-	MemoryType memory;
+	WasmStore store;
+	MemoryArgument memoryArgument;
 
 	void setup() {
 		// create a module.
 		module = new WasmModule();
 
-		// create a memory if we are going to load from memory we need a memory.
+		// create a memory. if we are going to load from memory we need a memory.
 		U32 hasMaximum = new U32(0);
 		U32 minimum = new U32(1);
-
-		memory = new MemoryType(hasMaximum, minimum);
-		memory.set(0, new ByteUnsigned(0x70));
+		MemoryType memory = new MemoryType(hasMaximum, minimum);
+		memory.set(0, new ByteUnsigned(0x00));
 		memory.set(1, new ByteUnsigned(0x01));
 		memory.set(2, new ByteUnsigned(0x02));
 		memory.set(3, new ByteUnsigned(0x03));
@@ -63,52 +64,60 @@ class I32_load8_s_Test extends Specification {
 		memoryAll.add(memory);
 
 		// create Store
-		WasmStore store = new WasmStore();
+		store = new WasmStore();
 		store.setMemoryAll(memoryAll);
 
 		// create memoryArgument
-		MemoryArgument memoryArgument = new MemoryArgument(new U32(0), new U32(0));
+		memoryArgument = new MemoryArgument(new U32(0), new U32(0));
 
 		// create stack
 		stack = new WasmStack();
 		stack.push(new I32(2));  // load bytes starting at 2
-
-		// create class to test.
-		i32Load8_s = new I32_load8_s(memoryArgument, frame, store, stack);
 	}
 
 	void cleanup() {
 	}
 
 	def "Execute Golden Path"() {
-		Integer address = 2;
+		setup: "Create a value to store in to memory"
 
-		setup: ""
-		stack.push(new I32(address));  // load bytes starting at 2
+		// Create a value to store.  We create a value from Byte Unsigned to make it easier to verify.
+		ByteUnsigned[] baStoreThis = new ByteUnsigned[8];
+		baStoreThis[0] = new ByteUnsigned(0xCC);
+		baStoreThis[1] = new ByteUnsigned(0xCD);
+		baStoreThis[2] = new ByteUnsigned(0xCE);
+		baStoreThis[3] = new ByteUnsigned(0xCF);
+		baStoreThis[4] = new ByteUnsigned(0xDC);
+		baStoreThis[5] = new ByteUnsigned(0xDD);
+		baStoreThis[6] = new ByteUnsigned(0xDE);
+		baStoreThis[7] = new ByteUnsigned(0xDF);
+		F64 storeThis = new F64(baStoreThis);
 
-		memory.set(address, new ByteUnsigned(input));
+		// add the value to the stack
+		stack.push(storeThis);
 
-		when: ""
-		i32Load8_s.execute();
+		when: "Instantiate the class and execute"
+		f64Store = new F64_store(memoryArgument, frame, store, stack);
+		f64Store.execute();
 
-		then: ""
-		I32 actual = (I32) stack.pop();
-		I32 expectedI32 = new I32(expected); // Little Endian!
-		actual == expectedI32;
+		then: "Verify the memory contains the correct bytes."
+		// Get the first memory.  Wasm has a concept of multiple memories.
+		MemoryType memoryResult = store.getMemory(new I32(0));
+		new ByteUnsigned(0xCC) == memoryResult.get(2);
+		new ByteUnsigned(0xCD) == memoryResult.get(3);
+		new ByteUnsigned(0xCE) == memoryResult.get(4);
+		new ByteUnsigned(0xCF) == memoryResult.get(5);
+		new ByteUnsigned(0xDC) == memoryResult.get(6);
+		new ByteUnsigned(0xDD) == memoryResult.get(7);
+		new ByteUnsigned(0xDE) == memoryResult.get(8);
+		new ByteUnsigned(0xDF) == memoryResult.get(9);
 
 		// expect: ""
 
 		// cleanup: ""
 
-		where: ""
-		input       || expected
-		0           || 0
-		2           || 2
-		4           || 4
-		0x7F        || 0x7F
-		0xFF        || -1
-		(byte) -100 || -100
-		(byte) -1   || -1
+		// where: ""
+
 	}
 
 
