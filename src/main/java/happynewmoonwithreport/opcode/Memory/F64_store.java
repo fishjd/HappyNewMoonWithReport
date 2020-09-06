@@ -14,18 +14,19 @@
  *  limitations under the License.
  *
  */
-package happynewmoonwithreport.opcode.memory;
+package happynewmoonwithreport.opcode.Memory;
 
 
 import happynewmoonwithreport.WasmFrame;
 import happynewmoonwithreport.WasmStack;
 import happynewmoonwithreport.WasmStore;
 import happynewmoonwithreport.type.F32;
-import happynewmoonwithreport.type.IntWasm;
+import happynewmoonwithreport.type.F64;
 import happynewmoonwithreport.type.JavaType.ByteUnsigned;
 import happynewmoonwithreport.type.MemoryArgument;
 import happynewmoonwithreport.type.MemoryType;
 import happynewmoonwithreport.type.U32;
+import happynewmoonwithreport.type.U64;
 
 /**
  * <h1>f32_store</h1> Store an f32 value from the stack to memory.
@@ -118,9 +119,9 @@ import happynewmoonwithreport.type.U32;
  * </li>
  * </ol>
  */
-public class F32_store extends StoreBase {
+public class F64_store extends happynewmoonwithreport.opcode.Memory.StoreBase {
 
-	private F32_store() {
+	private F64_store() {
 		super();
 	}
 
@@ -131,7 +132,7 @@ public class F32_store extends StoreBase {
 	 * @param store The Web Assembly Store
 	 * @param stack The stack to get the F32 to store in memory
 	 */
-	public F32_store(MemoryArgument memoryArgument, WasmFrame frame, WasmStore store,
+	public F64_store(MemoryArgument memoryArgument, WasmFrame frame, WasmStore store,
 					 WasmStack stack) {
 		super(memoryArgument, frame, store, stack);
 
@@ -141,7 +142,7 @@ public class F32_store extends StoreBase {
 	/*package_private */
 	@Override
 	ByteUnsigned[] step13_convert_C_toByteArray() {
-		ByteUnsigned[] result = new ByteUnsigned[4];
+		ByteUnsigned[] result = new ByteUnsigned[8];
 		result = c.getBytes();
 
 		return result;
@@ -155,6 +156,11 @@ public class F32_store extends StoreBase {
 		mem.set(ea.integerValue() + 1, bytes[1]);
 		mem.set(ea.integerValue() + 2, bytes[2]);
 		mem.set(ea.integerValue() + 3, bytes[3]);
+
+		mem.set(ea.integerValue() + 4, bytes[4]);
+		mem.set(ea.integerValue() + 5, bytes[5]);
+		mem.set(ea.integerValue() + 6, bytes[6]);
+		mem.set(ea.integerValue() + 7, bytes[7]);
 	}
 
 	/**
@@ -166,25 +172,25 @@ public class F32_store extends StoreBase {
 	/* package_private */
 	@Override
 	Object getExpectedType() {
-		return new F32();
+		return new F64();
 	}
 
 	/* package_private */
 	@Override
 	U32 getWidthOfExpectedType() {
-		return new U32(32);
+		return new U32(64);
 	}
 
 
 	/**
 	 * The value to store. <code>'c'</code> is the the value to store in memory.
 	 */
-	private F32 c;
+	private F64 c;
 
 	/* package_private */
 	@Override
 	void setC(Object c) {
-		this.c = (F32) c;
+		this.c = (F64) c;
 	}
 
 }

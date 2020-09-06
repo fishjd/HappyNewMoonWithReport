@@ -15,7 +15,7 @@
  *
  */
 
-package happynewmoonwithreport.opcode.memory;
+package happynewmoonwithreport.opcode.Memory;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

@@ -20,7 +20,7 @@ import happynewmoonwithreport.WasmFrame
 import happynewmoonwithreport.WasmModule
 import happynewmoonwithreport.WasmStack
 import happynewmoonwithreport.WasmStore
-import happynewmoonwithreport.opcode.memory.F64_load
+import happynewmoonwithreport.opcode.Memory.F64_load
 import happynewmoonwithreport.type.*
 import happynewmoonwithreport.type.JavaType.ByteUnsigned
 import spock.lang.Specification

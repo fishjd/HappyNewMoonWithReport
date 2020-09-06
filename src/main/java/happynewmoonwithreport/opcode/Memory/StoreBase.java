@@ -14,22 +14,20 @@
  *  limitations under the License.
  *
  */
-package happynewmoonwithreport.opcode.memory;
+package happynewmoonwithreport.opcode.Memory;
 
-
-import java.util.UUID;
 
 import happynewmoonwithreport.WasmFrame;
 import happynewmoonwithreport.WasmRuntimeException;
 import happynewmoonwithreport.WasmStack;
 import happynewmoonwithreport.WasmStore;
 import happynewmoonwithreport.type.I32;
-import happynewmoonwithreport.type.IntWasm;
 import happynewmoonwithreport.type.JavaType.ByteUnsigned;
 import happynewmoonwithreport.type.MemoryArgument;
 import happynewmoonwithreport.type.MemoryType;
 import happynewmoonwithreport.type.U32;
 import happynewmoonwithreport.type.UInt32;
+import java.util.UUID;
 
 /**
  * <h1>i32_storeN </h1> Store N bits from the stack to memory.
@@ -233,17 +231,13 @@ public abstract class StoreBase {
 
 		// 12. If ea+N/8 is larger than the length of mem.data , then:
 		//        a: Trap.
-		Long length = ea.longValue() + (N.longValue() / 8);
-		// The following line is not in the WebAssembly specification.  It may by incorrect.
-		// It is only a check that the memory has a maximum value.
-		if (mem.hasMaximumBoolean() == true) {
-			Long memLength = mem.maximum().longValue();
-			if (memLength < length) {
-				throw new WasmRuntimeException(
-					UUID.fromString("8486a6d2-31b4-4035-bf27-1d76739bf309"),
-					"I32_Store: Step12: Trap.  Address  + size is too large. length = " + length
-					+ " memoryLength = " + memLength);
-			}
+
+		Long lengthRequired = ea.longValue() + (N.longValue() / 8);
+		Long memoryLength = mem.getSize().longValue();
+		if (memoryLength < lengthRequired) {
+			throw new WasmRuntimeException(UUID.fromString("8486a6d2-31b4-4035-bf27-1d76739bf309"),
+				"I32_Store: Step12: Trap.  Address  + size is too large. length = " + lengthRequired
+				+ " memoryLength = " + memoryLength);
 		}
 
 		ByteUnsigned[] bytes;

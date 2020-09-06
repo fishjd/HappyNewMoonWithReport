@@ -14,7 +14,7 @@
  *  limitations under the License.
  *
  */
-package happynewmoonwithreport.opcode.memory
+package happynewmoonwithreport.opcode.Memory
 
 import happynewmoonwithreport.WasmFrame
 import happynewmoonwithreport.WasmModule
