@@ -20,6 +20,7 @@ import happynewmoonwithreport.opcode.ConstantInt32;
 import happynewmoonwithreport.opcode.ConstantInt64;
 import happynewmoonwithreport.opcode.Drop;
 import happynewmoonwithreport.opcode.GetLocal;
+import happynewmoonwithreport.opcode.Memory.F64_store;
 import happynewmoonwithreport.opcode.Select;
 import happynewmoonwithreport.opcode.SetLocal;
 import happynewmoonwithreport.opcode.bitshift.I32_rotl;
@@ -414,7 +415,12 @@ public class WasmInstance implements WasmInstanceInterface {
 				f32_store.execute();
 				break;
 			}
-			//			case (byte) 0x39: {      // F64 store
+			case (byte) 0x39: {      // F64 store
+				MemoryArgument memoryArgument = new MemoryArgument(); // Not sure what this is.
+				F64_store f64_store = new F64_store(memoryArgument, currentFrame, store, stack);
+				f64_store.execute();
+				break;
+			}
 			case (byte) 0x3A: {      // I32 8 store
 				MemoryArgument memoryArgument = new MemoryArgument(); // Not sure what this is.
 				I32_store8 i32_store8 = new I32_store8(memoryArgument, currentFrame, store, stack);

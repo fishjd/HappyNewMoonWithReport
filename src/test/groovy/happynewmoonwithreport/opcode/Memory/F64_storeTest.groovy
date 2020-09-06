@@ -20,7 +20,7 @@ import happynewmoonwithreport.WasmFrame
 import happynewmoonwithreport.WasmModule
 import happynewmoonwithreport.WasmStack
 import happynewmoonwithreport.WasmStore
-import happynewmoonwithreport.opcode.Memory.F32_store
+import happynewmoonwithreport.opcode.Memory.F64_store
 import happynewmoonwithreport.type.*
 import happynewmoonwithreport.type.JavaType.ByteUnsigned
 import spock.lang.Specification
@@ -28,10 +28,10 @@ import spock.lang.Specification
 /**
  * Created on 2020-08-30
  */
-class F32_storeTest extends Specification {
+class F64_storeTest extends Specification {
 	WasmModule module;
 	WasmFrame frame;
-	F32_store f32Store;
+	F64_store f64Store;
 
 	WasmStack stack;
 	WasmStore store;
@@ -82,19 +82,23 @@ class F32_storeTest extends Specification {
 		setup: "Create a value to store in to memory"
 
 		// Create a value to store.  We create a value from Byte Unsigned to make it easier to verify.
-		ByteUnsigned[] baStoreThis = new ByteUnsigned[4];
+		ByteUnsigned[] baStoreThis = new ByteUnsigned[8];
 		baStoreThis[0] = new ByteUnsigned(0xCC);
 		baStoreThis[1] = new ByteUnsigned(0xCD);
 		baStoreThis[2] = new ByteUnsigned(0xCE);
 		baStoreThis[3] = new ByteUnsigned(0xCF);
-		F32 storeThis = new F32(baStoreThis);
+		baStoreThis[4] = new ByteUnsigned(0xDC);
+		baStoreThis[5] = new ByteUnsigned(0xDD);
+		baStoreThis[6] = new ByteUnsigned(0xDE);
+		baStoreThis[7] = new ByteUnsigned(0xDF);
+		F64 storeThis = new F64(baStoreThis);
 
 		// add the value to the stack
 		stack.push(storeThis);
 
 		when: "Instantiate the class and execute"
-		f32Store = new F32_store(memoryArgument, frame, store, stack);
-		f32Store.execute();
+		f64Store = new F64_store(memoryArgument, frame, store, stack);
+		f64Store.execute();
 
 		then: "Verify the memory contains the correct bytes."
 		// Get the first memory.  Wasm has a concept of multiple memories.
@@ -103,6 +107,10 @@ class F32_storeTest extends Specification {
 		new ByteUnsigned(0xCD) == memoryResult.get(3);
 		new ByteUnsigned(0xCE) == memoryResult.get(4);
 		new ByteUnsigned(0xCF) == memoryResult.get(5);
+		new ByteUnsigned(0xDC) == memoryResult.get(6);
+		new ByteUnsigned(0xDD) == memoryResult.get(7);
+		new ByteUnsigned(0xDE) == memoryResult.get(8);
+		new ByteUnsigned(0xDF) == memoryResult.get(9);
 
 		// expect: ""
 
