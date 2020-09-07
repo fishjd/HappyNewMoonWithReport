@@ -16,12 +16,11 @@
  */
 package happynewmoonwithreport;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import happynewmoonwithreport.type.MemoryType;
 import happynewmoonwithreport.type.UInt32;
 import happynewmoonwithreport.type.WasmVector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * A Web Assembly Module

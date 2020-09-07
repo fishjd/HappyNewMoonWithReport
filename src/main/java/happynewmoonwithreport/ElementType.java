@@ -16,11 +16,10 @@
  */
 package happynewmoonwithreport;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import happynewmoonwithreport.type.S32;
 import happynewmoonwithreport.type.VarInt7;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * The Element Type  in Web Assembly. <p> A varint7 indicating the types of elements in a table.

@@ -17,12 +17,11 @@
 package happynewmoonwithreport.opcode.logic;
 
 
-import java.util.UUID;
-
 import happynewmoonwithreport.WasmInstanceInterface;
 import happynewmoonwithreport.WasmRuntimeException;
 import happynewmoonwithreport.WasmStack;
 import happynewmoonwithreport.type.I64;
+import java.util.UUID;
 
 /**
  * * Return the bitwise exclusive disjunction of i<sub>1</sub> and i<sub>2</sub>.

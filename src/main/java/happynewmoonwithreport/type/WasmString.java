@@ -17,9 +17,8 @@
 package happynewmoonwithreport.type;
 
 
-import java.nio.charset.StandardCharsets;
-
 import happynewmoonwithreport.BytesFile;
+import java.nio.charset.StandardCharsets;
 
 /**
  * A String read from the *.wasm file.

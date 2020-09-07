@@ -17,11 +17,10 @@
 package happynewmoonwithreport.opcode;
 
 
-import java.util.UUID;
-
 import happynewmoonwithreport.WasmInstanceInterface;
 import happynewmoonwithreport.WasmRuntimeException;
 import happynewmoonwithreport.WasmStack;
+import java.util.UUID;
 
 /**
  * Drop (Drop) - pop a value off the stack.   The value is discarded.

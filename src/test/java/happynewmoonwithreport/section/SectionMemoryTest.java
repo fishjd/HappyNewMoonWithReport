@@ -16,19 +16,18 @@
  */
 package happynewmoonwithreport.section;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import happynewmoonwithreport.BytesFile;
 import happynewmoonwithreport.type.MemoryType;
 import happynewmoonwithreport.type.UInt32;
 import happynewmoonwithreport.type.VarUInt1;
 import happynewmoonwithreport.type.WasmVector;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.fail;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 
 public class SectionMemoryTest {

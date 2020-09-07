@@ -17,16 +17,15 @@
 
 package happynewmoonwithreport.type;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import happynewmoonwithreport.type.JavaType.ByteUnsigned;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-
-import happynewmoonwithreport.type.JavaType.ByteUnsigned;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class Int64WasmTest {
 	ByteUnsigned input;

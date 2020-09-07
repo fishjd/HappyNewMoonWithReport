@@ -17,12 +17,11 @@
 
 package happynewmoonwithreport.opcode.countingBits;
 
-import java.util.UUID;
-
 import happynewmoonwithreport.WasmRuntimeException;
 import happynewmoonwithreport.WasmStack;
 import happynewmoonwithreport.type.I32;
 import happynewmoonwithreport.type.I64;
+import java.util.UUID;
 
 /**
  * Return the number of one-bits.  Popcnt stands for population count.  Also call bitCount in Java.

@@ -16,24 +16,13 @@
  */
 package happynewmoonwithreport;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.UUID;
-
-import happynewmoonwithreport.section.SectionCode;
-import happynewmoonwithreport.section.SectionCustom;
-import happynewmoonwithreport.section.SectionExport;
-import happynewmoonwithreport.section.SectionFunction;
-import happynewmoonwithreport.section.SectionGlobal;
-import happynewmoonwithreport.section.SectionMemory;
-import happynewmoonwithreport.section.SectionName;
-import happynewmoonwithreport.section.SectionStart;
-import happynewmoonwithreport.section.SectionStartEmpty;
-import happynewmoonwithreport.section.SectionTable;
-import happynewmoonwithreport.section.SectionType;
+import happynewmoonwithreport.section.*;
 import happynewmoonwithreport.type.UInt32;
 import happynewmoonwithreport.type.VarUInt32;
 import happynewmoonwithreport.type.WasmVector;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.UUID;
 
 /**
  * Start Here, The class to loads a WebAssembly file

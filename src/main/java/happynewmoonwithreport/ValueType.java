@@ -16,10 +16,9 @@
  */
 package happynewmoonwithreport;
 
-import java.util.HashMap;
-
 import happynewmoonwithreport.type.S32;
 import happynewmoonwithreport.type.VarInt7;
+import java.util.HashMap;
 
 /**
  * The data types in Web Assembly. int32, int64, f32, f64

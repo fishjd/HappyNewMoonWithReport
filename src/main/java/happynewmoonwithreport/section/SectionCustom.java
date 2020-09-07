@@ -16,12 +16,11 @@
  */
 package happynewmoonwithreport.section;
 
+import happynewmoonwithreport.BytesFile;
+import happynewmoonwithreport.type.UInt8;
 import java.nio.charset.StandardCharsets;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import happynewmoonwithreport.BytesFile;
-import happynewmoonwithreport.type.UInt8;
 
 
 /**

@@ -17,12 +17,11 @@
 
 package happynewmoonwithreport.opcode.countingBits;
 
-import java.util.UUID;
-
 import happynewmoonwithreport.WasmRuntimeException;
 import happynewmoonwithreport.WasmStack;
 import happynewmoonwithreport.type.I32;
 import happynewmoonwithreport.type.I64;
+import java.util.UUID;
 
 /**
  * Return the number of leading zeros.  CLZ stands for <b>C</b>ount <b>L</b>eading <b>Z</b>eros

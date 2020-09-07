@@ -17,10 +17,9 @@
 package happynewmoonwithreport.opcode.control;
 
 
-import java.util.UUID;
-
 import happynewmoonwithreport.WasmInstanceInterface;
 import happynewmoonwithreport.WasmTrapException;
+import java.util.UUID;
 
 /**
  * Unreachable

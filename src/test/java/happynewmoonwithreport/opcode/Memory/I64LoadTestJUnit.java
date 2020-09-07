@@ -17,23 +17,17 @@
 
 package happynewmoonwithreport.opcode.Memory;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import happynewmoonwithreport.WasmFrame;
 import happynewmoonwithreport.WasmModule;
 import happynewmoonwithreport.WasmStack;
 import happynewmoonwithreport.WasmStore;
-import happynewmoonwithreport.type.I32;
-import happynewmoonwithreport.type.I64;
+import happynewmoonwithreport.type.*;
 import happynewmoonwithreport.type.JavaType.ByteUnsigned;
-import happynewmoonwithreport.type.MemoryArgument;
-import happynewmoonwithreport.type.MemoryType;
-import happynewmoonwithreport.type.U32;
-import happynewmoonwithreport.type.WasmVector;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 
 /*  I can't get Spock/Groovy working.  It may be my 'new' computer.   So, to move forward were

@@ -16,13 +16,12 @@
  */
 package happynewmoonwithreport.opcode;
 
-import java.util.UUID;
-
 import happynewmoonwithreport.WasmFrame;
 import happynewmoonwithreport.WasmRuntimeException;
 import happynewmoonwithreport.WasmStack;
 import happynewmoonwithreport.type.DataTypeNumber;
 import happynewmoonwithreport.type.I32;
+import java.util.UUID;
 
 /**
  * Set Local - write a local variable or parameter

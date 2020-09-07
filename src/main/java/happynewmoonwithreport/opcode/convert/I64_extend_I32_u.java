@@ -17,13 +17,12 @@
 
 package happynewmoonwithreport.opcode.convert;
 
-import java.util.UUID;
-
 import happynewmoonwithreport.WasmInstanceInterface;
 import happynewmoonwithreport.WasmRuntimeException;
 import happynewmoonwithreport.WasmStack;
 import happynewmoonwithreport.type.I32;
 import happynewmoonwithreport.type.I64;
+import java.util.UUID;
 
 /**
  * <h1>I64_extend_I32</h1>

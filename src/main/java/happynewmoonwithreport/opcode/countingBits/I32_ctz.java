@@ -17,11 +17,10 @@
 
 package happynewmoonwithreport.opcode.countingBits;
 
-import java.util.UUID;
-
 import happynewmoonwithreport.WasmRuntimeException;
 import happynewmoonwithreport.WasmStack;
 import happynewmoonwithreport.type.I32;
+import java.util.UUID;
 
 /**
  * Return the number of trailing zeros.  CTZ stands for <b>C</b>ount <b>T</b>railing <b>Z</b>eros

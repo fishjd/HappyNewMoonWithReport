@@ -17,11 +17,10 @@
 package happynewmoonwithreport.type;
 
 
+import happynewmoonwithreport.WasmRuntimeException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.UUID;
-
-import happynewmoonwithreport.WasmRuntimeException;
 
 /**
  * Vectors are bounded sequences of the form A^n  (or A^*), where the A can either be values or
@@ -42,7 +41,7 @@ import happynewmoonwithreport.WasmRuntimeException;
  * TypeAny is any type.
  *
  * @param <TypeAny> may be any Object.   Known to be used with FunctionType, WasmFunction,
- *               TableType, ....
+ *                  TableType, ....
  */
 public class WasmVector<TypeAny> extends ArrayList<TypeAny> {
 

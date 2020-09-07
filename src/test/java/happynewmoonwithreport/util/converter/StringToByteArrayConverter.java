@@ -16,9 +16,8 @@
  */
 package happynewmoonwithreport.util.converter;
 
-import org.junit.jupiter.params.converter.SimpleArgumentConverter;
-
 import happynewmoonwithreport.type.JavaType.ByteUnsigned;
+import org.junit.jupiter.params.converter.SimpleArgumentConverter;
 
 /**
  * jUnit 5 argument converter.  Converts a String to a Byte array;

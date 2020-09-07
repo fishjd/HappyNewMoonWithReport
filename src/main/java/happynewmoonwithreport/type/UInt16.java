@@ -16,9 +16,9 @@
  */
 package happynewmoonwithreport.type;
 
-import happynewmoonwithreport.BytesFile;
-
 import static happynewmoonwithreport.type.utility.MathWBS.pow2;
+
+import happynewmoonwithreport.BytesFile;
 
 /**
  * An unsigned integer of 16 bits. .

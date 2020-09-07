@@ -16,11 +16,10 @@
  */
 package happynewmoonwithreport.section;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import happynewmoonwithreport.BytesFile;
 import happynewmoonwithreport.type.VarUInt7;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Enum for the defined section names.

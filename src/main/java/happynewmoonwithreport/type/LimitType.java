@@ -16,11 +16,10 @@
  */
 package happynewmoonwithreport.type;
 
-import java.util.UUID;
-
 import happynewmoonwithreport.BytesFile;
 import happynewmoonwithreport.Validation;
 import happynewmoonwithreport.WasmRuntimeException;
+import java.util.UUID;
 
 /**
  * Limit also known as resizable limit.

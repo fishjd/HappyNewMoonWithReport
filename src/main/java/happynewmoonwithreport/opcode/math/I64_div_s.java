@@ -17,15 +17,10 @@
 package happynewmoonwithreport.opcode.math;
 
 
-import java.util.UUID;
-
-import happynewmoonwithreport.WasmDivideByZeroException;
-import happynewmoonwithreport.WasmDivideOverflowException;
-import happynewmoonwithreport.WasmInstanceInterface;
-import happynewmoonwithreport.WasmRuntimeException;
-import happynewmoonwithreport.WasmStack;
+import happynewmoonwithreport.*;
 import happynewmoonwithreport.type.I64;
 import happynewmoonwithreport.type.S64;
+import java.util.UUID;
 
 /**
  * Divide 64 signed

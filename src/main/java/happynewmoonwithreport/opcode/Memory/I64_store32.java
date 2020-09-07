@@ -21,7 +21,6 @@ import happynewmoonwithreport.WasmFrame;
 import happynewmoonwithreport.WasmStack;
 import happynewmoonwithreport.WasmStore;
 import happynewmoonwithreport.type.I64;
-import happynewmoonwithreport.type.IntWasm;
 import happynewmoonwithreport.type.JavaType.ByteUnsigned;
 import happynewmoonwithreport.type.MemoryArgument;
 import happynewmoonwithreport.type.MemoryType;

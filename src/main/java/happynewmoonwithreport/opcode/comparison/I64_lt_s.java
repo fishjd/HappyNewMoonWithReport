@@ -17,14 +17,13 @@
 package happynewmoonwithreport.opcode.comparison;
 
 
-import java.util.UUID;
-
 import happynewmoonwithreport.WasmInstanceInterface;
 import happynewmoonwithreport.WasmRuntimeException;
 import happynewmoonwithreport.WasmStack;
 import happynewmoonwithreport.type.I32;
 import happynewmoonwithreport.type.I64;
 import happynewmoonwithreport.type.S64;
+import java.util.UUID;
 
 /**
  * I32 Less than Signed  (i32_lt_s)

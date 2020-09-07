@@ -16,9 +16,9 @@
  */
 package happynewmoonwithreport.type;
 
-import happynewmoonwithreport.BytesFile;
-
 import static happynewmoonwithreport.type.utility.MathWBS.pow2;
+
+import happynewmoonwithreport.BytesFile;
 
 /**
  * An unsigned integer of 8 bits, represented in N/8 bytes in little endian

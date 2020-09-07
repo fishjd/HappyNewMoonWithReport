@@ -17,10 +17,9 @@
 
 package happynewmoonwithreport.type;
 
-import java.util.UUID;
-
 import happynewmoonwithreport.WasmRuntimeException;
 import happynewmoonwithreport.type.JavaType.ByteUnsigned;
+import java.util.UUID;
 
 
 /**

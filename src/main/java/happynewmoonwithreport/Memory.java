@@ -16,11 +16,10 @@
  */
 package happynewmoonwithreport;
 
-import java.util.Arrays;
-
 import happynewmoonwithreport.type.S32;
 import happynewmoonwithreport.type.UInt16;
 import happynewmoonwithreport.type.UInt32;
+import java.util.Arrays;
 
 /**
  * The web assembly memory.

@@ -21,7 +21,6 @@ import happynewmoonwithreport.WasmFrame;
 import happynewmoonwithreport.WasmStack;
 import happynewmoonwithreport.WasmStore;
 import happynewmoonwithreport.type.F32;
-import happynewmoonwithreport.type.IntWasm;
 import happynewmoonwithreport.type.JavaType.ByteUnsigned;
 import happynewmoonwithreport.type.MemoryArgument;
 import happynewmoonwithreport.type.MemoryType;
@@ -126,10 +125,11 @@ public class F32_store extends StoreBase {
 
 	/**
 	 * Construct an F32_Store object.
+	 *
 	 * @param memoryArgument memoryArgument
-	 * @param frame The Web Assembly Frame
-	 * @param store The Web Assembly Store
-	 * @param stack The stack to get the F32 to store in memory
+	 * @param frame          The Web Assembly Frame
+	 * @param store          The Web Assembly Store
+	 * @param stack          The stack to get the F32 to store in memory
 	 */
 	public F32_store(MemoryArgument memoryArgument, WasmFrame frame, WasmStore store,
 					 WasmStack stack) {

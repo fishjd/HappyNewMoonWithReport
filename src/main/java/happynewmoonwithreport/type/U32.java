@@ -16,9 +16,8 @@
  */
 package happynewmoonwithreport.type;
 
-import java.util.UUID;
-
 import happynewmoonwithreport.WasmRuntimeException;
+import java.util.UUID;
 
 /**
  * An unsigned integer of N bits, represented in the *.wasm file as N/8 bytes in little endian

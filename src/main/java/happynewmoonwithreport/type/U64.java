@@ -16,9 +16,8 @@
  */
 package happynewmoonwithreport.type;
 
-import java.util.UUID;
-
 import happynewmoonwithreport.WasmRuntimeException;
+import java.util.UUID;
 
 /**
  * An Unsigned integer of 64 bits,

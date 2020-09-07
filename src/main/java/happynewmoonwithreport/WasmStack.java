@@ -64,8 +64,6 @@ public class WasmStack<StackType> extends Stack<StackType> {
 	 *              note: <code> peek(stack.size() -1) </code>  is the same as <code>peek()</code>
 	 *              </p>
 	 *              <b> </b>
-	 *
-	 *
 	 * @return the element at index.
 	 */
 	public StackType peek(Integer index) {

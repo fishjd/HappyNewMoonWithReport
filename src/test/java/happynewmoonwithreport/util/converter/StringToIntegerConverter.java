@@ -16,9 +16,9 @@
  */
 package happynewmoonwithreport.util.converter;
 
-import org.junit.jupiter.params.converter.SimpleArgumentConverter;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.params.converter.SimpleArgumentConverter;
 
 /**
  * jUnit 5 argument converter.  Converts a String to an integer where integers can be decimal

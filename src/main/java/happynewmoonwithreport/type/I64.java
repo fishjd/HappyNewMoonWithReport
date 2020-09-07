@@ -16,10 +16,9 @@
  */
 package happynewmoonwithreport.type;
 
-import java.util.UUID;
-
 import happynewmoonwithreport.WasmRuntimeException;
 import happynewmoonwithreport.type.JavaType.ByteUnsigned;
+import java.util.UUID;
 
 /**
  * I64 is the WebAssembly runtime 64 bit Integer.  It can be interpreted as either signed or

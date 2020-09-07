@@ -17,12 +17,11 @@
 package happynewmoonwithreport.opcode.math;
 
 
-import java.util.UUID;
-
 import happynewmoonwithreport.WasmInstanceInterface;
 import happynewmoonwithreport.WasmRuntimeException;
 import happynewmoonwithreport.WasmStack;
 import happynewmoonwithreport.type.I32;
+import java.util.UUID;
 
 /**
  * Return the result of multiplying i<sub>1</sub> from i<sub>2</sub> modulo 2<sup>N</sup>.

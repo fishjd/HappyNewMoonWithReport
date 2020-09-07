@@ -17,12 +17,11 @@
 package happynewmoonwithreport.opcode.bitshift;
 
 
-import java.util.UUID;
-
 import happynewmoonwithreport.WasmInstanceInterface;
 import happynewmoonwithreport.WasmRuntimeException;
 import happynewmoonwithreport.WasmStack;
 import happynewmoonwithreport.type.I64;
+import java.util.UUID;
 
 /**
  * I64 Shr_u opcode.

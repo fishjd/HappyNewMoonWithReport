@@ -16,13 +16,8 @@
  */
 package happynewmoonwithreport;
 
+import happynewmoonwithreport.type.*;
 import java.util.ArrayList;
-
-import happynewmoonwithreport.type.UInt32;
-import happynewmoonwithreport.type.UInt8;
-import happynewmoonwithreport.type.VarUInt1;
-import happynewmoonwithreport.type.VarUInt32;
-import happynewmoonwithreport.type.WasmVector;
 
 /**
  * The description of a function signature

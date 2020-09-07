@@ -20,12 +20,8 @@ package happynewmoonwithreport.opcode.Memory;
 import happynewmoonwithreport.WasmFrame;
 import happynewmoonwithreport.WasmStack;
 import happynewmoonwithreport.WasmStore;
-import happynewmoonwithreport.type.I32;
-import happynewmoonwithreport.type.IntWasm;
+import happynewmoonwithreport.type.*;
 import happynewmoonwithreport.type.JavaType.ByteUnsigned;
-import happynewmoonwithreport.type.MemoryArgument;
-import happynewmoonwithreport.type.MemoryType;
-import happynewmoonwithreport.type.U32;
 
 /**
  * <h1>i32_load</h1> Load an i32 value from memory to the stack.

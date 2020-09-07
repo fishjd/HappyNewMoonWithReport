@@ -16,9 +16,8 @@
  */
 package happynewmoonwithreport;
 
-import java.util.Arrays;
-
 import happynewmoonwithreport.type.utility.Hex;
+import java.util.Arrays;
 
 /**
  * An byte array with an index. Created by James Haring on 2017-07-18.

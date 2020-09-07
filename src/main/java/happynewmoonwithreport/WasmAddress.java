@@ -16,9 +16,8 @@
  */
 package happynewmoonwithreport;
 
-import java.util.UUID;
-
 import happynewmoonwithreport.type.I32;
+import java.util.UUID;
 
 /**
  * Function instances, table instances, memory instances, and global instances in the store are

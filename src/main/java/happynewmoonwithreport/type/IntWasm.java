@@ -353,7 +353,8 @@ public abstract class IntWasm implements DataTypeNumber {
 	 * <br>
 	 * <b> References: </b>
 	 * <br>
-	 * <a href="http://www.aggregate.org/MAGIC/#Sign%20Extension">"http://www.aggregate.org/MAGIC/#Sign%20Extension"</a>
+	 * <a href="http://www.aggregate.org/MAGIC/#Sign%20Extension">"http://www.aggregate
+	 * .org/MAGIC/#Sign%20Extension"</a>
 	 * <br>
 	 * <br>
 	 * <a href="https://stackoverflow.com/questions/6215256/sign-extension-from-16-to-32-bits-in-c#answer-51958446">
