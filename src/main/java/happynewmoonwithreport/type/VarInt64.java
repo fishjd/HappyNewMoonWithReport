@@ -21,24 +21,26 @@ import happynewmoonwithreport.BytesFile;
 /**
  * A variable integer of 64 bits.
  * <p>
- * Used to read and write to the wasm file. This project tends to use the 'main' integer types
- * Int32, Int64, UInt32,
- * UInt64.  The recommend use is to convert to a 'main' type as soon as possible.
+ * Used to read and write to the wasm file.
  * <p>
  * A Signed LEB128 variable-length integer, limited to N bits (i.e., the values [-2^(N-1), +2^
  * (N-1)-1]), represented by
  * at most ceil(N/7) bytes that may contain padding for positive number 0x80 bytes or for
  * negative numbers 0xFF bytes.
  * <p>
- * Usage:
+ * This project tends to use the 'main' integer types Int32, Int64.
+ * The recommend use is to convert to a 'main' type as soon as possible.
+ * <p>
+ * * Usage:
  * <pre>
  *      {@code
  *          Int64 number = new VarInt64(bytesFile);
  *      }
  * </pre>
  * <p>
- * Source:  <a href="http://webassembly.org/docs/binary-encoding/#varintn" target="_top">
- * http://webassembly.org/docs/binary-encoding/#varintn
+ * Source:
+ * <a href="https://webassembly.github.io/spec/core/binary/values.html#integers" target="_top">
+ * https://webassembly.github.io/spec/core/binary/values.html#integers
  * </a>
  */
 public final class VarInt64 extends S64 {
