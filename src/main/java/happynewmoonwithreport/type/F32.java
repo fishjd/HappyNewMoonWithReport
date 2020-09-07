@@ -17,6 +17,7 @@
 
 package happynewmoonwithreport.type;
 
+import happynewmoonwithreport.BytesFile;
 import happynewmoonwithreport.type.JavaType.ByteUnsigned;
 
 
@@ -161,10 +162,11 @@ public class F32 implements DataTypeNumberFloat {
 
 		// Integer to ByteUnsigned array
 		ByteUnsigned[] byteAll = new ByteUnsigned[4];
-		byteAll[3] = new ByteUnsigned((bits >>> 0) & 0x0000_00FF);
-		byteAll[2] = new ByteUnsigned((bits >>> 8) & 0x0000_00FF);
+		// Big Endian
+		byteAll[0] = new ByteUnsigned((bits >>> 24) & 0x0000_00FF);  // Most Significant Byte
 		byteAll[1] = new ByteUnsigned((bits >>> 16) & 0x0000_00FF);
-		byteAll[0] = new ByteUnsigned((bits >>> 24) & 0x0000_00FF);
+		byteAll[2] = new ByteUnsigned((bits >>> 8)  & 0x0000_00FF);
+		byteAll[3] = new ByteUnsigned((bits >>> 0)  & 0x0000_00FF);
 
 		return byteAll;
 	}
@@ -183,12 +185,42 @@ public class F32 implements DataTypeNumberFloat {
 	 */
 	public F32(ByteUnsigned[] byteAll) {
 		Integer valueInteger;
-		valueInteger = ((byteAll[3].intValue()) << 0);
-		valueInteger += ((byteAll[2].intValue()) << 8);
+		// Big Endian
+		valueInteger = ((byteAll[0].intValue()) << 24);    // Most  Significant Byte
 		valueInteger += ((byteAll[1].intValue()) << 16);
-		valueInteger += ((byteAll[0].intValue()) << 24);    // Most  Significant Byte
+		valueInteger += ((byteAll[2].intValue()) << 8);
+		valueInteger += ((byteAll[3].intValue()) << 0);
 
 		value = Float.intBitsToFloat(valueInteger);
+	}
+
+	/**
+	 * Create an F32 from the wasm file.
+	 *
+	 * @param bytesFile The wasm file.
+	 * @return an F32
+	 * <p>
+	 * Floating points are stored in Little Endian.
+	 * See:
+	 * <a href="https://webassembly.github.io/spec/core/binary/values.html#floating-point"
+	 * target="_top">
+	 * https://webassembly.github.io/spec/core/binary/values.html#floating-point
+	 * </a>
+	 * <p>
+	 * <a href="https://chortle.ccsu.edu/AssemblyTutorial/Chapter-15/ass15_3.html" target="_top">
+	 * Little Endian vs Big Endian
+	 * </a>
+	 */
+	public static F32 convert(BytesFile bytesFile) {
+		Integer valueInteger;
+		// Little Endian
+		valueInteger = (((int) bytesFile.readByte() & 0xFF) << 0); // Least Significant Byte
+		valueInteger += (((int) bytesFile.readByte() & 0xFF) << 8);
+		valueInteger += (((int) bytesFile.readByte() & 0xFF) << 16);
+		valueInteger += (((int) bytesFile.readByte() & 0xFF) << 24); // Most Significant Byte
+
+		F32 result = new F32(Float.intBitsToFloat(valueInteger));
+		return result;
 	}
 
 	@Override

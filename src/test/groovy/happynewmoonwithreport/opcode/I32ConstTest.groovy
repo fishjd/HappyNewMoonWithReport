@@ -17,44 +17,41 @@
 package happynewmoonwithreport.opcode
 
 import happynewmoonwithreport.WasmInstanceInterface
-import happynewmoonwithreport.type.I64
-import happynewmoonwithreport.type.S64
+import happynewmoonwithreport.type.I32
+import happynewmoonwithreport.type.S32
 import spock.lang.Specification
 
 /**
- * Created on 2020-5-16.
+ * Created on 2017-08-25.
  */
-class ConstantInt64Test extends Specification {
+class I32ConstTest extends Specification {
 	void setup() {
 	}
 
 	void cleanup() {
 	}
 
-	def "Execute Constant Int64"() {
-
-		// This test has very little value.  All it does is add a value to the stack.
-
+	def "Execute Constant Int32"() {
 		setup: " a value of ex : 3 "
 		WasmInstanceInterface instance = new WasmInstanceStub();
-		I64 value = new I64(val1);
+		I32 value = new I32(val1);
 
-		ConstantInt64 function = new ConstantInt64(instance);
+		I32_const function = new I32_const(instance);
 
 		when: "run the opcode"
 		function.execute(value);
 
 		then: " value is placed on the stack "
 
-		new I64(expected) == instance.stack().pop();
+		new I32(expected) == instance.stack().pop();
 
 		where: ""
 		val1                  || expected
 		3                     || 3
 		4                     || 4
 		0x7FFF_FFFE           || 0x7FFF_FFFE
-		0x7FFF_FFFF_FFFF_FFFF || new S64(0).maxValue()
-		new S64(0).minValue() || new S64(0).minValue()
+		0x7FFF_FFFF           || new S32(0).maxValue()
+		new S32(0).minValue() || new S32(0).minValue()
 	}
 
 }

@@ -17,17 +17,18 @@
 package happynewmoonwithreport.opcode;
 
 import happynewmoonwithreport.WasmInstanceInterface;
-import happynewmoonwithreport.type.I64;
+import happynewmoonwithreport.type.F32;
+import happynewmoonwithreport.type.I32;
 
 /**
- * Constant Int64
+ * Constant F32
  * <p>
  * <b>Note this is the same for all Constant Operations</b>
  * <p>
  * t.constant c
  * <ol>
  * <li>
- * Push the value t.const c to the stack.   t = Int64
+ * Push the value t.const c to the stack.   t = F32
  * </li>
  * </ol>
  * <p>
@@ -36,14 +37,14 @@ import happynewmoonwithreport.type.I64;
  * https://webassembly.github.io/spec/core/exec/instructions.html#exec-const
  * </a>
  */
-public class ConstantInt64 {
+public class F32_const {
 	private WasmInstanceInterface instance;
 
-	private ConstantInt64() {
+	private F32_const() {
 		super();
 	}
 
-	public ConstantInt64(WasmInstanceInterface instance) {
+	public F32_const(WasmInstanceInterface instance) {
 		this();
 		this.instance = instance;
 	}
@@ -53,7 +54,7 @@ public class ConstantInt64 {
 	 *
 	 * @param value value to push on stack.
 	 */
-	public void execute(I64 value) {
+	public void execute(F32 value) {
 		instance.stack().push(value);
 
 	}

@@ -17,9 +17,9 @@
 
 package happynewmoonwithreport.type
 
+import happynewmoonwithreport.BytesFile
 import happynewmoonwithreport.type.JavaType.ByteUnsigned
 import spock.lang.Specification
-import spock.lang.Unroll
 
 class F32Test extends Specification {
 	def setup() {
@@ -27,6 +27,29 @@ class F32Test extends Specification {
 
 	def cleanup() {
 	}
+
+	def "test convert"(Byte[] input, Float expected) {
+		given: "A Bytes file from input"
+		BytesFile bytesFile = new BytesFile(input);
+
+		when: "Convert bytesFile to an F32"
+		F32 output = F32.convert(bytesFile);
+
+		then:
+		new F32(expected) == output
+		expected == output.value
+
+		where:
+		input                    || expected
+		[0x9A, 0x99, 0x99, 0x3F] || 1.2
+		[0x00, 0x00, 0x00, 0x00] || 0
+		[0x00, 0x00, 0xC0, 0x7F] || Float.NaN
+		[0x00, 0x00, 0x80, 0xFF] || Float.NEGATIVE_INFINITY
+		[0x00, 0x00, 0x80, 0x7F] || Float.POSITIVE_INFINITY
+		[0x01, 0x00, 0x00, 0x00] || Float.MIN_VALUE
+		[0xFF, 0xFF, 0x7F, 0x7F] || Float.MAX_VALUE
+	}
+
 
 	def "test getBytes"(Float valueFloat, Byte[] expected) {
 		given:

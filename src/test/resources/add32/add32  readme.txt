@@ -32,5 +32,7 @@ Section 10 'Code' the 0x0A at 0x  0x4F
 87 80 80 80 00            // Body Size 7
 00                        // Local Count 0
 // *** Code
-20 01 20 00 6A
+20 01                     // local.get x  01
+20 00                     // local.gex x  00
+6A                        // i32_add
 0B                        // End Byte 0x0B
