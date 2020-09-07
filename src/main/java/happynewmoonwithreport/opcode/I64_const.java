@@ -36,14 +36,14 @@ import happynewmoonwithreport.type.I64;
  * https://webassembly.github.io/spec/core/exec/instructions.html#exec-const
  * </a>
  */
-public class ConstantInt64 {
+public class I64_const {
 	private WasmInstanceInterface instance;
 
-	private ConstantInt64() {
+	private I64_const() {
 		super();
 	}
 
-	public ConstantInt64(WasmInstanceInterface instance) {
+	public I64_const(WasmInstanceInterface instance) {
 		this();
 		this.instance = instance;
 	}

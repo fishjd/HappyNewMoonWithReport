@@ -16,112 +16,19 @@
  */
 package happynewmoonwithreport;
 
-import happynewmoonwithreport.opcode.ConstantInt32;
-import happynewmoonwithreport.opcode.ConstantInt64;
-import happynewmoonwithreport.opcode.Drop;
-import happynewmoonwithreport.opcode.GetLocal;
-import happynewmoonwithreport.opcode.Memory.F64_store;
-import happynewmoonwithreport.opcode.Select;
-import happynewmoonwithreport.opcode.SetLocal;
-import happynewmoonwithreport.opcode.bitshift.I32_rotl;
-import happynewmoonwithreport.opcode.bitshift.I32_rotr;
-import happynewmoonwithreport.opcode.bitshift.I32_shl;
-import happynewmoonwithreport.opcode.bitshift.I32_shr_s;
-import happynewmoonwithreport.opcode.bitshift.I32_shr_u;
-import happynewmoonwithreport.opcode.bitshift.I64_rotl;
-import happynewmoonwithreport.opcode.bitshift.I64_rotr;
-import happynewmoonwithreport.opcode.bitshift.I64_shl;
-import happynewmoonwithreport.opcode.bitshift.I64_shr_s;
-import happynewmoonwithreport.opcode.bitshift.I64_shr_u;
-import happynewmoonwithreport.opcode.comparison.I32_eq;
-import happynewmoonwithreport.opcode.comparison.I32_eqz;
-import happynewmoonwithreport.opcode.comparison.I32_ge_s;
-import happynewmoonwithreport.opcode.comparison.I32_ge_u;
-import happynewmoonwithreport.opcode.comparison.I32_gt_s;
-import happynewmoonwithreport.opcode.comparison.I32_gt_u;
-import happynewmoonwithreport.opcode.comparison.I32_le_s;
-import happynewmoonwithreport.opcode.comparison.I32_le_u;
-import happynewmoonwithreport.opcode.comparison.I32_lt_s;
-import happynewmoonwithreport.opcode.comparison.I32_lt_u;
-import happynewmoonwithreport.opcode.comparison.I32_ne;
-import happynewmoonwithreport.opcode.comparison.I64_eq;
-import happynewmoonwithreport.opcode.comparison.I64_eqz;
-import happynewmoonwithreport.opcode.comparison.I64_ge_s;
-import happynewmoonwithreport.opcode.comparison.I64_ge_u;
-import happynewmoonwithreport.opcode.comparison.I64_gt_s;
-import happynewmoonwithreport.opcode.comparison.I64_gt_u;
-import happynewmoonwithreport.opcode.comparison.I64_le_s;
-import happynewmoonwithreport.opcode.comparison.I64_le_u;
-import happynewmoonwithreport.opcode.comparison.I64_lt_s;
-import happynewmoonwithreport.opcode.comparison.I64_lt_u;
-import happynewmoonwithreport.opcode.comparison.I64_ne;
+import happynewmoonwithreport.opcode.*;
+import happynewmoonwithreport.opcode.Memory.*;
+import happynewmoonwithreport.opcode.bitshift.*;
+import happynewmoonwithreport.opcode.comparison.*;
 import happynewmoonwithreport.opcode.control.Block;
 import happynewmoonwithreport.opcode.control.End;
 import happynewmoonwithreport.opcode.control.Nop;
 import happynewmoonwithreport.opcode.control.Unreachable;
-import happynewmoonwithreport.opcode.convert.I32_extend16_s;
-import happynewmoonwithreport.opcode.convert.I32_extend8_s;
-import happynewmoonwithreport.opcode.convert.I64_extend16_s;
-import happynewmoonwithreport.opcode.convert.I64_extend32_s;
-import happynewmoonwithreport.opcode.convert.I64_extend8_s;
-import happynewmoonwithreport.opcode.convert.I64_extend_I32_s;
-import happynewmoonwithreport.opcode.convert.I64_extend_I32_u;
-import happynewmoonwithreport.opcode.countingBits.I32_clz;
-import happynewmoonwithreport.opcode.countingBits.I32_ctz;
-import happynewmoonwithreport.opcode.countingBits.I32_popcnt;
-import happynewmoonwithreport.opcode.countingBits.I64_clz;
-import happynewmoonwithreport.opcode.countingBits.I64_ctz;
-import happynewmoonwithreport.opcode.countingBits.I64_popcnt;
-import happynewmoonwithreport.opcode.logic.I32_and;
-import happynewmoonwithreport.opcode.logic.I32_or;
-import happynewmoonwithreport.opcode.logic.I32_xor;
-import happynewmoonwithreport.opcode.logic.I64_and;
-import happynewmoonwithreport.opcode.logic.I64_or;
-import happynewmoonwithreport.opcode.logic.I64_xor;
-import happynewmoonwithreport.opcode.math.I32_add;
-import happynewmoonwithreport.opcode.math.I32_div_s;
-import happynewmoonwithreport.opcode.math.I32_div_u;
-import happynewmoonwithreport.opcode.math.I32_mul;
-import happynewmoonwithreport.opcode.math.I32_rem_s;
-import happynewmoonwithreport.opcode.math.I32_rem_u;
-import happynewmoonwithreport.opcode.math.I32_sub;
-import happynewmoonwithreport.opcode.math.I64_add;
-import happynewmoonwithreport.opcode.math.I64_div_s;
-import happynewmoonwithreport.opcode.math.I64_div_u;
-import happynewmoonwithreport.opcode.math.I64_mul;
-import happynewmoonwithreport.opcode.math.I64_rem_s;
-import happynewmoonwithreport.opcode.math.I64_rem_u;
-import happynewmoonwithreport.opcode.math.I64_sub;
-import happynewmoonwithreport.opcode.Memory.F32_load;
-import happynewmoonwithreport.opcode.Memory.F32_store;
-import happynewmoonwithreport.opcode.Memory.F64_load;
-import happynewmoonwithreport.opcode.Memory.I32_load;
-import happynewmoonwithreport.opcode.Memory.I32_load16_s;
-import happynewmoonwithreport.opcode.Memory.I32_load16_u;
-import happynewmoonwithreport.opcode.Memory.I32_load8_s;
-import happynewmoonwithreport.opcode.Memory.I32_load8_u;
-import happynewmoonwithreport.opcode.Memory.I32_store;
-import happynewmoonwithreport.opcode.Memory.I32_store16;
-import happynewmoonwithreport.opcode.Memory.I32_store8;
-import happynewmoonwithreport.opcode.Memory.I64_load;
-import happynewmoonwithreport.opcode.Memory.I64_load16_s;
-import happynewmoonwithreport.opcode.Memory.I64_load16_u;
-import happynewmoonwithreport.opcode.Memory.I64_load32_s;
-import happynewmoonwithreport.opcode.Memory.I64_load32_u;
-import happynewmoonwithreport.opcode.Memory.I64_load8_s;
-import happynewmoonwithreport.opcode.Memory.I64_load8_u;
-import happynewmoonwithreport.opcode.Memory.I64_store;
-import happynewmoonwithreport.opcode.Memory.I64_store16;
-import happynewmoonwithreport.opcode.Memory.I64_store32;
-import happynewmoonwithreport.opcode.Memory.I64_store8;
-import happynewmoonwithreport.type.DataTypeNumber;
-import happynewmoonwithreport.type.I32;
-import happynewmoonwithreport.type.MemoryArgument;
-import happynewmoonwithreport.type.S32;
-import happynewmoonwithreport.type.VarInt32;
-import happynewmoonwithreport.type.VarInt64;
-import happynewmoonwithreport.type.VarUInt32;
-import happynewmoonwithreport.type.WasmVector;
+import happynewmoonwithreport.opcode.convert.*;
+import happynewmoonwithreport.opcode.countingBits.*;
+import happynewmoonwithreport.opcode.logic.*;
+import happynewmoonwithreport.opcode.math.*;
+import happynewmoonwithreport.type.*;
 import happynewmoonwithreport.type.utility.Hex;
 import java.util.UUID;
 
@@ -325,7 +232,8 @@ public class WasmInstance implements WasmInstanceInterface {
 				F64_load f64_load = new F64_load(memoryArgument, currentFrame, store, stack);
 				f64_load.execute();
 				break;
-			}case (byte) 0x2C: {   // I32_load8_s
+			}
+			case (byte) 0x2C: {   // I32_load8_s
 				MemoryArgument memoryArgument = new MemoryArgument(); // Not sure what this is.
 				I32_load8_s i32_load8_s =
 					new I32_load8_s(memoryArgument, currentFrame, store, stack);
@@ -458,18 +366,31 @@ public class WasmInstance implements WasmInstanceInterface {
 			//			case (byte) 0x40: { break;}  // Memory Grow
 
 			case (byte) 0x41: {  // I32.const i32
-				ConstantInt32 constantInt32 = new ConstantInt32(this);
-				constantInt32.execute(new VarInt32(code)); // Not sure if this is signed or unsigned
+				I32_const i32_const = new I32_const(this);
+				i32_const.execute(new VarInt32(code)); // Not sure if this is signed or unsigned
 				break;
 			}
 			case (byte) 0x42: {   // I64 const I64
-				ConstantInt64 constantInt64 = new ConstantInt64(this);
-				constantInt64.execute(new VarInt64(code)); // Not sure if this is signed or unsigned
+				I64_const i64_const = new I64_const(this);
+				i64_const.execute(new VarInt64(code)); // Not sure if this is signed or unsigned
 				break;
 			}
-			//			case (byte) 0x43: {  // F32 const F32
-			//			case (byte) 0x44: {  // F64 const F64
-
+			case (byte) 0x43: {  // F32 const F32
+				// read the value from the wasm file
+				F32 value = F32.convert(code);
+				// execute the opcode
+				F32_const f32_const = new F32_const(this);
+				f32_const.execute(value);
+				break;
+			}
+			case (byte) 0x44: {  // F64 const F64
+				// read the value from the wasm file
+				F64 value = F64.convert(code);
+				// execute the opcode
+				F64_const f64_const = new F64_const(this);
+				f64_const.execute(value);
+				break;
+			}
 			case (byte) 0x45: { // I32 equals zero
 				I32_eqz i32_eqz = new I32_eqz(this);
 				i32_eqz.execute();

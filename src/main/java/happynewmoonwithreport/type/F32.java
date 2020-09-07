@@ -17,6 +17,7 @@
 
 package happynewmoonwithreport.type;
 
+import happynewmoonwithreport.BytesFile;
 import happynewmoonwithreport.type.JavaType.ByteUnsigned;
 
 
@@ -129,7 +130,7 @@ public class F32 implements DataTypeNumberFloat {
 	 */
 	@Override
 	public Double maxValue() {
-		return (double) Float.MIN_VALUE;
+		return (double) Float.MAX_VALUE;
 	}
 
 	// this words but requires import of nio.*
@@ -147,6 +148,10 @@ public class F32 implements DataTypeNumberFloat {
 	 * <a href="https://www.h-schmidt.net/FloatConverter/IEEE754.html" target="_top">
 	 * IEEE-754 Floating Point Converter
 	 * </a>
+	 * <br>
+	 * <a href="http://weitz.de/ieee/" target="_top">
+	 * IEEE-754 Floating Point Calculator.  Works for 32 & 64 bits.
+	 * </a>
 	 * <p>
 	 * The complement is F32(ByteUnsigned []) constructor.
 	 * <p>
@@ -160,12 +165,18 @@ public class F32 implements DataTypeNumberFloat {
 		Integer bits = Float.floatToRawIntBits(value);
 
 		// Integer to ByteUnsigned array
-		ByteUnsigned[] byteAll = new ByteUnsigned[4];
-		byteAll[3] = new ByteUnsigned((bits >>> 0) & 0x0000_00FF);
-		byteAll[2] = new ByteUnsigned((bits >>> 8) & 0x0000_00FF);
-		byteAll[1] = new ByteUnsigned((bits >>> 16) & 0x0000_00FF);
-		byteAll[0] = new ByteUnsigned((bits >>> 24) & 0x0000_00FF);
+		ByteUnsigned[] byteAll = getByteUnsigned(bits);
 
+		return byteAll;
+	}
+
+	private ByteUnsigned[] getByteUnsigned(Integer bits) {
+		ByteUnsigned[] byteAll = new ByteUnsigned[4];
+		// Big Endian
+		byteAll[0] = new ByteUnsigned((bits >>> 24) & 0x0000_00FF);  // Most Significant Byte
+		byteAll[1] = new ByteUnsigned((bits >>> 16) & 0x0000_00FF);
+		byteAll[2] = new ByteUnsigned((bits >>> 8) & 0x0000_00FF);
+		byteAll[3] = new ByteUnsigned((bits >>> 0) & 0x0000_00FF);
 		return byteAll;
 	}
 
@@ -183,12 +194,42 @@ public class F32 implements DataTypeNumberFloat {
 	 */
 	public F32(ByteUnsigned[] byteAll) {
 		Integer valueInteger;
-		valueInteger = ((byteAll[3].intValue()) << 0);
-		valueInteger += ((byteAll[2].intValue()) << 8);
-		valueInteger += ((byteAll[1].intValue()) << 16);
-		valueInteger += ((byteAll[0].intValue()) << 24);    // Most  Significant Byte
+		// Big Endian
+		valueInteger = byteAll[0].intValue() << 24;    // Most  Significant Byte
+		valueInteger += byteAll[1].intValue() << 16;
+		valueInteger += byteAll[2].intValue() << 8;
+		valueInteger += byteAll[3].intValue() << 0;
 
 		value = Float.intBitsToFloat(valueInteger);
+	}
+
+	/**
+	 * Create an F32 from the wasm file.
+	 *
+	 * @param bytesFile The wasm file.
+	 * @return an F32
+	 * <p>
+	 * Floating points are stored in Little Endian.
+	 * See:
+	 * <a href="https://webassembly.github.io/spec/core/binary/values.html#floating-point"
+	 * target="_top">
+	 * https://webassembly.github.io/spec/core/binary/values.html#floating-point
+	 * </a>
+	 * <p>
+	 * <a href="https://chortle.ccsu.edu/AssemblyTutorial/Chapter-15/ass15_3.html" target="_top">
+	 * Little Endian vs Big Endian
+	 * </a>
+	 */
+	public static F32 convert(BytesFile bytesFile) {
+		Integer valueInteger;
+		// Little Endian
+		valueInteger = (((int) bytesFile.readByte() & 0xFF) << 0); // Least Significant Byte
+		valueInteger += (((int) bytesFile.readByte() & 0xFF) << 8);
+		valueInteger += (((int) bytesFile.readByte() & 0xFF) << 16);
+		valueInteger += (((int) bytesFile.readByte() & 0xFF) << 24); // Most Significant Byte
+
+		F32 result = new F32(Float.intBitsToFloat(valueInteger));
+		return result;
 	}
 
 	@Override
@@ -196,7 +237,13 @@ public class F32 implements DataTypeNumberFloat {
 		final StringBuffer sb = new StringBuffer("F32{");
 		sb.append("value=").append(value);
 		if (value != null) {
-			sb.append("0x").append(Float.floatToRawIntBits(value));
+			Integer bits = Float.floatToIntBits(value);
+			ByteUnsigned[] bytesAll = getByteUnsigned(bits);
+			sb.append(" hex =  0x");
+			sb.append(bytesAll[0]).append(' ');
+			sb.append(bytesAll[1]).append(' ');
+			sb.append(bytesAll[2]).append(' ');
+			sb.append(bytesAll[3]).append(' ');
 		}
 		sb.append('}');
 		return sb.toString();

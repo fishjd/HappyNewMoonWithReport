@@ -17,6 +17,7 @@
 
 package happynewmoonwithreport.type
 
+import happynewmoonwithreport.BytesFile
 import happynewmoonwithreport.type.JavaType.ByteUnsigned
 import spock.lang.Specification
 import spock.lang.Unroll
@@ -27,6 +28,29 @@ class F64Test extends Specification {
 
 	def cleanup() {
 	}
+
+	def "test convert"(Byte[] input, Double expected) {
+		given: "A Bytes file from input"
+		BytesFile bytesFile = new BytesFile(input);
+
+		when: "Convert bytesFile to an F64"
+		F64 output = F64.convert(bytesFile);
+
+		then:
+		new F64(expected) == output
+		expected == output.value
+
+		where:
+		input                                            || expected
+		[0x33, 0x33, 0x33, 0x33, 0x33, 0x33, 0xF3, 0x3F] || 1.2D
+		[0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00] || 0D
+		[0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xF8, 0x7F] || Double.NaN
+		[0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xF0, 0xFF] || Double.NEGATIVE_INFINITY
+		[0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xF0, 0x7F] || Double.POSITIVE_INFINITY
+		[0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00] || Double.MIN_VALUE
+		[0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xEF, 0x7F] || Double.MAX_VALUE
+	}
+
 
 	def "test getBytes"(Double valueDouble, Byte[] expected) {
 		given:
@@ -50,7 +74,6 @@ class F64Test extends Specification {
 		Double.MAX_VALUE         || [0x7F, 0xEF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF]
 	}
 
-	@Unroll
 	def "Construction UnsignedByte Array"(ByteUnsigned[] input, Double expected) {
 
 		when: "Covert to Byte Array"

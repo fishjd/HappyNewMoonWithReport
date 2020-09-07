@@ -36,14 +36,14 @@ import happynewmoonwithreport.type.I32;
  * https://webassembly.github.io/spec/core/exec/instructions.html#exec-const
  * </a>
  */
-public class ConstantInt32 {
+public class I32_const {
 	private WasmInstanceInterface instance;
 
-	private ConstantInt32() {
+	private I32_const() {
 		super();
 	}
 
-	public ConstantInt32(WasmInstanceInterface instance) {
+	public I32_const(WasmInstanceInterface instance) {
 		this();
 		this.instance = instance;
 	}

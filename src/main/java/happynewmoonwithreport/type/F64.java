@@ -17,6 +17,7 @@
 
 package happynewmoonwithreport.type;
 
+import happynewmoonwithreport.BytesFile;
 import happynewmoonwithreport.type.JavaType.ByteUnsigned;
 
 /**
@@ -128,7 +129,7 @@ public class F64 implements DataTypeNumberFloat {
 	 */
 	@Override
 	public Double maxValue() {
-		return (double) Double.MIN_VALUE;
+		return (double) Double.MAX_VALUE;
 	}
 
 	/**
@@ -165,14 +166,15 @@ public class F64 implements DataTypeNumberFloat {
 
 	private ByteUnsigned[] getByteUnsigned(Long input) {
 		ByteUnsigned[] byteAll = new ByteUnsigned[8];
-		byteAll[7] = new ByteUnsigned((input >>> 0) & 0x0000_00FF);
-		byteAll[6] = new ByteUnsigned((input >>> 8) & 0x0000_00FF);
-		byteAll[5] = new ByteUnsigned((input >>> 16) & 0x0000_00FF);
-		byteAll[4] = new ByteUnsigned((input >>> 24) & 0x0000_00FF);
-		byteAll[3] = new ByteUnsigned((input >>> 32) & 0x0000_00FF);
-		byteAll[2] = new ByteUnsigned((input >>> 40) & 0x0000_00FF);
-		byteAll[1] = new ByteUnsigned((input >>> 48) & 0x0000_00FF);
+		// Big Endian
 		byteAll[0] = new ByteUnsigned((input >>> 56) & 0x0000_00FF);
+		byteAll[1] = new ByteUnsigned((input >>> 48) & 0x0000_00FF);
+		byteAll[2] = new ByteUnsigned((input >>> 40) & 0x0000_00FF);
+		byteAll[3] = new ByteUnsigned((input >>> 32) & 0x0000_00FF);
+		byteAll[4] = new ByteUnsigned((input >>> 24) & 0x0000_00FF);
+		byteAll[5] = new ByteUnsigned((input >>> 16) & 0x0000_00FF);
+		byteAll[6] = new ByteUnsigned((input >>> 8) & 0x0000_00FF);
+		byteAll[7] = new ByteUnsigned((input >>> 0) & 0x0000_00FF);
 		return byteAll;
 	}
 
@@ -189,21 +191,58 @@ public class F64 implements DataTypeNumberFloat {
 	 * @param byteAll an array of 8 UnsignedBytes
 	 */
 	public F64(ByteUnsigned[] byteAll) {
-		Long valueLong =0L ;
+		Long valueLong = 0L;
 
-		// TODO  check for at least 8 bytes to avoid null point exception.  Do the same for F32,....
+		// TODO  check for at least 8 bytes to avoid null point exception.  Do the same for F32,
+		//  ....
 
-		valueLong += ((long) (byteAll[7].intValue()) << 0);
-		valueLong += ((long) (byteAll[6].intValue()) << 8);
-		valueLong += ((long) (byteAll[5].intValue()) << 16);
-		valueLong += ((long) (byteAll[4].intValue()) << 24);
+		// As a coding standard the index '[0]' must be in descending order.
 
-		valueLong += ((long) (byteAll[3].intValue()) << 32);
-		valueLong += ((long) (byteAll[2].intValue()) << 40);
-		valueLong += ((long) (byteAll[1].intValue()) << 48);
-		valueLong += ((long) (byteAll[0].intValue()) << 56);
+		// Big Endian
+		valueLong += byteAll[0].longValue() << 56;
+		valueLong += byteAll[1].longValue() << 48;
+		valueLong += byteAll[2].longValue() << 40;
+		valueLong += byteAll[3].longValue() << 32;
+		valueLong += byteAll[4].longValue() << 24;
+		valueLong += byteAll[5].longValue() << 16;
+		valueLong += byteAll[6].longValue() << 8;
+		valueLong += byteAll[7].longValue() << 0;
 
 		value = Double.longBitsToDouble(valueLong);
+	}
+
+	/**
+	 * Create an F64 from the wasm file.
+	 *
+	 * @param bytesFile The wasm file.
+	 * @return an F64
+	 * <p>
+	 * Floating points are stored in Little Endian.
+	 * See:
+	 * <a href="https://webassembly.github.io/spec/core/binary/values.html#floating-point"
+	 * target="_top">
+	 * https://webassembly.github.io/spec/core/binary/values.html#floating-point
+	 * </a>
+	 * <p>
+	 * <a href="https://chortle.ccsu.edu/AssemblyTutorial/Chapter-15/ass15_3.html" target="_top">
+	 * Little Endian vs Big Endian
+	 * </a>
+	 */
+	public static F64 convert(BytesFile bytesFile) {
+		Long valueLong;
+		// Little Endian
+		valueLong = (((long) bytesFile.readByte() & 0xFFL) << 0); // Least Significant Byte
+		valueLong += (((long) bytesFile.readByte() & 0xFFL) << 8);
+		valueLong += (((long) bytesFile.readByte() & 0xFFL) << 16);
+		valueLong += (((long) bytesFile.readByte() & 0xFFL) << 24);
+
+		valueLong += (((long) bytesFile.readByte() & 0xFFL) << 32);
+		valueLong += (((long) bytesFile.readByte() & 0xFFL) << 40);
+		valueLong += (((long) bytesFile.readByte() & 0xFFL) << 48);
+		valueLong += (((long) bytesFile.readByte() & 0xFFL) << 56); // Most Significant Byte
+
+		F64 result = new F64(Double.longBitsToDouble(valueLong));
+		return result;
 	}
 
 	@Override

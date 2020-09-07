@@ -16,8 +16,6 @@ Happy New Moon With Report has nothing to do with reporting or fireworks.
 
 For a list of Web Assembly languages see: [Awesome WASM languages](https://github.com/appcypher/awesome-wasm-langs).
 
-Happy New Moon With Report. 
-
 ## The basic use case is:
 
 ```java
@@ -34,7 +32,7 @@ Wasm wasm = new Wasm("HelloWorld.wasm");
 System.out.println(wasm.exports().HelloWorld());
 ```
 
-##Goals
+## Goals
 
 1. An interpreter of *.wasm files in the Java Language
 1. Code in the Web Assembly Specification language.  For example Happy New Moon With Report creates an web 
@@ -178,8 +176,8 @@ Data Section:  To Do
 - [ ] Grow_memory 0x40
 - [x] i32_const 0x41
 - [x] i64_const 0x42
-- [ ] f32_const 0x43
-- [ ] f64_const 0x44
+- [x] f32_const 0x43
+- [x] f64_const 0x44
 - [x] i32_eqz  0x46
 - [x] i32_eq 0x47
 - [x] i32_ne 0x48
