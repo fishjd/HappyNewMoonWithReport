@@ -381,10 +381,16 @@ public class WasmInstance implements WasmInstanceInterface {
 				// execute the opcode
 				F32_const f32_const = new F32_const(this);
 				f32_const.execute(value);
-
+				break;
 			}
-			//			case (byte) 0x44: {  // F64 const F64
-
+			case (byte) 0x44: {  // F64 const F64
+				// read the value from the wasm file
+				F64 value = F64.convert(code);
+				// execute the opcode
+				F64_const f64_const = new F64_const(this);
+				f64_const.execute(value);
+				break;
+			}
 			case (byte) 0x45: { // I32 equals zero
 				I32_eqz i32_eqz = new I32_eqz(this);
 				i32_eqz.execute();
