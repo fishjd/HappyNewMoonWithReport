@@ -20,7 +20,7 @@ import static java.lang.Integer.compare;
 
 /**
  * The {@code ByteUnsigned} class wraps a value of primitive type {@code byte} in an object.
- * <p>
+ * <br>
  * This is a copy of the Java class {@code Byte},  the difference is the 8 bits are interpreted to
  * be unsigned 0 - 255 instead of -128 to 127.
  *
@@ -49,9 +49,9 @@ public final class ByteUnsigned extends Number implements Comparable<ByteUnsigne
 	 * Constructs a newly allocated {@code ByteUnsigned} object that represents the specified
 	 * {@code
 	 * byte} value.
-	 * <p>
+	 * <br>
 	 * The input is interperted as an unsigned value (0-255).
-	 * </p>
+	 * <br>
 	 *
 	 * @param value the value to be represented by the {@code ByteUnsigned}.
 	 */
@@ -82,7 +82,7 @@ public final class ByteUnsigned extends Number implements Comparable<ByteUnsigne
 	/**
 	 * Construct a {@code ByteUnsigend} from a {@code Byte}.  The input is interperted as an
 	 * unsigned value (0-255).
-	 * <p>
+	 * <br>
 	 * Consider using the constuctor {@code ByteUnsigned(Byte)} instead.
 	 *
 	 * @param b a Java Byte
@@ -185,7 +185,7 @@ public final class ByteUnsigned extends Number implements Comparable<ByteUnsigne
 	/**
 	 * Returns the value of this {@code Byte} as an {@code int} after a widening primitive
 	 * conversion.
-	 * <p>
+	 * <br>
 	 * jls 5.1.2 Widening Primitive Conversions
 	 */
 	@Override
@@ -196,7 +196,7 @@ public final class ByteUnsigned extends Number implements Comparable<ByteUnsigne
 	/**
 	 * Returns the value of this {@code Byte} as a {@code long} after a widening primitive
 	 * conversion.
-	 * <p>
+	 * <br>
 	 * jls 5.1.2 Widening Primitive Conversions
 	 */
 	@Override
@@ -207,7 +207,7 @@ public final class ByteUnsigned extends Number implements Comparable<ByteUnsigne
 	/**
 	 * Returns the value of this {@code Byte} as a {@code float} after a widening primitive
 	 * conversion.
-	 * <p>
+	 * <br>
 	 * jls 5.1.2 Widening Primitive Conversions
 	 */
 	@Override
@@ -220,7 +220,7 @@ public final class ByteUnsigned extends Number implements Comparable<ByteUnsigne
 	 * Returns the value of this {@code ByteUnsigned} as a {@code double} after a widening
 	 * primitive
 	 * conversion.
-	 * <p>
+	 * <br>
 	 * jls 5.1.2 Widening Primitive Conversions
 	 */
 	@Override

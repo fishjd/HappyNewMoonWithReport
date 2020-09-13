@@ -24,17 +24,17 @@ import java.util.UUID;
 
 /**
  * Return the number of trailing zeros.  CTZ stands for <b>C</b>ount <b>T</b>railing <b>Z</b>eros
- * </p>
+ * <br>
  * <h2>Source:</h2>
  * <h3>Operator:</h3>
- * <p>
+ * <br>
  * Return the count of trailing zero bits in i; all bits are considered trailing zeros if i is 0.
- * <p>
+ * <br>
  * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-ictz" target="_top">
  * https://webassembly.github.io/spec/core/exec/numerics.html#op-ictz </a>
  *
  *
- * <p>Note: the documentation below is the same for all unary operators.</p>
+ * <br>Note: the documentation below is the same for all unary operators.<br>
  * <h3>Execution:</h3>
  * <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-unop"
  * target="_top"> https://webassembly.github.io/spec/core/exec/instructions.html#exec-unop

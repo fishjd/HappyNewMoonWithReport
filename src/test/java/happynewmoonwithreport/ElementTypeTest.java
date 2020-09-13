@@ -35,7 +35,7 @@ public class ElementTypeTest {
 	/**
 	 * Test that the String constructor works.
 	 *
-	 * @throws Exception
+	 * @throws Exception exception on wrong type
 	 */
 	@Test
 	public void constructorWithString() throws Exception {

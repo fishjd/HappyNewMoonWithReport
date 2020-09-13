@@ -60,10 +60,10 @@ public class Wasm {
 	private SectionCode sectionCode = null;
 
 	/**
-	 * <p>
+	 * <br>
 	 * This is a convenience constructor.  Constructors which throw exceptions are
 	 * to be used cautiously. Consider using the constructor <code>Wasm(byte[])</code>
-	 * </p>
+	 * <br>
 	 * <h2>Use instead</h2>
 	 * <pre>
 	 * {@code
@@ -99,12 +99,13 @@ public class Wasm {
 	}
 
 	/**
-	 * <p>
-	 * Source:  <a href="https://github.com/WebAssembly/design/blob/master/JS
-	 * .md#user-content-webassemblyinstantiate"
-	 * target="_top">
+	 * <br>
+	 * Source:
+	 * <pre>
+	 * <a href="https://github.com/WebAssembly/design/blob/master/JS.md#user-content-webassemblyinstantiate"  target="_top">
 	 * https://github.com/WebAssembly/design/blob/master/JS.md#user-content-webassemblyinstantiate
 	 * </a>
+	 * </pre>
 	 *
 	 * @return Web Assembly Module.
 	 */
@@ -206,13 +207,13 @@ public class Wasm {
 
 	/**
 	 * Returns true if module is valid.   Call only after <code>instantiate();</code>
-	 * <p>
+	 * <br>
 	 * Source:
 	 * <a href="https://github.com/WebAssembly/design/blob/master/JS.md#user-content-webassemblyvalidate"
 	 * target="_top">
 	 * https://github.com/WebAssembly/design/blob/master/JS.md#user-content-webassemblyvalidate
 	 * </a>
-	 * <p>
+	 * <br>
 	 * Source:
 	 * <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly/validate"
 	 * target="_top">

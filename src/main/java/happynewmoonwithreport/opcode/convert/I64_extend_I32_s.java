@@ -26,29 +26,29 @@ import java.util.UUID;
 
 /**
  * <h1>I64_extend_I32</h1>
- * <p>
+ * <br>
  * Extend an I32 to an I64
- * </p>
- * <p>Note the notes below are the same for all extend operators.</p>
+ * <br>
+ * <br>Note the notes below are the same for all extend operators.<br>
  * <h2>Source:</h2>
- * <p>
+ * <br>
  * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-extend-s"
  * target="_top"> https://webassembly.github.io/spec/core/exec/numerics.html#op-extend-s
  * </a>
- * </p>
+ * <br>
  * extendsM,N(i)
- * <p>
+ * <br>
  * Let j be the signed interpretation of i of size M.
- * <p>
+ * <br>
  * Return the twos complement of j relative to size N.
- * <p>
+ * <br>
  * <h2>Execution:</h2>
  * <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-cvtop"
  * target="_top"> https://webassembly.github.io/spec/core/exec/instructions.html#exec-cvtop
  * </a>
- * <p>
+ * <br>
  * t2.cvtop_t1_sx?
- * </p>
+ * <br>
  * <ol>
  * 	<li>Assert: due to validation, a value of value type t1 is on the top of the stack.</li>
  * 	<li>Pop the value t1.const c1 from the stack.</li>

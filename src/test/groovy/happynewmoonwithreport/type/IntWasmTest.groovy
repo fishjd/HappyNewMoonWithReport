@@ -23,7 +23,7 @@ import spock.lang.Specification
 class IntWasmTest extends Specification {
 
 	/**
-	 * <p>
+	 * <br>
 	 *
 	 * Cool Site
 	 * <b>Source of test data:</b>  <a href="https://github.com/WebAssembly/testsuite/blob/master/i64.wast" target="_top">
@@ -56,7 +56,7 @@ class IntWasmTest extends Specification {
 	}
 
 	/**
-	 * <p>
+	 * <br>
 	 *
 	 * Cool Site:  <b>Web Assembly Test Suite</b></br>
 	 * <b>Source of test data:</b>  <a href="https://github.com/WebAssembly/testsuite/blob/master/i64.wast" target="_top">
@@ -90,7 +90,7 @@ class IntWasmTest extends Specification {
 	}
 
 	/**
-	 * <p>
+	 * <br>
 	 *
 	 * Cool Site:  <b>Web Assembly Test Suite</b></br>
 	 * <b>Source of test data:</b>  <a href="https://github.com/WebAssembly/testsuite/blob/master/i64.wast" target="_top">

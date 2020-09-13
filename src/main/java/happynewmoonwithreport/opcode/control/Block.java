@@ -27,7 +27,7 @@ import java.util.UUID;
  * <li>
  * Assert: due to validation expand<sub>F</sub>(Blocktype) is defined.
  * </li><li>
- * Let [t<sup>m</sup><sub>1</sub>] -> [t<sup>n</sup><sub>2</sub>] be the function type
+ * Let [t<sup>m</sup><sub>1</sub>] -&gt; [t<sup>n</sup><sub>2</sub>] be the function type
  * expand<sub>F</sub>(bloctype).
  * </li><li>
  * Let L be the label whose arity is n and whose continuation is the end of the block.
@@ -39,7 +39,7 @@ import java.util.UUID;
  * Enter the block val<sup>m</sup> instr∗ with label L.
  * </li>
  * </ol>
- * <p>
+ * <br>
  * Source:
  * <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-block" target="_top">
  *     https://webassembly.github.io/spec/core/exec/instructions.html#exec-block

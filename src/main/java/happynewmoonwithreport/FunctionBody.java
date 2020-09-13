@@ -22,14 +22,14 @@ import happynewmoonwithreport.type.WasmVector;
 
 /**
  * FunctionBody Bodies
- * <p>
+ * <br>
  * FunctionBody bodies consist of a sequence of local variable declarations followed by bytecode
  * instructions.
  * Instructions are encoded as an opcode followed by zero or more immediates as defined by the
  * tables below. Each
  * function body must end with the end opcode.
- * </p>
- * <p>
+ * <br>
+ * <br>
  * Source:  <a href="http://webassembly.org/docs/binary-encoding/#function-bodies" target="_top">
  * http://webassembly.org/docs/binary-encoding/#function-bodies
  * </a>
@@ -40,7 +40,7 @@ public class FunctionBody {
 	private UInt32 bodySize;
 	/**
 	 * Number of local entries.
-	 * <p>
+	 * <br>
 	 * Number of objects in localEntryAll.
 	 */
 	private UInt32 localCount;
@@ -48,7 +48,7 @@ public class FunctionBody {
 	 * Each local entry declares a number of local variables of a given type. It is legal to have
 	 * several entries with
 	 * the same type.
-	 * <p>
+	 * <br>
 	 * This is the types of the local variables not the values of the local variables which is in
 	 * WasmFunction.
 	 */
@@ -61,7 +61,7 @@ public class FunctionBody {
 
 	/**
 	 * One byte tha is always <code>0x0b</code>, indicating the end of the body.
-	 * <p>
+	 * <br>
 	 * Pretty much useless.  Used mainly for reading the wasm file.
 	 */
 	private byte end;

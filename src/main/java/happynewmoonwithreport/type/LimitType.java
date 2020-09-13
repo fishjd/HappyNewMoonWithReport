@@ -26,10 +26,10 @@ import java.util.UUID;
  * Limits classify the size range of resizeable storage associated with memory types and table
  * types.
  * If no maximum is given, the respective storage can grow to any size.
- * <p>
+ * <br>
  * Source : <a href= "http://webassembly.org/docs/binary-encoding/#resizable_limits" target="_top">
  * http://webassembly.org/docs/binary-encoding/#resizable_limits</a>
- * <p>
+ * <br>
  * source:
  * <a href="https://webassembly.github.io/spec/core/syntax/types.html#limits" target="_top">
  * https://webassembly.github.io/spec/core/syntax/types.html#limits
@@ -125,7 +125,7 @@ public class LimitType implements Validation {
 
 	/**
 	 * Get the Maximum
-	 * <p>
+	 * <br>
 	 * Usage:
 	 * <pre>
 	 * {@code
@@ -134,7 +134,7 @@ public class LimitType implements Validation {
 	 * }
 	 * }
 	 * </pre>
-	 * <p>
+	 * <br>
 	 * Throws RuntimeException is maximum is not set.
 	 *
 	 * @return maximum

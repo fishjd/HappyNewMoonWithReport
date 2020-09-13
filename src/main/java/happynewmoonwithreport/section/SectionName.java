@@ -23,7 +23,7 @@ import java.util.Map;
 
 /**
  * Enum for the defined section names.
- * <p>
+ * <br>
  * This is not a wasm section. It is an Enum of all the names of the sections.
  * <pre>
  * Type             1     Function signature declarations
@@ -38,7 +38,7 @@ import java.util.Map;
  * Code             10    Function bodies (code)
  * Data             11    Data
  * </pre>
- * <p>
+ * <br>
  * Source:
  * <a href="http://webassembly.org/docs/binary-encoding/#high-level-structure" target="_top">
  * http://webassembly.org/docs/binary-encoding/#high-level-structure

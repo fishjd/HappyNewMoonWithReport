@@ -28,26 +28,26 @@ import happynewmoonwithreport.type.U32;
 
 /**
  * <h1>i32_store8</h1> Store 8 bits from the stack to memory.
- * <p>
+ * <br>
  * Memory Instructions<br>
- * <p>
+ * <br>
  * <b>Source:</b>
  * <a href="https://webassembly.github.io/spec/core/syntax/instructions.html#memory-instructions"
  * target="_top"> https://webassembly.github.io/spec/core/syntax/instructions
  * .html#memory-instructions
  * </a>
  * <br>
- * <p>
+ * <br>
  * Memory Overview<br>
  * <b>Source:</b>
  * <a href="https://webassembly.github.io/spec/core/syntax/instructions.html#syntax-instr-memory"
  * target="_top"> https://webassembly.github.io/spec/core/syntax/instructions
  * .html#syntax-instr-memory
  * </a>
- * </p>
+ * <br>
  * <br>
  * Exec:
- * <p>
+ * <br>
  * <b>Source:</b>
  * <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-storen"
  * target="_top"> https://webassembly.github.io/spec/core/exec/instructions.html#exec-storen
@@ -119,7 +119,7 @@ import happynewmoonwithreport.type.U32;
  * </ul>
  * </li>
  * <li>
- * <p>
+ * <br>
  * Replace the bytes mem.data[ea:N/8] with b*.
  * </li>
  * </ol>

@@ -22,16 +22,16 @@ import java.util.HashMap;
 
 /**
  * The data types in Web Assembly. int32, int64, f32, f64
- * <p>
+ * <br>
  * Source : <a href= "http://webassembly.org/docs/semantics/#types" target="_top">
  * http://webassembly.org/docs/semantics/#types
  * </a>
- * </p>
- * <p>
+ * <br>
+ * <br>
  * Source : <a href="http://webassembly.org/docs/binary-encoding/#language-types" target="_top">
  * http://webassembly.org/docs/binary-encoding/#language-types
  * </a>
- * </p>
+ * <br>
  */
 public class ValueType extends ValueBase implements Validation {
 

@@ -38,12 +38,12 @@ import java.util.UUID;
  * Replace F.locals[x] with the value val.
  * </li>
  * </ol>
- * <p>
+ * <br>
  * Source:
  * <a href="http://webassembly.org/docs/binary-encoding/#variable-access-described-here" target="_top">
  * http://webassembly.org/docs/binary-encoding/#variable-access-described-here
  * </a>
- * <p>
+ * <br>
  * Source:
  * <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-set-local" target="_top">
  * https://webassembly.github.io/spec/core/exec/instructions.html#exec-set-local

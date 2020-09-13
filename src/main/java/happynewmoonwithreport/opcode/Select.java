@@ -43,12 +43,12 @@ import java.util.UUID;
  * </li>
  * <li>
  * If c  is not 0, then:
- * <p>
+ * <br>
  * Push the value val1 back to the stack.
  * </li>
  * <li>
  * Else:
- * <p>
+ * <br>
  * Push the value val2 back to the stack.
  * </li>
  * </ol>

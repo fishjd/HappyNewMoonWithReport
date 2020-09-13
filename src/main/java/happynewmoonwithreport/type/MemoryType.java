@@ -28,7 +28,7 @@ import happynewmoonwithreport.type.JavaType.ByteUnsigned;
  * Source:  <a href="http://webassembly.org/docs/binary-encoding/#memory_type" target="_top">
  * http://webassembly.org/docs/binary-encoding/#memory_type
  * </a>
- * <p>
+ * <br>
  * Source:
  * <a href="https://webassembly.github.io/spec/core/syntax/types.html#memory-types" target="_top">
  * https://webassembly.github.io/spec/core/syntax/types.html#memory-types
@@ -73,7 +73,7 @@ public class MemoryType implements Validation {
 
 	/**
 	 * The limits must be valid.
-	 * <p>
+	 * <br>
 	 * source:  <a href="https://webassembly.github.io/spec/core/valid/types.html#memory-types"
 	 * target="_top"> https://webassembly.github.io/spec/core/valid/types.html#memory-types
 	 * </a>
@@ -97,12 +97,12 @@ public class MemoryType implements Validation {
 
 	/**
 	 * maximum of the memory in Page Size
-	 * <p>
+	 * <br>
 	 * Usage :
 	 * <code>
 	 * if (hasMaximum()) { max = maximum(); }
 	 * </code>
-	 * <p>
+	 * <br>
 	 * Throws RuntimeException is maximum is not set.
 	 *
 	 * @return maximum

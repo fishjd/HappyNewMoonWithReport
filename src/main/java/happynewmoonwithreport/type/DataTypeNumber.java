@@ -49,7 +49,7 @@ public interface DataTypeNumber {
 	/**
 	 * Does the <code>value</code> lay between Integer.minValue and Integer.maxValue.  i.e
 	 * <code>Integer.minValue &lt;= value &lt;= Integer.maxValue;</code>
-	 * <p>
+	 * <br>
 	 * This will <b>always</b> be true for class where the ValueType is Integer, Byte. But may be
 	 * false when ValueType is Long.
 	 *
@@ -68,7 +68,7 @@ public interface DataTypeNumber {
 	/**
 	 * The maximum number of bytes this number may be represented by. For UInt this is fixed. For
 	 * VarUInt if may vary.
-	 * <p>
+	 * <br>
 	 * <code> maxBytes = ceiling(maxBits/8); </code>
 	 *
 	 * @return maximum number of bytes.

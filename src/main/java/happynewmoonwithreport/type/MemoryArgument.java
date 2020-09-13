@@ -19,7 +19,7 @@ package happynewmoonwithreport.type;
 /**
  * Memory Argument aka memarg
  * contains an U32 offset and a U32 alignment hint
- * <p>
+ * <br>
  * <b>Source:</b>
  * <a href="https://webassembly.github.io/spec/core/syntax/instructions.html#syntax-memarg" target="_top">
  * https://webassembly.github.io/spec/core/syntax/instructions.html#syntax-memarg

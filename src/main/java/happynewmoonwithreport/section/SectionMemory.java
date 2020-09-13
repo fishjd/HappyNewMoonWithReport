@@ -25,15 +25,15 @@ import happynewmoonwithreport.type.WasmVector;
 
 /**
  * The encoding of the memory section.
- * <p>
+ * <br>
  * Source <a href="http://webassembly.org/docs/binary-encoding/#memory-section" target="_top">
  * http://webassembly.org/docs/binary-encoding/#memory-section
  * </a>
- * <p>
+ * <br>
  * Source:  <a href="http://webassembly.org/docs/modules/#linear-memory-section" target="_top">
  * http://webassembly.org/docs/modules/#linear-memory-section
  * </a>
- * <p>
+ * <br>
  * Source:
  * <a href="https://webassembly.github.io/spec/core/binary/modules.html#memory-section" target="_top">
  * https://webassembly.github.io/spec/core/binary/modules.html#memory-section

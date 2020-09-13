@@ -60,7 +60,7 @@ public class MemoryTest {
 	/**
 	 * Test the memory Grow function.
 	 *
-	 * @throws Exception
+	 * @throws Exception on incorrect ValueType
 	 */
 	@Test
 	public void growTest() throws Exception {

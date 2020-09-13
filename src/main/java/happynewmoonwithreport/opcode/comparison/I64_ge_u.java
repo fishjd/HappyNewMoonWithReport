@@ -27,9 +27,9 @@ import java.util.UUID;
 
 /**
  * I64 Greater than or equal to Unsigned  (i64_ge_u)
- * <p>
+ * <br>
  * <b>Note this is the same for all Relative Operations</b>
- * <p>
+ * <br>
  * t.relop
  * <ol>
  * <li>
@@ -46,7 +46,7 @@ import java.util.UUID;
  * </li>
  * <li>
  * Push the value i64.const c to the stack.
- * <p>
+ * <br>
  * </li>
  * </ol>
  * Source:  <a href="https://webassembly.github.io/spec/core/appendix/index-instructions.html"

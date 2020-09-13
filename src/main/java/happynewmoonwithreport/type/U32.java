@@ -23,7 +23,7 @@ import java.util.UUID;
  * An unsigned integer of N bits, represented in the *.wasm file as N/8 bytes in little endian
  * order. N is either 8, 16, or 32.  In the Java code represented by one of the integer types
  * Byte, Integer, Long.
- * <p>
+ * <br>
  * Source:  <a href="http://webassembly.org/docs/binary-encoding/#uintn" target="_top">
  * http://webassembly.org/docs/binary-encoding/#uintn
  * </a>

@@ -26,9 +26,9 @@ import java.util.UUID;
 
 /**
  * I32 Less than Unsigned  (i32_lt_u)
- * <p>
+ * <br>
  * <b>Note this is the same for all Relative Operations</b>
- * <p>
+ * <br>
  * t.relop
  * <ol>
  * <li>
@@ -45,7 +45,7 @@ import java.util.UUID;
  * </li>
  * <li>
  * Push the value i32.const c to the stack.
- * <p>
+ * <br>
  * </li>
  * </ol>
  * Source:

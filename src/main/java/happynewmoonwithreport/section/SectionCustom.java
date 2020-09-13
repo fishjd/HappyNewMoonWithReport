@@ -25,12 +25,12 @@ import java.util.logging.Logger;
 
 /**
  * The encoding of the Custon or 'Named' section:
- * <p>
+ * <br>
  * Source <a href="https://webassembly.org/docs/binary-encoding/#name-section" target="_top">
  * http://webassembly.org/docs/binary-encoding/#memory-section
  * </a>
  *
- * <p>
+ * <br>
  * Source:
  * <a href="https://webassembly.github.io/spec/core/binary/modules.html#custom-section" target="_top">
  * https://webassembly.github.io/spec/core/binary/modules.html#global-section

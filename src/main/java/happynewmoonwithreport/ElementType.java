@@ -25,12 +25,12 @@ import java.util.Map;
  * The Element Type  in Web Assembly. <p> A varint7 indicating the types of elements in a table.
  * In the MVP, only one
  * type is available: <p> anyfunc <p> Note: In the future :unicorn:, other element types may be
- * allowed. </p>
- * <p>
+ * allowed. <br>
+ * <br>
  * Source : <a href= "http://webassembly.org/docs/binary-encoding/#elem_type" target="_top">
  * http://webassembly.org/docs/binary-encoding/#elem_type
  * </a>
- * </p>
+ * <br>
  */
 public class ElementType {
 

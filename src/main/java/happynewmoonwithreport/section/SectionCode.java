@@ -24,18 +24,18 @@ import java.util.ArrayList;
 
 /**
  * <h1>Code section</h1>
- * <p>
+ * <br>
  * The code section contains a body for every function in the Module. The count of function
  * declared in the function
  * section and function bodies defined in this section must be the same and the ith declaration
  * corresponds to the ith
  * function body.
- * </p>
- * <p>
+ * <br>
+ * <br>
  * Source:  <a href="http://webassembly.org/docs/binary-encoding/#code-section" target="_top">
  * http://webassembly.org/docs/binary-encoding/#code-section
  * </a>
- * <p>
+ * <br>
  * Source:  <a href="http://webassembly.org/docs/modules/#function-and-code-sections" target="_top">
  * http://webassembly.org/docs/modules/#function-and-code-sections
  * </a>

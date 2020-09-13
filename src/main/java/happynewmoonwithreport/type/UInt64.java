@@ -18,7 +18,7 @@ package happynewmoonwithreport.type;
 
 /**
  * An unsigned integer of 64 bits.
- * <p>
+ * <br>
  * Use U64 instead.
  */
 @Deprecated

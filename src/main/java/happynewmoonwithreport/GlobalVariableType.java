@@ -17,9 +17,9 @@
 package happynewmoonwithreport;
 
 /**
- * <p>
+ * <br>
  * Also know as Global Entry
- * </p>
+ * <br>
  * Source : <a href= "http://webassembly.org/docs/binary-encoding/#global-entry" target="_top">
  * http://webassembly.org/docs/binary-encoding/#global-entry
  * </a>

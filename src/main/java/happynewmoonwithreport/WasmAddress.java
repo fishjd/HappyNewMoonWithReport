@@ -23,22 +23,22 @@ import java.util.UUID;
  * Function instances, table instances, memory instances, and global instances in the store are
  * referenced with
  * abstract addresses. These are simply indices into the respective store component.
- * <p>
+* <br>
  * Note:
- * <p>
+ * <br>
  * Addresses are dynamic, globally unique references to runtime objects, in contrast to indices,
  * which are static,
  * module-local references to their original definitions. A memory address memaddr
- * <p>
+ * <br>
  * denotes the abstract address of a memory instance in the store, not an offset inside a memory
  * instance.
- * <p>
+ * <br>
  * There is no specific limit on the number of allocations of store objects, hence logical
  * addresses can be arbitrarily
  * large natural numbers.
- * <p>
+ * <br>
  * This class is just the single Integer.  Limited in range from zero to Integer.MAX_VALUE.
- * <p>
+ * <br>
  * Source:
  * <a href="https://webassembly.github.io/spec/core/exec/runtime.html#addresses" target="_top">
  * https://webassembly.github.io/spec/core/exec/runtime.html#addresses

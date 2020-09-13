@@ -25,12 +25,11 @@ import org.junit.jupiter.params.converter.SimpleArgumentConverter;
  * <b>or</b> hexadecimal
  * <b>or</b> octal.
  * The String may include "_" which will be stripped out.
- * <p>
+ * <br>
  * Example Hexadecimal: {@code "0x0FFF_FFFF","0xAC" "-0x0FFF_FFFF"}<br>
  * Example Decimal: {@code "1",  "100_000",  "-100_000"}<br>
  * Example Octal: {@code "01",  "0_100_000",  "-0_100_000"}<br>
- * <p>
- * <p>
+ * <br>
  * <b>Source:</b>
  * <a href="http://junit.org/junit5/docs/current/user-guide/#writing-tests-parameterized-tests-argument-conversion-explicit"
  * target="_top">

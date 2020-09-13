@@ -22,7 +22,7 @@ import happynewmoonwithreport.type.WasmString;
 
 /**
  * Export Entry - The details of an export.
- * <p>
+ * <br>
  * source:  <a href="http://webassembly.org/docs/binary-encoding/#export-entry" target="_top">
  * http://webassembly.org/docs/binary-encoding/#export-entry
  * </a>

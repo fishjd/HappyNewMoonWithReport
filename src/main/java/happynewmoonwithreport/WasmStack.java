@@ -23,7 +23,7 @@ import java.util.UUID;
 
 /**
  * This is the web assembly runtime stack.
- * <p>
+ * <br>
  * May contain {@link happynewmoonwithreport.type.DataTypeNumber} Int32,Int64,UInt32,UInt64,F32,
  * F64... or {@link
  * WasmLabel}
@@ -62,8 +62,7 @@ public class WasmStack<StackType> extends Stack<StackType> {
 	 *              on the stack.  The last to be popped off.
 	 *              <p>
 	 *              note: <code> peek(stack.size() -1) </code>  is the same as <code>peek()</code>
-	 *              </p>
-	 *              <b> </b>
+	 *              <br>
 	 * @return the element at index.
 	 */
 	public StackType peek(Integer index) {

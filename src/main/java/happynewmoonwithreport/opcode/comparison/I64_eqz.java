@@ -26,15 +26,15 @@ import java.util.UUID;
 
 /**
  * I64 equals zero (i64_eqz)
- * <p>
+ * <br>
  * <b>Note this is the same for all Relative Operations</b>
- * <p>
+ * <br>
  * t.relop <ol> <li> Assert: due to validation, two values of value type t are on the top of the
  * stack. </li> <li> Pop the value t.const c1 from the stack. </li> <li> Let c be the result of
  * computing relopt(c1). </li> <li> Push the value i32.const c to the stack.
- * <p>
+ * <br>
  * </li> </ol>
- * <p>
+ * <br>
  * Source:  <a href="https://webassembly.github.io/spec/core/appendix/index-instructions.html"
  * target="_top"> https://webassembly.github.io/spec/core/appendix/index-instructions.html </a>
  */

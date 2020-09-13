@@ -26,9 +26,9 @@ import java.util.UUID;
 
 /**
  * I64 equals (i64_eq)
- * <p>
+ * <br>
  * <b>Note this is the same for all Relative Operations</b>
- * <p>
+ * <br>
  * t.relop
  * <ol>
  * <li>
@@ -42,10 +42,10 @@ import java.util.UUID;
  * </li>
  * <li>
  * Push the value i64.const c to the stack.
- * <p>
+ * <br>
  * </li>
  * </ol>
- * <p>
+ * <br>
  * Source:  <a href="https://webassembly.github.io/spec/core/appendix/index-instructions.html"
  * target="_top"> https://webassembly.github.io/spec/core/appendix/index-instructions.html </a>
  */

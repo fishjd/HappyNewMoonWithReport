@@ -28,7 +28,7 @@ import java.util.UUID;
  * Trap i.e. Throw WasmTrapException.
  * </li>
  * </ol>
- * <p>
+ * <br>
  * Source:<p>
  *     <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-unreachable"
  * target="_top"> https://webassembly.github.io/spec/core/exec/instructions.html#exec-unreachable

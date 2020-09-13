@@ -22,12 +22,12 @@ import happynewmoonwithreport.type.UInt8;
 
 /**
  * Table Type
- * <p>
+ * <br>
  * Source : <a href= "http://webassembly.org/docs/binary-encoding/#table_type" target="_top">
  * http://webassembly.org/docs/binary-encoding/#table_type
  * </a>
- * </p>
- * <p>
+ * <br>
+ * <br>
  * Source:
  * <a href = "https://webassembly.github.io/spec/core/syntax/types.html#syntax-tabletype" target="_top">
  * Table Type
@@ -57,7 +57,7 @@ public class TableType implements Validation {
 
 	/**
 	 * The limits must be valid.
-	 * <p>
+	 * <br>
 	 * source:
 	 * <a href="https://webassembly.github.io/spec/core/valid/types.html#table-types" target="_top">
 	 * https://webassembly.github.io/spec/core/valid/types.html#table-types
@@ -86,14 +86,14 @@ public class TableType implements Validation {
 
 	/**
 	 * maximum of the memory in Page Size
-	 * <p>
+	 * <br>
 	 * Usage :
 	 * <code>
 	 * if (hasMaximum()) {
 	 * max = maximum();
 	 * }
 	 * </code>
-	 * <p>
+	 * <br>
 	 * Throws RuntimeException is maximum is not set.
 	 *
 	 * @return maximum

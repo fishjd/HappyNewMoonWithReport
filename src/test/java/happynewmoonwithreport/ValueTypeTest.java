@@ -16,10 +16,10 @@
  */
 package happynewmoonwithreport;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * Created by James Haring on 2017-07-18.
@@ -43,7 +43,7 @@ public class ValueTypeTest {
 	/**
 	 * Test constructor(Integer);
 	 *
-	 * @throws Exception
+	 * @throws Exception on incorrect ValueType
 	 */
 	@Test
 	public void constructorInteger() throws Exception {
@@ -54,7 +54,7 @@ public class ValueTypeTest {
 	/**
 	 * Test constructor(String);
 	 *
-	 * @throws Exception
+	 * @throws Exception on incorrect ValueType
 	 */
 	@Test
 	public void constructorString() throws Exception {

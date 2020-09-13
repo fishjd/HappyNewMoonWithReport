@@ -27,11 +27,11 @@ import java.util.HashMap;
  *  2 indicating a Memory import or definition
  *  3 indicating a Global import or definition
  * </pre>
- * <p>
+ * <br>
  * Source : <a href= "http://webassembly.org/docs/binary-encoding/#external_kind" target="_top">
  * http://webassembly.org/docs/binary-encoding/#external_kind
  * </a>
- * </p>
+ * <br>
  */
 public class ExternalKind extends ValueBase {
 

@@ -24,15 +24,15 @@ import happynewmoonwithreport.type.WasmVector;
 
 /**
  * The encoding of a Table section.
- * <p>
+ * <br>
  * Source <a href="http://webassembly.org/docs/binary-encoding/#table-section" target="_top">
  * http://webassembly.org/docs/binary-encoding/#table-section
  * </a>
- * <p>
+ * <br>
  * Source:  <a href="http://webassembly.org/docs/modules/#table-section" target="_top">
  * http://webassembly.org/docs/modules/#table-section
  * </a>
- * <p>
+ * <br>
  * Source:
  * <a href="https://webassembly.github.io/spec/core/binary/modules.html#table-section" target="_top">
  * https://webassembly.github.io/spec/core/binary/modules.html#table-section

@@ -25,15 +25,15 @@ import happynewmoonwithreport.type.JavaType.ByteUnsigned;
 
 /**
  * <h1>i32_load32_s</h1> Load an i32 Signed value from memory to the stack.
- * <p>
+ * <br>
  * Memory Overview<br>
  * <b>Source:</b>
  * <a href="https://webassembly.github.io/spec/core/syntax/instructions.html#syntax-instr-memory"
  * target="_top"> https://webassembly.github.io/spec/core/syntax/instructions
  * .html#syntax-instr-memory
  * </a>
- * </p>
- * <p>
+ * <br>
+ * <br>
  * <b>Source:</b>
  * <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-load" target="_top">
  * https://webassembly.github.io/spec/core/exec/instructions.html#exec-load

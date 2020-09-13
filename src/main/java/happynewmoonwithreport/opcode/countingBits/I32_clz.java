@@ -24,17 +24,17 @@ import java.util.UUID;
 
 /**
  * Return the number of leading zeros.  CLZ stands for <b>C</b>ount <b>L</b>eading <b>Z</b>eros
- * </p>
+ * <br>
  * <h2>Source:</h2>
  * <h3>Operator:</h3>
- * <p>
+ * <br>
  * Return the count of leading zero bits in i; all bits are considered leading zeros if i is 0.
- * <p>
+ * <br>
  * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-iclz" target="_top">
  * https://webassembly.github.io/spec/core/exec/numerics.html#op-iclz </a>
  *
  *
- * <p>Note: the documentation below is the same for all unary operators.</p>
+ * <br>Note: the documentation below is the same for all unary operators.<br>
  * <h3>Execution:</h3>
  * <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-unop"
  * target="_top"> https://webassembly.github.io/spec/core/exec/instructions.html#exec-unop
@@ -69,7 +69,6 @@ import java.util.UUID;
  * 		</li>
  * </ol>
  */
-
 public class I32_clz {
 	private final String opCodeName = getClass().getName();
 	private final String t1Type = "I32";

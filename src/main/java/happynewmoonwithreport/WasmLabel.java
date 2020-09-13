@@ -21,10 +21,10 @@ import happynewmoonwithreport.type.WasmVector;
 /**
  * Labels carry an argument arity n and their associated branch target, which is expressed
  * syntactically as an instruction sequence:
- * <p>
+ * <br>
  * Intuitively, instr∗ is the continuation to execute when the branch is taken, in place of the
  * original control construct.
- * <p>
+ * <br>
  * <h3>Source:</h3>
  * <a href="https://webassembly.github.io/spec/core/exec/runtime.html#labels" target="_top">
  * Wasm Label Documentation

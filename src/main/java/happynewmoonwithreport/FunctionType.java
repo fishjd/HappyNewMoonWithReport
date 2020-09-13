@@ -21,15 +21,15 @@ import java.util.ArrayList;
 
 /**
  * The description of a function signature
- * <p>
+ * <br>
  * Source: <a href = "http://webassembly.org/docs/binary-encoding/#func_type" target="_top">
  * http://webassembly.org/docs/binary-encoding/#func_type
  * </a>
- * </p>
- * <p>
+ * <br>
+ * <br>
  * <a href = "https://webassembly.github.io/spec/core/binary/types.html#function-types" target="_top">
  * https://webassembly.github.io/spec/core/binary/types.html#function-types</a>
- * </p>
+ * <br>
  */
 public class FunctionType implements Validation {
 
@@ -111,11 +111,11 @@ public class FunctionType implements Validation {
 
 	/**
 	 * Function types may not specify more than one result.
-	 * <p>
+	 * <br>
 	 * source:
 	 * <a href="https://webassembly.github.io/spec/core/valid/types.html#function-types" target="_top">
 	 * https://webassembly.github.io/spec/core/valid/types.html#function-types</a>
-	 * <p>
+	 * <br>
 	 * Note:
 	 * This restriction may be removed in future versions of WebAssembly.
 	 *

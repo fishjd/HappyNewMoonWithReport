@@ -25,13 +25,13 @@ import java.util.UUID;
 
 /**
  * <h1>I64_extend8_s</h1>
- * <p>
+ * <br>
  * Extend the least significant 8 bits to 64 bits signed.  The 8 least significant bits are
  * interpreted as a signed value.
- * </p>
+ * <br>
  * <h2>Source:</h2>
  *
- * <p>Note: the documentation below is the same for all unary operators.</p>
+ * <br>Note: the documentation below is the same for all unary operators.<br>
  * <h2>Execution:</h2>
  * <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-unop"
  * target="_top"> https://webassembly.github.io/spec/core/exec/instructions.html#exec-unop

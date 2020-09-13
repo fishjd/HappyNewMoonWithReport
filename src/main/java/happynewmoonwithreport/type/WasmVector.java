@@ -26,12 +26,12 @@ import java.util.UUID;
  * Vectors are bounded sequences of the form A^n  (or A^*), where the A can either be values or
  * complex constructions. A
  * vector can have at most (2^32)-1 elements.
- * <p>
+ * <br>
  * vec(A)::=An(if n &lt; (2^32))
- * <p>
+ * <br>
  * Source:
  * <a href="https://webassembly.github.io/spec/core/syntax/conventions.html#vectors" target="_top" > Vectors</a>
- * <p>
+ * <br>
  * Note this implementation can only have 2^31 (Integer.MAX_VALUE) elements.
  * Any attempt to store a larger index will throw an Exception.  The wasm documents specify
  * (2^32)-1  values.

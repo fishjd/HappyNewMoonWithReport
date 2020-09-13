@@ -26,9 +26,9 @@ import java.util.UUID;
 
 /**
  * I32 Greater than or equal to Signed  (i32_ge_s)
- * <p>
+ * <br>
  * <b>Note this is the same for all Relative Operations</b>
- * <p>
+ * <br>
  * t.relop
  * <ol>
  * <li>
@@ -45,10 +45,10 @@ import java.util.UUID;
  * </li>
  * <li>
  * Push the value i32.const c to the stack.
- * <p>
+ * <br>
  * </li>
  * </ol>
- * <p>
+ * <br>
  * Source:  <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-relop"
  * target="_top"> https://webassembly.github.io/spec/core/exec/instructions.html#exec-relop
  * </a>

@@ -24,17 +24,17 @@ import java.util.UUID;
 
 /**
  * Return the number of one-bits.  Popcnt stands for population count.  Also call bitCount in Java.
- * </p>
+ * <br>
  * <h2>Source:</h2>
  * <h3>Operator:</h3>
- * <p>
+ * <br>
  * Return the count of non-zero bits in i.
- * <p>
+ * <br>
  * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-ipopcnt" target="_top">
  * https://webassembly.github.io/spec/core/exec/numerics.html#op-ipopcnt</a>
  *
  *
- * <p>Note: the documentation below is the same for all unary operators.</p>
+ * <br>Note: the documentation below is the same for all unary operators.<br>
  * <h3>Execution:</h3>
  * <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-unop"
  * target="_top"> https://webassembly.github.io/spec/core/exec/instructions.html#exec-unop

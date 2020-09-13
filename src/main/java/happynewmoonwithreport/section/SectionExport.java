@@ -29,11 +29,11 @@ import happynewmoonwithreport.type.WasmVector;
  * Source <a href="http://webassembly.org/docs/binary-encoding/#export-section" target="_top">
  * http://webassembly.org/docs/binary-encoding/#export-section
  * </a>
- * <p>
+ * <br>
  * Source:  <a href="http://webassembly.org/docs/modules/#exports" target="_top">
  * http://webassembly.org/docs/modules/#exports
  * </a>
- * <p>
+ * <br>
  * Source:
  * <a href="https://webassembly.github.io/spec/core/binary/modules.html#export-section" target="_top">
  * https://webassembly.github.io/spec/core/binary/modules.html#export-section

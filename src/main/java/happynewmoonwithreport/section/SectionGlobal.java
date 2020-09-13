@@ -25,15 +25,15 @@ import happynewmoonwithreport.type.WasmVector;
 
 /**
  * The encoding of the Global section:
- * <p>
+ * <br>
  * Source <a href="http://webassembly.org/docs/binary-encoding/#memory-section" target="_top">
  * http://webassembly.org/docs/binary-encoding/#memory-section
  * </a>
- * <p>
+ * <br>
  * Source:  <a href="http://webassembly.org/docs/modules/#global-section" target="_top">
  * http://webassembly.org/docs/modules/#global-section
  * </a>
- * <p>
+ * <br>
  * Source:
  * <a href="https://webassembly.github.io/spec/core/binary/modules.html#global-section" target="_top">
  * https://webassembly.github.io/spec/core/binary/modules.html#global-section

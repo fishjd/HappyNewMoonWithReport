@@ -21,10 +21,10 @@ import happynewmoonwithreport.type.VarUInt32;
 
 /**
  * <h1>Local Entry</h1>
- * <p>
+ * <br>
  * Each local entry declares a number of local variables of a given type. It is legal to have
  * several entries with the same type.
- * </p>
+ * <br>
  * <table  >
  * <caption>Local Entry Table</caption>
  * <tr> <th>Field</th> 	<th>Type</th> 	<th>Description</th> </tr>

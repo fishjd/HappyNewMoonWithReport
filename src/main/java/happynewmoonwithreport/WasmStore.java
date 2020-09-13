@@ -26,7 +26,7 @@ import happynewmoonwithreport.type.WasmVector;
  * representation of all instances of functions, tables, memories, and globals that have been
  * allocated during the life
  * time of the abstract machine.
- * <p>
+ * <br>
  * The Store is represented by capital <b><i>S</i></b> in wasm documentation.
  * <br>
  * <br>

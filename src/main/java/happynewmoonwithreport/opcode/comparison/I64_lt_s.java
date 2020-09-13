@@ -27,9 +27,9 @@ import java.util.UUID;
 
 /**
  * I32 Less than Signed  (i32_lt_s)
- * <p>
+ * <br>
  * <b>Note this is the same for all Relative Operations</b>
- * <p>
+ * <br>
  * t.relop
  * <ol>
  * <li>
@@ -46,10 +46,10 @@ import java.util.UUID;
  * </li>
  * <li>
  * Push the value i32.const c to the stack.
- * <p>
+ * <br>
  * </li>
  * </ol>
- * <p>
+ * <br>
  * Source: <a href="https://webassembly.github.io/spec/core/appendix/index-instructions.html"
  * target="_top"> https://webassembly.github.io/spec/core/appendix/index-instructions.html
  * </a>

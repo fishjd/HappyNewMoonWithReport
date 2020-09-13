@@ -29,21 +29,18 @@ import happynewmoonwithreport.type.U32;
 
 /**
  * <h1>F64_load</h1> Load an F64 value from memory to the stack.
- * <p>
+ * <br>
  * Memory Instructions<br>
- * <p>
+ * <br>
  * <b>Source:</b>
  * <a href="https://webassembly.github.io/spec/core/syntax/instructions.html#memory-instructions"
  * target="_top"> https://webassembly.github.io/spec/core/syntax/instructions
  * .html#memory-instructions
  * </a>
  * <br>
- * <p>
- * </a>
- * </p>
  * <br>
  * Exec:
- * <p>
+ * <br>
  * <b>Source:</b>
  * <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-load" target="_top">
  * https://webassembly.github.io/spec/core/exec/instructions.html#exec-load
