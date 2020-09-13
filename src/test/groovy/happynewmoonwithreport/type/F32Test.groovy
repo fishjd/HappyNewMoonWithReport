@@ -90,4 +90,27 @@ class F32Test extends Specification {
 		[new ByteUnsigned(0x00), new ByteUnsigned(0x00), new ByteUnsigned(0x00), new ByteUnsigned(0x01)] || Float.MIN_VALUE
 		[new ByteUnsigned(0x7F), new ByteUnsigned(0x7F), new ByteUnsigned(0xFF), new ByteUnsigned(0xFF)] || Float.MAX_VALUE
 	}
+
+	def "F32 EqualsWasm"(Float leftInput, Float rightInput, Integer expectedInput) {
+		F32 left = new F32(leftInput);
+		F32 right = new F32(rightInput);
+		I32 expected = new I32(expectedInput);
+
+		when: "Compare "
+		I32 result = left.equalsWasm(right);
+		then:
+		expected == result
+
+		where:
+		leftInput               | rightInput              || expectedInput
+		Float.NaN               | 1F                      || 0
+		1F                      | Float.NaN               || 0
+		Float.NaN               | 1F                      || 0
+		1F                      | 1F                      || 1
+		0F                      | 0F                      || 1
+		Float.MAX_VALUE         | Float.MAX_VALUE         || 1
+		Float.MIN_VALUE         | Float.MIN_VALUE         || 1
+		Float.NEGATIVE_INFINITY | Float.NEGATIVE_INFINITY || 1
+		Float.POSITIVE_INFINITY | Float.POSITIVE_INFINITY || 1
+	}
 }
