@@ -501,6 +501,44 @@ public class WasmInstance implements WasmInstanceInterface {
 				i64_ge_u.execute();
 				break;
 			}
+			case (byte) 0x5B: {	// F32 Equal
+				F32_eq f32_eq = new F32_eq(this);
+				f32_eq.execute();
+				break;
+			}
+			case (byte) 0x5C: {	// F32 Not Equal
+				break;
+			}
+			case (byte) 0x5D: {	// F32 Less than
+				break;
+			}
+			case (byte) 0x5E: {	// F32 Greater than
+				break;
+			}
+			case (byte) 0x5F: {	// F32 Less than Equal
+				break;
+			}
+			case (byte) 0x60: {	// F32 Greater than Equal
+				break;
+			}
+			case (byte) 0x61: {	// F64 Equal
+				break;
+			}
+			case (byte) 0x62: {	// F64 Not Equal
+				break;
+			}
+			case (byte) 0x63: {	// F64 Less than
+				break;
+			}
+			case (byte) 0x64: {	// F64 Greater than
+				break;
+			}
+			case (byte) 0x65: {	// F64 Less than Equal
+				break;
+			}
+			case (byte) 0x66: {// F64 Greater than Equal
+				break;
+			}
 			case (byte) 0x67: {  // I32 Count Leading Zeros
 				// I'm not sure to pass the WasmInstance or the Stack Only?
 				I32_clz i32_clz = new I32_clz(this.stack);
