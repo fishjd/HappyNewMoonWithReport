@@ -232,6 +232,39 @@ public class F32 implements DataTypeNumberFloat {
 		return result;
 	}
 
+	/**
+	 * Equals according to the Wasm specification.
+	 * <pre>F32 F32 -> I32</pre>
+	 * <pre>
+	 * Source: https://webassembly.github.io/spec/core/exec/numerics.html#xref-exec-numerics-op-feq-mathrm-feq-n-z-1-z-2<br>
+	 * </pre>
+	 * If either z1 or z2 is a NaN, then return 0<br>
+	 * Else if both z1 and z2 are zeroes, then return 1<br>
+	 * Else if both z1 and z2 are the same value, then return 1<br>
+	 * Else return 0.<br>
+	 *
+	 * @param other
+	 * @return 1 if equal otherwise 0
+	 */
+	public I32 equalsWasm(F32 other) {
+		Integer result = 0;
+
+		// If either z1 or z2 is a NaN, then return 0<br>
+		if (value.equals(Float.NaN) || other.value.equals(Float.NaN)) {
+			result = 0;
+		} else
+			// Else if both z1 and z2 are zeroes, then return 1<br>
+			if (value.equals(0F) || other.value.equals(0F)) {
+				result = 1;
+			} else {
+				// Else if both z1 and z2 are the same value, then return 1<br>
+				if (value.equals(other.value)) {
+					result = 1;
+				}
+			}
+		return new I32(result);
+	}
+
 	@Override
 	public String toString() {
 		final StringBuffer sb = new StringBuffer("F32{");

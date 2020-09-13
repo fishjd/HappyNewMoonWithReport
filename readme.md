@@ -199,7 +199,7 @@ Data Section:  To Do
 - [x] i64_lt_u 0x58
 - [x] i64_gt_s 0x59
 - [x] i64_gt_u 0x5A
-- [ ] f32.eq  0x5B
+- [x] f32.eq  0x5B
 - [ ] f32.ne 0x5C
 - [ ] f32.lt  0x5D
 - [ ] f32.gt 0x5E
