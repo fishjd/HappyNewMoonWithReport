@@ -28,6 +28,23 @@ class F32Test extends Specification {
 	def cleanup() {
 	}
 
+
+	def "test F32 ValueOf(String) #input, #expected"(String input, Float expected) {
+		given: "an string input "
+
+		when: "covert to F32"
+		F32 result = F32.valueOf(input);
+
+		then:
+		new F32(expected) == result;
+		Math.abs(expected - result.value) < 0.1F;
+
+		where:
+		input       || expected
+		"-0x0p+0"   || 0.0F
+		"-0x1p-149" || -1.4E-45   // this is the value the Float.valueOf(String) returns.  I don't know if this is what WASM is trying to express.   1E-149 is not a valid Float.
+	}
+
 	def "test convert"(Byte[] input, Float expected) {
 		given: "A Bytes file from input"
 		BytesFile bytesFile = new BytesFile(input);
@@ -90,8 +107,8 @@ class F32Test extends Specification {
 		[new ByteUnsigned(0x00), new ByteUnsigned(0x00), new ByteUnsigned(0x00), new ByteUnsigned(0x01)] || Float.MIN_VALUE
 		[new ByteUnsigned(0x7F), new ByteUnsigned(0x7F), new ByteUnsigned(0xFF), new ByteUnsigned(0xFF)] || Float.MAX_VALUE
 	}
-
-	def "F32 EqualsWasm"(Float leftInput, Float rightInput, Integer expectedInput) {
+	
+	def "F32 EqualsWasm #leftInput #rightInput #expectedInput"(Float leftInput, Float rightInput, Integer expectedInput) {
 		F32 left = new F32(leftInput);
 		F32 right = new F32(rightInput);
 		I32 expected = new I32(expectedInput);
@@ -112,5 +129,7 @@ class F32Test extends Specification {
 		Float.MIN_VALUE         | Float.MIN_VALUE         || 1
 		Float.NEGATIVE_INFINITY | Float.NEGATIVE_INFINITY || 1
 		Float.POSITIVE_INFINITY | Float.POSITIVE_INFINITY || 1
+		0F                      | 1F                      || 0
+		1F                      | 0F                      || 0
 	}
 }

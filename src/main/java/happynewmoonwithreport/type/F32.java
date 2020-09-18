@@ -49,6 +49,47 @@ public class F32 implements DataTypeNumberFloat {
 	}
 
 	/**
+	 * Returns a {@code F32} object holding the
+	 * {@code F32} value represented by the argument string
+	 * {@code s}.
+	 *
+	 * <p>If {@code s} is {@code null}, then a
+	 * {@code NullPointerException} is thrown.
+	 *
+	 * @param s the string to be parsed.
+	 * @return a {@code F32} object holding the value
+	 * represented by the {@code String} argument.
+	 * @throws NumberFormatException if the string does not contain a parsable number.
+	 * @see Float#valueOf(String)
+	 */
+	public static F32 valueOf(String s) throws NumberFormatException {
+		Float val;
+
+		switch (s) {
+			case ("-inf"):
+				val = Float.NEGATIVE_INFINITY;
+				break;
+			case ("inf"):
+				val = Float.POSITIVE_INFINITY;
+				break;
+			case ("-nan"):
+			case ("nan"):
+			case ("-nan:0x200000"):  // TODO figure out what "-nan:0x200000" is trying to express.
+			case ("nan:0x200000"):    // TODO figure out what "nan:0x200000" is trying to express.
+				val = Float.NaN;
+				break;
+			default:
+				val = Float.valueOf(s);
+		}
+		if (val.equals(-0.0F)) {
+			val = Math.abs(val);
+		}
+
+		F32 result = new F32(val);
+		return result;
+	}
+
+	/**
 	 * The value converted to a byte type.
 	 *
 	 * @return value as a byte
@@ -254,7 +295,7 @@ public class F32 implements DataTypeNumberFloat {
 			result = 0;
 		} else
 			// Else if both z1 and z2 are zeroes, then return 1<br>
-			if (value.equals(0F) || other.value.equals(0F)) {
+			if (value.equals(0F) && other.value.equals(0F)) {
 				result = 1;
 			} else {
 				// Else if both z1 and z2 are the same value, then return 1<br>
