@@ -20,6 +20,7 @@ import happynewmoonwithreport.opcode.*;
 import happynewmoonwithreport.opcode.Memory.*;
 import happynewmoonwithreport.opcode.bitshift.*;
 import happynewmoonwithreport.opcode.comparison.*;
+import happynewmoonwithreport.opcode.comparison.F32.F32_eq;
 import happynewmoonwithreport.opcode.control.Block;
 import happynewmoonwithreport.opcode.control.End;
 import happynewmoonwithreport.opcode.control.Nop;

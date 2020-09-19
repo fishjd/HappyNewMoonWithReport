@@ -14,7 +14,7 @@
  *  limitations under the License.
  *
  */
-package happynewmoonwithreport.opcode.comparison
+package happynewmoonwithreport.opcode.comparison.F32
 
 import happynewmoonwithreport.WasmInstanceInterface
 import happynewmoonwithreport.WasmRuntimeException
@@ -67,7 +67,7 @@ class F32_eqTest extends Specification {
 	 * @param expected
 	 * @return
 	 */
-	def "Execute F32 Equal #val1_s #val2_s = #expected "(String val1_s, String val2_s, Integer expected) {
+	def "Execute F32 Equal #val1_s | #val2_s || #expected "(String val1_s, String val2_s, Integer expected) {
 		setup: " push two values on stack."
 
 		WasmInstanceInterface instance = new WasmInstanceStub();

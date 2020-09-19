@@ -40,6 +40,9 @@ import happynewmoonwithreport.type.JavaType.ByteUnsigned;
 public class F32 implements DataTypeNumberFloat {
 	protected Float value;
 
+	public static final F32 ZERO_POSITIVE = new F32(0.0F);
+	public static final F32 ZERO_NEGATIVE = new F32(-0.0F);  // Java stores a negative zero,  Groovy/Spock has issues.
+
 	public F32() {
 		this.value = 0F;
 	}
@@ -80,9 +83,6 @@ public class F32 implements DataTypeNumberFloat {
 				break;
 			default:
 				val = Float.valueOf(s);
-		}
-		if (val.equals(-0.0F)) {
-			val = Math.abs(val);
 		}
 
 		F32 result = new F32(val);
@@ -294,8 +294,14 @@ public class F32 implements DataTypeNumberFloat {
 		if (value.equals(Float.NaN) || other.value.equals(Float.NaN)) {
 			result = 0;
 		} else
-			// Else if both z1 and z2 are zeroes, then return 1<br>
-			if (value.equals(0F) && other.value.equals(0F)) {
+			// Else if both z1 and z2 are zeroes, then return 1
+			// Java Implementation: Check for both ZERO_POSITIVE plus ZERO_NEGATIVE.
+			// I think the specification was trying to say check Positive and Negative, but it is
+			// not explicit.
+			if ((this.equals(ZERO_POSITIVE) || this.equals(ZERO_NEGATIVE)) 		//
+				&&  															//
+				(other.equals(ZERO_POSITIVE) || other.equals(ZERO_NEGATIVE))	//
+			) {
 				result = 1;
 			} else {
 				// Else if both z1 and z2 are the same value, then return 1<br>
