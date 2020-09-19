@@ -40,12 +40,53 @@ import happynewmoonwithreport.type.JavaType.ByteUnsigned;
 public class F32 implements DataTypeNumberFloat {
 	protected Float value;
 
+	public static final F32 ZERO_POSITIVE = new F32(0.0F);
+	public static final F32 ZERO_NEGATIVE = new F32(-0.0F);  // Java stores a negative zero,  Groovy/Spock has issues.
+
 	public F32() {
 		this.value = 0F;
 	}
 
 	public F32(Float value) {
 		this.value = value;
+	}
+
+	/**
+	 * Returns a {@code F32} object holding the
+	 * {@code F32} value represented by the argument string
+	 * {@code s}.
+	 *
+	 * <p>If {@code s} is {@code null}, then a
+	 * {@code NullPointerException} is thrown.
+	 *
+	 * @param s the string to be parsed.
+	 * @return a {@code F32} object holding the value
+	 * represented by the {@code String} argument.
+	 * @throws NumberFormatException if the string does not contain a parsable number.
+	 * @see Float#valueOf(String)
+	 */
+	public static F32 valueOf(String s) throws NumberFormatException {
+		Float val;
+
+		switch (s) {
+			case ("-inf"):
+				val = Float.NEGATIVE_INFINITY;
+				break;
+			case ("inf"):
+				val = Float.POSITIVE_INFINITY;
+				break;
+			case ("-nan"):
+			case ("nan"):
+			case ("-nan:0x200000"):  // TODO figure out what "-nan:0x200000" is trying to express.
+			case ("nan:0x200000"):    // TODO figure out what "nan:0x200000" is trying to express.
+				val = Float.NaN;
+				break;
+			default:
+				val = Float.valueOf(s);
+		}
+
+		F32 result = new F32(val);
+		return result;
 	}
 
 	/**
@@ -253,8 +294,14 @@ public class F32 implements DataTypeNumberFloat {
 		if (value.equals(Float.NaN) || other.value.equals(Float.NaN)) {
 			result = 0;
 		} else
-			// Else if both z1 and z2 are zeroes, then return 1<br>
-			if (value.equals(0F) || other.value.equals(0F)) {
+			// Else if both z1 and z2 are zeroes, then return 1
+			// Java Implementation: Check for both ZERO_POSITIVE plus ZERO_NEGATIVE.
+			// I think the specification was trying to say check Positive and Negative, but it is
+			// not explicit.
+			if ((this.equals(ZERO_POSITIVE) || this.equals(ZERO_NEGATIVE)) 		//
+				&&  															//
+				(other.equals(ZERO_POSITIVE) || other.equals(ZERO_NEGATIVE))	//
+			) {
 				result = 1;
 			} else {
 				// Else if both z1 and z2 are the same value, then return 1<br>

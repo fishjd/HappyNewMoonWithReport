@@ -20,12 +20,37 @@ package happynewmoonwithreport.type
 import happynewmoonwithreport.BytesFile
 import happynewmoonwithreport.type.JavaType.ByteUnsigned
 import spock.lang.Specification
+import spock.lang.Unroll
 
 class F32Test extends Specification {
 	def setup() {
 	}
 
 	def cleanup() {
+	}
+
+
+	@Unroll
+	def "test F32 ValueOf(String) #input, #expected"(String input, Float expected) {
+		given: "an string input "
+
+		when: "covert to F32"
+		F32 result = F32.valueOf(input);
+
+		F32 expectedF32 = new F32(expected);
+		int numOfBits = Float.floatToRawIntBits(expected);
+		then:
+		expectedF32 == result;
+		Math.abs(expected - result.value) < 0.1F;
+
+		where:
+		input       || expected
+		"+0x0p+0"   || 0.0F
+//		"-0x0p+0"   || -0.0F    // Groovy/Spock strips out the sign bit of -0.0F so this test does not work.
+		//		                // This valueOf("-0x0p+0") is tested in "F32 Constants"() method below.
+		"-0x1p-149" || -1.4E-45 // This is the value the Float.valueOf(String) returns.
+		//                      // I don't know if this is what WASM is trying to express.
+		//                      // 1E-149 is not a valid Float.
 	}
 
 	def "test convert"(Byte[] input, Float expected) {
@@ -91,7 +116,18 @@ class F32Test extends Specification {
 		[new ByteUnsigned(0x7F), new ByteUnsigned(0x7F), new ByteUnsigned(0xFF), new ByteUnsigned(0xFF)] || Float.MAX_VALUE
 	}
 
-	def "F32 EqualsWasm"(Float leftInput, Float rightInput, Integer expectedInput) {
+	def "F32 constants"() {
+
+
+		when:
+		int i = 1;
+
+		then:
+		F32.ZERO_POSITIVE == F32.valueOf("0x0p0F");
+		F32.ZERO_NEGATIVE == F32.valueOf("-0x0p+0")
+	}
+
+	def "F32 EqualsWasm #leftInput | #rightInput || #expectedInput"(Float leftInput, Float rightInput, Integer expectedInput) {
 		F32 left = new F32(leftInput);
 		F32 right = new F32(rightInput);
 		I32 expected = new I32(expectedInput);
@@ -112,5 +148,33 @@ class F32Test extends Specification {
 		Float.MIN_VALUE         | Float.MIN_VALUE         || 1
 		Float.NEGATIVE_INFINITY | Float.NEGATIVE_INFINITY || 1
 		Float.POSITIVE_INFINITY | Float.POSITIVE_INFINITY || 1
+		0F                      | 1F                      || 0
+		1F                      | 0F                      || 0
+		0F                      | 0F                      || 1
+		0F                      | -0F                     || 1  // -0F does not render a zero_negative.
+		F32.ZERO_POSITIVE.value | F32.ZERO_POSITIVE.value || 1
+		F32.ZERO_NEGATIVE.value | F32.ZERO_NEGATIVE.value || 1
+		F32.ZERO_NEGATIVE.value | F32.ZERO_POSITIVE.value || 1
+		F32.ZERO_POSITIVE.value | F32.ZERO_NEGATIVE.value || 1
+	}
+
+	@Unroll
+	def "F32 EqualsWasm negative and positive zero #leftInput_s | #rightInput_s || #expectedInput"(String leftInput_s, String rightInput_s, Integer expectedInput) {
+		F32 left = F32.valueOf(leftInput_s);
+		F32 right = F32.valueOf(rightInput_s);
+
+		I32 expected = new I32(expectedInput);
+
+		when: "Compare "
+		I32 result = left.equalsWasm(right);
+		then:
+		expected == result
+
+		where:
+		leftInput_s | rightInput_s || expectedInput
+		"0x0p0F"    | "0x0p0F"     || 1
+		"-0x0p+0"   | "-0x0p+0"    || 1
+		"-0x0p+0"   | "0x0p+0"     || 1
+		"0x0p+0"    | "-0x0p+0"    || 1
 	}
 }
