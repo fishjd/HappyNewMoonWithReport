@@ -46,8 +46,8 @@ class F32Test extends Specification {
 		where:
 		input       || expected
 		"+0x0p+0"   || 0.0F
-//		"-0x0p+0"   || -0.0F    // Groovy/Spock strips out the sign bit of -0.0F so this test does not work.
-		//		                // This valueOf("-0x0p+0") is tested in "F32 Constants"() method below.
+		//"-0x0p+0" || -0.0F    // Groovy/Spock strips out the sign bit of -0.0F so this test does not work.
+		//                      // This valueOf("-0x0p+0") is tested in "F32 Constants"() method below.
 		"-0x1p-149" || -1.4E-45 // This is the value the Float.valueOf(String) returns.
 		//                      // I don't know if this is what WASM is trying to express.
 		//                      // 1E-149 is not a valid Float.
@@ -125,6 +125,10 @@ class F32Test extends Specification {
 		then:
 		F32.ZERO_POSITIVE == F32.valueOf("0x0p0F");
 		F32.ZERO_NEGATIVE == F32.valueOf("-0x0p+0")
+		Float nan_f = Float.intBitsToFloat(0x7fc0_0000);
+		F32.NAN == F32.valueOf(nan_f);
+//		Float nan_neg_f = Float.intBitsToFloat(0xffc0_0000);
+//		F32.NAN_NEGATIVE == F32.valueOf(nan_neg_f);
 	}
 
 	def "F32 EqualsWasm #leftInput | #rightInput || #expectedInput"(Float leftInput, Float rightInput, Integer expectedInput) {
@@ -139,6 +143,7 @@ class F32Test extends Specification {
 
 		where:
 		leftInput               | rightInput              || expectedInput
+		Float.NaN               | Float.NaN               || 0
 		Float.NaN               | 1F                      || 0
 		1F                      | Float.NaN               || 0
 		Float.NaN               | 1F                      || 0

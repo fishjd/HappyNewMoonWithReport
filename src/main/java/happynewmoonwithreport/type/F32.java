@@ -41,7 +41,14 @@ public class F32 implements DataTypeNumberFloat {
 	protected Float value;
 
 	public static final F32 ZERO_POSITIVE = new F32(0.0F);
-	public static final F32 ZERO_NEGATIVE = new F32(-0.0F);  // Java stores a negative zero,  Groovy/Spock has issues.
+	// Java stores a negative zero correctly,  Groovy/Spock has issues.
+	public static final F32 ZERO_NEGATIVE = new F32(-0.0F);
+	public static final F32 POSITIVE_INFINITY = new F32(Float.POSITIVE_INFINITY);
+	public static final F32 NEGATIVE_INFINITY = new F32(Float.NEGATIVE_INFINITY);
+	public static final F32 NAN = new F32(Float.NaN);  // Not a number
+	// Java does not allow a Negative NAN.  It converts it to NAN.
+	// public static final F32 NAN_NEGATIVE = F32.valueOf(Float.intBitsToFloat(0xffc00000));  // negative Not a number
+
 
 	public F32() {
 		this.value = 0F;
@@ -75,10 +82,12 @@ public class F32 implements DataTypeNumberFloat {
 			case ("inf"):
 				val = Float.POSITIVE_INFINITY;
 				break;
-			case ("-nan"):
 			case ("nan"):
-			case ("-nan:0x200000"):  // TODO figure out what "-nan:0x200000" is trying to express.
 			case ("nan:0x200000"):    // TODO figure out what "nan:0x200000" is trying to express.
+				val = Float.NaN;
+				break;
+			case ("-nan"):
+			case ("-nan:0x200000"):  // TODO figure out what "-nan:0x200000" is trying to express.
 				val = Float.NaN;
 				break;
 			default:
@@ -86,6 +95,11 @@ public class F32 implements DataTypeNumberFloat {
 		}
 
 		F32 result = new F32(val);
+		return result;
+	}
+
+	public static F32 valueOf(Float input) {
+		F32 result = new F32(input);
 		return result;
 	}
 
@@ -291,16 +305,16 @@ public class F32 implements DataTypeNumberFloat {
 		Integer result = 0;
 
 		// If either z1 or z2 is a NaN, then return 0<br>
-		if (value.equals(Float.NaN) || other.value.equals(Float.NaN)) {
+		if (value.isNaN() || other.value.isNaN()) {
 			result = 0;
 		} else
 			// Else if both z1 and z2 are zeroes, then return 1
 			// Java Implementation: Check for both ZERO_POSITIVE plus ZERO_NEGATIVE.
 			// I think the specification was trying to say check Positive and Negative, but it is
 			// not explicit.
-			if ((this.equals(ZERO_POSITIVE) || this.equals(ZERO_NEGATIVE)) 		//
-				&&  															//
-				(other.equals(ZERO_POSITIVE) || other.equals(ZERO_NEGATIVE))	//
+			if ((this.equals(ZERO_POSITIVE) || this.equals(ZERO_NEGATIVE))        //
+				&&                                                            //
+				(other.equals(ZERO_POSITIVE) || other.equals(ZERO_NEGATIVE))    //
 			) {
 				result = 1;
 			} else {
@@ -310,6 +324,86 @@ public class F32 implements DataTypeNumberFloat {
 				}
 			}
 		return new I32(result);
+	}
+
+	/**
+	 * lessThan according to the Wasm specification.
+	 * <pre>F32 F32 -> I32</pre>
+	 * <pre>
+	 * Source: https://webassembly.github.io/spec/core/exec/numerics.html#xref-exec-numerics-op-feq-mathrm-feq-n-z-1-z-2<br>
+	 * </pre>
+	 * <p>
+	 * @param other
+	 * @return 1 if less than otherwise 0
+	 */
+	public I32 lessThanWasm(F32 other) {
+		return lessThanWasm(this, other);
+	}
+
+	/**
+	 * lessThan according to the Wasm specification.
+	 * <pre>F32 F32 -> I32</pre>
+	 * <pre>
+	 * Source: https://webassembly.github.io/spec/core/exec/numerics.html#xref-exec-numerics-op-feq-mathrm-feq-n-z-1-z-2<br>
+	 * </pre>
+	 * <p>
+	 * 1 If either z1 or z2 is a NaN, then return 0
+	 * 2 Else if z1 and z2 are the same value, then return 0
+	 * 3 Else if z1 is positive infinity, then return 0
+	 * 4 Else if z1 is negative infinity, then return 1
+	 * 5 Else if z2 is positive infinity, then return 1
+	 * 6 Else if z2 is negative infinity, then return 0
+	 * 7 Else if both z1 and z2 are zeroes, then return 0
+	 * 8 Else if z1 is smaller than z2, then return 1
+	 * 9 Else return 0
+	 *
+	 * @param z2
+	 * @return 1 if less than otherwise 0
+	 */
+	public static I32 lessThanWasm(F32 z1, F32 z2) {
+		Integer result = 0;
+
+		// 1 If either z1 or z2 is a NaN, then return 0<br>
+		if (z1.value.isNaN() || z2.value.isNaN()) {
+			return I32.zero;
+		}
+		// 2 Else if z1 and z2 are the same value, then return 0
+		if (z1.equals(z2)) {
+			return I32.zero;
+		}
+		// 3 Else if z1 is positive infinity, then return 0
+		if (z1.equals(F32.POSITIVE_INFINITY)) {
+			return I32.zero;
+		}
+		// 4 Else if z1 is negative infinity, then return 1
+		if (z1.equals(F32.NEGATIVE_INFINITY)) {
+			return I32.one;
+		}
+		// 5 Else if z2 is positive infinity, then return 1
+		if (z2.equals(POSITIVE_INFINITY)) {
+			return I32.one;
+		}
+
+		// 6 Else if z2 is negative infinity, then return 0
+		if (z2.equals(POSITIVE_INFINITY)) {
+			return I32.zero;
+		}
+		// 7 Else if both z1 and z2 are zeroes, then return 0
+		// Java Implementation: Check for both ZERO_POSITIVE plus ZERO_NEGATIVE.
+		// I think the specification was trying to say check Positive and Negative, but it is
+		// not explicit.
+		if ((z1.equals(ZERO_POSITIVE) || z1.equals(ZERO_NEGATIVE))    //
+			&&                                                        //
+			(z2.equals(ZERO_POSITIVE) || z2.equals(ZERO_NEGATIVE))    //
+		) {
+			return I32.zero;
+		}
+		// 8 Else if z1 is smaller than z2, then return 1
+		if (z1.value < z2.value) {
+			return I32.one;
+		}
+		// 9 Else return 0
+		return I32.zero;
 	}
 
 	@Override

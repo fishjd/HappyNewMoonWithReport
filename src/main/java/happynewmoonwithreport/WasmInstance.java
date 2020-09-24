@@ -21,6 +21,7 @@ import happynewmoonwithreport.opcode.Memory.*;
 import happynewmoonwithreport.opcode.bitshift.*;
 import happynewmoonwithreport.opcode.comparison.*;
 import happynewmoonwithreport.opcode.comparison.F32.F32_eq;
+import happynewmoonwithreport.opcode.comparison.F32.F32_lt;
 import happynewmoonwithreport.opcode.comparison.F32.F32_ne;
 import happynewmoonwithreport.opcode.control.Block;
 import happynewmoonwithreport.opcode.control.End;
@@ -514,6 +515,8 @@ public class WasmInstance implements WasmInstanceInterface {
 				break;
 			}
 			case (byte) 0x5D: {	// F32 Less than
+				F32_lt f32_lt = new F32_lt(this);
+				f32_lt.execute();
 				break;
 			}
 			case (byte) 0x5E: {	// F32 Greater than
