@@ -27,7 +27,7 @@ import spock.lang.Specification
 /**
  * Created on 2020-09-13
  */
-class F32_gtTest extends Specification {
+class F32_geTest extends Specification {
 	void setup() {
 	}
 
@@ -35,14 +35,14 @@ class F32_gtTest extends Specification {
 	}
 
 
-	def "Execute F32 greater than to #val1 | #val2 || #expected "(Float val1, Float val2, Integer expected) {
+	def "Execute F32 greater or equal than to #val1 | #val2 || #expected "(Float val1, Float val2, Integer expected) {
 		setup: " push two values on stack."
 
 		WasmInstanceInterface instance = new WasmInstanceStub();
 		instance.stack().push(new F32(val1));
 		instance.stack().push(new F32(val2));
 
-		F32_gt opcode = new F32_gt(instance);
+		F32_ge opcode = new F32_ge(instance);
 
 		when: "run the opcode"
 		opcode.execute();
@@ -55,8 +55,8 @@ class F32_gtTest extends Specification {
 		val1 | val2 || expected
 		4    | 3    || 1
 		3    | 4    || 0
-		4    | 4    || 0
-		0    | 0    || 0
+		4    | 4    || 1
+		0    | 0    || 1
 		1    | 0    || 1
 		0    | 1    || 0
 
@@ -69,14 +69,14 @@ class F32_gtTest extends Specification {
 	 * @param expected
 	 * @return
 	 */
-	def "Execute F32 less than #count | #val1_s | #val2_s || #expected "(Integer count, String val1_s, String val2_s, Integer expected) {
+	def "Execute F32 greater than or equal #count | #val1_s | #val2_s || #expected "(Integer count, String val1_s, String val2_s, Integer expected) {
 		setup: " push two values on stack."
 
 		WasmInstanceInterface instance = new WasmInstanceStub();
 		instance.stack().push(F32.valueOf(val1_s));
 		instance.stack().push(F32.valueOf(val2_s));
 
-		F32_gt opcode = new F32_gt(instance);
+		F32_ge opcode = new F32_ge(instance);
 
 		when: "run the opcode"
 		opcode.execute();
@@ -87,10 +87,10 @@ class F32_gtTest extends Specification {
 
 		where: "val1 equals val2 returns #expected"
 		count | val1_s             | val2_s             || expected
-		1     | "-0x0p+0"          | "-0x0p+0"          || 0
-		2     | "-0x0p+0"          | "0x0p+0"           || 0
-		3     | "0x0p+0"           | "-0x0p+0"          || 0
-		4     | "0x0p+0"           | "0x0p+0"           || 0
+		1     | "-0x0p+0"          | "-0x0p+0"          || 1
+		2     | "-0x0p+0"          | "0x0p+0"           || 1
+		3     | "0x0p+0"           | "-0x0p+0"          || 1
+		4     | "0x0p+0"           | "0x0p+0"           || 1
 		5     | "-0x0p+0"          | "-0x1p-149"        || 1
 		6     | "-0x0p+0"          | "0x1p-149"         || 0
 		7     | "0x0p+0"           | "-0x1p-149"        || 1
@@ -131,10 +131,10 @@ class F32_gtTest extends Specification {
 		42    | "-0x1p-149"        | "0x0p+0"           || 0
 		43    | "0x1p-149"         | "-0x0p+0"          || 1
 		44    | "0x1p-149"         | "0x0p+0"           || 1
-		45    | "-0x1p-149"        | "-0x1p-149"        || 0
+		45    | "-0x1p-149"        | "-0x1p-149"        || 1
 		46    | "-0x1p-149"        | "0x1p-149"         || 0
 		47    | "0x1p-149"         | "-0x1p-149"        || 1
-		48    | "0x1p-149"         | "0x1p-149"         || 0
+		48    | "0x1p-149"         | "0x1p-149"         || 1
 		49    | "-0x1p-149"        | "-0x1p-126"        || 1
 		50    | "-0x1p-149"        | "0x1p-126"         || 0
 		51    | "0x1p-149"         | "-0x1p-126"        || 1
@@ -175,10 +175,10 @@ class F32_gtTest extends Specification {
 		86    | "-0x1p-126"        | "0x1p-149"         || 0
 		87    | "0x1p-126"         | "-0x1p-149"        || 1
 		88    | "0x1p-126"         | "0x1p-149"         || 1
-		89    | "-0x1p-126"        | "-0x1p-126"        || 0
+		89    | "-0x1p-126"        | "-0x1p-126"        || 1
 		90    | "-0x1p-126"        | "0x1p-126"         || 0
 		91    | "0x1p-126"         | "-0x1p-126"        || 1
-		92    | "0x1p-126"         | "0x1p-126"         || 0
+		92    | "0x1p-126"         | "0x1p-126"         || 1
 		93    | "-0x1p-126"        | "-0x1p-1"          || 1
 		94    | "-0x1p-126"        | "0x1p-1"           || 0
 		95    | "0x1p-126"         | "-0x1p-1"          || 1
@@ -219,10 +219,10 @@ class F32_gtTest extends Specification {
 		130   | "-0x1p-1"          | "0x1p-126"         || 0
 		131   | "0x1p-1"           | "-0x1p-126"        || 1
 		132   | "0x1p-1"           | "0x1p-126"         || 1
-		133   | "-0x1p-1"          | "-0x1p-1"          || 0
+		133   | "-0x1p-1"          | "-0x1p-1"          || 1
 		134   | "-0x1p-1"          | "0x1p-1"           || 0
 		135   | "0x1p-1"           | "-0x1p-1"          || 1
-		136   | "0x1p-1"           | "0x1p-1"           || 0
+		136   | "0x1p-1"           | "0x1p-1"           || 1
 		137   | "-0x1p-1"          | "-0x1p+0"          || 1
 		138   | "-0x1p-1"          | "0x1p+0"           || 0
 		139   | "0x1p-1"           | "-0x1p+0"          || 1
@@ -263,10 +263,10 @@ class F32_gtTest extends Specification {
 		174   | "-0x1p+0"          | "0x1p-1"           || 0
 		175   | "0x1p+0"           | "-0x1p-1"          || 1
 		176   | "0x1p+0"           | "0x1p-1"           || 1
-		177   | "-0x1p+0"          | "-0x1p+0"          || 0
+		177   | "-0x1p+0"          | "-0x1p+0"          || 1
 		178   | "-0x1p+0"          | "0x1p+0"           || 0
 		179   | "0x1p+0"           | "-0x1p+0"          || 1
-		180   | "0x1p+0"           | "0x1p+0"           || 0
+		180   | "0x1p+0"           | "0x1p+0"           || 1
 		181   | "-0x1p+0"          | "-0x1.921fb6p+2"   || 1
 		182   | "-0x1p+0"          | "0x1.921fb6p+2"    || 0
 		183   | "0x1p+0"           | "-0x1.921fb6p+2"   || 1
@@ -307,10 +307,10 @@ class F32_gtTest extends Specification {
 		218   | "-0x1.921fb6p+2"   | "0x1p+0"           || 0
 		219   | "0x1.921fb6p+2"    | "-0x1p+0"          || 1
 		220   | "0x1.921fb6p+2"    | "0x1p+0"           || 1
-		221   | "-0x1.921fb6p+2"   | "-0x1.921fb6p+2"   || 0
+		221   | "-0x1.921fb6p+2"   | "-0x1.921fb6p+2"   || 1
 		222   | "-0x1.921fb6p+2"   | "0x1.921fb6p+2"    || 0
 		223   | "0x1.921fb6p+2"    | "-0x1.921fb6p+2"   || 1
-		224   | "0x1.921fb6p+2"    | "0x1.921fb6p+2"    || 0
+		224   | "0x1.921fb6p+2"    | "0x1.921fb6p+2"    || 1
 		225   | "-0x1.921fb6p+2"   | "-0x1.fffffep+127" || 1
 		226   | "-0x1.921fb6p+2"   | "0x1.fffffep+127"  || 0
 		227   | "0x1.921fb6p+2"    | "-0x1.fffffep+127" || 1
@@ -351,10 +351,10 @@ class F32_gtTest extends Specification {
 		262   | "-0x1.fffffep+127" | "0x1.921fb6p+2"    || 0
 		263   | "0x1.fffffep+127"  | "-0x1.921fb6p+2"   || 1
 		264   | "0x1.fffffep+127"  | "0x1.921fb6p+2"    || 1
-		265   | "-0x1.fffffep+127" | "-0x1.fffffep+127" || 0
+		265   | "-0x1.fffffep+127" | "-0x1.fffffep+127" || 1
 		266   | "-0x1.fffffep+127" | "0x1.fffffep+127"  || 0
 		267   | "0x1.fffffep+127"  | "-0x1.fffffep+127" || 1
-		268   | "0x1.fffffep+127"  | "0x1.fffffep+127"  || 0
+		268   | "0x1.fffffep+127"  | "0x1.fffffep+127"  || 1
 		269   | "-0x1.fffffep+127" | "-inf"             || 1
 		270   | "-0x1.fffffep+127" | "inf"              || 0
 		271   | "0x1.fffffep+127"  | "-inf"             || 1
@@ -395,10 +395,10 @@ class F32_gtTest extends Specification {
 		306   | "-inf"             | "0x1.fffffep+127"  || 0
 		307   | "inf"              | "-0x1.fffffep+127" || 1
 		308   | "inf"              | "0x1.fffffep+127"  || 1
-		309   | "-inf"             | "-inf"             || 0
+		309   | "-inf"             | "-inf"             || 1
 		310   | "-inf"             | "inf"              || 0
 		311   | "inf"              | "-inf"             || 1
-		312   | "inf"              | "inf"              || 0
+		312   | "inf"              | "inf"              || 1
 		313   | "-inf"             | "-nan"             || 0
 		314   | "-inf"             | "-nan:0x200000"    || 0
 		315   | "-inf"             | "nan"              || 0
@@ -491,13 +491,13 @@ class F32_gtTest extends Specification {
 	}
 
 
-	def "Execute F32_gt throw exception on incorrect Type on second param "() {
+	def "Execute F32_ge throw exception on incorrect Type on second param "() {
 		setup: "A value of F32  value 1  and a value of I64 of value 2"
 		WasmInstanceInterface instance = new WasmInstanceStub();
 		instance.stack().push(new F32(3));  // value 1
 		instance.stack().push(new I64(4));  // value 2
 
-		F32_gt function = new F32_gt(instance);
+		F32_ge function = new F32_ge(instance);
 
 		when: "Run the opcode"
 		function.execute();
@@ -505,16 +505,16 @@ class F32_gtTest extends Specification {
 		then: "Thrown Exception"
 		WasmRuntimeException exception = thrown();
 		exception.message.contains("Value2");
-		exception.getUuid().toString().contains("874c9d63-a8ea-483f-85b8-7ab88f44da4c");
+		exception.getUuid().toString().contains("2bc62c98-1498-4374-8fdc-5e13a41fb403");
 	}
 
-	def "Execute F32_gt throw exception on incorrect Type on first param "() {
+	def "Execute F32_ge throw exception on incorrect Type on first param "() {
 		setup: "A value of I64  value 1  and a value of F32 of value 2"
 		WasmInstanceInterface instance = new WasmInstanceStub();
 		instance.stack().push(new I64(3));  // value 1
 		instance.stack().push(new F32(4));  // value 2
 
-		F32_gt function = new F32_gt(instance);
+		F32_ge function = new F32_ge(instance);
 
 		when: "Run the opcode"
 		function.execute();
@@ -522,7 +522,7 @@ class F32_gtTest extends Specification {
 		then: "Thrown Exception"
 		WasmRuntimeException exception = thrown();
 		exception.message.contains("Value1");
-		exception.getUuid().toString().contains("c9dd4e2c-eeb9-471a-ae98-6af1661b705a");
+		exception.getUuid().toString().contains("ba266f7e-6ff3-46db-9be7-dad407c6566b");
 	}
 
 }

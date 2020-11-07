@@ -204,7 +204,7 @@ Data Section:  To Do
 - [x] f32.lt  0x5D
 - [x] f32.gt 0x5E
 - [x] f32.le  0x5F
-- [ ] f32.ge 0x60
+- [x] f32.ge 0x60
 - [ ] f64.eq  0x61
 - [ ] f64.ne  0x62
 - [ ] f64.lt 0x63
