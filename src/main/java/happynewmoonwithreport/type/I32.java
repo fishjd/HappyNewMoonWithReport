@@ -47,6 +47,9 @@ public class I32 extends IntWasm {
 
 	protected Integer value;
 
+	public static final I32 zero = new I32(0);
+	public static final I32 one = new I32(1);
+
 	public I32() {
 		value = 0;
 	}
