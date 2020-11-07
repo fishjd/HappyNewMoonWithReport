@@ -47,7 +47,8 @@ public class F32 implements DataTypeNumberFloat {
 	public static final F32 NEGATIVE_INFINITY = new F32(Float.NEGATIVE_INFINITY);
 	public static final F32 NAN = new F32(Float.NaN);  // Not a number
 	// Java does not allow a Negative NAN.  It converts it to NAN.
-	// public static final F32 NAN_NEGATIVE = F32.valueOf(Float.intBitsToFloat(0xffc00000));  // negative Not a number
+	// public static final F32 NAN_NEGATIVE = F32.valueOf(Float.intBitsToFloat(0xffc00000));  //
+	// negative Not a number
 
 
 	public F32() {
@@ -412,6 +413,94 @@ public class F32 implements DataTypeNumberFloat {
 		}
 		// 8 Else if z1 is smaller than z2, then return 1
 		if (z1.value < z2.value) {
+			return I32.one;
+		}
+		// 9 Else return 0
+		return I32.zero;
+	}
+
+	/**
+	 * lessThan or Equal according to the Wasm specification.
+	 * <pre>F32 F32 -> I32</pre>
+	 * <p>
+	 * Source:
+	 * <a  href="https://webassembly.github.io/spec/core/exec/numerics.html#xref-exec-numerics-op-fle-mathrm-fle-n-z-1-z-2" target="_top">
+	 * Numerics Less Than or Equal Wasm Specification.
+	 * </a>
+	 * <p>
+	 * @see F32#lessThanEqualWasm(F32, F32)
+	 * @param other the value to compare to.
+	 * @return 1 if less or equal than otherwise 0
+	 */
+	public I32 lessThanEqualWasm(F32 other) {
+		return lessThanEqualWasm(this, other);
+	}
+
+	/**
+	 * lessThan or Equal according to the Wasm specification.
+	 * <pre>F32 F32 -> I32</pre>
+	 * <p>
+	 * Source:
+	 * <a  href="https://webassembly.github.io/spec/core/exec/numerics.html#xref-exec-numerics-op-fle-mathrm-fle-n-z-1-z-2" target="_top">
+	 * Numerics Less Than or Equal Wasm Specification.
+	 * </a>
+	 * <br>
+	 * <pre>
+	 * 1 If either z1 or z2 is a NaN, then return 0
+	 * 2 Else if z1 and z2 are the same value, then return 1
+	 * 3 Else if z1 is positive infinity, then return 0
+	 * 4 Else if z1 is negative infinity, then return 1
+	 * 5 Else if z2 is positive infinity, then return 1
+	 * 6 Else if z2 is negative infinity, then return 0
+	 * 7 Else if both z1 and z2 are zeroes, then return 1
+	 * 8 Else if z1 is smaller than or equal  z2, then return 1
+	 * 9 Else return 0
+	 * </pre>
+	 *
+	 * @param z1 the left number.
+	 * @param z2 the right number.
+	 * @return 1 if z1 less than or equal z2 otherwise 0.   z1 <= z2
+	 */
+	public static I32 lessThanEqualWasm(F32 z1, F32 z2) {
+		Integer result = 0;
+
+		// 1 If either z1 or z2 is a NaN, then return 0<br>
+		if (z1.value.isNaN() || z2.value.isNaN()) {
+			return I32.zero;
+		}
+		// 2 Else if z1 and z2 are the same value, then return 1
+		if (z1.equals(z2)) {
+			return I32.one;
+		}
+		// 3 Else if z1 is positive infinity, then return 0
+		if (z1.equals(F32.POSITIVE_INFINITY)) {
+			return I32.zero;
+		}
+		// 4 Else if z1 is negative infinity, then return 1
+		if (z1.equals(F32.NEGATIVE_INFINITY)) {
+			return I32.one;
+		}
+		// 5 Else if z2 is positive infinity, then return 1
+		if (z2.equals(POSITIVE_INFINITY)) {
+			return I32.one;
+		}
+
+		// 6 Else if z2 is negative infinity, then return 0
+		if (z2.equals(NEGATIVE_INFINITY)) {
+			return I32.zero;
+		}
+		// 7 Else if both z1 and z2 are zeroes, then return 0
+		// Java Implementation: Check for both ZERO_POSITIVE plus ZERO_NEGATIVE.
+		// I think the specification was trying to say check Positive and Negative, but it is
+		// not explicit.
+		if ((z1.equals(ZERO_POSITIVE) || z1.equals(ZERO_NEGATIVE))    //
+			&&                                                        //
+			(z2.equals(ZERO_POSITIVE) || z2.equals(ZERO_NEGATIVE))    //
+		) {
+			return I32.one;
+		}
+		// 8 Else if z1 is smaller than z2, then return 1
+		if (z1.value <= z2.value) {
 			return I32.one;
 		}
 		// 9 Else return 0
