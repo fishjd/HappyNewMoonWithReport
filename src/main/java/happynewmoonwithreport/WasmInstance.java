@@ -528,6 +528,8 @@ public class WasmInstance implements WasmInstanceInterface {
 				break;
 			}
 			case (byte) 0x60: {	// F32 Greater than Equal
+				F32_ge f32_ge = new F32_ge(this);
+				f32_ge.execute();
 				break;
 			}
 			case (byte) 0x61: {	// F64 Equal
