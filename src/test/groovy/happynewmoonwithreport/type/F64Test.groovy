@@ -20,7 +20,6 @@ package happynewmoonwithreport.type
 import happynewmoonwithreport.BytesFile
 import happynewmoonwithreport.type.JavaType.ByteUnsigned
 import spock.lang.Specification
-import spock.lang.Unroll
 
 class F64Test extends Specification {
 	def setup() {
@@ -104,5 +103,22 @@ class F64Test extends Specification {
 
 		[new ByteUnsigned(0x7F), new ByteUnsigned(0xEF), new ByteUnsigned(0xFF), new ByteUnsigned(0xFF),
 		 new ByteUnsigned(0xFF), new ByteUnsigned(0xFF), new ByteUnsigned(0xFF), new ByteUnsigned(0xFF)] || Double.MAX_VALUE
+	}
+
+	def "F64 constants"() {
+		when:
+		int i = 1;
+
+		then:
+		// valueOf(String)
+		F64.ZERO_POSITIVE == F64.valueOf("0x0p0D");
+		F64.ZERO_NEGATIVE == F64.valueOf("-0x0p+0")
+
+		// valueOf(Double)
+//		Double nan_f = Double.longBitsToDouble(0x7fc0_0000);
+		Double nan_d = Double.longBitsToDouble(0x7ff8000000000000L);
+		F64.NAN == F64.valueOf(nan_d);
+//		Double nan_neg_f = Double.intBitsToDouble(0xffc0_0000);
+//		F64.NAN_NEGATIVE == F64.valueOf(nan_neg_f);
 	}
 }

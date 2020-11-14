@@ -20,7 +20,6 @@ package happynewmoonwithreport.type
 import happynewmoonwithreport.BytesFile
 import happynewmoonwithreport.type.JavaType.ByteUnsigned
 import spock.lang.Specification
-import spock.lang.Unroll
 
 class F32Test extends Specification {
 	def setup() {
@@ -30,7 +29,7 @@ class F32Test extends Specification {
 	}
 
 
-	@Unroll
+	//@Unroll
 	def "test F32 ValueOf(String) #input, #expected"(String input, Float expected) {
 		given: "an string input "
 
@@ -163,7 +162,7 @@ class F32Test extends Specification {
 		F32.ZERO_POSITIVE.value | F32.ZERO_NEGATIVE.value || 1
 	}
 
-	@Unroll
+	// @Unroll
 	def "F32 EqualsWasm negative and positive zero #leftInput_s | #rightInput_s || #expectedInput"(String leftInput_s, String rightInput_s, Integer expectedInput) {
 		F32 left = F32.valueOf(leftInput_s);
 		F32 right = F32.valueOf(rightInput_s);

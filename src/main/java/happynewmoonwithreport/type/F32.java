@@ -189,7 +189,7 @@ public class F32 implements DataTypeNumberFloat {
 		return (double) Float.MAX_VALUE;
 	}
 
-	// this words but requires import of nio.*
+	// this works but requires import of nio.*
 	//	public byte[] toByteArray() {
 	//		byte[] bytes = new byte[4];
 	//		ByteBuffer.wrap(bytes).putFloat(value);
@@ -250,6 +250,11 @@ public class F32 implements DataTypeNumberFloat {
 	 */
 	public F32(ByteUnsigned[] byteAll) {
 		Integer valueInteger;
+
+		// TODO  check for at least 8 bytes to avoid null point exception.  Do the same for F32,
+		//  ....
+
+		// As a coding standard the index '[0]' must be in descending order.
 		// Big Endian
 		valueInteger = byteAll[0].intValue() << 24;    // Most  Significant Byte
 		valueInteger += byteAll[1].intValue() << 16;
@@ -302,27 +307,48 @@ public class F32 implements DataTypeNumberFloat {
 	 * Else return 0.<br>
 	 *
 	 * @param other
-	 * @return 1 if equal otherwise 0
+	 * @return 1 if equal otherwise 0 <code>z1 == z2 </code>
 	 */
 	public I32 equalsWasm(F32 other) {
+		return equalsWasm(this, other);
+	}
+
+	/**
+	 * Equals according to the Wasm specification.
+	 * <pre>F32 F32 -> I32</pre>
+	 * <p>
+	 * Source: <br>
+	 * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#xref-exec-numerics-op-feq-mathrm-feq-n-z-1-z-2" target="_top">
+	 * Numerics equals
+	 * </a><br>
+	 * If either z1 or z2 is a NaN, then return 0<br>
+	 * Else if both z1 and z2 are zeroes, then return 1<br>
+	 * Else if both z1 and z2 are the same value, then return 1<br>
+	 * Else return 0.<br>
+	 *
+	 * @param z1 The left side of the equals
+	 * @param z2 The right side of the equals
+	 * @return 1 if equal otherwise 0.  <code>z1 == z2 </code>
+	 */
+	public static I32 equalsWasm(F32 z1, F32 z2) {
 		Integer result = 0;
 
 		// If either z1 or z2 is a NaN, then return 0<br>
-		if (value.isNaN() || other.value.isNaN()) {
+		if (z1.value.isNaN() || z1.value.isNaN()) {
 			result = 0;
 		} else
 			// Else if both z1 and z2 are zeroes, then return 1
 			// Java Implementation: Check for both ZERO_POSITIVE plus ZERO_NEGATIVE.
 			// I think the specification was trying to say check Positive and Negative, but it is
 			// not explicit.
-			if ((this.equals(ZERO_POSITIVE) || this.equals(ZERO_NEGATIVE))        //
+			if ((z1.equals(ZERO_POSITIVE) || z1.equals(ZERO_NEGATIVE))        //
 				&&                                                            //
-				(other.equals(ZERO_POSITIVE) || other.equals(ZERO_NEGATIVE))    //
+				(z2.equals(ZERO_POSITIVE) || z2.equals(ZERO_NEGATIVE))    //
 			) {
 				result = 1;
 			} else {
 				// Else if both z1 and z2 are the same value, then return 1<br>
-				if (value.equals(other.value)) {
+				if (z1.value.equals(z2.value)) {
 					result = 1;
 				}
 			}
@@ -428,9 +454,10 @@ public class F32 implements DataTypeNumberFloat {
 	 * Numerics Less Than or Equal Wasm Specification.
 	 * </a>
 	 * <p>
-	 * @see F32#lessThanEqualWasm(F32, F32)
+	 *
 	 * @param other the value to compare to.
 	 * @return 1 if less or equal than otherwise 0
+	 * @see F32#lessThanEqualWasm(F32, F32)
 	 */
 	public I32 lessThanEqualWasm(F32 other) {
 		return lessThanEqualWasm(this, other);
@@ -532,7 +559,8 @@ public class F32 implements DataTypeNumberFloat {
 	 * <pre>F32 F32 -> I32</pre>
 	 * <p>
 	 * Source:
-	 * <a  href="https://webassembly.github.io/spec/core/exec/numerics.html#xref-exec-numerics-op-fgt-mathrm-fgt-n-z-1-z-2" target="_top">
+	 * <a  href="https://webassembly.github.io/spec/core/exec/numerics
+	 * .html#xref-exec-numerics-op-fgt-mathrm-fgt-n-z-1-z-2" target="_top">
 	 * Numerics greater Than Wasm Specification.
 	 * </a>
 	 * <br>
@@ -601,16 +629,16 @@ public class F32 implements DataTypeNumberFloat {
 	/**
 	 * greater Than or equal to  according to the Wasm specification.
 	 * <pre>F32 F32 -> I32</pre>
-	 *
+	 * <p>
 	 * Source:
 	 * <a  href="https://webassembly.github.io/spec/core/exec/numerics.html#xref-exec-numerics-op-fge-mathrm-fge-n-z-1-z-2" target="_top">
 	 * Numerics greater Than or equal  Wasm Specification.
 	 * </a>
 	 * <p>
 	 *
-	 * @see F32#greaterThanEqualWasm(F32, F32)
 	 * @param other the value to compare to
 	 * @return 1 if greater than or equal to otherwise 0
+	 * @see F32#greaterThanEqualWasm(F32, F32)
 	 */
 	public I32 greaterThaEqualnWasm(F32 other) {
 		return greaterThanEqualWasm(this, other);
