@@ -34,17 +34,20 @@ class F32_neTest extends Specification {
 	void cleanup() {
 	}
 
-	def "Execute F32 not Equal to #val1  #val2 #expected "(Float val1, Float val2, Integer expected) {
+	//@Unroll
+	def "Execute F32 not Equal to #val1 | #val2 || #expected}   "(Float val1, Float val2, Integer expected) {
 		setup: " push two values on stack."
 
 		WasmInstanceInterface instance = new WasmInstanceStub();
 		instance.stack().push(new F32(val1));
 		instance.stack().push(new F32(val2));
 
-		F32_ne function = new F32_ne(instance);
+		F32_ne opcode = new F32_ne(instance);
 
 		when: "run the opcode"
-		function.execute();
+		opcode.execute();
+
+		then: " verify results"
 		I32 result = instance.stack().pop();
 
 		then: " verify result equals value of expected"
