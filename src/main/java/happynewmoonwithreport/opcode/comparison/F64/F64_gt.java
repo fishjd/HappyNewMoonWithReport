@@ -25,7 +25,7 @@ import happynewmoonwithreport.type.I32;
 import java.util.UUID;
 
 /**
- * F64 less than (f64_lt)  <
+ * F64 greater than (f64_lt) >
  * <p>
  * <b>Note this is the same for all Relative Operations</b>
  * <p>
@@ -53,14 +53,14 @@ import java.util.UUID;
  * https://webassembly.github.io/spec/core/exec/instructions.html#exec-relop
  * </a>
  */
-public class F64_lt {
+public class F64_gt {
 	private WasmInstanceInterface instance;
 
-	private F64_lt() {
+	private F64_gt() {
 		super();
 	}
 
-	public F64_lt(WasmInstanceInterface instance) {
+	public F64_gt(WasmInstanceInterface instance) {
 		this();
 		this.instance = instance;
 	}
@@ -74,7 +74,7 @@ public class F64_lt {
 
 		// 1. Assert: due to validation, two values of value type t are on the top of the stack.
 		if ((stack.peek() instanceof F64) == false) {
-			throw new WasmRuntimeException(UUID.fromString("aaaead39-dcd6-44e6-ba95-8585384922a5"),
+			throw new WasmRuntimeException(UUID.fromString("c4184da9-6075-4b00-bbbe-af65f20da350"),
 				"f64_ne: Value2 type is incorrect");
 		}
 		// 2. Pop the value t.const c2 from the stack.
@@ -82,14 +82,14 @@ public class F64_lt {
 
 		// 1. Assert: due to validation, two values of value type t are on the top of the stack.
 		if ((stack.peek() instanceof F64) == false) {
-			throw new WasmRuntimeException(UUID.fromString("4d837af2-4ac6-4f13-abf9-dc4fad553ad4"),
+			throw new WasmRuntimeException(UUID.fromString("cdea2507-60e0-44b4-ba1b-ce93408ae74a"),
 				"f64_ne: Value1 type is incorrect");
 		}
 		// 3. Pop the value t.const c1 from the stack.
 		F64 value1 = (F64) stack.pop();
 
 		// 4. Let c be the result of computing relopt(c1,c2).
-		I32 c = value1.lessThanWasm(value2);
+		I32 c = value1.greaterThanWasm(value2);
 
 		// 5. Push the value f64.const c to the stack.
 		stack.push(c);
