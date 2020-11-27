@@ -210,7 +210,7 @@ Data Section:  To Do
 - [x] f64.lt 0x63
 - [x] f64.gt 0x64
 - [x] f64.le  0x65
-- [ ] f64.ge 0x66
+- [x] f64.ge 0x66
 - [x] i32.clz  0x67
 - [x] i32.ctz  0x68
 - [x] i32.popcnt  0x69

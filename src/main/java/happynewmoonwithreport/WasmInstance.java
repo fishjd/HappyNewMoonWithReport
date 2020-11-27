@@ -20,11 +20,8 @@ import happynewmoonwithreport.opcode.*;
 import happynewmoonwithreport.opcode.Memory.*;
 import happynewmoonwithreport.opcode.bitshift.*;
 import happynewmoonwithreport.opcode.comparison.F32.*;
-import happynewmoonwithreport.opcode.comparison.F64.F64_eq;
+import happynewmoonwithreport.opcode.comparison.F64.*;
 import happynewmoonwithreport.opcode.comparison.*;
-import happynewmoonwithreport.opcode.comparison.F64.F64_gt;
-import happynewmoonwithreport.opcode.comparison.F64.F64_le;
-import happynewmoonwithreport.opcode.comparison.F64.F64_lt;
 import happynewmoonwithreport.opcode.control.Block;
 import happynewmoonwithreport.opcode.control.End;
 import happynewmoonwithreport.opcode.control.Nop;
@@ -562,6 +559,8 @@ public class WasmInstance implements WasmInstanceInterface {
 				break;
 			}
 			case (byte) 0x66: {// F64 Greater than Equal
+				F64_ge f64_ge = new F64_ge(this);
+				f64_ge.execute();
 				break;
 			}
 			case (byte) 0x67: {  // I32 Count Leading Zeros
