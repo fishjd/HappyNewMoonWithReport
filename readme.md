@@ -207,7 +207,7 @@ Data Section:  To Do
 - [x] f32.ge 0x60
 - [x] f64.eq  0x61
 - [x] f64.ne  0x62
-- [ ] f64.lt 0x63
+- [x] f64.lt 0x63
 - [ ] f64.gt 0x64
 - [ ] f64.le  0x65
 - [ ] f64.ge 0x66
