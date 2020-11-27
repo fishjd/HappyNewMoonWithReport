@@ -452,6 +452,98 @@ public class F64 implements DataTypeNumberFloat {
 		return I32.zero;
 	}
 
+
+	/**
+	 * greaterThan according to the Wasm specification.
+	 * <pre>F64 F64 -> I32</pre>
+	 * <pre>
+	 * Source: <br>
+	 * </pre>
+	 * <p>
+	 * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#xref-exec-numerics-op-feq-mathrm-feq-n-z-1-z-2" target="_top">
+	 * Numerics Equal
+	 * </a>
+	 * <p>
+	 *
+	 * @param other
+	 * @return 1 if greater than otherwise 0
+	 */
+	public I32 greaterThanWasm(F64 other) {
+		return greaterThanWasm(this, other);
+	}
+
+	/**
+	 * Greater Than  according to the Wasm specification.
+	 * <pre>F64 F64 -> I32</pre>
+	 * <p>
+	 * Source:
+	 * <a  href="https://webassembly.github.io/spec/core/exec/numerics
+	 * .html#xref-exec-numerics-op-fgt-mathrm-fgt-n-z-1-z-2" target="_top">
+	 * Numerics greater Than Wasm Specification.
+	 * </a>
+	 * <br>
+	 * <pre>
+	 *  1 If either z1 or z2 is a NaN, then return 0
+	 *  2 Else if z1 and z2 are the same value, then return 0
+	 *  3 Else if z1 is positive infinity, then return 1
+	 *  4 Else if z1 is negative infinity, then return 0
+	 *  5 Else if z2 is positive infinity, then return 0
+	 *  6 Else if z2 is negative infinity, then return 1
+	 *  7 Else if both z1 and z2 are zeroes, then return 0
+	 *  8 Else if z1 is larger than z2, then return 1
+	 *  9 Else return 0
+	 * </pre>
+	 *
+	 * @param z1 the left number.
+	 * @param z2 the right number.
+	 * @return 1 if z1 greater than z2 otherwise 0.   z1 > z2
+	 */
+	public static I32 greaterThanWasm(F64 z1, F64 z2) {
+		Integer result = 0;
+
+		// 1 If either z1 or z2 is a NaN, then return 0<br>
+		if (z1.value.isNaN() || z2.value.isNaN()) {
+			return I32.zero;
+		}
+		// 2 Else if z1 and z2 are the same value, then return 0
+		if (z1.equals(z2)) {
+			return I32.zero;
+		}
+		// 3 Else if z1 is positive infinity, then return 1
+		if (z1.equals(F64.POSITIVE_INFINITY)) {
+			return I32.one;
+		}
+		// 4 Else if z1 is negative infinity, then return 0
+		if (z1.equals(F64.NEGATIVE_INFINITY)) {
+			return I32.zero;
+		}
+		// 5 Else if z2 is positive infinity, then return 0
+		if (z2.equals(POSITIVE_INFINITY)) {
+			return I32.zero;
+		}
+
+		// 6 Else if z2 is negative infinity, then return 1
+		if (z2.equals(NEGATIVE_INFINITY)) {
+			return I32.one;
+		}
+		// 7 Else if both z1 and z2 are zeroes, then return 0
+		// Java Implementation: Check for both ZERO_POSITIVE plus ZERO_NEGATIVE.
+		// I think the specification was trying to say check Positive and Negative, but it is
+		// not explicit.
+		if ((z1.equals(ZERO_POSITIVE) || z1.equals(ZERO_NEGATIVE))    //
+			&&                                                        //
+			(z2.equals(ZERO_POSITIVE) || z2.equals(ZERO_NEGATIVE))    //
+		) {
+			return I32.zero;
+		}
+		// 8 Else if z1 is larger than z2, then return 1
+		if (z1.value > z2.value) {
+			return I32.one;
+		}
+		// 9 Else return 0
+		return I32.zero;
+	}
+
 	@Override
 	public String toString() {
 		final StringBuffer sb = new StringBuffer("F64{");
