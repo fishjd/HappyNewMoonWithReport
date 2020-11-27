@@ -34,7 +34,8 @@ class F32_eqTest extends Specification {
 	void cleanup() {
 	}
 
-	def "Execute F32 Equal to "(Float val1, Float val2, Integer expected) {
+	//@Unroll
+	def "Execute F32 Equal to #val1 | #val2 || #expected}   "(Float val1, Float val2, Integer expected) {
 		setup: " push two values on stack."
 
 		WasmInstanceInterface instance = new WasmInstanceStub();

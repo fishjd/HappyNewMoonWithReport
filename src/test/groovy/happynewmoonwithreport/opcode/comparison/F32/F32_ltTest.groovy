@@ -49,6 +49,8 @@ class F32_ltTest extends Specification {
 
 		then: " verify results"
 		I32 result = instance.stack().pop();
+
+		then: " verify result equals value of expected"
 		new I32(expected) == result
 
 		where: "val1 equals val2 returns #expected"

@@ -19,8 +19,9 @@ package happynewmoonwithreport;
 import happynewmoonwithreport.opcode.*;
 import happynewmoonwithreport.opcode.Memory.*;
 import happynewmoonwithreport.opcode.bitshift.*;
-import happynewmoonwithreport.opcode.comparison.*;
 import happynewmoonwithreport.opcode.comparison.F32.*;
+import happynewmoonwithreport.opcode.comparison.F64.*;
+import happynewmoonwithreport.opcode.comparison.*;
 import happynewmoonwithreport.opcode.control.Block;
 import happynewmoonwithreport.opcode.control.End;
 import happynewmoonwithreport.opcode.control.Nop;
@@ -502,52 +503,64 @@ public class WasmInstance implements WasmInstanceInterface {
 				i64_ge_u.execute();
 				break;
 			}
-			case (byte) 0x5B: {	// F32 Equal
+			case (byte) 0x5B: {    // F32 Equal
 				F32_eq f32_eq = new F32_eq(this);
 				f32_eq.execute();
 				break;
 			}
-			case (byte) 0x5C: {	// F32 Not Equal
+			case (byte) 0x5C: {    // F32 Not Equal
 				F32_ne f32_ne = new F32_ne(this);
 				f32_ne.execute();
 				break;
 			}
-			case (byte) 0x5D: {	// F32 Less than
+			case (byte) 0x5D: {    // F32 Less than
 				F32_lt f32_lt = new F32_lt(this);
 				f32_lt.execute();
 				break;
 			}
-			case (byte) 0x5E: {	// F32 Greater than
+			case (byte) 0x5E: {    // F32 Greater than
 				F32_gt f32_gt = new F32_gt(this);
 				f32_gt.execute();
 				break;
 			}
-			case (byte) 0x5F: {	// F32 Less than Equal
+			case (byte) 0x5F: {    // F32 Less than Equal
 				F32_le f32_le = new F32_le(this);
 				f32_le.execute();
 				break;
 			}
-			case (byte) 0x60: {	// F32 Greater than Equal
+			case (byte) 0x60: {    // F32 Greater than Equal
 				F32_ge f32_ge = new F32_ge(this);
 				f32_ge.execute();
 				break;
 			}
-			case (byte) 0x61: {	// F64 Equal
+			case (byte) 0x61: {    // F64 Equal
+				F64_eq f64_eq = new F64_eq(this);
+				f64_eq.execute();
 				break;
 			}
-			case (byte) 0x62: {	// F64 Not Equal
+			case (byte) 0x62: {    // F64 Not Equal
+				F64_eq f64_eq = new F64_eq(this);
+				f64_eq.execute();
 				break;
 			}
-			case (byte) 0x63: {	// F64 Less than
+			case (byte) 0x63: {    // F64 Less than
+				F64_lt f64_lt = new F64_lt(this);
+				f64_lt.execute();
 				break;
 			}
-			case (byte) 0x64: {	// F64 Greater than
+			case (byte) 0x64: {    // F64 Greater than
+				F64_gt f64_gt = new F64_gt(this);
+				f64_gt.execute();
 				break;
 			}
-			case (byte) 0x65: {	// F64 Less than Equal
+			case (byte) 0x65: {    // F64 Less than Equal
+				F64_le f64_le = new F64_le(this);
+				f64_le.execute();
 				break;
 			}
 			case (byte) 0x66: {// F64 Greater than Equal
+				F64_ge f64_ge = new F64_ge(this);
+				f64_ge.execute();
 				break;
 			}
 			case (byte) 0x67: {  // I32 Count Leading Zeros
