@@ -27,7 +27,7 @@ import spock.lang.Specification
 /**
  * Created on 2020-09-13
  */
-class F64_ltTest extends Specification {
+class F64_leTest extends Specification {
 	void setup() {
 	}
 
@@ -42,7 +42,7 @@ class F64_ltTest extends Specification {
 		instance.stack().push(new F64(val1));
 		instance.stack().push(new F64(val2));
 
-		F64_lt opcode = new F64_lt(instance);
+		F64_le opcode = new F64_le(instance);
 
 		when: "run the opcode"
 		opcode.execute();
@@ -57,15 +57,17 @@ class F64_ltTest extends Specification {
 		val1 | val2 || expected
 		4    | 3    || 0
 		3    | 4    || 1
-		4    | 4    || 0
-		0    | 0    || 0
+		4    | 4    || 1
+		0    | 0    || 1
 		1    | 0    || 0
 		0    | 1    || 1
 
 	}
 
 	/**
-	 * https://github.com/WebAssembly/spec/blob/7526564b56c30250b66504fe795e9c1e88a938af/test/core/f64_cmp.wast
+	 * <a href="https://github.com/WebAssembly/spec/blob/7526564b56c30250b66504fe795e9c1e88a938af/test/core/f64_cmp.wast">
+	 *     F64 unit test
+	 * </a>
 	 * @param val1_s
 	 * @param val2_s
 	 * @param expected
@@ -78,7 +80,7 @@ class F64_ltTest extends Specification {
 		instance.stack().push(F64.valueOf(val1_s));
 		instance.stack().push(F64.valueOf(val2_s));
 
-		F64_lt opcode = new F64_lt(instance);
+		F64_le opcode = new F64_le(instance);
 
 		when: "run the opcode"
 		opcode.execute();
@@ -89,10 +91,10 @@ class F64_ltTest extends Specification {
 
 		where: "val1 equals val2 returns #expected"
 		count | val1_s                     | val2_s                     || expected
-		1     | " -0x0p+0"                 | "-0x0p+0"                  || 0
-		2     | "-0x0p+0"                  | "0x0p+0"                   || 0
-		3     | "0x0p+0"                   | "-0x0p+0"                  || 0
-		4     | "0x0p+0"                   | "0x0p+0"                   || 0
+		1     | "-0x0p+0"                  | "-0x0p+0"                  || 1
+		2     | "-0x0p+0"                  | "0x0p+0"                   || 1
+		3     | "0x0p+0"                   | "-0x0p+0"                  || 1
+		4     | "0x0p+0"                   | "0x0p+0"                   || 1
 		5     | "-0x0p+0"                  | "-0x0.0000000000001p-1022" || 0
 		6     | "-0x0p+0"                  | "0x0.0000000000001p-1022"  || 1
 		7     | "0x0p+0"                   | "-0x0.0000000000001p-1022" || 0
@@ -133,10 +135,10 @@ class F64_ltTest extends Specification {
 		42    | "-0x0.0000000000001p-1022" | "0x0p+0"                   || 1
 		43    | "0x0.0000000000001p-1022"  | "-0x0p+0"                  || 0
 		44    | "0x0.0000000000001p-1022"  | "0x0p+0"                   || 0
-		45    | "-0x0.0000000000001p-1022" | "-0x0.0000000000001p-1022" || 0
+		45    | "-0x0.0000000000001p-1022" | "-0x0.0000000000001p-1022" || 1
 		46    | "-0x0.0000000000001p-1022" | "0x0.0000000000001p-1022"  || 1
 		47    | "0x0.0000000000001p-1022"  | "-0x0.0000000000001p-1022" || 0
-		48    | "0x0.0000000000001p-1022"  | "0x0.0000000000001p-1022"  || 0
+		48    | "0x0.0000000000001p-1022"  | "0x0.0000000000001p-1022"  || 1
 		49    | "-0x0.0000000000001p-1022" | "-0x1p-1022"               || 0
 		50    | "-0x0.0000000000001p-1022" | "0x1p-1022"                || 1
 		51    | "0x0.0000000000001p-1022"  | "-0x1p-1022"               || 0
@@ -177,10 +179,10 @@ class F64_ltTest extends Specification {
 		86    | "-0x1p-1022"               | "0x0.0000000000001p-1022"  || 1
 		87    | "0x1p-1022"                | "-0x0.0000000000001p-1022" || 0
 		88    | "0x1p-1022"                | "0x0.0000000000001p-1022"  || 0
-		89    | "-0x1p-1022"               | "-0x1p-1022"               || 0
+		89    | "-0x1p-1022"               | "-0x1p-1022"               || 1
 		90    | "-0x1p-1022"               | "0x1p-1022"                || 1
 		91    | "0x1p-1022"                | "-0x1p-1022"               || 0
-		92    | "0x1p-1022"                | "0x1p-1022"                || 0
+		92    | "0x1p-1022"                | "0x1p-1022"                || 1
 		93    | "-0x1p-1022"               | "-0x1p-1"                  || 0
 		94    | "-0x1p-1022"               | "0x1p-1"                   || 1
 		95    | "0x1p-1022"                | "-0x1p-1"                  || 0
@@ -221,10 +223,10 @@ class F64_ltTest extends Specification {
 		130   | "-0x1p-1"                  | "0x1p-1022"                || 1
 		131   | "0x1p-1"                   | "-0x1p-1022"               || 0
 		132   | "0x1p-1"                   | "0x1p-1022"                || 0
-		133   | "-0x1p-1"                  | "-0x1p-1"                  || 0
+		133   | "-0x1p-1"                  | "-0x1p-1"                  || 1
 		134   | "-0x1p-1"                  | "0x1p-1"                   || 1
 		135   | "0x1p-1"                   | "-0x1p-1"                  || 0
-		136   | "0x1p-1"                   | "0x1p-1"                   || 0
+		136   | "0x1p-1"                   | "0x1p-1"                   || 1
 		137   | "-0x1p-1"                  | "-0x1p+0"                  || 0
 		138   | "-0x1p-1"                  | "0x1p+0"                   || 1
 		139   | "0x1p-1"                   | "-0x1p+0"                  || 0
@@ -265,10 +267,10 @@ class F64_ltTest extends Specification {
 		174   | "-0x1p+0"                  | "0x1p-1"                   || 1
 		175   | "0x1p+0"                   | "-0x1p-1"                  || 0
 		176   | "0x1p+0"                   | "0x1p-1"                   || 0
-		177   | "-0x1p+0"                  | "-0x1p+0"                  || 0
+		177   | "-0x1p+0"                  | "-0x1p+0"                  || 1
 		178   | "-0x1p+0"                  | "0x1p+0"                   || 1
 		179   | "0x1p+0"                   | "-0x1p+0"                  || 0
-		180   | "0x1p+0"                   | "0x1p+0"                   || 0
+		180   | "0x1p+0"                   | "0x1p+0"                   || 1
 		181   | "-0x1p+0"                  | "-0x1.921fb54442d18p+2"    || 0
 		182   | "-0x1p+0"                  | "0x1.921fb54442d18p+2"     || 1
 		183   | "0x1p+0"                   | "-0x1.921fb54442d18p+2"    || 0
@@ -309,10 +311,10 @@ class F64_ltTest extends Specification {
 		218   | "-0x1.921fb54442d18p+2"    | "0x1p+0"                   || 1
 		219   | "0x1.921fb54442d18p+2"     | "-0x1p+0"                  || 0
 		220   | "0x1.921fb54442d18p+2"     | "0x1p+0"                   || 0
-		221   | "-0x1.921fb54442d18p+2"    | "-0x1.921fb54442d18p+2"    || 0
+		221   | "-0x1.921fb54442d18p+2"    | "-0x1.921fb54442d18p+2"    || 1
 		222   | "-0x1.921fb54442d18p+2"    | "0x1.921fb54442d18p+2"     || 1
 		223   | "0x1.921fb54442d18p+2"     | "-0x1.921fb54442d18p+2"    || 0
-		224   | "0x1.921fb54442d18p+2"     | "0x1.921fb54442d18p+2"     || 0
+		224   | "0x1.921fb54442d18p+2"     | "0x1.921fb54442d18p+2"     || 1
 		225   | "-0x1.921fb54442d18p+2"    | "-0x1.fffffffffffffp+1023" || 0
 		226   | "-0x1.921fb54442d18p+2"    | "0x1.fffffffffffffp+1023"  || 1
 		227   | "0x1.921fb54442d18p+2"     | "-0x1.fffffffffffffp+1023" || 0
@@ -353,10 +355,10 @@ class F64_ltTest extends Specification {
 		262   | "-0x1.fffffffffffffp+1023" | "0x1.921fb54442d18p+2"     || 1
 		263   | "0x1.fffffffffffffp+1023"  | "-0x1.921fb54442d18p+2"    || 0
 		264   | "0x1.fffffffffffffp+1023"  | "0x1.921fb54442d18p+2"     || 0
-		265   | "-0x1.fffffffffffffp+1023" | "-0x1.fffffffffffffp+1023" || 0
+		265   | "-0x1.fffffffffffffp+1023" | "-0x1.fffffffffffffp+1023" || 1
 		266   | "-0x1.fffffffffffffp+1023" | "0x1.fffffffffffffp+1023"  || 1
 		267   | "0x1.fffffffffffffp+1023"  | "-0x1.fffffffffffffp+1023" || 0
-		268   | "0x1.fffffffffffffp+1023"  | "0x1.fffffffffffffp+1023"  || 0
+		268   | "0x1.fffffffffffffp+1023"  | "0x1.fffffffffffffp+1023"  || 1
 		269   | "-0x1.fffffffffffffp+1023" | "-inf"                     || 0
 		270   | "-0x1.fffffffffffffp+1023" | "inf"                      || 1
 		271   | "0x1.fffffffffffffp+1023"  | "-inf"                     || 0
@@ -397,10 +399,10 @@ class F64_ltTest extends Specification {
 		306   | "-inf"                     | "0x1.fffffffffffffp+1023"  || 1
 		307   | "inf"                      | "-0x1.fffffffffffffp+1023" || 0
 		308   | "inf"                      | "0x1.fffffffffffffp+1023"  || 0
-		309   | "-inf"                     | "-inf"                     || 0
+		309   | "-inf"                     | "-inf"                     || 1
 		310   | "-inf"                     | "inf"                      || 1
 		311   | "inf"                      | "-inf"                     || 0
-		312   | "inf"                      | "inf"                      || 0
+		312   | "inf"                      | "inf"                      || 1
 		313   | "-inf"                     | "-nan"                     || 0
 		314   | "-inf"                     | "-nan:0x4000000000000"     || 0
 		315   | "-inf"                     | "nan"                      || 0
@@ -493,13 +495,13 @@ class F64_ltTest extends Specification {
 	}
 
 
-	def "Execute F64_lt throw exception on incorrect Type on second param "() {
+	def "Execute F64_le throw exception on incorrect Type on second param "() {
 		setup: " a value of F64  value 1  and a value of I64 of value 2"
 		WasmInstanceInterface instance = new WasmInstanceStub();
 		instance.stack().push(new F64(3));  // value 1
 		instance.stack().push(new I64(4));  // value 2
 
-		F64_lt function = new F64_lt(instance);
+		F64_le function = new F64_le(instance);
 
 		when: "run the opcode"
 		function.execute();
@@ -507,16 +509,16 @@ class F64_ltTest extends Specification {
 		then: " Thrown Exception"
 		WasmRuntimeException exception = thrown();
 		exception.message.contains("Value2");
-		exception.getUuid().toString().contains("aaaead39-dcd6-44e6-ba95-8585384922a5");
+		exception.getUuid().toString().contains("0fba73d6-9dbb-442c-9a74-14fe2acc67aa");
 	}
 
-	def "Execute F64_lt throw exception on incorrect Type on first param "() {
+	def "Execute F64_le throw exception on incorrect Type on first param "() {
 		setup: " a value of I64  value 1  and a value of F64 of value 2"
 		WasmInstanceInterface instance = new WasmInstanceStub();
 		instance.stack().push(new I64(3));  // value 1
 		instance.stack().push(new F64(4));  // value 2
 
-		F64_lt function = new F64_lt(instance);
+		F64_le function = new F64_le(instance);
 
 		when: "run the opcode"
 		function.execute();
@@ -524,7 +526,7 @@ class F64_ltTest extends Specification {
 		then: " Thrown Exception"
 		WasmRuntimeException exception = thrown();
 		exception.message.contains("Value1");
-		exception.getUuid().toString().contains("4d837af2-4ac6-4f13-abf9-dc4fad553ad4");
+		exception.getUuid().toString().contains("acca2902-d21d-4164-9463-9ee1386201c2");
 	}
 
 }
