@@ -25,20 +25,22 @@ import happynewmoonwithreport.type.JavaType.ByteUnsigned;
  * A F32 data type.
  * A class that implements an F32 data type.
  *
- * <b>Java Implementation</b>
- * This uses a <code>Float</code> type.  Floats and F32 are the same IEEE 754.
+ * <h2>Java Implementation</h2>
+ * This uses a {@code Float} type.  Floats and F32 are the same IEEE 754.
  * <p>
  * See:
  * <p><a href="https://docs.oracle.com/javase/tutorial/java/nutsandbolts/datatypes.html">
  * Java Documentation on types.
  * </a>
- *
+ * <p>
+ * This class is immutable.
+ * <h2>Wasm documentation</h2>
  * <p><a href="https://webassembly.github.io/spec/core/syntax/types.html#value-types">
  * WASM documentation on types.
  * </a>
  */
 public class F32 implements DataTypeNumberFloat {
-	protected Float value;
+	protected final Float value;
 
 	public static final F32 ZERO_POSITIVE = new F32(0.0F);
 	// Java stores a negative zero correctly,  Groovy/Spock has issues.
@@ -74,7 +76,8 @@ public class F32 implements DataTypeNumberFloat {
 	 */
 	@Deprecated
 	public F32(String input) {
-		throw new java.lang.UnsupportedOperationException("Constructor F32(String) not supported. Use F32 ValueOf(String)");
+		throw new java.lang.UnsupportedOperationException(
+			"Constructor F32(String) not supported. Use F32 ValueOf(String)");
 	}
 
 	/**
