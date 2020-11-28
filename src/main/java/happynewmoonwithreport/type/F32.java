@@ -60,6 +60,24 @@ public class F32 implements DataTypeNumberFloat {
 	}
 
 	/**
+	 * Use F32.valueOf(String)
+	 * <pre>
+	 * {@code
+	 *    try {
+	 *         F32 zero = F32.valueOf("0.0");
+	 *    } catch (NumberFormatException nfe) {
+	 *        // do something.
+	 *    }
+	 *
+	 * }
+	 * </pre>
+	 */
+	@Deprecated
+	public F32(String input) {
+		throw new java.lang.UnsupportedOperationException("Constructor F32(String) not supported. Use F32 ValueOf(String)");
+	}
+
+	/**
 	 * Returns a {@code F32} object holding the
 	 * {@code F32} value represented by the argument string
 	 * {@code s}.
@@ -283,6 +301,16 @@ public class F32 implements DataTypeNumberFloat {
 		valueInteger += (((int) bytesFile.readByte() & 0xFF) << 24); // Most Significant Byte
 
 		F32 result = new F32(Float.intBitsToFloat(valueInteger));
+		return result;
+	}
+
+	/**
+	 * Calculate the Absolute value.
+	 *
+	 * @return the absolute value
+	 */
+	public F32 abs() {
+		F32 result = new F32(Math.abs(value));
 		return result;
 	}
 
