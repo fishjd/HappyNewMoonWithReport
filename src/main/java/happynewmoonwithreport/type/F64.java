@@ -37,7 +37,7 @@ import happynewmoonwithreport.type.JavaType.ByteUnsigned;
  * </a>
  */
 public class F64 implements DataTypeNumberFloat {
-	protected Double value;
+	protected final Double value;
 
 	public static final F64 ZERO_POSITIVE = new F64(0.0D);
 	// Java stores a negative zero correctly,  Groovy/Spock has issues.
@@ -297,6 +297,16 @@ public class F64 implements DataTypeNumberFloat {
 		valueLong += (((long) bytesFile.readByte() & 0xFFL) << 56); // Most Significant Byte
 
 		F64 result = new F64(Double.longBitsToDouble(valueLong));
+		return result;
+	}
+
+	/**
+	 * Calculate the Absolute value.
+	 *
+	 * @return the absolute value
+	 */
+	public F64 abs() {
+		F64 result = new F64(Math.abs(value));
 		return result;
 	}
 

@@ -20,7 +20,6 @@ import happynewmoonwithreport.WasmInstanceInterface
 import happynewmoonwithreport.WasmRuntimeException
 import happynewmoonwithreport.opcode.WasmInstanceStub
 import happynewmoonwithreport.type.F32
-import happynewmoonwithreport.type.I32
 import happynewmoonwithreport.type.I64
 import spock.lang.Specification
 
@@ -30,7 +29,12 @@ import spock.lang.Specification
  * Created on 2020-11-28
  */
 class F32_absTest extends Specification {
+	String inputType;
+	String returnType;
+
 	void setup() {
+		inputType = "F32";
+		returnType = "F32"
 	}
 
 	void cleanup() {
@@ -58,14 +62,14 @@ class F32_absTest extends Specification {
 		F32 result = instance.stack().pop();
 
 		then: " verify result equals value of expected"
-		new F32(expected) == result
+		F32.valueOf(expected) == result
 
 		where: "val1 equals val2 returns #expected"
 		count | val1 || expected
 		1     | 4.1  || 4.1
 		2     | -4.1 || 4.1
 		3     | 0F   || 0F
-		4     | -0F  || 0
+		4     | -0F  || 0F
 	}
 
 /**
@@ -79,7 +83,7 @@ class F32_absTest extends Specification {
  * @return None.
  */
 	def "Execute F32 less than #count | #val1_s  || # expected "(Integer count, String val1_s, String expected) {
-		setup: " push two values on stack."
+		setup: " push one value on stack."
 
 		WasmInstanceInterface instance = new WasmInstanceStub();
 		instance.stack().push(F32.valueOf(val1_s));
@@ -88,11 +92,10 @@ class F32_absTest extends Specification {
 
 		when: "run the opcode"
 		opcode.execute();
-		F32 result = instance.stack().pop();
 
 		then: " verify result equals value of expected"
-		F32 expectedF32 = F32.valueOf(expected);
-		expectedF32  == result
+		F32 result = instance.stack().pop();
+		F32.valueOf(expected) == result
 
 		where: "val1 returns #expected"
 		count | val1_s             || expected
@@ -118,7 +121,7 @@ class F32_absTest extends Specification {
 	}
 
 	def "Execute F32_abs throws exception on incorrect Type on first param "() {
-		setup: " a value of I64  value 1  and a value of F32 of value 2"
+		setup: " a value of F32  value"
 		WasmInstanceInterface instance = new WasmInstanceStub();
 		instance.stack().push(new I64(3));  // value 1
 
@@ -130,8 +133,8 @@ class F32_absTest extends Specification {
 		then: "Verify thrown exception"
 		WasmRuntimeException exception = thrown();
 		exception.message.contains("Value type is incorrect. ");
-		exception.message.contains("Value should be of type 'F32'. ");
-		exception.message.contains("The input type is 'I64'. ");
+		exception.message.contains("Value should be of type '" + inputType + "'. ");
+		exception.message.contains("The input type is 'I64'.");
 		exception.message.contains("The input value is '");
 		exception.getUuid().toString().contains("316c2f0b-0a48-42d9-89a7-d7863bb9af3f");
 	}

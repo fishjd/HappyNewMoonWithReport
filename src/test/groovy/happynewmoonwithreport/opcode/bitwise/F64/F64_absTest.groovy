@@ -14,14 +14,12 @@
  *  limitations under the License.
  *
  */
-package happynewmoonwithreport.opcode.bitwise.F32
+package happynewmoonwithreport.opcode.bitwise.F64
 
 import happynewmoonwithreport.WasmInstanceInterface
 import happynewmoonwithreport.WasmRuntimeException
 import happynewmoonwithreport.opcode.WasmInstanceStub
-import happynewmoonwithreport.opcode.comparison.F64.F64_abs
 import happynewmoonwithreport.type.F64
-import happynewmoonwithreport.type.I32
 import happynewmoonwithreport.type.I64
 import spock.lang.Specification
 
@@ -30,8 +28,14 @@ import spock.lang.Specification
  * <p>
  * Created on 2020-11-28
  */
-class F32_absTest extends Specification {
+class F64_absTest extends Specification {
+
+	String inputType;
+	String returnType;
+
 	void setup() {
+		inputType = "F64";
+		returnType = "F64"
 	}
 
 	void cleanup() {
@@ -44,7 +48,7 @@ class F32_absTest extends Specification {
  * @param expected The expected value.  What the opcode should return.
  * @return None.
  */
-	def "Execute F64_abs with #count | #val1 || #expected "(Integer count, Float val1, Integer expected) {
+	def "Execute F64_abs with #count | #val1 || #expected "(Integer count, Double val1, Double expected) {
 		setup: " push two values on stack."
 
 		WasmInstanceInterface instance = new WasmInstanceStub();
@@ -56,17 +60,17 @@ class F32_absTest extends Specification {
 		opcode.execute();
 
 		then: " verify results"
-		I32 result = instance.stack().pop();
+		F64 result = instance.stack().pop();
 
 		then: " verify result equals value of expected"
-		new I32(expected) == result
+		F64.valueOf(expected) == result
 
 		where: "val1 equals val2 returns #expected"
-		count | val1 || expected
-		1     | 4.1  || 4.1
-		2     | -4.1 || 4.1
-		3     | 0F   || 0F
-		4     | -0F  || 0
+		count | val1  || expected
+		1     | 4.1D  || 4.1D
+		2     | -4.1D || 4.1D
+		3     | 0D    || 0D
+		4     | -0D   || 0D
 	}
 
 /**
@@ -79,21 +83,21 @@ class F32_absTest extends Specification {
  * @param expected The expected value.  What the opcode should return.
  * @return None.
  */
-	def "Execute F64 less than #count | #val1_s  || # expected "(Integer count, String val1_s, Integer expected) {
-		setup: " push two values on stack."
+	def "Execute F64 less than #count | #val1_s  || # expected "(Integer count, String val1_s, String expected) {
+		setup: " push one value on stack."
 
 		WasmInstanceInterface instance = new WasmInstanceStub();
 		instance.stack().push(F64.valueOf(val1_s));
-		instance.stack().push(F64.valueOf(val2_s));
+
 
 		F64_abs opcode = new F64_abs(instance);
 
 		when: "run the opcode"
 		opcode.execute();
-		I32 result = instance.stack().pop();
 
 		then: " verify result equals value of expected"
-		new I32(expected) == result
+		F64 result = instance.stack().pop();
+		F64.valueOf(expected) == result
 
 		where: "val1 returns #expected"
 		count | val1_s                     || expected
@@ -119,10 +123,9 @@ class F32_absTest extends Specification {
 	}
 
 	def "Execute F64_abs throws exception on incorrect Type on first param "() {
-		setup: " a value of I64  value 1  and a value of F64 of value 2"
+		setup: " a value of F64  value"
 		WasmInstanceInterface instance = new WasmInstanceStub();
 		instance.stack().push(new I64(3));  // value 1
-		instance.stack().push(new F64(4));  // value 2
 
 		F64_abs function = new F64_abs(instance);
 
@@ -131,8 +134,11 @@ class F32_absTest extends Specification {
 
 		then: "Verify thrown exception"
 		WasmRuntimeException exception = thrown();
-		exception.message.contains("Value1");
-		exception.getUuid().toString().contains("ef1980dc-d622-4733-8486-b8ee543136cc");
+		exception.message.contains("Value type is incorrect. ");
+		exception.message.contains("Value should be of type '" + inputType + "'. ");
+		exception.message.contains("The input type is 'I64'.");
+		exception.message.contains("The input value is '");
+		exception.getUuid().toString().contains("cbd437d1-65ba-40de-8978-20f781de727e");
 	}
 
 }
