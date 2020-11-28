@@ -98,7 +98,7 @@ All I32 and I64 instruction are complete.
 
 ## To do:  
 Branching opcodes   ex : If, Block.  11 remaining.  
-Floating point opcodes.  About 75 remaining. 
+Floating point opcodes.  About 45 remaining. 
 
 ### Sections
 
@@ -247,7 +247,7 @@ Data Section:  To Do
 - [x] i64.shr_u 0x88
 - [x] i64.rotl 0x89
 - [x] i64.rotr 0x8A
-- [ ] f32.abs 0x8B
+- [x] f32.abs 0x8B
 - [ ] f32.neg 0x8C
 - [ ] f32.ceil 0x8D
 - [ ] f32.floor 0x8E
