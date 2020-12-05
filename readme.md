@@ -248,7 +248,7 @@ Data Section:  To Do
 - [x] i64.rotl 0x89
 - [x] i64.rotr 0x8A
 - [x] f32.abs 0x8B
-- [ ] f32.neg 0x8C
+- [x] f32.neg 0x8C
 - [ ] f32.ceil 0x8D
 - [ ] f32.floor 0x8E
 - [ ] f32.trunk 0x8F

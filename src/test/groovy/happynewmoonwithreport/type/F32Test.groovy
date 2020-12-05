@@ -28,6 +28,28 @@ class F32Test extends Specification {
 	def cleanup() {
 	}
 
+	def "test F32 ValueOf(Float) ##count -> #input | #expected"(Integer count, Float input, String expected) {
+		given: "A Float input "
+
+		when: "covert to F32"
+		F32 result = F32.valueOf(input);
+
+		then:
+		F32 expectedF32 = F32.valueOf(expected);
+
+		expectedF32 == result;
+		// Math.abs(expectedF32.value - result.value) < 0.1F;
+
+		where:
+		count | input || expected
+		// Groovy/Spock strips out the sign bit of -0.0F so this test does not work.
+		// 1     | -0F   || "-0"
+		// 2     | -0F   || "-0x0p+0"
+		3     | 0F    || "0"
+		4     | 0.0F  || "+0x0p+0"
+		5     | 1F    || "1"
+	}
+
 
 	//@Unroll
 	def "test F32 ValueOf(String) #input, #expected"(String input, Float expected) {
@@ -43,8 +65,9 @@ class F32Test extends Specification {
 		Math.abs(expected - result.value) < 0.1F;
 
 		where:
-		input       || expected
-		"+0x0p+0"   || 0.0F
+		input     || expected
+		"0"       || 0F
+		"+0x0p+0" || 0.0F
 		//"-0x0p+0" || -0.0F    // Groovy/Spock strips out the sign bit of -0.0F so this test does not work.
 		//                      // This valueOf("-0x0p+0") is tested in "F32 Constants"() method below.
 		"-0x1p-149" || -1.4E-45 // This is the value the Float.valueOf(String) returns.

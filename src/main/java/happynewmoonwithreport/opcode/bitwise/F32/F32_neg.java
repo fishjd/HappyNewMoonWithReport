@@ -31,8 +31,8 @@ import java.util.UUID;
  * <p>
  * Return the absolute value of the input.
  * <p>
- * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-fabs" target="_top">
- * https://webassembly.github.io/spec/core/exec/numerics.html#op-fabs
+ * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-fneg" target="_top">
+ * https://webassembly.github.io/spec/core/exec/numerics.html#op-fneg
  * </a>
  *
  *
@@ -71,17 +71,17 @@ import java.util.UUID;
  * 		</li>
  * </ol>
  */
-public class F32_abs {
+public class F32_neg {
 	private final String opCodeName = getClass().getName();
 	private final String t1Type = "F32";
 
 	private WasmInstanceInterface instance;
 
-	private F32_abs() {
+	private F32_neg() {
 		super();
 	}
 
-	public F32_abs(WasmInstanceInterface instance) {
+	public F32_neg(WasmInstanceInterface instance) {
 		this();
 		this.instance = instance;
 	}
@@ -94,10 +94,10 @@ public class F32_abs {
 
 		// Assert: due to validation, a value of value type t is on the top of the stack.
 		if ((stack.peek() instanceof F32) == false) {
-			throw new WasmRuntimeException(UUID.fromString("316c2f0b-0a48-42d9-89a7-d7863bb9af3f"),
-				opCodeName + ":"
-				+ " Value type is incorrect. Value should be of type " + "'" +t1Type  + "'" +"."
-				+ " The input type is " + "'" + stack.peek().getClass().getSimpleName() + "'."
+			throw new WasmRuntimeException(UUID.fromString("fdbccf78-288d-4842-ae67-5f918e9a1604"),
+				opCodeName + ":"                                                                 //
+				+ " Value type is incorrect. Value should be of type " + "'" + t1Type + "'" + "."//
+				+ " The input type is " + "'" + stack.peek().getClass().getSimpleName() + "'."   //
 				+ " The input value is " + "'" + stack.peek().toString() + "'.");
 
 		}
@@ -105,7 +105,7 @@ public class F32_abs {
 		F32 c1 = (F32) stack.pop();
 
 		//Let c be a possible result of computing unopt(c1).
-		F32 c = c1.absWasm();
+		F32 c = c1.negWasm();
 
 		// Push the value t.const c to the stack.
 		stack.push(c);
