@@ -301,14 +301,101 @@ public class F64 implements DataTypeNumberFloat {
 	}
 
 	/**
-	 * Calculate the Absolute value.
+	 * Calculate the Absolute value according to the Wasm Specification.
+	 * <pre>F64 -> F64</pre>
+	 *
+	 * <h2>Source:</h2>
+	 * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#xref-exec-numerics-op-feq-mathrm-feq-n-z-1-z-2" target="_top">
+	 * Float Abs
+	 * </a>
+	 * <p>
+	 * <ul>
+	 * <li>If z is a NaN, then return z with positive sign.
+	 * </li><li>
+	 * Else if z is an infinity, then return positive infinity.
+	 * </li><li>
+	 * Else if z is a zero, then return positive zero.
+	 * </li><li>
+	 * Else if z is a positive value, then z.
+	 * </li><li>
+	 * Else return z negated.
+	 * </ul>
 	 *
 	 * @return the absolute value
 	 */
-	public F64 abs() {
-		F64 result = new F64(Math.abs(value));
-		return result;
+	public F64 absWasm() {
+		Double z = value;
+		// If z is a NaN, then return z with positive sign.
+		// Java Implementation Note:  Java does not implement negative non a number -NAN.
+		if (z.isNaN()) {
+			return F64.NAN;
+		}
+		// if z is an infinity, then return positive infinity.
+		if (z.isInfinite()) {
+			return F64.POSITIVE_INFINITY;
+		}
+		// if z is a zero, then return positive zero.
+		if (z == 0F || z == -0F) {
+			return F64.ZERO_POSITIVE;
+		}
+		// Else if z is a positive value, then z.
+		if (0F < z) {
+			return this;
+		} else {
+			return new F64(-value);
+		}
 	}
+
+
+	/**
+	 * Calculate the Negative value according to the Wasm Specification.
+	 * <pre>F64 -> F64</pre>
+	 *
+	 * <h2>Source:</h2>
+	 * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-fneg" target="_top">
+	 * Float Neg
+	 * </a>
+	 * <p>
+	 * <ul>
+	 * <li>If z is a NaN, then return z with negated sign.
+	 * </li><li>
+	 * Else if z is an infinity, then return that infinity negated.
+	 * </li><li>
+	 * Else if z is a zero, then return that zero negated.
+	 * </li><li>
+	 * Else return z negated.
+	 * </li>
+	 * </ul>
+	 *
+	 * @return the negative value
+	 */
+	public F64 negWasm() {
+		Double z = value;
+		// If z is a NaN, then return z with negated sign.
+		// Java Implementation Note:  Java does not implement negative non a number -NAN.
+		if (z.isNaN()) {
+			return F64.NAN;
+		}
+		// if z is an infinity, then return that infinity negated.
+		if (z.equals(Float.POSITIVE_INFINITY)) {
+			return F64.NEGATIVE_INFINITY;
+		}
+		if (z.equals(Float.NEGATIVE_INFINITY)) {
+			return F64.POSITIVE_INFINITY;
+		}
+		// if z is a zero, then return that zero negated.
+		if (Double.doubleToLongBits(z) == Double.doubleToLongBits(F64.ZERO_NEGATIVE.value)) {
+			return F64.ZERO_POSITIVE;
+		}
+		if (Double.doubleToLongBits(z) == Double.doubleToLongBits(F64.ZERO_POSITIVE.value)) {
+			return F64.ZERO_NEGATIVE;
+		}
+
+		// Else return z negate
+		return new F64(-value);
+	}
+
+
 
 	/**
 	 * Equals according to the Wasm specification.
