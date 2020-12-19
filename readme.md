@@ -262,7 +262,7 @@ Data Section:  To Do
 - [ ] f32.max 0x97
 - [ ] f32.copysign 0x98
 - [x] f64.abs 0x99
-- [ ] f64.neg 0x 9A
+- [x] f64.neg 0x9A
 - [ ] f64.ceil 0x9B
 - [ ] f64.floor 0x9C
 - [ ] f64.trunk 0x9D

@@ -105,7 +105,7 @@ public class F64_abs {
 		F64 c1 = (F64) stack.pop();
 
 		//Let c be a possible result of computing unopt(c1).
-		F64 c = c1.abs();
+		F64 c = c1.absWasm();
 
 		// Push the value t.const c to the stack.
 		stack.push(c);
