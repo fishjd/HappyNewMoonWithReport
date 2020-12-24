@@ -362,6 +362,9 @@ public class F32 implements DataTypeNumberFloat {
 		}
 	}
 
+	public static F32 negWasm(F32 z1) {
+		return z1.negWasm();
+	}
 
 	/**
 	 * Calculate the Negative value according to the Wasm Specification.
@@ -830,6 +833,51 @@ public class F32 implements DataTypeNumberFloat {
 		}
 		// 9 Else return 0
 		return I32.zero;
+	}
+
+	public F32 copysign(F32 z2) {
+		return copysign(this, z2);
+	}
+
+	/**
+	 * Returns the sign of the value.
+	 *
+	 * @return True if the sign is positive
+	 * False if the sign is negative.
+	 * <p>
+	 * Zero can be both positive or negative
+	 */
+	public Boolean isPositive() {
+		Integer bits = Float.floatToIntBits(value);
+		Integer mask = bits & 0x8000_0000;
+		Boolean result = (0 == mask);
+		return result;
+	}
+
+	/**
+	 * Source:
+	 * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-fcopysign" target="_top">
+	 * Copysign
+	 * </a>
+	 *
+	 * @param z1 Value1
+	 * @param z2 Value2
+	 * @return The copysign result.
+	 */
+	public static F32 copysign(F32 z1, F32 z2) {
+		F32 result;
+
+		Boolean z1Pos = z1.isPositive();
+		Boolean z2Pos = z2.isPositive();
+
+		// 1. If z1 and z2 have the same sign, then return z1.
+		if (z1Pos == z2Pos) {
+			result = z1;
+		} else {
+			// 2. Else return z1 with negated sign.
+			result = negWasm(z1);
+		}
+		return result;
 	}
 
 	@Override
