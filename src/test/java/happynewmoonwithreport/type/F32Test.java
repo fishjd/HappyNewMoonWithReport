@@ -35,14 +35,26 @@ class F32Test {
 	}
 
 	@Test
-	void testValueOfFloat() {
+	void testValueOfFloatInputFloat() {
 		// Groovy/Spock does not handle -0F, Java/jUnit does. So we moved this test to jUnit.
 		assertEquals(F32.ZERO_POSITIVE,F32.valueOf(0F));
 		assertEquals(F32.ZERO_NEGATIVE,F32.valueOf(-0F));
+
+		assertEquals(F32.ZERO_NEGATIVE,F32.valueOf(-0F));
+
 
 		assertEquals(F32.NAN,F32.valueOf(Float.NaN));
 		assertEquals(F32.NEGATIVE_INFINITY,F32.valueOf(Float.NEGATIVE_INFINITY));
 		assertEquals(F32.POSITIVE_INFINITY,F32.valueOf(Float.POSITIVE_INFINITY));
 	}
 
+	@Test
+	void testValueOfFloatInputString() {
+		assertEquals(F32.ZERO_POSITIVE,F32.valueOf("+0x0p+0"));
+		assertEquals(F32.ZERO_NEGATIVE,F32.valueOf("-0x0p+0"));
+	}
+
+	@Test
+	void valueOf() {
+	}
 }

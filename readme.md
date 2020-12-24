@@ -260,7 +260,7 @@ Data Section:  To Do
 - [ ] f32.div 0x95
 - [ ] f32.min 0x96
 - [ ] f32.max 0x97
-- [ ] f32.copysign 0x98
+- [x] f32.copysign 0x98
 - [x] f64.abs 0x99
 - [x] f64.neg 0x9A
 - [ ] f64.ceil 0x9B
