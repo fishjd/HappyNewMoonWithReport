@@ -45,4 +45,13 @@ class F64Test {
 		assertEquals(F64.POSITIVE_INFINITY,F64.valueOf(Double.POSITIVE_INFINITY));
 	}
 
+	@Test
+	void testValueOfFloatInputString() {
+		assertEquals(F64.ZERO_POSITIVE,F64.valueOf("+0x0p+0"));
+		assertEquals(F64.ZERO_NEGATIVE,F64.valueOf("-0x0p+0"));
+	}
+
+	@Test
+	void valueOf() {
+	}
 }
