@@ -274,7 +274,7 @@ Data Section:  To Do
 - [ ] f64.div 0xA3
 - [ ] f64.min 0xA4
 - [ ] f64.max 0xA5
-- [ ] f64.copysign 0xA6
+- [x] f64.copysign 0xA6
 - [ ] f32.warp/i64 0xA7
 - [ ] f32.trunc_s/f32 0xA8
 - [ ] f32.trunc_u/f32 0xA9

@@ -97,6 +97,15 @@ public class F64 implements DataTypeNumberFloat {
 		return result;
 	}
 
+	/**
+	 * Create a F64 instance given a {@code Double}.
+	 * <p>
+	 * Does not handle -0F. To be more precise the object Float does not handle -0F.
+	 * Use {@code F32.NEGATIVE_ZERO}  or {@code F32.valueOf(String)} instead.
+	 *
+	 * @param input
+	 * @return
+	 */
 	public static F64 valueOf(Double input) {
 		F64 result = new F64(input);
 		return result;
@@ -346,6 +355,9 @@ public class F64 implements DataTypeNumberFloat {
 		}
 	}
 
+	public static F64 negWasm(F64 z1) {
+		return z1.negWasm();
+	}
 
 	/**
 	 * Calculate the Negative value according to the Wasm Specification.
@@ -817,6 +829,51 @@ public class F64 implements DataTypeNumberFloat {
 		}
 		// 9 Else return 0
 		return I32.zero;
+	}
+
+	public F64 copysign(F64 z2) {
+		return copysign(this, z2);
+	}
+
+	/**
+	 * Returns the sign of the value.
+	 *
+	 * @return True if the sign is positive
+	 * False if the sign is negative.
+	 * <p>
+	 * Zero can be both positive or negative
+	 */
+	public Boolean isPositive() {
+		Long bits = Double.doubleToLongBits(value);
+		Long mask = bits & 0x8000_0000_0000_0000L;
+		Boolean result = (0 == mask);
+		return result;
+	}
+
+	/**
+	 * Source:
+	 * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-fcopysign" target="_top">
+	 * Copysign
+	 * </a>
+	 *
+	 * @param z1 Value1
+	 * @param z2 Value2
+	 * @return The copysign result.
+	 */
+	public static F64 copysign(F64 z1, F64 z2) {
+		F64 result;
+
+		Boolean z1Pos = z1.isPositive();
+		Boolean z2Pos = z2.isPositive();
+
+		// 1. If z1 and z2 have the same sign, then return z1.
+		if (z1Pos == z2Pos) {
+			result = z1;
+		} else {
+			// 2. Else return z1 with negated sign.
+			result = negWasm(z1);
+		}
+		return result;
 	}
 
 	@Override
