@@ -19,6 +19,12 @@ package happynewmoonwithreport;
 import happynewmoonwithreport.opcode.*;
 import happynewmoonwithreport.opcode.Memory.*;
 import happynewmoonwithreport.opcode.bitshift.*;
+import happynewmoonwithreport.opcode.bitwise.F32.F32_abs;
+import happynewmoonwithreport.opcode.bitwise.F32.F32_copysign;
+import happynewmoonwithreport.opcode.bitwise.F32.F32_neg;
+import happynewmoonwithreport.opcode.bitwise.F64.F64_abs;
+import happynewmoonwithreport.opcode.bitwise.F64.F64_copysign;
+import happynewmoonwithreport.opcode.bitwise.F64.F64_neg;
 import happynewmoonwithreport.opcode.comparison.F32.*;
 import happynewmoonwithreport.opcode.comparison.F64.*;
 import happynewmoonwithreport.opcode.comparison.*;
@@ -744,6 +750,117 @@ public class WasmInstance implements WasmInstanceInterface {
 				i64_rotr.execute();
 				break;
 			}
+			case (byte) 0x8B: { // F32 Absolute Value
+				F32_abs f32_abs = new F32_abs(this);
+				f32_abs.execute();
+				break;
+			}
+			case (byte) 0x8C: { // f32.neg
+				F32_neg f32_neg = new F32_neg(this);
+				f32_neg.execute();
+				break;
+			}
+			case (byte) 0x8D: { // f32.ceil
+				break;
+			}
+			case (byte) 0x8E: { // f32.floor
+				break;
+			}
+			case (byte) 0x8F: { // f32.trunk
+				break;
+			}
+			case (byte) 0x90: { // f32.nearest 0x90
+				break;
+			}
+			case (byte) 0x91: { // f32.sqrt 0x91
+				break;
+			}
+			case (byte) 0x92: { // f32.add 0x92
+				break;
+			}
+			case (byte) 0x93: { // f32.sub 0x93
+				break;
+			}
+			case (byte) 0x94: { // f32.mul 0x94
+				break;
+			}
+			case (byte) 0x95: { // f32.div 0x95
+				break;
+			}
+			case (byte) 0x96: { // f32.min 0x96
+				break;
+			}
+			case (byte) 0x97: { // f32.max 0x97
+				break;
+			}
+			case (byte) 0x98: { // f32.copysign 0x98
+				F32_copysign f32_copysign = new F32_copysign(this);
+				f32_copysign.execute();
+				break;
+			}
+			case (byte) 0x99: { // f64.abs 0x99
+				F64_abs f64_abs = new F64_abs(this);
+				f64_abs.execute();
+				break;
+			}
+			case (byte) 0x9A: { // f64.neg 0x 9A
+				F64_neg f64_neg = new F64_neg(this);
+				f64_neg.execute();
+				break;
+			}
+			case (byte) 0x9B: { // f64.ceil 0x9B
+				break;
+			}
+			case (byte) 0x9C: { // f64.floor 0x9C
+				break;
+			}
+			case (byte) 0x9D: { // f64.trunk 0x9D
+				break;
+			}
+			case (byte) 0x9E: { // f64.nearest 0x9E
+				break;
+			}
+			case (byte) 0x9F: { // f64.sqrt 0x9F
+				break;
+			}
+			case (byte) 0xA0: { // f64.add 0xA0
+				break;
+			}
+			case (byte) 0xA1: { // f64.sub 0xA1
+				break;
+			}
+			case (byte) 0xA2: { // f64.mul 0xA2
+				break;
+			}
+			case (byte) 0xA3: { // f64.div 0xA3
+				break;
+			}
+			case (byte) 0xA4: { // f64.min 0xA4
+				break;
+			}
+			case (byte) 0xA5: { // f64.max 0xA5
+				break;
+			}
+			case (byte) 0xA6: { // f64.copysign 0xA6
+				F64_copysign F64_copysign = new F64_copysign(this);
+				F64_copysign.execute();
+				break;
+			}
+			case (byte) 0xA7: { // f32.warp/i64 0xA7
+				break;
+			}
+			case (byte) 0xA8: { // f32.trunc_s/f32 0xA8
+				break;
+			}
+			case (byte) 0xA9: { // f32.trunc_u/f32 0xA9
+				break;
+			}
+			case (byte) 0xAA: { // f32.trunc_s/f64 0xAA
+				break;
+			}
+			case (byte) 0xAB: { // f32.trunc_u/f64 0xAB
+				break;
+			}
 			case (byte) 0xAC: { // I64 Extend I32 Signed
 				I64_extend_I32_s i64_extend_i32_s = new I64_extend_I32_s(this);
 				i64_extend_i32_s.execute();
@@ -752,6 +869,60 @@ public class WasmInstance implements WasmInstanceInterface {
 			case (byte) 0xAD: { // I64 Extend I32 Unsigned
 				I64_extend_I32_u i64_extend_i32_u = new I64_extend_I32_u(this);
 				i64_extend_i32_u.execute();
+				break;
+			}
+			case (byte) 0xAE: { // i64.trunc_s/f32 0xAE
+				break;
+			}
+			case (byte) 0xAF: { // i64.trunc_u/f32 0xAF
+				break;
+			}
+			case (byte) 0xB0: { // i64.trunc_s/f64 0xB0
+				break;
+			}
+			case (byte) 0xB1: { // i64.trunc_u/f64 0xB1
+				break;
+			}
+			case (byte) 0xB2: { // f32.convert_s/i32 0xB2
+				break;
+			}
+			case (byte) 0xB3: { // f32.convert_u/i32 0xB3
+				break;
+			}
+			case (byte) 0xB4: { // f32.convert_u/i64 0xB4
+				break;
+			}
+			case (byte) 0xB5: { // f32.convert_u/i64 0xB5
+				break;
+			}
+			case (byte) 0xB6: { // f32.demote/f64 0xB6
+				break;
+			}
+			case (byte) 0xB7: { // f64.convert_s/i32 0xB7
+				break;
+			}
+			case (byte) 0xB8: { // f64.convert_u/i32 0xB8
+				break;
+			}
+			case (byte) 0xB9: { // f64.convert_s/i64 0xB9
+				break;
+			}
+			case (byte) 0xBA: { // f64.convert_u/i64 0xBA
+				break;
+			}
+			case (byte) 0xBB: { // f64.promote/f32 0xBB
+				break;
+			}
+			case (byte) 0xBC: { // i32.reinterpert/f32 0xBC
+				break;
+			}
+			case (byte) 0xBD: { // i64.reinterpert/f64 0xBD
+				break;
+			}
+			case (byte) 0xBE: { // f32.reinterpert/i32 0xBD
+				break;
+			}
+			case (byte) 0xBF: { // f64.reinterpert/i64 0xBF
 				break;
 			}
 			case (byte) 0xC0: { // I32 Extend 8 Signed
@@ -779,6 +950,20 @@ public class WasmInstance implements WasmInstanceInterface {
 				i64_extend32_s.execute();
 				break;
 			}
+			case (byte) 0xFC: { //
+				/*
+				- [ ] i32.trunc_sat_f32_s 0xFC 0x00
+				- [ ] i32.trunc_sat_f32_u 0xFC 0x01
+				- [ ] i32.trunc_sat_f64_s 0xFC 0x02
+				- [ ] i32.trunc_sat_f64_u 0xFC 0x03
+				- [ ] i64.trunc_sat_f32_s 0xFC 0x04
+				- [ ] i64.trunc_sat_f32_u 0xFC 0x05
+				- [ ] i64.trunc_sat_f64_s 0xFC 0x06
+				- [ ] i64.trunc_sat_f64_u 0xFC 0x07
+				 */
+				break;
+			}
+
 			default:
 				throwUnknownOpcodeException(opcode, code.getIndex());
 				return;

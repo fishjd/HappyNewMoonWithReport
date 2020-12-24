@@ -21,11 +21,33 @@ import happynewmoonwithreport.BytesFile
 import happynewmoonwithreport.type.JavaType.ByteUnsigned
 import spock.lang.Specification
 
-class F32Test extends Specification {
+class F32GroovyTest extends Specification {
 	def setup() {
 	}
 
 	def cleanup() {
+	}
+
+	def "test F32 ValueOf(Float) ##count -> #input | #expected"(Integer count, Float input, String expected) {
+		given: "A Float input "
+
+		when: "covert to F32"
+		F32 result = F32.valueOf(input);
+
+		then:
+		F32 expectedF32 = F32.valueOf(expected);
+
+		expectedF32 == result;
+		// Math.abs(expectedF32.value - result.value) < 0.1F;
+
+		where:
+		count | input || expected
+		// Groovy/Spock strips out the sign bit of -0.0F so this test does not work.
+		// 1     | -0F   || "-0"
+		// 2     | -0F   || "-0x0p+0"
+		3     | 0F    || "0"
+		4     | 0.0F  || "+0x0p+0"
+		5     | 1F    || "1"
 	}
 
 
@@ -44,6 +66,7 @@ class F32Test extends Specification {
 
 		where:
 		input       || expected
+		"0"         || 0F
 		"+0x0p+0"   || 0.0F
 		//"-0x0p+0" || -0.0F    // Groovy/Spock strips out the sign bit of -0.0F so this test does not work.
 		//                      // This valueOf("-0x0p+0") is tested in "F32 Constants"() method below.
@@ -96,6 +119,50 @@ class F32Test extends Specification {
 		Float.MAX_VALUE         || [0x7F, 0x7F, 0xFF, 0xFF]
 	}
 
+	public def "getSignTest  #valueFloat || #expected"(Float valueFloat, Boolean expected) {
+		given:
+		F32 value = new F32(valueFloat)
+
+		when: "Get the Sign"
+		Boolean sign = value.isPositive()
+
+		then:
+		expected == sign
+
+		where:
+		valueFloat              || expected
+		1.2                     || true
+		0F                      || true
+		// Groovy / Spock do not handle -0F  Happy New Moon with Report does.
+		// -0F                     || false
+		Float.NaN               || true
+		Float.NEGATIVE_INFINITY || false
+		Float.POSITIVE_INFINITY || true
+		Float.MIN_VALUE         || true
+		Float.MAX_VALUE         || true
+
+	}
+
+	public def "getSignTestNegativeZero"(F32 value, Boolean expected) {
+
+		when: "Get the Sign"
+		Boolean sign = value.isPositive()
+
+		then:
+		expected == sign
+
+		where:
+		value                 || expected
+		F32.ZERO_NEGATIVE     || false
+		F32.ZERO_POSITIVE     || true
+		F32.NEGATIVE_INFINITY || false
+		F32.POSITIVE_INFINITY || true
+		F32.NAN               || true // ????
+
+
+	}
+
+
 	def "Construction UnsignedByte Array"(ByteUnsigned[] input, Float expected) {
 
 		when: "Covert to Byte Array"
@@ -131,6 +198,38 @@ class F32Test extends Specification {
 	}
 
 	def "F32 EqualsWasm #leftInput | #rightInput || #expectedInput"(Float leftInput, Float rightInput, Integer expectedInput) {
+		F32 left = new F32(leftInput);
+		F32 right = new F32(rightInput);
+		I32 expected = new I32(expectedInput);
+
+		when: "Compare "
+		I32 result = left.equalsWasm(right);
+		then:
+		expected == result
+
+		where:
+		leftInput               | rightInput              || expectedInput
+		Float.NaN               | Float.NaN               || 0
+		Float.NaN               | 1F                      || 0
+		1F                      | Float.NaN               || 0
+		Float.NaN               | 1F                      || 0
+		1F                      | 1F                      || 1
+		0F                      | 0F                      || 1
+		Float.MAX_VALUE         | Float.MAX_VALUE         || 1
+		Float.MIN_VALUE         | Float.MIN_VALUE         || 1
+		Float.NEGATIVE_INFINITY | Float.NEGATIVE_INFINITY || 1
+		Float.POSITIVE_INFINITY | Float.POSITIVE_INFINITY || 1
+		0F                      | 1F                      || 0
+		1F                      | 0F                      || 0
+		0F                      | 0F                      || 1
+		0F                      | -0F                     || 1  // -0F does not render a zero_negative.
+		F32.ZERO_POSITIVE.value | F32.ZERO_POSITIVE.value || 1
+		F32.ZERO_NEGATIVE.value | F32.ZERO_NEGATIVE.value || 1
+		F32.ZERO_NEGATIVE.value | F32.ZERO_POSITIVE.value || 1
+		F32.ZERO_POSITIVE.value | F32.ZERO_NEGATIVE.value || 1
+	}
+
+	def "F32 getSign #leftInput | #rightInput || #expectedInput"(Float leftInput, Float rightInput, Integer expectedInput) {
 		F32 left = new F32(leftInput);
 		F32 right = new F32(rightInput);
 		I32 expected = new I32(expectedInput);

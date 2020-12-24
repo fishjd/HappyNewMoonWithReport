@@ -25,20 +25,22 @@ import happynewmoonwithreport.type.JavaType.ByteUnsigned;
  * A F32 data type.
  * A class that implements an F32 data type.
  *
- * <b>Java Implementation</b>
- * This uses a <code>Float</code> type.  Floats and F32 are the same IEEE 754.
- * <br>
+ * <h2>Java Implementation</h2>
+ * This uses a {@code Float} type.  Floats and F32 are the same IEEE 754.
+ * <p>
  * See:
  * <br><a href="https://docs.oracle.com/javase/tutorial/java/nutsandbolts/datatypes.html">
  * Java Documentation on types.
  * </a>
- *
- * <br><a href="https://webassembly.github.io/spec/core/syntax/types.html#value-types">
+ * <p>
+ * This class is immutable.
+ * <h2>Wasm documentation</h2>
+ * <p><a href="https://webassembly.github.io/spec/core/syntax/types.html#value-types">
  * WASM documentation on types.
  * </a>
  */
 public class F32 implements DataTypeNumberFloat {
-	protected Float value;
+	protected final Float value;
 
 	public static final F32 ZERO_POSITIVE = new F32(0.0F);
 	// Java stores a negative zero correctly,  Groovy/Spock has issues.
@@ -57,6 +59,25 @@ public class F32 implements DataTypeNumberFloat {
 
 	public F32(Float value) {
 		this.value = value;
+	}
+
+	/**
+	 * Use F32.valueOf(String)
+	 * <pre>
+	 * {@code
+	 *    try {
+	 *         F32 zero = F32.valueOf("0.0");
+	 *    } catch (NumberFormatException nfe) {
+	 *        // do something.
+	 *    }
+	 *
+	 * }
+	 * </pre>
+	 */
+	@Deprecated
+	public F32(String input) {
+		throw new java.lang.UnsupportedOperationException(
+			"Constructor F32(String) not supported. Use F32 ValueOf(String)");
 	}
 
 	/**
@@ -99,6 +120,15 @@ public class F32 implements DataTypeNumberFloat {
 		return result;
 	}
 
+	/**
+	 * Create a F32 instance given a {@code Float}.
+	 * <p>
+	 * Does not handle -0F. To be more precise the object Float does not handle -0F.
+	 * Use {@code F32.NEGATIVE_ZERO}  or {@code F32.valueOf(String)} instead.
+	 *
+	 * @param input
+	 * @return
+	 */
 	public static F32 valueOf(Float input) {
 		F32 result = new F32(input);
 		return result;
@@ -284,6 +314,104 @@ public class F32 implements DataTypeNumberFloat {
 
 		F32 result = new F32(Float.intBitsToFloat(valueInteger));
 		return result;
+	}
+
+	/**
+	 * Calculate the Absolute value according to the Wasm Specification.
+	 * <pre>F32 -> F32</pre>
+	 *
+	 * <h2>Source:</h2>
+	 * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#xref-exec-numerics-op-feq-mathrm-feq-n-z-1-z-2" target="_top">
+	 * Float Abs
+	 * </a>
+	 * <p>
+	 * <ul>
+	 * <li>If z is a NaN, then return z with positive sign.
+	 * </li><li>
+	 * Else if z is an infinity, then return positive infinity.
+	 * </li><li>
+	 * Else if z is a zero, then return positive zero.
+	 * </li><li>
+	 * Else if z is a positive value, then z.
+	 * </li><li>
+	 * Else return z negated.
+	 * </ul>
+	 *
+	 * @return the absolute value
+	 */
+	public F32 absWasm() {
+		Float z = value;
+		// If z is a NaN, then return z with positive sign.
+		// Java Implementation Note:  Java does not implement negative non a number -NAN.
+		if (z.isNaN()) {
+			return F32.NAN;
+		}
+		// if z is an infinity, then return positive infinity.
+		if (z.isInfinite()) {
+			return F32.POSITIVE_INFINITY;
+		}
+		// if z is a zero, then return positive zero.
+		if (z == 0F || z == -0F) {
+			return F32.ZERO_POSITIVE;
+		}
+		// Else if z is a positive value, then z.
+		if (0F < z) {
+			return this;
+		} else {
+			return new F32(-value);
+		}
+	}
+
+	public static F32 negWasm(F32 z1) {
+		return z1.negWasm();
+	}
+
+	/**
+	 * Calculate the Negative value according to the Wasm Specification.
+	 * <pre>F32 -> F32</pre>
+	 *
+	 * <h2>Source:</h2>
+	 * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-fneg" target="_top">
+	 * Float Neg
+	 * </a>
+	 * <p>
+	 * <ul>
+	 * <li>If z is a NaN, then return z with negated sign.
+	 * </li><li>
+	 * Else if z is an infinity, then return that infinity negated.
+	 * </li><li>
+	 * Else if z is a zero, then return that zero negated.
+	 * </li><li>
+	 * Else return z negated.
+	 * </li>
+	 * </ul>
+	 *
+	 * @return the negative value
+	 */
+	public F32 negWasm() {
+		Float z = value;
+		// If z is a NaN, then return z with negated sign.
+		// Java Implementation Note:  Java does not implement negative non a number -NAN.
+		if (z.isNaN()) {
+			return F32.NAN;
+		}
+		// if z is an infinity, then return that infinity negated.
+		if (z.equals(Float.POSITIVE_INFINITY)) {
+			return F32.NEGATIVE_INFINITY;
+		}
+		if (z.equals(Float.NEGATIVE_INFINITY)) {
+			return F32.POSITIVE_INFINITY;
+		}
+		// if z is a zero, then return that zero negated.
+		if (Float.floatToIntBits(z) == Float.floatToIntBits(F32.ZERO_NEGATIVE.value)) {
+			return F32.ZERO_POSITIVE;
+		}
+		if (Float.floatToIntBits(z) == Float.floatToIntBits(F32.ZERO_POSITIVE.value)) {
+			return F32.ZERO_NEGATIVE;
+		}
+
+		// Else return z negate
+		return new F32(-value);
 	}
 
 	/**
@@ -705,6 +833,51 @@ public class F32 implements DataTypeNumberFloat {
 		}
 		// 9 Else return 0
 		return I32.zero;
+	}
+
+	public F32 copysign(F32 z2) {
+		return copysign(this, z2);
+	}
+
+	/**
+	 * Returns the sign of the value.
+	 *
+	 * @return True if the sign is positive
+	 * False if the sign is negative.
+	 * <p>
+	 * Zero can be both positive or negative
+	 */
+	public Boolean isPositive() {
+		Integer bits = Float.floatToIntBits(value);
+		Integer mask = bits & 0x8000_0000;
+		Boolean result = (0 == mask);
+		return result;
+	}
+
+	/**
+	 * Source:
+	 * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-fcopysign" target="_top">
+	 * Copysign
+	 * </a>
+	 *
+	 * @param z1 Value1
+	 * @param z2 Value2
+	 * @return The copysign result.
+	 */
+	public static F32 copysign(F32 z1, F32 z2) {
+		F32 result;
+
+		Boolean z1Pos = z1.isPositive();
+		Boolean z2Pos = z2.isPositive();
+
+		// 1. If z1 and z2 have the same sign, then return z1.
+		if (z1Pos == z2Pos) {
+			result = z1;
+		} else {
+			// 2. Else return z1 with negated sign.
+			result = negWasm(z1);
+		}
+		return result;
 	}
 
 	@Override

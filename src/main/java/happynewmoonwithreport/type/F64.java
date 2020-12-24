@@ -37,7 +37,7 @@ import happynewmoonwithreport.type.JavaType.ByteUnsigned;
  * </a>
  */
 public class F64 implements DataTypeNumberFloat {
-	protected Double value;
+	protected final Double value;
 
 	public static final F64 ZERO_POSITIVE = new F64(0.0D);
 	// Java stores a negative zero correctly,  Groovy/Spock has issues.
@@ -97,6 +97,15 @@ public class F64 implements DataTypeNumberFloat {
 		return result;
 	}
 
+	/**
+	 * Create a F64 instance given a {@code Double}.
+	 * <p>
+	 * Does not handle -0F. To be more precise the object Float does not handle -0F.
+	 * Use {@code F32.NEGATIVE_ZERO}  or {@code F32.valueOf(String)} instead.
+	 *
+	 * @param input
+	 * @return
+	 */
 	public static F64 valueOf(Double input) {
 		F64 result = new F64(input);
 		return result;
@@ -299,6 +308,106 @@ public class F64 implements DataTypeNumberFloat {
 		F64 result = new F64(Double.longBitsToDouble(valueLong));
 		return result;
 	}
+
+	/**
+	 * Calculate the Absolute value according to the Wasm Specification.
+	 * <pre>F64 -> F64</pre>
+	 *
+	 * <h2>Source:</h2>
+	 * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#xref-exec-numerics-op-feq-mathrm-feq-n-z-1-z-2" target="_top">
+	 * Float Abs
+	 * </a>
+	 * <p>
+	 * <ul>
+	 * <li>If z is a NaN, then return z with positive sign.
+	 * </li><li>
+	 * Else if z is an infinity, then return positive infinity.
+	 * </li><li>
+	 * Else if z is a zero, then return positive zero.
+	 * </li><li>
+	 * Else if z is a positive value, then z.
+	 * </li><li>
+	 * Else return z negated.
+	 * </ul>
+	 *
+	 * @return the absolute value
+	 */
+	public F64 absWasm() {
+		Double z = value;
+		// If z is a NaN, then return z with positive sign.
+		// Java Implementation Note:  Java does not implement negative non a number -NAN.
+		if (z.isNaN()) {
+			return F64.NAN;
+		}
+		// if z is an infinity, then return positive infinity.
+		if (z.isInfinite()) {
+			return F64.POSITIVE_INFINITY;
+		}
+		// if z is a zero, then return positive zero.
+		if (z == 0F || z == -0F) {
+			return F64.ZERO_POSITIVE;
+		}
+		// Else if z is a positive value, then z.
+		if (0F < z) {
+			return this;
+		} else {
+			return new F64(-value);
+		}
+	}
+
+	public static F64 negWasm(F64 z1) {
+		return z1.negWasm();
+	}
+
+	/**
+	 * Calculate the Negative value according to the Wasm Specification.
+	 * <pre>F64 -> F64</pre>
+	 *
+	 * <h2>Source:</h2>
+	 * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-fneg" target="_top">
+	 * Float Neg
+	 * </a>
+	 * <p>
+	 * <ul>
+	 * <li>If z is a NaN, then return z with negated sign.
+	 * </li><li>
+	 * Else if z is an infinity, then return that infinity negated.
+	 * </li><li>
+	 * Else if z is a zero, then return that zero negated.
+	 * </li><li>
+	 * Else return z negated.
+	 * </li>
+	 * </ul>
+	 *
+	 * @return the negative value
+	 */
+	public F64 negWasm() {
+		Double z = value;
+		// If z is a NaN, then return z with negated sign.
+		// Java Implementation Note:  Java does not implement negative non a number -NAN.
+		if (z.isNaN()) {
+			return F64.NAN;
+		}
+		// if z is an infinity, then return that infinity negated.
+		if (z.equals(Float.POSITIVE_INFINITY)) {
+			return F64.NEGATIVE_INFINITY;
+		}
+		if (z.equals(Float.NEGATIVE_INFINITY)) {
+			return F64.POSITIVE_INFINITY;
+		}
+		// if z is a zero, then return that zero negated.
+		if (Double.doubleToLongBits(z) == Double.doubleToLongBits(F64.ZERO_NEGATIVE.value)) {
+			return F64.ZERO_POSITIVE;
+		}
+		if (Double.doubleToLongBits(z) == Double.doubleToLongBits(F64.ZERO_POSITIVE.value)) {
+			return F64.ZERO_NEGATIVE;
+		}
+
+		// Else return z negate
+		return new F64(-value);
+	}
+
+
 
 	/**
 	 * Equals according to the Wasm specification.
@@ -720,6 +829,51 @@ public class F64 implements DataTypeNumberFloat {
 		}
 		// 9 Else return 0
 		return I32.zero;
+	}
+
+	public F64 copysign(F64 z2) {
+		return copysign(this, z2);
+	}
+
+	/**
+	 * Returns the sign of the value.
+	 *
+	 * @return True if the sign is positive
+	 * False if the sign is negative.
+	 * <p>
+	 * Zero can be both positive or negative
+	 */
+	public Boolean isPositive() {
+		Long bits = Double.doubleToLongBits(value);
+		Long mask = bits & 0x8000_0000_0000_0000L;
+		Boolean result = (0 == mask);
+		return result;
+	}
+
+	/**
+	 * Source:
+	 * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-fcopysign" target="_top">
+	 * Copysign
+	 * </a>
+	 *
+	 * @param z1 Value1
+	 * @param z2 Value2
+	 * @return The copysign result.
+	 */
+	public static F64 copysign(F64 z1, F64 z2) {
+		F64 result;
+
+		Boolean z1Pos = z1.isPositive();
+		Boolean z2Pos = z2.isPositive();
+
+		// 1. If z1 and z2 have the same sign, then return z1.
+		if (z1Pos == z2Pos) {
+			result = z1;
+		} else {
+			// 2. Else return z1 with negated sign.
+			result = negWasm(z1);
+		}
+		return result;
 	}
 
 	@Override
