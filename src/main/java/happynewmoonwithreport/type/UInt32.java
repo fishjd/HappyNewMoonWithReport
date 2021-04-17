@@ -121,6 +121,12 @@ public class UInt32 extends U32
 
 	@Override
 	public String toString() {
-		return "UInt32{" + "value=" + value + "} ";
+
+		String valueInHex = Long.toHexString(value);
+
+		return "UInt32{"
+			   + "value=" + value
+			   + " in hex " + valueInHex
+			   + "} ";
 	}
 }
