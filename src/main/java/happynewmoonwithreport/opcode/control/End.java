@@ -28,7 +28,9 @@ import java.util.UUID;
  * This is the end.
  * <p>
  * // Exiting Blocks
- * // See:  https://webassembly.github.io/spec/core/exec/instructions.html#blocks
+ * // See:  <a href = "https://webassembly.github.io/spec/core/exec/instructions.html#blocks" >
+ *     Exiting Blocks
+ *     </a>
  */
 public class End {
 	private WasmInstanceInterface instance;

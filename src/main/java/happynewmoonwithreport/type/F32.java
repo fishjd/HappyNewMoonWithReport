@@ -135,6 +135,21 @@ public class F32 implements DataTypeNumberFloat {
 	}
 
 	/**
+	 * Create a F32 instance given a {@code Double}.
+	 * <p>
+	 * Does not handle -0F. To be more precise the object Float does not handle -0F.
+	 * Use {@code F32.NEGATIVE_ZERO}  or {@code F32.valueOf(String)} instead.
+	 *
+	 * Warning this may lose digits.
+	 * @param input
+	 * @return
+	 */
+	public static F32 valueOf(Double input) {
+		F32 result = new F32(input.floatValue());
+		return result;
+	}
+
+	/**
 	 * The value converted to a byte type.
 	 *
 	 * @return value as a byte
@@ -412,6 +427,67 @@ public class F32 implements DataTypeNumberFloat {
 
 		// Else return z negate
 		return new F32(-value);
+	}
+
+	/**
+	 * Calculate the Ceiling value according to the Wasm Specification.
+	 * <pre>F32 -> F32</pre>
+	 *
+	 * <h2>Source:</h2>
+	 * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-fceil" target="_top">
+	 * Float Ceil
+	 * </a>
+	 * <p>
+	 * <ul>
+	 * <li>if z is a NaN, then return an element of nansN{z}.
+	 * </li><li>
+	 * Else if z is an infinity, then return z.
+	 * </li><li>
+	 * Else if z is a zero, then return z.
+	 * </li><li>
+	 * Else if z is smaller than 0 but greater than −1, then return negative zero.
+	 * </li><li>
+	 * Else return the smallest integral value that is not smaller than z.
+	 * </ul>
+	 *
+	 * @return the negative value
+	 */
+	public F32 ceilWasm() {
+		Float z = value;
+
+		//if z is a NaN, then return an element of nansN{z}
+		if (z.isNaN()) {
+			return nanPopagation(this);
+		}
+		// Else if z is an infinity, then return z.
+		if (z.isInfinite()) {
+			return this;
+		}
+		//	 Else if z is a zero, then return z.
+		if (isZero()) {
+			return this;
+		}
+		// Else if z is smaller than 0 but greater than −1, then return negative zero.
+		if (-1f < z && z < 0f) {
+			return ZERO_NEGATIVE;
+		}
+		// Else return the smallest integral value that is not smaller than z.
+		double ceil = Math.ceil(z);
+		return  F32.valueOf(ceil);
+	}
+
+
+	/**
+	 * <p>
+	 * <b>Source:</b>
+	 * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#aux-nans" target="_top">
+	 * https://webassembly.github.io/spec/core/exec/numerics.html#aux-nans
+	 * </a>
+	 *
+	 * @param input
+	 */
+	public F32 nanPopagation(F32 input) {
+		return input;
 	}
 
 	/**
@@ -853,6 +929,23 @@ public class F32 implements DataTypeNumberFloat {
 		Boolean result = (0 == mask);
 		return result;
 	}
+
+	/**
+	 * Returns true if value is positive or negative zero.
+	 *
+	 * @return
+	 */
+	public Boolean isZero() {
+		Boolean result = true;
+		if (Float.floatToIntBits(this.value) == Float.floatToIntBits(F32.ZERO_NEGATIVE.value)) {
+			return true;
+		}
+		if (Float.floatToIntBits(this.value) == Float.floatToIntBits(F32.ZERO_POSITIVE.value)) {
+			return true;
+		}
+		return false;
+	}
+
 
 	/**
 	 * Source:
