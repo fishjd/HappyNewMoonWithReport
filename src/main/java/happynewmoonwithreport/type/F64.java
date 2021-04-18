@@ -83,10 +83,10 @@ public class F64 implements DataTypeNumberFloat {
 				break;
 			case ("nan"):
 			case ("nan:0x4000000000000"):
-				val = Double.NaN;
-				break;
 			case ("-nan"):
 			case ("-nan:0x4000000000000"):
+			case ("nan:canonical"):
+			case ("nan:arithmetic"):
 				val = Double.NaN;
 				break;
 			default:
@@ -406,7 +406,6 @@ public class F64 implements DataTypeNumberFloat {
 		// Else return z negate
 		return new F64(-value);
 	}
-
 
 
 	/**

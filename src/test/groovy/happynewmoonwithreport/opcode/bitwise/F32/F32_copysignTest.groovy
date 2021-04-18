@@ -25,7 +25,7 @@ import spock.lang.Specification
 import spock.lang.Unroll
 
 /**
- * Test F32_abs opcode.
+ * Test F32_copysign opcode.
  * <p>
  * Created on 2020-11-28
  */

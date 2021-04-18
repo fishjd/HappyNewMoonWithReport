@@ -20,6 +20,7 @@ package happynewmoonwithreport.type
 import happynewmoonwithreport.BytesFile
 import happynewmoonwithreport.type.JavaType.ByteUnsigned
 import spock.lang.Specification
+import spock.lang.Unroll
 
 class F32GroovyTest extends Specification {
 	def setup() {
@@ -160,6 +161,26 @@ class F32GroovyTest extends Specification {
 		F32.NAN               || true // ????
 
 
+	}
+
+
+	@Unroll
+	public def "isZeroTest  #count | #value  || #expected   "(Integer count, F32 value, Boolean expected) {
+
+		when: "Get the Sign"
+		Boolean sign = value.isZero()
+
+		then:
+		expected == sign
+
+		where:
+		count | value                 || expected
+		1     | F32.ZERO_NEGATIVE     || true
+		2     | F32.ZERO_POSITIVE     || true
+		3     | F32.NEGATIVE_INFINITY || false
+		4     | F32.POSITIVE_INFINITY || false
+		5     | F32.NAN               || false
+		6     | new F32(33)           || false
 	}
 
 
