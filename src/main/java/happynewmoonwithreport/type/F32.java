@@ -105,11 +105,11 @@ public class F32 implements DataTypeNumberFloat {
 				val = Float.POSITIVE_INFINITY;
 				break;
 			case ("nan"):
-			case ("nan:0x200000"):    // TODO figure out what "nan:0x200000" is trying to express.
-				val = Float.NaN;
-				break;
+			case ("nan:0x200000"):
 			case ("-nan"):
-			case ("-nan:0x200000"):  // TODO figure out what "-nan:0x200000" is trying to express.
+			case ("-nan:0x200000"):
+			case ("nan:canonical"):
+			case ("nan:arithmetic"):
 				val = Float.NaN;
 				break;
 			default:
@@ -118,6 +118,37 @@ public class F32 implements DataTypeNumberFloat {
 
 		F32 result = new F32(val);
 		return result;
+
+		//  #Canociacal /  Arithmetic
+		//  https://webassembly.github.io/spec/core/syntax/values.html#canonical-nan
+		//					Sign	Exponent 	fraction  / payload				binary										String
+		//  nan:canonical	x		1111_1111   100_0000_0000_0000_0000_0000	0b_x111_1111_1100_0000_0000_0000_0000_0000	+/- nan:0x400000
+		//  nan:arithmetic  x		1111_1111   1xx_xxxx_xxxx_xxxx_xxxx_xxxx	0b_x111_1111_11xx_xxxx_xxxx_xxxx_xxxx_xxxx
+		//  x = don't care, 0 or 1.
+
+		// # nan:0x200000 and "-nan:0x200000"
+		//  "-nan:0x200000"
+		//  0x_0200_0000  is 0b_0010_0000_0000_0000_0000_0000
+		// This is NOT a representation of the quite Nan.
+		// I don't understand what the nan:0x200000 is trying to express.
+		//					Sign	Exponent 	fraction  / payload				binary										String       	Hex (f32)
+		//  nan:0x200000    x		1111_1111   010_0000_0000_0000_0000_0000	0b_1111_1111_1010_0000_0000_0000_0000_0000	+nan:0x200000	0x7fa00000
+
+
+		// # Quite Bit
+		// The most significant bit of the significand field is the is_quiet bit.
+		// 0b_0100_0000_0000_0000_0000_0000    0x40_0000
+		//
+		// Maybe this change in 754-2019?
+		//
+		// IEEE 754 - 2008 standard See: https://en.wikipedia.org/wiki/NaN
+		// For binary formats, the most significant bit of the significand field should be an
+		// is_quiet flag. That is, this bit is
+		// non-zero if the NaN is quiet,
+		// and
+		// zero if the NaN is signaling.
+		//
+		// WASM states it uses IEEE 754 - 2019.  So the 2008 should also hold 2019.
 	}
 
 	/**
@@ -139,8 +170,9 @@ public class F32 implements DataTypeNumberFloat {
 	 * <p>
 	 * Does not handle -0F. To be more precise the object Float does not handle -0F.
 	 * Use {@code F32.NEGATIVE_ZERO}  or {@code F32.valueOf(String)} instead.
-	 *
+	 * <p>
 	 * Warning this may lose digits.
+	 *
 	 * @param input
 	 * @return
 	 */
@@ -450,7 +482,7 @@ public class F32 implements DataTypeNumberFloat {
 	 * Else return the smallest integral value that is not smaller than z.
 	 * </ul>
 	 *
-	 * @return the negative value
+	 * @return the ceiling of the input value
 	 */
 	public F32 ceilWasm() {
 		Float z = value;
@@ -473,7 +505,54 @@ public class F32 implements DataTypeNumberFloat {
 		}
 		// Else return the smallest integral value that is not smaller than z.
 		double ceil = Math.ceil(z);
-		return  F32.valueOf(ceil);
+		return F32.valueOf(ceil);
+	}
+
+	/**
+	 * Calculate the Floor value according to the Wasm Specification.
+	 * <pre>F32 -> F32</pre>
+	 *
+	 * <h2>Source:</h2>
+	 * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-fceil" target="_top">
+	 * Float Ceil
+	 * </a>
+	 * <p>
+	 * <ul>
+	 * <li>if z is a NaN, then return an element of nansN{z}.
+	 * </li><li>
+	 * Else if z is an infinity, then return z.
+	 * </li><li>
+	 * Else if z is a zero, then return z.
+	 * </li><li>
+	 * Else if z is greater than 0 but smaller than 1, then return positive zero.
+	 * </li><li>
+	 * Else return the largest integral value that is not larger than z.
+	 * </ul>
+	 *
+	 * @return the Floor of the input value
+	 */
+	public F32 floorWasm() {
+		Float z = value;
+
+		//if z is a NaN, then return an element of nansN{z}
+		if (z.isNaN()) {
+			return nanPopagation(this);
+		}
+		// Else if z is an infinity, then return z.
+		if (z.isInfinite()) {
+			return this;
+		}
+		//	 Else if z is a zero, then return z.
+		if (isZero()) {
+			return this;
+		}
+		// Else if z is greater than 0 but smaller than 1, then return positive zero.
+		if (0 < z && z < 1) {
+			return ZERO_POSITIVE;
+		}
+		// Else return the smallest integral value that is not smaller than z.
+		double floor = Math.floor(z);
+		return F32.valueOf(floor);
 	}
 
 
