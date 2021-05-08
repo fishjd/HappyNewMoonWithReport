@@ -38,6 +38,7 @@ import happynewmoonwithreport.opcode.logic.*;
 import happynewmoonwithreport.opcode.math.*;
 import happynewmoonwithreport.opcode.math.f32.F32_ceil;
 import happynewmoonwithreport.opcode.math.f32.F32_floor;
+import happynewmoonwithreport.opcode.math.f32.F32_nearest;
 import happynewmoonwithreport.type.*;
 import happynewmoonwithreport.type.utility.Hex;
 import java.util.UUID;
@@ -790,6 +791,8 @@ public class WasmInstance implements WasmInstanceInterface
 				break;
 			}
 			case (byte) 0x90: { // f32.nearest 0x90
+				F32_nearest f32_nearest = new F32_nearest(this);
+				f32_nearest.execute();
 				break;
 			}
 			case (byte) 0x91: { // f32.sqrt 0x91
