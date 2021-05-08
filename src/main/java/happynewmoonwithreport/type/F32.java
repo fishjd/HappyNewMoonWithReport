@@ -39,7 +39,8 @@ import happynewmoonwithreport.type.JavaType.ByteUnsigned;
  * WASM documentation on types.
  * </a>
  */
-public class F32 implements DataTypeNumberFloat {
+public class F32 implements DataTypeNumberFloat
+{
 	protected final Float value;
 
 	public static final F32 ZERO_POSITIVE = new F32(0.0F);
@@ -513,8 +514,8 @@ public class F32 implements DataTypeNumberFloat {
 	 * <pre>F32 -> F32</pre>
 	 *
 	 * <h2>Source:</h2>
-	 * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-fceil" target="_top">
-	 * Float Ceil
+	 * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-ffloor" target="_top">
+	 * Float Floor
 	 * </a>
 	 * <p>
 	 * <ul>
@@ -555,6 +556,61 @@ public class F32 implements DataTypeNumberFloat {
 		return F32.valueOf(floor);
 	}
 
+	/**
+	 * Calculate the Nearest value according to the Wasm Specification.
+	 * <pre>F32 -> F32</pre>
+	 *
+	 * <h2>Source:</h2>
+	 * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-fnearest" target="_top">
+	 * Float Nearest
+	 * </a>
+	 * <p>
+	 * <ul>
+	 * <li>if z is a NaN, then return an element of nansN{z}.
+	 * </li><li>
+	 * Else if z is an infinity, then return z.
+	 * </li><li>
+	 * Else if z is a zero, then return z.
+	 * </li><li>
+	 * Else if z is greater than 0 but smaller than or equal to 0.5, then return positive zero.
+	 * </li><li>
+	 * Else if z is smaller than 0 but greater than or equal to −0.5, then return negative zero.
+	 * </li><li>
+	 * Else return the integral value that is nearest to z; if two values are equally near, return
+	 * the even one.
+	 * </ul>
+	 *
+	 * @return the Nearest of the input value
+	 */
+	public F32 NearestWasm() {
+		Float z = value;
+
+		//if z is a NaN, then return an element of nansN{z}
+		if (z.isNaN()) {
+			return nanPopagation(this);
+		}
+		// Else if z is an infinity, then return z.
+		if (z.isInfinite()) {
+			return this;
+		}
+		//	 Else if z is a zero, then return z.
+		if (isZero()) {
+			return this;
+		}
+		// Else if z is greater than 0 but smaller than or equal to 0.5, then return positive zero.
+		if (0 < z && z <= 0.5) {
+			return ZERO_POSITIVE;
+		}
+		// Else if z is smaller than 0 but greater than or equal to −0.5, then return negative
+		// zero.
+		if (-0.5 <= z && z < 0) {
+			return ZERO_NEGATIVE;
+		}
+		// Else return the integral value that is nearest to z; if two values are equally near,
+		// return the even one.
+		double nearest = Math.rint(z);
+		return F32.valueOf(nearest);
+	}
 
 	/**
 	 * <p>

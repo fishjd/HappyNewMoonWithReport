@@ -252,7 +252,7 @@ Data Section:  To Do
 - [x] f32.ceil 0x8D
 - [x] f32.floor 0x8E
 - [ ] f32.trunk 0x8F
-- [ ] f32.nearest 0x90
+- [x] f32.nearest 0x90
 - [ ] f32.sqrt 0x91
 - [ ] f32.add 0x92
 - [ ] f32.sub 0x93

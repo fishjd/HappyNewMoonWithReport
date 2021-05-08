@@ -69,7 +69,7 @@ class F32_leTest extends Specification {
 	 * @param expected
 	 * @return
 	 */
-	def "Execute F32 less than #count | #val1_s | #val2_s || #expected "(Integer count, String val1_s, String val2_s, Integer expected) {
+	def "Execute F32 less equal than #count | #val1_s | #val2_s || #expected "(Integer count, String val1_s, String val2_s, Integer expected) {
 		setup: " push two values on stack."
 
 		WasmInstanceInterface instance = new WasmInstanceStub();

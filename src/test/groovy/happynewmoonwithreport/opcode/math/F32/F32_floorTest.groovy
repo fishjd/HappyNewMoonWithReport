@@ -83,7 +83,7 @@ class F32_floorTest extends Specification {
 	 * @param expected The expected value.  What the opcode should return.
 	 * @return None.
 	 */
-	def "Execute F32 less than #count | #val1_s  || # expected "(Integer count, String val1_s, String expected) {
+	def "Execute F32 Floor #count | #val1_s  || # expected "(Integer count, String val1_s, String expected) {
 		setup: " push one value on stack."
 
 		WasmInstanceInterface instance = new WasmInstanceStub();
