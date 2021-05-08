@@ -32,7 +32,7 @@ import java.util.UUID;
  * Return the floor value of the input.
  * <p>
  * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-ffloor" target="_top">
- * https://webassembly.github.io/spec/core/exec/numerics.html#op-fflor
+ * https://webassembly.github.io/spec/core/exec/numerics.html#op-ffloor
  * </a>
  *
  *

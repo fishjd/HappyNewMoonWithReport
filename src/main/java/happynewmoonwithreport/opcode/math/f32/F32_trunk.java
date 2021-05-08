@@ -24,15 +24,15 @@ import happynewmoonwithreport.type.F32;
 import java.util.UUID;
 
 /**
- * Return the nearest value of the input.
+ * Return the trunk value of the input.
  * </p>
  * <h2>Source:</h2>
  * <h3>Operator:</h3>
  * <p>
- * Return the nearest value of the input.
+ * Return the trunk value of the input.
  * <p>
- * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-fnearest" target="_top">
- * https://webassembly.github.io/spec/core/exec/numerics.html#op-fflor
+ * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-ftrunc" target="_top">
+ * https://webassembly.github.io/spec/core/exec/numerics.html#op-ftrunc
  * </a>
  *
  *
@@ -71,18 +71,18 @@ import java.util.UUID;
  * 		</li>
  * </ol>
  */
-public class F32_nearest
+public class F32_trunk
 {
 	private final String opCodeName = getClass().getName();
 	private final String t1Type = "F32";
 
 	private WasmInstanceInterface instance;
 
-	private F32_nearest() {
+	private F32_trunk() {
 		super();
 	}
 
-	public F32_nearest(WasmInstanceInterface instance) {
+	public F32_trunk(WasmInstanceInterface instance) {
 		this();
 		this.instance = instance;
 	}
@@ -95,7 +95,7 @@ public class F32_nearest
 
 		// Assert: due to validation, a value of value type t is on the top of the stack.
 		if ((stack.peek() instanceof F32) == false) {
-			throw new WasmRuntimeException(UUID.fromString("ced2e1ac-2e07-4de0-8805-aee097bcbcc1"),
+			throw new WasmRuntimeException(UUID.fromString("5da01a08-cc08-4ca5-8880-ba5511dc52eb"),
 				opCodeName + ":"                                                                 //
 				+ " Value type is incorrect. Value should be of type " + "'" + t1Type + "'" + "."//
 				+ " The input type is " + "'" + stack.peek().getClass().getSimpleName() + "'."   //
@@ -106,7 +106,7 @@ public class F32_nearest
 		F32 c1 = (F32) stack.pop();
 
 		//Let c be a possible result of computing unopt(c1).
-		F32 c = c1.nearestWasm();
+		F32 c = c1.trunkWasm();
 
 		// Push the value t.const c to the stack.
 		stack.push(c);
