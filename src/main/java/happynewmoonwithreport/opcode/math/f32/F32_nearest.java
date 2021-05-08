@@ -24,15 +24,15 @@ import happynewmoonwithreport.type.F32;
 import java.util.UUID;
 
 /**
- * Return the floor value of the input.
+ * Return the nearest value of the input.
  * </p>
  * <h2>Source:</h2>
  * <h3>Operator:</h3>
  * <p>
- * Return the floor value of the input.
+ * Return the nearest value of the input.
  * <p>
- * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-ffloor" target="_top">
- * https://webassembly.github.io/spec/core/exec/numerics.html#op-ffloor
+ * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-fnearest" target="_top">
+ * https://webassembly.github.io/spec/core/exec/numerics.html#op-fflor
  * </a>
  *
  *
@@ -71,18 +71,18 @@ import java.util.UUID;
  * 		</li>
  * </ol>
  */
-public class F32_floor
+public class F32_nearest
 {
 	private final String opCodeName = getClass().getName();
 	private final String t1Type = "F32";
 
 	private WasmInstanceInterface instance;
 
-	private F32_floor() {
+	private F32_nearest() {
 		super();
 	}
 
-	public F32_floor(WasmInstanceInterface instance) {
+	public F32_nearest(WasmInstanceInterface instance) {
 		this();
 		this.instance = instance;
 	}
@@ -106,7 +106,7 @@ public class F32_floor
 		F32 c1 = (F32) stack.pop();
 
 		//Let c be a possible result of computing unopt(c1).
-		F32 c = c1.floorWasm();
+		F32 c = c1.nearestWasm();
 
 		// Push the value t.const c to the stack.
 		stack.push(c);

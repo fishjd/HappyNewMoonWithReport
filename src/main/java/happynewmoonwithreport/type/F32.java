@@ -39,7 +39,8 @@ import happynewmoonwithreport.type.JavaType.ByteUnsigned;
  * WASM documentation on types.
  * </a>
  */
-public class F32 implements DataTypeNumberFloat {
+public class F32 implements DataTypeNumberFloat
+{
 	protected final Float value;
 
 	public static final F32 ZERO_POSITIVE = new F32(0.0F);
@@ -119,6 +120,7 @@ public class F32 implements DataTypeNumberFloat {
 		F32 result = new F32(val);
 		return result;
 
+		// @formatter:off
 		//  #Canociacal /  Arithmetic
 		//  https://webassembly.github.io/spec/core/syntax/values.html#canonical-nan
 		//					Sign	Exponent 	fraction  / payload				binary										String
@@ -149,12 +151,14 @@ public class F32 implements DataTypeNumberFloat {
 		// zero if the NaN is signaling.
 		//
 		// WASM states it uses IEEE 754 - 2019.  So the 2008 should also hold 2019.
+		// @formatter:on
 	}
 
 	/**
 	 * Create a F32 instance given a {@code Float}.
 	 * <p>
-	 * Does not handle -0F. To be more precise the object Float does not handle -0F.
+	 * Does not handle -0F. To be more precise the object Float does not handle
+	 * -0F.
 	 * Use {@code F32.NEGATIVE_ZERO}  or {@code F32.valueOf(String)} instead.
 	 *
 	 * @param input
@@ -513,8 +517,8 @@ public class F32 implements DataTypeNumberFloat {
 	 * <pre>F32 -> F32</pre>
 	 *
 	 * <h2>Source:</h2>
-	 * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-fceil" target="_top">
-	 * Float Ceil
+	 * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-ffloor" target="_top">
+	 * Float Floor
 	 * </a>
 	 * <p>
 	 * <ul>
@@ -555,6 +559,126 @@ public class F32 implements DataTypeNumberFloat {
 		return F32.valueOf(floor);
 	}
 
+	/**
+	 * Calculate the Nearest value according to the Wasm Specification.
+	 * <pre>F32 -> F32</pre>
+	 *
+	 * <h2>Source:</h2>
+	 * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-fnearest" target="_top">
+	 * Float Nearest
+	 * </a>
+	 * <p>
+	 * <ul>
+	 * <li>if z is a NaN, then return an element of nansN{z}.
+	 * </li><li>
+	 * Else if z is an infinity, then return z.
+	 * </li><li>
+	 * Else if z is a zero, then return z.
+	 * </li><li>
+	 * Else if z is greater than 0 but smaller than or equal to 0.5, then return positive zero.
+	 * </li><li>
+	 * Else if z is smaller than 0 but greater than or equal to −0.5, then return negative zero.
+	 * </li><li>
+	 * Else return the integral value that is nearest to z; if two values are equally near, return
+	 * the even one.
+	 * </ul>
+	 *
+	 * @return the Nearest of the input value
+	 */
+	public F32 nearestWasm() {
+		Float z = value;
+
+		//if z is a NaN, then return an element of nansN{z}
+		if (z.isNaN()) {
+			return nanPopagation(this);
+		}
+		// Else if z is an infinity, then return z.
+		if (z.isInfinite()) {
+			return this;
+		}
+		//	 Else if z is a zero, then return z.
+		if (isZero()) {
+			return this;
+		}
+		// Else if z is greater than 0 but smaller than or equal to 0.5, then return positive zero.
+		if (0 < z && z <= 0.5) {
+			return ZERO_POSITIVE;
+		}
+		// Else if z is smaller than 0 but greater than or equal to −0.5, then return negative
+		// zero.
+		if (-0.5 <= z && z < 0) {
+			return ZERO_NEGATIVE;
+		}
+		// Else return the integral value that is nearest to z; if two values are equally near,
+		// return the even one.
+		double nearest = Math.rint(z);
+		return F32.valueOf(nearest);
+	}
+
+	/**
+	 * Calculate the Nearest value according to the Wasm Specification.
+	 * <pre>F32 -> F32</pre>
+	 *
+	 * <h2>Source:</h2>
+	 * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-fnearest" target="_top">
+	 * Float Nearest
+	 * </a>
+	 * <p>
+	 * <ul>
+	 * <li>if z is a NaN, then return an element of nansN{z}.
+	 * </li><li>
+	 * Else if z is an infinity, then return z.
+	 * </li><li>
+	 * Else if z is a zero, then return z.
+	 * </li><li>
+	 * Else if z is greater than 0 but smaller than 1, then return positive zero.
+	 * </li><li>
+	 * Else if z is smaller than 0 but greater than −1, then return negative zero.
+	 * </li><li>
+	 * Else return the integral value with the same sign as z and the largest magnitude that is
+	 * not larger than the magnitude of z.
+	 * </ul>
+	 *
+	 * @return the Floor of the input value
+	 */
+	public F32 trunkWasm() {
+		Float z = value;
+
+		//if z is a NaN, then return an element of nansN{z}
+		if (z.isNaN()) {
+			return nanPopagation(this);
+		}
+		// Else if z is an infinity, then return z.
+		if (z.isInfinite()) {
+			return this;
+		}
+		//	 Else if z is a zero, then return z.
+		if (isZero()) {
+			return this;
+		}
+		// Else if z is greater than 0 but smaller than 1, then return positive zero.
+		if (0 < z && z < 1) {
+			return ZERO_POSITIVE;
+		}
+		// Else if z is smaller than 0 but greater than −1, then return negative zero.
+		if (-1 < z && z < 0) {
+			return ZERO_NEGATIVE;
+		}
+		// Else return the smallest integral value that is not smaller than z.
+		double trunk = truncate(z);
+		return F32.valueOf(trunk);
+	}
+
+	static float truncate(float value) {
+		// Source: https://www.dotnetperls.com/double-truncate-java
+		// For negative numbers, use Math.ceil.
+		// For positive numbers, use Math.floor.
+		if (value < 0) {
+			return (float) Math.ceil(value);
+		} else {
+			return (float) Math.floor(value);
+		}
+	}
 
 	/**
 	 * <p>
@@ -594,7 +718,9 @@ public class F32 implements DataTypeNumberFloat {
 	 * <pre>F32 F32 -> I32</pre>
 	 * <p>
 	 * Source: <br>
+	 * @formatter:off
 	 * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#xref-exec-numerics-op-feq-mathrm-feq-n-z-1-z-2" target="_top">
+	 * @formatter:on
 	 * Numerics equals
 	 * </a><br>
 	 * If either z1 or z2 is a NaN, then return 0<br>
