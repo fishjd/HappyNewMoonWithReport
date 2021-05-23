@@ -20,7 +20,6 @@ package happynewmoonwithreport.type
 import happynewmoonwithreport.BytesFile
 import happynewmoonwithreport.type.JavaType.ByteUnsigned
 import spock.lang.Specification
-import spock.lang.Unroll
 
 class F32GroovyTest extends Specification {
 	def setup() {
@@ -163,8 +162,6 @@ class F32GroovyTest extends Specification {
 
 	}
 
-
-	@Unroll
 	public def "isZeroTest  #count | #value  || #expected   "(Integer count, F32 value, Boolean expected) {
 
 		when: "Get the Sign"
@@ -282,7 +279,6 @@ class F32GroovyTest extends Specification {
 		F32.ZERO_POSITIVE.value | F32.ZERO_NEGATIVE.value || 1
 	}
 
-	// @Unroll
 	def "F32 EqualsWasm negative and positive zero #leftInput_s | #rightInput_s || #expectedInput"(String leftInput_s, String rightInput_s, Integer expectedInput) {
 		F32 left = F32.valueOf(leftInput_s);
 		F32 right = F32.valueOf(rightInput_s);
@@ -301,4 +297,20 @@ class F32GroovyTest extends Specification {
 		"-0x0p+0"   | "0x0p+0"     || 1
 		"0x0p+0"    | "-0x0p+0"    || 1
 	}
+
+
+	// @Unroll
+	def "F32 Nan Propagation  #leftInput || #expected"(F32 leftInput, F32 expected) {
+
+		when: "Compare "
+		F32 result = F32.nanPropagation(leftInput)
+		then:
+		expected == result
+
+		where:
+		leftInput || expected
+		F32.NAN   || F32.NAN
+	}
+
+
 }

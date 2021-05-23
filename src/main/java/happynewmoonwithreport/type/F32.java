@@ -39,8 +39,7 @@ import happynewmoonwithreport.type.JavaType.ByteUnsigned;
  * WASM documentation on types.
  * </a>
  */
-public class F32 implements DataTypeNumberFloat
-{
+public class F32 implements DataTypeNumberFloat {
 	protected final Float value;
 
 	public static final F32 ZERO_POSITIVE = new F32(0.0F);
@@ -48,10 +47,76 @@ public class F32 implements DataTypeNumberFloat
 	public static final F32 ZERO_NEGATIVE = new F32(-0.0F);
 	public static final F32 POSITIVE_INFINITY = new F32(Float.POSITIVE_INFINITY);
 	public static final F32 NEGATIVE_INFINITY = new F32(Float.NEGATIVE_INFINITY);
-	public static final F32 NAN = new F32(Float.NaN);  // Not a number
-	// Java does not allow a Negative NAN.  It converts it to NAN.
-	// public static final F32 NAN_NEGATIVE = F32.valueOf(Float.intBitsToFloat(0xffc00000));  //
-	// negative Not a number
+
+	/**
+	 * Not a Number
+	 * <p>
+	 * NaN is equivalent to the value returned by Float.intBitsToFloat(0x7fc00000).
+	 * <p>
+	 * <b>Source:</b><p>
+	 * <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Float.html#NaN" target="_top">
+	 * https://docs.oracle.com/javase/7/docs/api/java/lang/Float.html#NaN
+	 * </a>
+	 */
+	public static final F32 NAN = new F32(Float.NaN);  // Not a number. Canonical
+
+	/**
+	 * Not a Number in Canonical form.
+	 * <p>
+	 * NaN is equivalent to the value returned by Float.intBitsToFloat(0x7fc00000).
+	 * <p>
+	 * <b>Source:</b><p>
+	 * <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Float.html#NaN" target="_top">
+	 * https://docs.oracle.com/javase/7/docs/api/java/lang/Float.html#NaN
+	 * </a>
+	 */
+	public static final F32 NanCanonical = F32.NAN;
+
+	// @formatter:off
+	public static Integer NanCanonical_Bits   = 0x7fc0_0000;
+	public static Integer NanPos0x200000_Bits = 0x7fa0_0000;
+	public static Integer NanNeg0x200000_Bits = 0xffa0_0000;
+	public static Integer NanNeg_Bits         = 0xffc0_0000;
+	public static Integer NanArithmetic_Bits  = 0x7fff_ffff;
+	// @formatter:on
+
+
+	public static final F32 NanPos0x200000 = new F32(Float.intBitsToFloat(NanPos0x200000_Bits));
+	public static final F32 NanNeg0x200000 = new F32(Float.intBitsToFloat(NanNeg0x200000_Bits));
+	public static final F32 NanNeg = new F32(Float.intBitsToFloat(NanNeg_Bits));
+	public static final F32 NanArithmetic = new F32(Float.intBitsToFloat(NanArithmetic_Bits));
+
+
+	// @formatter:off
+	//  #Canociacal /  Arithmetic
+	//  https://webassembly.github.io/spec/core/syntax/values.html#canonical-nan
+	//					Sign	Exponent 	fraction  / payload				binary										String
+	//  nan:canonical	x		1111_1111   100_0000_0000_0000_0000_0000	0b_x111_1111_1100_0000_0000_0000_0000_0000	+/- nan:0x400000
+	//  nan:arithmetic  x		1111_1111   1xx_xxxx_xxxx_xxxx_xxxx_xxxx	0b_x111_1111_11xx_xxxx_xxxx_xxxx_xxxx_xxxx  nan:arithmetic
+	//  x = don't care, 0 or 1.
+
+	// Quite Nan
+	// # nan:0x200000 and "-nan:0x200000"
+	//  "-nan:0x200000"
+	//  0x_0200_0000  is 0b_0010_0000_0000_0000_0000_0000
+	//					Sign	Exponent 	fraction  / payload				binary										String       	Hex (f32)
+	//  nan:0x200000    x		1111_1111   010_0000_0000_0000_0000_0000	0b_1111_1111_1010_0000_0000_0000_0000_0000	+nan:0x200000	0x7fa00000
+
+
+	// # Quite Bit
+	// The second most significant bit of the significand field is the is_quiet bit.
+	// 0b_0010_0000_0000_0000_0000_0000    0x20_0000
+	//
+	//
+	// IEEE 754 - 2008 standard See: https://en.wikipedia.org/wiki/NaN
+	// For binary formats, the second most significant bit of the significand field should be an
+	// is_quiet flag. That is, this bit is
+	// non-zero if the NaN is quiet,
+	// and
+	// zero if the NaN is signaling.
+	//
+	// WASM states it uses IEEE 754 - 2019.  So the 2008 should also hold 2019.
+	// @formatter:on
 
 
 	public F32() {
@@ -96,62 +161,37 @@ public class F32 implements DataTypeNumberFloat
 	 * @see Float#valueOf(String)
 	 */
 	public static F32 valueOf(String s) throws NumberFormatException {
-		Float val;
+		F32 val;
 
 		switch (s) {
 			case ("-inf"):
-				val = Float.NEGATIVE_INFINITY;
+				val = F32.NEGATIVE_INFINITY;
 				break;
 			case ("inf"):
-				val = Float.POSITIVE_INFINITY;
+				val = F32.POSITIVE_INFINITY;
+				break;
+			case ("nan:0x200000"):
+				val = F32.NanPos0x200000;
+				break;
+			case ("-nan:0x200000"):
+				val = F32.NanNeg0x200000;
+				break;
+			case ("-nan"):
+			case ("-nan:0x400000"):
+				val = F32.NanNeg;
+				break;
+			case ("nan:arithmetic"):
+				val = F32.NanArithmetic;
 				break;
 			case ("nan"):
-			case ("nan:0x200000"):
-			case ("-nan"):
-			case ("-nan:0x200000"):
+			case ("nan:0x400000"):
 			case ("nan:canonical"):
-			case ("nan:arithmetic"):
-				val = Float.NaN;
+				val = F32.NAN;
 				break;
 			default:
-				val = Float.valueOf(s);
+				val = new F32(Float.valueOf(s));
 		}
-
-		F32 result = new F32(val);
-		return result;
-
-		// @formatter:off
-		//  #Canociacal /  Arithmetic
-		//  https://webassembly.github.io/spec/core/syntax/values.html#canonical-nan
-		//					Sign	Exponent 	fraction  / payload				binary										String
-		//  nan:canonical	x		1111_1111   100_0000_0000_0000_0000_0000	0b_x111_1111_1100_0000_0000_0000_0000_0000	+/- nan:0x400000
-		//  nan:arithmetic  x		1111_1111   1xx_xxxx_xxxx_xxxx_xxxx_xxxx	0b_x111_1111_11xx_xxxx_xxxx_xxxx_xxxx_xxxx
-		//  x = don't care, 0 or 1.
-
-		// # nan:0x200000 and "-nan:0x200000"
-		//  "-nan:0x200000"
-		//  0x_0200_0000  is 0b_0010_0000_0000_0000_0000_0000
-		// This is NOT a representation of the quite Nan.
-		// I don't understand what the nan:0x200000 is trying to express.
-		//					Sign	Exponent 	fraction  / payload				binary										String       	Hex (f32)
-		//  nan:0x200000    x		1111_1111   010_0000_0000_0000_0000_0000	0b_1111_1111_1010_0000_0000_0000_0000_0000	+nan:0x200000	0x7fa00000
-
-
-		// # Quite Bit
-		// The most significant bit of the significand field is the is_quiet bit.
-		// 0b_0100_0000_0000_0000_0000_0000    0x40_0000
-		//
-		// Maybe this change in 754-2019?
-		//
-		// IEEE 754 - 2008 standard See: https://en.wikipedia.org/wiki/NaN
-		// For binary formats, the most significant bit of the significand field should be an
-		// is_quiet flag. That is, this bit is
-		// non-zero if the NaN is quiet,
-		// and
-		// zero if the NaN is signaling.
-		//
-		// WASM states it uses IEEE 754 - 2019.  So the 2008 should also hold 2019.
-		// @formatter:on
+		return val;
 	}
 
 	/**
@@ -286,12 +326,11 @@ public class F32 implements DataTypeNumberFloat
 	 * The complement is F32(ByteUnsigned []) constructor.
 	 * <p>
 	 * <b>Java implementation</b>
-	 * This uses <code>Float.floatToIntBits(float)</code> to covert to an <code>Integer</code>.
+	 * This uses <code>Float.floatToRawIntBits(float)</code> to covert to an <code>Integer</code>.
 	 *
 	 * @return an array of ByteUnsigned
 	 */
 	public ByteUnsigned[] getBytes() {
-		// consider using floatToIntBits(value);
 		Integer bits = Float.floatToRawIntBits(value);
 
 		// Integer to ByteUnsigned array
@@ -366,6 +405,26 @@ public class F32 implements DataTypeNumberFloat
 		F32 result = new F32(Float.intBitsToFloat(valueInteger));
 		return result;
 	}
+
+	/**
+	 * Is Not a Number (NaN).   This is true for any form of NaN.
+	 * @return  True if value is a Nan.
+	 */
+	public Boolean isNan() {
+		return value.isNaN();
+	}
+
+	/**
+	 * Is this Not a Number (NaN) is Canonical form.
+	 * <p>
+	 * It is equivalent to the value returned by Float.intBitsToFloat(0x7fc00000).
+	 *
+	 * @return True if value in bits is 0x7fc0_0000.
+	 */
+	public Boolean isNanCanonical() {
+		return Float.floatToRawIntBits(value) == NanCanonical_Bits;
+	}
+
 
 	/**
 	 * Calculate the Absolute value according to the Wasm Specification.
@@ -454,10 +513,10 @@ public class F32 implements DataTypeNumberFloat
 			return F32.POSITIVE_INFINITY;
 		}
 		// if z is a zero, then return that zero negated.
-		if (Float.floatToIntBits(z) == Float.floatToIntBits(F32.ZERO_NEGATIVE.value)) {
+		if (Float.floatToRawIntBits(z) == F32.ZERO_NEGATIVE.toBits()) {
 			return F32.ZERO_POSITIVE;
 		}
-		if (Float.floatToIntBits(z) == Float.floatToIntBits(F32.ZERO_POSITIVE.value)) {
+		if (Float.floatToRawIntBits(z) == F32.ZERO_POSITIVE.toBits()) {
 			return F32.ZERO_NEGATIVE;
 		}
 
@@ -493,7 +552,7 @@ public class F32 implements DataTypeNumberFloat
 
 		//if z is a NaN, then return an element of nansN{z}
 		if (z.isNaN()) {
-			return nanPopagation(this);
+			return nanPropagation(this);
 		}
 		// Else if z is an infinity, then return z.
 		if (z.isInfinite()) {
@@ -540,7 +599,7 @@ public class F32 implements DataTypeNumberFloat
 
 		//if z is a NaN, then return an element of nansN{z}
 		if (z.isNaN()) {
-			return nanPopagation(this);
+			return nanPropagation(this);
 		}
 		// Else if z is an infinity, then return z.
 		if (z.isInfinite()) {
@@ -590,7 +649,7 @@ public class F32 implements DataTypeNumberFloat
 
 		//if z is a NaN, then return an element of nansN{z}
 		if (z.isNaN()) {
-			return nanPopagation(this);
+			return nanPropagation(this);
 		}
 		// Else if z is an infinity, then return z.
 		if (z.isInfinite()) {
@@ -646,7 +705,7 @@ public class F32 implements DataTypeNumberFloat
 
 		//if z is a NaN, then return an element of nansN{z}
 		if (z.isNaN()) {
-			return nanPopagation(this);
+			return nanPropagation(this);
 		}
 		// Else if z is an infinity, then return z.
 		if (z.isInfinite()) {
@@ -681,24 +740,67 @@ public class F32 implements DataTypeNumberFloat
 	}
 
 	/**
+	 * NaN Propagation<p>
+	 * Not a Number Propagation<p>
+	 * <p>
+	 * When the result of a floating-point operator other than fneg, fabs, or fcopysign
+	 * is a NaN, then its sign is non-deterministic and the payload is computed as follows:
+	 * <ul>
+	 *     <li>
+	 *         If the payload of all NaN inputs to the operator is canonical (including the case that there are no NaN
+	 *         inputs), then the payload of the output is canonical as well.
+	 * 		</li><li>
+	 *         Otherwise the payload is picked non-deterministically among all arithmetic NaNs; that is, its most
+	 *         significant bit is 1 and all others are unspecified.
+	 * 		</li>
+	 * </ul>
+	 *
 	 * <p>
 	 * <b>Source:</b>
 	 * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#aux-nans" target="_top">
 	 * https://webassembly.github.io/spec/core/exec/numerics.html#aux-nans
 	 * </a>
 	 *
-	 * @param input
+	 * @param inputArray
 	 */
-	public F32 nanPopagation(F32 input) {
-		return input;
+	public static F32 nanPropagation(F32... inputArray) {
+
+		Boolean isAllCanonical = true;
+		for (F32 val : inputArray) {
+			if (val.isNan()) {
+				isAllCanonical &= val.isNanCanonical();
+			}
+		}
+
+		if (isAllCanonical) {
+			// If the payload of all NaN inputs to the operator is canonical (including the case that there are no NaN
+			// inputs), then the payload of the output is canonical as well.
+			return F32.NanCanonical;
+		} else {
+			// Otherwise the payload is picked non-deterministically among all arithmetic NaNs; that is, its most
+			// significant bit is 1 and all others are unspecified.
+			return F32.NanPos0x200000;
+		}
 	}
+
+
+	/**
+	 * Convert to the bits.  This is Raw conversion.   Nan Values are not converted to Canonical Nan.
+	 *
+	 * @return Integer representation of the bits of F32.
+	 */
+	public Integer toBits() {
+		return Float.floatToRawIntBits(value);
+	}
+
 
 	/**
 	 * Equals according to the Wasm specification.
 	 * <pre>F32 F32 -> I32</pre>
 	 * <p>
 	 * Source: <br>
-	 * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#xref-exec-numerics-op-feq-mathrm-feq-n-z-1-z-2" target="_top">
+	 * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#xref-exec-numerics-op-feq-mathrm-feq-n-z-1
+	 * -z-2" target="_top">
 	 * Numerics equals
 	 * </a><br>
 	 * If either z1 or z2 is a NaN, then return 0<br>
@@ -1129,7 +1231,7 @@ public class F32 implements DataTypeNumberFloat
 	 * Zero can be both positive or negative
 	 */
 	public Boolean isPositive() {
-		Integer bits = Float.floatToIntBits(value);
+		Integer bits = Float.floatToRawIntBits(value);
 		Integer mask = bits & 0x8000_0000;
 		Boolean result = (0 == mask);
 		return result;
@@ -1142,10 +1244,10 @@ public class F32 implements DataTypeNumberFloat
 	 */
 	public Boolean isZero() {
 		Boolean result = true;
-		if (Float.floatToIntBits(this.value) == Float.floatToIntBits(F32.ZERO_NEGATIVE.value)) {
+		if (Float.floatToRawIntBits(this.value) == Float.floatToRawIntBits(F32.ZERO_NEGATIVE.value)) {
 			return true;
 		}
-		if (Float.floatToIntBits(this.value) == Float.floatToIntBits(F32.ZERO_POSITIVE.value)) {
+		if (Float.floatToRawIntBits(this.value) == Float.floatToRawIntBits(F32.ZERO_POSITIVE.value)) {
 			return true;
 		}
 		return false;
@@ -1182,8 +1284,16 @@ public class F32 implements DataTypeNumberFloat
 	public String toString() {
 		final StringBuffer sb = new StringBuffer("F32{");
 		sb.append("value=").append(value);
+
 		if (value != null) {
-			Integer bits = Float.floatToIntBits(value);
+			if (value.isNaN()) {
+				sb.append(" NaN");
+			}
+			if (value.isInfinite()) {
+				sb.append(" Infinite");
+			}
+
+			Integer bits = Float.floatToRawIntBits(value);
 			ByteUnsigned[] bytesAll = getByteUnsigned(bits);
 			sb.append(" hex =  0x");
 			sb.append(bytesAll[0]).append(' ');
