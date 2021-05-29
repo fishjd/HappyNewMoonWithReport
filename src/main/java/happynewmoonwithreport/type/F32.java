@@ -73,16 +73,18 @@ public class F32 implements DataTypeNumberFloat {
 	public static final F32 NanCanonical = F32.NAN;
 
 	// @formatter:off
-	public static Integer NanCanonical_Bits   = 0x7fc0_0000;
-	public static Integer NanPos0x200000_Bits = 0x7fa0_0000;
-	public static Integer NanNeg0x200000_Bits = 0xffa0_0000;
-	public static Integer NanNeg_Bits         = 0xffc0_0000;
-	public static Integer NanArithmetic_Bits  = 0x7fff_ffff;
+																	// Integer value
+	public static Integer NanPosCanonical_Bits 	= 0x7fc0_0000;
+	public static Integer NanNegCanonical_Bits 	= 0xffc0_0000;
+	public static Integer NanPos0x20_0000_Bits 	= 0x7fa0_0000;
+	public static Integer NanNeg0x20_0000_Bits 	= 0xffa0_0000;
+	public static Integer NanNeg_Bits         	= 0xffc0_0000;   	// -4194304
+	public static Integer NanArithmetic_Bits  	= 0x7fff_ffff;
 	// @formatter:on
 
 
-	public static final F32 NanPos0x200000 = new F32(Float.intBitsToFloat(NanPos0x200000_Bits));
-	public static final F32 NanNeg0x200000 = new F32(Float.intBitsToFloat(NanNeg0x200000_Bits));
+	public static final F32 NanPos0x20_0000 = new F32(Float.intBitsToFloat(NanPos0x20_0000_Bits));
+	public static final F32 NanNeg0x20_0000 = new F32(Float.intBitsToFloat(NanNeg0x20_0000_Bits));
 	public static final F32 NanNeg = new F32(Float.intBitsToFloat(NanNeg_Bits));
 	public static final F32 NanArithmetic = new F32(Float.intBitsToFloat(NanArithmetic_Bits));
 
@@ -171,10 +173,10 @@ public class F32 implements DataTypeNumberFloat {
 				val = F32.POSITIVE_INFINITY;
 				break;
 			case ("nan:0x200000"):
-				val = F32.NanPos0x200000;
+				val = F32.NanPos0x20_0000;
 				break;
 			case ("-nan:0x200000"):
-				val = F32.NanNeg0x200000;
+				val = F32.NanNeg0x20_0000;
 				break;
 			case ("-nan"):
 			case ("-nan:0x400000"):
@@ -408,7 +410,8 @@ public class F32 implements DataTypeNumberFloat {
 
 	/**
 	 * Is Not a Number (NaN).   This is true for any form of NaN.
-	 * @return  True if value is a Nan.
+	 *
+	 * @return True if value is a Nan.
 	 */
 	public Boolean isNan() {
 		return value.isNaN();
@@ -418,11 +421,21 @@ public class F32 implements DataTypeNumberFloat {
 	 * Is this Not a Number (NaN) is Canonical form.
 	 * <p>
 	 * It is equivalent to the value returned by Float.intBitsToFloat(0x7fc00000).
+	 * <p>
 	 *
-	 * @return True if value in bits is 0x7fc0_0000.
+	 * A canonical NaN is a floating-point value ±nan(canonN) where canonN is a payload whose most significant bit is
+	 * 1 while all others are 0:
+	 * <p>
+	 * <b>Source:</b>  <a href="https://webassembly.github.io/spec/core/syntax/values.html#canonical-nan" target="_top">
+	 * https://webassembly.github.io/spec/core/syntax/values.html#canonical-nan
+	 * </a>
+	 * @return True if value in bits is 0x7fc0_0000 or 0xffc0_0000.
 	 */
 	public Boolean isNanCanonical() {
-		return Float.floatToRawIntBits(value) == NanCanonical_Bits;
+		Boolean result = false;
+		result |= Float.floatToRawIntBits(value) == NanPosCanonical_Bits;
+		result |= Float.floatToRawIntBits(value) == NanNegCanonical_Bits;
+		return result;
 	}
 
 
@@ -501,7 +514,6 @@ public class F32 implements DataTypeNumberFloat {
 	public F32 negWasm() {
 		Float z = value;
 		// If z is a NaN, then return z with negated sign.
-		// Java Implementation Note:  Java does not implement negative non a number -NAN.
 		if (z.isNaN()) {
 			return F32.NAN;
 		}
@@ -675,7 +687,7 @@ public class F32 implements DataTypeNumberFloat {
 	}
 
 	/**
-	 * Calculate the Nearest value according to the Wasm Specification.
+	 * Calculate the Truncated value according to the Wasm Specification.
 	 * <pre>F32 -> F32</pre>
 	 *
 	 * <h2>Source:</h2>
@@ -698,7 +710,7 @@ public class F32 implements DataTypeNumberFloat {
 	 * not larger than the magnitude of z.
 	 * </ul>
 	 *
-	 * @return the Floor of the input value
+	 * @return the Truncated of the input value
 	 */
 	public F32 trunkWasm() {
 		Float z = value;
@@ -740,6 +752,75 @@ public class F32 implements DataTypeNumberFloat {
 	}
 
 	/**
+	 * Calculate the Square Root according to the Wasm Specification.
+	 * <pre>F32 -> F32</pre>
+	 *
+	 * <h2>Source:</h2>
+	 * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-fsqrt" target="_top">
+	 * Square Root
+	 * </a>
+	 * <p>
+	 * <ul>
+	 * <li>if z is a NaN, then return an element of nansN{z}.
+	 * </li><li>
+	 * Else if z is negative infinity, then return an element of nansN{}.
+	 * </li><li>
+	 * Else if z is positive infinity, then return positive infinity.
+	 * </li><li>
+	 * Else if z is a zero, then return that zero.
+	 * </li><li>
+	 * Else if z has a negative sign, then return an element of nansN{}.
+	 * </li><li>
+	 *
+	 * </ul>
+	 * <p>
+	 * <p>
+	 * fsqrtN(z)
+	 * <p>
+	 *     If z is a NaN, then return an element of nansN{z}.
+	 * <p>
+	 * Else if z is negative infinity, then return an element of nansN{}.
+	 * <p>
+	 * Else if z is positive infinity, then return positive infinity.
+	 * <p>
+	 * Else if z is a zero, then return that zero.
+	 * <p>
+	 * Else if z has a negative sign, then return an element of nansN{}.
+	 * <p>
+	 * Else return the square root of z.
+	 *
+	 * @return the Square Root of the input value
+	 */
+	public F32 sqrtWasm() {
+		Float z = value;
+
+		//if z is a NaN, then return an element of nansN{z}
+		if (z.isNaN()) {
+			return nanPropagation(this);
+		}
+		// Else if z is negitive infinity, then return an element of nansN{}.
+		if (isNegative() && z.isInfinite()) {
+			return NAN;
+		}
+		// Else if z is positive infinity, then return positive infinity.
+		if (isPositive() && z.isInfinite()) {
+			return this;
+		}
+		// Else if z is a zero, then return that zero.
+		if (isZero()) {
+			return this;
+		}
+		// Else if z has a negative sign, then return an element of nansN{}.
+		if (isNegative()) {
+			return NAN;
+		}
+		// Else return the square root of z.
+		double sqrt = Math.sqrt(z);
+		return F32.valueOf(sqrt);
+	}
+
+
+	/**
 	 * NaN Propagation<p>
 	 * Not a Number Propagation<p>
 	 * <p>
@@ -768,19 +849,20 @@ public class F32 implements DataTypeNumberFloat {
 		Boolean isAllCanonical = true;
 		for (F32 val : inputArray) {
 			if (val.isNan()) {
-				isAllCanonical &= val.isNanCanonical();
+				if (val.isNanCanonical() == false) {
+					// Otherwise the payload is picked non-deterministically among all arithmetic NaNs; that is, its most
+					// significant bit is 1 and all others are unspecified.
+
+					// Note: the Square Root and other WASM unit test require to return NanArithmetic in this case.
+					// This does not align with the documentation that states it should be 'Non-deterministically'.
+					// Who knows.  this is pretty deep in to the specification.
+					return F32.NanArithmetic;
+				}
 			}
 		}
-
-		if (isAllCanonical) {
-			// If the payload of all NaN inputs to the operator is canonical (including the case that there are no NaN
-			// inputs), then the payload of the output is canonical as well.
-			return F32.NanCanonical;
-		} else {
-			// Otherwise the payload is picked non-deterministically among all arithmetic NaNs; that is, its most
-			// significant bit is 1 and all others are unspecified.
-			return F32.NanPos0x200000;
-		}
+		// If the payload of all NaN inputs to the operator is canonical (including the case that there	are no NaN
+		// inputs), then the payload of the output is canonical as well.
+		return F32.NanCanonical;
 	}
 
 
@@ -1237,6 +1319,10 @@ public class F32 implements DataTypeNumberFloat {
 		return result;
 	}
 
+	public Boolean isNegative() {
+		return isPositive() == false;
+	}
+
 	/**
 	 * Returns true if value is positive or negative zero.
 	 *
@@ -1255,6 +1341,16 @@ public class F32 implements DataTypeNumberFloat {
 
 
 	/**
+	 *
+	 * <ul>
+	 * 		<li>
+	 * 			If z1 and z2 have the same sign, then return z1.
+	 * 		</li> <li>
+	 * 			Else return z1 with negated sign.
+	 * 		</li>
+	 * </ul>
+	 *
+	 *
 	 * Source:
 	 * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-fcopysign" target="_top">
 	 * Copysign
@@ -1287,7 +1383,8 @@ public class F32 implements DataTypeNumberFloat {
 
 		if (value != null) {
 			if (value.isNaN()) {
-				sb.append(" NaN");
+				sb.append(" ");
+				sb.append(nanPrint());
 			}
 			if (value.isInfinite()) {
 				sb.append(" Infinite");
@@ -1305,6 +1402,30 @@ public class F32 implements DataTypeNumberFloat {
 		return sb.toString();
 	}
 
+	public String nanPrint() {
+		Integer rawBits = Float.floatToRawIntBits(value);
+		if (rawBits.equals(NanPosCanonical_Bits)) {
+			return "Nan Positive Canonical";
+		}
+		if (rawBits.equals(NanNegCanonical_Bits)) {
+			return "Nan Negative Canonical";
+		}
+		if (rawBits.equals(NanPos0x20_0000_Bits)) {
+			return "Nan Positive 0x20_0000";
+		}
+		if (rawBits.equals(NanNeg0x20_0000_Bits)) {
+			return "Nan Negative 0x20_0000";
+		}
+		if (rawBits.equals(NanNeg_Bits)) {
+			return "Nan Negative";
+		}
+		if (rawBits.equals(NanArithmetic_Bits)) {
+			return "Nan Arithmetic";
+		}
+		return "Nan Unknown";
+	}
+
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) { return true; }
@@ -1312,7 +1433,10 @@ public class F32 implements DataTypeNumberFloat {
 
 		F32 f32 = (F32) o;
 
-		return value.equals(f32.value);
+		Integer valueRaw = Float.floatToRawIntBits(value);
+		Integer otherRaw = Float.floatToRawIntBits(f32.value);
+		return valueRaw.equals(otherRaw);
+		//		return value.equals(f32.value);
 	}
 
 	@Override

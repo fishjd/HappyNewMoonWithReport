@@ -38,6 +38,28 @@ class F32Test {
 	}
 
 	@Test
+	void nanPrintNegCanonical() {
+		F32 val = F32.NanNeg;
+
+		// execute
+		String actual = val.nanPrint();
+
+		// verify
+		assertThat(actual).isEqualTo("Nan Negative Canonical");
+	}
+
+	@Test
+	void nanPrintPositive20_0000() {
+		F32 val = F32.NanPos0x20_0000;
+
+		// execute
+		String actual = val.nanPrint();
+
+		// verify
+		assertThat(actual).isEqualTo("Nan Positive 0x20_0000");
+	}
+
+	@Test
 	void testValueOfFloatInputFloat() {
 		// Groovy/Spock does not handle -0F, Java/jUnit does. So we moved this test to jUnit.
 		assertEquals(F32.ZERO_POSITIVE, F32.valueOf(0F));
@@ -64,7 +86,7 @@ class F32Test {
 
 		// verify
 		Integer valueF_asBits = valueF.toBits();
-		assertThat(F32.NanPos0x200000_Bits).isEqualTo(valueF_asBits);
+		assertThat(F32.NanPos0x20_0000_Bits).isEqualTo(valueF_asBits);
 	}
 
 	@Test
@@ -74,7 +96,7 @@ class F32Test {
 
 		// verify
 		Integer valueF_asBits = valueF.toBits();
-		assertThat(F32.NanNeg0x200000_Bits).isEqualTo(valueF_asBits);
+		assertThat(F32.NanNeg0x20_0000_Bits).isEqualTo(valueF_asBits);
 	}
 
 	@Test
@@ -129,7 +151,7 @@ class F32Test {
 	@Test
 	void testNanPropogationAll_NOT_Canonical() {
 		// run
-		F32 actual = F32.nanPropagation(F32.NanArithmetic, F32.NanPos0x200000);
+		F32 actual = F32.nanPropagation(F32.NanArithmetic, F32.NanPos0x20_0000);
 
 		// verify
 		assertTrue(actual.isNan());
