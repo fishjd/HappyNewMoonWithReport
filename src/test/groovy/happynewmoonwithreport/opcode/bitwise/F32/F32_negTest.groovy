@@ -65,16 +65,42 @@ class F32_negTest extends Specification {
 		F32.valueOf(expected) == result
 
 		where: "val1 equals val2 returns #expected"
-		count | val1      || expected
-//		1     | 4.1  || -4.1
-//		2     | -4.1 || 4.1
+		count | val1 || expected
+		1     | 4.1  || -4.1
+		2     | -4.1 || 4.1
 		/*  Spock/Groovy  does not support -0F **/
 		// 4     | 0F   || -0F
 		// 5     | -0F  || 0F
-		// Java  does not support -Nan
-		6     | Float.NaN || Float.NaN  // Works, but is not correct.
-		// 7     | Float.NaN || -Float.NaN
+
 	}
+
+	def "Execute F32_neg with F32 Input Nan Test #count -> #val1 || #expected "(Integer count, F32 val1, F32 expected) {
+		setup: " push one value on stack."
+		WasmInstanceInterface instance = new WasmInstanceStub();
+		instance.stack().push(new F32(val1));
+
+		when: "run the opcode"
+		F32_neg opcode = new F32_neg(instance);
+		opcode.execute();
+
+		then: "verify result equals value of expected"
+		F32 result = instance.stack().pop();
+		expected == result
+
+		where: "val1 equals val2 returns #expected"
+		count | val1                 || expected
+		1     | F32.Nan              || F32.NanNeg
+		2     | F32.NanNeg           || F32.Nan
+		3     | F32.ZeroPositive     || F32.ZeroNegative
+		4     | F32.ZeroNegative     || F32.ZeroPositive
+		5     | F32.NanArithmeticPos || F32.NanArithmeticNeg
+		6     | F32.NanArithmeticNeg || F32.NanArithmeticPos
+		7     | F32.Nan0x20_0000Pos  || F32.Nan0x20_0000Neg
+		8     | F32.Nan0x20_0000Neg  || F32.Nan0x20_0000Pos
+		9     | F32.InfinityPositive || F32.InfinityNegative
+		10    | F32.InfinityNegative || F32.InfinityPositive
+	}
+
 
 /**
  * F32_neg unit test.

@@ -128,7 +128,7 @@ class F32_sqrtTest extends Specification {
 		setup: " push ONE value on stack."
 
 		WasmInstanceInterface instance = new WasmInstanceStub();
-		instance.stack().push(F32.NAN);
+		instance.stack().push(F32.Nan);
 
 		F32_sqrt opcode = new F32_sqrt(instance);
 
@@ -139,7 +139,7 @@ class F32_sqrtTest extends Specification {
 		F32 result = instance.stack().pop();
 
 		then: " verify result equals value of expected"
-		F32.NAN == result
+		F32.Nan == result
 	}
 
 	def "Execute F32_sqrt throws exception on incorrect Type on first param "() {

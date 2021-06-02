@@ -74,7 +74,7 @@ class F64_negTest extends Specification {
 		/*  Spock/Groovy  does not support -0F **/
 //		3     | 0D          || -0.0D
 //		4     | -0D         || 0D
-		/*  Java does not support -Nan  **/
+		/*  Java does not support -Nan   todo **/
 		5     | -Double.NaN || Double.NaN
 		6     | Double.NaN  || -Double.NaN
 	}

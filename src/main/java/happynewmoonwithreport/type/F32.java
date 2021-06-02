@@ -42,11 +42,24 @@ import happynewmoonwithreport.type.JavaType.ByteUnsigned;
 public class F32 implements DataTypeNumberFloat {
 	protected final Float value;
 
-	public static final F32 ZERO_POSITIVE = new F32(0.0F);
+	// @formatter:off
+	// 					   Name						  Bits						Integer value
+	private static Integer NanCanonicalPos_Bits 	= 0x7fc0_0000;
+	private static Integer NanCanonicalNeg_Bits 	= 0xffc0_0000;				// -4194304
+	private static Integer NanPos_Bits  	       	= NanCanonicalPos_Bits;
+	private static Integer NanNeg_Bits      	   	= NanCanonicalNeg_Bits;
+	private static Integer Nan0x20_0000Pos_Bits 	= 0x7fa0_0000;
+	private static Integer Nan0x20_0000Neg_Bits 	= 0xffa0_0000;
+	private static Integer NanArithmeticPos_Bits	= 0x7fff_ffff;
+	private static Integer NanArithmeticNeg_Bits	= 0xffff_ffff;
+	// @formatter:on
+
+
+	public static final F32 ZeroPositive = new F32(0.0F);
 	// Java stores a negative zero correctly,  Groovy/Spock has issues.
-	public static final F32 ZERO_NEGATIVE = new F32(-0.0F);
-	public static final F32 POSITIVE_INFINITY = new F32(Float.POSITIVE_INFINITY);
-	public static final F32 NEGATIVE_INFINITY = new F32(Float.NEGATIVE_INFINITY);
+	public static final F32 ZeroNegative = new F32(-0.0F);
+	public static final F32 InfinityPositive = new F32(Float.POSITIVE_INFINITY);
+	public static final F32 InfinityNegative = new F32(Float.NEGATIVE_INFINITY);
 
 	/**
 	 * Not a Number
@@ -58,7 +71,7 @@ public class F32 implements DataTypeNumberFloat {
 	 * https://docs.oracle.com/javase/7/docs/api/java/lang/Float.html#NaN
 	 * </a>
 	 */
-	public static final F32 NAN = new F32(Float.NaN);  // Not a number. Canonical
+	public static final F32 Nan = new F32(Float.intBitsToFloat(NanCanonicalPos_Bits));
 
 	/**
 	 * Not a Number in Canonical form.
@@ -70,23 +83,15 @@ public class F32 implements DataTypeNumberFloat {
 	 * https://docs.oracle.com/javase/7/docs/api/java/lang/Float.html#NaN
 	 * </a>
 	 */
-	public static final F32 NanCanonical = F32.NAN;
-
-	// @formatter:off
-																	// Integer value
-	public static Integer NanPosCanonical_Bits 	= 0x7fc0_0000;
-	public static Integer NanNegCanonical_Bits 	= 0xffc0_0000;
-	public static Integer NanPos0x20_0000_Bits 	= 0x7fa0_0000;
-	public static Integer NanNeg0x20_0000_Bits 	= 0xffa0_0000;
-	public static Integer NanNeg_Bits         	= 0xffc0_0000;   	// -4194304
-	public static Integer NanArithmetic_Bits  	= 0x7fff_ffff;
-	// @formatter:on
+	public static final F32 NanCanonicalPos = F32.Nan;
 
 
-	public static final F32 NanPos0x20_0000 = new F32(Float.intBitsToFloat(NanPos0x20_0000_Bits));
-	public static final F32 NanNeg0x20_0000 = new F32(Float.intBitsToFloat(NanNeg0x20_0000_Bits));
+	public static final F32 NanCanonicalNeg = new F32(Float.intBitsToFloat(NanCanonicalNeg_Bits));
 	public static final F32 NanNeg = new F32(Float.intBitsToFloat(NanNeg_Bits));
-	public static final F32 NanArithmetic = new F32(Float.intBitsToFloat(NanArithmetic_Bits));
+	public static final F32 Nan0x20_0000Pos = new F32(Float.intBitsToFloat(Nan0x20_0000Pos_Bits));
+	public static final F32 Nan0x20_0000Neg = new F32(Float.intBitsToFloat(Nan0x20_0000Neg_Bits));
+	public static final F32 NanArithmeticPos = new F32(Float.intBitsToFloat(NanArithmeticPos_Bits));
+	public static final F32 NanArithmeticNeg = new F32(Float.intBitsToFloat(NanArithmeticNeg_Bits));
 
 
 	// @formatter:off
@@ -129,6 +134,18 @@ public class F32 implements DataTypeNumberFloat {
 		this.value = value;
 	}
 
+
+	// Groovy/Spock need the copy constructor.
+
+	/**
+	 * Copy Constructor.
+	 *
+	 * @param F32 to copy
+	 */
+	public F32(F32 input) {
+		this.value = input.value;
+	}
+
 	/**
 	 * Use F32.valueOf(String)
 	 * <pre>
@@ -167,28 +184,37 @@ public class F32 implements DataTypeNumberFloat {
 
 		switch (s) {
 			case ("-inf"):
-				val = F32.NEGATIVE_INFINITY;
+				val = F32.InfinityNegative;
 				break;
 			case ("inf"):
-				val = F32.POSITIVE_INFINITY;
-				break;
-			case ("nan:0x200000"):
-				val = F32.NanPos0x20_0000;
-				break;
-			case ("-nan:0x200000"):
-				val = F32.NanNeg0x20_0000;
-				break;
-			case ("-nan"):
-			case ("-nan:0x400000"):
-				val = F32.NanNeg;
-				break;
-			case ("nan:arithmetic"):
-				val = F32.NanArithmetic;
+				val = F32.InfinityPositive;
 				break;
 			case ("nan"):
-			case ("nan:0x400000"):
 			case ("nan:canonical"):
-				val = F32.NAN;
+				val = F32.Nan;
+				break;
+			case ("-nan"):
+			case ("-nan:canonical"):
+				val = F32.NanNeg;
+				break;
+			case ("nan:0x200000"):
+				val = F32.Nan0x20_0000Pos;
+				break;
+			case ("-nan:0x200000"):
+				val = F32.Nan0x20_0000Neg;
+				break;
+			case ("nan:arithmetic"):
+				val = F32.NanArithmeticPos;
+				break;
+			case ("-nan:arithmetic"):
+				val = F32.NanArithmeticNeg;
+				break;
+			// I think 0x400000 is for F64 only.
+			case ("nan:0x400000"):
+				val = F32.Nan;
+				break;
+			case ("-nan:0x400000"):
+				val = F32.NanNeg;
 				break;
 			default:
 				val = new F32(Float.valueOf(s));
@@ -422,19 +448,21 @@ public class F32 implements DataTypeNumberFloat {
 	 * <p>
 	 * It is equivalent to the value returned by Float.intBitsToFloat(0x7fc00000).
 	 * <p>
-	 *
+	 * <p>
 	 * A canonical NaN is a floating-point value ±nan(canonN) where canonN is a payload whose most significant bit is
 	 * 1 while all others are 0:
 	 * <p>
-	 * <b>Source:</b>  <a href="https://webassembly.github.io/spec/core/syntax/values.html#canonical-nan" target="_top">
+	 * <b>Source:</b>
+	 * <a href="https://webassembly.github.io/spec/core/syntax/values.html#canonical-nan" target="_top">
 	 * https://webassembly.github.io/spec/core/syntax/values.html#canonical-nan
 	 * </a>
+	 *
 	 * @return True if value in bits is 0x7fc0_0000 or 0xffc0_0000.
 	 */
 	public Boolean isNanCanonical() {
 		Boolean result = false;
-		result |= Float.floatToRawIntBits(value) == NanPosCanonical_Bits;
-		result |= Float.floatToRawIntBits(value) == NanNegCanonical_Bits;
+		result |= Float.floatToRawIntBits(value) == NanCanonicalPos_Bits;
+		result |= Float.floatToRawIntBits(value) == NanCanonicalNeg_Bits;
 		return result;
 	}
 
@@ -444,7 +472,7 @@ public class F32 implements DataTypeNumberFloat {
 	 * <pre>F32 -> F32</pre>
 	 *
 	 * <h2>Source:</h2>
-	 * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#xref-exec-numerics-op-feq-mathrm-feq-n-z-1-z-2" target="_top">
+	 * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-fabs" target="_top">
 	 * Float Abs
 	 * </a>
 	 * <p>
@@ -463,25 +491,31 @@ public class F32 implements DataTypeNumberFloat {
 	 * @return the absolute value
 	 */
 	public F32 absWasm() {
+		// Wasm manual states No Nan Propagation on Absolute Value.
+
 		Float z = value;
 		// If z is a NaN, then return z with positive sign.
-		// Java Implementation Note:  Java does not implement negative non a number -NAN.
-		if (z.isNaN()) {
-			return F32.NAN;
+		if (isNan()) {
+			if (isPositive()) {
+				return this;
+			} else {
+				return negate();
+			}
 		}
 		// if z is an infinity, then return positive infinity.
 		if (z.isInfinite()) {
-			return F32.POSITIVE_INFINITY;
+			return F32.InfinityPositive;
 		}
 		// if z is a zero, then return positive zero.
 		if (z == 0F || z == -0F) {
-			return F32.ZERO_POSITIVE;
+			return F32.ZeroPositive;
 		}
 		// Else if z is a positive value, then z.
 		if (0F < z) {
 			return this;
 		} else {
-			return new F32(-value);
+			// Else return z negated.
+			return negate();
 		}
 	}
 
@@ -515,25 +549,42 @@ public class F32 implements DataTypeNumberFloat {
 		Float z = value;
 		// If z is a NaN, then return z with negated sign.
 		if (z.isNaN()) {
-			return F32.NAN;
+			return negate();
 		}
 		// if z is an infinity, then return that infinity negated.
 		if (z.equals(Float.POSITIVE_INFINITY)) {
-			return F32.NEGATIVE_INFINITY;
+			return F32.InfinityNegative;
 		}
 		if (z.equals(Float.NEGATIVE_INFINITY)) {
-			return F32.POSITIVE_INFINITY;
+			return F32.InfinityPositive;
 		}
 		// if z is a zero, then return that zero negated.
-		if (Float.floatToRawIntBits(z) == F32.ZERO_NEGATIVE.toBits()) {
-			return F32.ZERO_POSITIVE;
+		if (Float.floatToRawIntBits(z) == F32.ZeroNegative.toBits()) {
+			return F32.ZeroPositive;
 		}
-		if (Float.floatToRawIntBits(z) == F32.ZERO_POSITIVE.toBits()) {
-			return F32.ZERO_NEGATIVE;
+		if (Float.floatToRawIntBits(z) == F32.ZeroPositive.toBits()) {
+			return F32.ZeroNegative;
 		}
 
-		// Else return z negate
-		return new F32(-value);
+		// Else return z negated
+		return negate();
+	}
+
+	/**
+	 * Change the sign bit.
+	 * Works with Nan, Nan 20_0000, etc
+	 *
+	 * @return The same value with the sign bit toggled.
+	 */
+	public F32 negate() {
+		Integer rawBits = Float.floatToRawIntBits(value);
+
+		// toggle the sign bit
+		rawBits = 0x8000_0000 ^ rawBits;
+
+		Float result = Float.intBitsToFloat(rawBits);
+
+		return new F32(result);
 	}
 
 	/**
@@ -576,7 +627,7 @@ public class F32 implements DataTypeNumberFloat {
 		}
 		// Else if z is smaller than 0 but greater than −1, then return negative zero.
 		if (-1f < z && z < 0f) {
-			return ZERO_NEGATIVE;
+			return ZeroNegative;
 		}
 		// Else return the smallest integral value that is not smaller than z.
 		double ceil = Math.ceil(z);
@@ -623,7 +674,7 @@ public class F32 implements DataTypeNumberFloat {
 		}
 		// Else if z is greater than 0 but smaller than 1, then return positive zero.
 		if (0 < z && z < 1) {
-			return ZERO_POSITIVE;
+			return ZeroPositive;
 		}
 		// Else return the smallest integral value that is not smaller than z.
 		double floor = Math.floor(z);
@@ -673,12 +724,12 @@ public class F32 implements DataTypeNumberFloat {
 		}
 		// Else if z is greater than 0 but smaller than or equal to 0.5, then return positive zero.
 		if (0 < z && z <= 0.5) {
-			return ZERO_POSITIVE;
+			return ZeroPositive;
 		}
 		// Else if z is smaller than 0 but greater than or equal to −0.5, then return negative
 		// zero.
 		if (-0.5 <= z && z < 0) {
-			return ZERO_NEGATIVE;
+			return ZeroNegative;
 		}
 		// Else return the integral value that is nearest to z; if two values are equally near,
 		// return the even one.
@@ -729,11 +780,11 @@ public class F32 implements DataTypeNumberFloat {
 		}
 		// Else if z is greater than 0 but smaller than 1, then return positive zero.
 		if (0 < z && z < 1) {
-			return ZERO_POSITIVE;
+			return ZeroPositive;
 		}
 		// Else if z is smaller than 0 but greater than −1, then return negative zero.
 		if (-1 < z && z < 0) {
-			return ZERO_NEGATIVE;
+			return ZeroNegative;
 		}
 		// Else return the smallest integral value that is not smaller than z.
 		double trunk = truncate(z);
@@ -800,7 +851,7 @@ public class F32 implements DataTypeNumberFloat {
 		}
 		// Else if z is negitive infinity, then return an element of nansN{}.
 		if (isNegative() && z.isInfinite()) {
-			return NAN;
+			return Nan;
 		}
 		// Else if z is positive infinity, then return positive infinity.
 		if (isPositive() && z.isInfinite()) {
@@ -812,7 +863,7 @@ public class F32 implements DataTypeNumberFloat {
 		}
 		// Else if z has a negative sign, then return an element of nansN{}.
 		if (isNegative()) {
-			return NAN;
+			return Nan;
 		}
 		// Else return the square root of z.
 		double sqrt = Math.sqrt(z);
@@ -850,19 +901,19 @@ public class F32 implements DataTypeNumberFloat {
 		for (F32 val : inputArray) {
 			if (val.isNan()) {
 				if (val.isNanCanonical() == false) {
-					// Otherwise the payload is picked non-deterministically among all arithmetic NaNs; that is, its most
-					// significant bit is 1 and all others are unspecified.
+					// Otherwise the payload is picked non-deterministically among all arithmetic NaNs; that is, its
+					// most significant bit is 1 and all others are unspecified.
 
 					// Note: the Square Root and other WASM unit test require to return NanArithmetic in this case.
 					// This does not align with the documentation that states it should be 'Non-deterministically'.
-					// Who knows.  this is pretty deep in to the specification.
-					return F32.NanArithmetic;
+					// Who knows?  This is pretty deep in to the specification.
+					return F32.NanArithmeticPos;
 				}
 			}
 		}
 		// If the payload of all NaN inputs to the operator is canonical (including the case that there	are no NaN
 		// inputs), then the payload of the output is canonical as well.
-		return F32.NanCanonical;
+		return F32.NanCanonicalPos;
 	}
 
 
@@ -927,9 +978,9 @@ public class F32 implements DataTypeNumberFloat {
 			// Java Implementation: Check for both ZERO_POSITIVE plus ZERO_NEGATIVE.
 			// I think the specification was trying to say check Positive and Negative, but it is
 			// not explicit.
-			if ((z1.equals(ZERO_POSITIVE) || z1.equals(ZERO_NEGATIVE))        //
+			if ((z1.equals(ZeroPositive) || z1.equals(ZeroNegative))        //
 				&&                                                            //
-				(z2.equals(ZERO_POSITIVE) || z2.equals(ZERO_NEGATIVE))    //
+				(z2.equals(ZeroPositive) || z2.equals(ZeroNegative))    //
 			) {
 				result = 1;
 			} else {
@@ -996,29 +1047,29 @@ public class F32 implements DataTypeNumberFloat {
 			return I32.one;
 		}
 		// 3 Else if z1 is positive infinity, then return 1
-		if (z1.equals(F32.POSITIVE_INFINITY)) {
+		if (z1.equals(F32.InfinityPositive)) {
 			return I32.one;
 		}
 		// 4 Else if z1 is negative infinity, then return 0
-		if (z1.equals(F32.NEGATIVE_INFINITY)) {
+		if (z1.equals(F32.InfinityNegative)) {
 			return I32.zero;
 		}
 		// 5 Else if z2 is positive infinity, then return 0
-		if (z2.equals(POSITIVE_INFINITY)) {
+		if (z2.equals(InfinityPositive)) {
 			return I32.zero;
 		}
 
 		// 6 Else if z2 is negative infinity, then return 1
-		if (z2.equals(NEGATIVE_INFINITY)) {
+		if (z2.equals(InfinityNegative)) {
 			return I32.one;
 		}
 		// 7 Else if both z1 and z2 are zeroes, then return 0
 		// Java Implementation: Check for both ZERO_POSITIVE plus ZERO_NEGATIVE.
 		// I think the specification was trying to say check Positive and Negative, but it is
 		// not explicit.
-		if ((z1.equals(ZERO_POSITIVE) || z1.equals(ZERO_NEGATIVE))    //
+		if ((z1.equals(ZeroPositive) || z1.equals(ZeroNegative))    //
 			&&                                                        //
-			(z2.equals(ZERO_POSITIVE) || z2.equals(ZERO_NEGATIVE))    //
+			(z2.equals(ZeroPositive) || z2.equals(ZeroNegative))    //
 		) {
 			return I32.one;
 		}
@@ -1087,29 +1138,29 @@ public class F32 implements DataTypeNumberFloat {
 			return I32.zero;
 		}
 		// 3 Else if z1 is positive infinity, then return 1
-		if (z1.equals(F32.POSITIVE_INFINITY)) {
+		if (z1.equals(F32.InfinityPositive)) {
 			return I32.one;
 		}
 		// 4 Else if z1 is negative infinity, then return 0
-		if (z1.equals(F32.NEGATIVE_INFINITY)) {
+		if (z1.equals(F32.InfinityNegative)) {
 			return I32.zero;
 		}
 		// 5 Else if z2 is positive infinity, then return 0
-		if (z2.equals(POSITIVE_INFINITY)) {
+		if (z2.equals(InfinityPositive)) {
 			return I32.zero;
 		}
 
 		// 6 Else if z2 is negative infinity, then return 1
-		if (z2.equals(NEGATIVE_INFINITY)) {
+		if (z2.equals(InfinityNegative)) {
 			return I32.one;
 		}
 		// 7 Else if both z1 and z2 are zeroes, then return 0
 		// Java Implementation: Check for both ZERO_POSITIVE plus ZERO_NEGATIVE.
 		// I think the specification was trying to say check Positive and Negative, but it is
 		// not explicit.
-		if ((z1.equals(ZERO_POSITIVE) || z1.equals(ZERO_NEGATIVE))    //
+		if ((z1.equals(ZeroPositive) || z1.equals(ZeroNegative))    //
 			&&                                                        //
-			(z2.equals(ZERO_POSITIVE) || z2.equals(ZERO_NEGATIVE))    //
+			(z2.equals(ZeroPositive) || z2.equals(ZeroNegative))    //
 		) {
 			return I32.zero;
 		}
@@ -1176,29 +1227,29 @@ public class F32 implements DataTypeNumberFloat {
 			return I32.one;
 		}
 		// 3 Else if z1 is positive infinity, then return 0
-		if (z1.equals(F32.POSITIVE_INFINITY)) {
+		if (z1.equals(F32.InfinityPositive)) {
 			return I32.zero;
 		}
 		// 4 Else if z1 is negative infinity, then return 1
-		if (z1.equals(F32.NEGATIVE_INFINITY)) {
+		if (z1.equals(F32.InfinityNegative)) {
 			return I32.one;
 		}
 		// 5 Else if z2 is positive infinity, then return 1
-		if (z2.equals(POSITIVE_INFINITY)) {
+		if (z2.equals(InfinityPositive)) {
 			return I32.one;
 		}
 
 		// 6 Else if z2 is negative infinity, then return 0
-		if (z2.equals(NEGATIVE_INFINITY)) {
+		if (z2.equals(InfinityNegative)) {
 			return I32.zero;
 		}
 		// 7 Else if both z1 and z2 are zeroes, then return 0
 		// Java Implementation: Check for both ZERO_POSITIVE plus ZERO_NEGATIVE.
 		// I think the specification was trying to say check Positive and Negative, but it is
 		// not explicit.
-		if ((z1.equals(ZERO_POSITIVE) || z1.equals(ZERO_NEGATIVE))    //
+		if ((z1.equals(ZeroPositive) || z1.equals(ZeroNegative))    //
 			&&                                                        //
-			(z2.equals(ZERO_POSITIVE) || z2.equals(ZERO_NEGATIVE))    //
+			(z2.equals(ZeroPositive) || z2.equals(ZeroNegative))    //
 		) {
 			return I32.one;
 		}
@@ -1266,29 +1317,29 @@ public class F32 implements DataTypeNumberFloat {
 			return I32.zero;
 		}
 		// 3 Else if z1 is positive infinity, then return 0
-		if (z1.equals(F32.POSITIVE_INFINITY)) {
+		if (z1.equals(F32.InfinityPositive)) {
 			return I32.zero;
 		}
 		// 4 Else if z1 is negative infinity, then return 1
-		if (z1.equals(F32.NEGATIVE_INFINITY)) {
+		if (z1.equals(F32.InfinityNegative)) {
 			return I32.one;
 		}
 		// 5 Else if z2 is positive infinity, then return 1
-		if (z2.equals(POSITIVE_INFINITY)) {
+		if (z2.equals(InfinityPositive)) {
 			return I32.one;
 		}
 
 		// 6 Else if z2 is negative infinity, then return 0
-		if (z2.equals(NEGATIVE_INFINITY)) {
+		if (z2.equals(InfinityNegative)) {
 			return I32.zero;
 		}
 		// 7 Else if both z1 and z2 are zeroes, then return 0
 		// Java Implementation: Check for both ZERO_POSITIVE plus ZERO_NEGATIVE.
 		// I think the specification was trying to say check Positive and Negative, but it is
 		// not explicit.
-		if ((z1.equals(ZERO_POSITIVE) || z1.equals(ZERO_NEGATIVE))    //
+		if ((z1.equals(ZeroPositive) || z1.equals(ZeroNegative))    //
 			&&                                                        //
-			(z2.equals(ZERO_POSITIVE) || z2.equals(ZERO_NEGATIVE))    //
+			(z2.equals(ZeroPositive) || z2.equals(ZeroNegative))    //
 		) {
 			return I32.zero;
 		}
@@ -1330,10 +1381,10 @@ public class F32 implements DataTypeNumberFloat {
 	 */
 	public Boolean isZero() {
 		Boolean result = true;
-		if (Float.floatToRawIntBits(this.value) == Float.floatToRawIntBits(F32.ZERO_NEGATIVE.value)) {
+		if (Float.floatToRawIntBits(this.value) == Float.floatToRawIntBits(F32.ZeroNegative.value)) {
 			return true;
 		}
-		if (Float.floatToRawIntBits(this.value) == Float.floatToRawIntBits(F32.ZERO_POSITIVE.value)) {
+		if (Float.floatToRawIntBits(this.value) == Float.floatToRawIntBits(F32.ZeroPositive.value)) {
 			return true;
 		}
 		return false;
@@ -1341,7 +1392,6 @@ public class F32 implements DataTypeNumberFloat {
 
 
 	/**
-	 *
 	 * <ul>
 	 * 		<li>
 	 * 			If z1 and z2 have the same sign, then return z1.
@@ -1349,8 +1399,8 @@ public class F32 implements DataTypeNumberFloat {
 	 * 			Else return z1 with negated sign.
 	 * 		</li>
 	 * </ul>
-	 *
-	 *
+	 * <p>
+	 * <p>
 	 * Source:
 	 * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-fcopysign" target="_top">
 	 * Copysign
@@ -1404,23 +1454,23 @@ public class F32 implements DataTypeNumberFloat {
 
 	public String nanPrint() {
 		Integer rawBits = Float.floatToRawIntBits(value);
-		if (rawBits.equals(NanPosCanonical_Bits)) {
+		if (rawBits.equals(NanCanonicalPos_Bits)) {
 			return "Nan Positive Canonical";
 		}
-		if (rawBits.equals(NanNegCanonical_Bits)) {
+		if (rawBits.equals(NanCanonicalNeg_Bits)) {
 			return "Nan Negative Canonical";
 		}
-		if (rawBits.equals(NanPos0x20_0000_Bits)) {
+		if (rawBits.equals(Nan0x20_0000Pos_Bits)) {
 			return "Nan Positive 0x20_0000";
 		}
-		if (rawBits.equals(NanNeg0x20_0000_Bits)) {
+		if (rawBits.equals(Nan0x20_0000Neg_Bits)) {
 			return "Nan Negative 0x20_0000";
 		}
-		if (rawBits.equals(NanNeg_Bits)) {
-			return "Nan Negative";
+		if (rawBits.equals(NanArithmeticPos_Bits)) {
+			return "Nan Positive Arithmetic";
 		}
-		if (rawBits.equals(NanArithmetic_Bits)) {
-			return "Nan Arithmetic";
+		if (rawBits.equals(NanArithmeticNeg_Bits)) {
+			return "Nan Negative Arithmetic";
 		}
 		return "Nan Unknown";
 	}

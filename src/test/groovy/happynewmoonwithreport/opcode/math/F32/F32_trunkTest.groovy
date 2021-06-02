@@ -121,17 +121,14 @@ class F32_trunkTest extends Specification {
 		19    | "nan"              || "nan:canonical"
 		20    | "nan:0x200000"     || "nan:arithmetic"
 
-		//  "-nan:0x200000" is a quite NAN.
+		//  "nan:0x200000" is a quite NAN.
 		//  0x_0200_0000  is 0b_0010_0000_0000_0000_0000_0000
 		//
 		//  the most significant bit of the significand field is the is_quiet bit.
 
 		// IEEE 754 - 2008 standard See: https://en.wikipedia.org/wiki/NaN
 		// For binary formats, the most significant bit of the significand field should be an
-		// is_quiet flag. That is, this bit is
-		// non-zero if the NaN is quiet,
-		// and
-		// zero if the NaN is signaling.
+		// is_quiet flag. That is, this bit is non-zero if the NaN is quiet, and zero if the NaN is signaling.
 
 		// WASM states it uses IEEE 754 - 2019.  So the 2008 should also hold 2019.
 	}
@@ -140,7 +137,7 @@ class F32_trunkTest extends Specification {
 		setup: " push ONE value on stack."
 
 		WasmInstanceInterface instance = new WasmInstanceStub();
-		instance.stack().push(F32.NAN);
+		instance.stack().push(F32.Nan);
 
 		F32_trunk opcode = new F32_trunk(instance);
 
@@ -151,7 +148,7 @@ class F32_trunkTest extends Specification {
 		F32 result = instance.stack().pop();
 
 		then: " verify result equals value of expected"
-		F32.NAN == result
+		F32.Nan == result
 	}
 
 	def "Execute F32_trunk throws exception on incorrect Type on first param "() {

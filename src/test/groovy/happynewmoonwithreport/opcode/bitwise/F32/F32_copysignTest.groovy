@@ -22,7 +22,6 @@ import happynewmoonwithreport.opcode.WasmInstanceStub
 import happynewmoonwithreport.type.F32
 import happynewmoonwithreport.type.I64
 import spock.lang.Specification
-import spock.lang.Unroll
 
 /**
  * Test F32_copysign opcode.
@@ -72,21 +71,54 @@ class F32_copysignTest extends Specification {
 		1     | 4.1  | 1    || 4.1
 		2     | 4.1  | -1   || -4.1
 		3     | 0F   | 1    || 0F
-//		4     | -0F  | -1   || 0F
 	}
 
 
-/**
- * F32_copysign unit test.
- * <p>
- * <a href="https://github.com/WebAssembly/spec/blob/7526564b56c30250b66504fe795e9c1e88a938af/test/core/f32_bitwise.wast">
- *     Official Web Assembly test code.
- * </a>
- * @param val1_s The test value.   The input for the opcode.
- * @param expected The expected value.  What the opcode should return.
- * @return None.
- */
+	def "Execute F32_copysign with F32 Input Nan Test #count -> #val1 || #expected "(Integer count, F32 val1, F32 val2, F32 expected) {
+
+		setup: " push two values on stack."
+		WasmInstanceInterface instance = new WasmInstanceStub();
+		instance.stack().push(new F32(val1));
+		instance.stack().push(new F32(val2));
+
+		when: "run the opcode"
+		new F32_copysign(instance).execute();
+
+		then: "verify result equals value of expected"
+		F32 result = instance.stack().pop();
+		expected == result
+
+		where: "val1 equals val2 returns #expected"
+		count | val1                 | val2                 || expected
+		1     | F32.Nan              | F32.Nan              || F32.Nan
+		2     | F32.Nan              | F32.NanNeg           || F32.NanNeg
+		3     | F32.NanCanonicalNeg  | F32.NanCanonicalPos  || F32.NanCanonicalPos
+		4     | F32.NanCanonicalNeg  | F32.NanCanonicalNeg  || F32.NanCanonicalNeg
+		5     | F32.NanCanonicalNeg  | +1                   || F32.NanCanonicalPos
+		6     | F32.NanCanonicalNeg  | +1                   || F32.NanCanonicalNeg
+		7     | F32.ZeroPositive     | F32.ZeroPositive     || F32.ZeroPositive
+		8     | F32.ZeroNegative     | F32.ZeroNegative     || F32.ZeroNegative
+		9     | F32.NanArithmeticPos | F32.NanArithmeticPos || F32.NanArithmeticPos
+		10    | F32.NanArithmeticNeg | F32.NanArithmeticNeg || F32.NanArithmeticNeg
+		11    | F32.Nan0x20_0000Pos  | F32.Nan0x20_0000Pos  || F32.Nan0x20_0000Pos
+		12    | F32.Nan0x20_0000Neg  | F32.Nan0x20_0000Neg  || F32.Nan0x20_0000Neg
+		13    | F32.InfinityPositive | F32.InfinityPositive || F32.InfinityPositive
+		14    | F32.InfinityNegative | F32.InfinityNegative || F32.InfinityNegative
+	}
+
+
+	/**
+	 * F32_copysign unit test.
+	 * <p>
+	 * <a href="https://github.com/WebAssembly/spec/blob/7526564b56c30250b66504fe795e9c1e88a938af/test/core/f32_bitwise.wast">
+	 *     Official Web Assembly test code.
+	 * </a>
+	 * @param val1_s The test value.   The input for the opcode.
+	 * @param expected The expected value.  What the opcode should return.
+	 * @return None.
+	 */
 	def "Execute F32 copysign  #count | #val1_s  || # expected "(Integer count, String val1, String val2, String expected) {
+
 		setup: " push one value on stack."
 
 		WasmInstanceInterface instance = new WasmInstanceStub();
@@ -136,10 +168,9 @@ class F32_copysignTest extends Specification {
 		30    | "-0x0p+0"          | "inf"              || "0x0p+0"
 		31    | "0x0p+0"           | "-inf"             || "-0x0p+0"
 		32    | "0x0p+0"           | "inf"              || "0x0p+0"
-		// Negative Nan not supported.
-		// 33    | "-0x0p+0"          | "-nan"             || "-0x0p+0"
+		33    | "-0x0p+0"          | "-nan"             || "-0x0p+0"
 		34    | "-0x0p+0"          | "nan"              || "0x0p+0"
-		// 35    | "0x0p+0"           | "-nan"             || "-0x0p+0"
+		35    | "0x0p+0"           | "-nan"             || "-0x0p+0"
 		36    | "0x0p+0"           | "nan"              || "0x0p+0"
 		37    | "-0x1p-149"        | "-0x0p+0"          || "-0x1p-149"
 		38    | "-0x1p-149"        | "0x0p+0"           || "0x1p-149"
@@ -173,9 +204,9 @@ class F32_copysignTest extends Specification {
 		66    | "-0x1p-149"        | "inf"              || "0x1p-149"
 		67    | "0x1p-149"         | "-inf"             || "-0x1p-149"
 		68    | "0x1p-149"         | "inf"              || "0x1p-149"
-		//69    | "-0x1p-149"        | "-nan"             || "-0x1p-149"
+		69    | "-0x1p-149"        | "-nan"             || "-0x1p-149"
 		70    | "-0x1p-149"        | "nan"              || "0x1p-149"
-		//71    | "0x1p-149"         | "-nan"             || "-0x1p-149"
+		71    | "0x1p-149"         | "-nan"             || "-0x1p-149"
 		72    | "0x1p-149"         | "nan"              || "0x1p-149"
 		73    | "-0x1p-126"        | "-0x0p+0"          || "-0x1p-126"
 		74    | "-0x1p-126"        | "0x0p+0"           || "0x1p-126"
@@ -209,9 +240,9 @@ class F32_copysignTest extends Specification {
 		102   | "-0x1p-126"        | "inf"              || "0x1p-126"
 		103   | "0x1p-126"         | "-inf"             || "-0x1p-126"
 		104   | "0x1p-126"         | "inf"              || "0x1p-126"
-		// 105   | "-0x1p-126"        | "-nan"             || "-0x1p-126"
+		105   | "-0x1p-126"        | "-nan"             || "-0x1p-126"
 		106   | "-0x1p-126"        | "nan"              || "0x1p-126"
-		// 107   | "0x1p-126"         | "-nan"             || "-0x1p-126"
+		107   | "0x1p-126"         | "-nan"             || "-0x1p-126"
 		108   | "0x1p-126"         | "nan"              || "0x1p-126"
 		109   | "-0x1p-1"          | "-0x0p+0"          || "-0x1p-1"
 		110   | "-0x1p-1"          | "0x0p+0"           || "0x1p-1"
@@ -245,9 +276,9 @@ class F32_copysignTest extends Specification {
 		138   | "-0x1p-1"          | "inf"              || "0x1p-1"
 		139   | "0x1p-1"           | "-inf"             || "-0x1p-1"
 		140   | "0x1p-1"           | "inf"              || "0x1p-1"
-		// 141   | "-0x1p-1"          | "-nan"             || "-0x1p-1"
+		141   | "-0x1p-1"          | "-nan"             || "-0x1p-1"
 		142   | "-0x1p-1"          | "nan"              || "0x1p-1"
-		// 143   | "0x1p-1"           | "-nan"             || "-0x1p-1"
+		143   | "0x1p-1"           | "-nan"             || "-0x1p-1"
 		144   | "0x1p-1"           | "nan"              || "0x1p-1"
 		145   | "-0x1p+0"          | "-0x0p+0"          || "-0x1p+0"
 		146   | "-0x1p+0"          | "0x0p+0"           || "0x1p+0"
@@ -281,9 +312,9 @@ class F32_copysignTest extends Specification {
 		174   | "-0x1p+0"          | "inf"              || "0x1p+0"
 		175   | "0x1p+0"           | "-inf"             || "-0x1p+0"
 		176   | "0x1p+0"           | "inf"              || "0x1p+0"
-		//177   | "-0x1p+0"          | "-nan"             || "-0x1p+0"
+		177   | "-0x1p+0"          | "-nan"             || "-0x1p+0"
 		178   | "-0x1p+0"          | "nan"              || "0x1p+0"
-		//179   | "0x1p+0"           | "-nan"             || "-0x1p+0"
+		179   | "0x1p+0"           | "-nan"             || "-0x1p+0"
 		180   | "0x1p+0"           | "nan"              || "0x1p+0"
 		181   | "-0x1.921fb6p+2"   | "-0x0p+0"          || "-0x1.921fb6p+2"
 		182   | "-0x1.921fb6p+2"   | "0x0p+0"           || "0x1.921fb6p+2"
@@ -317,9 +348,9 @@ class F32_copysignTest extends Specification {
 		210   | "-0x1.921fb6p+2"   | "inf"              || "0x1.921fb6p+2"
 		211   | "0x1.921fb6p+2"    | "-inf"             || "-0x1.921fb6p+2"
 		212   | "0x1.921fb6p+2"    | "inf"              || "0x1.921fb6p+2"
-		// 213   | "-0x1.921fb6p+2"   | "-nan"             || "-0x1.921fb6p+2"
+		213   | "-0x1.921fb6p+2"   | "-nan"             || "-0x1.921fb6p+2"
 		214   | "-0x1.921fb6p+2"   | "nan"              || "0x1.921fb6p+2"
-		// 215   | "0x1.921fb6p+2"    | "-nan"             || "-0x1.921fb6p+2"
+		215   | "0x1.921fb6p+2"    | "-nan"             || "-0x1.921fb6p+2"
 		216   | "0x1.921fb6p+2"    | "nan"              || "0x1.921fb6p+2"
 		217   | "-0x1.fffffep+127" | "-0x0p+0"          || "-0x1.fffffep+127"
 		218   | "-0x1.fffffep+127" | "0x0p+0"           || "0x1.fffffep+127"
@@ -353,9 +384,9 @@ class F32_copysignTest extends Specification {
 		246   | "-0x1.fffffep+127" | "inf"              || "0x1.fffffep+127"
 		247   | "0x1.fffffep+127"  | "-inf"             || "-0x1.fffffep+127"
 		248   | "0x1.fffffep+127"  | "inf"              || "0x1.fffffep+127"
-		// 249   | "-0x1.fffffep+127" | "-nan"             || "-0x1.fffffep+127"
+		249   | "-0x1.fffffep+127" | "-nan"             || "-0x1.fffffep+127"
 		250   | "-0x1.fffffep+127" | "nan"              || "0x1.fffffep+127"
-		// 251   | "0x1.fffffep+127"  | "-nan"             || "-0x1.fffffep+127"
+		251   | "0x1.fffffep+127"  | "-nan"             || "-0x1.fffffep+127"
 		252   | "0x1.fffffep+127"  | "nan"              || "0x1.fffffep+127"
 		253   | "-inf"             | "-0x0p+0"          || "-inf"
 		254   | "-inf"             | "0x0p+0"           || "inf"
@@ -389,9 +420,9 @@ class F32_copysignTest extends Specification {
 		282   | "-inf"             | "inf"              || "inf"
 		283   | "inf"              | "-inf"             || "-inf"
 		284   | "inf"              | "inf"              || "inf"
-		// 285   | "-inf"             | "-nan"             || "-inf"
+		285   | "-inf"             | "-nan"             || "-inf"
 		286   | "-inf"             | "nan"              || "inf"
-		// 287   | "inf"              | "-nan"             || "-inf"
+		287   | "inf"              | "-nan"             || "-inf"
 		288   | "inf"              | "nan"              || "inf"
 		289   | "-nan"             | "-0x0p+0"          || "-nan"
 		290   | "-nan"             | "0x0p+0"           || "nan"

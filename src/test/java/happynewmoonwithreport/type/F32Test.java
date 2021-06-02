@@ -38,6 +38,14 @@ class F32Test {
 	}
 
 	@Test
+	void nanNegate() {
+		assertThat(F32.Nan.negate()).isEqualTo(F32.NanNeg);
+		assertThat(F32.Nan0x20_0000Pos.negate()).isEqualTo(F32.Nan0x20_0000Neg);
+		assertThat(F32.NanNeg.negate()).isEqualTo(F32.Nan);
+		assertThat(F32.Nan0x20_0000Neg.negate()).isEqualTo(F32.Nan0x20_0000Pos);
+	}
+
+	@Test
 	void nanPrintNegCanonical() {
 		F32 val = F32.NanNeg;
 
@@ -50,7 +58,7 @@ class F32Test {
 
 	@Test
 	void nanPrintPositive20_0000() {
-		F32 val = F32.NanPos0x20_0000;
+		F32 val = F32.Nan0x20_0000Pos;
 
 		// execute
 		String actual = val.nanPrint();
@@ -62,21 +70,21 @@ class F32Test {
 	@Test
 	void testValueOfFloatInputFloat() {
 		// Groovy/Spock does not handle -0F, Java/jUnit does. So we moved this test to jUnit.
-		assertEquals(F32.ZERO_POSITIVE, F32.valueOf(0F));
-		assertEquals(F32.ZERO_NEGATIVE, F32.valueOf(-0F));
+		assertEquals(F32.ZeroPositive, F32.valueOf(0F));
+		assertEquals(F32.ZeroNegative, F32.valueOf(-0F));
 
-		assertEquals(F32.ZERO_NEGATIVE, F32.valueOf(-0F));
+		assertEquals(F32.ZeroNegative, F32.valueOf(-0F));
 
 
-		assertEquals(F32.NAN, F32.valueOf(Float.NaN));
-		assertEquals(F32.NEGATIVE_INFINITY, F32.valueOf(Float.NEGATIVE_INFINITY));
-		assertEquals(F32.POSITIVE_INFINITY, F32.valueOf(Float.POSITIVE_INFINITY));
+		assertEquals(F32.Nan, F32.valueOf(Float.NaN));
+		assertEquals(F32.InfinityNegative, F32.valueOf(Float.NEGATIVE_INFINITY));
+		assertEquals(F32.InfinityPositive, F32.valueOf(Float.POSITIVE_INFINITY));
 	}
 
 	@Test
 	void testValueOfFloatInputString() {
-		assertEquals(F32.ZERO_POSITIVE, F32.valueOf("+0x0p+0"));
-		assertEquals(F32.ZERO_NEGATIVE, F32.valueOf("-0x0p+0"));
+		assertEquals(F32.ZeroPositive, F32.valueOf("+0x0p+0"));
+		assertEquals(F32.ZeroNegative, F32.valueOf("-0x0p+0"));
 	}
 
 	@Test
@@ -85,8 +93,7 @@ class F32Test {
 		F32 valueF = F32.valueOf("nan:0x200000");
 
 		// verify
-		Integer valueF_asBits = valueF.toBits();
-		assertThat(F32.NanPos0x20_0000_Bits).isEqualTo(valueF_asBits);
+		assertThat(valueF).isEqualTo(F32.Nan0x20_0000Pos);
 	}
 
 	@Test
@@ -95,8 +102,7 @@ class F32Test {
 		F32 valueF = F32.valueOf("-nan:0x200000");
 
 		// verify
-		Integer valueF_asBits = valueF.toBits();
-		assertThat(F32.NanNeg0x20_0000_Bits).isEqualTo(valueF_asBits);
+		assertThat(valueF).isEqualTo(F32.Nan0x20_0000Neg);
 	}
 
 	@Test
@@ -105,8 +111,7 @@ class F32Test {
 		F32 valueF = F32.valueOf("-nan");
 
 		// verify
-		Integer valueF_asBits = valueF.toBits();
-		assertThat(F32.NanNeg_Bits).isEqualTo(valueF_asBits);
+		assertThat(valueF).isEqualTo(F32.NanNeg);
 	}
 
 	@Test
@@ -115,47 +120,47 @@ class F32Test {
 		F32 valueF = F32.valueOf("nan:arithmetic");
 
 		// verify
-		Integer valueF_asBits = valueF.toBits();
-		assertThat(F32.NanArithmetic_Bits).isEqualTo(valueF_asBits);
+		assertThat(valueF).isEqualTo(F32.NanArithmeticPos);
+
 	}
 
 	@Test
 	void testIsNanCanonicalWithCanonical() {
-		Boolean actual = F32.NanCanonical.isNanCanonical();
+		Boolean actual = F32.NanCanonicalPos.isNanCanonical();
 		assertTrue(actual);
 	}
 
-	@Test
-	void testNonCanonical() {
-		Integer NanArithmeticAS_bits = F32.NanArithmetic.toBits();
-		assertThat(F32.NanArithmetic_Bits).isEqualTo(NanArithmeticAS_bits);
-	}
+//	@Test
+//	void testNonCanonical() {
+//		Integer NanArithmeticAS_bits = F32.NanArithmeticPos.toBits();
+//		assertThat(F32.NanArithmeticPos_Bits).isEqualTo(NanArithmeticAS_bits);
+//	}
 
 
 	@Test
 	void testIsNanCanonicalWithArith() {
-		Boolean actual = F32.NanArithmetic.isNanCanonical();
+		Boolean actual = F32.NanArithmeticPos.isNanCanonical();
 		assertFalse(actual);
 	}
 
 	@Test
 	void testNanPropogationAllCanonical() {
 		// run
-		F32 actual = F32.nanPropagation(F32.NanCanonical, F32.NanCanonical);
+		F32 actual = F32.nanPropagation(F32.NanCanonicalPos, F32.NanCanonicalPos);
 
 		// verify
 		assertTrue(actual.isNan());
-		assertThat(F32.NanCanonical).isEqualTo(actual);
+		assertThat(F32.NanCanonicalPos).isEqualTo(actual);
 	}
 
 	@Test
 	void testNanPropogationAll_NOT_Canonical() {
 		// run
-		F32 actual = F32.nanPropagation(F32.NanArithmetic, F32.NanPos0x20_0000);
+		F32 actual = F32.nanPropagation(F32.NanArithmeticPos, F32.Nan0x20_0000Pos);
 
 		// verify
 		assertTrue(actual.isNan());
-		assertThat(F32.NanCanonical.toBits()).isNotEqualTo(actual.toBits());
+		assertThat(F32.NanCanonicalPos.toBits()).isNotEqualTo(actual.toBits());
 	}
 
 
@@ -169,7 +174,7 @@ class F32Test {
 
 		// verify
 		assertTrue(actual.isNan());
-		assertThat(F32.NanCanonical).isEqualTo(actual);
+		assertThat(F32.NanCanonicalPos).isEqualTo(actual);
 	}
 
 	@Test
@@ -178,11 +183,11 @@ class F32Test {
 		F32 one = new F32(1.0F);
 
 		// run
-		F32 actual = F32.nanPropagation(zero, one, zero, F32.NanCanonical, F32.NanArithmetic);
+		F32 actual = F32.nanPropagation(zero, one, zero, F32.NanCanonicalPos, F32.NanArithmeticPos);
 
 		// verify
 		assertTrue(actual.isNan());
-		assertThat(F32.NanCanonical.toBits()).isNotEqualTo(actual.toBits());
+		assertThat(F32.NanCanonicalPos.toBits()).isNotEqualTo(actual.toBits());
 	}
 
 
