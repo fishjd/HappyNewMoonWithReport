@@ -158,7 +158,7 @@ class F32_sqrtTest extends Specification {
 		exception.message.contains("Value should be of type '" + inputType + "'. ");
 		exception.message.contains("The input type is 'I64'.");
 		exception.message.contains("The input value is '");
-		exception.getUuid().toString().contains("");
+		exception.getUuid().toString().contains("0a4f1202-51b5-43dd-9baa-37476274b0d0");
 	}
 
 }

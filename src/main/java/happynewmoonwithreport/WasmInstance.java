@@ -801,6 +801,8 @@ public class WasmInstance implements WasmInstanceInterface
 				break;
 			}
 			case (byte) 0x92: { // f32.add 0x92
+				F32_add f32_add = new F32_add(this);
+				f32_add.execute();
 				break;
 			}
 			case (byte) 0x93: { // f32.sub 0x93
