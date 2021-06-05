@@ -247,6 +247,18 @@ class F32GroovyTest extends Specification {
 		F32.ZeroPositive.value  | F32.ZeroNegative.value  || 1
 	}
 
+	def "F32 EqualsWasm Z2 (right)  is nan" (){
+		F32 left = new F32(1);
+		F32 right = F32.Nan;
+
+		when: "Compare "
+		I32 result = left.equalsWasm(right);
+		then:
+		new I32(0) == result;
+
+	}
+
+
 	def "F32 getSign #leftInput | #rightInput || #expectedInput"(Float leftInput, Float rightInput, Integer expectedInput) {
 		F32 left = new F32(leftInput);
 		F32 right = new F32(rightInput);
