@@ -31,37 +31,37 @@ import happynewmoonwithreport.type.I32;
  * Note the below is the same for all Binary Operations
  * <br>
  * <br>
- * t.binop
+ * <h2>t.binop - Binary Operator</h2>
  * <ol>
- * <li>
- * Assert: due to validation, two values of value type t are on the top of the stack.
- * </li>
- * <li>
- * Pop the value t.const c<sub>2</sub> from the stack.
- * </li>
- * <li>
- * Pop the value t.const c<sub>1</sub> from the stack.
- * </li>
- * <li>
- * If binop<sub>t</sub>(c<sub>1</sub>,c<sub>2</sub>) is defined, then:
- * 		<ol type="a">
- * 			<li>
- * 			    Let c be a possible result of computing binopt(c<sub>1</sub>,c<sub>2</sub>).
- * 			</li>
- * 			<li>
- * 		    	Push the value t.const c to the stack.
- * 			</li>
- * 		</ol>
- * </li>
- * <li>
- * Else:
- * 		<ol type="a">
- * 			<li>
- * 			 	Trap.
- * 			</li>
- * 		</ol>
- * </li>
- * </ol>
+ * 		<li>
+ * 			Assert: due to validation, two values of value type t are on the top of the stack.
+ * 		</li>
+ *		<li>
+ *			Pop the value t.const c<sub>2</sub> from the stack.
+ *		</li>
+ *		<li>
+ *			Pop the value t.const c<sub>1</sub> from the stack.
+ *		</li>
+ *		<li>
+ *			If binop<sub>t</sub>(c<sub>1</sub>,c<sub>2</sub>) is defined, then:
+ *			<ol type="a">
+ *				<li>
+ *				    Let c be a possible result of computing binopt(c<sub>1</sub>,c<sub>2</sub>).
+ *				</li>
+ *				<li>
+ *			    	Push the value t.const c to the stack.
+ *				</li>
+ *			</ol>
+ *		</li>
+ *		<li>
+ *			Else:
+ *			<ol type="a">
+ *				<li>
+ *				 	Trap.
+ *				</li>
+ *			</ol>
+ *		</li>
+ *	</ol>
  * <br>
  * Source:
  * <br>

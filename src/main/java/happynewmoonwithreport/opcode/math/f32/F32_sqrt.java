@@ -38,8 +38,8 @@ import java.util.UUID;
  *
  * <p>Note: the documentation below is the same for all unary operators.</p>
  * <h3>Execution:</h3>
- * <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-unop"
- * target="_top"> https://webassembly.github.io/spec/core/exec/instructions.html#exec-unop
+ * <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-unop" target="_top">
+ *     Unary Operator
  * </a>
  * <h2>t.unop - Unary Operator</h2>
  *
@@ -48,13 +48,13 @@ import java.util.UUID;
  * 			Assert: due to validation, a value of value type t is on the top of the stack.
  * 		</li>
  * 		<li>
- * 			Pop the value t.const c1 from the stack.
+ * 			Pop the value t.const c<sub>1</sub> from the stack.
  * 		</li>
  * 		<li>
- * 			If unopt(c1) is defined, then:
+ * 			If unopt(c<sub>1</sub>) is defined, then:
  * 			<ol type="a">
  * 				<li>
- * 					Let c be a possible result of computing unopt(c1).
+ * 					Let c be a possible result of computing unopt(c<sub>1</sub>).
  * 				</li>
  * 				<li>
  * 					Push the value t.const c to the stack.
