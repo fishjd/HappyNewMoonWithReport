@@ -72,16 +72,42 @@ class F32_absTest extends Specification {
 		4     | -0F  || 0F
 	}
 
-/**
- * F32_abs unit test.
- * <p>
- * <a href="https://github.com/WebAssembly/spec/blob/7526564b56c30250b66504fe795e9c1e88a938af/test/core/f32_bitwise.wast">
- *     Official Web Assembly test code.
- * </a>
- * @param val1_s The test value.   The input for the opcode.
- * @param expected The expected value.  What the opcode should return.
- * @return None.
- */
+	def "Execute F32_abs with F32 Input Nan Test #count -> #val1 || #expected "(Integer count, F32 val1, F32 expected) {
+		setup: " push one value on stack."
+		WasmInstanceInterface instance = new WasmInstanceStub();
+		instance.stack().push(new F32(val1));
+
+		when: "run the opcode"
+		new F32_abs(instance).execute();
+
+		then: "verify result equals value of expected"
+		F32 result = instance.stack().pop();
+		expected == result
+
+		where: "val1 equals val2 returns #expected"
+		count | val1                 || expected
+		1     | F32.Nan              || F32.Nan
+		2     | F32.NanNeg           || F32.Nan
+		3     | F32.ZeroPositive     || F32.ZeroPositive
+		4     | F32.ZeroNegative     || F32.ZeroPositive
+		5     | F32.NanArithmeticPos || F32.NanArithmeticPos
+		6     | F32.NanArithmeticNeg || F32.NanArithmeticPos
+		7     | F32.Nan0x20_0000Pos  || F32.Nan0x20_0000Pos
+		8     | F32.Nan0x20_0000Neg  || F32.Nan0x20_0000Pos
+		9     | F32.InfinityPositive || F32.InfinityPositive
+		10    | F32.InfinityNegative || F32.InfinityPositive
+	}
+
+	/**
+	 * F32_abs unit test.
+	 * <p>
+	 * <a href="https://github.com/WebAssembly/spec/blob/7526564b56c30250b66504fe795e9c1e88a938af/test/core/f32_bitwise.wast">
+	 *     Official Web Assembly test code.
+	 * </a>
+	 * @param val1_s The test value.   The input for the opcode.
+	 * @param expected The expected value.  What the opcode should return.
+	 * @return None.
+	 */
 	def "Execute F32 ABS #count | #val1_s  || # expected "(Integer count, String val1_s, String expected) {
 		setup: " push one value on stack."
 

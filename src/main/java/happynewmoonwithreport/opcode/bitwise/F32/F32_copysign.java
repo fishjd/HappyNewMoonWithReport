@@ -28,6 +28,13 @@ import java.util.UUID;
  * <p>
  * [f32 f32]→[f32]
  *
+ * <ul>
+ * 		<li>
+ *  		If z1 and z2 have the same sign, then return z1.
+ *		</li> <li>
+ * 			Else return z1 with negated sign.
+ * 		</li>
+ * </ul>
  *
  * <br>
  * Source:

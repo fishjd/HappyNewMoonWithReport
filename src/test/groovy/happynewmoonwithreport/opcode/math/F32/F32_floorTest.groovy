@@ -69,7 +69,6 @@ class F32_floorTest extends Specification {
 		count | val1      || expected
 		1     | 4.1       || 4.0
 		2     | -4.1      || -5.0
-		// Java  does not support -Nan
 		3     | Float.NaN || Float.NaN
 	}
 
@@ -140,7 +139,7 @@ class F32_floorTest extends Specification {
 		setup: " push ONE value on stack."
 
 		WasmInstanceInterface instance = new WasmInstanceStub();
-		instance.stack().push(F32.NAN);
+		instance.stack().push(F32.Nan);
 
 		F32_floor opcode = new F32_floor(instance);
 
@@ -151,7 +150,7 @@ class F32_floorTest extends Specification {
 		F32 result = instance.stack().pop();
 
 		then: " verify result equals value of expected"
-		F32.NAN == result
+		F32.Nan == result
 	}
 
 	def "Execute F32_floor throws exception on incorrect Type on first param "() {

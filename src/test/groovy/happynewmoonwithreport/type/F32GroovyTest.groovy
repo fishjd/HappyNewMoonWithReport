@@ -20,7 +20,6 @@ package happynewmoonwithreport.type
 import happynewmoonwithreport.BytesFile
 import happynewmoonwithreport.type.JavaType.ByteUnsigned
 import spock.lang.Specification
-import spock.lang.Unroll
 
 class F32GroovyTest extends Specification {
 	def setup() {
@@ -153,18 +152,16 @@ class F32GroovyTest extends Specification {
 		expected == sign
 
 		where:
-		value                 || expected
-		F32.ZERO_NEGATIVE     || false
-		F32.ZERO_POSITIVE     || true
-		F32.NEGATIVE_INFINITY || false
-		F32.POSITIVE_INFINITY || true
-		F32.NAN               || true // ????
+		value                || expected
+		F32.ZeroNegative     || false
+		F32.ZeroPositive     || true
+		F32.InfinityNegative || false
+		F32.InfinityPositive || true
+		F32.Nan              || true // ????
 
 
 	}
 
-
-	@Unroll
 	public def "isZeroTest  #count | #value  || #expected   "(Integer count, F32 value, Boolean expected) {
 
 		when: "Get the Sign"
@@ -174,13 +171,13 @@ class F32GroovyTest extends Specification {
 		expected == sign
 
 		where:
-		count | value                 || expected
-		1     | F32.ZERO_NEGATIVE     || true
-		2     | F32.ZERO_POSITIVE     || true
-		3     | F32.NEGATIVE_INFINITY || false
-		4     | F32.POSITIVE_INFINITY || false
-		5     | F32.NAN               || false
-		6     | new F32(33)           || false
+		count | value                || expected
+		1     | F32.ZeroNegative     || true
+		2     | F32.ZeroPositive     || true
+		3     | F32.InfinityNegative || false
+		4     | F32.InfinityPositive || false
+		5     | F32.Nan              || false
+		6     | new F32(33)          || false
 	}
 
 
@@ -210,10 +207,10 @@ class F32GroovyTest extends Specification {
 		int i = 1;
 
 		then:
-		F32.ZERO_POSITIVE == F32.valueOf("0x0p0F");
-		F32.ZERO_NEGATIVE == F32.valueOf("-0x0p+0")
+		F32.ZeroPositive == F32.valueOf("0x0p0F");
+		F32.ZeroNegative == F32.valueOf("-0x0p+0")
 		Float nan_f = Float.intBitsToFloat(0x7fc0_0000);
-		F32.NAN == F32.valueOf(nan_f);
+		F32.Nan == F32.valueOf(nan_f);
 //		Float nan_neg_f = Float.intBitsToFloat(0xffc0_0000);
 //		F32.NAN_NEGATIVE == F32.valueOf(nan_neg_f);
 	}
@@ -244,11 +241,23 @@ class F32GroovyTest extends Specification {
 		1F                      | 0F                      || 0
 		0F                      | 0F                      || 1
 		0F                      | -0F                     || 1  // -0F does not render a zero_negative.
-		F32.ZERO_POSITIVE.value | F32.ZERO_POSITIVE.value || 1
-		F32.ZERO_NEGATIVE.value | F32.ZERO_NEGATIVE.value || 1
-		F32.ZERO_NEGATIVE.value | F32.ZERO_POSITIVE.value || 1
-		F32.ZERO_POSITIVE.value | F32.ZERO_NEGATIVE.value || 1
+		F32.ZeroPositive.value  | F32.ZeroPositive.value  || 1
+		F32.ZeroNegative.value  | F32.ZeroNegative.value  || 1
+		F32.ZeroNegative.value  | F32.ZeroPositive.value  || 1
+		F32.ZeroPositive.value  | F32.ZeroNegative.value  || 1
 	}
+
+	def "F32 EqualsWasm Z2 (right)  is nan" (){
+		F32 left = new F32(1);
+		F32 right = F32.Nan;
+
+		when: "Compare "
+		I32 result = left.equalsWasm(right);
+		then:
+		new I32(0) == result;
+
+	}
+
 
 	def "F32 getSign #leftInput | #rightInput || #expectedInput"(Float leftInput, Float rightInput, Integer expectedInput) {
 		F32 left = new F32(leftInput);
@@ -276,13 +285,12 @@ class F32GroovyTest extends Specification {
 		1F                      | 0F                      || 0
 		0F                      | 0F                      || 1
 		0F                      | -0F                     || 1  // -0F does not render a zero_negative.
-		F32.ZERO_POSITIVE.value | F32.ZERO_POSITIVE.value || 1
-		F32.ZERO_NEGATIVE.value | F32.ZERO_NEGATIVE.value || 1
-		F32.ZERO_NEGATIVE.value | F32.ZERO_POSITIVE.value || 1
-		F32.ZERO_POSITIVE.value | F32.ZERO_NEGATIVE.value || 1
+		F32.ZeroPositive.value  | F32.ZeroPositive.value  || 1
+		F32.ZeroNegative.value  | F32.ZeroNegative.value  || 1
+		F32.ZeroNegative.value  | F32.ZeroPositive.value  || 1
+		F32.ZeroPositive.value  | F32.ZeroNegative.value  || 1
 	}
 
-	// @Unroll
 	def "F32 EqualsWasm negative and positive zero #leftInput_s | #rightInput_s || #expectedInput"(String leftInput_s, String rightInput_s, Integer expectedInput) {
 		F32 left = F32.valueOf(leftInput_s);
 		F32 right = F32.valueOf(rightInput_s);
@@ -301,4 +309,20 @@ class F32GroovyTest extends Specification {
 		"-0x0p+0"   | "0x0p+0"     || 1
 		"0x0p+0"    | "-0x0p+0"    || 1
 	}
+
+
+	// @Unroll
+	def "F32 Nan Propagation  #leftInput || #expected"(F32 leftInput, F32 expected) {
+
+		when: "Compare "
+		F32 result = F32.nanPropagation(leftInput)
+		then:
+		expected == result
+
+		where:
+		leftInput || expected
+		F32.Nan   || F32.Nan
+	}
+
+
 }

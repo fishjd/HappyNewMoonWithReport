@@ -36,10 +36,7 @@ import happynewmoonwithreport.opcode.convert.*;
 import happynewmoonwithreport.opcode.countingBits.*;
 import happynewmoonwithreport.opcode.logic.*;
 import happynewmoonwithreport.opcode.math.*;
-import happynewmoonwithreport.opcode.math.f32.F32_ceil;
-import happynewmoonwithreport.opcode.math.f32.F32_floor;
-import happynewmoonwithreport.opcode.math.f32.F32_nearest;
-import happynewmoonwithreport.opcode.math.f32.F32_trunk;
+import happynewmoonwithreport.opcode.math.f32.*;
 import happynewmoonwithreport.type.*;
 import happynewmoonwithreport.type.utility.Hex;
 import java.util.UUID;
@@ -59,8 +56,7 @@ import java.util.UUID;
  * .org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly/Instance
  * </a>
  */
-public class WasmInstance implements WasmInstanceInterface
-{
+public class WasmInstance implements WasmInstanceInterface {
 	private WasmModule module;
 	private WasmFunction wasmFunction;
 	private WasmFrame currentFrame;
@@ -113,8 +109,7 @@ public class WasmInstance implements WasmInstanceInterface
 		WasmVector<WasmFunction> functionAll = module.getFunctionAll();
 
 		for (ExportEntry exportEntry : module.getExportAll()) {
-			Boolean found = exportEntry.getExternalKind().equals(
-				new ExternalKind(ExternalKind.function));
+			Boolean found = exportEntry.getExternalKind().equals(new ExternalKind(ExternalKind.function));
 			found &= exportEntry.getFieldName().getValue().equals(name);
 			if (found) {
 				result = functionAll.get(exportEntry.getIndex().integerValue());
@@ -248,81 +243,61 @@ public class WasmInstance implements WasmInstanceInterface
 			}
 			case (byte) 0x2C: {   // I32_load8_s
 				MemoryArgument memoryArgument = new MemoryArgument(); // Not sure what this is.
-				I32_load8_s i32_load8_s = new I32_load8_s(memoryArgument, currentFrame, store,
-					stack
-				);
+				I32_load8_s i32_load8_s = new I32_load8_s(memoryArgument, currentFrame, store, stack);
 				i32_load8_s.execute();
 				break;
 			}
 			case (byte) 0x2D: {   // I32_load8_u
 				MemoryArgument memoryArgument = new MemoryArgument(); // Not sure what this is.
-				I32_load8_u i32_load8_u = new I32_load8_u(memoryArgument, currentFrame, store,
-					stack
-				);
+				I32_load8_u i32_load8_u = new I32_load8_u(memoryArgument, currentFrame, store, stack);
 				i32_load8_u.execute();
 				break;
 			}
 			case (byte) 0x2E: {   // I32_load16_s
 				MemoryArgument memoryArgument = new MemoryArgument(); // Not sure what this is.
-				I32_load16_s i32_load16_s = new I32_load16_s(memoryArgument, currentFrame, store,
-					stack
-				);
+				I32_load16_s i32_load16_s = new I32_load16_s(memoryArgument, currentFrame, store, stack);
 				i32_load16_s.execute();
 				break;
 			}
 			case (byte) 0x2F: {   // I32_load16_u
 				MemoryArgument memoryArgument = new MemoryArgument(); // Not sure what this is.
-				I32_load16_u i32_load16_u = new I32_load16_u(memoryArgument, currentFrame, store,
-					stack
-				);
+				I32_load16_u i32_load16_u = new I32_load16_u(memoryArgument, currentFrame, store, stack);
 				i32_load16_u.execute();
 				break;
 			}
 			case (byte) 0x30: {   // I64_load8_s
 				MemoryArgument memoryArgument = new MemoryArgument(); // Not sure what this is.
-				I64_load8_s i64_load8_s = new I64_load8_s(memoryArgument, currentFrame, store,
-					stack
-				);
+				I64_load8_s i64_load8_s = new I64_load8_s(memoryArgument, currentFrame, store, stack);
 				i64_load8_s.execute();
 				break;
 			}
 			case (byte) 0x31: {   // I64_load8_u
 				MemoryArgument memoryArgument = new MemoryArgument(); // Not sure what this is.
-				I64_load8_u i64_load8_u = new I64_load8_u(memoryArgument, currentFrame, store,
-					stack
-				);
+				I64_load8_u i64_load8_u = new I64_load8_u(memoryArgument, currentFrame, store, stack);
 				i64_load8_u.execute();
 				break;
 			}
 			case (byte) 0x32: {   // I64_load16_s
 				MemoryArgument memoryArgument = new MemoryArgument(); // Not sure what this is.
-				I64_load16_s i64_load16_s = new I64_load16_s(memoryArgument, currentFrame, store,
-					stack
-				);
+				I64_load16_s i64_load16_s = new I64_load16_s(memoryArgument, currentFrame, store, stack);
 				i64_load16_s.execute();
 				break;
 			}
 			case (byte) 0x33: {   // I64_load16_u
 				MemoryArgument memoryArgument = new MemoryArgument(); // Not sure what this is.
-				I64_load16_u i64_load16_u = new I64_load16_u(memoryArgument, currentFrame, store,
-					stack
-				);
+				I64_load16_u i64_load16_u = new I64_load16_u(memoryArgument, currentFrame, store, stack);
 				i64_load16_u.execute();
 				break;
 			}
 			case (byte) 0x34: {   // I64_load32_s
 				MemoryArgument memoryArgument = new MemoryArgument(); // Not sure what this is.
-				I64_load32_s i64_load32_s = new I64_load32_s(memoryArgument, currentFrame, store,
-					stack
-				);
+				I64_load32_s i64_load32_s = new I64_load32_s(memoryArgument, currentFrame, store, stack);
 				i64_load32_s.execute();
 				break;
 			}
 			case (byte) 0x35: {   // I64_load32_u
 				MemoryArgument memoryArgument = new MemoryArgument(); // Not sure what this is.
-				I64_load32_u i64_load32_u = new I64_load32_u(memoryArgument, currentFrame, store,
-					stack
-				);
+				I64_load32_u i64_load32_u = new I64_load32_u(memoryArgument, currentFrame, store, stack);
 				i64_load32_u.execute();
 				break;
 			}
@@ -360,9 +335,7 @@ public class WasmInstance implements WasmInstanceInterface
 			}
 			case (byte) 0x3B: {      // I32 16 store
 				MemoryArgument memoryArgument = new MemoryArgument(); // Not sure what this is.
-				I32_store16 i32_store16 = new I32_store16(memoryArgument, currentFrame, store,
-					stack
-				);
+				I32_store16 i32_store16 = new I32_store16(memoryArgument, currentFrame, store, stack);
 				i32_store16.execute();
 				break;
 			}
@@ -374,17 +347,13 @@ public class WasmInstance implements WasmInstanceInterface
 			}
 			case (byte) 0x3D: {      // I64 16 store
 				MemoryArgument memoryArgument = new MemoryArgument(); // Not sure what this is.
-				I64_store16 i64_store16 = new I64_store16(memoryArgument, currentFrame, store,
-					stack
-				);
+				I64_store16 i64_store16 = new I64_store16(memoryArgument, currentFrame, store, stack);
 				i64_store16.execute();
 				break;
 			}
 			case (byte) 0x3E: {      // I64 32 store
 				MemoryArgument memoryArgument = new MemoryArgument(); // Not sure what this is.
-				I64_store32 i64_store32 = new I64_store32(memoryArgument, currentFrame, store,
-					stack
-				);
+				I64_store32 i64_store32 = new I64_store32(memoryArgument, currentFrame, store, stack);
 				i64_store32.execute();
 				break;
 			}
@@ -799,12 +768,18 @@ public class WasmInstance implements WasmInstanceInterface
 				break;
 			}
 			case (byte) 0x91: { // f32.sqrt 0x91
+				F32_sqrt f32_sqrt = new F32_sqrt(this);
+				f32_sqrt.execute();
 				break;
 			}
 			case (byte) 0x92: { // f32.add 0x92
+				F32_add f32_add = new F32_add(this);
+				f32_add.execute();
 				break;
 			}
 			case (byte) 0x93: { // f32.sub 0x93
+				F32_sub f32_sub = new F32_sub(this);
+				f32_sub.execute();
 				break;
 			}
 			case (byte) 0x94: { // f32.mul 0x94
@@ -998,14 +973,12 @@ public class WasmInstance implements WasmInstanceInterface
 	}
 
 	private void throwUnknownOpcodeException(byte opcode, Integer index) {
-		String message =
-			"Wasm tried to run an opcode that was not defined. Unknown Opcode = " + Hex.byteToHex(
-				opcode) + " (0d" + opcode + ")";
+		String message = "Wasm tried to run an opcode that was not defined. Unknown Opcode = " + Hex.byteToHex(opcode)
+						 + " (0d" + opcode + ")";
 		message += " at byte number = " + index + ". ";
-		String possibleSolutions =
-			"Verify the wasm file is valid.  Recompile Wasm File.  Contact " + "support.";
-		throw new WasmRuntimeException(UUID.fromString("6b5700ee-9642-4544-8850-22794071e848"),
-			message, possibleSolutions
+		String possibleSolutions = "Verify the wasm file is valid.  Recompile Wasm File.  Contact " + "support.";
+		throw new WasmRuntimeException(UUID.fromString("6b5700ee-9642-4544-8850-22794071e848"), message,
+			possibleSolutions
 		);
 	}
 

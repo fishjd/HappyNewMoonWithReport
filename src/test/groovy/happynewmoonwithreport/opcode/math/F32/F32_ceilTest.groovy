@@ -67,10 +67,9 @@ class F32_ceilTest extends Specification {
 
 		where: "val1 equals val2 returns #expected"
 		count | val1      || expected
-		1     | 4.1  || 5.0
-		2     | -4.1 || -4.0
-		// Java  does not support -Nan
-		3     | Float.NaN || Float.NaN  // Works, but is not correct.
+		1     | 4.1       || 5.0
+		2     | -4.1      || -4.0
+		3     | Float.NaN || Float.NaN
 	}
 
 	/**
@@ -116,16 +115,15 @@ class F32_ceilTest extends Specification {
 		14    | "0x1.fffffep+127"  || "0x1.fffffep+127"
 		15    | "-inf"             || "-inf"
 		16    | "inf"              || "inf"
-//		17    | "-nan"             || "nan:canonical"
-//		18    | "-nan:0x200000"    || "nan:arithmetic"
-
+		17    | "-nan"             || "nan:canonical"
+		18    | "-nan:0x200000"    || "nan:arithmetic"
 	}
 
-	def "Execute F32_ceil Canonical"()  {
+	def "Execute F32_ceil Canonical"() {
 		setup: " push ONE value on stack."
 
 		WasmInstanceInterface instance = new WasmInstanceStub();
-		instance.stack().push(F32.NAN);
+		instance.stack().push(F32.Nan);
 
 		F32_ceil opcode = new F32_ceil(instance);
 
@@ -136,7 +134,7 @@ class F32_ceilTest extends Specification {
 		F32 result = instance.stack().pop();
 
 		then: " verify result equals value of expected"
-		F32.NAN == result
+		F32.Nan == result
 	}
 
 	def "Execute F32_ceil throws exception on incorrect Type on first param "() {

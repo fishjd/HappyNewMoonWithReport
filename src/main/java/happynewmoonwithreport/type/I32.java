@@ -50,6 +50,16 @@ public class I32 extends IntWasm {
 	public static final I32 zero = new I32(0);
 	public static final I32 one = new I32(1);
 
+	/**
+	 * Value of I32 that represents True
+	 */
+	public static final I32 True = one;
+
+	/**
+	 * Value of I32 that represents False
+	 */
+	public static final I32 False = zero;
+
 	public I32() {
 		value = 0;
 	}

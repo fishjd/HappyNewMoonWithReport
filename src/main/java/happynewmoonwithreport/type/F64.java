@@ -217,9 +217,6 @@ public class F64 implements DataTypeNumberFloat {
 	 * @return an array of ByteUnsigned
 	 */
 	public ByteUnsigned[] getBytes() {
-
-
-		// consider using floatToIntBits(value);
 		Long bits = Double.doubleToRawLongBits(value);
 
 		// Integer to ByteUnsigned array
@@ -880,6 +877,13 @@ public class F64 implements DataTypeNumberFloat {
 		final StringBuffer sb = new StringBuffer("F64{");
 		sb.append("value=").append(value);
 		if (value != null) {
+			if (value.isNaN()) {
+				sb.append(" NaN");
+			}
+			if (value.isInfinite()) {
+				sb.append(" Infinite");
+			}
+
 			Long bits = Double.doubleToRawLongBits(value);
 			ByteUnsigned[] bytesAll = getByteUnsigned(bits);
 			sb.append(" hex =  0x");
