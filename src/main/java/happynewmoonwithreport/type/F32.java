@@ -902,50 +902,39 @@ public class F32 implements DataTypeNumberFloat {
 			return nanPropagation(z1, z2);
 		}
 		// Else if both z1 and z2 are infinities of opposite signs, then return an element of nansN{}.
-		if (z1 == InfinityPositive && z2 == InfinityNegative) {
-			return nanPropagation();
-		}
-		if (z1 == InfinityNegative && z2 == InfinityPositive) {
+		if (isInfinityOfOppositeSign(z1, z2)) {
 			return nanPropagation();
 		}
 
 		// Else if both z1 and z2 are infinities of equal sign, then return that infinity.
-		if (z1 == InfinityPositive && z2 == InfinityPositive) {
+		if (isInfinityOfOppositeSign(z1, z2)) {
 			return InfinityPositive;
 		}
-		if (z1 == InfinityNegative && z2 == InfinityNegative) {
-			return InfinityNegative;
-		}
+
 		// Else if one of z1 or z2 is an infinity, then return that infinity.
-		if (z1 == InfinityPositive || z2 == InfinityPositive) {
-			return InfinityPositive;
+		if (isAnyInfinity(z1)) {
+			return z1;
 		}
-		if (z1 == InfinityNegative || z2 == InfinityNegative) {
-			return InfinityNegative;
+		if (isAnyInfinity(z2)) {
+			return z2;
 		}
 
 		// Else if both z1 and z2 are zeroes of opposite sign, then return positive zero.
-		if (z1 == ZeroPositive && z2 == ZeroNegative) {
-			return ZeroPositive;
-		}
-		if (z1 == ZeroNegative && z2 == ZeroPositive) {
+		if (isZeroOfOppositeSign(z1, z2)) {
 			return ZeroPositive;
 		}
 
 		// Else if both z1 and z2 are zeroes of equal sign, then return that zero.
-		if (z1 == ZeroPositive && z2 == ZeroPositive) {
+		if (isZeroOfEqualSign(z1, z2)) {
 			return ZeroPositive;
-		}
-		if (z1 == ZeroNegative && z2 == ZeroNegative) {
-			return ZeroNegative;
 		}
 
 		// Else if one of z1 or z2 is a zero, then return the other operand.
-		if (z1 == ZeroPositive || z1 == ZeroNegative) {
+		if (isAnyZero(z1)) {
 			return z2;
 		}
-		if (z2 == ZeroPositive || z2 == ZeroNegative) {
-			return z2;
+		if (isAnyZero(z2)) {
+			return z1;
 		}
 
 		// Else if both z1 and z2 are values with the same magnitude but opposite signs, then return positive zero.
@@ -957,6 +946,155 @@ public class F32 implements DataTypeNumberFloat {
 
 	public F32 addWasm(F32 other) {
 		return addWasm(this, other);
+	}
+
+	/**
+	 * Calculate subtraction according to the Wasm Specification.
+	 * <pre>F32 F32 -> F32</pre>
+	 *
+	 * <h2>Source:</h2>
+	 * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-fsub" target="_top">
+	 * Sub z<sub>1</sub> z<sub>2</sub>
+	 * </a>
+	 * <ol>
+	 * 		<li>
+	 * 			If either z1 or z2 is a NaN, then return an element of nansN{z1,z2}.
+	 * 		</li><li>
+	 * 			Else if both z1 and z2 are infinities of equal signs, then return an element of nansN{}.
+	 * 		</li><li>
+	 * 			Else if both z1 and z2 are infinities of opposite sign, then return z1.
+	 * 		</li><li>
+	 * 			Else if z1 is an infinity, then return that infinity.
+	 * 		</li><li>
+	 * 			Else if z2 is an infinity, then return that infinity negated.
+	 * 		</li><li>
+	 * 			Else if both z1 and z2 are zeroes of equal sign, then return positive zero.
+	 * 		</li><li>
+	 * 			Else if both z1 and z2 are zeroes of opposite sign, then return z1.
+	 * 		</li><li>
+	 * 			Else if z2 is a zero, then return z1.
+	 * 		</li><li>
+	 * 			Else if z1 is a zero, then return z2 negated.
+	 * 		</li><li>
+	 * 			Else if both z1 and z2 are the same value, then return positive zero.
+	 * 		</li><li>
+	 * 			Else return the result of subtracting z2 from z1, rounded to the nearest representable value.
+	 * 		</li>
+	 * </ol>
+	 *
+	 * @return the subtraction of the input values
+	 */
+	public static F32 subWasm(F32 z1, F32 z2) {
+
+		//	If either z1 or z2 is a NaN, then return an element of nansN{z1, z2}.
+		if (z1.isNan() || z2.isNan()) {
+			return nanPropagation(z1, z2);
+		}
+		// 2 Else if both z1 and z2 are infinities of equal signs, then return an element of nansN{}.
+		if (isInfinityOfEqualSign(z1, z2)) {
+			return nanPropagation();
+		}
+
+		// 3 Else if both z1 and z2 are infinities of opposite sign, then return z1.
+		if (isInfinityOfOppositeSign(z1, z2)) {
+			return z1;
+		}
+
+		// 4 Else if z1 is an infinity, then return that infinity.
+		if (z1 == InfinityPositive) {
+			return InfinityPositive;
+		}
+		if (z1 == InfinityNegative) {
+			return InfinityNegative;
+		}
+
+		// 5 Else if z2 is an infinity, then return that infinity negated.
+		if (z2 == InfinityPositive) {
+			return InfinityNegative;
+		}
+		if (z2 == InfinityNegative) {
+			return InfinityPositive;
+		}
+
+		// 6 Else if both z1 and z2 are zeroes of equal sign, then return positive zero.
+		if (isZeroOfEqualSign(z1, z2)) {
+			return ZeroPositive;
+		}
+
+		// 7 Else if both z1 and z2 are zeroes of opposite sign, then return z1.
+		if (isZeroOfOppositeSign(z1, z2)) {
+			return z1;
+		}
+
+		// 8. Else if z2 is a zero, then return z1.
+		if (isAnyZero(z2)) {
+			return z1;
+		}
+
+		// 9 Else if z1 is a zero, then return z2 negated.
+		if (isAnyZero(z1)) {
+			return z2.negate();
+		}
+
+		// 10 Else if both z1 and z2 are the same value, then return positive zero.
+		if (equalsWasm(z1, z2) == I32.True) {
+			return ZeroPositive;
+		}
+
+		// 11 Else return the result of subtracting z2 from z1, rounded to the nearest representable value.
+		float subtract = z1.value - z2.value;
+		return F32.valueOf(subtract);
+	}
+
+	private static Boolean isInfinityOfEqualSign(F32 z1, F32 z2) {
+		Boolean result = false;
+		result |= (z1 == InfinityPositive && z2 == InfinityPositive);
+		result |= (z1 == InfinityNegative && z2 == InfinityNegative);
+		return result;
+	}
+
+	private static Boolean isInfinityOfOppositeSign(F32 z1, F32 z2) {
+		Boolean result = false;
+		result |= (z1 == InfinityPositive && z2 == InfinityNegative);
+		result |= (z1 == InfinityNegative && z2 == InfinityPositive);
+		return result;
+	}
+
+	private static Boolean isAnyInfinity(F32... values) {
+		Boolean result = false;
+		for (F32 value : values) {
+			result |= value == InfinityPositive;
+			result |= value == InfinityNegative;
+		}
+		return result;
+	}
+
+	private static Boolean isZeroOfEqualSign(F32 z1, F32 z2) {
+		Boolean result = false;
+		result |= (z1 == ZeroPositive && z2 == ZeroPositive);
+		result |= (z1 == ZeroNegative && z2 == ZeroNegative);
+		return result;
+	}
+
+	private static Boolean isZeroOfOppositeSign(F32 z1, F32 z2) {
+		Boolean result = false;
+		result |= (z1 == ZeroPositive && z2 == ZeroNegative);
+		result |= (z1 == ZeroNegative && z2 == ZeroPositive);
+		return result;
+	}
+
+	private static Boolean isAnyZero(F32... values) {
+		Boolean result = false;
+		for (F32 value : values) {
+			result |= value == ZeroPositive;
+			result |= value == ZeroNegative;
+		}
+		return result;
+	}
+
+
+	public F32 subWasm(F32 other) {
+		return subWasm(this, other);
 	}
 
 	/**
@@ -1049,7 +1187,10 @@ public class F32 implements DataTypeNumberFloat {
 	 *
 	 * @param z1 The left side of the equals
 	 * @param z2 The right side of the equals
-	 * @return 1 if equal otherwise 0.  <code>z<sub>1</sub> == z<sub>2</sub> </code>
+	 * @return
+	 * <code>z<sub>1</sub> == z<sub>2</sub> </code><br>
+	 * 1: if equal <br>
+	 * 0: otherwise  <br>
 	 */
 	public static I32 equalsWasm(F32 z1, F32 z2) {
 		Integer result = 0;
@@ -1262,6 +1403,7 @@ public class F32 implements DataTypeNumberFloat {
 	 * Numerics Less Than or Equal Wasm Specification.
 	 * </a>
 	 * <p>
+	 *
 	 * @param other the value to compare to.
 	 * @return 1 if less or equal than otherwise 0
 	 * @see F32#lessThanEqualWasm(F32, F32)
@@ -1273,7 +1415,7 @@ public class F32 implements DataTypeNumberFloat {
 	/**
 	 * lessThan or Equal according to the Wasm specification.
 	 * <pre>F32 F32 -> I32</pre>
-	 <p>
+	 * <p>
 	 * <b>Source:</b>  <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-fle" target="_top">
 	 * Numerics Less Than or Equal Wasm Specification.
 	 * </a>

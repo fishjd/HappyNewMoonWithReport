@@ -24,15 +24,15 @@ import happynewmoonwithreport.type.F32;
 import java.util.UUID;
 
 /**
- * Return the Addition  value of the inputs.
+ * Return the subtraction value of the inputs.
  * </p>
  * <h2>Source:</h2>
  * <h3>Operator:</h3>
  * <p>
- * Return the Addition value of the inputs.
+ * Return the subtraction value of the inputs.
  * <p>
- * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-fadd" target="_top">
- * 		Floating Point addition
+ * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-fsub" target="_top">
+ * 		floating point subtraction
  * </a>
  *
  *
@@ -75,18 +75,18 @@ import java.util.UUID;
  * 		</li>
  * 	</ol>
  */
-public class F32_add {
+public class F32_sub {
 	private final String opCodeName = getClass().getName();
 	private final String t1Type = "F32";
 	private final String t2Type = "F32";
 
 	private WasmInstanceInterface instance;
 
-	private F32_add() {
+	private F32_sub() {
 		super();
 	}
 
-	public F32_add(WasmInstanceInterface instance) {
+	public F32_sub(WasmInstanceInterface instance) {
 		this();
 		this.instance = instance;
 	}
@@ -126,7 +126,7 @@ public class F32_add {
 		F32 c1 = (F32) stack.pop();
 
 		// Let c be a possible result of computing binopt(c1,c2).
-		F32 c = c1.addWasm(c2);
+		F32 c = c1.subWasm(c2);
 
 		// Push the value t.const c to the stack.
 		stack.push(c);
