@@ -256,7 +256,7 @@ Data Section:  To Do
 - [x] f32.sqrt 0x91
 - [x] f32.add 0x92
 - [x] f32.sub 0x93
-- [ ] f32.mul 0x94
+- [x] f32.mul 0x94
 - [ ] f32.div 0x95
 - [ ] f32.min 0x96
 - [ ] f32.max 0x97
