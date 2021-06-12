@@ -902,13 +902,13 @@ public class F32 implements DataTypeNumberFloat {
 			return nanPropagation(z1, z2);
 		}
 		// Else if both z1 and z2 are infinities of opposite signs, then return an element of nansN{}.
-		if (isInfinityOfOppositeSign(z1, z2)) {
+		if (isBothInfinitiesOfOppositeSign(z1, z2)) {
 			return nanPropagation();
 		}
 
 		// Else if both z1 and z2 are infinities of equal sign, then return that infinity.
-		if (isInfinityOfOppositeSign(z1, z2)) {
-			return InfinityPositive;
+		if (isBothInfinitiesOfEqualSign(z1, z2)) {
+			return z1;
 		}
 
 		// Else if one of z1 or z2 is an infinity, then return that infinity.
@@ -920,20 +920,20 @@ public class F32 implements DataTypeNumberFloat {
 		}
 
 		// Else if both z1 and z2 are zeroes of opposite sign, then return positive zero.
-		if (isZeroOfOppositeSign(z1, z2)) {
+		if (isBothZerosOfOppositeSign(z1, z2)) {
 			return ZeroPositive;
 		}
 
 		// Else if both z1 and z2 are zeroes of equal sign, then return that zero.
-		if (isZeroOfEqualSign(z1, z2)) {
-			return ZeroPositive;
+		if (isBothZerosOfEqualSign(z1, z2)) {
+			return z1;
 		}
 
 		// Else if one of z1 or z2 is a zero, then return the other operand.
-		if (isAnyZero(z1)) {
+		if (z1.isZero()) {
 			return z2;
 		}
-		if (isAnyZero(z2)) {
+		if (z2.isZero()) {
 			return z1;
 		}
 
@@ -991,12 +991,12 @@ public class F32 implements DataTypeNumberFloat {
 			return nanPropagation(z1, z2);
 		}
 		// 2 Else if both z1 and z2 are infinities of equal signs, then return an element of nansN{}.
-		if (isInfinityOfEqualSign(z1, z2)) {
+		if (isBothInfinitiesOfEqualSign(z1, z2)) {
 			return nanPropagation();
 		}
 
 		// 3 Else if both z1 and z2 are infinities of opposite sign, then return z1.
-		if (isInfinityOfOppositeSign(z1, z2)) {
+		if (isBothInfinitiesOfOppositeSign(z1, z2)) {
 			return z1;
 		}
 
@@ -1017,22 +1017,22 @@ public class F32 implements DataTypeNumberFloat {
 		}
 
 		// 6 Else if both z1 and z2 are zeroes of equal sign, then return positive zero.
-		if (isZeroOfEqualSign(z1, z2)) {
+		if (isBothZerosOfEqualSign(z1, z2)) {
 			return ZeroPositive;
 		}
 
 		// 7 Else if both z1 and z2 are zeroes of opposite sign, then return z1.
-		if (isZeroOfOppositeSign(z1, z2)) {
+		if (isBothZerosOfOppositeSign(z1, z2)) {
 			return z1;
 		}
 
 		// 8. Else if z2 is a zero, then return z1.
-		if (isAnyZero(z2)) {
+		if (z2.isZero()) {
 			return z1;
 		}
 
 		// 9 Else if z1 is a zero, then return z2 negated.
-		if (isAnyZero(z1)) {
+		if (z1.isZero()) {
 			return z2.negate();
 		}
 
@@ -1056,7 +1056,7 @@ public class F32 implements DataTypeNumberFloat {
 	 *
 	 * <h2>Source:</h2>
 	 * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-fsub" target="_top">
-	 * Sub z<sub>1</sub> z<sub>2</sub>
+	 * Mul z<sub>1</sub> z<sub>2</sub>
 	 * </a>
 	 * <ol>
 	 * 		<li>
@@ -1068,9 +1068,11 @@ public class F32 implements DataTypeNumberFloat {
 	 * 		</li><li>
 	 * 			Else if both z1 and z2 are infinities of opposite sign, then return negative infinity.
 	 * 		</li><li>
-	 * 			Else if one of z1 or z2 is an infinity and the other a value with equal sign, then return positive infinity.
+	 * 			Else if one of z1 or z2 is an infinity and the other a value with equal sign, then return positive
+	 * 			infinity.
 	 * 		</li><li>
-	 * 			Else if one of z1 or z2 is an infinity and the other a value with opposite sign, then return negative infinity.
+	 * 			Else if one of z1 or z2 is an infinity and the other a value with opposite sign, then return negative
+	 * 			infinity.
 	 * 		</li><li>
 	 * 			Else if both z1 and z2 are zeroes of equal sign, then return positive zero.
 	 * 		</li><li>
@@ -1097,52 +1099,40 @@ public class F32 implements DataTypeNumberFloat {
 		}
 
 		// 3 Else if both z1 and z2 are infinities of equal sign, then return positive infinity.
-		if (isInfinityOfEqualSign(z1, z2)) {
+		if (isBothInfinitiesOfEqualSign(z1, z2)) {
 			return InfinityPositive;
 		}
 
 		// 4 Else if both z1 and z2 are infinities of opposite sign, then return negative infinity.
-		if (isInfinityOfOppositeSign(z1, z2)) {
+		if (isBothInfinitiesOfOppositeSign(z1, z2)) {
 			return InfinityNegative;
 		}
 
 		// 5 Else if one of z1 or z2 is an infinity and the other a value with equal sign,
 		// then return positive infinity.
-		if (z1 == InfinityPositive && z2.isPositive()) {
+		if (isInfinityOfEqualSign(z1, z2)) {
 			return InfinityPositive;
 		}
-		if (z1 == InfinityNegative && z2.isNegative()) {
-			return InfinityPositive;
-		}
-		if (z2 == InfinityPositive && z1.isPositive()) {
-			return InfinityPositive;
-		}
-		if (z2 == InfinityNegative && z1.isNegative()) {
+		if (isInfinityOfEqualSign(z2, z1)) {
 			return InfinityPositive;
 		}
 
 		// 6 Else if one of z1 or z2 is an infinity and the other a value with opposite sign,
 		// then return negative infinity.
-		if (z1 == InfinityPositive && z2.isNegative()) {
+		if (isInfinityOfOppositeSign(z1, z2)) {
 			return InfinityNegative;
 		}
-		if (z1 == InfinityNegative && z2.isPositive()) {
-			return InfinityNegative;
-		}
-		if (z2 == InfinityPositive && z1.isNegative()) {
-			return InfinityNegative;
-		}
-		if (z2 == InfinityNegative && z1.isPositive()) {
+		if (isInfinityOfOppositeSign(z2, z1)) {
 			return InfinityNegative;
 		}
 
 		// 7 Else if both z1 and z2 are zeroes of equal sign, then return positive zero.
-		if (isZeroOfEqualSign(z1, z2)) {
+		if (isBothZerosOfEqualSign(z1, z2)) {
 			return ZeroPositive;
 		}
 
 		// 8 Else if both z1 and z2 are zeroes of opposite sign, then return negative zero.
-		if (isZeroOfOppositeSign(z1, z2)) {
+		if (isBothZerosOfOppositeSign(z1, z2)) {
 			return ZeroNegative;
 		}
 
@@ -1155,21 +1145,148 @@ public class F32 implements DataTypeNumberFloat {
 		return mulWasm(this, other);
 	}
 
+	/**
+	 * Calculate Division according to the Wasm Specification.
+	 * <pre>F32 F32 -> F32</pre>
+	 *
+	 * <h2>Source:</h2>
+	 * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-fdiv" target="_top">
+	 * Div z<sub>1</sub> z<sub>2</sub>
+	 * </a>
+	 * <ol>
+	 * 		<li>
+	 * 			If either z1 or z2 is a NaN, then return an element of nansN{z1,z2}.
+	 * 		</li><li>
+	 * 			Else if both z1 and z2 are infinities, then return an element of nansN{}.
+	 * 		</li><li>
+	 * 			Else if both z1 and z2 are zeroes, then return an element of nansN{z1,z2}.
+	 * 		</li><li>
+	 * 			Else if z1 is an infinity and z2 a value with equal sign, then return positive infinity.
+	 * 		</li><li>
+	 * 			Else if z1 is an infinity and z2 a value with opposite sign, then return negative infinity.
+	 * 		</li><li>
+	 * 			Else if z2 is an infinity and z1 a value with equal sign, then return positive zero.
+	 * 		</li><li>
+	 * 			Else if z2 is an infinity and z1 a value with opposite sign, then return negative zero.
+	 * 		</li><li>
+	 * 			Else if z1 is a zero and z2 a value with equal sign, then return positive zero.
+	 * 		</li><li>
+	 * 			Else if z1 is a zero and z2 a value with opposite sign, then return negative zero.
+	 * 		</li><li>
+	 * 			Else if z2 is a zero and z1 a value with equal sign, then return positive infinity.
+	 * 		</li><li>
+	 * 			Else if z2 is a zero and z1 a value with opposite sign, then return negative infinity.
+	 * 		</li><li>
+	 * 			Else return the result of dividing z1 by z2, rounded to the nearest representable value.
+	 * 		</li>
+	 * </ol>
+	 *
+	 * @return the Division of the input values
+	 */
+	public static F32 divWasm(F32 z1, F32 z2) {
 
-	private static Boolean isInfinityOfEqualSign(F32 z1, F32 z2) {
+		//1 If either z1 or z2 is a NaN, then return an element of nansN{z1,z2}.
+		if (z1.isNan() || z2.isNan()) {
+			return nanPropagation(z1, z2);
+		}
+		// 2 Else if both z1 and z2 are infinities, then return an element of nansN{}.
+		if (z1.isInfinite() && z2.isInfinite()) {
+			return nanPropagation();
+		}
+
+		// 3 Else if both z1 and z2 are zeroes, then return an element of nansN{z1,z2}.
+		if (z1.isZero() && z2.isZero()) {
+			return nanPropagation(z1, z2);
+		}
+
+		// 4 Else if z1 is an infinity and z2 a value with equal sign, then return positive infinity.
+		if (isBothInfinitiesOfEqualSign(z1, z2)) {
+			return InfinityPositive;
+		}
+
+		// 5 Else if z1 is an infinity and z2 a value with opposite sign, then return negative infinity.
+		if (isBothInfinitiesOfOppositeSign(z1, z2)) {
+			return InfinityNegative;
+		}
+
+		// 6 Else if z2 is an infinity and z1 a value with equal sign, then return positive zero.
+		if (isBothInfinitiesOfEqualSign(z2, z1)) {
+			return ZeroPositive;
+		}
+
+		// 7 Else if z2 is an infinity and z1 a value with opposite sign, then return negative zero.
+		if (isBothInfinitiesOfOppositeSign(z2, z1)) {
+			return ZeroNegative;
+		}
+
+		// 8 Else if z1 is a zero and z2 a value with equal sign, then return positive zero.
+		if (isBothZerosOfEqualSign(z1, z2)) {
+			return ZeroPositive;
+		}
+
+		// 9 Else if z1 is a zero and z2 a value with opposite sign, then return negative zero.
+		if (isBothZerosOfOppositeSign(z1, z2)) {
+			return ZeroNegative;
+		}
+
+		// 10 Else if z2 is a zero and z1 a value with equal sign, then return positive infinity.
+		if (isZeroOfEqualSign(z2, z1)) {
+			return InfinityPositive;
+		}
+
+		// 11 Else if z2 is a zero and z1 a value with opposite sign, then return negative infinity.
+		if (isZeroOfOppositelSign(z2, z1)) {
+			return InfinityNegative;
+		}
+
+		// 9 Else return the result of dividing z1 and z2, rounded to the nearest representable value.
+		float division = z1.value / z2.value;
+		return F32.valueOf(division);
+	}
+
+	public F32 divWasm(F32 other) {
+		return divWasm(this, other);
+	}
+
+	/**
+	 * Z1 and Z2 are infinity of the same sign.
+	 *
+	 * @param z1  value 1
+	 * @param z2  value 2
+	 * @return
+	 * True:  Both Z1 and Z2 are an infinity and are the same sign.
+	 * False: All other cases.
+	 */
+	private static Boolean isBothInfinitiesOfEqualSign(F32 z1, F32 z2) {
 		Boolean result = false;
 		result |= (z1 == InfinityPositive && z2 == InfinityPositive);
 		result |= (z1 == InfinityNegative && z2 == InfinityNegative);
 		return result;
 	}
 
-	private static Boolean isInfinityOfOppositeSign(F32 z1, F32 z2) {
+	/**
+	 * Z1 and Z2 are infinity of the opposite sign.
+	 *
+	 * @param z1 value 1
+	 * @param z2 value 2
+	 * @return
+	 * True:  Both Z1 and Z2 are an infinity and are the opposite sign.
+	 * False: All other cases.
+	 */
+	private static Boolean isBothInfinitiesOfOppositeSign(F32 z1, F32 z2) {
 		Boolean result = false;
 		result |= (z1 == InfinityPositive && z2 == InfinityNegative);
 		result |= (z1 == InfinityNegative && z2 == InfinityPositive);
 		return result;
 	}
 
+	/**
+	 * Is any of the input values positive or negative infinity?
+	 * @param values  A list of values to check.
+	 * @return
+	 * True:  Any value is an infinity.
+	 * False: No value is an infinity.
+	 */
 	private static Boolean isAnyInfinity(F32... values) {
 		Boolean result = false;
 		for (F32 value : values) {
@@ -1179,31 +1296,102 @@ public class F32 implements DataTypeNumberFloat {
 		return result;
 	}
 
+	/**
+	 * Is z1 is infinity and z2 is a value with the same sign.
+	 *
+	 * @param z1 value 1
+	 * @param z2 value 2
+	 * @return
+	 * True:  z1 is Positive or Negative Infinity and z2 is the same sign.<br>
+	 * False: In all other cases.
+	 */
+	private static Boolean isInfinityOfEqualSign(F32 z1, F32 z2) {
+		Boolean result = false;
+		result |= (z1.isInfinityPositive() && z2.isPositive());
+		result |= (z1.isInfinityNegative() && z2.isNegative());
+		return result;
+	}
+
+	/**
+	 * Is z1 is infinity and z2 is a value with the opposite sign.
+	 *
+	 * @param z1 value 1
+	 * @param z2 value 2
+	 * @return
+	 * True:  z1 is Positive or Negative Infinity and z2 is the opposite sign.<br>
+	 * False: In all other cases.
+	 */
+	private static Boolean isInfinityOfOppositeSign(F32 z1, F32 z2) {
+		Boolean result = false;
+		result |= (z1.isInfinityPositive() && z2.isNegative());
+		result |= (z1.isInfinityNegative() && z2.isPositive());
+		return result;
+	}
+
+	/**
+	 * Z1 and Z2 are zeros of the same sign.
+	 *
+	 * @param z1  value 1
+	 * @param z2  value 2
+	 * @return
+	 * True:  Both Z1 and Z2 are a zeros and are the same sign.
+	 * False: All other cases.
+	 */
+	private static Boolean isBothZerosOfEqualSign(F32 z1, F32 z2) {
+		Boolean result = false;
+		result |= (z1.isZeroPositive() && z2.isZeroPositive());
+		result |= (z1.isZeroNegative() && z2.isZeroNegative());
+		return result;
+	}
+
+
+	/**
+	 * Z1 and Z2 are zeros of the opposite sign.
+	 *
+	 * @param z1  value 1
+	 * @param z2  value 2
+	 * @return
+	 * True:  Both Z1 and Z2 are a zeros and are the opposite sign.
+	 * False: All other cases.
+	 */
+	private static Boolean isBothZerosOfOppositeSign(F32 z1, F32 z2) {
+		Boolean result = false;
+		result |= (z1.isZeroPositive() && z2.isZeroNegative());
+		result |= (z1.isZeroNegative() && z2.isZeroPositive());
+		return result;
+	}
+
+	/**
+	 * Is z1 is zero and z2 is a value with the same sign.
+	 *
+	 * @param z1 value 1
+	 * @param z2 value 2
+	 * @return
+	 * True:  z1 is Positive or Negative zero and z2 is the same sign.<br>
+	 * False: In all other cases.
+	 */
 	private static Boolean isZeroOfEqualSign(F32 z1, F32 z2) {
 		Boolean result = false;
-		result |= (z1 == ZeroPositive && z2 == ZeroPositive);
-		result |= (z1 == ZeroNegative && z2 == ZeroNegative);
+		result |= (z1.isZeroPositive() && z2.isPositive());
+		result |= (z1.isZeroNegative() && z2.isNegative());
 		return result;
 	}
 
-	private static Boolean isZeroOfOppositeSign(F32 z1, F32 z2) {
+	/**
+	 * Is z1 is zero and z2 is a value with the opposite sign.
+	 *
+	 * @param z1 value 1
+	 * @param z2 value 2
+	 * @return
+	 * True:  z1 is Positive or Negative zero and z2 is the opposite sign.<br>
+	 * False: In all other cases.
+	 */
+	private static Boolean isZeroOfOppositelSign(F32 z1, F32 z2) {
 		Boolean result = false;
-		result |= (z1 == ZeroPositive && z2 == ZeroNegative);
-		result |= (z1 == ZeroNegative && z2 == ZeroPositive);
+		result |= (z1.isZeroPositive() && z2.isNegative());
+		result |= (z1.isZeroNegative() && z2.isPositive());
 		return result;
 	}
-
-	private static Boolean isAnyZero(F32... values) {
-		Boolean result = false;
-		for (F32 value : values) {
-			result |= value == ZeroPositive;
-			result |= value == ZeroNegative;
-		}
-		return result;
-	}
-
-
-
 
 	/**
 	 * NaN Propagation<p>
@@ -1714,6 +1902,45 @@ public class F32 implements DataTypeNumberFloat {
 		return result;
 	}
 
+	/**
+	 * Returns true if value is positive infinity.
+	 *
+	 * @return True:  if value is Infinity_Positive.
+	 */
+	public Boolean isInfinityPositive() {
+		Boolean result = this.equals(InfinityPositive);
+		return result;
+	}
+
+	/**
+	 * Returns true if value is negative infinity.
+	 *
+	 * @return True:  if value is Infinity_Negative
+	 */
+	public Boolean isInfinityNegative() {
+		Boolean result = this.equals(InfinityNegative);
+		return result;
+	}
+
+	/**
+	 * Returns true if value is positive zero.
+	 *
+	 * @return True: if value is ZeroPositive.
+	 */
+	public Boolean isZeroPositive() {
+		Boolean result = this.equals(ZeroPositive);
+		return result;
+	}
+
+	/**
+	 * Returns true if value is negative zero.
+	 *
+	 * @return True: if value is ZeroNegative.
+	 */
+	public Boolean isZeroNegative() {
+		Boolean result = this.equals(ZeroNegative);
+		return result;
+	}
 
 	/**
 	 * <ul>
@@ -1756,12 +1983,21 @@ public class F32 implements DataTypeNumberFloat {
 		sb.append("value=").append(value);
 
 		if (value != null) {
-			if (value.isNaN()) {
+			if (isNan()) {
 				sb.append(" ");
 				sb.append(nanPrint());
 			}
-			if (value.isInfinite()) {
-				sb.append(" Infinite");
+			if (isInfinityPositive()) {
+				sb.append(" Positive Infinite");
+			}
+			if (isInfinityNegative()) {
+				sb.append(" Negative Infinite");
+			}
+			if (isZeroPositive()) {
+				sb.append( " Positive Zero");
+			}
+			if (isZeroNegative()) {
+				sb.append( " Negative Zero");
 			}
 
 			Integer bits = Float.floatToRawIntBits(value);

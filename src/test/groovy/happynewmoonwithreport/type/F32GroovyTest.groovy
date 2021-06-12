@@ -20,6 +20,7 @@ package happynewmoonwithreport.type
 import happynewmoonwithreport.BytesFile
 import happynewmoonwithreport.type.JavaType.ByteUnsigned
 import spock.lang.Specification
+import spock.lang.Unroll
 
 class F32GroovyTest extends Specification {
 	def setup() {
@@ -27,6 +28,41 @@ class F32GroovyTest extends Specification {
 
 	def cleanup() {
 	}
+
+	def "test F32 isPositiveZero() #count -> #input | #expected"(Integer count, F32 input, Boolean expected) {
+		given: "A Float input "
+
+		when: "Run isZeroPositive()"
+		Boolean result = input.isZeroPositive();
+
+		then:
+		expected == result;
+
+		where:
+		count | input            || expected
+		1     | F32.ZeroPositive || true
+		2     | F32.ZeroNegative || false
+		3     | F32.valueOf(1)   || false
+		4     | F32.valueOf(-1)  || false
+	}
+
+	def "test F32 isNegativeZero() #count -> #input | #expected"(Integer count, F32 input, Boolean expected) {
+		given: "A Float input "
+
+		when: "Run isZeroNegative()"
+		Boolean result = input.isZeroNegative();
+
+		then:
+		expected == result;
+
+		where:
+		count | input            || expected
+		1     | F32.ZeroPositive || false
+		2     | F32.ZeroNegative || true
+		3     | F32.valueOf(1)   || false
+		4     | F32.valueOf(-1)  || false
+	}
+
 
 	def "test F32 ValueOf(Float) ##count -> #input | #expected"(Integer count, Float input, String expected) {
 		given: "A Float input "
@@ -51,7 +87,6 @@ class F32GroovyTest extends Specification {
 	}
 
 
-	//@Unroll
 	def "test F32 ValueOf(String) #input, #expected"(String input, Float expected) {
 		given: "an string input "
 
@@ -247,7 +282,7 @@ class F32GroovyTest extends Specification {
 		F32.ZeroPositive.value  | F32.ZeroNegative.value  || 1
 	}
 
-	def "F32 EqualsWasm Z2 (right)  is nan" (){
+	def "F32 EqualsWasm Z2 (right)  is nan"() {
 		F32 left = new F32(1);
 		F32 right = F32.Nan;
 
