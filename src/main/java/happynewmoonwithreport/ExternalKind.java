@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 - 2020 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2021 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -16,9 +16,8 @@
  */
 package happynewmoonwithreport;
 
-import java.util.HashMap;
-
 import happynewmoonwithreport.type.UInt8;
+import java.util.HashMap;
 
 /**
  * A single-byte unsigned integer indicating the kind of definition being imported or defined:
@@ -28,11 +27,11 @@ import happynewmoonwithreport.type.UInt8;
  *  2 indicating a Memory import or definition
  *  3 indicating a Global import or definition
  * </pre>
- * <p>
+ * <br>
  * Source : <a href= "http://webassembly.org/docs/binary-encoding/#external_kind" target="_top">
  * http://webassembly.org/docs/binary-encoding/#external_kind
  * </a>
- * </p>
+ * <br>
  */
 public class ExternalKind extends ValueBase {
 

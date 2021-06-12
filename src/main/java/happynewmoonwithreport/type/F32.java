@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 - 2020 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2021 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -29,7 +29,7 @@ import happynewmoonwithreport.type.JavaType.ByteUnsigned;
  * This uses a {@code Float} type.  Floats and F32 are the same IEEE 754.
  * <p>
  * See:
- * <p><a href="https://docs.oracle.com/javase/tutorial/java/nutsandbolts/datatypes.html">
+ * <br><a href="https://docs.oracle.com/javase/tutorial/java/nutsandbolts/datatypes.html">
  * Java Documentation on types.
  * </a>
  * <p>
@@ -286,7 +286,7 @@ public class F32 implements DataTypeNumberFloat {
 	/**
 	 * The maximum number of bytes this number may be represented by. For UInt this is fixed. For
 	 * VarUInt if may vary.
-	 * <p>
+	 * <br>
 	 * <code> maxBytes = ceiling(maxBits/8); </code>
 	 *
 	 * @return maximum number of bytes.
@@ -329,19 +329,19 @@ public class F32 implements DataTypeNumberFloat {
 
 	/**
 	 * Convert the F32 value to an array of ByteUnsigned.
-	 * <p>
+	 * <br>
 	 * <b>See:</b>
-	 * <p>
+	 * <br>
 	 * <a href="https://www.h-schmidt.net/FloatConverter/IEEE754.html" target="_top">
 	 * IEEE-754 Floating Point Converter
 	 * </a>
 	 * <br>
 	 * <a href="http://weitz.de/ieee/" target="_top">
-	 * IEEE-754 Floating Point Calculator.  Works for 32 & 64 bits.
+	 * IEEE-754 Floating Point Calculator.  Works for 32 and 64 bits.
 	 * </a>
-	 * <p>
+	 * <br>
 	 * The complement is F32(ByteUnsigned []) constructor.
-	 * <p>
+	 * <br>
 	 * <b>Java implementation</b>
 	 * This uses <code>Float.floatToRawIntBits(float)</code> to covert to an <code>Integer</code>.
 	 *
@@ -367,13 +367,13 @@ public class F32 implements DataTypeNumberFloat {
 
 	/**
 	 * Create an F32 with an array of four UnsignedBytes.  Bytes are interpreted as unsigned.
-	 * <p>
+	 * <br>
 	 * <b>See:</b>
-	 * <p>
+	 * <br>
 	 * <a href="https://www.h-schmidt.net/FloatConverter/IEEE754.html" target="_top">
 	 * IEEE-754 Floating Point Converter
 	 * </a>
-	 * <p>
+	 * <br>
 	 *
 	 * @param byteAll an array of 4 UnsignedBytes
 	 */
@@ -398,14 +398,14 @@ public class F32 implements DataTypeNumberFloat {
 	 *
 	 * @param bytesFile The wasm file.
 	 * @return an F32
-	 * <p>
+	 * <br>
 	 * Floating points are stored in Little Endian.
 	 * See:
 	 * <a href="https://webassembly.github.io/spec/core/binary/values.html#floating-point"
 	 * target="_top">
 	 * https://webassembly.github.io/spec/core/binary/values.html#floating-point
 	 * </a>
-	 * <p>
+	 * <br>
 	 * <a href="https://chortle.ccsu.edu/AssemblyTutorial/Chapter-15/ass15_3.html" target="_top">
 	 * Little Endian vs Big Endian
 	 * </a>

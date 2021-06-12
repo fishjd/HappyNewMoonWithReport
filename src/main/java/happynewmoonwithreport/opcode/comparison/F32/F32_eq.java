@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 - 2020 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2021 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -26,9 +26,9 @@ import java.util.UUID;
 
 /**
  * F32 equal to (f32_eq)
- * <p>
+ * <br>
  * <b>Note this is the same for all Relative Operations</b>
- * <p>
+ * <br>
  * t.relop
  * <ol>
  * <li>
@@ -45,7 +45,7 @@ import java.util.UUID;
  * </li>
  * <li>
  * Push the value f32.const c to the stack.
- * <p>
+ * <br>
  * </li>
  * </ol>
  * Source:

@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 - 2020 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2021 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -16,15 +16,14 @@
  */
 package happynewmoonwithreport.section;
 
+import happynewmoonwithreport.BytesFile;
+import happynewmoonwithreport.type.VarUInt7;
 import java.util.HashMap;
 import java.util.Map;
 
-import happynewmoonwithreport.BytesFile;
-import happynewmoonwithreport.type.VarUInt7;
-
 /**
  * Enum for the defined section names.
- * <p>
+ * <br>
  * This is not a wasm section. It is an Enum of all the names of the sections.
  * <pre>
  * Type             1     Function signature declarations
@@ -39,7 +38,7 @@ import happynewmoonwithreport.type.VarUInt7;
  * Code             10    Function bodies (code)
  * Data             11    Data
  * </pre>
- * <p>
+ * <br>
  * Source:
  * <a href="http://webassembly.org/docs/binary-encoding/#high-level-structure" target="_top">
  * http://webassembly.org/docs/binary-encoding/#high-level-structure

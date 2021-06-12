@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 - 2020 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2021 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -25,15 +25,15 @@ import happynewmoonwithreport.type.WasmVector;
 
 /**
  * The encoding of the memory section.
- * <p>
+ * <br>
  * Source <a href="http://webassembly.org/docs/binary-encoding/#memory-section" target="_top">
  * http://webassembly.org/docs/binary-encoding/#memory-section
  * </a>
- * <p>
+ * <br>
  * Source:  <a href="http://webassembly.org/docs/modules/#linear-memory-section" target="_top">
  * http://webassembly.org/docs/modules/#linear-memory-section
  * </a>
- * <p>
+ * <br>
  * Source:
  * <a href="https://webassembly.github.io/spec/core/binary/modules.html#memory-section" target="_top">
  * https://webassembly.github.io/spec/core/binary/modules.html#memory-section

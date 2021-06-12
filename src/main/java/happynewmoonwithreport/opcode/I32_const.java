@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 - 2020 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2021 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -21,16 +21,16 @@ import happynewmoonwithreport.type.I32;
 
 /**
  * Constant Int32
- * <p>
+ * <br>
  * <b>Note this is the same for all Constant Operations</b>
- * <p>
+ * <br>
  * t.constant c
  * <ol>
  * <li>
  * Push the value t.const c to the stack.   t = Int32
  * </li>
  * </ol>
- * <p>
+ * <br>
  * Source:
  * <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-const" target="_top">
  * https://webassembly.github.io/spec/core/exec/instructions.html#exec-const

@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 - 2020 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2021 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -17,12 +17,11 @@
 package happynewmoonwithreport.opcode;
 
 
-import java.util.UUID;
-
 import happynewmoonwithreport.WasmInstanceInterface;
 import happynewmoonwithreport.WasmRuntimeException;
 import happynewmoonwithreport.WasmStack;
 import happynewmoonwithreport.type.I32;
+import java.util.UUID;
 
 /**
  * <h1>Select</h1>  - Select one of two values on the stack.
@@ -44,12 +43,12 @@ import happynewmoonwithreport.type.I32;
  * </li>
  * <li>
  * If c  is not 0, then:
- * <p>
+ * <br>
  * Push the value val1 back to the stack.
  * </li>
  * <li>
  * Else:
- * <p>
+ * <br>
  * Push the value val2 back to the stack.
  * </li>
  * </ol>
@@ -83,8 +82,8 @@ public class Select {
 
 		// 3 Assert: due to validation, two more values (of the same value type) are on the top of
 		// the stack.
-		Object val_1 = stack.peek(stack.size()-1);  // top of the stack
-		Object val_2 = stack.peek(stack.size()-2);	// top of the stack -1
+		Object val_1 = stack.peek(stack.size() - 1);  // top of the stack
+		Object val_2 = stack.peek(stack.size() - 2);    // top of the stack -1
 		String val_1_type = val_1.getClass().getTypeName();
 		String val_2_type = val_2.getClass().getTypeName();
 		if (val_1_type.equals(val_2_type) == false) {

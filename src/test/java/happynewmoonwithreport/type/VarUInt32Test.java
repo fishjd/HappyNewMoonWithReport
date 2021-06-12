@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 - 2020 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2021 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -16,13 +16,12 @@
  */
 package happynewmoonwithreport.type;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import happynewmoonwithreport.BytesFile;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import happynewmoonwithreport.BytesFile;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 public class VarUInt32Test {

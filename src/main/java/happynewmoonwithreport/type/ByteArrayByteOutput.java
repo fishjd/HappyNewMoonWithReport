@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 - 2020 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2021 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@ import java.util.Arrays;
 
 /**
  * Write bytes to this one at a time to create an byte array.
- * <p>
+ * <br>
  * Similar to a output stream of bytes.  Used mainly for unit testing.
  */
 public final class ByteArrayByteOutput implements ByteOutput {

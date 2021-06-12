@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 - 2020 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2021 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -16,21 +16,20 @@
  */
 package happynewmoonwithreport.type;
 
-import java.util.UUID;
-
 import happynewmoonwithreport.BytesFile;
 import happynewmoonwithreport.Validation;
 import happynewmoonwithreport.WasmRuntimeException;
+import java.util.UUID;
 
 /**
  * Limit also known as resizable limit.
  * Limits classify the size range of resizeable storage associated with memory types and table
  * types.
  * If no maximum is given, the respective storage can grow to any size.
- * <p>
+ * <br>
  * Source : <a href= "http://webassembly.org/docs/binary-encoding/#resizable_limits" target="_top">
  * http://webassembly.org/docs/binary-encoding/#resizable_limits</a>
- * <p>
+ * <br>
  * source:
  * <a href="https://webassembly.github.io/spec/core/syntax/types.html#limits" target="_top">
  * https://webassembly.github.io/spec/core/syntax/types.html#limits
@@ -126,7 +125,7 @@ public class LimitType implements Validation {
 
 	/**
 	 * Get the Maximum
-	 * <p>
+	 * <br>
 	 * Usage:
 	 * <pre>
 	 * {@code
@@ -135,7 +134,7 @@ public class LimitType implements Validation {
 	 * }
 	 * }
 	 * </pre>
-	 * <p>
+	 * <br>
 	 * Throws RuntimeException is maximum is not set.
 	 *
 	 * @return maximum

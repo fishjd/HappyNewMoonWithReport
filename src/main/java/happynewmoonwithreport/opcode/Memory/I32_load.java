@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 - 2020 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2021 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -20,35 +20,31 @@ package happynewmoonwithreport.opcode.Memory;
 import happynewmoonwithreport.WasmFrame;
 import happynewmoonwithreport.WasmStack;
 import happynewmoonwithreport.WasmStore;
-import happynewmoonwithreport.type.I32;
-import happynewmoonwithreport.type.IntWasm;
+import happynewmoonwithreport.type.*;
 import happynewmoonwithreport.type.JavaType.ByteUnsigned;
-import happynewmoonwithreport.type.MemoryArgument;
-import happynewmoonwithreport.type.MemoryType;
-import happynewmoonwithreport.type.U32;
 
 /**
  * <h1>i32_load</h1> Load an i32 value from memory to the stack.
- * <p>
+ * <br>
  * Memory Instructions<br>
- * <p>
+ * <br>
  * <b>Source:</b>
  * <a href="https://webassembly.github.io/spec/core/syntax/instructions.html#memory-instructions"
  * target="_top"> https://webassembly.github.io/spec/core/syntax/instructions
  * .html#memory-instructions
  * </a>
  * <br>
- * <p>
+ * <br>
  * Memory Overview<br>
  * <b>Source:</b>
  * <a href="https://webassembly.github.io/spec/core/syntax/instructions.html#syntax-instr-memory"
  * target="_top"> https://webassembly.github.io/spec/core/syntax/instructions
  * .html#syntax-instr-memory
  * </a>
- * </p>
+ * <br>
  * <br>
  * Exec:
- * <p>
+ * <br>
  * <b>Source:</b>
  * <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-load" target="_top">
  * https://webassembly.github.io/spec/core/exec/instructions.html#exec-load

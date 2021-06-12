@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 - 2020 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2021 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -17,9 +17,9 @@
 package happynewmoonwithreport;
 
 /**
- * <p>
+ * <br>
  * Also know as Global Entry
- * </p>
+ * <br>
  * Source : <a href= "http://webassembly.org/docs/binary-encoding/#global-entry" target="_top">
  * http://webassembly.org/docs/binary-encoding/#global-entry
  * </a>

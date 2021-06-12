@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 - 2020 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2021 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@ import happynewmoonwithreport.type.WasmString;
 
 /**
  * Export Entry - The details of an export.
- * <p>
+ * <br>
  * source:  <a href="http://webassembly.org/docs/binary-encoding/#export-entry" target="_top">
  * http://webassembly.org/docs/binary-encoding/#export-entry
  * </a>

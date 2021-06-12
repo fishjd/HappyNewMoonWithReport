@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 - 2020 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2021 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -17,16 +17,16 @@
 
 package happynewmoonwithreport.type;
 
-import java.util.UUID;
-
 import happynewmoonwithreport.WasmRuntimeException;
 import happynewmoonwithreport.type.JavaType.ByteUnsigned;
+import java.util.UUID;
 
 
 /**
  * Signed Integer 32 Bits.
  *
  * <table>
+ * <caption>I32 Byte Order </caption>
  * <tr>
  * <td>High Byte</td><td>Byte</td><td>Byte</td><td>Low Byte</td>
  * </tr>
@@ -36,11 +36,11 @@ import happynewmoonwithreport.type.JavaType.ByteUnsigned;
  * <tr>	<td>Msb000000</td><td>00000000</td><td>00000000</td><td>0000000Lsb</td>
  * </tr>
  * </table>
- * <p>
+ * <br>
  * Range:  -2<sup>N-1</sup>| ... | -1 | 0 | 1 | ... 2<sup>N-1 </sup> -1
- * <p>
+ * <br>
  * When N = 32
- * <p>
+ * <br>
  * - ‭2,147,483,648‬ to 2,147,483,647
  */
 public class I32 extends IntWasm {
@@ -110,10 +110,10 @@ public class I32 extends IntWasm {
 	 * Create an I32 with an array of four UnsignedBytes.  Bytes are interpreted as unsigned.
 	 *
 	 * @param byteAll <b>Little Endian</b> an array of 4 UnsignedBytes
-	 *                <p>
-	 *                <p>
+	 *                <br>
+	 *                <br>
 	 *                UnsignedByte[0] is the Most Significant Byte
-	 *                <p>
+	 *                <br>
 	 *                UnsignedByte[3] is the Least Significant Byte
 	 */
 	public I32(ByteUnsigned[] byteAll) {
@@ -237,9 +237,9 @@ public class I32 extends IntWasm {
 
 	/**
 	 * Count the number of leading zeros in the value.
-	 * <p>
+	 * <br>
 	 *
-	 * @return I32   (0<= result && result <=32).
+	 * @return I32   (0 &lt;= result &amp;&amp; result &lt;= 32).
 	 */
 	public I32 countLeadingZeros() {
 		Integer result = Integer.numberOfLeadingZeros(value);
@@ -248,9 +248,9 @@ public class I32 extends IntWasm {
 
 	/**
 	 * Count the number of trailing zeros in the value.
-	 * <p>
+	 * <br>
 	 *
-	 * @return I32   (0<= result && result <=32).
+	 * @return I32   (0 &lt;= result &amp;&amp; result &lt;= 32).
 	 */
 	public I32 countTrailingZeros() {
 		Integer result = Integer.numberOfTrailingZeros(value);
@@ -259,9 +259,9 @@ public class I32 extends IntWasm {
 
 	/**
 	 * Count the number one-bits in the value.
-	 * <p>
+	 * <br>
 	 *
-	 * @return I32   (0<= result && result <=32).
+	 * @return I32   (0 &lt;= result &amp;&amp; result &lt;= 32).
 	 */
 	public I32 populationCount() {
 		Integer result = Integer.bitCount(value);

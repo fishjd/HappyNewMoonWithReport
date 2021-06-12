@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 - 2020 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2021 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -49,7 +49,7 @@ public interface DataTypeNumberFloat {
 	/**
 	 * Does the <code>value</code> lay between Integer.minValue and Integer.maxValue.  i.e
 	 * <code>Integer.minValue &lt;= value &lt;= Integer.maxValue;</code>
-	 * <p>
+	 * <br>
 	 * This will <b>always</b> be true for class where the ValueType is Integer, Byte. But may be
 	 * false when ValueType is Long.
 	 *
@@ -68,7 +68,7 @@ public interface DataTypeNumberFloat {
 	/**
 	 * The maximum number of bytes this number may be represented by. For UInt this is fixed. For
 	 * VarUInt if may vary.
-	 * <p>
+	 * <br>
 	 * <code> maxBytes = ceiling(maxBits/8); </code>
 	 *
 	 * @return maximum number of bytes.

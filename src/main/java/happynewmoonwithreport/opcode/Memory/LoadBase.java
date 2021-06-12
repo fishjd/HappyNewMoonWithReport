@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 - 2020 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2021 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -20,17 +20,13 @@ import happynewmoonwithreport.WasmFrame;
 import happynewmoonwithreport.WasmRuntimeException;
 import happynewmoonwithreport.WasmStack;
 import happynewmoonwithreport.WasmStore;
-import happynewmoonwithreport.type.I32;
+import happynewmoonwithreport.type.*;
 import happynewmoonwithreport.type.JavaType.ByteUnsigned;
-import happynewmoonwithreport.type.MemoryArgument;
-import happynewmoonwithreport.type.MemoryType;
-import happynewmoonwithreport.type.U32;
-import happynewmoonwithreport.type.UInt32;
 import java.util.UUID;
 
 /**
  * Load a value from memory to the stack.
- * <p>
+ * <br>
  * Base class for Load opcodes
  */
 public abstract class LoadBase {

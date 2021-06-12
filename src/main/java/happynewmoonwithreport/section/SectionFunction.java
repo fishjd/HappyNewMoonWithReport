@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 - 2020 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2021 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -16,27 +16,26 @@
  */
 package happynewmoonwithreport.section;
 
-import java.util.ArrayList;
-
 import happynewmoonwithreport.BytesFile;
 import happynewmoonwithreport.type.UInt32;
 import happynewmoonwithreport.type.VarUInt32;
+import java.util.ArrayList;
 
 /**
  * Function section
- * <p>
+ * <br>
  * The function section declares the signatures of all functions in the module (their definitions
  * appear in the code
  * section).
- * <p>
+ * <br>
  * Source:  <a href="http://webassembly.org/docs/binary-encoding/#function-section" target="_top">
  * http://webassembly.org/docs/binary-encoding/#function-section
  * </a>
- * <p>
+ * <br>
  * Source:  <a href="http://webassembly.org/docs/modules/#function-and-code-sections" target="_top">
  * http://webassembly.org/docs/modules/#function-and-code-sections
  * </a>
- * <p>
+ * <br>
  * Source:
  * <a href="https://webassembly.github.io/spec/core/binary/modules.html#function-section" target="_top">
  * https://webassembly.github.io/spec/core/binary/modules.html#function-section

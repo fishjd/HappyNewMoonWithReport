@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 - 2020 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2021 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -21,10 +21,10 @@ import happynewmoonwithreport.type.WasmVector;
 /**
  * Labels carry an argument arity n and their associated branch target, which is expressed
  * syntactically as an instruction sequence:
- * <p>
+ * <br>
  * Intuitively, instr∗ is the continuation to execute when the branch is taken, in place of the
  * original control construct.
- * <p>
+ * <br>
  * <h3>Source:</h3>
  * <a href="https://webassembly.github.io/spec/core/exec/runtime.html#labels" target="_top">
  * Wasm Label Documentation

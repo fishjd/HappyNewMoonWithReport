@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 - 2020 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2021 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -17,15 +17,10 @@
 package happynewmoonwithreport.opcode.math;
 
 
-import java.util.UUID;
-
-import happynewmoonwithreport.WasmDivideByZeroException;
-import happynewmoonwithreport.WasmDivideOverflowException;
-import happynewmoonwithreport.WasmInstanceInterface;
-import happynewmoonwithreport.WasmRuntimeException;
-import happynewmoonwithreport.WasmStack;
+import happynewmoonwithreport.*;
 import happynewmoonwithreport.type.I64;
 import happynewmoonwithreport.type.S64;
+import java.util.UUID;
 
 /**
  * Divide 64 signed

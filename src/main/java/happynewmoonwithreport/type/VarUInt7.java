@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 - 2020 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2021 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -20,23 +20,23 @@ import happynewmoonwithreport.BytesFile;
 
 /**
  * A unsigned Integer of 7 bits.
- * <p>
+ * <br>
  * Stored in the wasm file as a LEB128 variable-length integer, limited to N bits (i.e., the
  * values [0,
  * 2^N-1]), represented by at most ceil(N/7) bytes that may contain padding 0x80
  * bytes.
- * <p>
+ * <br>
  * Used to read and write to the wasm file. This project tends to use the 'main' integer types
  * I32, I64, U32,
  * U64.  The recommend use is to convert to a 'main' type as soon as possible.
- * <p>
+ * <br>
  * Usage:
  * <pre>
  *      {@code
  *          UInt32 number = new VarUInt7(bytesFile);
  *      }
  * </pre>
- * <p>
+ * <br>
  * Source:  <a href="http://webassembly.org/docs/binary-encoding/#varuintn" target="_top">
  * http://webassembly.org/docs/binary-encoding/#varuintn
  * </a>

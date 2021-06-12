@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 - 2020 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2021 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ import happynewmoonwithreport.type.JavaType.ByteUnsigned;
  * Source:  <a href="http://webassembly.org/docs/binary-encoding/#memory_type" target="_top">
  * http://webassembly.org/docs/binary-encoding/#memory_type
  * </a>
- * <p>
+ * <br>
  * Source:
  * <a href="https://webassembly.github.io/spec/core/syntax/types.html#memory-types" target="_top">
  * https://webassembly.github.io/spec/core/syntax/types.html#memory-types
@@ -73,7 +73,7 @@ public class MemoryType implements Validation {
 
 	/**
 	 * The limits must be valid.
-	 * <p>
+	 * <br>
 	 * source:  <a href="https://webassembly.github.io/spec/core/valid/types.html#memory-types"
 	 * target="_top"> https://webassembly.github.io/spec/core/valid/types.html#memory-types
 	 * </a>
@@ -97,12 +97,12 @@ public class MemoryType implements Validation {
 
 	/**
 	 * maximum of the memory in Page Size
-	 * <p>
+	 * <br>
 	 * Usage :
 	 * <code>
 	 * if (hasMaximum()) { max = maximum(); }
 	 * </code>
-	 * <p>
+	 * <br>
 	 * Throws RuntimeException is maximum is not set.
 	 *
 	 * @return maximum

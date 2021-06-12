@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 - 2020 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2021 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -70,12 +70,12 @@ public abstract class IntWasm implements DataTypeNumber {
 	 * Return the two’s complement of j relative to size N.
 	 * </li>
 	 * </ol>
-	 * <p>
+	 * <br>
 	 * <b>Source:</b>
 	 * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-extend-s" target="_top">
 	 * https://webassembly.github.io/spec/core/exec/numerics.html#op-extend-s
 	 * </a>
-	 * <p>
+	 * <br>
 	 * Note: perhaps,  this will be the code for opCode 0xC3 i64.extend16_s
 	 * <br>
 	 * <br>
@@ -87,14 +87,14 @@ public abstract class IntWasm implements DataTypeNumber {
 	 * <a href="https://stackoverflow.com/questions/6215256/sign-extension-from-16-to-32-bits-in-c#answer-51958446">
 	 * href="https://stackoverflow.com/questions/6215256/sign-extension-from-16-to-32-bits-in-c
 	 * #answer-51958446"</a>
-	 * <p>
+	 * <br>
 	 * This algorithm is in:
 	 * Warren, Henry S.. Hacker's Delight. N.p., Pearson Education, 2012.  Section 2.6 Sign
 	 * Extension
 	 * <br>
 	 * <br>
-	 * <a href="https://www.google.com/books/edition/Hacker_s_Delight/VicPJYM0I5QC?hl=en&gbpv=0">
-	 *     Hackers Delight on Google Books.
+	 * <a href="https://amzn.to/35vRhPp">
+	 *     Hackers Delight on Amazon.
 	 * </a>
 	 *
 	 * @param bInput an Unsigned byte of length 8
@@ -132,12 +132,12 @@ public abstract class IntWasm implements DataTypeNumber {
 	 * Return the two’s complement of j relative to size N.
 	 * </li>
 	 * </ol>
-	 * <p>
+	 * <br>
 	 * <b>Source:</b>
 	 * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-extend-s" target="_top">
 	 * https://webassembly.github.io/spec/core/exec/numerics.html#op-extend-s
 	 * </a>
-	 * <p>
+	 * <br>
 	 * Note: perhaps,  this will be the code for opCode 0xC3 i64.extend16_s
 	 * <br>
 	 * <br>
@@ -149,14 +149,14 @@ public abstract class IntWasm implements DataTypeNumber {
 	 * <a href="https://stackoverflow.com/questions/6215256/sign-extension-from-16-to-32-bits-in-c#answer-51958446">
 	 * href="https://stackoverflow.com/questions/6215256/sign-extension-from-16-to-32-bits-in-c
 	 * #answer-51958446"</a>
-	 * <p>
+	 * <br>
 	 * This algorithm is in:
 	 * Warren, Henry S.. Hacker's Delight. N.p., Pearson Education, 2012.  Section 2.6 Sign
 	 * Extension
 	 * <br>
 	 * <br>
-	 * <a href="https://www.google.com/books/edition/Hacker_s_Delight/VicPJYM0I5QC?hl=en&gbpv=0">
-	 *     Hackers Delight on Google Books.
+	 * <a href="https://amzn.to/35vRhPp">
+	 *     Hackers Delight on Amazon.
 	 * </a>
 	 *
 	 * @param input an int of length 16
@@ -188,7 +188,7 @@ public abstract class IntWasm implements DataTypeNumber {
 	 * Return the two’s complement of j relative to size N.
 	 * </li>
 	 * </ol>
-	 * <p>
+	 * <br>
 	 * <b>Source:</b>
 	 * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-extend-s" target="_top">
 	 * https://webassembly.github.io/spec/core/exec/numerics.html#op-extend-s
@@ -202,14 +202,14 @@ public abstract class IntWasm implements DataTypeNumber {
 	 * <a href="https://stackoverflow.com/questions/6215256/sign-extension-from-16-to-32-bits-in-c#answer-51958446">
 	 * href="https://stackoverflow.com/questions/6215256/sign-extension-from-16-to-32-bits-in-c
 	 * #answer-51958446"</a>
-	 * <p>
+	 * <br>
 	 * This algorithm is in:
 	 * Warren, Henry S.. Hacker's Delight. N.p., Pearson Education, 2012.  Section 2.6 Sign
 	 * Extension
 	 * <br>
 	 * <br>
-	 * <a href="https://www.google.com/books/edition/Hacker_s_Delight/VicPJYM0I5QC?hl=en&gbpv=0">
-	 *     Hackers Delight on Google Books.
+	 * <a href="https://amzn.to/35vRhPp">
+	 *     Hackers Delight on Amazon.
 	 * </a>
 	 *
 	 * @param bInput an Unsigned byte of length 8
@@ -234,7 +234,7 @@ public abstract class IntWasm implements DataTypeNumber {
 	 * Return the two’s complement of j relative to size N.
 	 * </li>
 	 * </ol>
-	 * <p>
+	 * <br>
 	 * <b>Source:</b>
 	 * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-extend-s"
 	 * target="_top">
@@ -249,14 +249,14 @@ public abstract class IntWasm implements DataTypeNumber {
 	 * <a href="https://stackoverflow.com/questions/6215256/sign-extension-from-16-to-32-bits-in-c#answer-51958446">
 	 * href="https://stackoverflow.com/questions/6215256/sign-extension-from-16-to-32-bits-in-c
 	 * #answer-51958446"</a>
-	 * <p>
+	 * <br>
 	 * This algorithm is in:
 	 * Warren, Henry S.. Hacker's Delight. N.p., Pearson Education, 2012.  Section 2.6 Sign
 	 * Extension
 	 * <br>
 	 * <br>
-	 * <a href="https://www.google.com/books/edition/Hacker_s_Delight/VicPJYM0I5QC?hl=en&gbpv=0">
-	 *     Hackers Delight on Google Books.
+	 * <a href="https://amzn.to/35vRhPp">
+	 *     Hackers Delight on Amazon.
 	 * </a>
 	 *
 	 * @param input Long, value to convert to 64 bits.  Only the least significant byte is used.
@@ -287,12 +287,12 @@ public abstract class IntWasm implements DataTypeNumber {
 	 * Return the two’s complement of j relative to size N.
 	 * </li>
 	 * </ol>
-	 * <p>
+	 * <br>
 	 * <b>Source:</b>
 	 * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-extend-s" target="_top">
 	 * https://webassembly.github.io/spec/core/exec/numerics.html#op-extend-s
 	 * </a>
-	 * <p>
+	 * <br>
 	 * Note: perhaps,  this will be the code for opCode 0xC3 i64.extend16_s
 	 * <br>
 	 * <br>
@@ -304,14 +304,14 @@ public abstract class IntWasm implements DataTypeNumber {
 	 * <a href="https://stackoverflow.com/questions/6215256/sign-extension-from-16-to-32-bits-in-c#answer-51958446">
 	 * href="https://stackoverflow.com/questions/6215256/sign-extension-from-16-to-32-bits-in-c
 	 * #answer-51958446"</a>
-	 * <p>
+	 * <br>
 	 * This algorithm is in:
 	 * Warren, Henry S.. Hacker's Delight. N.p., Pearson Education, 2012.  Section 2.6 Sign
 	 * Extension
 	 * <br>
 	 * <br>
-	 * <a href="https://www.google.com/books/edition/Hacker_s_Delight/VicPJYM0I5QC?hl=en&gbpv=0">
-	 *     Hackers Delight on Google Books.
+	 * <a href="https://amzn.to/35vRhPp">
+	 *     Hackers Delight on Amazon.
 	 * </a>
 	 *
 	 * @param input an int of length 16
@@ -342,31 +342,32 @@ public abstract class IntWasm implements DataTypeNumber {
 	 * Return the two’s complement of j relative to size N.
 	 * </li>
 	 * </ol>
-	 * <p>
+	 * <br>
 	 * <b>Source:</b>
 	 * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-extend-s" target="_top">
 	 * https://webassembly.github.io/spec/core/exec/numerics.html#op-extend-s
 	 * </a>
-	 * <p>
+	 * <br>
 	 * Note: perhaps,  this will be the code for opCode 0xC3 i64.extend16_s
 	 * <br>
 	 * <br>
 	 * <b> References: </b>
 	 * <br>
-	 * <a href="http://www.aggregate.org/MAGIC/#Sign%20Extension">"http://www.aggregate.org/MAGIC/#Sign%20Extension"</a>
+	 * <a href="http://www.aggregate.org/MAGIC/#Sign%20Extension">"http://www.aggregate
+	 * .org/MAGIC/#Sign%20Extension"</a>
 	 * <br>
 	 * <br>
 	 * <a href="https://stackoverflow.com/questions/6215256/sign-extension-from-16-to-32-bits-in-c#answer-51958446">
 	 * href="https://stackoverflow.com/questions/6215256/sign-extension-from-16-to-32-bits-in-c
 	 * #answer-51958446"</a>
-	 * <p>
+	 * <br>
 	 * This algorithm is in:
 	 * Warren, Henry S.. Hacker's Delight. N.p., Pearson Education, 2012.  Section 2.6 Sign
 	 * Extension
 	 * <br>
 	 * <br>
-	 * <a href="https://www.google.com/books/edition/Hacker_s_Delight/VicPJYM0I5QC?hl=en&gbpv=0">
-	 *     Hackers Delight on Google Books.
+	 * <a href="https://amzn.to/35vRhPp">
+	 *     Hackers Delight on Amazon.
 	 * </a>
 	 *
 	 * @param input an int of length 16
@@ -400,7 +401,7 @@ public abstract class IntWasm implements DataTypeNumber {
 
 	/**
 	 * calculate the two complement of a number
-	 * <p>
+	 * <br>
 	 * <b>Source:</b>  <a href="https://introcs.cs.princeton.edu/java/61data/" target="_top">
 	 * https://introcs.cs.princeton.edu/java/61data/
 	 * </a>

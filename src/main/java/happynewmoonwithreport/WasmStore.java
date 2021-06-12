@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 - 2020 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2021 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -26,7 +26,7 @@ import happynewmoonwithreport.type.WasmVector;
  * representation of all instances of functions, tables, memories, and globals that have been
  * allocated during the life
  * time of the abstract machine.
- * <p>
+ * <br>
  * The Store is represented by capital <b><i>S</i></b> in wasm documentation.
  * <br>
  * <br>

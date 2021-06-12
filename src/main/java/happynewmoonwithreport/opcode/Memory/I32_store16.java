@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 - 2020 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2021 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -21,7 +21,6 @@ import happynewmoonwithreport.WasmFrame;
 import happynewmoonwithreport.WasmStack;
 import happynewmoonwithreport.WasmStore;
 import happynewmoonwithreport.type.I32;
-import happynewmoonwithreport.type.IntWasm;
 import happynewmoonwithreport.type.JavaType.ByteUnsigned;
 import happynewmoonwithreport.type.MemoryArgument;
 import happynewmoonwithreport.type.MemoryType;
@@ -29,26 +28,26 @@ import happynewmoonwithreport.type.U32;
 
 /**
  * <h1>i32_store16</h1> Store 16 bits from the stack to memory.
- * <p>
+ * <br>
  * Memory Instructions<br>
- * <p>
+ * <br>
  * <b>Source:</b>
  * <a href="https://webassembly.github.io/spec/core/syntax/instructions.html#memory-instructions"
  * target="_top"> https://webassembly.github.io/spec/core/syntax/instructions
  * .html#memory-instructions
  * </a>
  * <br>
- * <p>
+ * <br>
  * Memory Overview<br>
  * <b>Source:</b>
  * <a href="https://webassembly.github.io/spec/core/syntax/instructions.html#syntax-instr-memory"
  * target="_top"> https://webassembly.github.io/spec/core/syntax/instructions
  * .html#syntax-instr-memory
  * </a>
- * </p>
+ * <br>
  * <br>
  * Exec:
- * <p>
+ * <br>
  * <b>Source:</b>
  * <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-storen"
  * target="_top"> https://webassembly.github.io/spec/core/exec/instructions.html#exec-storen
@@ -120,7 +119,7 @@ import happynewmoonwithreport.type.U32;
  * </ul>
  * </li>
  * <li>
- * <p>
+ * <br>
  * Replace the bytes mem.data[ea:N/8] with b*.
  * </li>
  * </ol>

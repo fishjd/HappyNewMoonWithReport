@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 - 2020 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2021 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -16,23 +16,22 @@
  */
 package happynewmoonwithreport;
 
-import java.util.HashMap;
-
 import happynewmoonwithreport.type.S32;
 import happynewmoonwithreport.type.VarInt7;
+import java.util.HashMap;
 
 /**
  * The data types in Web Assembly. int32, int64, f32, f64
- * <p>
+ * <br>
  * Source : <a href= "http://webassembly.org/docs/semantics/#types" target="_top">
  * http://webassembly.org/docs/semantics/#types
  * </a>
- * </p>
- * <p>
+ * <br>
+ * <br>
  * Source : <a href="http://webassembly.org/docs/binary-encoding/#language-types" target="_top">
  * http://webassembly.org/docs/binary-encoding/#language-types
  * </a>
- * </p>
+ * <br>
  */
 public class ValueType extends ValueBase implements Validation {
 

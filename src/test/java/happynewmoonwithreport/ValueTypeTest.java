@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 - 2020 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2021 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -16,10 +16,10 @@
  */
 package happynewmoonwithreport;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * Created by James Haring on 2017-07-18.
@@ -43,7 +43,7 @@ public class ValueTypeTest {
 	/**
 	 * Test constructor(Integer);
 	 *
-	 * @throws Exception
+	 * @throws Exception on incorrect ValueType
 	 */
 	@Test
 	public void constructorInteger() throws Exception {
@@ -54,7 +54,7 @@ public class ValueTypeTest {
 	/**
 	 * Test constructor(String);
 	 *
-	 * @throws Exception
+	 * @throws Exception on incorrect ValueType
 	 */
 	@Test
 	public void constructorString() throws Exception {

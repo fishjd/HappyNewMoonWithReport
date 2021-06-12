@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 - 2020 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2021 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -16,22 +16,21 @@
  */
 package happynewmoonwithreport.section;
 
+import happynewmoonwithreport.BytesFile;
+import happynewmoonwithreport.type.UInt8;
 import java.nio.charset.StandardCharsets;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import happynewmoonwithreport.BytesFile;
-import happynewmoonwithreport.type.UInt8;
-
 
 /**
  * The encoding of the Custon or 'Named' section:
- * <p>
+ * <br>
  * Source <a href="https://webassembly.org/docs/binary-encoding/#name-section" target="_top">
  * http://webassembly.org/docs/binary-encoding/#memory-section
  * </a>
  *
- * <p>
+ * <br>
  * Source:
  * <a href="https://webassembly.github.io/spec/core/binary/modules.html#custom-section" target="_top">
  * https://webassembly.github.io/spec/core/binary/modules.html#global-section

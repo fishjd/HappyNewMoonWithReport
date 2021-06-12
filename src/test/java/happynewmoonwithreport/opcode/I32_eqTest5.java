@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 - 2020 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2021 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -16,20 +16,19 @@
  */
 package happynewmoonwithreport.opcode;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import happynewmoonwithreport.WasmInstanceInterface;
+import happynewmoonwithreport.opcode.comparison.I32_eq;
+import happynewmoonwithreport.type.I32;
+import happynewmoonwithreport.util.converter.StringToIntegerConverter;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.converter.ConvertWith;
 import org.junit.jupiter.params.provider.CsvSource;
-
-import happynewmoonwithreport.WasmInstanceInterface;
-import happynewmoonwithreport.opcode.comparison.I32_eq;
-import happynewmoonwithreport.type.I32;
-import happynewmoonwithreport.util.converter.StringToIntegerConverter;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Created on 2018-01-20.

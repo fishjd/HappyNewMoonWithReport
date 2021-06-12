@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 - 2020 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2021 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -16,11 +16,10 @@
  */
 package happynewmoonwithreport;
 
-import java.util.Arrays;
-
 import happynewmoonwithreport.type.S32;
 import happynewmoonwithreport.type.UInt16;
 import happynewmoonwithreport.type.UInt32;
+import java.util.Arrays;
 
 /**
  * The web assembly memory.

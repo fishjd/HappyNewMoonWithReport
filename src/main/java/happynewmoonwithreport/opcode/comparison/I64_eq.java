@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 - 2020 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2021 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -17,19 +17,18 @@
 package happynewmoonwithreport.opcode.comparison;
 
 
-import java.util.UUID;
-
 import happynewmoonwithreport.WasmInstanceInterface;
 import happynewmoonwithreport.WasmRuntimeException;
 import happynewmoonwithreport.WasmStack;
 import happynewmoonwithreport.type.I32;
 import happynewmoonwithreport.type.I64;
+import java.util.UUID;
 
 /**
  * I64 equals (i64_eq)
- * <p>
+ * <br>
  * <b>Note this is the same for all Relative Operations</b>
- * <p>
+ * <br>
  * t.relop
  * <ol>
  * <li>
@@ -43,10 +42,10 @@ import happynewmoonwithreport.type.I64;
  * </li>
  * <li>
  * Push the value i64.const c to the stack.
- * <p>
+ * <br>
  * </li>
  * </ol>
- * <p>
+ * <br>
  * Source:  <a href="https://webassembly.github.io/spec/core/appendix/index-instructions.html"
  * target="_top"> https://webassembly.github.io/spec/core/appendix/index-instructions.html </a>
  */

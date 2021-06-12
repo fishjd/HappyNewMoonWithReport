@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 - 2020 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2021 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -16,22 +16,21 @@
  */
 package happynewmoonwithreport;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import happynewmoonwithreport.type.S32;
 import happynewmoonwithreport.type.VarInt7;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * The Element Type  in Web Assembly. <p> A varint7 indicating the types of elements in a table.
  * In the MVP, only one
  * type is available: <p> anyfunc <p> Note: In the future :unicorn:, other element types may be
- * allowed. </p>
- * <p>
+ * allowed. <br>
+ * <br>
  * Source : <a href= "http://webassembly.org/docs/binary-encoding/#elem_type" target="_top">
  * http://webassembly.org/docs/binary-encoding/#elem_type
  * </a>
- * </p>
+ * <br>
  */
 public class ElementType {
 

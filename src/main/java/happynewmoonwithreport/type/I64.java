@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 - 2020 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2021 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -16,15 +16,14 @@
  */
 package happynewmoonwithreport.type;
 
-import java.util.UUID;
-
 import happynewmoonwithreport.WasmRuntimeException;
 import happynewmoonwithreport.type.JavaType.ByteUnsigned;
+import java.util.UUID;
 
 /**
  * I64 is the WebAssembly runtime 64 bit Integer.  It can be interpreted as either signed or
  * unsigned.
- * <p>
+ * <br>
  * source https://webassembly.github.io/spec/core/text/values.html#integers
  */
 public class I64 extends IntWasm {
@@ -126,9 +125,9 @@ public class I64 extends IntWasm {
 	 * Get an array of the bytes.  Little Endian.
 	 *
 	 * @return array of bytes.  Size of array is 8.
-	 * <p>
+	 * <br>
 	 * byte[0]  - Most significant byte
-	 * <p>
+	 * <br>
 	 * byte[7] - Least significant byte
 	 */
 	@Override
@@ -183,9 +182,9 @@ public class I64 extends IntWasm {
 
 	/**
 	 * Count the number of leading zeros in the value.
-	 * <p>
+	 * <br>
 	 *
-	 * @return I32   (0<= result && result <= 64).
+	 * @return I32   (0 &lt;= result &amp;&amp; result &lt;= 64).
 	 */
 	public I32 countLeadingZeros() {
 		Integer result = Long.numberOfLeadingZeros(value);
@@ -194,9 +193,9 @@ public class I64 extends IntWasm {
 
 	/**
 	 * Count the number of trailing zeros in the value.
-	 * <p>
+	 * <br>
 	 *
-	 * @return I32   (0<= result && result <= 64).
+	 * @return I32   (0 &lt;= result &amp;&amp; result &lt;= 64).
 	 */
 	public I32 countTrailingZeros() {
 		Integer result = Long.numberOfTrailingZeros(value);
@@ -205,9 +204,9 @@ public class I64 extends IntWasm {
 
 	/**
 	 * Count the number one-bits in the value.
-	 * <p>
+	 * <br>
 	 *
-	 * @return I32   (0<= result && result <= 64).
+	 * @return I32   (0 &lt;= result &amp;&amp; result &lt;= 64).
 	 */
 	public I32 populationCount() {
 		Integer result = Long.bitCount(value);

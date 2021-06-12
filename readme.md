@@ -66,7 +66,7 @@ In the `execute(BytesFile)` function an opcode is decoded and executed.
 See [WasmAdd32Test.Java](https://github.com/fishjd/HappyNewMoonWithReport/blob/master/src/test/java/happynewmoonwithreport/loadFromWasm/WasmAdd32Test.java)
 This will need to be simplified in future revisions, It is currently a bit of a mess.   
 
-The wasm module may is in the [add32 folder](https://github.com/fishjd/HappyNewMoonWithReport/tree/master/src/test/resources/add32).  
+The wasm module is in the [add32 folder](https://github.com/fishjd/HappyNewMoonWithReport/tree/master/src/test/resources/add32).  
 This folder also contains the wasm text files and notes on the bytes in the wasm module.    
   
 ### Testing the `HelloWorld.wasm' Web Assembly Module in JUnit.

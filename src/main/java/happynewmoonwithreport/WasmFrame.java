@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 - 2020 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2021 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -23,7 +23,7 @@ import happynewmoonwithreport.type.WasmVector;
  * Activation frames carry the return arity of the respective function, hold the values of its
  * locals (including arguments) in the order corresponding to their static local indices, and a
  * reference to the function’s own module instance:
- * <p>
+ * <br>
  * Source:
  * <a href="https://webassembly.github.io/spec/core/exec/runtime.html#activations-and-frames" target="_top">
  * Frames

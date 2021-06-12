@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 - 2020 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2021 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -20,12 +20,8 @@ package happynewmoonwithreport.opcode.Memory;
 import happynewmoonwithreport.WasmFrame;
 import happynewmoonwithreport.WasmStack;
 import happynewmoonwithreport.WasmStore;
-import happynewmoonwithreport.type.I32;
-import happynewmoonwithreport.type.IntWasm;
+import happynewmoonwithreport.type.*;
 import happynewmoonwithreport.type.JavaType.ByteUnsigned;
-import happynewmoonwithreport.type.MemoryArgument;
-import happynewmoonwithreport.type.MemoryType;
-import happynewmoonwithreport.type.U32;
 
 /**
  * <h1>i32_load8_s</h1> Load an i8 Signed value from memory to the stack.
@@ -37,7 +33,7 @@ import happynewmoonwithreport.type.U32;
  * target="_top">
  * https://webassembly.github.io/spec/core/syntax/instructions.html#syntax-instr-memory
  * </a>
- * <p>
+ * <br>
  * <b>Source:</b>
  * <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-load"
  * target="_top">

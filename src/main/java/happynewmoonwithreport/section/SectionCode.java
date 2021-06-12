@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 - 2020 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2021 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -16,27 +16,26 @@
  */
 package happynewmoonwithreport.section;
 
-import java.util.ArrayList;
-
 import happynewmoonwithreport.BytesFile;
 import happynewmoonwithreport.FunctionBody;
 import happynewmoonwithreport.type.UInt32;
 import happynewmoonwithreport.type.VarUInt32;
+import java.util.ArrayList;
 
 /**
  * <h1>Code section</h1>
- * <p>
+ * <br>
  * The code section contains a body for every function in the Module. The count of function
  * declared in the function
  * section and function bodies defined in this section must be the same and the ith declaration
  * corresponds to the ith
  * function body.
- * </p>
- * <p>
+ * <br>
+ * <br>
  * Source:  <a href="http://webassembly.org/docs/binary-encoding/#code-section" target="_top">
  * http://webassembly.org/docs/binary-encoding/#code-section
  * </a>
- * <p>
+ * <br>
  * Source:  <a href="http://webassembly.org/docs/modules/#function-and-code-sections" target="_top">
  * http://webassembly.org/docs/modules/#function-and-code-sections
  * </a>

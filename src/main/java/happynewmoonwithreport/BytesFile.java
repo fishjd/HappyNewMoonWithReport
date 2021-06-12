@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 - 2020 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2021 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -16,9 +16,8 @@
  */
 package happynewmoonwithreport;
 
-import java.util.Arrays;
-
 import happynewmoonwithreport.type.utility.Hex;
+import java.util.Arrays;
 
 /**
  * An byte array with an index. Created by James Haring on 2017-07-18.

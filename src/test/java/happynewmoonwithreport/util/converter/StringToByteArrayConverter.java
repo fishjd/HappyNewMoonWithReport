@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 - 2020 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2021 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -16,13 +16,12 @@
  */
 package happynewmoonwithreport.util.converter;
 
-import org.junit.jupiter.params.converter.SimpleArgumentConverter;
-
 import happynewmoonwithreport.type.JavaType.ByteUnsigned;
+import org.junit.jupiter.params.converter.SimpleArgumentConverter;
 
 /**
  * jUnit 5 argument converter.  Converts a String to a Byte array;
- * <p>
+ * <br>
  * <b>Source:</b>
  * <a href="http://junit.org/junit5/docs/current/user-guide/#writing-tests-parameterized-tests-argument-conversion-explicit"
  * target="_top"> http://junit.org/junit5/docs/current/user-guide/#writing-tests-parameterized

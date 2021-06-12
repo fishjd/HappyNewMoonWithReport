@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 - 2020 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2021 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -16,27 +16,26 @@
  */
 package happynewmoonwithreport;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import happynewmoonwithreport.type.MemoryType;
 import happynewmoonwithreport.type.UInt32;
 import happynewmoonwithreport.type.WasmVector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * A Web Assembly Module
- * <p>
+ * <br>
  * WebAssembly programs are organized into modules, which are the unit of deployment, loading,
  * and compilation. A module
  * collects definitions for types, functions, tables, memories, and globals. In addition, it can
  * declare imports and
  * exports and provide initialization logic in the form of data and element segments or a start
  * function.
- * <p>
+ * <br>
  * Source: <a href="https://webassembly.github.io/spec/core/syntax/modules.html#" target="_top">
  * Modules
  * </a>
- * <p>
+ * <br>
  * Source:  <a href="https://webassembly.github.io/spec/core/binary/modules.html#" target="_top">
  * https://webassembly.github.io/spec/core/binary/modules.html#
  * </a>
@@ -113,7 +112,7 @@ public class WasmModule {
 
 	/**
 	 * Execute all the validity checks
-	 * <p>
+	 * <br>
 	 * Source:  <a href="https://webassembly.github.io/spec/core/valid/index.html" target="_top">
 	 * https://webassembly.github.io/spec/core/valid/index.html
 	 * </a>

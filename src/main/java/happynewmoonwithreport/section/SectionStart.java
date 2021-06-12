@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 - 2020 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2021 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -22,21 +22,21 @@ import happynewmoonwithreport.type.VarUInt32;
 
 /**
  * The start section declares the start function.
- * <p>
+ * <br>
  * If the module has a start node defined, the function it refers should be called by the loader
  * after the instance is
  * initialized, including its Memory and Table though Data and Element sections, and before the
  * exported functions are
  * callable.
- * <p>
+ * <br>
  * Source:  <a href="http://webassembly.org/docs/binary-encoding/#start-section" target="_top">
  * http://webassembly.org/docs/binary-encoding/#start-section
  * </a>
- * <p>
+ * <br>
  * Source:  <a href="http://webassembly.org/docs/modules/#module-start-function" target="_top">
  * http://webassembly.org/docs/modules/#module-start-function
  * </a>
- * <p>
+ * <br>
  * Source:
  * <a href="https://webassembly.github.io/spec/core/binary/modules.html#start-section" target="_top">
  * https://webassembly.github.io/spec/core/binary/modules.html#start-section

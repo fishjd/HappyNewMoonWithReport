@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 - 2020 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2021 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -17,11 +17,7 @@
 package happynewmoonwithreport.opcode.control;
 
 
-import happynewmoonwithreport.BytesFile;
-import happynewmoonwithreport.WasmInstanceInterface;
-import happynewmoonwithreport.WasmLabel;
-import happynewmoonwithreport.WasmRuntimeException;
-import happynewmoonwithreport.WasmStack;
+import happynewmoonwithreport.*;
 import happynewmoonwithreport.type.I32;
 import java.util.UUID;
 
@@ -31,7 +27,7 @@ import java.util.UUID;
  * <li>
  * Assert: due to validation expand<sub>F</sub>(Blocktype) is defined.
  * </li><li>
- * Let [t<sup>m</sup><sub>1</sub>] -> [t<sup>n</sup><sub>2</sub>] be the function type
+ * Let [t<sup>m</sup><sub>1</sub>] -&gt; [t<sup>n</sup><sub>2</sub>] be the function type
  * expand<sub>F</sub>(bloctype).
  * </li><li>
  * Let L be the label whose arity is n and whose continuation is the end of the block.
@@ -43,7 +39,7 @@ import java.util.UUID;
  * Enter the block val<sup>m</sup> instr∗ with label L.
  * </li>
  * </ol>
- * <p>
+ * <br>
  * Source:
  * <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-block" target="_top">
  *     https://webassembly.github.io/spec/core/exec/instructions.html#exec-block

@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 - 2020 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2021 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -44,12 +44,12 @@ import java.util.UUID;
 
 /**
  * A WebAssembly.Instance object is a stateful, executable instance of a WebAssembly.Module.
- * <p>
+ * <br>
  * Web Assembly Source:
  * <a href="https://webassembly.github.io/spec/core/exec/runtime.html#module-instances"
  * target="_top"> https://webassembly.github.io/spec/core/exec/runtime.html#module-instances
  * </a>
- * <p>
+ * <br>
  * JavaScript Source:
  * <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly/Instance"
  * target="_top"> https://developer.mozilla
@@ -96,7 +96,7 @@ public class WasmInstance implements WasmInstanceInterface {
 	/**
 	 * Given a function name then return the Wasm Function.  The Wasm Funciton is definced in the
 	 * Wasm Module.
-	 * <p>
+	 * <br>
 	 * Source:  <a href="https://developer.mozilla.org/en-US/docs/WebAssembly/Exported_functions"
 	 * target="_top"> https://developer.mozilla.org/en-US/docs/WebAssembly/Exported_functions
 	 * </a>
@@ -152,7 +152,7 @@ public class WasmInstance implements WasmInstanceInterface {
 
 	/**
 	 * Run one opcode in the byte file.
-	 * <p>
+	 * <br>
 	 * Source: <a href="https://webassembly.github.io/spec/core/appendix/index-instructions.html"
 	 * target="_top"> https://webassembly.github.io/spec/core/appendix/index-instructions.html
 	 * </a>

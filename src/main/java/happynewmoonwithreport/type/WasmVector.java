@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 - 2020 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2021 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -17,22 +17,21 @@
 package happynewmoonwithreport.type;
 
 
+import happynewmoonwithreport.WasmRuntimeException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.UUID;
-
-import happynewmoonwithreport.WasmRuntimeException;
 
 /**
  * Vectors are bounded sequences of the form A^n  (or A^*), where the A can either be values or
  * complex constructions. A
  * vector can have at most (2^32)-1 elements.
- * <p>
+ * <br>
  * vec(A)::=An(if n &lt; (2^32))
- * <p>
+ * <br>
  * Source:
  * <a href="https://webassembly.github.io/spec/core/syntax/conventions.html#vectors" target="_top" > Vectors</a>
- * <p>
+ * <br>
  * Note this implementation can only have 2^31 (Integer.MAX_VALUE) elements.
  * Any attempt to store a larger index will throw an Exception.  The wasm documents specify
  * (2^32)-1  values.
@@ -42,7 +41,7 @@ import happynewmoonwithreport.WasmRuntimeException;
  * TypeAny is any type.
  *
  * @param <TypeAny> may be any Object.   Known to be used with FunctionType, WasmFunction,
- *               TableType, ....
+ *                  TableType, ....
  */
 public class WasmVector<TypeAny> extends ArrayList<TypeAny> {
 

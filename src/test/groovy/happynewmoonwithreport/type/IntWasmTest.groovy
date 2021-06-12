@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 - 2020 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2021 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -23,7 +23,7 @@ import spock.lang.Specification
 class IntWasmTest extends Specification {
 
 	/**
-	 * <p>
+	 * <br>
 	 *
 	 * Cool Site
 	 * <b>Source of test data:</b>  <a href="https://github.com/WebAssembly/testsuite/blob/master/i64.wast" target="_top">
@@ -56,7 +56,7 @@ class IntWasmTest extends Specification {
 	}
 
 	/**
-	 * <p>
+	 * <br>
 	 *
 	 * Cool Site:  <b>Web Assembly Test Suite</b></br>
 	 * <b>Source of test data:</b>  <a href="https://github.com/WebAssembly/testsuite/blob/master/i64.wast" target="_top">
@@ -90,7 +90,7 @@ class IntWasmTest extends Specification {
 	}
 
 	/**
-	 * <p>
+	 * <br>
 	 *
 	 * Cool Site:  <b>Web Assembly Test Suite</b></br>
 	 * <b>Source of test data:</b>  <a href="https://github.com/WebAssembly/testsuite/blob/master/i64.wast" target="_top">

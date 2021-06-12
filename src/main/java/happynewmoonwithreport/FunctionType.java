@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 - 2020 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2021 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -16,25 +16,20 @@
  */
 package happynewmoonwithreport;
 
+import happynewmoonwithreport.type.*;
 import java.util.ArrayList;
-
-import happynewmoonwithreport.type.UInt32;
-import happynewmoonwithreport.type.UInt8;
-import happynewmoonwithreport.type.VarUInt1;
-import happynewmoonwithreport.type.VarUInt32;
-import happynewmoonwithreport.type.WasmVector;
 
 /**
  * The description of a function signature
- * <p>
+ * <br>
  * Source: <a href = "http://webassembly.org/docs/binary-encoding/#func_type" target="_top">
  * http://webassembly.org/docs/binary-encoding/#func_type
  * </a>
- * </p>
- * <p>
+ * <br>
+ * <br>
  * <a href = "https://webassembly.github.io/spec/core/binary/types.html#function-types" target="_top">
  * https://webassembly.github.io/spec/core/binary/types.html#function-types</a>
- * </p>
+ * <br>
  */
 public class FunctionType implements Validation {
 
@@ -116,11 +111,11 @@ public class FunctionType implements Validation {
 
 	/**
 	 * Function types may not specify more than one result.
-	 * <p>
+	 * <br>
 	 * source:
 	 * <a href="https://webassembly.github.io/spec/core/valid/types.html#function-types" target="_top">
 	 * https://webassembly.github.io/spec/core/valid/types.html#function-types</a>
-	 * <p>
+	 * <br>
 	 * Note:
 	 * This restriction may be removed in future versions of WebAssembly.
 	 *

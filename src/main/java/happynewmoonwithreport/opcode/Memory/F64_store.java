@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 - 2020 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2021 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -20,19 +20,17 @@ package happynewmoonwithreport.opcode.Memory;
 import happynewmoonwithreport.WasmFrame;
 import happynewmoonwithreport.WasmStack;
 import happynewmoonwithreport.WasmStore;
-import happynewmoonwithreport.type.F32;
 import happynewmoonwithreport.type.F64;
 import happynewmoonwithreport.type.JavaType.ByteUnsigned;
 import happynewmoonwithreport.type.MemoryArgument;
 import happynewmoonwithreport.type.MemoryType;
 import happynewmoonwithreport.type.U32;
-import happynewmoonwithreport.type.U64;
 
 /**
  * <h1>f32_store</h1> Store an f32 value from the stack to memory.
- * <p>
+ * <br>
  * Memory Instructions<br>
- * <p>
+ * <br>
  * <b>Source:</b>
  * <a href="https://webassembly.github.io/spec/core/syntax/instructions.html#memory-instructions"
  * target="_top"> https://webassembly.github.io/spec/core/syntax/instructions
@@ -40,7 +38,7 @@ import happynewmoonwithreport.type.U64;
  * </a>
  * <br>
  * Exec:
- * <p>
+ * <br>
  * <b>Source:</b>
  * <a href="https://webassembly.github.io/spec/core/exec/instructions.html#exec-storen"
  * target="_top"> https://webassembly.github.io/spec/core/exec/instructions.html#exec-storen
@@ -97,7 +95,7 @@ import happynewmoonwithreport.type.U64;
  * <ul>
  * <li>
  * Let n
- * <p>
+ * <br>
  * be the result of computing wrap|t|,N(c)
  * </li>
  * <li>
@@ -114,7 +112,7 @@ import happynewmoonwithreport.type.U64;
  * </ul>
  * </li>
  * <li>
- * <p>
+ * <br>
  * Replace the bytes mem.data[ea:N/8] with b*.
  * </li>
  * </ol>
@@ -127,10 +125,11 @@ public class F64_store extends happynewmoonwithreport.opcode.Memory.StoreBase {
 
 	/**
 	 * Construct an F32_Store object.
+	 *
 	 * @param memoryArgument memoryArgument
-	 * @param frame The Web Assembly Frame
-	 * @param store The Web Assembly Store
-	 * @param stack The stack to get the F32 to store in memory
+	 * @param frame          The Web Assembly Frame
+	 * @param store          The Web Assembly Store
+	 * @param stack          The stack to get the F32 to store in memory
 	 */
 	public F64_store(MemoryArgument memoryArgument, WasmFrame frame, WasmStore store,
 					 WasmStack stack) {

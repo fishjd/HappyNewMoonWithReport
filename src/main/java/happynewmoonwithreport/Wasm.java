@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 - 2020 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2021 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -16,24 +16,13 @@
  */
 package happynewmoonwithreport;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.UUID;
-
-import happynewmoonwithreport.section.SectionCode;
-import happynewmoonwithreport.section.SectionCustom;
-import happynewmoonwithreport.section.SectionExport;
-import happynewmoonwithreport.section.SectionFunction;
-import happynewmoonwithreport.section.SectionGlobal;
-import happynewmoonwithreport.section.SectionMemory;
-import happynewmoonwithreport.section.SectionName;
-import happynewmoonwithreport.section.SectionStart;
-import happynewmoonwithreport.section.SectionStartEmpty;
-import happynewmoonwithreport.section.SectionTable;
-import happynewmoonwithreport.section.SectionType;
+import happynewmoonwithreport.section.*;
 import happynewmoonwithreport.type.UInt32;
 import happynewmoonwithreport.type.VarUInt32;
 import happynewmoonwithreport.type.WasmVector;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.UUID;
 
 /**
  * Start Here, The class to loads a WebAssembly file
@@ -71,10 +60,10 @@ public class Wasm {
 	private SectionCode sectionCode = null;
 
 	/**
-	 * <p>
+	 * <br>
 	 * This is a convenience constructor.  Constructors which throw exceptions are
 	 * to be used cautiously. Consider using the constructor <code>Wasm(byte[])</code>
-	 * </p>
+	 * <br>
 	 * <h2>Use instead</h2>
 	 * <pre>
 	 * {@code
@@ -110,12 +99,13 @@ public class Wasm {
 	}
 
 	/**
-	 * <p>
-	 * Source:  <a href="https://github.com/WebAssembly/design/blob/master/JS
-	 * .md#user-content-webassemblyinstantiate"
-	 * target="_top">
+	 * <br>
+	 * Source:
+	 * <pre>
+	 * <a href="https://github.com/WebAssembly/design/blob/master/JS.md#user-content-webassemblyinstantiate"  target="_top">
 	 * https://github.com/WebAssembly/design/blob/master/JS.md#user-content-webassemblyinstantiate
 	 * </a>
+	 * </pre>
 	 *
 	 * @return Web Assembly Module.
 	 */
@@ -217,13 +207,13 @@ public class Wasm {
 
 	/**
 	 * Returns true if module is valid.   Call only after <code>instantiate();</code>
-	 * <p>
+	 * <br>
 	 * Source:
 	 * <a href="https://github.com/WebAssembly/design/blob/master/JS.md#user-content-webassemblyvalidate"
 	 * target="_top">
 	 * https://github.com/WebAssembly/design/blob/master/JS.md#user-content-webassemblyvalidate
 	 * </a>
-	 * <p>
+	 * <br>
 	 * Source:
 	 * <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly/validate"
 	 * target="_top">

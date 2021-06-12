@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 - 2020 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2021 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@ import happynewmoonwithreport.type.VarUInt1;
 
 /**
  * The description of a global variable.
- * <p>
+ * <br>
  * Source : <a href= "http://webassembly.org/docs/binary-encoding/#global_type" target="_top">
  * http://webassembly.org/docs/binary-encoding/#global_type
  * </a>

@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 - 2020 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2021 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -17,9 +17,8 @@
 package happynewmoonwithreport.type;
 
 
-import java.nio.charset.StandardCharsets;
-
 import happynewmoonwithreport.BytesFile;
+import java.nio.charset.StandardCharsets;
 
 /**
  * A String read from the *.wasm file.

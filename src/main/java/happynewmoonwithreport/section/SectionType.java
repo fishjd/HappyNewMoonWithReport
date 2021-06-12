@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 - 2020 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2021 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -27,11 +27,11 @@ import happynewmoonwithreport.type.WasmVector;
 
 /**
  * The type section declares all function signatures that will be used in the module.
- * <p>
+ * <br>
  * Source: <a href = "http://webassembly.org/docs/binary-encoding/#type-section" target="_top">
  * http://webassembly.org/docs/binary-encoding/#type-section
  * </a>
- * <p>
+ * <br>
  * Source:
  * <a href="https://webassembly.github.io/spec/core/binary/modules.html#type-section" target="_top">
  * https://webassembly.github.io/spec/core/binary/modules.html#type-section
