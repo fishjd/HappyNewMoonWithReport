@@ -1046,6 +1046,116 @@ public class F32 implements DataTypeNumberFloat {
 		return F32.valueOf(subtract);
 	}
 
+	public F32 subWasm(F32 other) {
+		return subWasm(this, other);
+	}
+
+	/**
+	 * Calculate Multiplication according to the Wasm Specification.
+	 * <pre>F32 F32 -> F32</pre>
+	 *
+	 * <h2>Source:</h2>
+	 * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-fsub" target="_top">
+	 * Sub z<sub>1</sub> z<sub>2</sub>
+	 * </a>
+	 * <ol>
+	 * 		<li>
+	 * 			If either z1 or z2 is a NaN, then return an element of nansN{z1, z2}.
+	 * 		</li><li>
+	 * 			Else if one of z1 and z2 is a zero and the other an infinity, then return an element of nansN{}.
+	 * 		</li><li>
+	 * 			Else if both z1 and z2 are infinities of equal sign, then return positive infinity.
+	 * 		</li><li>
+	 * 			Else if both z1 and z2 are infinities of opposite sign, then return negative infinity.
+	 * 		</li><li>
+	 * 			Else if one of z1 or z2 is an infinity and the other a value with equal sign, then return positive infinity.
+	 * 		</li><li>
+	 * 			Else if one of z1 or z2 is an infinity and the other a value with opposite sign, then return negative infinity.
+	 * 		</li><li>
+	 * 			Else if both z1 and z2 are zeroes of equal sign, then return positive zero.
+	 * 		</li><li>
+	 * 			Else if both z1 and z2 are zeroes of opposite sign, then return negative zero.
+	 * 		</li><li>
+	 * 			Else return the result of multiplying z1 and z2, rounded to the nearest representable value.
+	 * 		</li>
+	 * </ol>
+	 *
+	 * @return the multiplication of the input values
+	 */
+	public static F32 mulWasm(F32 z1, F32 z2) {
+
+		//1 If either z1 or z2 is a NaN, then return an element of nansN{z1, z2}.
+		if (z1.isNan() || z2.isNan()) {
+			return nanPropagation(z1, z2);
+		}
+		// 2 Else if one of z1 and z2 is a zero and the other an infinity, then return an element of nansN{}.
+		if (z1.isInfinite() && z2.isZero()) {
+			return nanPropagation();
+		}
+		if (z2.isInfinite() && z1.isZero()) {
+			return nanPropagation();
+		}
+
+		// 3 Else if both z1 and z2 are infinities of equal sign, then return positive infinity.
+		if (isInfinityOfEqualSign(z1, z2)) {
+			return InfinityPositive;
+		}
+
+		// 4 Else if both z1 and z2 are infinities of opposite sign, then return negative infinity.
+		if (isInfinityOfOppositeSign(z1, z2)) {
+			return InfinityNegative;
+		}
+
+		// 5 Else if one of z1 or z2 is an infinity and the other a value with equal sign,
+		// then return positive infinity.
+		if (z1 == InfinityPositive && z2.isPositive()) {
+			return InfinityPositive;
+		}
+		if (z1 == InfinityNegative && z2.isNegative()) {
+			return InfinityPositive;
+		}
+		if (z2 == InfinityPositive && z1.isPositive()) {
+			return InfinityPositive;
+		}
+		if (z2 == InfinityNegative && z1.isNegative()) {
+			return InfinityPositive;
+		}
+
+		// 6 Else if one of z1 or z2 is an infinity and the other a value with opposite sign,
+		// then return negative infinity.
+		if (z1 == InfinityPositive && z2.isNegative()) {
+			return InfinityNegative;
+		}
+		if (z1 == InfinityNegative && z2.isPositive()) {
+			return InfinityNegative;
+		}
+		if (z2 == InfinityPositive && z1.isNegative()) {
+			return InfinityNegative;
+		}
+		if (z2 == InfinityNegative && z1.isPositive()) {
+			return InfinityNegative;
+		}
+
+		// 7 Else if both z1 and z2 are zeroes of equal sign, then return positive zero.
+		if (isZeroOfEqualSign(z1, z2)) {
+			return ZeroPositive;
+		}
+
+		// 8 Else if both z1 and z2 are zeroes of opposite sign, then return negative zero.
+		if (isZeroOfOppositeSign(z1, z2)) {
+			return ZeroNegative;
+		}
+
+		// 9 Else return the result of multiplying z1 and z2, rounded to the nearest representable value.
+		float multiply = z1.value * z2.value;
+		return F32.valueOf(multiply);
+	}
+
+	public F32 mulWasm(F32 other) {
+		return mulWasm(this, other);
+	}
+
+
 	private static Boolean isInfinityOfEqualSign(F32 z1, F32 z2) {
 		Boolean result = false;
 		result |= (z1 == InfinityPositive && z2 == InfinityPositive);
@@ -1093,9 +1203,7 @@ public class F32 implements DataTypeNumberFloat {
 	}
 
 
-	public F32 subWasm(F32 other) {
-		return subWasm(this, other);
-	}
+
 
 	/**
 	 * NaN Propagation<p>
