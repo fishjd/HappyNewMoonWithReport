@@ -1251,10 +1251,9 @@ public class F32 implements DataTypeNumberFloat {
 	/**
 	 * Z1 and Z2 are infinity of the same sign.
 	 *
-	 * @param z1  value 1
-	 * @param z2  value 2
-	 * @return
-	 * True:  Both Z1 and Z2 are an infinity and are the same sign.
+	 * @param z1 value 1
+	 * @param z2 value 2
+	 * @return True:  Both Z1 and Z2 are an infinity and are the same sign.
 	 * False: All other cases.
 	 */
 	private static Boolean isBothInfinitiesOfEqualSign(F32 z1, F32 z2) {
@@ -1269,8 +1268,7 @@ public class F32 implements DataTypeNumberFloat {
 	 *
 	 * @param z1 value 1
 	 * @param z2 value 2
-	 * @return
-	 * True:  Both Z1 and Z2 are an infinity and are the opposite sign.
+	 * @return True:  Both Z1 and Z2 are an infinity and are the opposite sign.
 	 * False: All other cases.
 	 */
 	private static Boolean isBothInfinitiesOfOppositeSign(F32 z1, F32 z2) {
@@ -1282,9 +1280,9 @@ public class F32 implements DataTypeNumberFloat {
 
 	/**
 	 * Is any of the input values positive or negative infinity?
-	 * @param values  A list of values to check.
-	 * @return
-	 * True:  Any value is an infinity.
+	 *
+	 * @param values A list of values to check.
+	 * @return True:  Any value is an infinity.
 	 * False: No value is an infinity.
 	 */
 	private static Boolean isAnyInfinity(F32... values) {
@@ -1301,8 +1299,7 @@ public class F32 implements DataTypeNumberFloat {
 	 *
 	 * @param z1 value 1
 	 * @param z2 value 2
-	 * @return
-	 * True:  z1 is Positive or Negative Infinity and z2 is the same sign.<br>
+	 * @return True:  z1 is Positive or Negative Infinity and z2 is the same sign.<br>
 	 * False: In all other cases.
 	 */
 	private static Boolean isInfinityOfEqualSign(F32 z1, F32 z2) {
@@ -1317,8 +1314,7 @@ public class F32 implements DataTypeNumberFloat {
 	 *
 	 * @param z1 value 1
 	 * @param z2 value 2
-	 * @return
-	 * True:  z1 is Positive or Negative Infinity and z2 is the opposite sign.<br>
+	 * @return True:  z1 is Positive or Negative Infinity and z2 is the opposite sign.<br>
 	 * False: In all other cases.
 	 */
 	private static Boolean isInfinityOfOppositeSign(F32 z1, F32 z2) {
@@ -1331,10 +1327,9 @@ public class F32 implements DataTypeNumberFloat {
 	/**
 	 * Z1 and Z2 are zeros of the same sign.
 	 *
-	 * @param z1  value 1
-	 * @param z2  value 2
-	 * @return
-	 * True:  Both Z1 and Z2 are a zeros and are the same sign.
+	 * @param z1 value 1
+	 * @param z2 value 2
+	 * @return True:  Both Z1 and Z2 are a zeros and are the same sign.
 	 * False: All other cases.
 	 */
 	private static Boolean isBothZerosOfEqualSign(F32 z1, F32 z2) {
@@ -1348,10 +1343,9 @@ public class F32 implements DataTypeNumberFloat {
 	/**
 	 * Z1 and Z2 are zeros of the opposite sign.
 	 *
-	 * @param z1  value 1
-	 * @param z2  value 2
-	 * @return
-	 * True:  Both Z1 and Z2 are a zeros and are the opposite sign.
+	 * @param z1 value 1
+	 * @param z2 value 2
+	 * @return True:  Both Z1 and Z2 are a zeros and are the opposite sign.
 	 * False: All other cases.
 	 */
 	private static Boolean isBothZerosOfOppositeSign(F32 z1, F32 z2) {
@@ -1366,8 +1360,7 @@ public class F32 implements DataTypeNumberFloat {
 	 *
 	 * @param z1 value 1
 	 * @param z2 value 2
-	 * @return
-	 * True:  z1 is Positive or Negative zero and z2 is the same sign.<br>
+	 * @return True:  z1 is Positive or Negative zero and z2 is the same sign.<br>
 	 * False: In all other cases.
 	 */
 	private static Boolean isZeroOfEqualSign(F32 z1, F32 z2) {
@@ -1382,8 +1375,7 @@ public class F32 implements DataTypeNumberFloat {
 	 *
 	 * @param z1 value 1
 	 * @param z2 value 2
-	 * @return
-	 * True:  z1 is Positive or Negative zero and z2 is the opposite sign.<br>
+	 * @return True:  z1 is Positive or Negative zero and z2 is the opposite sign.<br>
 	 * False: In all other cases.
 	 */
 	private static Boolean isZeroOfOppositelSign(F32 z1, F32 z2) {
@@ -1391,6 +1383,67 @@ public class F32 implements DataTypeNumberFloat {
 		result |= (z1.isZeroPositive() && z2.isNegative());
 		result |= (z1.isZeroNegative() && z2.isPositive());
 		return result;
+	}
+
+
+	/**
+	 * Calculate Division according to the Wasm Specification.
+	 * <pre>F32 F32 -> F32</pre>
+	 *
+	 * <h2>Source:</h2>
+	 * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-fdiv" target="_top">
+	 * Div z<sub>1</sub> z<sub>2</sub>
+	 * </a>
+	 * <ol>
+	 * 		<li>
+	 *  		If either z1 or z2 is a NaN, then return an element of nansN{z1,z2}.
+	 * 		</li><li>
+	 * 			Else if one of z1 or z2 is a negative infinity, then return negative infinity.
+	 * 		</li><li>
+	 * 			Else if one of z1 or z2 is a positive infinity, then return the other value.
+	 * 		</li><li>
+	 * 			Else if both z1 and z2 are zeroes of opposite signs, then return negative zero.
+	 * 		</li><li>
+	 * 			Else return the smaller value of z1 and z2.
+	 * 		</li>
+	 * </ol>
+	 *
+	 * @return the Division of the input values
+	 */
+	public static F32 minWasm(F32 z1, F32 z2) {
+
+		//1 If either z1 or z2 is a NaN, then return an element of nansN{z1,z2}.
+		if (z1.isNan() || z2.isNan()) {
+			return nanPropagation(z1, z2);
+		}
+		// 2 Else if one of z1 or z2 is a negative infinity, then return negative infinity.
+		if (z1.isInfinityNegative() && z2.isInfinityNegative()) {
+			return InfinityNegative;
+		}
+
+		// 3 Else if one of z1 or z2 is a positive infinity, then return the other value.
+		if (z1.isInfinityPositive()) {
+			return z2;
+		}
+		if (z2.isInfinityPositive()) {
+			return z1;
+		}
+
+		// 4 Else if both z1 and z2 are zeroes of opposite signs, then return negative zero.
+		if (isBothZerosOfOppositeSign(z1, z2)) {
+			return ZeroNegative;
+		}
+
+		// 5 Else return the smaller value of z1 and z2.
+		if (lessThanWasm(z1,z2) == I32.one) {
+			return z1;
+		} else {
+			return z2;
+		}
+	}
+
+	public F32 minWasm(F32 other) {
+		return minWasm(this, other);
 	}
 
 	/**
@@ -1994,10 +2047,10 @@ public class F32 implements DataTypeNumberFloat {
 				sb.append(" Negative Infinite");
 			}
 			if (isZeroPositive()) {
-				sb.append( " Positive Zero");
+				sb.append(" Positive Zero");
 			}
 			if (isZeroNegative()) {
-				sb.append( " Negative Zero");
+				sb.append(" Negative Zero");
 			}
 
 			Integer bits = Float.floatToRawIntBits(value);
