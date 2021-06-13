@@ -793,6 +793,8 @@ public class WasmInstance implements WasmInstanceInterface {
 				break;
 			}
 			case (byte) 0x96: { // f32.min 0x96
+				F32_min f32_min = new F32_min(this);
+				f32_min.execute();
 				break;
 			}
 			case (byte) 0x97: { // f32.max 0x97
