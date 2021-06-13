@@ -1387,12 +1387,12 @@ public class F32 implements DataTypeNumberFloat {
 
 
 	/**
-	 * Calculate Division according to the Wasm Specification.
+	 * Calculate Minimum  according to the Wasm Specification.
 	 * <pre>F32 F32 -> F32</pre>
 	 *
 	 * <h2>Source:</h2>
-	 * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-fdiv" target="_top">
-	 * Div z<sub>1</sub> z<sub>2</sub>
+	 * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-fmin" target="_top">
+	 * Min z<sub>1</sub> z<sub>2</sub>
 	 * </a>
 	 * <ol>
 	 * 		<li>
@@ -1408,7 +1408,7 @@ public class F32 implements DataTypeNumberFloat {
 	 * 		</li>
 	 * </ol>
 	 *
-	 * @return the Division of the input values
+	 * @return The Minimum of the input values
 	 */
 	public static F32 minWasm(F32 z1, F32 z2) {
 
@@ -1417,7 +1417,7 @@ public class F32 implements DataTypeNumberFloat {
 			return nanPropagation(z1, z2);
 		}
 		// 2 Else if one of z1 or z2 is a negative infinity, then return negative infinity.
-		if (z1.isInfinityNegative() && z2.isInfinityNegative()) {
+		if (z1.isInfinityNegative() || z2.isInfinityNegative()) {
 			return InfinityNegative;
 		}
 
@@ -1444,6 +1444,66 @@ public class F32 implements DataTypeNumberFloat {
 
 	public F32 minWasm(F32 other) {
 		return minWasm(this, other);
+	}
+
+	/**
+	 * Calculate Maximum according to the Wasm Specification.
+	 * <pre>F32 F32 -> F32</pre>
+	 *
+	 * <h2>Source:</h2>
+	 * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-fmax" target="_top">
+	 * Max z<sub>1</sub> z<sub>2</sub>
+	 * </a>
+	 * <ol>
+	 * 		<li>
+	 * 			If either z1 or z2 is a NaN, then return an element of nansN{z1,z2}.
+	 *		</li><li>
+	 * 			Else if one of z1 or z2 is a positive infinity, then return positive infinity.
+	 *		</li><li>
+	 * 			Else if one of z1 or z2 is a negative infinity, then return the other value.
+	 *		</li><li>
+	 * 			Else if both z1 and z2 are zeroes of opposite signs, then return positive zero.
+	 *		</li><li>
+	 * 			Else return the larger value of z1 and z2.
+	 * 		</li>
+	 * </ol>
+	 *
+	 * @return the Maximum of the input values
+	 */
+	public static F32 maxWasm(F32 z1, F32 z2) {
+
+		//1 If either z1 or z2 is a NaN, then return an element of nansN{z1,z2}.
+		if (z1.isNan() || z2.isNan()) {
+			return nanPropagation(z1, z2);
+		}
+		// 2 Else if one of z1 or z2 is a positive infinity, then return positive infinity.
+		if (z1.isInfinityPositive() || z2.isInfinityPositive()) {
+			return InfinityPositive;
+		}
+
+		// 3 Else if one of z1 or z2 is a negative infinity, then return the other value.
+		if (z1.isInfinityNegative()) {
+			return z2;
+		}
+		if (z2.isInfinityNegative()) {
+			return z1;
+		}
+
+		// 4 Else if both z1 and z2 are zeroes of opposite signs, then return positive zero.
+		if (isBothZerosOfOppositeSign(z1, z2)) {
+			return ZeroPositive;
+		}
+
+		// 5 Else return the larger value of z1 and z2.
+		if (greaterThanWasm(z1,z2) == I32.one) {
+			return z1;
+		} else {
+			return z2;
+		}
+	}
+
+	public F32 maxWasm(F32 other) {
+		return maxWasm(this, other);
 	}
 
 	/**

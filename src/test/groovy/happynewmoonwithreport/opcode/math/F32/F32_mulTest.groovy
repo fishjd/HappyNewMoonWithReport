@@ -103,7 +103,7 @@ class F32_mulTest extends Specification {
 		F32 result = instance.stack().pop();
 		F32.valueOf(expected) == result
 
-		where: "#val1 sub #val2 returns #expected"
+		where: "#val1 mul #val2 returns #expected"
 		count | val1_s             | val2_s             || expected
 		1     | "-0x0p+0"          | "-0x0p+0"          || "0x0p+0"
 		2     | "-0x0p+0"          | "0x0p+0"           || "-0x0p+0"
