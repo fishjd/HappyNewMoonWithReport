@@ -92,13 +92,16 @@ To compile Java to WebAssembly use [ByteCoder](https://mirkosertic.github.io/Byt
 
 ## Progress
 
-Happy New Moon with Report can read from *.wasm file and run an app that adds two numbers.
-
 All I32 and I64 instruction are complete.  
+F32 Math, Bitwise, and Comparison opcodes completed. Only Conversions remain. 
+F64 Bitwise, Comparison opcodes completed.  Math and Conversions remain. 
+
+128 opcodes completed.  
 
 ## To do:  
-Branching opcodes   ex : If, Block.  11 remaining.  
-Floating point opcodes:  48 remaining. 
+Branching opcodes: 9 remaining.
+Other opcodes: 5 remaining; 
+Floating point opcodes:  42 remaining. 
 
 ### Sections
 
@@ -256,10 +259,10 @@ Data Section:  To Do
 - [x] f32.sqrt 0x91
 - [x] f32.add 0x92
 - [x] f32.sub 0x93
-- [ ] f32.mul 0x94
-- [ ] f32.div 0x95
-- [ ] f32.min 0x96
-- [ ] f32.max 0x97
+- [x] f32.mul 0x94
+- [x] f32.div 0x95
+- [x] f32.min 0x96
+- [x] f32.max 0x97
 - [x] f32.copysign 0x98
 - [x] f64.abs 0x99
 - [x] f64.neg 0x9A

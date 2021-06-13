@@ -94,8 +94,8 @@ class F32_copysignTest extends Specification {
 		2     | F32.Nan              | F32.NanNeg           || F32.NanNeg
 		3     | F32.NanCanonicalNeg  | F32.NanCanonicalPos  || F32.NanCanonicalPos
 		4     | F32.NanCanonicalNeg  | F32.NanCanonicalNeg  || F32.NanCanonicalNeg
-		5     | F32.NanCanonicalNeg  | +1                   || F32.NanCanonicalPos
-		6     | F32.NanCanonicalNeg  | +1                   || F32.NanCanonicalNeg
+		5     | F32.NanCanonicalNeg  | F32.valueOf(1)       || F32.NanCanonicalPos
+		6     | F32.NanCanonicalNeg  | F32.valueOf(-1)      || F32.NanCanonicalNeg
 		7     | F32.ZeroPositive     | F32.ZeroPositive     || F32.ZeroPositive
 		8     | F32.ZeroNegative     | F32.ZeroNegative     || F32.ZeroNegative
 		9     | F32.NanArithmeticPos | F32.NanArithmeticPos || F32.NanArithmeticPos
