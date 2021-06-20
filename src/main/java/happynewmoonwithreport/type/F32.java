@@ -495,7 +495,7 @@ public class F32 implements DataTypeNumberFloat {
 	 *
 	 * @return the absolute value
 	 */
-	public F32 absWasm() {
+	public F32 abs() {
 		// Wasm manual states No Nan Propagation on Absolute Value.
 
 		Float z = value;
@@ -524,8 +524,8 @@ public class F32 implements DataTypeNumberFloat {
 		}
 	}
 
-	public static F32 negWasm(F32 z1) {
-		return z1.negWasm();
+	public static F32 neg(F32 z1) {
+		return z1.neg();
 	}
 
 	/**
@@ -550,7 +550,7 @@ public class F32 implements DataTypeNumberFloat {
 	 *
 	 * @return the negative value
 	 */
-	public F32 negWasm() {
+	public F32 neg() {
 		Float z = value;
 		// If z is a NaN, then return z with negated sign.
 		if (z.isNaN()) {
@@ -615,7 +615,7 @@ public class F32 implements DataTypeNumberFloat {
 	 *
 	 * @return the ceiling of the input value
 	 */
-	public F32 ceilWasm() {
+	public F32 ceil() {
 		Float z = value;
 
 		//if z is a NaN, then return an element of nansN{z}
@@ -662,7 +662,7 @@ public class F32 implements DataTypeNumberFloat {
 	 *
 	 * @return the Floor of the input value
 	 */
-	public F32 floorWasm() {
+	public F32 floor() {
 		Float z = value;
 
 		//if z is a NaN, then return an element of nansN{z}
@@ -712,7 +712,7 @@ public class F32 implements DataTypeNumberFloat {
 	 *
 	 * @return the Nearest of the input value
 	 */
-	public F32 nearestWasm() {
+	public F32 nearest() {
 		Float z = value;
 
 		//if z is a NaN, then return an element of nansN{z}
@@ -768,7 +768,7 @@ public class F32 implements DataTypeNumberFloat {
 	 *
 	 * @return the Truncated of the input value
 	 */
-	public F32 trunkWasm() {
+	public F32 trunk() {
 		Float z = value;
 
 		//if z is a NaN, then return an element of nansN{z}
@@ -831,7 +831,7 @@ public class F32 implements DataTypeNumberFloat {
 	 *
 	 * @return the Square Root of the input value
 	 */
-	public F32 sqrtWasm() {
+	public F32 sqrt() {
 		Float z = value;
 
 		//if z is a NaN, then return an element of nansN{z}
@@ -895,7 +895,7 @@ public class F32 implements DataTypeNumberFloat {
 	 *
 	 * @return the addition of the input values
 	 */
-	public static F32 addWasm(F32 z1, F32 z2) {
+	public static F32 add(F32 z1, F32 z2) {
 
 		//	If either z1 or z2 is a NaN, then return an element of nansN{z1, z2}.
 		if (z1.isNan() || z2.isNan()) {
@@ -944,8 +944,8 @@ public class F32 implements DataTypeNumberFloat {
 		return F32.valueOf(add);
 	}
 
-	public F32 addWasm(F32 other) {
-		return addWasm(this, other);
+	public F32 add(F32 other) {
+		return add(this, other);
 	}
 
 	/**
@@ -984,7 +984,7 @@ public class F32 implements DataTypeNumberFloat {
 	 *
 	 * @return the subtraction of the input values
 	 */
-	public static F32 subWasm(F32 z1, F32 z2) {
+	public static F32 sub(F32 z1, F32 z2) {
 
 		//	If either z1 or z2 is a NaN, then return an element of nansN{z1, z2}.
 		if (z1.isNan() || z2.isNan()) {
@@ -1046,8 +1046,8 @@ public class F32 implements DataTypeNumberFloat {
 		return F32.valueOf(subtract);
 	}
 
-	public F32 subWasm(F32 other) {
-		return subWasm(this, other);
+	public F32 sub(F32 other) {
+		return sub(this, other);
 	}
 
 	/**
@@ -1084,7 +1084,7 @@ public class F32 implements DataTypeNumberFloat {
 	 *
 	 * @return the multiplication of the input values
 	 */
-	public static F32 mulWasm(F32 z1, F32 z2) {
+	public static F32 mul(F32 z1, F32 z2) {
 
 		//1 If either z1 or z2 is a NaN, then return an element of nansN{z1, z2}.
 		if (z1.isNan() || z2.isNan()) {
@@ -1141,8 +1141,8 @@ public class F32 implements DataTypeNumberFloat {
 		return F32.valueOf(multiply);
 	}
 
-	public F32 mulWasm(F32 other) {
-		return mulWasm(this, other);
+	public F32 mul(F32 other) {
+		return mul(this, other);
 	}
 
 	/**
@@ -1183,7 +1183,7 @@ public class F32 implements DataTypeNumberFloat {
 	 *
 	 * @return the Division of the input values
 	 */
-	public static F32 divWasm(F32 z1, F32 z2) {
+	public static F32 div(F32 z1, F32 z2) {
 
 		//1 If either z1 or z2 is a NaN, then return an element of nansN{z1,z2}.
 		if (z1.isNan() || z2.isNan()) {
@@ -1244,8 +1244,8 @@ public class F32 implements DataTypeNumberFloat {
 		return F32.valueOf(division);
 	}
 
-	public F32 divWasm(F32 other) {
-		return divWasm(this, other);
+	public F32 div(F32 other) {
+		return div(this, other);
 	}
 
 	/**
@@ -1410,7 +1410,7 @@ public class F32 implements DataTypeNumberFloat {
 	 *
 	 * @return The Minimum of the input values
 	 */
-	public static F32 minWasm(F32 z1, F32 z2) {
+	public static F32 min(F32 z1, F32 z2) {
 
 		//1 If either z1 or z2 is a NaN, then return an element of nansN{z1,z2}.
 		if (z1.isNan() || z2.isNan()) {
@@ -1435,15 +1435,15 @@ public class F32 implements DataTypeNumberFloat {
 		}
 
 		// 5 Else return the smaller value of z1 and z2.
-		if (lessThanWasm(z1,z2) == I32.one) {
+		if (lessThan(z1,z2) == I32.one) {
 			return z1;
 		} else {
 			return z2;
 		}
 	}
 
-	public F32 minWasm(F32 other) {
-		return minWasm(this, other);
+	public F32 min(F32 other) {
+		return min(this, other);
 	}
 
 	/**
@@ -1470,7 +1470,7 @@ public class F32 implements DataTypeNumberFloat {
 	 *
 	 * @return the Maximum of the input values
 	 */
-	public static F32 maxWasm(F32 z1, F32 z2) {
+	public static F32 max(F32 z1, F32 z2) {
 
 		//1 If either z1 or z2 is a NaN, then return an element of nansN{z1,z2}.
 		if (z1.isNan() || z2.isNan()) {
@@ -1495,15 +1495,15 @@ public class F32 implements DataTypeNumberFloat {
 		}
 
 		// 5 Else return the larger value of z1 and z2.
-		if (greaterThanWasm(z1,z2) == I32.one) {
+		if (greaterThan(z1,z2) == I32.one) {
 			return z1;
 		} else {
 			return z2;
 		}
 	}
 
-	public F32 maxWasm(F32 other) {
-		return maxWasm(this, other);
+	public F32 max(F32 other) {
+		return max(this, other);
 	}
 
 	/**
@@ -1638,10 +1638,10 @@ public class F32 implements DataTypeNumberFloat {
 	 *
 	 * @param other the value to compare to
 	 * @return 1 if greater than or equal to otherwise 0
-	 * @see F32#greaterThanEqualWasm(F32, F32)
+	 * @see F32#greaterThanEqual(F32, F32)
 	 */
-	public I32 greaterThanEqualWasm(F32 other) {
-		return greaterThanEqualWasm(this, other);
+	public I32 greaterThanEqual(F32 other) {
+		return greaterThanEqual(this, other);
 	}
 
 	/**
@@ -1669,7 +1669,7 @@ public class F32 implements DataTypeNumberFloat {
 	 * @param z2 the right number.
 	 * @return 1 if z<sub>1</sub> greater than z<sub>2</sub> otherwise 0.   z<sub>1</sub> > z<sub>2</sub>
 	 */
-	public static I32 greaterThanEqualWasm(F32 z1, F32 z2) {
+	public static I32 greaterThanEqual(F32 z1, F32 z2) {
 
 		// 1 If either z1 or z2 is a NaN, then return 0<br>
 		if (z1.value.isNaN() || z2.value.isNaN()) {
@@ -1729,8 +1729,8 @@ public class F32 implements DataTypeNumberFloat {
 	 * @param other z2 the right number.
 	 * @return 1 if greater than otherwise 0
 	 */
-	public I32 greaterThanWasm(F32 other) {
-		return greaterThanWasm(this, other);
+	public I32 greaterThan(F32 other) {
+		return greaterThan(this, other);
 	}
 
 	/**
@@ -1759,7 +1759,7 @@ public class F32 implements DataTypeNumberFloat {
 	 * @param z2 the right number.
 	 * @return 1 if z<sub>1</sub> greater than z<sub>2</sub> otherwise 0.   z<sub>1</sub> > z<sub>2</sub>
 	 */
-	public static I32 greaterThanWasm(F32 z1, F32 z2) {
+	public static I32 greaterThan(F32 z1, F32 z2) {
 
 		// 1 If either z1 or z2 is a NaN, then return 0<br>
 		if (z1.value.isNaN() || z2.value.isNaN()) {
@@ -1815,10 +1815,10 @@ public class F32 implements DataTypeNumberFloat {
 	 *
 	 * @param other the value to compare to.
 	 * @return 1 if less or equal than otherwise 0
-	 * @see F32#lessThanEqualWasm(F32, F32)
+	 * @see F32#lessThanEqual(F32, F32)
 	 */
-	public I32 lessThanEqualWasm(F32 other) {
-		return lessThanEqualWasm(this, other);
+	public I32 lessThanEqual(F32 other) {
+		return lessThanEqual(this, other);
 	}
 
 	/**
@@ -1846,7 +1846,7 @@ public class F32 implements DataTypeNumberFloat {
 	 * @param z2 the right number.
 	 * @return 1 if z<sub>1</sub> less than or equal z<sub>2</sub> otherwise 0.   z<sub>1</sub> <= z<sub>2</sub>
 	 */
-	public static I32 lessThanEqualWasm(F32 z1, F32 z2) {
+	public static I32 lessThanEqual(F32 z1, F32 z2) {
 
 		// 1 If either z1 or z2 is a NaN, then return 0<br>
 		if (z1.value.isNaN() || z2.value.isNaN()) {
@@ -1906,8 +1906,8 @@ public class F32 implements DataTypeNumberFloat {
 	 * @param other Z<sub>2</sub>  The right side
 	 * @return 1 if less than otherwise 0
 	 */
-	public I32 lessThanWasm(F32 other) {
-		return lessThanWasm(this, other);
+	public I32 lessThan(F32 other) {
+		return lessThan(this, other);
 	}
 
 	/**
@@ -1935,7 +1935,7 @@ public class F32 implements DataTypeNumberFloat {
 	 * @param z2 the right number.
 	 * @return 1 if z<sub>1</sub> less than z<sub>2</sub> otherwise 0.   z<sub>1</sub> < z<sub>2</sub>
 	 */
-	public static I32 lessThanWasm(F32 z1, F32 z2) {
+	public static I32 lessThan(F32 z1, F32 z2) {
 
 		// 1 If either z1 or z2 is a NaN, then return 0<br>
 		if (z1.value.isNaN() || z2.value.isNaN()) {
@@ -2085,7 +2085,7 @@ public class F32 implements DataTypeNumberFloat {
 			result = z1;
 		} else {
 			// 2. Else return z1 with negated sign.
-			result = negWasm(z1);
+			result = neg(z1);
 		}
 		return result;
 	}

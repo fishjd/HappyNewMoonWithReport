@@ -89,7 +89,7 @@ public class F32_le {
 		F32 value1 = (F32) stack.pop();
 
 		// 4. Let c be the result of computing relopt(c1,c2).
-		I32 c = value1.lessThanEqualWasm(value2);
+		I32 c = value1.lessThanEqual(value2);
 
 		// 5. Push the value f32.const c to the stack.
 		stack.push(c);
