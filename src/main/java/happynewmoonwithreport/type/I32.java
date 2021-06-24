@@ -352,7 +352,7 @@ public class I32 extends IntWasm {
 		return isBoundByInteger(value.longValue());
 	}
 
-	protected Boolean isBoundByInteger(Long input) {
+	public static Boolean isBoundByInteger(Long input) {
 		return (Integer.MIN_VALUE <= input.longValue() && input.longValue() <= Integer.MAX_VALUE);
 	}
 

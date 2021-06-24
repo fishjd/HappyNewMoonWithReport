@@ -106,7 +106,7 @@ public class F32_trunk
 		F32 c1 = (F32) stack.pop();
 
 		//Let c be a possible result of computing unopt(c1).
-		F32 c = c1.trunkWasm();
+		F32 c = c1.trunk();
 
 		// Push the value t.const c to the stack.
 		stack.push(c);

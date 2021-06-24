@@ -37,18 +37,18 @@ class F64Test {
 	@Test
 	void testValueOfDouble() {
 		// Groovy/Spock does not handle -0F, Java/jUnit does. So we moved this test to jUnit.
-		assertEquals(F64.ZERO_POSITIVE,F64.valueOf(0D));
-		assertEquals(F64.ZERO_NEGATIVE,F64.valueOf(-0D));
+		assertEquals(F64.ZeroPositive,F64.valueOf(0D));
+		assertEquals(F64.ZeroNegative,F64.valueOf(-0D));
 
-		assertEquals(F64.NAN,F64.valueOf(Double.NaN));
-		assertEquals(F64.NEGATIVE_INFINITY,F64.valueOf(Double.NEGATIVE_INFINITY));
-		assertEquals(F64.POSITIVE_INFINITY,F64.valueOf(Double.POSITIVE_INFINITY));
+		assertEquals(F64.Nan,F64.valueOf(Double.NaN));
+		assertEquals(F64.InfinityNegative,F64.valueOf(Double.NEGATIVE_INFINITY));
+		assertEquals(F64.InfinityPositive,F64.valueOf(Double.POSITIVE_INFINITY));
 	}
 
 	@Test
 	void testValueOfFloatInputString() {
-		assertEquals(F64.ZERO_POSITIVE,F64.valueOf("+0x0p+0"));
-		assertEquals(F64.ZERO_NEGATIVE,F64.valueOf("-0x0p+0"));
+		assertEquals(F64.ZeroPositive,F64.valueOf("+0x0p+0"));
+		assertEquals(F64.ZeroNegative,F64.valueOf("-0x0p+0"));
 	}
 
 	@Test
