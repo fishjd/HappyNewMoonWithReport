@@ -20,7 +20,6 @@ package happynewmoonwithreport.opcode.bitwise.F64;
 import happynewmoonwithreport.WasmInstanceInterface;
 import happynewmoonwithreport.WasmRuntimeException;
 import happynewmoonwithreport.WasmStack;
-import happynewmoonwithreport.type.F32;
 import happynewmoonwithreport.type.F64;
 import java.util.UUID;
 
@@ -106,7 +105,7 @@ public class F64_neg {
 		F64 c1 = (F64) stack.pop();
 
 		//Let c be a possible result of computing unopt(c1).
-		F64 c = c1.negWasm();
+		F64 c = c1.neg();
 
 		// Push the value t.const c to the stack.
 		stack.push(c);

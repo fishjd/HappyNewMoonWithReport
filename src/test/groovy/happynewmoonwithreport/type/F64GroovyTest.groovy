@@ -153,12 +153,12 @@ class F64GroovyTest extends Specification {
 		expected == sign
 
 		where:
-		value                 || expected
-		F64.ZERO_NEGATIVE     || false
-		F64.ZERO_POSITIVE     || true
-		F64.NEGATIVE_INFINITY || false
-		F64.POSITIVE_INFINITY || true
-		F64.NAN               || true // ????
+		value                || expected
+		F64.ZeroNegative     || false
+		F64.ZeroPositive     || true
+		F64.InfinityNegative || false
+		F64.InfinityPositive || true
+		F64.Nan              || true // ????
 
 
 	}
@@ -202,13 +202,13 @@ class F64GroovyTest extends Specification {
 
 		then:
 		// valueOf(String)
-		F64.ZERO_POSITIVE == F64.valueOf("0x0p0D");
-		F64.ZERO_NEGATIVE == F64.valueOf("-0x0p+0")
+		F64.ZeroPositive == F64.valueOf("0x0p0D");
+		F64.ZeroNegative == F64.valueOf("-0x0p+0")
 
 		// valueOf(Double)
 //		Double nan_f = Double.longBitsToDouble(0x7fc0_0000);
 		Double nan_d = Double.longBitsToDouble(0x7ff8000000000000L);
-		F64.NAN == F64.valueOf(nan_d);
+		F64.Nan == F64.valueOf(nan_d);
 //		Double nan_neg_f = Double.intBitsToDouble(0xffc0_0000);
 //		F64.NAN_NEGATIVE == F64.valueOf(nan_neg_f);
 	}
@@ -239,10 +239,10 @@ class F64GroovyTest extends Specification {
 		1F                       | 0F                       || 0
 		0F                       | 0F                       || 1
 		0F                       | -0F                      || 1  // -0F does not render a zero_negative.
-		F64.ZERO_POSITIVE.value  | F64.ZERO_POSITIVE.value  || 1
-		F64.ZERO_NEGATIVE.value  | F64.ZERO_NEGATIVE.value  || 1
-		F64.ZERO_NEGATIVE.value  | F64.ZERO_POSITIVE.value  || 1
-		F64.ZERO_POSITIVE.value  | F64.ZERO_NEGATIVE.value  || 1
+		F64.ZeroPositive.value   | F64.ZeroPositive.value   || 1
+		F64.ZeroNegative.value   | F64.ZeroNegative.value   || 1
+		F64.ZeroNegative.value   | F64.ZeroPositive.value   || 1
+		F64.ZeroPositive.value   | F64.ZeroNegative.value   || 1
 	}
 
 	def "F64 getSign #leftInput | #rightInput || #expectedInput"(Double leftInput, Double rightInput, Integer expectedInput) {
@@ -271,10 +271,10 @@ class F64GroovyTest extends Specification {
 		1F                       | 0F                       || 0
 		0F                       | 0F                       || 1
 		0F                       | -0F                      || 1  // -0F does not render a zero_negative.
-		F64.ZERO_POSITIVE.value  | F64.ZERO_POSITIVE.value  || 1
-		F64.ZERO_NEGATIVE.value  | F64.ZERO_NEGATIVE.value  || 1
-		F64.ZERO_NEGATIVE.value  | F64.ZERO_POSITIVE.value  || 1
-		F64.ZERO_POSITIVE.value  | F64.ZERO_NEGATIVE.value  || 1
+		F64.ZeroPositive.value   | F64.ZeroPositive.value   || 1
+		F64.ZeroNegative.value   | F64.ZeroNegative.value   || 1
+		F64.ZeroNegative.value   | F64.ZeroPositive.value   || 1
+		F64.ZeroPositive.value   | F64.ZeroNegative.value   || 1
 	}
 
 	// @Unroll
