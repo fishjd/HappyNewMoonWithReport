@@ -82,7 +82,7 @@ class F32_ceilTest extends Specification {
 	 * @param expected The expected value.  What the opcode should return.
 	 * @return None.
 	 */
-	def "Execute F32 ceil #count | #val1_s  || # expected "(Integer count, String val1_s, String expected) {
+	def "Execute F32 ceil #count | #val1_s  || #expected "(Integer count, String val1_s, String expected) {
 		setup: " push one value on stack."
 
 		WasmInstanceInterface instance = new WasmInstanceStub();
