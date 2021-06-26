@@ -425,7 +425,7 @@ public class F64 implements DataTypeNumberFloat {
 	/**
 	 * Is this Not a Number (NaN) is Canonical form.
 	 * <p>
-	 * It is equivalent to the value returned by Float.intBitsToFloat(0x7fc00000).
+	 * It is equivalent to the value returned by Double.longBitsToDouble(0x7ff8000000000000L).
 	 * <p>
 	 * <p>
 	 * A canonical NaN is a floating-point value ±nan(canonN) where canonN is a payload whose most significant bit is
@@ -436,12 +436,12 @@ public class F64 implements DataTypeNumberFloat {
 	 * https://webassembly.github.io/spec/core/syntax/values.html#canonical-nan
 	 * </a>
 	 *
-	 * @return True if value in bits is 0x7fc0_0000 or 0xffc0_0000.
+	 * @return True if value in bits is 0x7ff8000000000000L or 0xfff8000000000000L.
 	 */
 	public Boolean isNanCanonical() {
 		Boolean result = false;
-		result |= Double.doubleToLongBits(value) == NanCanonicalPos_Bits;
-		result |= Double.doubleToLongBits(value) == NanCanonicalNeg_Bits;
+		result |= Double.doubleToRawLongBits(value) == NanCanonicalPos_Bits;
+		result |= Double.doubleToRawLongBits(value) == NanCanonicalNeg_Bits;
 		return result;
 	}
 
@@ -1963,7 +1963,7 @@ public class F64 implements DataTypeNumberFloat {
 	 * Zero can be both positive or negative
 	 */
 	public Boolean isPositive() {
-		Long bits = Double.doubleToLongBits(value);
+		Long bits = Double.doubleToRawLongBits(value);
 		Long mask = bits & 0x8000_0000_0000_0000L;
 		Boolean result = (0 == mask);
 		return result;

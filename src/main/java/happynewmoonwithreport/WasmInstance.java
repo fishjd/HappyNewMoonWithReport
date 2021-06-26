@@ -37,6 +37,7 @@ import happynewmoonwithreport.opcode.countingBits.*;
 import happynewmoonwithreport.opcode.logic.*;
 import happynewmoonwithreport.opcode.math.*;
 import happynewmoonwithreport.opcode.math.f32.*;
+import happynewmoonwithreport.opcode.math.f64.F64_ceil;
 import happynewmoonwithreport.type.*;
 import happynewmoonwithreport.type.utility.Hex;
 import java.util.UUID;
@@ -818,6 +819,8 @@ public class WasmInstance implements WasmInstanceInterface {
 				break;
 			}
 			case (byte) 0x9B: { // f64.ceil 0x9B
+				F64_ceil f64_ceil = new F64_ceil(this);
+				f64_ceil.execute();
 				break;
 			}
 			case (byte) 0x9C: { // f64.floor 0x9C
