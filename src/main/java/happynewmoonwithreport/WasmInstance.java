@@ -38,6 +38,7 @@ import happynewmoonwithreport.opcode.logic.*;
 import happynewmoonwithreport.opcode.math.*;
 import happynewmoonwithreport.opcode.math.f32.*;
 import happynewmoonwithreport.opcode.math.f64.F64_ceil;
+import happynewmoonwithreport.opcode.math.f64.F64_floor;
 import happynewmoonwithreport.type.*;
 import happynewmoonwithreport.type.utility.Hex;
 import java.util.UUID;
@@ -824,6 +825,8 @@ public class WasmInstance implements WasmInstanceInterface {
 				break;
 			}
 			case (byte) 0x9C: { // f64.floor 0x9C
+				F64_floor f64_floor = new F64_floor(this);
+				f64_floor.execute();
 				break;
 			}
 			case (byte) 0x9D: { // f64.trunk 0x9D
