@@ -41,29 +41,29 @@ dependencies {
      *  jUnit 5
      */
     // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
-     testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.0.3'
+     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.0.3'
 
     // junit params needed for @ParameterizedTest
     // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-params
-    testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-params', version: '5.0.3'
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-params', version: '5.0.3'
 
 	// https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine
-	testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.0.3'
+	testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.0.3'
 
 
     /*
      * AssertJ
      */
     // https://mvnrepository.com/artifact/org.assertj/assertj-core
-    testCompile 'org.assertj:assertj-core:3.9.0'
+    testImplementation 'org.assertj:assertj-core:3.9.0'
 
     /*
      *   Groovy and Spock
      */
     // https://mvnrepository.com/artifact/org.codehaus.groovy/groovy-all
-    compile group: 'org.codehaus.groovy', name: 'groovy-all', version: '2.4.12'
+	testImplementation group: 'org.codehaus.groovy', name: 'groovy-all', version: '2.4.12'
 
     // https://mvnrepository.com/artifact/org.spockframework/spock-core
-    testCompile group: 'org.spockframework', name: 'spock-core', version: '1.1-groovy-2.4'
+    testImplementation group: 'org.spockframework', name: 'spock-core', version: '1.1-groovy-2.4'
 
 }
