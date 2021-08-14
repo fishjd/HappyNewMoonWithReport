@@ -19,17 +19,17 @@ package happynewmoonwithreport.opcode.math.F32
 import happynewmoonwithreport.WasmInstanceInterface
 import happynewmoonwithreport.WasmRuntimeException
 import happynewmoonwithreport.opcode.WasmInstanceStub
-import happynewmoonwithreport.opcode.math.f32.F32_trunk
+import happynewmoonwithreport.opcode.math.f32.F32_trunc
 import happynewmoonwithreport.type.F32
 import happynewmoonwithreport.type.I64
 import spock.lang.Specification
 
 /**
- * Test F32_trunk opcode.
+ * Test F32_trunc opcode.
  * <p>
  * Created on 2020-11-28
  */
-class F32_trunkTest extends Specification {
+class F32_truncTest extends Specification {
 	String inputType;
 	String returnType;
 
@@ -42,19 +42,19 @@ class F32_trunkTest extends Specification {
 	}
 
 /**
- * F32_trunk unit test.
+ * F32_trunc unit test.
  * @param count What line of parameters is executing. Only used for debugging.
  * @param val1 The test value.   The input for the opcode.
  * @param expected The expected value.  What the opcode should return.
  * @return None.
  */
-	def "Execute F32_trunk with #count -> #val1 || #expected "(Integer count, Float val1, Float expected) {
+	def 'Execute F32_trunc with #count -> #val1 || #expected'(Integer count, Float val1, Float expected) {
 		setup: " push two values on stack."
 
 		WasmInstanceInterface instance = new WasmInstanceStub();
 		instance.stack().push(new F32(val1));
 
-		F32_trunk opcode = new F32_trunk(instance);
+		F32_trunc opcode = new F32_trunc(instance);
 
 		when: "run the opcode"
 		opcode.execute();
@@ -74,7 +74,7 @@ class F32_trunkTest extends Specification {
 	}
 
 	/**
-	 * F32_trunk unit test.
+	 * F32_trunc unit test.
 	 * <p>
 	 * <a href="https://github.com/WebAssembly/spec/blob/7526564b56c30250b66504fe795e9c1e88a938af/test/core/f32.wast">
 	 *     Official Web Assembly test code.
@@ -83,13 +83,13 @@ class F32_trunkTest extends Specification {
 	 * @param expected The expected value.  What the opcode should return.
 	 * @return None.
 	 */
-	def "Execute F32 trunk #count | #val1_s  || #expected"(Integer count, String val1_s, String expected) {
+	def "Execute F32 trunc #count | #val1_s  || #expected"(Integer count, String val1_s, String expected) {
 		setup: " push one value on stack."
 
 		WasmInstanceInterface instance = new WasmInstanceStub();
 		instance.stack().push(F32.valueOf(val1_s));
 
-		F32_trunk opcode = new F32_trunk(instance);
+		F32_trunc opcode = new F32_trunc(instance);
 
 		when: "run the opcode"
 		opcode.execute();
@@ -133,13 +133,13 @@ class F32_trunkTest extends Specification {
 		// WASM states it uses IEEE 754 - 2019.  So the 2008 should also hold 2019.
 	}
 
-	def "Execute F32_trunk Canonical"() {
+	def "Execute F32_trunc Canonical"() {
 		setup: " push ONE value on stack."
 
 		WasmInstanceInterface instance = new WasmInstanceStub();
 		instance.stack().push(F32.Nan);
 
-		F32_trunk opcode = new F32_trunk(instance);
+		F32_trunc opcode = new F32_trunc(instance);
 
 		when: "run the opcode"
 		opcode.execute();
@@ -151,12 +151,12 @@ class F32_trunkTest extends Specification {
 		F32.Nan == result
 	}
 
-	def "Execute F32_trunk throws exception on incorrect Type on first param "() {
+	def "Execute F32_trunc throws exception on incorrect Type on first param "() {
 		setup: " a value of F32  value"
 		WasmInstanceInterface instance = new WasmInstanceStub();
 		instance.stack().push(new I64(3));  // value 3
 
-		F32_trunk function = new F32_trunk(instance);
+		F32_trunc function = new F32_trunc(instance);
 
 		when: "run the opcode"
 		function.execute();

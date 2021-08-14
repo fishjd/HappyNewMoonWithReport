@@ -39,6 +39,7 @@ import happynewmoonwithreport.opcode.math.*;
 import happynewmoonwithreport.opcode.math.f32.*;
 import happynewmoonwithreport.opcode.math.f64.F64_ceil;
 import happynewmoonwithreport.opcode.math.f64.F64_floor;
+import happynewmoonwithreport.opcode.math.f64.F64_trunc;
 import happynewmoonwithreport.type.*;
 import happynewmoonwithreport.type.utility.Hex;
 import java.util.UUID;
@@ -759,9 +760,9 @@ public class WasmInstance implements WasmInstanceInterface {
 				f32_floor.execute();
 				break;
 			}
-			case (byte) 0x8F: { // f32.trunk
-				F32_trunk f32_trunk = new F32_trunk(this);
-				f32_trunk.execute();
+			case (byte) 0x8F: { // f32.trunc
+				F32_trunc f32_trunc = new F32_trunc(this);
+				f32_trunc.execute();
 				break;
 			}
 			case (byte) 0x90: { // f32.nearest 0x90
@@ -829,7 +830,9 @@ public class WasmInstance implements WasmInstanceInterface {
 				f64_floor.execute();
 				break;
 			}
-			case (byte) 0x9D: { // f64.trunk 0x9D
+			case (byte) 0x9D: { // f64.trunc 0x9D
+				F64_trunc f64_trunc = new F64_trunc(this);
+				f64_trunc.execute();
 				break;
 			}
 			case (byte) 0x9E: { // f64.nearest 0x9E
