@@ -1,14 +1,15 @@
 # Happy New Moon with Report
 
 **Happy New Moon with Report** is an open-source implementation of 
-[WebAssembly](https://webassembly.org/) written entirely in Java. It is typically used to run or 
-test Web Assembly Modules (*.wasm) in Java.
+[WebAssembly](https://webassembly.org/) written entirely in Java for the JVM environment.  The goal is to run wasm code on the command line or embedded in a larger application.    
 
 Happy New Moon with Report doesn't concern itself with the production of the WASM binary files; 
 these files are produced with another tools such as [Emscripten](https://emscripten.org/), 
 [wabt](https://github.com/WebAssembly/wabt) or [binaryen](https://github.com/WebAssembly/binaryen) 
-or any of the number of  languages that can output to WebAssembly such as as 
+or any of the number of  languages that can output to WebAssembly such as
 [Rust](https://www.rust-lang.org/).   
+
+Happy New Moon With Report fills the same goals as [WasmTime](https://docs.wasmtime.dev/) for the JVM environment.
 
 Think of Happy New Moon With Report as the [Rhino](https://developer.mozilla.org/en-US/docs/Mozilla/Projects/Rhino) of Web Assembly.   Rhino runs JavaScript in Java; Happy New Moon with Report runs WebAssembly in Java.
 
@@ -40,6 +41,7 @@ assembly full I32 object for the Web Assembly I32 data type.  If there is a obje
 specification there will be an analogous object in Happy New Moon With Report. Conversion to Java 
 is 'pressed down' as far a possible in the code.  This should allow 
 causal readers of the code to understand it with only a beginning understanding of Java.
+1. Testing and Debugging should enable a large insight to the code.  Each opcode is implemented individually allowing you to investigate what WebAssembly is doing.   
 1. Every object has links to the Web Assembly Specification.  This will explain what the code is implementing.    
 1. Happy New Moon With Report is only an interpreter.  No conversion from text files (*.wast) to modules (*.wasm). 
 1. Easily embeddable in your Java project.     
@@ -79,6 +81,8 @@ public void testHelloWorld throws Exception {
 ```
 
 ## Similar Projects
+
+[WasmTime](https://docs.wasmtime.dev/) is same for the Rust language.  
 
 For the 'Go' language: Wagon (https://github.com/go-interpreter/wagon).
 
@@ -268,7 +272,7 @@ Data Section:  To Do
 - [x] f64.neg 0x9A
 - [x] f64.ceil 0x9B
 - [x] f64.floor 0x9C
-- [ ] f64.trunk 0x9D
+- [x] f64.trunk 0x9D
 - [ ] f64.nearest 0x9E
 - [ ] f64.sqrt 0x9F
 - [ ] f64.add 0xA0
