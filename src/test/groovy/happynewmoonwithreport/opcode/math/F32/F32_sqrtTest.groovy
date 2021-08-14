@@ -85,7 +85,7 @@ class F32_sqrtTest extends Specification {
 	 * @return None.
 	 */
 	@Unroll
-	def "Execute F32 trunk #count | #val1_s  || #expected"(Integer count, String val1_s, String expected) {
+	def 'Execute F32 sqrt #count | #val1_s  || #expected'(Integer count, String val1_s, String expected) {
 		setup: " push one value on stack."
 
 		WasmInstanceInterface instance = new WasmInstanceStub();

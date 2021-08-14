@@ -716,8 +716,8 @@ public class F32 implements DataTypeNumberFloat {
 	 * <pre>F32 -> F32</pre>
 	 *
 	 * <h2>Source:</h2>
-	 * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-fnearest" target="_top">
-	 * Float Nearest
+	 * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-ftrunc" target="_top">
+	 * Trunc
 	 * </a>
 	 * <p>
 	 * <ul>
@@ -737,7 +737,7 @@ public class F32 implements DataTypeNumberFloat {
 	 *
 	 * @return the Truncated of the input value
 	 */
-	public F32 trunk() {
+	public F32 trunc() {
 		Float z = value;
 
 		//if z is a NaN, then return an element of nansN{z}
@@ -761,8 +761,8 @@ public class F32 implements DataTypeNumberFloat {
 			return ZeroNegative;
 		}
 		// Else return the smallest integral value that is not smaller than z.
-		Float trunk = truncate(z);
-		return F32.valueOf(trunk);
+		Float trunc = truncate(z);
+		return F32.valueOf(trunc);
 	}
 
 	static Float truncate(float value) {

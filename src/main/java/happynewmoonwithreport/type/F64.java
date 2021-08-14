@@ -721,8 +721,8 @@ public class F64 implements DataTypeNumberFloat {
 	 * <pre>F64 -> F64</pre>
 	 *
 	 * <h2>Source:</h2>
-	 * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-fnearest" target="_top">
-	 * Float Nearest
+	 * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-ftrunc" target="_top">
+	 * Trunc
 	 * </a>
 	 * <p>
 	 * <ul>
@@ -742,7 +742,7 @@ public class F64 implements DataTypeNumberFloat {
 	 *
 	 * @return the Truncated of the input value
 	 */
-	public F64 trunk() {
+	public F64 trunc() {
 		Double z = value;
 
 		//if z is a NaN, then return an element of nansN{z}
@@ -766,8 +766,8 @@ public class F64 implements DataTypeNumberFloat {
 			return ZeroNegative;
 		}
 		// Else return the smallest integral value that is not smaller than z.
-		Double trunk = truncate(z);
-		return F64.valueOf(trunk);
+		Double trunc = truncate(z);
+		return F64.valueOf(trunc);
 	}
 
 	static Double truncate(double value) {
