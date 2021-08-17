@@ -39,6 +39,7 @@ import happynewmoonwithreport.opcode.math.*;
 import happynewmoonwithreport.opcode.math.f32.*;
 import happynewmoonwithreport.opcode.math.f64.F64_ceil;
 import happynewmoonwithreport.opcode.math.f64.F64_floor;
+import happynewmoonwithreport.opcode.math.f64.F64_nearest;
 import happynewmoonwithreport.opcode.math.f64.F64_trunc;
 import happynewmoonwithreport.type.*;
 import happynewmoonwithreport.type.utility.Hex;
@@ -836,6 +837,8 @@ public class WasmInstance implements WasmInstanceInterface {
 				break;
 			}
 			case (byte) 0x9E: { // f64.nearest 0x9E
+				F64_nearest f64_nearest = new F64_nearest(this);
+				f64_nearest.execute();
 				break;
 			}
 			case (byte) 0x9F: { // f64.sqrt 0x9F

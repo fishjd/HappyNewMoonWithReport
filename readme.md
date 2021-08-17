@@ -273,7 +273,7 @@ Data Section:  To Do
 - [x] f64.ceil 0x9B
 - [x] f64.floor 0x9C
 - [x] f64.trunk 0x9D
-- [ ] f64.nearest 0x9E
+- [x] f64.nearest 0x9E
 - [ ] f64.sqrt 0x9F
 - [ ] f64.add 0xA0
 - [ ] f64.sub 0xA1
