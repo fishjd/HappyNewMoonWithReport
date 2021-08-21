@@ -43,18 +43,25 @@ public class F32 implements DataTypeNumberFloat {
 	protected final Float value;
 
 	// @formatter:off
-	// 					   Name						  Bits						Integer32 value
-	private static final Integer NanCanonicalPos_Bits 	= 0x7fc0_0000;			// 2143289344
-	private static final Integer NanCanonicalNeg_Bits 	= 0xffc0_0000;			// -4194304
+	// 					   		 Name					  Bits					// S Exponent   Fraction						Integer Representation
+	private static final Integer NanCanonicalPos_Bits 	= 0x7fc0_0000;			// 0 111_1111_1 100_0000_0000_0000_0000_0000	 2143289344
+	private static final Integer NanCanonicalNeg_Bits 	= 0xffc0_0000;			// 1 111_1111_1 100_0000_0000_0000_0000_0000	-4194304
 	private static final Integer NanPos_Bits  	       	= NanCanonicalPos_Bits;
 	private static final Integer NanNeg_Bits      	   	= NanCanonicalNeg_Bits;
-	private static final Integer Nan0x20_0000Pos_Bits 	= 0x7fa0_0000;			// 2141192192
-	private static final Integer Nan0x20_0000Neg_Bits 	= 0xffa0_0000;			// -6291456
-	private static final Integer NanArithmeticPos_Bits	= 0x7fff_ffff;			// 2147483647
-	private static final Integer NanArithmeticNeg_Bits	= 0xffff_ffff;			// -1
-	private static final Integer InfinityPos_Bits	    = 0x7f80_0000;			// 2139095040
-	private static final Integer InfinityNeg_Bits	    = 0x8f80_0000;			// -1887436800
-	// @formatter:on
+	private static final Integer Nan0x20_0000Pos_Bits 	= 0x7fa0_0000;			// 0 111_1111_1 110_0000_0000_0000_0000_0000	 2141192192
+	private static final Integer Nan0x20_0000Neg_Bits 	= 0xffa0_0000;			// 1 111_1111_1 110_0000_0000_0000_0000_0000 	-6291456
+	private static final Integer NanArithmeticPos_Bits	= 0x7fff_ffff;			// 0 111_1111_1 111_1111_1111_1111_1111_1111     2147483647
+	private static final Integer NanArithmeticNeg_Bits	= 0xffff_ffff;			// 0 111_1111_1 111_1111_1111_1111_1111_1111    -1
+	private static final Integer InfinityPos_Bits	    = 0x7f80_0000;			// 0 111_1111_1 000_0000_0000_0000_0000_0000	 2139095040
+	private static final Integer InfinityNeg_Bits	    = 0x8f80_0000;			// 1 111_1111_1 000_0000_0000_0000_0000_0000	-1887436800
+	// @formatter:on`
+	// Source:  https://en.wikipedia.org/wiki/Single-precision_floating-point_format
+	// Bits -   The binary bits of the constant.  Use in Float.intBitsToFloat();
+	// S -  Sign  The sign of the constant.
+	// Exponent -  The exponent of the constant.
+	// Fraction -  The fraction of the constant.
+	// Integer Representation - the bit when stored as a integer.
+	//
 
 
 	public static final F32 ZeroPositive = new F32(0.0F);
@@ -76,6 +83,7 @@ public class F32 implements DataTypeNumberFloat {
 	 * <p>
 	 * NaN is equivalent to the value returned by Float.intBitsToFloat(0x7fc00000).
 	 * <p>
+	 * <p>
 	 * <b>Source:</b><p>
 	 * <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Float.html#NaN" target="_top">
 	 * https://docs.oracle.com/javase/7/docs/api/java/lang/Float.html#NaN
@@ -87,6 +95,7 @@ public class F32 implements DataTypeNumberFloat {
 	 * Not a Number in Canonical form.
 	 * <p>
 	 * NaN is equivalent to the value returned by Float.intBitsToFloat(0x7fc00000).
+	 * <p>
 	 * <p>
 	 * <b>Source:</b><p>
 	 * <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Float.html#NaN" target="_top">
@@ -102,39 +111,6 @@ public class F32 implements DataTypeNumberFloat {
 	public static final F32 Nan0x20_0000Neg = new F32(Float.intBitsToFloat(Nan0x20_0000Neg_Bits));
 	public static final F32 NanArithmeticPos = new F32(Float.intBitsToFloat(NanArithmeticPos_Bits));
 	public static final F32 NanArithmeticNeg = new F32(Float.intBitsToFloat(NanArithmeticNeg_Bits));
-
-
-	// @formatter:off
-	//  #Canociacal /  Arithmetic
-	//  https://webassembly.github.io/spec/core/syntax/values.html#canonical-nan
-	//					Sign	Exponent 	fraction  / payload				binary										String
-	//  nan:canonical	x		1111_1111   100_0000_0000_0000_0000_0000	0b_x111_1111_1100_0000_0000_0000_0000_0000	+/- nan:0x400000
-	//  nan:arithmetic  x		1111_1111   1xx_xxxx_xxxx_xxxx_xxxx_xxxx	0b_x111_1111_11xx_xxxx_xxxx_xxxx_xxxx_xxxx  nan:arithmetic
-	//  x = don't care, 0 or 1.
-
-	// Quite Nan
-	// # nan:0x200000 and "-nan:0x200000"
-	//  "-nan:0x200000"
-	//  0x_0200_0000  is 0b_0010_0000_0000_0000_0000_0000
-	//					Sign	Exponent 	fraction  / payload				binary										String       	Hex (f32)
-	//  nan:0x200000    x		1111_1111   010_0000_0000_0000_0000_0000	0b_1111_1111_1010_0000_0000_0000_0000_0000	+nan:0x200000	0x7fa00000
-
-
-	// # Quite Bit
-	// The second most significant bit of the significand field is the is_quiet bit.
-	// 0b_0010_0000_0000_0000_0000_0000    0x20_0000
-	//
-	//
-	// IEEE 754 - 2008 standard See: https://en.wikipedia.org/wiki/NaN
-	// For binary formats, the second most significant bit of the significand field should be an
-	// is_quiet flag. That is, this bit is
-	// non-zero if the NaN is quiet,
-	// and
-	// zero if the NaN is signaling.
-	//
-	// WASM states it uses IEEE 754 - 2019.  So the 2008 should also hold 2019.
-	// @formatter:on
-
 
 	public F32() {
 		this.value = 0F;
@@ -200,13 +176,6 @@ public class F32 implements DataTypeNumberFloat {
 			case ("-nan:arithmetic"):
 				val = F32.NanArithmeticNeg;
 				break;
-			// I think 0x400000 is for F64 only.
-			//	case ("nan:0x400000"):
-			//		val = F32.Nan;
-			//		break;
-			//	case ("-nan:0x400000"):
-			//		val = F32.NanNeg;
-			//		break;
 			default:
 				val = new F32(Float.valueOf(s));
 		}
@@ -495,7 +464,7 @@ public class F32 implements DataTypeNumberFloat {
 	 *
 	 * @return the absolute value
 	 */
-	public F32 absWasm() {
+	public F32 abs() {
 		// Wasm manual states No Nan Propagation on Absolute Value.
 
 		Float z = value;
@@ -524,8 +493,8 @@ public class F32 implements DataTypeNumberFloat {
 		}
 	}
 
-	public static F32 negWasm(F32 z1) {
-		return z1.negWasm();
+	public static F32 neg(F32 z1) {
+		return z1.neg();
 	}
 
 	/**
@@ -550,7 +519,7 @@ public class F32 implements DataTypeNumberFloat {
 	 *
 	 * @return the negative value
 	 */
-	public F32 negWasm() {
+	public F32 neg() {
 		Float z = value;
 		// If z is a NaN, then return z with negated sign.
 		if (z.isNaN()) {
@@ -615,7 +584,7 @@ public class F32 implements DataTypeNumberFloat {
 	 *
 	 * @return the ceiling of the input value
 	 */
-	public F32 ceilWasm() {
+	public F32 ceil() {
 		Float z = value;
 
 		//if z is a NaN, then return an element of nansN{z}
@@ -662,7 +631,7 @@ public class F32 implements DataTypeNumberFloat {
 	 *
 	 * @return the Floor of the input value
 	 */
-	public F32 floorWasm() {
+	public F32 floor() {
 		Float z = value;
 
 		//if z is a NaN, then return an element of nansN{z}
@@ -712,7 +681,7 @@ public class F32 implements DataTypeNumberFloat {
 	 *
 	 * @return the Nearest of the input value
 	 */
-	public F32 nearestWasm() {
+	public F32 nearest() {
 		Float z = value;
 
 		//if z is a NaN, then return an element of nansN{z}
@@ -747,8 +716,8 @@ public class F32 implements DataTypeNumberFloat {
 	 * <pre>F32 -> F32</pre>
 	 *
 	 * <h2>Source:</h2>
-	 * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-fnearest" target="_top">
-	 * Float Nearest
+	 * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-ftrunc" target="_top">
+	 * Trunc
 	 * </a>
 	 * <p>
 	 * <ul>
@@ -768,7 +737,7 @@ public class F32 implements DataTypeNumberFloat {
 	 *
 	 * @return the Truncated of the input value
 	 */
-	public F32 trunkWasm() {
+	public F32 trunc() {
 		Float z = value;
 
 		//if z is a NaN, then return an element of nansN{z}
@@ -792,8 +761,8 @@ public class F32 implements DataTypeNumberFloat {
 			return ZeroNegative;
 		}
 		// Else return the smallest integral value that is not smaller than z.
-		Float trunk = truncate(z);
-		return F32.valueOf(trunk);
+		Float trunc = truncate(z);
+		return F32.valueOf(trunc);
 	}
 
 	static Float truncate(float value) {
@@ -831,7 +800,7 @@ public class F32 implements DataTypeNumberFloat {
 	 *
 	 * @return the Square Root of the input value
 	 */
-	public F32 sqrtWasm() {
+	public F32 sqrt() {
 		Float z = value;
 
 		//if z is a NaN, then return an element of nansN{z}
@@ -840,7 +809,7 @@ public class F32 implements DataTypeNumberFloat {
 		}
 		// Else if z is negative infinity, then return an element of nansN{}.
 		if (isNegative() && z.isInfinite()) {
-			return Nan;
+			return nanPropagation();
 		}
 		// Else if z is positive infinity, then return positive infinity.
 		if (isPositive() && z.isInfinite()) {
@@ -852,7 +821,7 @@ public class F32 implements DataTypeNumberFloat {
 		}
 		// Else if z has a negative sign, then return an element of nansN{}.
 		if (isNegative()) {
-			return Nan;
+			return nanPropagation();
 		}
 		// Else return the square root of z.
 		double sqrt = Math.sqrt(z);
@@ -895,7 +864,7 @@ public class F32 implements DataTypeNumberFloat {
 	 *
 	 * @return the addition of the input values
 	 */
-	public static F32 addWasm(F32 z1, F32 z2) {
+	public static F32 add(F32 z1, F32 z2) {
 
 		//	If either z1 or z2 is a NaN, then return an element of nansN{z1, z2}.
 		if (z1.isNan() || z2.isNan()) {
@@ -944,8 +913,8 @@ public class F32 implements DataTypeNumberFloat {
 		return F32.valueOf(add);
 	}
 
-	public F32 addWasm(F32 other) {
-		return addWasm(this, other);
+	public F32 add(F32 other) {
+		return add(this, other);
 	}
 
 	/**
@@ -984,7 +953,7 @@ public class F32 implements DataTypeNumberFloat {
 	 *
 	 * @return the subtraction of the input values
 	 */
-	public static F32 subWasm(F32 z1, F32 z2) {
+	public static F32 sub(F32 z1, F32 z2) {
 
 		//	If either z1 or z2 is a NaN, then return an element of nansN{z1, z2}.
 		if (z1.isNan() || z2.isNan()) {
@@ -1046,8 +1015,8 @@ public class F32 implements DataTypeNumberFloat {
 		return F32.valueOf(subtract);
 	}
 
-	public F32 subWasm(F32 other) {
-		return subWasm(this, other);
+	public F32 sub(F32 other) {
+		return sub(this, other);
 	}
 
 	/**
@@ -1084,7 +1053,7 @@ public class F32 implements DataTypeNumberFloat {
 	 *
 	 * @return the multiplication of the input values
 	 */
-	public static F32 mulWasm(F32 z1, F32 z2) {
+	public static F32 mul(F32 z1, F32 z2) {
 
 		//1 If either z1 or z2 is a NaN, then return an element of nansN{z1, z2}.
 		if (z1.isNan() || z2.isNan()) {
@@ -1141,8 +1110,8 @@ public class F32 implements DataTypeNumberFloat {
 		return F32.valueOf(multiply);
 	}
 
-	public F32 mulWasm(F32 other) {
-		return mulWasm(this, other);
+	public F32 mul(F32 other) {
+		return mul(this, other);
 	}
 
 	/**
@@ -1183,7 +1152,7 @@ public class F32 implements DataTypeNumberFloat {
 	 *
 	 * @return the Division of the input values
 	 */
-	public static F32 divWasm(F32 z1, F32 z2) {
+	public static F32 div(F32 z1, F32 z2) {
 
 		//1 If either z1 or z2 is a NaN, then return an element of nansN{z1,z2}.
 		if (z1.isNan() || z2.isNan()) {
@@ -1244,8 +1213,8 @@ public class F32 implements DataTypeNumberFloat {
 		return F32.valueOf(division);
 	}
 
-	public F32 divWasm(F32 other) {
-		return divWasm(this, other);
+	public F32 div(F32 other) {
+		return div(this, other);
 	}
 
 	/**
@@ -1410,7 +1379,7 @@ public class F32 implements DataTypeNumberFloat {
 	 *
 	 * @return The Minimum of the input values
 	 */
-	public static F32 minWasm(F32 z1, F32 z2) {
+	public static F32 min(F32 z1, F32 z2) {
 
 		//1 If either z1 or z2 is a NaN, then return an element of nansN{z1,z2}.
 		if (z1.isNan() || z2.isNan()) {
@@ -1435,15 +1404,15 @@ public class F32 implements DataTypeNumberFloat {
 		}
 
 		// 5 Else return the smaller value of z1 and z2.
-		if (lessThanWasm(z1,z2) == I32.one) {
+		if (lessThan(z1, z2) == I32.one) {
 			return z1;
 		} else {
 			return z2;
 		}
 	}
 
-	public F32 minWasm(F32 other) {
-		return minWasm(this, other);
+	public F32 min(F32 other) {
+		return min(this, other);
 	}
 
 	/**
@@ -1457,20 +1426,20 @@ public class F32 implements DataTypeNumberFloat {
 	 * <ol>
 	 * 		<li>
 	 * 			If either z1 or z2 is a NaN, then return an element of nansN{z1,z2}.
-	 *		</li><li>
+	 * 		</li><li>
 	 * 			Else if one of z1 or z2 is a positive infinity, then return positive infinity.
-	 *		</li><li>
+	 * 		</li><li>
 	 * 			Else if one of z1 or z2 is a negative infinity, then return the other value.
-	 *		</li><li>
+	 * 		</li><li>
 	 * 			Else if both z1 and z2 are zeroes of opposite signs, then return positive zero.
-	 *		</li><li>
+	 * 		</li><li>
 	 * 			Else return the larger value of z1 and z2.
 	 * 		</li>
 	 * </ol>
 	 *
 	 * @return the Maximum of the input values
 	 */
-	public static F32 maxWasm(F32 z1, F32 z2) {
+	public static F32 max(F32 z1, F32 z2) {
 
 		//1 If either z1 or z2 is a NaN, then return an element of nansN{z1,z2}.
 		if (z1.isNan() || z2.isNan()) {
@@ -1495,15 +1464,15 @@ public class F32 implements DataTypeNumberFloat {
 		}
 
 		// 5 Else return the larger value of z1 and z2.
-		if (greaterThanWasm(z1,z2) == I32.one) {
+		if (greaterThan(z1, z2) == I32.one) {
 			return z1;
 		} else {
 			return z2;
 		}
 	}
 
-	public F32 maxWasm(F32 other) {
-		return maxWasm(this, other);
+	public F32 max(F32 other) {
+		return max(this, other);
 	}
 
 	/**
@@ -1638,10 +1607,10 @@ public class F32 implements DataTypeNumberFloat {
 	 *
 	 * @param other the value to compare to
 	 * @return 1 if greater than or equal to otherwise 0
-	 * @see F32#greaterThanEqualWasm(F32, F32)
+	 * @see F32#greaterThanEqual(F32, F32)
 	 */
-	public I32 greaterThanEqualWasm(F32 other) {
-		return greaterThanEqualWasm(this, other);
+	public I32 greaterThanEqual(F32 other) {
+		return greaterThanEqual(this, other);
 	}
 
 	/**
@@ -1669,7 +1638,7 @@ public class F32 implements DataTypeNumberFloat {
 	 * @param z2 the right number.
 	 * @return 1 if z<sub>1</sub> greater than z<sub>2</sub> otherwise 0.   z<sub>1</sub> > z<sub>2</sub>
 	 */
-	public static I32 greaterThanEqualWasm(F32 z1, F32 z2) {
+	public static I32 greaterThanEqual(F32 z1, F32 z2) {
 
 		// 1 If either z1 or z2 is a NaN, then return 0<br>
 		if (z1.value.isNaN() || z2.value.isNaN()) {
@@ -1729,8 +1698,8 @@ public class F32 implements DataTypeNumberFloat {
 	 * @param other z2 the right number.
 	 * @return 1 if greater than otherwise 0
 	 */
-	public I32 greaterThanWasm(F32 other) {
-		return greaterThanWasm(this, other);
+	public I32 greaterThan(F32 other) {
+		return greaterThan(this, other);
 	}
 
 	/**
@@ -1759,7 +1728,7 @@ public class F32 implements DataTypeNumberFloat {
 	 * @param z2 the right number.
 	 * @return 1 if z<sub>1</sub> greater than z<sub>2</sub> otherwise 0.   z<sub>1</sub> > z<sub>2</sub>
 	 */
-	public static I32 greaterThanWasm(F32 z1, F32 z2) {
+	public static I32 greaterThan(F32 z1, F32 z2) {
 
 		// 1 If either z1 or z2 is a NaN, then return 0<br>
 		if (z1.value.isNaN() || z2.value.isNaN()) {
@@ -1815,10 +1784,10 @@ public class F32 implements DataTypeNumberFloat {
 	 *
 	 * @param other the value to compare to.
 	 * @return 1 if less or equal than otherwise 0
-	 * @see F32#lessThanEqualWasm(F32, F32)
+	 * @see F32#lessThanEqual(F32, F32)
 	 */
-	public I32 lessThanEqualWasm(F32 other) {
-		return lessThanEqualWasm(this, other);
+	public I32 lessThanEqual(F32 other) {
+		return lessThanEqual(this, other);
 	}
 
 	/**
@@ -1846,7 +1815,7 @@ public class F32 implements DataTypeNumberFloat {
 	 * @param z2 the right number.
 	 * @return 1 if z<sub>1</sub> less than or equal z<sub>2</sub> otherwise 0.   z<sub>1</sub> <= z<sub>2</sub>
 	 */
-	public static I32 lessThanEqualWasm(F32 z1, F32 z2) {
+	public static I32 lessThanEqual(F32 z1, F32 z2) {
 
 		// 1 If either z1 or z2 is a NaN, then return 0<br>
 		if (z1.value.isNaN() || z2.value.isNaN()) {
@@ -1906,8 +1875,8 @@ public class F32 implements DataTypeNumberFloat {
 	 * @param other Z<sub>2</sub>  The right side
 	 * @return 1 if less than otherwise 0
 	 */
-	public I32 lessThanWasm(F32 other) {
-		return lessThanWasm(this, other);
+	public I32 lessThan(F32 other) {
+		return lessThan(this, other);
 	}
 
 	/**
@@ -1935,7 +1904,7 @@ public class F32 implements DataTypeNumberFloat {
 	 * @param z2 the right number.
 	 * @return 1 if z<sub>1</sub> less than z<sub>2</sub> otherwise 0.   z<sub>1</sub> < z<sub>2</sub>
 	 */
-	public static I32 lessThanWasm(F32 z1, F32 z2) {
+	public static I32 lessThan(F32 z1, F32 z2) {
 
 		// 1 If either z1 or z2 is a NaN, then return 0<br>
 		if (z1.value.isNaN() || z2.value.isNaN()) {
@@ -2085,7 +2054,7 @@ public class F32 implements DataTypeNumberFloat {
 			result = z1;
 		} else {
 			// 2. Else return z1 with negated sign.
-			result = negWasm(z1);
+			result = neg(z1);
 		}
 		return result;
 	}

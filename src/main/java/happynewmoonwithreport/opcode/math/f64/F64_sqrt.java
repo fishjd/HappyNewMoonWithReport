@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 - 2021 Whole Bean Software, LTD.
+ *  Copyright 2017 - 2022 Whole Bean Software, LTD.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -15,24 +15,24 @@
  *
  */
 
-package happynewmoonwithreport.opcode.math.f32;
+package happynewmoonwithreport.opcode.math.f64;
 
 import happynewmoonwithreport.WasmInstanceInterface;
 import happynewmoonwithreport.WasmRuntimeException;
 import happynewmoonwithreport.WasmStack;
-import happynewmoonwithreport.type.F32;
+import happynewmoonwithreport.type.F64;
 import java.util.UUID;
 
 /**
- * Return the trunk value of the input.
+ * Return the sqrt value of the input.
  * </p>
  * <h2>Source:</h2>
  * <h3>Operator:</h3>
  * <p>
- * Return the trunk value of the input.
+ * Return the sqrt value of the input.
  * <p>
- * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-ftrunc" target="_top">
- * https://webassembly.github.io/spec/core/exec/numerics.html#op-ftrunc
+ * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-fsqrt" target="_top">
+ * https://webassembly.github.io/spec/core/exec/numerics.html#op-fsqrt
  * </a>
  *
  *
@@ -71,18 +71,17 @@ import java.util.UUID;
  * 		</li>
  * </ol>
  */
-public class F32_trunk
-{
+public class F64_sqrt {
 	private final String opCodeName = getClass().getName();
-	private final String t1Type = "F32";
+	private final String t1Type = "F64";
 
 	private WasmInstanceInterface instance;
 
-	private F32_trunk() {
+	private F64_sqrt() {
 		super();
 	}
 
-	public F32_trunk(WasmInstanceInterface instance) {
+	public F64_sqrt(WasmInstanceInterface instance) {
 		this();
 		this.instance = instance;
 	}
@@ -94,8 +93,8 @@ public class F32_trunk
 		WasmStack<Object> stack = instance.stack();
 
 		// Assert: due to validation, a value of value type t is on the top of the stack.
-		if ((stack.peek() instanceof F32) == false) {
-			throw new WasmRuntimeException(UUID.fromString("5da01a08-cc08-4ca5-8880-ba5511dc52eb"),
+		if ((stack.peek() instanceof F64) == false) {
+			throw new WasmRuntimeException(UUID.fromString("170806b9-86a4-47a3-bb38-a8ad2143db31"),
 				opCodeName + ":"                                                                 //
 				+ " Value type is incorrect. Value should be of type " + "'" + t1Type + "'" + "."//
 				+ " The input type is " + "'" + stack.peek().getClass().getSimpleName() + "'."   //
@@ -103,10 +102,10 @@ public class F32_trunk
 
 		}
 		// Pop the value t1.const c1 from the stack.
-		F32 c1 = (F32) stack.pop();
+		F64 c1 = (F64) stack.pop();
 
 		//Let c be a possible result of computing unopt(c1).
-		F32 c = c1.trunkWasm();
+		F64 c = c1.sqrt();
 
 		// Push the value t.const c to the stack.
 		stack.push(c);

@@ -15,7 +15,7 @@
  *
  */
 
-package happynewmoonwithreport.opcode.bitwise.F32;
+package happynewmoonwithreport.opcode.math.f32;
 
 import happynewmoonwithreport.WasmInstanceInterface;
 import happynewmoonwithreport.WasmRuntimeException;
@@ -24,15 +24,15 @@ import happynewmoonwithreport.type.F32;
 import java.util.UUID;
 
 /**
- * Return the negative value of the input.
+ * Return the trunc value of the input.
  * </p>
  * <h2>Source:</h2>
  * <h3>Operator:</h3>
  * <p>
- * Return the negative value of the input.
+ * Return the trunc value of the input.
  * <p>
- * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-fneg" target="_top">
- * https://webassembly.github.io/spec/core/exec/numerics.html#op-fneg
+ * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-ftrunc" target="_top">
+ * https://webassembly.github.io/spec/core/exec/numerics.html#op-ftrunc
  * </a>
  *
  *
@@ -71,17 +71,18 @@ import java.util.UUID;
  * 		</li>
  * </ol>
  */
-public class F32_neg {
+public class F32_trunc
+{
 	private final String opCodeName = getClass().getName();
 	private final String t1Type = "F32";
 
 	private WasmInstanceInterface instance;
 
-	private F32_neg() {
+	private F32_trunc() {
 		super();
 	}
 
-	public F32_neg(WasmInstanceInterface instance) {
+	public F32_trunc(WasmInstanceInterface instance) {
 		this();
 		this.instance = instance;
 	}
@@ -94,7 +95,7 @@ public class F32_neg {
 
 		// Assert: due to validation, a value of value type t is on the top of the stack.
 		if ((stack.peek() instanceof F32) == false) {
-			throw new WasmRuntimeException(UUID.fromString("fdbccf78-288d-4842-ae67-5f918e9a1604"),
+			throw new WasmRuntimeException(UUID.fromString("5da01a08-cc08-4ca5-8880-ba5511dc52eb"),
 				opCodeName + ":"                                                                 //
 				+ " Value type is incorrect. Value should be of type " + "'" + t1Type + "'" + "."//
 				+ " The input type is " + "'" + stack.peek().getClass().getSimpleName() + "'."   //
@@ -105,7 +106,7 @@ public class F32_neg {
 		F32 c1 = (F32) stack.pop();
 
 		//Let c be a possible result of computing unopt(c1).
-		F32 c = c1.neg();
+		F32 c = c1.trunc();
 
 		// Push the value t.const c to the stack.
 		stack.push(c);

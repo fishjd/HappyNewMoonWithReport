@@ -126,7 +126,7 @@ public class F32_mul {
 		F32 c1 = (F32) stack.pop();
 
 		// Let c be a possible result of computing binopt(c1,c2).
-		F32 c = c1.mulWasm(c2);
+		F32 c = c1.mul(c2);
 
 		// Push the value t.const c to the stack.
 		stack.push(c);

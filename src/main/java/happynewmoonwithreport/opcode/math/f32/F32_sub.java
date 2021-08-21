@@ -126,7 +126,7 @@ public class F32_sub {
 		F32 c1 = (F32) stack.pop();
 
 		// Let c be a possible result of computing binopt(c1,c2).
-		F32 c = c1.subWasm(c2);
+		F32 c = c1.sub(c2);
 
 		// Push the value t.const c to the stack.
 		stack.push(c);

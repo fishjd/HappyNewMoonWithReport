@@ -14,135 +14,137 @@
  *  limitations under the License.
  *
  */
-package happynewmoonwithreport.opcode.math.F32
+package happynewmoonwithreport.opcode.math.F64
 
 import happynewmoonwithreport.WasmInstanceInterface
 import happynewmoonwithreport.WasmRuntimeException
 import happynewmoonwithreport.opcode.WasmInstanceStub
-import happynewmoonwithreport.opcode.math.f32.F32_ceil
-import happynewmoonwithreport.type.F32
+import happynewmoonwithreport.opcode.math.f64.F64_floor
+import happynewmoonwithreport.type.F64
 import happynewmoonwithreport.type.I64
 import spock.lang.Specification
 
 /**
- * Test F32_ceil opcode.
+ * Test F64_floor opcode.
  * <p>
- * Created on 2020-11-28
+ * Created on 2021-06-24
  */
-class F32_ceilTest extends Specification {
+class F64_floorTest extends Specification {
 	String inputType;
 	String returnType;
 
 	void setup() {
-		inputType = "F32";
-		returnType = "F32"
+		inputType = "F64";
+		returnType = "F64"
 	}
 
 	void cleanup() {
 	}
 
 /**
- * F32_ceil unit test.
+ * F64_floor unit test.
  * @param count What line of parameters is executing. Only used for debugging.
  * @param val1 The test value.   The input for the opcode.
  * @param expected The expected value.  What the opcode should return.
  * @return None.
  */
-	def "Execute F32_ceil with ##count -> #val1 || #expected "(Integer count, Float val1, Float expected) {
+	def "Execute F64_floor with ##count -> #val1 || #expected "(Integer count, Double val1, Double expected) {
 		setup: " push two values on stack."
 
 		WasmInstanceInterface instance = new WasmInstanceStub();
-		instance.stack().push(new F32(val1));
+		instance.stack().push(new F64(val1));
 
-		F32_ceil opcode = new F32_ceil(instance);
+		F64_floor opcode = new F64_floor(instance);
 
 		when: "run the opcode"
 		opcode.execute();
 
 		then: " verify results"
-		F32 result = instance.stack().pop();
+		F64 result = instance.stack().pop();
 
 		then: " verify result equals value of expected"
-		F32.valueOf(expected) == result
+		F64.valueOf(expected) == result
 
 		where: "val1 equals val2 returns #expected"
-		count | val1      || expected
-		1     | 4.1       || 5.0
-		2     | -4.1      || -4.0
-		3     | Float.NaN || Float.NaN
+		count | val1       || expected
+		1     | 4.1        || 4.0
+		2     | -4.1       || -5.0
+		3     | Double.NaN || Double.NaN
 	}
 
 	/**
-	 * F32_ceil unit test.
+	 * F64_floor unit test.
 	 * <p>
-	 * <a href="https://github.com/WebAssembly/spec/blob/7526564b56c30250b66504fe795e9c1e88a938af/test/core/f32.wast">
+	 * <a href="https://github.com/WebAssembly/spec/blob/7526564b56c30250b66504fe795e9c1e88a938af/test/core/f64.wast">
 	 *     Official Web Assembly test code.
 	 * </a>
 	 * @param val1_s The test value.   The input for the opcode.
 	 * @param expected The expected value.  What the opcode should return.
 	 * @return None.
 	 */
-	def "Execute F32 ceil #count | #val1_s  || #expected "(Integer count, String val1_s, String expected) {
+	def "Execute F64 floor #count | #val1_s  || #expected "(Integer count, String val1_s, String expected) {
 		setup: " push one value on stack."
 
 		WasmInstanceInterface instance = new WasmInstanceStub();
-		instance.stack().push(F32.valueOf(val1_s));
+		instance.stack().push(F64.valueOf(val1_s));
 
-		F32_ceil opcode = new F32_ceil(instance);
+		F64_floor opcode = new F64_floor(instance);
 
 		when: "run the opcode"
 		opcode.execute();
 
 		then: " verify result equals value of expected"
-		F32 result = instance.stack().pop();
-		F32.valueOf(expected) == result
+		F64 result = instance.stack().pop();
+		F64.valueOf(expected) == result
 
 		where: "val1 returns #expected"
-		count | val1_s             || expected
-		1     | "-0x0p+0"          || "-0x0p+0"
-		2     | "0x0p+0"           || "0x0p+0"
-		3     | "-0x1p-149"        || "-0x0p+0"
-		4     | "0x1p-149"         || "0x1p+0"
-		5     | "-0x1p-126"        || "-0x0p+0"
-		6     | "0x1p-126"         || "0x1p+0"
-		7     | "-0x1p-1"          || "-0x0p+0"
-		8     | "0x1p-1"           || "0x1p+0"
-		9     | "-0x1p+0"          || "-0x1p+0"
-		10    | "0x1p+0"           || "0x1p+0"
-		11    | "-0x1.921fb6p+2"   || "-0x1.8p+2"
-		12    | "0x1.921fb6p+2"    || "0x1.cp+2"
-		13    | "-0x1.fffffep+127" || "-0x1.fffffep+127"
-		14    | "0x1.fffffep+127"  || "0x1.fffffep+127"
-		15    | "-inf"             || "-inf"
-		16    | "inf"              || "inf"
-		17    | "-nan"             || "nan:canonical"
-		18    | "-nan:0x200000"    || "nan:arithmetic"
+		count | val1_s                     || expected
+		1     | "-0x0p+0"                  || "-0x0p+0"
+		2     | "0x0p+0"                   || "0x0p+0"
+		3     | "-0x0.0000000000001p-1022" || "-0x1p+0"
+		4     | "0x0.0000000000001p-1022"  || "0x0p+0"
+		5     | "-0x1p-1022"               || "-0x1p+0"
+		6     | "0x1p-1022"                || "0x0p+0"
+		7     | "-0x1p-1"                  || "-0x1p+0"
+		8     | "0x1p-1"                   || "0x0p+0"
+		9     | "-0x1p+0"                  || "-0x1p+0"
+		10    | "0x1p+0"                   || "0x1p+0"
+		11    | "-0x1.921fb54442d18p+2"    || "-0x1.cp+2"
+		12    | "0x1.921fb54442d18p+2"     || "0x1.8p+2"
+		13    | "-0x1.fffffffffffffp+1023" || "-0x1.fffffffffffffp+1023"
+		14    | "0x1.fffffffffffffp+1023"  || "0x1.fffffffffffffp+1023"
+		15    | "-inf"                     || "-inf"
+		16    | "inf"                      || "inf"
+		17    | "-nan"                     || "nan:canonical"
+		18    | "-nan:0x4000000000000"     || "nan:arithmetic"
+		19    | "nan"                      || "nan:canonical"
+		20    | "nan:0x4000000000000"      || "nan:arithmetic"
 	}
 
-	def "Execute F32_ceil Canonical"() {
+	def "Execute F64_floor Canonical"() {
 		setup: " push ONE value on stack."
 
 		WasmInstanceInterface instance = new WasmInstanceStub();
-		instance.stack().push(F32.Nan);
+		instance.stack().push(F64.Nan);
 
-		F32_ceil opcode = new F32_ceil(instance);
+		F64_floor opcode = new F64_floor(instance);
 
 		when: "run the opcode"
 		opcode.execute();
 
 		then: " verify results"
-		F32 result = instance.stack().pop();
+		F64 result = instance.stack().pop();
 
 		then: " verify result equals value of expected"
-		F32.Nan == result
+		F64.Nan == result
 	}
 
-	def "Execute F32_ceil throws exception on incorrect Type on first param "() {
-		setup: " a value of F32  value"
+	def "Execute F64_floor throws exception on incorrect Type on first param "() {
+		setup: " a value of F64  value"
 		WasmInstanceInterface instance = new WasmInstanceStub();
 		instance.stack().push(new I64(3));  // value 1
 
-		F32_ceil function = new F32_ceil(instance);
+		F64_floor function = new F64_floor(instance);
 
 		when: "run the opcode"
 		function.execute();
@@ -153,7 +155,7 @@ class F32_ceilTest extends Specification {
 		exception.message.contains("Value should be of type '" + inputType + "'. ");
 		exception.message.contains("The input type is 'I64'.");
 		exception.message.contains("The input value is '");
-		exception.getUuid().toString().contains("9f262b14-177c-4fac-80ea-46a8b05ef2b2");
+		exception.getUuid().toString().contains("ecdb4539-acf9-4619-b804-9a9afec01bfa");
 	}
 
 }

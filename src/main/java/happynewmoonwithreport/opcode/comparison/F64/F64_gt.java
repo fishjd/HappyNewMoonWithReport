@@ -89,7 +89,7 @@ public class F64_gt {
 		F64 value1 = (F64) stack.pop();
 
 		// 4. Let c be the result of computing relopt(c1,c2).
-		I32 c = value1.greaterThanWasm(value2);
+		I32 c = value1.greaterThan(value2);
 
 		// 5. Push the value f64.const c to the stack.
 		stack.push(c);

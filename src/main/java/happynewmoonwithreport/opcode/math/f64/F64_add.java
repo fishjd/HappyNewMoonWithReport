@@ -15,24 +15,24 @@
  *
  */
 
-package happynewmoonwithreport.opcode.math.f32;
+package happynewmoonwithreport.opcode.math.f64;
 
 import happynewmoonwithreport.WasmInstanceInterface;
 import happynewmoonwithreport.WasmRuntimeException;
 import happynewmoonwithreport.WasmStack;
-import happynewmoonwithreport.type.F32;
+import happynewmoonwithreport.type.F64;
 import java.util.UUID;
 
 /**
- * Return the Maximum value of the inputs.
+ * Return the Addition  value of the inputs.
  * </p>
  * <h2>Source:</h2>
  * <h3>Operator:</h3>
  * <p>
- * Return the Maximum value of the inputs.
+ * Return the Addition value of the inputs.
  * <p>
- * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-fmax" target="_top">
- * 		floating point Maximum
+ * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-fadd" target="_top">
+ * 		Floating Point addition
  * </a>
  *
  *
@@ -75,18 +75,18 @@ import java.util.UUID;
  * 		</li>
  * 	</ol>
  */
-public class F32_max {
+public class F64_add {
 	private final String opCodeName = getClass().getName();
-	private final String t1Type = "F32";
-	private final String t2Type = "F32";
+	private final String t1Type = "F64";
+	private final String t2Type = "F64";
 
 	private WasmInstanceInterface instance;
 
-	private F32_max() {
+	private F64_add() {
 		super();
 	}
 
-	public F32_max(WasmInstanceInterface instance) {
+	public F64_add(WasmInstanceInterface instance) {
 		this();
 		this.instance = instance;
 	}
@@ -98,8 +98,8 @@ public class F32_max {
 		WasmStack<Object> stack = instance.stack();
 
 		// Assert: due to validation, a value of value type t is on the top of the stack.
-		if ((stack.peek() instanceof F32) == false) {
-			throw new WasmRuntimeException(UUID.fromString("50a0e29a-da8b-4d6d-b9b5-b1b3c38feb37"),
+		if ((stack.peek() instanceof F64) == false) {
+			throw new WasmRuntimeException(UUID.fromString("037dfd77-7724-4061-8fe2-40704cfba093"),
 				opCodeName + ":"                                                                    //
 				+ " Value2 type is incorrect. Value should be of type " + "'" + t2Type + "'" + "."  //
 				+ " The input type is " + "'" + stack.peek().getClass().getSimpleName() + "'."      //
@@ -109,11 +109,11 @@ public class F32_max {
 		}
 
 		// Pop the value t1.const c2 from the stack.
-		F32 c2 = (F32) stack.pop();
+		F64 c2 = (F64) stack.pop();
 
 		// Assert: due to validation, a value of value type t is on the top of the stack.
-		if ((stack.peek() instanceof F32) == false) {
-			throw new WasmRuntimeException(UUID.fromString("07399c82-61af-4818-a03d-cdedac2a8dd4"),
+		if ((stack.peek() instanceof F64) == false) {
+			throw new WasmRuntimeException(UUID.fromString("29295e41-8a60-48e2-822d-b954bab9f0a3"),
 				opCodeName + ":"                                                                    //
 				+ " Value1 type is incorrect. Value should be of type " + "'" + t1Type + "'" + "."  //
 				+ " The input type is " + "'" + stack.peek().getClass().getSimpleName() + "'."      //
@@ -123,10 +123,10 @@ public class F32_max {
 		}
 
 		// Pop the value t1.const c1 from the stack.
-		F32 c1 = (F32) stack.pop();
+		F64 c1 = (F64) stack.pop();
 
 		// Let c be a possible result of computing binopt(c1,c2).
-		F32 c = c1.max(c2);
+		F64 c = c1.add(c2);
 
 		// Push the value t.const c to the stack.
 		stack.push(c);

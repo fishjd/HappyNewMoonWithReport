@@ -15,24 +15,24 @@
  *
  */
 
-package happynewmoonwithreport.opcode.bitwise.F32;
+package happynewmoonwithreport.opcode.math.f64;
 
 import happynewmoonwithreport.WasmInstanceInterface;
 import happynewmoonwithreport.WasmRuntimeException;
 import happynewmoonwithreport.WasmStack;
-import happynewmoonwithreport.type.F32;
+import happynewmoonwithreport.type.F64;
 import java.util.UUID;
 
 /**
- * Return the negative value of the input.
+ * Return the truncing value of the input.
  * </p>
  * <h2>Source:</h2>
  * <h3>Operator:</h3>
  * <p>
- * Return the negative value of the input.
+ * Return the truncing value of the input.
  * <p>
- * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-fneg" target="_top">
- * https://webassembly.github.io/spec/core/exec/numerics.html#op-fneg
+ * <a href="https://webassembly.github.io/spec/core/exec/numerics.html#op-ftrunc" target="_top">
+ * https://webassembly.github.io/spec/core/exec/numerics.html#op-ftrunc
  * </a>
  *
  *
@@ -71,17 +71,17 @@ import java.util.UUID;
  * 		</li>
  * </ol>
  */
-public class F32_neg {
+public class F64_trunc {
 	private final String opCodeName = getClass().getName();
-	private final String t1Type = "F32";
+	private final String t1Type = "F64";
 
 	private WasmInstanceInterface instance;
 
-	private F32_neg() {
+	private F64_trunc() {
 		super();
 	}
 
-	public F32_neg(WasmInstanceInterface instance) {
+	public F64_trunc(WasmInstanceInterface instance) {
 		this();
 		this.instance = instance;
 	}
@@ -93,8 +93,8 @@ public class F32_neg {
 		WasmStack<Object> stack = instance.stack();
 
 		// Assert: due to validation, a value of value type t is on the top of the stack.
-		if ((stack.peek() instanceof F32) == false) {
-			throw new WasmRuntimeException(UUID.fromString("fdbccf78-288d-4842-ae67-5f918e9a1604"),
+		if ((stack.peek() instanceof F64) == false) {
+			throw new WasmRuntimeException(UUID.fromString("5fed2dfd-37cc-409d-a1b8-1b424b3563fa"),
 				opCodeName + ":"                                                                 //
 				+ " Value type is incorrect. Value should be of type " + "'" + t1Type + "'" + "."//
 				+ " The input type is " + "'" + stack.peek().getClass().getSimpleName() + "'."   //
@@ -102,10 +102,10 @@ public class F32_neg {
 
 		}
 		// Pop the value t1.const c1 from the stack.
-		F32 c1 = (F32) stack.pop();
+		F64 c1 = (F64) stack.pop();
 
 		//Let c be a possible result of computing unopt(c1).
-		F32 c = c1.neg();
+		F64 c = c1.trunc();
 
 		// Push the value t.const c to the stack.
 		stack.push(c);

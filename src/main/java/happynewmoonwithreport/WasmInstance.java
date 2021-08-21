@@ -37,6 +37,7 @@ import happynewmoonwithreport.opcode.countingBits.*;
 import happynewmoonwithreport.opcode.logic.*;
 import happynewmoonwithreport.opcode.math.*;
 import happynewmoonwithreport.opcode.math.f32.*;
+import happynewmoonwithreport.opcode.math.f64.*;
 import happynewmoonwithreport.type.*;
 import happynewmoonwithreport.type.utility.Hex;
 import java.util.UUID;
@@ -757,9 +758,9 @@ public class WasmInstance implements WasmInstanceInterface {
 				f32_floor.execute();
 				break;
 			}
-			case (byte) 0x8F: { // f32.trunk
-				F32_trunk f32_trunk = new F32_trunk(this);
-				f32_trunk.execute();
+			case (byte) 0x8F: { // f32.trunc
+				F32_trunc f32_trunc = new F32_trunc(this);
+				f32_trunc.execute();
 				break;
 			}
 			case (byte) 0x90: { // f32.nearest 0x90
@@ -818,18 +819,28 @@ public class WasmInstance implements WasmInstanceInterface {
 				break;
 			}
 			case (byte) 0x9B: { // f64.ceil 0x9B
+				F64_ceil f64_ceil = new F64_ceil(this);
+				f64_ceil.execute();
 				break;
 			}
 			case (byte) 0x9C: { // f64.floor 0x9C
+				F64_floor f64_floor = new F64_floor(this);
+				f64_floor.execute();
 				break;
 			}
-			case (byte) 0x9D: { // f64.trunk 0x9D
+			case (byte) 0x9D: { // f64.trunc 0x9D
+				F64_trunc f64_trunc = new F64_trunc(this);
+				f64_trunc.execute();
 				break;
 			}
 			case (byte) 0x9E: { // f64.nearest 0x9E
+				F64_nearest f64_nearest = new F64_nearest(this);
+				f64_nearest.execute();
 				break;
 			}
 			case (byte) 0x9F: { // f64.sqrt 0x9F
+				F64_sqrt f64_sqrt = new F64_sqrt(this);
+				f64_sqrt.execute();
 				break;
 			}
 			case (byte) 0xA0: { // f64.add 0xA0
