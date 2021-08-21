@@ -49,7 +49,7 @@ class F64_subTest extends Specification {
 	 * @param expected The expected value.  What the opcode should return.
 	 * @return None.
 	 */
-	def "Execute F64_sub with #count -> #val1 | #val2 || #expected "(Integer count, Float val1, Float val2, Float expected) {
+	def "Execute F64_sub with #count -> #val1 | #val2 || #expected "(Integer count, Double val1, Double val2, Double expected) {
 		setup: " push two values on stack."
 
 		WasmInstanceInterface instance = new WasmInstanceStub();

@@ -19,17 +19,18 @@ package happynewmoonwithreport.opcode.math.F64
 import happynewmoonwithreport.WasmInstanceInterface
 import happynewmoonwithreport.WasmRuntimeException
 import happynewmoonwithreport.opcode.WasmInstanceStub
-import happynewmoonwithreport.opcode.math.f64.F64_mul
+import happynewmoonwithreport.opcode.math.f64.F64_div
 import happynewmoonwithreport.type.F64
 import happynewmoonwithreport.type.I64
 import spock.lang.Specification
+import spock.lang.Unroll
 
 /**
- * Test F64_mul opcode.
+ * Test F64_div opcode.
  * <p>
- * Created on 2020-11-28
+ * Created on 2021-08-21
  */
-class F64_mulTest extends Specification {
+class F64_divTest extends Specification {
 	String inputType;
 	String returnType;
 
@@ -42,21 +43,21 @@ class F64_mulTest extends Specification {
 	}
 
 	/**
-	 * F64_mul unit test.
+	 * F64_div unit test.
 	 * @param count What line of parameters is executing. Only used for debugging.
 	 * @param val1 The test value.   The input for the opcode.
 	 * @param val1 The test value.   The input for the opcode.
 	 * @param expected The expected value.  What the opcode should return.
 	 * @return None.
 	 */
-	def "Execute F64_mul with #count -> #val1 | #val2 || #expected "(Integer count, Double val1, Double val2, Double expected) {
+	def "Execute F64_div with #count -> #val1 | #val2 || #expected "(Integer count, Double val1, Double val2, Double expected) {
 		setup: " push two values on stack."
 
 		WasmInstanceInterface instance = new WasmInstanceStub();
 		instance.stack().push(new F64(val1));
 		instance.stack().push(new F64(val2));
 
-		F64_mul opcode = new F64_mul(instance);
+		F64_div opcode = new F64_div(instance);
 
 		when: "run the opcode"
 		opcode.execute();
@@ -69,15 +70,15 @@ class F64_mulTest extends Specification {
 
 		where: "val1  val2 returns #expected"
 		count | val1 | val2 || expected
-		1     | 8.0  | 4.0  || 32
-		2     | 300  | 256  || 76800
-		3     | -10  | -6   || 60
-		4     | 0    | 0    || 0
-		5     | 1.0  | 2.0  || 2.0
+		1     | 8.0  | 4.0  || 2.0
+		2     | 300  | 256  || 1.171875
+		3     | -10  | -6   || 1.6666666666666667
+		4     | 0    | 0    || Float.NaN
+		5     | 1.0  | 2.0  || 0.5
 	}
 
 	/**
-	 * F64_mul unit test.
+	 * F64_div unit test.
 	 * <p>
 	 * <a href="https://github.com/WebAssembly/spec/blob/7526564b56c30250b66504fe795e9c1e88a938af/test/core/f64.wast">
 	 *     Official Web Assembly test code.
@@ -86,14 +87,14 @@ class F64_mulTest extends Specification {
 	 * @param expected The expected value.  What the opcode should return.
 	 * @return None.
 	 */
-	def "Execute F64 mul #count | #val1_s | #val2_s  || #expected"(Integer count, String val1_s, String val2_s, String expected) {
+	def "Execute F64 div #count | #val1_s | #val2_s  || #expected"(Integer count, String val1_s, String val2_s, String expected) {
 		setup: " push one value on stack."
 
 		WasmInstanceInterface instance = new WasmInstanceStub();
 		instance.stack().push(F64.valueOf(val1_s));
 		instance.stack().push(F64.valueOf(val2_s));
 
-		F64_mul opcode = new F64_mul(instance);
+		F64_div opcode = new F64_div(instance);
 
 		when: "run the opcode"
 		opcode.execute();
@@ -102,12 +103,15 @@ class F64_mulTest extends Specification {
 		F64 result = instance.stack().pop();
 		F64.valueOf(expected) == result
 
-		where: "#val1 mul #val2 returns #expected"
+		where: "#val1 sub #val2 returns #expected"
 		count | val1_s                     | val2_s                     || expected
-		1     | "-0x0p+0"                  | "-0x0p+0"                  || "0x0p+0"
-		2     | "-0x0p+0"                  | "0x0p+0"                   || "-0x0p+0"
-		3     | "0x0p+0"                   | "-0x0p+0"                  || "-0x0p+0"
-		4     | "0x0p+0"                   | "0x0p+0"                   || "0x0p+0"
+//		1     | "-0x0p+0"          | "-0x0p+0"          || "nan:canonical"
+
+
+		1     | "-0x0p+0"                  | "-0x0p+0"                  || "nan:canonical"
+		2     | "-0x0p+0"                  | "0x0p+0"                   || "nan:canonical"
+		3     | "0x0p+0"                   | "-0x0p+0"                  || "nan:canonical"
+		4     | "0x0p+0"                   | "0x0p+0"                   || "nan:canonical"
 		5     | "-0x0p+0"                  | "-0x0.0000000000001p-1022" || "0x0p+0"
 		6     | "-0x0p+0"                  | "0x0.0000000000001p-1022"  || "-0x0p+0"
 		7     | "0x0p+0"                   | "-0x0.0000000000001p-1022" || "-0x0p+0"
@@ -132,10 +136,10 @@ class F64_mulTest extends Specification {
 		26    | "-0x0p+0"                  | "0x1.fffffffffffffp+1023"  || "-0x0p+0"
 		27    | "0x0p+0"                   | "-0x1.fffffffffffffp+1023" || "-0x0p+0"
 		28    | "0x0p+0"                   | "0x1.fffffffffffffp+1023"  || "0x0p+0"
-		29    | "-0x0p+0"                  | "-inf"                     || "nan:canonical"
-		30    | "-0x0p+0"                  | "inf"                      || "nan:canonical"
-		31    | "0x0p+0"                   | "-inf"                     || "nan:canonical"
-		32    | "0x0p+0"                   | "inf"                      || "nan:canonical"
+		29    | "-0x0p+0"                  | "-inf"                     || "0x0p+0"
+		30    | "-0x0p+0"                  | "inf"                      || "-0x0p+0"
+		31    | "0x0p+0"                   | "-inf"                     || "-0x0p+0"
+		32    | "0x0p+0"                   | "inf"                      || "0x0p+0"
 		33    | "-0x0p+0"                  | "-nan"                     || "nan:canonical"
 		34    | "-0x0p+0"                  | "-nan:0x4000000000000"     || "nan:arithmetic"
 		35    | "-0x0p+0"                  | "nan"                      || "nan:canonical"
@@ -144,38 +148,38 @@ class F64_mulTest extends Specification {
 		38    | "0x0p+0"                   | "-nan:0x4000000000000"     || "nan:arithmetic"
 		39    | "0x0p+0"                   | "nan"                      || "nan:canonical"
 		40    | "0x0p+0"                   | "nan:0x4000000000000"      || "nan:arithmetic"
-		41    | "-0x0.0000000000001p-1022" | "-0x0p+0"                  || "0x0p+0"
-		42    | "-0x0.0000000000001p-1022" | "0x0p+0"                   || "-0x0p+0"
-		43    | "0x0.0000000000001p-1022"  | "-0x0p+0"                  || "-0x0p+0"
-		44    | "0x0.0000000000001p-1022"  | "0x0p+0"                   || "0x0p+0"
-		45    | "-0x0.0000000000001p-1022" | "-0x0.0000000000001p-1022" || "0x0p+0"
-		46    | "-0x0.0000000000001p-1022" | "0x0.0000000000001p-1022"  || "-0x0p+0"
-		47    | "0x0.0000000000001p-1022"  | "-0x0.0000000000001p-1022" || "-0x0p+0"
-		48    | "0x0.0000000000001p-1022"  | "0x0.0000000000001p-1022"  || "0x0p+0"
-		49    | "-0x0.0000000000001p-1022" | "-0x1p-1022"               || "0x0p+0"
-		50    | "-0x0.0000000000001p-1022" | "0x1p-1022"                || "-0x0p+0"
-		51    | "0x0.0000000000001p-1022"  | "-0x1p-1022"               || "-0x0p+0"
-		52    | "0x0.0000000000001p-1022"  | "0x1p-1022"                || "0x0p+0"
-		53    | "-0x0.0000000000001p-1022" | "-0x1p-1"                  || "0x0p+0"
-		54    | "-0x0.0000000000001p-1022" | "0x1p-1"                   || "-0x0p+0"
-		55    | "0x0.0000000000001p-1022"  | "-0x1p-1"                  || "-0x0p+0"
-		56    | "0x0.0000000000001p-1022"  | "0x1p-1"                   || "0x0p+0"
+		41    | "-0x0.0000000000001p-1022" | "-0x0p+0"                  || "inf"
+		42    | "-0x0.0000000000001p-1022" | "0x0p+0"                   || "-inf"
+		43    | "0x0.0000000000001p-1022"  | "-0x0p+0"                  || "-inf"
+		44    | "0x0.0000000000001p-1022"  | "0x0p+0"                   || "inf"
+		45    | "-0x0.0000000000001p-1022" | "-0x0.0000000000001p-1022" || "0x1p+0"
+		46    | "-0x0.0000000000001p-1022" | "0x0.0000000000001p-1022"  || "-0x1p+0"
+		47    | "0x0.0000000000001p-1022"  | "-0x0.0000000000001p-1022" || "-0x1p+0"
+		48    | "0x0.0000000000001p-1022"  | "0x0.0000000000001p-1022"  || "0x1p+0"
+		49    | "-0x0.0000000000001p-1022" | "-0x1p-1022"               || "0x1p-52"
+		50    | "-0x0.0000000000001p-1022" | "0x1p-1022"                || "-0x1p-52"
+		51    | "0x0.0000000000001p-1022"  | "-0x1p-1022"               || "-0x1p-52"
+		52    | "0x0.0000000000001p-1022"  | "0x1p-1022"                || "0x1p-52"
+		53    | "-0x0.0000000000001p-1022" | "-0x1p-1"                  || "0x0.0000000000002p-1022"
+		54    | "-0x0.0000000000001p-1022" | "0x1p-1"                   || "-0x0.0000000000002p-1022"
+		55    | "0x0.0000000000001p-1022"  | "-0x1p-1"                  || "-0x0.0000000000002p-1022"
+		56    | "0x0.0000000000001p-1022"  | "0x1p-1"                   || "0x0.0000000000002p-1022"
 		57    | "-0x0.0000000000001p-1022" | "-0x1p+0"                  || "0x0.0000000000001p-1022"
 		58    | "-0x0.0000000000001p-1022" | "0x1p+0"                   || "-0x0.0000000000001p-1022"
 		59    | "0x0.0000000000001p-1022"  | "-0x1p+0"                  || "-0x0.0000000000001p-1022"
 		60    | "0x0.0000000000001p-1022"  | "0x1p+0"                   || "0x0.0000000000001p-1022"
-		61    | "-0x0.0000000000001p-1022" | "-0x1.921fb54442d18p+2"    || "0x0.0000000000006p-1022"
-		62    | "-0x0.0000000000001p-1022" | "0x1.921fb54442d18p+2"     || "-0x0.0000000000006p-1022"
-		63    | "0x0.0000000000001p-1022"  | "-0x1.921fb54442d18p+2"    || "-0x0.0000000000006p-1022"
-		64    | "0x0.0000000000001p-1022"  | "0x1.921fb54442d18p+2"     || "0x0.0000000000006p-1022"
-		65    | "-0x0.0000000000001p-1022" | "-0x1.fffffffffffffp+1023" || "0x1.fffffffffffffp-51"
-		66    | "-0x0.0000000000001p-1022" | "0x1.fffffffffffffp+1023"  || "-0x1.fffffffffffffp-51"
-		67    | "0x0.0000000000001p-1022"  | "-0x1.fffffffffffffp+1023" || "-0x1.fffffffffffffp-51"
-		68    | "0x0.0000000000001p-1022"  | "0x1.fffffffffffffp+1023"  || "0x1.fffffffffffffp-51"
-		69    | "-0x0.0000000000001p-1022" | "-inf"                     || "inf"
-		70    | "-0x0.0000000000001p-1022" | "inf"                      || "-inf"
-		71    | "0x0.0000000000001p-1022"  | "-inf"                     || "-inf"
-		72    | "0x0.0000000000001p-1022"  | "inf"                      || "inf"
+		61    | "-0x0.0000000000001p-1022" | "-0x1.921fb54442d18p+2"    || "0x0p+0"
+		62    | "-0x0.0000000000001p-1022" | "0x1.921fb54442d18p+2"     || "-0x0p+0"
+		63    | "0x0.0000000000001p-1022"  | "-0x1.921fb54442d18p+2"    || "-0x0p+0"
+		64    | "0x0.0000000000001p-1022"  | "0x1.921fb54442d18p+2"     || "0x0p+0"
+		65    | "-0x0.0000000000001p-1022" | "-0x1.fffffffffffffp+1023" || "0x0p+0"
+		66    | "-0x0.0000000000001p-1022" | "0x1.fffffffffffffp+1023"  || "-0x0p+0"
+		67    | "0x0.0000000000001p-1022"  | "-0x1.fffffffffffffp+1023" || "-0x0p+0"
+		68    | "0x0.0000000000001p-1022"  | "0x1.fffffffffffffp+1023"  || "0x0p+0"
+		69    | "-0x0.0000000000001p-1022" | "-inf"                     || "0x0p+0"
+		70    | "-0x0.0000000000001p-1022" | "inf"                      || "-0x0p+0"
+		71    | "0x0.0000000000001p-1022"  | "-inf"                     || "-0x0p+0"
+		72    | "0x0.0000000000001p-1022"  | "inf"                      || "0x0p+0"
 		73    | "-0x0.0000000000001p-1022" | "-nan"                     || "nan:canonical"
 		74    | "-0x0.0000000000001p-1022" | "-nan:0x4000000000000"     || "nan:arithmetic"
 		75    | "-0x0.0000000000001p-1022" | "nan"                      || "nan:canonical"
@@ -184,38 +188,38 @@ class F64_mulTest extends Specification {
 		78    | "0x0.0000000000001p-1022"  | "-nan:0x4000000000000"     || "nan:arithmetic"
 		79    | "0x0.0000000000001p-1022"  | "nan"                      || "nan:canonical"
 		80    | "0x0.0000000000001p-1022"  | "nan:0x4000000000000"      || "nan:arithmetic"
-		81    | "-0x1p-1022"               | "-0x0p+0"                  || "0x0p+0"
-		82    | "-0x1p-1022"               | "0x0p+0"                   || "-0x0p+0"
-		83    | "0x1p-1022"                | "-0x0p+0"                  || "-0x0p+0"
-		84    | "0x1p-1022"                | "0x0p+0"                   || "0x0p+0"
-		85    | "-0x1p-1022"               | "-0x0.0000000000001p-1022" || "0x0p+0"
-		86    | "-0x1p-1022"               | "0x0.0000000000001p-1022"  || "-0x0p+0"
-		87    | "0x1p-1022"                | "-0x0.0000000000001p-1022" || "-0x0p+0"
-		88    | "0x1p-1022"                | "0x0.0000000000001p-1022"  || "0x0p+0"
-		89    | "-0x1p-1022"               | "-0x1p-1022"               || "0x0p+0"
-		90    | "-0x1p-1022"               | "0x1p-1022"                || "-0x0p+0"
-		91    | "0x1p-1022"                | "-0x1p-1022"               || "-0x0p+0"
-		92    | "0x1p-1022"                | "0x1p-1022"                || "0x0p+0"
-		93    | "-0x1p-1022"               | "-0x1p-1"                  || "0x0.8p-1022"
-		94    | "-0x1p-1022"               | "0x1p-1"                   || "-0x0.8p-1022"
-		95    | "0x1p-1022"                | "-0x1p-1"                  || "-0x0.8p-1022"
-		96    | "0x1p-1022"                | "0x1p-1"                   || "0x0.8p-1022"
+		81    | "-0x1p-1022"               | "-0x0p+0"                  || "inf"
+		82    | "-0x1p-1022"               | "0x0p+0"                   || "-inf"
+		83    | "0x1p-1022"                | "-0x0p+0"                  || "-inf"
+		84    | "0x1p-1022"                | "0x0p+0"                   || "inf"
+		85    | "-0x1p-1022"               | "-0x0.0000000000001p-1022" || "0x1p+52"
+		86    | "-0x1p-1022"               | "0x0.0000000000001p-1022"  || "-0x1p+52"
+		87    | "0x1p-1022"                | "-0x0.0000000000001p-1022" || "-0x1p+52"
+		88    | "0x1p-1022"                | "0x0.0000000000001p-1022"  || "0x1p+52"
+		89    | "-0x1p-1022"               | "-0x1p-1022"               || "0x1p+0"
+		90    | "-0x1p-1022"               | "0x1p-1022"                || "-0x1p+0"
+		91    | "0x1p-1022"                | "-0x1p-1022"               || "-0x1p+0"
+		92    | "0x1p-1022"                | "0x1p-1022"                || "0x1p+0"
+		93    | "-0x1p-1022"               | "-0x1p-1"                  || "0x1p-1021"
+		94    | "-0x1p-1022"               | "0x1p-1"                   || "-0x1p-1021"
+		95    | "0x1p-1022"                | "-0x1p-1"                  || "-0x1p-1021"
+		96    | "0x1p-1022"                | "0x1p-1"                   || "0x1p-1021"
 		97    | "-0x1p-1022"               | "-0x1p+0"                  || "0x1p-1022"
 		98    | "-0x1p-1022"               | "0x1p+0"                   || "-0x1p-1022"
 		99    | "0x1p-1022"                | "-0x1p+0"                  || "-0x1p-1022"
 		100   | "0x1p-1022"                | "0x1p+0"                   || "0x1p-1022"
-		101   | "-0x1p-1022"               | "-0x1.921fb54442d18p+2"    || "0x1.921fb54442d18p-1020"
-		102   | "-0x1p-1022"               | "0x1.921fb54442d18p+2"     || "-0x1.921fb54442d18p-1020"
-		103   | "0x1p-1022"                | "-0x1.921fb54442d18p+2"    || "-0x1.921fb54442d18p-1020"
-		104   | "0x1p-1022"                | "0x1.921fb54442d18p+2"     || "0x1.921fb54442d18p-1020"
-		105   | "-0x1p-1022"               | "-0x1.fffffffffffffp+1023" || "0x1.fffffffffffffp+1"
-		106   | "-0x1p-1022"               | "0x1.fffffffffffffp+1023"  || "-0x1.fffffffffffffp+1"
-		107   | "0x1p-1022"                | "-0x1.fffffffffffffp+1023" || "-0x1.fffffffffffffp+1"
-		108   | "0x1p-1022"                | "0x1.fffffffffffffp+1023"  || "0x1.fffffffffffffp+1"
-		109   | "-0x1p-1022"               | "-inf"                     || "inf"
-		110   | "-0x1p-1022"               | "inf"                      || "-inf"
-		111   | "0x1p-1022"                | "-inf"                     || "-inf"
-		112   | "0x1p-1022"                | "inf"                      || "inf"
+		101   | "-0x1p-1022"               | "-0x1.921fb54442d18p+2"    || "0x0.28be60db9391p-1022"
+		102   | "-0x1p-1022"               | "0x1.921fb54442d18p+2"     || "-0x0.28be60db9391p-1022"
+		103   | "0x1p-1022"                | "-0x1.921fb54442d18p+2"    || "-0x0.28be60db9391p-1022"
+		104   | "0x1p-1022"                | "0x1.921fb54442d18p+2"     || "0x0.28be60db9391p-1022"
+		105   | "-0x1p-1022"               | "-0x1.fffffffffffffp+1023" || "0x0p+0"
+		106   | "-0x1p-1022"               | "0x1.fffffffffffffp+1023"  || "-0x0p+0"
+		107   | "0x1p-1022"                | "-0x1.fffffffffffffp+1023" || "-0x0p+0"
+		108   | "0x1p-1022"                | "0x1.fffffffffffffp+1023"  || "0x0p+0"
+		109   | "-0x1p-1022"               | "-inf"                     || "0x0p+0"
+		110   | "-0x1p-1022"               | "inf"                      || "-0x0p+0"
+		111   | "0x1p-1022"                | "-inf"                     || "-0x0p+0"
+		112   | "0x1p-1022"                | "inf"                      || "0x0p+0"
 		113   | "-0x1p-1022"               | "-nan"                     || "nan:canonical"
 		114   | "-0x1p-1022"               | "-nan:0x4000000000000"     || "nan:arithmetic"
 		115   | "-0x1p-1022"               | "nan"                      || "nan:canonical"
@@ -224,38 +228,38 @@ class F64_mulTest extends Specification {
 		118   | "0x1p-1022"                | "-nan:0x4000000000000"     || "nan:arithmetic"
 		119   | "0x1p-1022"                | "nan"                      || "nan:canonical"
 		120   | "0x1p-1022"                | "nan:0x4000000000000"      || "nan:arithmetic"
-		121   | "-0x1p-1"                  | "-0x0p+0"                  || "0x0p+0"
-		122   | "-0x1p-1"                  | "0x0p+0"                   || "-0x0p+0"
-		123   | "0x1p-1"                   | "-0x0p+0"                  || "-0x0p+0"
-		124   | "0x1p-1"                   | "0x0p+0"                   || "0x0p+0"
-		125   | "-0x1p-1"                  | "-0x0.0000000000001p-1022" || "0x0p+0"
-		126   | "-0x1p-1"                  | "0x0.0000000000001p-1022"  || "-0x0p+0"
-		127   | "0x1p-1"                   | "-0x0.0000000000001p-1022" || "-0x0p+0"
-		128   | "0x1p-1"                   | "0x0.0000000000001p-1022"  || "0x0p+0"
-		129   | "-0x1p-1"                  | "-0x1p-1022"               || "0x0.8p-1022"
-		130   | "-0x1p-1"                  | "0x1p-1022"                || "-0x0.8p-1022"
-		131   | "0x1p-1"                   | "-0x1p-1022"               || "-0x0.8p-1022"
-		132   | "0x1p-1"                   | "0x1p-1022"                || "0x0.8p-1022"
-		133   | "-0x1p-1"                  | "-0x1p-1"                  || "0x1p-2"
-		134   | "-0x1p-1"                  | "0x1p-1"                   || "-0x1p-2"
-		135   | "0x1p-1"                   | "-0x1p-1"                  || "-0x1p-2"
-		136   | "0x1p-1"                   | "0x1p-1"                   || "0x1p-2"
+		121   | "-0x1p-1"                  | "-0x0p+0"                  || "inf"
+		122   | "-0x1p-1"                  | "0x0p+0"                   || "-inf"
+		123   | "0x1p-1"                   | "-0x0p+0"                  || "-inf"
+		124   | "0x1p-1"                   | "0x0p+0"                   || "inf"
+		125   | "-0x1p-1"                  | "-0x0.0000000000001p-1022" || "inf"
+		126   | "-0x1p-1"                  | "0x0.0000000000001p-1022"  || "-inf"
+		127   | "0x1p-1"                   | "-0x0.0000000000001p-1022" || "-inf"
+		128   | "0x1p-1"                   | "0x0.0000000000001p-1022"  || "inf"
+		129   | "-0x1p-1"                  | "-0x1p-1022"               || "0x1p+1021"
+		130   | "-0x1p-1"                  | "0x1p-1022"                || "-0x1p+1021"
+		131   | "0x1p-1"                   | "-0x1p-1022"               || "-0x1p+1021"
+		132   | "0x1p-1"                   | "0x1p-1022"                || "0x1p+1021"
+		133   | "-0x1p-1"                  | "-0x1p-1"                  || "0x1p+0"
+		134   | "-0x1p-1"                  | "0x1p-1"                   || "-0x1p+0"
+		135   | "0x1p-1"                   | "-0x1p-1"                  || "-0x1p+0"
+		136   | "0x1p-1"                   | "0x1p-1"                   || "0x1p+0"
 		137   | "-0x1p-1"                  | "-0x1p+0"                  || "0x1p-1"
 		138   | "-0x1p-1"                  | "0x1p+0"                   || "-0x1p-1"
 		139   | "0x1p-1"                   | "-0x1p+0"                  || "-0x1p-1"
 		140   | "0x1p-1"                   | "0x1p+0"                   || "0x1p-1"
-		141   | "-0x1p-1"                  | "-0x1.921fb54442d18p+2"    || "0x1.921fb54442d18p+1"
-		142   | "-0x1p-1"                  | "0x1.921fb54442d18p+2"     || "-0x1.921fb54442d18p+1"
-		143   | "0x1p-1"                   | "-0x1.921fb54442d18p+2"    || "-0x1.921fb54442d18p+1"
-		144   | "0x1p-1"                   | "0x1.921fb54442d18p+2"     || "0x1.921fb54442d18p+1"
-		145   | "-0x1p-1"                  | "-0x1.fffffffffffffp+1023" || "0x1.fffffffffffffp+1022"
-		146   | "-0x1p-1"                  | "0x1.fffffffffffffp+1023"  || "-0x1.fffffffffffffp+1022"
-		147   | "0x1p-1"                   | "-0x1.fffffffffffffp+1023" || "-0x1.fffffffffffffp+1022"
-		148   | "0x1p-1"                   | "0x1.fffffffffffffp+1023"  || "0x1.fffffffffffffp+1022"
-		149   | "-0x1p-1"                  | "-inf"                     || "inf"
-		150   | "-0x1p-1"                  | "inf"                      || "-inf"
-		151   | "0x1p-1"                   | "-inf"                     || "-inf"
-		152   | "0x1p-1"                   | "inf"                      || "inf"
+		141   | "-0x1p-1"                  | "-0x1.921fb54442d18p+2"    || "0x1.45f306dc9c883p-4"
+		142   | "-0x1p-1"                  | "0x1.921fb54442d18p+2"     || "-0x1.45f306dc9c883p-4"
+		143   | "0x1p-1"                   | "-0x1.921fb54442d18p+2"    || "-0x1.45f306dc9c883p-4"
+		144   | "0x1p-1"                   | "0x1.921fb54442d18p+2"     || "0x1.45f306dc9c883p-4"
+		145   | "-0x1p-1"                  | "-0x1.fffffffffffffp+1023" || "0x0.2p-1022"
+		146   | "-0x1p-1"                  | "0x1.fffffffffffffp+1023"  || "-0x0.2p-1022"
+		147   | "0x1p-1"                   | "-0x1.fffffffffffffp+1023" || "-0x0.2p-1022"
+		148   | "0x1p-1"                   | "0x1.fffffffffffffp+1023"  || "0x0.2p-1022"
+		149   | "-0x1p-1"                  | "-inf"                     || "0x0p+0"
+		150   | "-0x1p-1"                  | "inf"                      || "-0x0p+0"
+		151   | "0x1p-1"                   | "-inf"                     || "-0x0p+0"
+		152   | "0x1p-1"                   | "inf"                      || "0x0p+0"
 		153   | "-0x1p-1"                  | "-nan"                     || "nan:canonical"
 		154   | "-0x1p-1"                  | "-nan:0x4000000000000"     || "nan:arithmetic"
 		155   | "-0x1p-1"                  | "nan"                      || "nan:canonical"
@@ -264,38 +268,38 @@ class F64_mulTest extends Specification {
 		158   | "0x1p-1"                   | "-nan:0x4000000000000"     || "nan:arithmetic"
 		159   | "0x1p-1"                   | "nan"                      || "nan:canonical"
 		160   | "0x1p-1"                   | "nan:0x4000000000000"      || "nan:arithmetic"
-		161   | "-0x1p+0"                  | "-0x0p+0"                  || "0x0p+0"
-		162   | "-0x1p+0"                  | "0x0p+0"                   || "-0x0p+0"
-		163   | "0x1p+0"                   | "-0x0p+0"                  || "-0x0p+0"
-		164   | "0x1p+0"                   | "0x0p+0"                   || "0x0p+0"
-		165   | "-0x1p+0"                  | "-0x0.0000000000001p-1022" || "0x0.0000000000001p-1022"
-		166   | "-0x1p+0"                  | "0x0.0000000000001p-1022"  || "-0x0.0000000000001p-1022"
-		167   | "0x1p+0"                   | "-0x0.0000000000001p-1022" || "-0x0.0000000000001p-1022"
-		168   | "0x1p+0"                   | "0x0.0000000000001p-1022"  || "0x0.0000000000001p-1022"
-		169   | "-0x1p+0"                  | "-0x1p-1022"               || "0x1p-1022"
-		170   | "-0x1p+0"                  | "0x1p-1022"                || "-0x1p-1022"
-		171   | "0x1p+0"                   | "-0x1p-1022"               || "-0x1p-1022"
-		172   | "0x1p+0"                   | "0x1p-1022"                || "0x1p-1022"
-		173   | "-0x1p+0"                  | "-0x1p-1"                  || "0x1p-1"
-		174   | "-0x1p+0"                  | "0x1p-1"                   || "-0x1p-1"
-		175   | "0x1p+0"                   | "-0x1p-1"                  || "-0x1p-1"
-		176   | "0x1p+0"                   | "0x1p-1"                   || "0x1p-1"
+		161   | "-0x1p+0"                  | "-0x0p+0"                  || "inf"
+		162   | "-0x1p+0"                  | "0x0p+0"                   || "-inf"
+		163   | "0x1p+0"                   | "-0x0p+0"                  || "-inf"
+		164   | "0x1p+0"                   | "0x0p+0"                   || "inf"
+		165   | "-0x1p+0"                  | "-0x0.0000000000001p-1022" || "inf"
+		166   | "-0x1p+0"                  | "0x0.0000000000001p-1022"  || "-inf"
+		167   | "0x1p+0"                   | "-0x0.0000000000001p-1022" || "-inf"
+		168   | "0x1p+0"                   | "0x0.0000000000001p-1022"  || "inf"
+		169   | "-0x1p+0"                  | "-0x1p-1022"               || "0x1p+1022"
+		170   | "-0x1p+0"                  | "0x1p-1022"                || "-0x1p+1022"
+		171   | "0x1p+0"                   | "-0x1p-1022"               || "-0x1p+1022"
+		172   | "0x1p+0"                   | "0x1p-1022"                || "0x1p+1022"
+		173   | "-0x1p+0"                  | "-0x1p-1"                  || "0x1p+1"
+		174   | "-0x1p+0"                  | "0x1p-1"                   || "-0x1p+1"
+		175   | "0x1p+0"                   | "-0x1p-1"                  || "-0x1p+1"
+		176   | "0x1p+0"                   | "0x1p-1"                   || "0x1p+1"
 		177   | "-0x1p+0"                  | "-0x1p+0"                  || "0x1p+0"
 		178   | "-0x1p+0"                  | "0x1p+0"                   || "-0x1p+0"
 		179   | "0x1p+0"                   | "-0x1p+0"                  || "-0x1p+0"
 		180   | "0x1p+0"                   | "0x1p+0"                   || "0x1p+0"
-		181   | "-0x1p+0"                  | "-0x1.921fb54442d18p+2"    || "0x1.921fb54442d18p+2"
-		182   | "-0x1p+0"                  | "0x1.921fb54442d18p+2"     || "-0x1.921fb54442d18p+2"
-		183   | "0x1p+0"                   | "-0x1.921fb54442d18p+2"    || "-0x1.921fb54442d18p+2"
-		184   | "0x1p+0"                   | "0x1.921fb54442d18p+2"     || "0x1.921fb54442d18p+2"
-		185   | "-0x1p+0"                  | "-0x1.fffffffffffffp+1023" || "0x1.fffffffffffffp+1023"
-		186   | "-0x1p+0"                  | "0x1.fffffffffffffp+1023"  || "-0x1.fffffffffffffp+1023"
-		187   | "0x1p+0"                   | "-0x1.fffffffffffffp+1023" || "-0x1.fffffffffffffp+1023"
-		188   | "0x1p+0"                   | "0x1.fffffffffffffp+1023"  || "0x1.fffffffffffffp+1023"
-		189   | "-0x1p+0"                  | "-inf"                     || "inf"
-		190   | "-0x1p+0"                  | "inf"                      || "-inf"
-		191   | "0x1p+0"                   | "-inf"                     || "-inf"
-		192   | "0x1p+0"                   | "inf"                      || "inf"
+		181   | "-0x1p+0"                  | "-0x1.921fb54442d18p+2"    || "0x1.45f306dc9c883p-3"
+		182   | "-0x1p+0"                  | "0x1.921fb54442d18p+2"     || "-0x1.45f306dc9c883p-3"
+		183   | "0x1p+0"                   | "-0x1.921fb54442d18p+2"    || "-0x1.45f306dc9c883p-3"
+		184   | "0x1p+0"                   | "0x1.921fb54442d18p+2"     || "0x1.45f306dc9c883p-3"
+		185   | "-0x1p+0"                  | "-0x1.fffffffffffffp+1023" || "0x0.4p-1022"
+		186   | "-0x1p+0"                  | "0x1.fffffffffffffp+1023"  || "-0x0.4p-1022"
+		187   | "0x1p+0"                   | "-0x1.fffffffffffffp+1023" || "-0x0.4p-1022"
+		188   | "0x1p+0"                   | "0x1.fffffffffffffp+1023"  || "0x0.4p-1022"
+		189   | "-0x1p+0"                  | "-inf"                     || "0x0p+0"
+		190   | "-0x1p+0"                  | "inf"                      || "-0x0p+0"
+		191   | "0x1p+0"                   | "-inf"                     || "-0x0p+0"
+		192   | "0x1p+0"                   | "inf"                      || "0x0p+0"
 		193   | "-0x1p+0"                  | "-nan"                     || "nan:canonical"
 		194   | "-0x1p+0"                  | "-nan:0x4000000000000"     || "nan:arithmetic"
 		195   | "-0x1p+0"                  | "nan"                      || "nan:canonical"
@@ -304,38 +308,38 @@ class F64_mulTest extends Specification {
 		198   | "0x1p+0"                   | "-nan:0x4000000000000"     || "nan:arithmetic"
 		199   | "0x1p+0"                   | "nan"                      || "nan:canonical"
 		200   | "0x1p+0"                   | "nan:0x4000000000000"      || "nan:arithmetic"
-		201   | "-0x1.921fb54442d18p+2"    | "-0x0p+0"                  || "0x0p+0"
-		202   | "-0x1.921fb54442d18p+2"    | "0x0p+0"                   || "-0x0p+0"
-		203   | "0x1.921fb54442d18p+2"     | "-0x0p+0"                  || "-0x0p+0"
-		204   | "0x1.921fb54442d18p+2"     | "0x0p+0"                   || "0x0p+0"
-		205   | "-0x1.921fb54442d18p+2"    | "-0x0.0000000000001p-1022" || "0x0.0000000000006p-1022"
-		206   | "-0x1.921fb54442d18p+2"    | "0x0.0000000000001p-1022"  || "-0x0.0000000000006p-1022"
-		207   | "0x1.921fb54442d18p+2"     | "-0x0.0000000000001p-1022" || "-0x0.0000000000006p-1022"
-		208   | "0x1.921fb54442d18p+2"     | "0x0.0000000000001p-1022"  || "0x0.0000000000006p-1022"
-		209   | "-0x1.921fb54442d18p+2"    | "-0x1p-1022"               || "0x1.921fb54442d18p-1020"
-		210   | "-0x1.921fb54442d18p+2"    | "0x1p-1022"                || "-0x1.921fb54442d18p-1020"
-		211   | "0x1.921fb54442d18p+2"     | "-0x1p-1022"               || "-0x1.921fb54442d18p-1020"
-		212   | "0x1.921fb54442d18p+2"     | "0x1p-1022"                || "0x1.921fb54442d18p-1020"
-		213   | "-0x1.921fb54442d18p+2"    | "-0x1p-1"                  || "0x1.921fb54442d18p+1"
-		214   | "-0x1.921fb54442d18p+2"    | "0x1p-1"                   || "-0x1.921fb54442d18p+1"
-		215   | "0x1.921fb54442d18p+2"     | "-0x1p-1"                  || "-0x1.921fb54442d18p+1"
-		216   | "0x1.921fb54442d18p+2"     | "0x1p-1"                   || "0x1.921fb54442d18p+1"
+		201   | "-0x1.921fb54442d18p+2"    | "-0x0p+0"                  || "inf"
+		202   | "-0x1.921fb54442d18p+2"    | "0x0p+0"                   || "-inf"
+		203   | "0x1.921fb54442d18p+2"     | "-0x0p+0"                  || "-inf"
+		204   | "0x1.921fb54442d18p+2"     | "0x0p+0"                   || "inf"
+		205   | "-0x1.921fb54442d18p+2"    | "-0x0.0000000000001p-1022" || "inf"
+		206   | "-0x1.921fb54442d18p+2"    | "0x0.0000000000001p-1022"  || "-inf"
+		207   | "0x1.921fb54442d18p+2"     | "-0x0.0000000000001p-1022" || "-inf"
+		208   | "0x1.921fb54442d18p+2"     | "0x0.0000000000001p-1022"  || "inf"
+		209   | "-0x1.921fb54442d18p+2"    | "-0x1p-1022"               || "inf"
+		210   | "-0x1.921fb54442d18p+2"    | "0x1p-1022"                || "-inf"
+		211   | "0x1.921fb54442d18p+2"     | "-0x1p-1022"               || "-inf"
+		212   | "0x1.921fb54442d18p+2"     | "0x1p-1022"                || "inf"
+		213   | "-0x1.921fb54442d18p+2"    | "-0x1p-1"                  || "0x1.921fb54442d18p+3"
+		214   | "-0x1.921fb54442d18p+2"    | "0x1p-1"                   || "-0x1.921fb54442d18p+3"
+		215   | "0x1.921fb54442d18p+2"     | "-0x1p-1"                  || "-0x1.921fb54442d18p+3"
+		216   | "0x1.921fb54442d18p+2"     | "0x1p-1"                   || "0x1.921fb54442d18p+3"
 		217   | "-0x1.921fb54442d18p+2"    | "-0x1p+0"                  || "0x1.921fb54442d18p+2"
 		218   | "-0x1.921fb54442d18p+2"    | "0x1p+0"                   || "-0x1.921fb54442d18p+2"
 		219   | "0x1.921fb54442d18p+2"     | "-0x1p+0"                  || "-0x1.921fb54442d18p+2"
 		220   | "0x1.921fb54442d18p+2"     | "0x1p+0"                   || "0x1.921fb54442d18p+2"
-		221   | "-0x1.921fb54442d18p+2"    | "-0x1.921fb54442d18p+2"    || "0x1.3bd3cc9be45dep+5"
-		222   | "-0x1.921fb54442d18p+2"    | "0x1.921fb54442d18p+2"     || "-0x1.3bd3cc9be45dep+5"
-		223   | "0x1.921fb54442d18p+2"     | "-0x1.921fb54442d18p+2"    || "-0x1.3bd3cc9be45dep+5"
-		224   | "0x1.921fb54442d18p+2"     | "0x1.921fb54442d18p+2"     || "0x1.3bd3cc9be45dep+5"
-		225   | "-0x1.921fb54442d18p+2"    | "-0x1.fffffffffffffp+1023" || "inf"
-		226   | "-0x1.921fb54442d18p+2"    | "0x1.fffffffffffffp+1023"  || "-inf"
-		227   | "0x1.921fb54442d18p+2"     | "-0x1.fffffffffffffp+1023" || "-inf"
-		228   | "0x1.921fb54442d18p+2"     | "0x1.fffffffffffffp+1023"  || "inf"
-		229   | "-0x1.921fb54442d18p+2"    | "-inf"                     || "inf"
-		230   | "-0x1.921fb54442d18p+2"    | "inf"                      || "-inf"
-		231   | "0x1.921fb54442d18p+2"     | "-inf"                     || "-inf"
-		232   | "0x1.921fb54442d18p+2"     | "inf"                      || "inf"
+		221   | "-0x1.921fb54442d18p+2"    | "-0x1.921fb54442d18p+2"    || "0x1p+0"
+		222   | "-0x1.921fb54442d18p+2"    | "0x1.921fb54442d18p+2"     || "-0x1p+0"
+		223   | "0x1.921fb54442d18p+2"     | "-0x1.921fb54442d18p+2"    || "-0x1p+0"
+		224   | "0x1.921fb54442d18p+2"     | "0x1.921fb54442d18p+2"     || "0x1p+0"
+		225   | "-0x1.921fb54442d18p+2"    | "-0x1.fffffffffffffp+1023" || "0x1.921fb54442d19p-1022"
+		226   | "-0x1.921fb54442d18p+2"    | "0x1.fffffffffffffp+1023"  || "-0x1.921fb54442d19p-1022"
+		227   | "0x1.921fb54442d18p+2"     | "-0x1.fffffffffffffp+1023" || "-0x1.921fb54442d19p-1022"
+		228   | "0x1.921fb54442d18p+2"     | "0x1.fffffffffffffp+1023"  || "0x1.921fb54442d19p-1022"
+		229   | "-0x1.921fb54442d18p+2"    | "-inf"                     || "0x0p+0"
+		230   | "-0x1.921fb54442d18p+2"    | "inf"                      || "-0x0p+0"
+		231   | "0x1.921fb54442d18p+2"     | "-inf"                     || "-0x0p+0"
+		232   | "0x1.921fb54442d18p+2"     | "inf"                      || "0x0p+0"
 		233   | "-0x1.921fb54442d18p+2"    | "-nan"                     || "nan:canonical"
 		234   | "-0x1.921fb54442d18p+2"    | "-nan:0x4000000000000"     || "nan:arithmetic"
 		235   | "-0x1.921fb54442d18p+2"    | "nan"                      || "nan:canonical"
@@ -344,38 +348,38 @@ class F64_mulTest extends Specification {
 		238   | "0x1.921fb54442d18p+2"     | "-nan:0x4000000000000"     || "nan:arithmetic"
 		239   | "0x1.921fb54442d18p+2"     | "nan"                      || "nan:canonical"
 		240   | "0x1.921fb54442d18p+2"     | "nan:0x4000000000000"      || "nan:arithmetic"
-		241   | "-0x1.fffffffffffffp+1023" | "-0x0p+0"                  || "0x0p+0"
-		242   | "-0x1.fffffffffffffp+1023" | "0x0p+0"                   || "-0x0p+0"
-		243   | "0x1.fffffffffffffp+1023"  | "-0x0p+0"                  || "-0x0p+0"
-		244   | "0x1.fffffffffffffp+1023"  | "0x0p+0"                   || "0x0p+0"
-		245   | "-0x1.fffffffffffffp+1023" | "-0x0.0000000000001p-1022" || "0x1.fffffffffffffp-51"
-		246   | "-0x1.fffffffffffffp+1023" | "0x0.0000000000001p-1022"  || "-0x1.fffffffffffffp-51"
-		247   | "0x1.fffffffffffffp+1023"  | "-0x0.0000000000001p-1022" || "-0x1.fffffffffffffp-51"
-		248   | "0x1.fffffffffffffp+1023"  | "0x0.0000000000001p-1022"  || "0x1.fffffffffffffp-51"
-		249   | "-0x1.fffffffffffffp+1023" | "-0x1p-1022"               || "0x1.fffffffffffffp+1"
-		250   | "-0x1.fffffffffffffp+1023" | "0x1p-1022"                || "-0x1.fffffffffffffp+1"
-		251   | "0x1.fffffffffffffp+1023"  | "-0x1p-1022"               || "-0x1.fffffffffffffp+1"
-		252   | "0x1.fffffffffffffp+1023"  | "0x1p-1022"                || "0x1.fffffffffffffp+1"
-		253   | "-0x1.fffffffffffffp+1023" | "-0x1p-1"                  || "0x1.fffffffffffffp+1022"
-		254   | "-0x1.fffffffffffffp+1023" | "0x1p-1"                   || "-0x1.fffffffffffffp+1022"
-		255   | "0x1.fffffffffffffp+1023"  | "-0x1p-1"                  || "-0x1.fffffffffffffp+1022"
-		256   | "0x1.fffffffffffffp+1023"  | "0x1p-1"                   || "0x1.fffffffffffffp+1022"
+		241   | "-0x1.fffffffffffffp+1023" | "-0x0p+0"                  || "inf"
+		242   | "-0x1.fffffffffffffp+1023" | "0x0p+0"                   || "-inf"
+		243   | "0x1.fffffffffffffp+1023"  | "-0x0p+0"                  || "-inf"
+		244   | "0x1.fffffffffffffp+1023"  | "0x0p+0"                   || "inf"
+		245   | "-0x1.fffffffffffffp+1023" | "-0x0.0000000000001p-1022" || "inf"
+		246   | "-0x1.fffffffffffffp+1023" | "0x0.0000000000001p-1022"  || "-inf"
+		247   | "0x1.fffffffffffffp+1023"  | "-0x0.0000000000001p-1022" || "-inf"
+		248   | "0x1.fffffffffffffp+1023"  | "0x0.0000000000001p-1022"  || "inf"
+		249   | "-0x1.fffffffffffffp+1023" | "-0x1p-1022"               || "inf"
+		250   | "-0x1.fffffffffffffp+1023" | "0x1p-1022"                || "-inf"
+		251   | "0x1.fffffffffffffp+1023"  | "-0x1p-1022"               || "-inf"
+		252   | "0x1.fffffffffffffp+1023"  | "0x1p-1022"                || "inf"
+		253   | "-0x1.fffffffffffffp+1023" | "-0x1p-1"                  || "inf"
+		254   | "-0x1.fffffffffffffp+1023" | "0x1p-1"                   || "-inf"
+		255   | "0x1.fffffffffffffp+1023"  | "-0x1p-1"                  || "-inf"
+		256   | "0x1.fffffffffffffp+1023"  | "0x1p-1"                   || "inf"
 		257   | "-0x1.fffffffffffffp+1023" | "-0x1p+0"                  || "0x1.fffffffffffffp+1023"
 		258   | "-0x1.fffffffffffffp+1023" | "0x1p+0"                   || "-0x1.fffffffffffffp+1023"
 		259   | "0x1.fffffffffffffp+1023"  | "-0x1p+0"                  || "-0x1.fffffffffffffp+1023"
 		260   | "0x1.fffffffffffffp+1023"  | "0x1p+0"                   || "0x1.fffffffffffffp+1023"
-		261   | "-0x1.fffffffffffffp+1023" | "-0x1.921fb54442d18p+2"    || "inf"
-		262   | "-0x1.fffffffffffffp+1023" | "0x1.921fb54442d18p+2"     || "-inf"
-		263   | "0x1.fffffffffffffp+1023"  | "-0x1.921fb54442d18p+2"    || "-inf"
-		264   | "0x1.fffffffffffffp+1023"  | "0x1.921fb54442d18p+2"     || "inf"
-		265   | "-0x1.fffffffffffffp+1023" | "-0x1.fffffffffffffp+1023" || "inf"
-		266   | "-0x1.fffffffffffffp+1023" | "0x1.fffffffffffffp+1023"  || "-inf"
-		267   | "0x1.fffffffffffffp+1023"  | "-0x1.fffffffffffffp+1023" || "-inf"
-		268   | "0x1.fffffffffffffp+1023"  | "0x1.fffffffffffffp+1023"  || "inf"
-		269   | "-0x1.fffffffffffffp+1023" | "-inf"                     || "inf"
-		270   | "-0x1.fffffffffffffp+1023" | "inf"                      || "-inf"
-		271   | "0x1.fffffffffffffp+1023"  | "-inf"                     || "-inf"
-		272   | "0x1.fffffffffffffp+1023"  | "inf"                      || "inf"
+		261   | "-0x1.fffffffffffffp+1023" | "-0x1.921fb54442d18p+2"    || "0x1.45f306dc9c882p+1021"
+		262   | "-0x1.fffffffffffffp+1023" | "0x1.921fb54442d18p+2"     || "-0x1.45f306dc9c882p+1021"
+		263   | "0x1.fffffffffffffp+1023"  | "-0x1.921fb54442d18p+2"    || "-0x1.45f306dc9c882p+1021"
+		264   | "0x1.fffffffffffffp+1023"  | "0x1.921fb54442d18p+2"     || "0x1.45f306dc9c882p+1021"
+		265   | "-0x1.fffffffffffffp+1023" | "-0x1.fffffffffffffp+1023" || "0x1p+0"
+		266   | "-0x1.fffffffffffffp+1023" | "0x1.fffffffffffffp+1023"  || "-0x1p+0"
+		267   | "0x1.fffffffffffffp+1023"  | "-0x1.fffffffffffffp+1023" || "-0x1p+0"
+		268   | "0x1.fffffffffffffp+1023"  | "0x1.fffffffffffffp+1023"  || "0x1p+0"
+		269   | "-0x1.fffffffffffffp+1023" | "-inf"                     || "0x0p+0"
+		270   | "-0x1.fffffffffffffp+1023" | "inf"                      || "-0x0p+0"
+		271   | "0x1.fffffffffffffp+1023"  | "-inf"                     || "-0x0p+0"
+		272   | "0x1.fffffffffffffp+1023"  | "inf"                      || "0x0p+0"
 		273   | "-0x1.fffffffffffffp+1023" | "-nan"                     || "nan:canonical"
 		274   | "-0x1.fffffffffffffp+1023" | "-nan:0x4000000000000"     || "nan:arithmetic"
 		275   | "-0x1.fffffffffffffp+1023" | "nan"                      || "nan:canonical"
@@ -384,10 +388,10 @@ class F64_mulTest extends Specification {
 		278   | "0x1.fffffffffffffp+1023"  | "-nan:0x4000000000000"     || "nan:arithmetic"
 		279   | "0x1.fffffffffffffp+1023"  | "nan"                      || "nan:canonical"
 		280   | "0x1.fffffffffffffp+1023"  | "nan:0x4000000000000"      || "nan:arithmetic"
-		281   | "-inf"                     | "-0x0p+0"                  || "nan:canonical"
-		282   | "-inf"                     | "0x0p+0"                   || "nan:canonical"
-		283   | "inf"                      | "-0x0p+0"                  || "nan:canonical"
-		284   | "inf"                      | "0x0p+0"                   || "nan:canonical"
+		281   | "-inf"                     | "-0x0p+0"                  || "inf"
+		282   | "-inf"                     | "0x0p+0"                   || "-inf"
+		283   | "inf"                      | "-0x0p+0"                  || "-inf"
+		284   | "inf"                      | "0x0p+0"                   || "inf"
 		285   | "-inf"                     | "-0x0.0000000000001p-1022" || "inf"
 		286   | "-inf"                     | "0x0.0000000000001p-1022"  || "-inf"
 		287   | "inf"                      | "-0x0.0000000000001p-1022" || "-inf"
@@ -412,10 +416,10 @@ class F64_mulTest extends Specification {
 		306   | "-inf"                     | "0x1.fffffffffffffp+1023"  || "-inf"
 		307   | "inf"                      | "-0x1.fffffffffffffp+1023" || "-inf"
 		308   | "inf"                      | "0x1.fffffffffffffp+1023"  || "inf"
-		309   | "-inf"                     | "-inf"                     || "inf"
-		310   | "-inf"                     | "inf"                      || "-inf"
-		311   | "inf"                      | "-inf"                     || "-inf"
-		312   | "inf"                      | "inf"                      || "inf"
+		309   | "-inf"                     | "-inf"                     || "nan:canonical"
+		310   | "-inf"                     | "inf"                      || "nan:canonical"
+		311   | "inf"                      | "-inf"                     || "nan:canonical"
+		312   | "inf"                      | "inf"                      || "nan:canonical"
 		313   | "-inf"                     | "-nan"                     || "nan:canonical"
 		314   | "-inf"                     | "-nan:0x4000000000000"     || "nan:arithmetic"
 		315   | "-inf"                     | "nan"                      || "nan:canonical"
@@ -507,13 +511,13 @@ class F64_mulTest extends Specification {
 	}
 
 
-	def "Execute F64_mul throws exception on incorrect Type on second param "() {
+	def "Execute F64_div throws exception on incorrect Type on second param "() {
 		setup: " a value of F64  value"
 		WasmInstanceInterface instance = new WasmInstanceStub();
 		instance.stack().push(new F64(3));  // value 3  // correct type
 		instance.stack().push(new I64(4));  // value 4  // incorrect type
 
-		F64_mul function = new F64_mul(instance);
+		F64_div function = new F64_div(instance);
 
 		when: "run the opcode"
 		function.execute();
@@ -524,16 +528,16 @@ class F64_mulTest extends Specification {
 		exception.message.contains("Value should be of type '" + inputType + "'. ");
 		exception.message.contains("The input type is 'I64'.");
 		exception.message.contains("The input value is '");
-		exception.getUuid().toString().contains("974d5177-a2bc-4d83-866a-b0c93110b2c5");
+		exception.getUuid().toString().contains("d0c85207-c7b6-4f73-9b1b-ef2a6a6244a1");
 	}
 
-	def "Execute F64_mul throws exception on incorrect Type on first param "() {
+	def "Execute F64_div throws exception on incorrect Type on first param "() {
 		setup: " a value of F64  value"
 		WasmInstanceInterface instance = new WasmInstanceStub();
 		instance.stack().push(new I64(3));  // value 3  // incorrect type
 		instance.stack().push(new F64(4));  // value 4  // correct type
 
-		F64_mul function = new F64_mul(instance);
+		F64_div function = new F64_div(instance);
 
 		when: "run the opcode"
 		function.execute();
@@ -544,7 +548,7 @@ class F64_mulTest extends Specification {
 		exception.message.contains("Value should be of type '" + inputType + "'. ");
 		exception.message.contains("The input type is 'I64'.");
 		exception.message.contains("The input value is '");
-		exception.getUuid().toString().contains("d2abf6f9-225d-458d-afa5-9a64a322304b");
+		exception.getUuid().toString().contains("2e040cea-f6dc-4547-a4fe-029f14c6a3ba");
 	}
 
 }
