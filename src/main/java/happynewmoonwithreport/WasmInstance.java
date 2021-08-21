@@ -859,9 +859,13 @@ public class WasmInstance implements WasmInstanceInterface {
 				break;
 			}
 			case (byte) 0xA3: { // f64.div 0xA3
+				F64_div f64_div = new F64_div(this);
+				f64_div.execute();
 				break;
 			}
 			case (byte) 0xA4: { // f64.min 0xA4
+				F64_min f64_min = new F64_min(this);
+				f64_min.execute();
 				break;
 			}
 			case (byte) 0xA5: { // f64.max 0xA5
