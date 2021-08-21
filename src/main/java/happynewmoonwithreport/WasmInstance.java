@@ -854,6 +854,8 @@ public class WasmInstance implements WasmInstanceInterface {
 				break;
 			}
 			case (byte) 0xA2: { // f64.mul 0xA2
+				F64_mul f64_mul = new F64_mul(this);
+				f64_mul.execute();
 				break;
 			}
 			case (byte) 0xA3: { // f64.div 0xA3
