@@ -26,7 +26,7 @@ import spock.lang.Specification
 import spock.lang.Unroll
 
 /**
- * Test F64_ceil opcode.
+ * Test F64_trunc opcode.
  * <p>
  * Created on 2021-06-24
  */

@@ -19,17 +19,17 @@ package happynewmoonwithreport.opcode.math.F64
 import happynewmoonwithreport.WasmInstanceInterface
 import happynewmoonwithreport.WasmRuntimeException
 import happynewmoonwithreport.opcode.WasmInstanceStub
-import happynewmoonwithreport.opcode.math.f64.F64_nearest
+import happynewmoonwithreport.opcode.math.f64.F64_sqrt
 import happynewmoonwithreport.type.F64
 import happynewmoonwithreport.type.I64
 import spock.lang.Specification
 
 /**
- * Test F64_nearest opcode.
+ * Test F64_sqrt opcode.
  * <p>
- * Created on 2021-06-24
+ * Created on 2021-8-21
  */
-class F64_nearestTest extends Specification {
+class F64_sqrtTest extends Specification {
 	String inputType;
 	String returnType;
 
@@ -48,13 +48,13 @@ class F64_nearestTest extends Specification {
  * @param expected The expected value.  What the opcode should return.
  * @return None.
  */
-	def "Execute F64_nearest with ##count -> #val1 || #expected "(Integer count, Double val1, Double expected) {
+	def "Execute F64_sqrt with ##count -> #val1 || #expected "(Integer count, Double val1, Double expected) {
 		setup: " push two values on stack."
 
 		WasmInstanceInterface instance = new WasmInstanceStub();
 		instance.stack().push(new F64(val1));
 
-		F64_nearest opcode = new F64_nearest(instance);
+		F64_sqrt opcode = new F64_sqrt(instance);
 
 		when: "run the opcode"
 		opcode.execute();
@@ -67,13 +67,13 @@ class F64_nearestTest extends Specification {
 
 		where: "val1 equals val2 returns #expected"
 		count | val1       || expected
-		1     | 4.1        || 4.0
-		2     | -4.1       || -4.0
+		1     | 4.0        || 2.0
+		2     | 16.0       || 4.0
 		3     | Double.NaN || Double.NaN
 	}
 
 	/**
-	 * F64_nearest unit test.
+	 * F64_sqrt unit test.
 	 * <p>
 	 * <a href="https://github.com/WebAssembly/spec/blob/7526564b56c30250b66504fe795e9c1e88a938af/test/core/f64.wast">
 	 *     Official Web Assembly test code.
@@ -88,7 +88,7 @@ class F64_nearestTest extends Specification {
 		WasmInstanceInterface instance = new WasmInstanceStub();
 		instance.stack().push(F64.valueOf(val1_s));
 
-		F64_nearest opcode = new F64_nearest(instance);
+		F64_sqrt opcode = new F64_sqrt(instance);
 
 		when: "run the opcode"
 		opcode.execute();
@@ -101,19 +101,19 @@ class F64_nearestTest extends Specification {
 		count | val1_s                     || expected
 		1     | "-0x0p+0"                  || "-0x0p+0"
 		2     | "0x0p+0"                   || "0x0p+0"
-		3     | "-0x0.0000000000001p-1022" || "-0x0p+0"
-		4     | "0x0.0000000000001p-1022"  || "0x0p+0"
-		5     | "-0x1p-1022"               || "-0x0p+0"
-		6     | "0x1p-1022"                || "0x0p+0"
-		7     | "-0x1p-1"                  || "-0x0p+0"
-		8     | "0x1p-1"                   || "0x0p+0"
-		9     | "-0x1p+0"                  || "-0x1p+0"
+		3     | "-0x0.0000000000001p-1022" || "nan:canonical"
+		4     | "0x0.0000000000001p-1022"  || "0x1p-537"
+		5     | "-0x1p-1022"               || "nan:canonical"
+		6     | "0x1p-1022"                || "0x1p-511"
+		7     | "-0x1p-1"                  || "nan:canonical"
+		8     | "0x1p-1"                   || "0x1.6a09e667f3bcdp-1"
+		9     | "-0x1p+0"                  || "nan:canonical"
 		10    | "0x1p+0"                   || "0x1p+0"
-		11    | "-0x1.921fb54442d18p+2"    || "-0x1.8p+2"
-		12    | "0x1.921fb54442d18p+2"     || "0x1.8p+2"
-		13    | "-0x1.fffffffffffffp+1023" || "-0x1.fffffffffffffp+1023"
-		14    | "0x1.fffffffffffffp+1023"  || "0x1.fffffffffffffp+1023"
-		15    | "-inf"                     || "-inf"
+		11    | "-0x1.921fb54442d18p+2"    || "nan:canonical"
+		12    | "0x1.921fb54442d18p+2"     || "0x1.40d931ff62705p+1"
+		13    | "-0x1.fffffffffffffp+1023" || "nan:canonical"
+		14    | "0x1.fffffffffffffp+1023"  || "0x1.fffffffffffffp+511"
+		15    | "-inf"                     || "nan:canonical"
 		16    | "inf"                      || "inf"
 		17    | "-nan"                     || "nan:canonical"
 		18    | "-nan:0x4000000000000"     || "nan:arithmetic"
@@ -126,7 +126,7 @@ class F64_nearestTest extends Specification {
 		WasmInstanceInterface instance = new WasmInstanceStub();
 		instance.stack().push(new I64(3));  // value 1
 
-		F64_nearest function = new F64_nearest(instance);
+		F64_sqrt function = new F64_sqrt(instance);
 
 		when: "run the opcode"
 		function.execute();
@@ -137,7 +137,7 @@ class F64_nearestTest extends Specification {
 		exception.message.contains("Value should be of type '" + inputType + "'. ");
 		exception.message.contains("The input type is 'I64'.");
 		exception.message.contains("The input value is '");
-		exception.getUuid().toString().contains("039ff533-9835-4d2f-b4dd-05d9f0d63112");
+		exception.getUuid().toString().contains("170806b9-86a4-47a3-bb38-a8ad2143db31");
 	}
 
 }

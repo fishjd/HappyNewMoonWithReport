@@ -428,7 +428,7 @@ public class F64 implements DataTypeNumberFloat {
 	 * It is equivalent to the value returned by Double.longBitsToDouble(0x7ff8000000000000L).
 	 * <p>
 	 * <p>
-	 * A canonical NaN is a floating-point value ±nan(canonN) where canonN is a payload whose most significant bit is
+	 * A canonical NaN is a floating-point value ï¿½nan(canonN) where canonN is a payload whose most significant bit is
 	 * 1 while all others are 0:
 	 * <p>
 	 * <b>Source:</b>
@@ -814,7 +814,7 @@ public class F64 implements DataTypeNumberFloat {
 		}
 		// Else if z is negative infinity, then return an element of nansN{}.
 		if (isNegative() && z.isInfinite()) {
-			return Nan;
+			return nanPropagation();
 		}
 		// Else if z is positive infinity, then return positive infinity.
 		if (isPositive() && z.isInfinite()) {
@@ -826,7 +826,7 @@ public class F64 implements DataTypeNumberFloat {
 		}
 		// Else if z has a negative sign, then return an element of nansN{}.
 		if (isNegative()) {
-			return Nan;
+			return nanPropagation();
 		}
 		// Else return the square root of z.
 		double sqrt = Math.sqrt(z);

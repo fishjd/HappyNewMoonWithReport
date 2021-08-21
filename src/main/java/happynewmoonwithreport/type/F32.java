@@ -809,7 +809,7 @@ public class F32 implements DataTypeNumberFloat {
 		}
 		// Else if z is negative infinity, then return an element of nansN{}.
 		if (isNegative() && z.isInfinite()) {
-			return Nan;
+			return nanPropagation();
 		}
 		// Else if z is positive infinity, then return positive infinity.
 		if (isPositive() && z.isInfinite()) {
@@ -821,7 +821,7 @@ public class F32 implements DataTypeNumberFloat {
 		}
 		// Else if z has a negative sign, then return an element of nansN{}.
 		if (isNegative()) {
-			return Nan;
+			return nanPropagation();
 		}
 		// Else return the square root of z.
 		double sqrt = Math.sqrt(z);
