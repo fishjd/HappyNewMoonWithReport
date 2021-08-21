@@ -276,7 +276,7 @@ Data Section:  To Do
 - [x] f64.nearest 0x9E
 - [x] f64.sqrt 0x9F
 - [x] f64.add 0xA0
-- [ ] f64.sub 0xA1
+- [x] f64.sub 0xA1
 - [ ] f64.mul 0xA2
 - [ ] f64.div 0xA3
 - [ ] f64.min 0xA4
