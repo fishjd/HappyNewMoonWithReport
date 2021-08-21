@@ -25,7 +25,7 @@ import happynewmoonwithreport.type.I64
 import spock.lang.Specification
 
 /**
- * Test F64_ceil opcode.
+ * Test F64_floor opcode.
  * <p>
  * Created on 2021-06-24
  */
