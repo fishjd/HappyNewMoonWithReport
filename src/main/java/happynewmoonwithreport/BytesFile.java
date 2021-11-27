@@ -97,13 +97,22 @@ public class BytesFile {
 	@Override
 	public String toString() {
 		String result =
-			"BytesFile{" + "current byte = " + Hex.byteToHex(bytesAll[index]) + ", index = " + index
-			+ " (0x" + Integer.toHexString(index) + ") " + ", bytesAll = " + Arrays.toString(
-				bytesAll) + ", bytesAll in Hex = " + Hex.bytesToHex(bytesAll);
+			// Current Byte  decimal and hex
+			"BytesFile{" + "current byte = " + Hex.byteToHex(bytesAll[index]) +
+			// Index decimal and hex
+			", index = " + index + " (0x" + Integer.toHexString(index) + ") "
+
+			;
+		// Bytes decimal and hex.  Ex  "16(Ox10)"
 		result += ", bytesAll = ";
 		for (Byte myByte : bytesAll) {
 			result += myByte.toString() + "(" + Hex.byteToHex(myByte) + ") ";
 		}
+		// Bytes in hex  ex "0x16"
+		result += ", bytesAll in Hex = " + Hex.bytesToHex(bytesAll);
+		// Bytes all decimal ex: "10"
+		result += ", bytesAll = " + Arrays.toString(bytesAll);
+
 		result += '}';
 		return result;
 	}
