@@ -1,0 +1,6 @@
+00 61 73 6D     ;  Magic Number
+01 00 00 00     ;  Version Number  little endian
+01              ;  Section 'type'
+08              ;  length of type  
+02
+

@@ -54,7 +54,7 @@ public class End {
 		// Exiting Blocks
 		// See:  https://webassembly.github.io/spec/core/exec/instructions.html#blocks
 		// Let m be the number of values on the top of the stack
-		// Note:  This implementation counts the number items on the stack that are Labels.
+		// Note:  This implementation counts the number items on the stack that are not Labels.
 		// The specification is not clear here.
 		Integer m = 0;
 		for (Integer index = stack.size() - 1; 0 <= index; index--) {

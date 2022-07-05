@@ -62,6 +62,7 @@ public class SectionName {
 	public static final String ELEMENT = "element";
 	public static final String CODE = "code";
 	public static final String DATA = "data";
+	// todo add data count section   See:  https://webassembly.github.io/spec/core/binary/modules.html#binary-datacountsec
 
 	private SectionName() {
 	}
@@ -126,8 +127,8 @@ public class SectionName {
 		mapAll.put(7, EXPORT);
 		mapAll.put(8, START);
 		mapAll.put(9, ELEMENT);
-		mapAll.put(10, CODE);
-		mapAll.put(11, DATA);
+		mapAll.put(10, CODE);	// 0x0A
+		mapAll.put(11, DATA);	// 0x0B
 	}
 
 

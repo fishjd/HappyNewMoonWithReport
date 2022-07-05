@@ -96,24 +96,44 @@ public class BytesFile {
 
 	@Override
 	public String toString() {
-		String result =
-			// Current Byte  decimal and hex
-			"BytesFile{" + "current byte = " + Hex.byteToHex(bytesAll[index]) +
+		String result = "";
+		try {
+
+			result = "BytesFile{";
 			// Index decimal and hex
-			", index = " + index + " (0x" + Integer.toHexString(index) + ") "
+			result += ", index = " + index + " (0x" + Integer.toHexString(index) + ") ";
 
-			;
-		// Bytes decimal and hex.  Ex  "16(Ox10)"
-		result += ", bytesAll = ";
-		for (Byte myByte : bytesAll) {
-			result += myByte.toString() + "(" + Hex.byteToHex(myByte) + ") ";
+			// Current Byte decimal and hex
+			result += "current bytes = ";
+			for (int i = 0; i < 5; i++) {
+				result += byteInDecimalAndHexString(bytesAll[index + i]);
+			}
+
+			// Bytes decimal and hex.  Ex  "16(Ox10)"
+			result += ", bytesAll = ";
+			Integer index = 0;
+			for (Byte myByte : bytesAll) {
+				result += byteInDecimalAndHexString(myByte);
+				if (index % 16 == 0) {
+					result += "\n";
+				}
+				index++;
+			}
+
+			//			// Bytes in hex  ex "0x16"
+			//			result += ", bytesAll in Hex = " + Hex.byteArrayToHex(bytesAll);
+			//			// Bytes all decimal ex: "10"
+			//			result += ", bytesAll = " + Arrays.toString(bytesAll);
+
+			result += '}';
+		} catch (Exception ex) {
+			result += "Exception = " + ex.getMessage();
 		}
-		// Bytes in hex  ex "0x16"
-		result += ", bytesAll in Hex = " + Hex.bytesToHex(bytesAll);
-		// Bytes all decimal ex: "10"
-		result += ", bytesAll = " + Arrays.toString(bytesAll);
+		return result;
+	}
 
-		result += '}';
+	private String byteInDecimalAndHexString(Byte myByte) {
+		String result = myByte.toString() + "(" + Hex.byteToHex(myByte) + ") ";
 		return result;
 	}
 }
