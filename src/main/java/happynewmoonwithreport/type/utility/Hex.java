@@ -23,7 +23,7 @@ public class Hex {
 
 	private final static char[] hexArray = "0123456789ABCDEF".toCharArray();
 
-	public static String bytesToHex(byte[] bytes) {
+	public static String byteArrayToHex(byte[] bytes) {
 		StringBuilder sb = new StringBuilder();
 		for (int j = 0; j < bytes.length; j++) {
 			int v = bytes[j] & 0xFF;
@@ -36,6 +36,12 @@ public class Hex {
 	}
 
 	public static String byteToHex(Byte input) {
+		//		String result = "0x" + Integer.toHexString(input);
+		//		return result;
+		return integerToHex((int) input);
+	}
+
+	public static String integerToHex(Integer input) {
 		String result = "0x" + Integer.toHexString(input);
 		return result;
 	}

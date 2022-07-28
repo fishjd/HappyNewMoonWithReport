@@ -191,6 +191,16 @@ public class WasmInstance implements WasmInstanceInterface {
 			//			case (byte) 0x0E: { break;}  // Branch Table
 			//			case (byte) 0x0F: { break;}  // Return
 			//			case (byte) 0x10: { break;}  // Call x
+			//			case (byte) 0x11: { break;}  // Call Indirect x
+
+			// case (byte) 0x12:   Reserved.
+			// case (byte) 0x13:   Reserved.
+			// case (byte) 0x14:   Reserved.
+			// case (byte) 0x15:   Reserved.
+			// case (byte) 0x16:   Reserved.
+			// case (byte) 0x17:   Reserved.
+			// case (byte) 0x18:   Reserved.
+			// case (byte) 0x19:   Reserved.
 
 			case (byte) 0x1A: { // drop
 				Drop drop = new Drop(this);
